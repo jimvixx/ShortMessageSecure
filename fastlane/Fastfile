@@ -24,6 +24,19 @@ def write_keystore_properties!
   PROPS
 end
 
+def find_signed_apk!
+  apks = Dir.glob("app/build/outputs/apk/**/*.apk").sort
+
+  UI.message("APK candidates: #{apks}")
+
+  signed_apk = apks.find { |path| !path.end_with?("-unsigned.apk") }
+
+  UI.user_error!("No APK files found in app/build/outputs/apk") if apks.empty?
+  UI.user_error!("No signed APK found. Found only: #{apks}") if signed_apk.to_s.empty?
+
+  signed_apk
+end
+
 platform :android do
   desc "CI verification: build debug APK and run lint"
   lane :ci do
@@ -31,24 +44,19 @@ platform :android do
     gradle(task: "lintDebug")
   end
 
-  desc "Build signed release artifacts and publish a GitHub release"
+  desc "Build signed release APK and publish a GitHub release"
   lane :release do
-      UI.message("STORE_PASSWORD set? #{!ENV['SIGNING_STORE_PASSWORD'].to_s.empty?}")
-        UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
-        UI.message("KEY_PASSWORD set? #{!ENV['SIGNING_KEY_PASSWORD'].to_s.empty?}")
-        UI.message("KEYSTORE base64 size: #{ENV['ANDROID_KEYSTORE_BASE64']&.length}")
+    UI.message("STORE_PASSWORD set? #{!ENV['SIGNING_STORE_PASSWORD'].to_s.empty?}")
+    UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
+    UI.message("KEY_PASSWORD set? #{!ENV['SIGNING_KEY_PASSWORD'].to_s.empty?}")
+    UI.message("KEYSTORE base64 size: #{ENV['ANDROID_KEYSTORE_BASE64']&.length}")
 
     decode_keystore!
     write_keystore_properties!
 
     gradle(task: "assembleRelease")
-    gradle(task: "bundleRelease")
 
-    apk_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    aab_path = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
-
-    UI.user_error!("No APK output path returned by Gradle") if apk_path.to_s.empty?
-    UI.user_error!("No AAB output path returned by Gradle") if aab_path.to_s.empty?
+    apk_path = find_signed_apk!
 
     sh("git fetch --tags --force")
 
@@ -74,7 +82,7 @@ platform :android do
       commitish: ENV["GITHUB_SHA"],
       is_draft: ENV["FASTLANE_DRAFT_RELEASE"] == "true",
       is_prerelease: ENV["FASTLANE_PRERELEASE"] == "true",
-      upload_assets: [apk_path, aab_path]
+      upload_assets: [apk_path]
     )
   end
 end

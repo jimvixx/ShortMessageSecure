@@ -60,9 +60,6 @@ jobs:
       - name: Ensure Gradle wrapper is executable
         run: chmod +x ./gradlew
 
-      - name: Export GitHub token for fastlane
-        run: echo "GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
-
       - name: Build and publish with fastlane
         env:
           MANUAL_TAG_NAME: ${{ inputs.tag_name }}
