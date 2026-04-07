@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appColorBackground">
+
+    <TextView
+        android:id="@+id/app_name"
+        style="@style/SMSecure.TextAppearance.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcome_title"
+        style="@style/SMSecure.TextAppearance.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/app_name"
+        tools:text="@string/WelcomeActivity_improve_your_privacy_talk_to_everyone" />
+
+    <ImageView
+        android:id="@+id/welcome_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_welcome_image"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_smsecure"
+        app:layout_constraintBottom_toTopOf="@id/welcome_description"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welcome_title" />
+
+    <TextView
+        android:id="@+id/welcome_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:textAppearance="@style/SMSecure.TextAppearance.Title"
+        app:layout_constraintBottom_toTopOf="@id/welcome_continue_button"
+        app:layout_constraintEnd_toEndOf="@id/welcome_continue_button"
+        app:layout_constraintStart_toStartOf="@id/welcome_continue_button"
+        app:layout_constraintTop_toBottomOf="@id/welcome_image"
+        tools:text="@string/WelcomeActivity_encrypt_your_messages" />
+
+    <Button
+        android:id="@+id/welcome_continue_button"
+        style="@style/Widget.SMSecure.ButtonBar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
+        android:layout_weight="1"
+        android:elevation="4dp"
+        android:text="@string/Continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

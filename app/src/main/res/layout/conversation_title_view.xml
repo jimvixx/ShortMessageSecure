@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.jimvixx.smsecure.ConversationTitleView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conversation_title_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start|center_vertical"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:gravity="center_vertical"
+    android:minHeight="?attr/actionBarSize"
+    android:orientation="vertical"
+    tools:background="@color/cyan">
+
+    <org.jimvixx.smsecure.components.emoji.EmojiTextView
+        android:id="@+id/title"
+        style="@style/SMSecure.TextAppearance.Toolbar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:drawablePadding="5dp"
+        android:drawableTint="?attr/appColorToolbarControl"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:transitionName="recipient_name"
+        tools:drawableLeft="@drawable/ic_block"
+        tools:text="Jules Bonnot or Group" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        style="@style/SMSecure.TextAppearance.Toolbar.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textDirection="ltr"
+        tools:text="2 members" />
+
+</org.jimvixx.smsecure.ConversationTitleView>

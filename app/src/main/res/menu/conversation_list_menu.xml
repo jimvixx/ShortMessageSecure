@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_archived_conversations"
+        android:icon="@drawable/ic_package_down"
+        android:title="@string/conversation_list_menu__archived_conversations" />
+
+    <item
+        android:id="@+id/menu_new_group"
+        android:icon="@drawable/ic_plus_box"
+        android:title="@string/conversation_list_menu__new_group" />
+
+    <item
+        android:id="@+id/menu_lock"
+        android:icon="@drawable/ic_lock_check"
+        android:title="@string/conversation_list_menu__lock" />
+
+    <item
+        android:id="@+id/menu_mark_all_read"
+        android:icon="@drawable/ic_read"
+        android:title="@string/conversation_list_menu__mark_all_as_read" />
+
+    <item
+        android:id="@+id/menu_import_export"
+        android:icon="@drawable/ic_database_import"
+        android:title="@string/Import_Export" />
+
+    <item
+        android:id="@+id/menu_my_identity"
+        android:icon="@drawable/ic_identifier"
+        android:title="@string/conversation_list_menu__your_identity_key" />
+
+    <item
+        android:id="@+id/menu_my_identity_dual_sim"
+        android:icon="@drawable/ic_identifier"
+        android:title="@string/conversation_list_menu__your_identity_key">
+        <menu>
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_cog"
+        android:title="@string/conversation_list_menu__settings" />
+
+</menu>

@@ -1,0 +1,83 @@
+name: Bug report
+description: Report a reproducible bug in SMSecure
+labels: ["bug", "needs triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Hi there
+
+        Thanks for helping improve SMSecure by reporting a bug.
+
+        Please fill in as much detail as possible. Clear reports are much easier to reproduce and fix.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I can reproduce the bug with the latest app version or latest source build.
+          required: true
+        - label: I made sure there are no existing open or closed issues covering the same problem.
+          required: true
+        - label: I have read and understood the contribution guidelines.
+          required: true
+        - label: This report describes only one bug.
+          required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: Affected app version
+      placeholder: "Example: 0.1.0 or a build from the latest main branch"
+    validations:
+      required: true
+
+  - type: input
+    id: android-version
+    attributes:
+      label: Affected Android version / ROM
+      placeholder: "Example: Android 14 / One UI 6 / LineageOS 21"
+    validations:
+      required: true
+
+  - type: input
+    id: device-model
+    attributes:
+      label: Affected device model
+      placeholder: "Example: Pixel 8 / Galaxy S23 / emulator"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. Send/receive ...
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots / additional information
+      placeholder: "You can drag and drop files here."

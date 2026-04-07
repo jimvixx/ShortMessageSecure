@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_marginBottom="5dp">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="12sp"
+        android:textAllCaps="true"
+        android:textColor="?attr/appColorToolbarTextTitle"
+        android:textStyle="bold"
+        android:background="@drawable/bg_last_seen_pill"
+        tools:text="3 unread messages" />
+</FrameLayout>

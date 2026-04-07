@@ -1,0 +1,629 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--AbstractNotificationBuilder-->
+<string name="AbstractNotificationBuilder_new_message">Nauja žinutė</string>
+<!--AndroidManifest.xml-->
+<string name="AndroidManifest__change_passphrase">Pakeisti slaptažodį</string>
+<string name="AndroidManifest__enter_passphrase">Įveskite slaptažodį</string>
+<string name="AndroidManifest__initializing_secure_storage">Inicijuojama saugi saugykla…</string>
+<string name="AndroidManifest__log_submit">Pateikti derinimo žurnalą</string>
+<string name="AndroidManifest__public_identity_key">Viešojo tapatybės raktas</string>
+<string name="AndroidManifest__select_contacts">Pasirinkite kontaktus</string>
+<string name="AndroidManifest__verify_identity">Patikrinti tapatybę</string>
+<string name="AndroidManifest_archived_conversations">Archyvuoti pokalbiai</string>
+<!--ApplicationMigrationService-->
+<string name="ApplicationMigrationService_import_complete">Importavimas baigtas</string>
+<string name="ApplicationMigrationService_import_in_progress">Importuojama</string>
+<string name="ApplicationMigrationService_importing_text_messages">Tekstinių pranešimų importavimas</string>
+<string name="ApplicationMigrationService_system_database_import_is_complete">Sistemos duomenų bazės importavimas baigtas.</string>
+<!--ApplicationPreferencesActivity-->
+<string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Jūs dar nenustatėte slaptažodžio!</string>
+<string name="ApplicationPreferencesActivity_appearance_summary">Tema <xliff:g id="arg1">%1$s</xliff:g>, Kalba <xliff:g id="arg2">%2$s</xliff:g></string>
+<string name="ApplicationPreferencesActivity_delete_all_old_messages_now">Ištrinti visas senas žinutes dabar?</string>
+<string name="ApplicationPreferencesActivity_disable_storage_encryption">Išjungti saugyklos šifravimą?</string>
+<string name="ApplicationPreferencesActivity_incoming_summary">Įeinantis <xliff:g id="arg1">%s</xliff:g></string>
+<string name="ApplicationPreferencesActivity_privacy_summary">Slaptažodis <xliff:g id="arg1">%1$s</xliff:g>, Ekrano apsauga <xliff:g id="arg2">%2$s</xliff:g></string>
+<string name="ApplicationPreferencesActivity_sms_disabled">Įeinančios SMS išjungtos</string>
+<string name="ApplicationPreferencesActivity_sms_enabled">Įeinančios SMS įjungtos</string>
+<string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">„SMSecure“ šiuo metu yra jūsų numatytoji SMS programa</string>
+<string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Bakstelėkite, kad „SMSecure“ taptų jūsų numatyta SMS programa</string>
+<plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">Tai iš karto sutrumpins visas pokalbių grandines iki <xliff:g id="arg1">%1$d</xliff:g> naujausios žinutės.</item>
+        <item quantity="few">Tai iš karto sutrumpins visas pokalbių grandines iki <xliff:g id="arg1">%1$d</xliff:g> naujausių pranešimų.</item>
+        <item quantity="many">Tai iš karto sutrumpins visas pokalbių grandines iki <xliff:g id="arg1">%1$d</xliff:g> naujausių pranešimų.</item>
+        <item quantity="other">Tai iš karto sutrumpins visas pokalbių grandines iki <xliff:g id="arg1">%1$d</xliff:g> naujausių pranešimų.</item>
+    </plurals>
+<string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">„Įspėjimas: tai išjungs visų pranešimų ir raktų saugojimo šifravimą. Jūsų šifruotos sesijos toliau veiks, tačiau bet kas, kas turės fizinę prieigą prie jūsų įrenginio, galės jas perskaityti.“</string>
+<!--AppProtectionPreferenceFragment-->
+<plurals name="AppProtectionPreferenceFragment_minutes">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> minutė</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> minutės</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> minutės</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minutės</item>
+    </plurals>
+<!--arrays.xml-->
+<string name="arrays__basic">Pagrindinis</string>
+<string name="arrays__errors">Tik klaidos</string>
+<string name="arrays__mute_for_one_day">Išjungti garsą vienai dienai</string>
+<string name="arrays__mute_for_one_hour">Išjungti garsą 1 valandai</string>
+<string name="arrays__mute_for_one_year">Išjungti garsą vieneriems metams</string>
+<string name="arrays__mute_for_seven_days">Išjungti garsą 7 dienoms</string>
+<string name="arrays__mute_for_two_hours">Išjungti garsą 2 valandoms</string>
+<string name="arrays__name_and_message">Pavadinimas ir pranešimas</string>
+<string name="arrays__name_only">Pavadinimas</string>
+<string name="arrays__new_line">Nauja eilutė</string>
+<string name="arrays__no_name_or_message">Nieko</string>
+<string name="arrays__use_custom">Naudokite custom</string>
+<string name="arrays__use_default">Naudokite numatytąjį</string>
+<string name="arrays__verbose">Išsamus</string>
+<!--blocked_contacts_fragment-->
+<string name="blocked_contacts_fragment__no_blocked_contacts">Nėra užblokuotų kontaktų</string>
+<!--BlockedContactsActivity-->
+<string name="BlockedContactsActivity_blocked_contacts">Užblokuoti kontaktai</string>
+<!--change_passphrase_activity-->
+<string name="change_passphrase_activity__new_passphrase">Naujas slaptažodis</string>
+<string name="change_passphrase_activity__old_passphrase">Senas slaptažodis</string>
+<string name="change_passphrase_activity__repeat_new_passphrase">Pakartokite naują slaptažodį</string>
+<!--Common-->
+<string name="Cancel">Atšaukti</string>
+<string name="Clear">Išvalyti</string>
+<string name="Close">Uždaryti</string>
+<string name="Confirm">Patvirtinti</string>
+<string name="Continue">Tęsti</string>
+<string name="Copied_to_clipboard">Nukopijuota į iškarpinę</string>
+<string name="Copy">Kopijuoti</string>
+<string name="Custom">Custom</string>
+<string name="Default">Numatytasis</string>
+<string name="Delete">Naikinti</string>
+<string name="Deleting">Naikinimas…</string>
+<string name="Dialpad">Dialpad</string>
+<string name="Disable">Išjungti</string>
+<string name="Disabled">Neveikia</string>
+<string name="Enable">Įjungti</string>
+<string name="Enabled">Įjungta</string>
+<string name="Flashlight">Žibintuvėlis</string>
+<string name="Import">Importuoti</string>
+<string name="Import_Export">Importas / Eksportas</string>
+<string name="Importing">Importavimas</string>
+<string name="Keyboard">Klaviatūra</string>
+<string name="No">Ne</string>
+<string name="None">Nėra</string>
+<string name="Off">Išjungta</string>
+<string name="On">Įjungta</string>
+<string name="QR_code">QR kodas</string>
+<string name="Search">Paieška</string>
+<string name="Send">Siųsti</string>
+<string name="Share">Dalintis</string>
+<string name="Silent">Silent</string>
+<string name="SMS">SMS</string>
+<string name="Yes">Taip</string>
+<!--contact_selection_activity-->
+<string name="contact_selection_activity__enter_name_or_number">Įveskite vardą arba numerį</string>
+<!--contact_selection_group_activity-->
+<string name="contact_selection_group_activity__finding_contacts">Įkeliama kontaktų sąrašas…</string>
+<string name="contact_selection_group_activity__no_contacts">Nėra kontaktų.</string>
+<!--contact_selection_list-->
+<string name="contact_selection_list__unknown_contact">Nauja žinutė…</string>
+<!--contact_selection_list_fragment-->
+<string name="contact_selection_list_fragment__show_contacts">Rodyti kontaktus</string>
+<string name="contact_selection_list_fragment__smsecure_needs_access_to_your_contacts_in_order_to_display_them">„SMSecure“ reikia prieigos prie jūsų kontaktų, kad galėtų juos rodyti.</string>
+<!--ContactSelectionListFragment-->
+<string name="ContactSelectionListFragment_smsecure_requires_the_contacts_permission_in_order_to_display_your_contacts">„SMSecure“ reikia leidimo naudoti kontaktus, kad galėtų rodyti jūsų kontaktus, tačiau jis buvo visam laikui atmestas. Eikite į programos nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kontaktai“.</string>
+<!--conversation-->
+<string name="conversation_menu__archive_conversation">Archyvuoti pokalbį</string>
+<string name="conversation_menu__conversation_settings">Pokalbių nustatymai</string>
+<string name="conversation_menu__delete_conversation">Ištrinti pokalbį</string>
+<string name="conversation_menu__unarchive_conversation">Atkurti pokalbį</string>
+<!--conversation_activity-->
+<string name="conversation_activity__emoji_toggle_description">Įjungti emodži klaviatūrą</string>
+<string name="conversation_activity__type_message_sms_insecure">Siųsti nesaugią SMS žinutę</string>
+<string name="conversation_activity__type_message_sms_secure">Siųsti saugią SMS žinutę</string>
+<string name="conversation_activity__via_sim_name">Per <xliff:g id="arg1">%1$s</xliff:g></string>
+<!--conversation_callable-->
+<string name="conversation_callable__menu_call">Skambinti</string>
+<!--conversation_callable-->
+<string name="conversation_add_to_contacts__menu_add_to_contacts">Pridėti į kontaktus</string>
+<!--conversation_context-->
+<string name="conversation_context__menu_copy_text">Kopijuoti tekstą</string>
+<string name="conversation_context__menu_delete_message">Ištrinti pranešimą</string>
+<string name="conversation_context__menu_forward_message">Persiųsti pranešimą</string>
+<string name="conversation_context__menu_message_details">Pranešimo detalės</string>
+<string name="conversation_context__menu_resend_message">Siųsti žinutę dar kartą</string>
+<!--conversation_fragment-->
+<string name="conversation_fragment__scroll_to_the_bottom_content_description">Pereikite į apačią</string>
+<!--conversation_fragment_cab-->
+<string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> pasirinkta</string>
+<string name="conversation_fragment_cab__batch_selection_mode">Pasirinkti</string>
+<!--conversation_group_options-->
+<string name="conversation_group_options__recipients_list">Gavėjų sąrašas</string>
+<!--conversation_insecure-->
+<string name="conversation_insecure__invite">Kvietimas</string>
+<!--conversation_insecure_no_push-->
+<string name="conversation_insecure__menu_start_secure_session">Pradėti saugią sesiją</string>
+<string name="conversation_insecure__security">Saugumas</string>
+<!--conversation_item-->
+<string name="conversation_item__secure_message_description">Saugus pranešimas</string>
+<!--conversation_item_received-->
+<string name="conversation_item_received__contact_photo_description">Kontakto nuotrauka</string>
+<!--conversation_item_sent-->
+<string name="conversation_item_sent__delivered_description">Pristatyta</string>
+<string name="conversation_item_sent__pending_approval_description">Laukiama patvirtinimo</string>
+<string name="conversation_item_sent__send_failed_indicator_description">Siuntimas nepavyko</string>
+<string name="conversation_item_sent__sent_description">Siųsta</string>
+<!--conversation_list_batch-->
+<string name="conversation_list_batch__menu_delete_selected">Ištrinti pasirinktus</string>
+<string name="conversation_list_batch__menu_select_all">Pasirinkti viską</string>
+<string name="conversation_list_batch__menu_send_drafts">Siųsti pasirinktus juodraščius</string>
+<string name="conversation_list_batch_archive__menu_archive_selected">Pasirinkta archyvuoti</string>
+<string name="conversation_list_batch_unarchive__menu_unarchive_selected">Atkurti pasirinktus</string>
+<!--conversation_list_fragment-->
+<string name="conversation_list_fragment__fab_content_description">Nauja pokalbių</string>
+<!--conversation_list_item_view-->
+<string name="conversation_list_item_view__archive">Archyvas</string>
+<string name="conversation_list_item_view__archived">Archyvuota</string>
+<string name="conversation_list_item_view__contact_photo_image">Kontakto avataras</string>
+<string name="conversation_list_item_view__unarchive">Atkurti</string>
+<!--conversation_list_menu-->
+<string name="conversation_list_menu__archived_conversations">Archyvuoti pokalbiai</string>
+<string name="conversation_list_menu__lock">Užrakinti</string>
+<string name="conversation_list_menu__mark_all_as_read">Pažymėti viską kaip perskaitytą</string>
+<string name="conversation_list_menu__new_group">Nauja grupė</string>
+<string name="conversation_list_menu__new_message">Nauja žinutė</string>
+<string name="conversation_list_menu__settings">Nustatymai</string>
+<string name="conversation_list_menu__your_identity_key">Jūsų tapatybės raktas</string>
+<!--conversation_muted-->
+<string name="conversation_muted__unmute">Įjungti garsą</string>
+<!--conversation_popup-->
+<string name="conversation_popup__menu_expand_popup">Išskleisti iškylančią langą</string>
+<!--conversation_secure_verified-->
+<string name="conversation_secure_verified__menu_abort_secure_session">Baigti saugią sesiją</string>
+<string name="conversation_secure_verified__menu_verify_identity">Tapatybės patvirtinimas</string>
+<!--conversation_unmuted-->
+<string name="conversation_unmuted__mute_notifications">Išjungti pranešimus</string>
+<!--ConversationActivity-->
+<string name="ConversationActivity__group">Grupė</string>
+<string name="ConversationActivity_abort_secure_session_confirmation">Baigti saugią sesiją?</string>
+<string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Ar tikrai norite nutraukti šią saugią sesiją?</string>
+<string name="ConversationActivity_calls_not_supported">Skambučiai nepalaikomi</string>
+<string name="ConversationActivity_cant_open_link">Negaliu rasti programos, galinčios atidaryti šią nuorodą.</string>
+<string name="ConversationActivity_compose_message">Parašyti žinutę</string>
+<plurals name="ConversationActivity_d_recipients_in_group">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> dalyvis</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> dalyviai</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> dalyviai</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> dalyviai</item>
+    </plurals>
+<string name="ConversationActivity_delete_thread_question">Ištrinti pokalbį?</string>
+<string name="ConversationActivity_detected_smsecure_initiate_session_question">Gautas pranešimas iš asmens, kuris taip pat turi „SMSecure“ – ar pradėti saugią šifruotą sesiją?</string>
+<string name="ConversationActivity_group_members">Grupės dalyviai</string>
+<string name="ConversationActivity_initiate_secure_session_question">Pradėti saugią sesiją?</string>
+<string name="ConversationActivity_initiate_secure_session_with_s_question">Pradėti saugią sesiją su <xliff:g id="arg1">%s</xliff:g>?</string>
+<string name="ConversationActivity_install_smssecure">Pabendraukime saugiai: <xliff:g id="arg1">%s</xliff:g></string>
+<string name="ConversationActivity_invalid_recipient">Neteisingas gavėjas!</string>
+<string name="ConversationActivity_message_is_empty_exclamation">Pranešimas, kurį bandote išsiųsti, yra tuščias!</string>
+<string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">Gavėjas nėra galiojantis SMS arba el. pašto adresas!</string>
+<string name="ConversationActivity_recipient_self">Saugios sesijos gali būti užmezgamos tik su kitais žmonėmis.</string>
+<string name="ConversationActivity_smsecure_needs_sms_permission_in_order_to_send_an_sms">„SMSecure“ reikia SMS leidimo, kad galėtų siųsti SMS, tačiau jis buvo visam laikui atmestas. Eikite į programos nustatymus, pasirinkite „Leidimai“ ir įjunkite „SMS“.</string>
+<string name="ConversationActivity_specify_recipient">Prašome pasirinkti kontaktą</string>
+<string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">Atrodo, kad šis įrenginys nepalaiko skambinimo veiksmų.</string>
+<string name="ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation">Tai visam laikui ištrins visas šio pokalbio žinutes.</string>
+<string name="ConversationActivity_transport_insecure_sms">Nesaugios SMS žinutės</string>
+<string name="ConversationActivity_transport_secure_sms">Saugios SMS žinutės</string>
+<string name="ConversationActivity_unnamed_group">Nepavadinta grupė</string>
+<!--ConversationAdapter-->
+<plurals name="ConversationAdapter_n_unread_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> neperskaitytas pranešimas</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> neperskaityti pranešimai</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> neperskaityti pranešimai</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> neperskaityti pranešimai</item>
+    </plurals>
+<!--ConversationFragment-->
+<string name="ConversationFragment_delete_selected_message">Ištrinti pasirinktą žinutę?</string>
+<string name="ConversationFragment_delete_selected_messages">Ištrinti pasirinktas žinutes?</string>
+<string name="ConversationFragment_deleting_messages">Trinamos žinutės…</string>
+<string name="ConversationFragment_pending">Laukiama…</string>
+<plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
+        <item quantity="one">Tai visam laikui ištrins <xliff:g id="count">%1$d</xliff:g> pasirinktą pranešimą.</item>
+        <item quantity="few">Tai visam laikui ištrins visus <xliff:g id="arg1">%1$d</xliff:g> pasirinktus pranešimus.</item>
+        <item quantity="many">Tai visam laikui ištrins visus <xliff:g id="arg1">%1$d</xliff:g> pasirinktus pranešimus.</item>
+        <item quantity="other">Tai visam laikui ištrins visus <xliff:g id="arg1">%1$d</xliff:g> pasirinktus pranešimus.</item>
+    </plurals>
+<!--ConversationItem-->
+<string name="ConversationItem_click_for_details">Paspauskite, kad sužinotumėte daugiau</string>
+<string name="ConversationItem_error_not_delivered">Nepateikta</string>
+<string name="ConversationItem_error_received_stale_key_exchange_message">Gautas pasenęs raktų mainų pranešimas.</string>
+<string name="ConversationItem_group_action_left"><xliff:g id="arg1">%1$s</xliff:g> išėjo iš grupės.</string>
+<string name="ConversationItem_received_key_exchange_message_tap_to_process">Gautas raktų mainų pranešimas, bakstelėkite, kad apdorotumėte.</string>
+<string name="ConversationItem_via_s">per <xliff:g id="arg1">%s</xliff:g></string>
+<string name="ConversationItem_xmpp_address_update_smsecure">XMPP adresas. Atnaujinkite SMSecure, kad įjungtumėte šią funkciją.</string>
+<!--ConversationListFragment-->
+<plurals name="ConversationListFragment_conversations_archived">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> pokalbis archyvuotas</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> pokalbiai archyvuoti</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> pokalbiai archyvuoti</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> pokalbiai archyvuoti</item>
+    </plurals>
+<string name="ConversationListFragment_delete_selected_conversation">Ištrinti pasirinktą pokalbį?</string>
+<string name="ConversationListFragment_delete_selected_conversations">Ištrinti pasirinktus pokalbius?</string>
+<string name="ConversationListFragment_deleting_selected_conversations">Ištrinamos pasirinktos pokalbių istorijos…</string>
+<plurals name="ConversationListFragment_moved_conversations_to_inbox">
+        <item quantity="one">Perkelta <xliff:g id="arg1">%1$d</xliff:g> pokalbis į pašto dėžutę</item>
+        <item quantity="few">Perkelti <xliff:g id="arg1">%1$d</xliff:g> pokalbius į pašto dėžutę</item>
+        <item quantity="many">Perkelti <xliff:g id="arg1">%1$d</xliff:g> pokalbius į pašto dėžutę</item>
+        <item quantity="other">Perkelti <xliff:g id="arg1">%1$d</xliff:g> pokalbius į pašto dėžutę</item>
+    </plurals>
+<string name="ConversationListFragment_send_drafts">Siųsti juodraščius</string>
+<string name="ConversationListFragment_sending">Siuntimas</string>
+<string name="ConversationListFragment_sending_selected_drafts">Siunčiami pasirinkti juodraščiai…</string>
+<plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
+        <item quantity="one">Tai visam laikui ištrins <xliff:g id="arg1">%1$d</xliff:g> pasirinktą pokalbį.</item>
+        <item quantity="few">Tai visam laikui ištrins visas <xliff:g id="arg1">%1$d</xliff:g> pasirinktas pokalbius.</item>
+        <item quantity="many">Tai visam laikui ištrins visas <xliff:g id="arg1">%1$d</xliff:g> pasirinktas pokalbius.</item>
+        <item quantity="other">Tai visam laikui ištrins visas <xliff:g id="arg1">%1$d</xliff:g> pasirinktas pokalbius.</item>
+    </plurals>
+<string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Tai išsiųs pasirinktų pokalbių juodraščius.</string>
+<string name="ConversationListFragment_undo">ATŠAUKTI</string>
+<!--ConversationListItemArchived-->
+<string name="ConversationListItemAction_archived_conversations_d">Archyvuoti pokalbiai (<xliff:g id="arg1">%d</xliff:g>)</string>
+<!--CustomDefaultPreference-->
+<string name="CustomDefaultPreference_using_custom">Naudojant custom: <xliff:g id="arg1">%s</xliff:g></string>
+<string name="CustomDefaultPreference_using_default">Naudojant numatytąjį: <xliff:g id="arg1">%s</xliff:g></string>
+<!--database_migration_activity-->
+<string name="database_migration_activity__import_database_image_description">Duomenų bazės importo iliustracija</string>
+<string name="database_migration_activity__import_status">0/100</string>
+<string name="database_migration_activity__importing_database">Duomenų bazės importavimas…</string>
+<string name="database_migration_activity__this_could_take_a_moment_please_be_patient">Tai gali užtrukti šiek tiek laiko. Prašome palaukti, jums bus pranešta, kai importavimas bus baigtas.</string>
+<!--database_upgrade_activity-->
+<string name="database_upgrade_activity__updating_database">Atnaujinama duomenų bazė…</string>
+<!--DateUtils-->
+<string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> min</string>
+<string name="DateUtils_now">Dabar</string>
+<string name="DateUtils_today">Šiandien</string>
+<string name="DateUtils_yesterday">Vakar</string>
+<!--Distribution-->
+<string name="Distribution_long_description">„SMSecure“ yra SMS programa, leidžianti apsaugoti jūsų privatumą bendraujant su draugais.\nNaudodami „SMSecure“, galite siųsti SMS žinutes ir dalytis medijos failais ar priedais visiškai saugiai.\n\nSavybės:\n* Paprasta. „SMSecure“ veikia kaip bet kuri kita SMS programa. Nereikia niekur registruotis, o jūsų draugams nereikia prisijungti prie jokios naujos paslaugos.\n* Patikima. „SMSecure“ bendrauja naudodama šifruotas SMS žinutes. Nereikia jokių serverių ar interneto ryšio.\n* Privatumas. „SMSecure“ užtikrina jūsų žinučių šifravimą nuo siuntėjo iki gavėjo, naudodama kruopščiai sukurtą „Signal“ šifravimo protokolą.\n* Saugumas. Visos žinutės šifruojamos lokaliai, todėl jei pamestumėte ar pavogtų jūsų telefoną, jūsų žinutės bus apsaugotos.\n* Atvirojo kodo. „SMSecure“ yra nemokama ir atvirojo kodo, todėl bet kas gali patikrinti jos saugumą, peržiūrėdamas kodą.\n\nPrašome pranešti apie bet kokias klaidas, problemas ar pageidavimus dėl funkcijų adresu: <xliff:g id="arg1">%1$s</xliff:g>\n\nŠaltinio kodą galite rasti adresu: <xliff:g id="arg2">%2$s</xliff:g>\n\nDaugiau informacijos: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivatumo politika: <xliff:g id="arg4">%4$s</xliff:g></string>
+<!--DualSimUtil-->
+<string name="DualSimUtil__a_new_key_has_been_generated">Sukurtas naujas raktas.</string>
+<string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Šiai SIM kortelei buvo sukurtas naujas raktas.</string>
+<string name="DualSimUtil__new_sim_card_detected">Aptikta nauja SIM kortelė</string>
+<!--EncryptingSmsDatabase-->
+<string name="EncryptingSmsDatabase_error_decrypting_message">Klaida iššifruojant pranešimą.</string>
+<!--export_fragment-->
+<string name="export_fragment__export_a_plaintext_backup_compatible_with">Eksportuoti paprastojo teksto atsarginę kopiją (suderinamą su „SMS Backup &amp; Restore“)</string>
+<string name="export_fragment__export_an_encrypted_backup_to_storage">Eksportuoti šifruotą atsarginę kopiją į saugyklą</string>
+<string name="export_fragment__export_encrypted_backup">Eksportuoti šifruotą atsarginę kopiją</string>
+<string name="export_fragment__export_plaintext_backup">Eksportuoti paprastojo teksto atsarginę kopiją</string>
+<string name="import_fragment__import_a_plaintext_backup_file">Importuoti paprastojo teksto atsarginę kopiją (suderinama su „SMS Backup &amp; Restore“)</string>
+<string name="import_fragment__import_plaintext_backup">Importuoti paprastojo teksto atsarginę kopiją</string>
+<string name="import_fragment__import_system_sms_database">Importuoti sistemos SMS duomenų bazę</string>
+<string name="import_fragment__import_the_database_from_the_default_system">Importuoti duomenų bazę iš numatytosios sistemos žinučių programos</string>
+<string name="import_fragment__restore_a_previously_exported_encrypted_backup">Atkurti anksčiau eksportuotą šifruotą atsarginę kopiją</string>
+<string name="import_fragment__restore_encrypted_backup">Atkurti šifruotą atsarginę kopiją</string>
+<!--ExportFragment-->
+<string name="ExportFragment_error_while_writing_to_storage">Klaida rašant į saugyklą.</string>
+<string name="ExportFragment_export">Eksportuoti</string>
+<string name="ExportFragment_export_encrypted_backup">Eksportuoti šifruotą atsarginę kopiją?</string>
+<string name="ExportFragment_export_plaintext_to_storage">Eksportuoti paprastą tekstą į saugyklą?</string>
+<string name="ExportFragment_export_successful">Eksportavimas sėkmingas.</string>
+<string name="ExportFragment_exporting">Eksportavimas</string>
+<string name="ExportFragment_exporting_keys_settings_and_messages">Eksportuojami šifruoti raktai, nustatymai ir pranešimai…</string>
+<string name="ExportFragment_exporting_plaintext_to_storage">Eksportuojamas paprastasis tekstas į saugyklą…</string>
+<string name="ExportFragment_this_will_export_your_encrypted_keys_settings_and_messages">Tai eksportuos jūsų šifruotus raktus, nustatymus ir pranešimus į saugyklą.</string>
+<string name="ExportFragment_warning_this_will_export_the_contents_of_your_messages_to_storage_in_plaintext">Įspėjimas: tai eksportuos jūsų „SMSecure“ pranešimų turinį į saugyklą paprastu tekstu.</string>
+<!--GroupCreateActivity-->
+<string name="GroupCreateActivity_actionbar_title">Nauja grupė</string>
+<string name="GroupCreateActivity_contacts_mms_exception">Dėl netikėtos klaidos nepavyko sukurti grupės.</string>
+<string name="GroupCreateActivity_contacts_no_members">Jūsų grupėje turi būti bent vienas asmuo!</string>
+<string name="GroupCreateActivity_menu_create_title">Sukurti grupę</string>
+<!--GroupMembersDialog-->
+<string name="GroupMembersDialog_me">Me</string>
+<!--IdentityActivity-->
+<string name="IdentityActivity__base64_code_title">Base64 kodas</string>
+<string name="IdentityActivity__current_remote_fingerprint">Pirkštų atspaudas <xliff:g id="arg1">%1$s</xliff:g></string>
+<string name="IdentityActivity__detected_format">Aptikta: <xliff:g id="arg1">%1$s</xliff:g></string>
+<string name="IdentityActivity__empty_data">Nėra duomenų, kuriuos būtų galima rodyti.</string>
+<string name="IdentityActivity__enter_hex_or_base64">Įveskite HEX arba Base64 kodą</string>
+<string name="IdentityActivity__failed_to_render">Nepavyko atvaizduoti QR kodo.</string>
+<string name="IdentityActivity__format_base64">Base64</string>
+<string name="IdentityActivity__format_hex">HEX</string>
+<string name="IdentityActivity__format_unknown">Nežinoma</string>
+<string name="IdentityActivity__hex_code">HEX kodas</string>
+<string name="IdentityActivity__invalid_base64">Neteisingas Base64.</string>
+<string name="IdentityActivity__invalid_code">Neteisingas kodas.</string>
+<string name="IdentityActivity__invalid_hex">Neteisingas HEX kodas.</string>
+<string name="IdentityActivity__invalid_hex_length">Neteisingas HEX ilgis.</string>
+<string name="IdentityActivity__invalid_identity_length">Nenumatytas tapatybės ilgis.</string>
+<string name="IdentityActivity__manual_ready">Paruošta patikrinti</string>
+<string name="IdentityActivity__manual_verify_no_remote">Nėra nuotolinio tapatybės rakto, kurį būtų galima palyginti.</string>
+<string name="IdentityActivity__not_verified_exclamation">NEPATIKRINTA!</string>
+<string name="IdentityActivity__paste_to_verify">Tipas bus nustatytas automatiškai.</string>
+<string name="IdentityActivity__recipient_has_no_identity_key">Gavėjas neturi tapatybės rakto.</string>
+<string name="IdentityActivity__scan_qr_code">Nuskaityti QR kodą</string>
+<string name="IdentityActivity__share_base64">Dalytis Base64 kodu</string>
+<string name="IdentityActivity__share_failed">Nepavyko pasidalinti QR vaizdu.</string>
+<string name="IdentityActivity__share_image">Dalytis QR vaizdu</string>
+<string name="IdentityActivity__their_key_is_correct_it_is_also_necessary_to_verify_your_key_with_them_as_well">Jų raktas yra teisingas. Taip pat būtina patvirtinti savo raktą pas juos.</string>
+<string name="IdentityActivity__verification_status">Patvirtinimo būsena</string>
+<string name="IdentityActivity__verification_status_idle">Dar neskenuota</string>
+<string name="IdentityActivity__verification_status_not_available">Nėra</string>
+<string name="IdentityActivity__verification_status_not_verified">Nepatvirtinta</string>
+<string name="IdentityActivity__verification_status_verified">Patvirtinta</string>
+<string name="IdentityActivity__verified_exclamation">Patvirtinta!</string>
+<string name="IdentityActivity__verify_entered_code">Patikrinti</string>
+<string name="IdentityActivity__verify_identity">Tapatybės patvirtinimas</string>
+<string name="IdentityActivity__view_identity">Peržiūrėti tapatybę</string>
+<string name="IdentityActivity__warning_the_entered_key_does_not_match">Įvestas raktas nesutampa. Prašome atidžiai patikrinti.</string>
+<string name="IdentityActivity__warning_the_scanned_key_does_not_match_please_check_the_fingerprint_text_carefully">ĮSPĖJIMAS: nuskaitytas raktas NESUTAPO! Atidžiai patikrinkite piršto atspaudo tekstą.</string>
+<string name="IdentityActivity__you_do_not_have_an_identity_key">Jūs neturite tapatybės rakto.</string>
+<string name="IdentityActivity__your_fingerprint">Jūsų piršto atspaudas</string>
+<!--import_export_fragment-->
+<string name="import_export_fragment__backup_restored">„Atsarginė kopija atkurta. „SMSecure“ dabar užsidarys — vėl atidarykite ją, kad užbaigtumėte atkūrimą.“</string>
+<!--ImportFragment-->
+<string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages">„SMSecure“ reikia SMS leidimo, kad galėtų importuoti SMS žinutes, tačiau jis buvo visam laikui atmestas. Eikite į programos nustatymus, pasirinkite „Leidimai“ ir įjunkite „SMS“.</string>
+<string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages_toast">„SMSecure“ reikia SMS leidimo, kad galėtų importuoti SMS žinutes</string>
+<string name="ImportFragment_error_importing_backup">Klaida importuojant atsarginę kopiją!</string>
+<string name="ImportFragment_import_complete">Importavimas baigtas!</string>
+<string name="ImportFragment_import_plaintext_backup">Importuoti paprastojo teksto atsarginę kopiją?</string>
+<string name="ImportFragment_import_plaintext_backup_ellipse">Importuojama paprastojo teksto atsarginė kopija…</string>
+<string name="ImportFragment_import_system_sms_database">Importuoti sistemos SMS duomenų bazę?</string>
+<string name="ImportFragment_restore_encrypted_backup">Atkurti šifruotą atsarginę kopiją?</string>
+<string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Atkūrus šifruotą atsarginę kopiją, jūsų esami raktai, nustatymai ir pranešimai bus visiškai pakeisti. Jūs prarasite bet kokią informaciją, kuri yra jūsų dabartinėje „SMSecure“ instaliacijoje, bet nėra atsarginėje kopijoje. „SMSecure“ sustos po importo.</string>
+<string name="ImportFragment_restoring_encrypted_backup">Atkuriama šifruota atsarginė kopija…</string>
+<string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Tai importuos pranešimus iš paprastojo teksto atsarginės kopijos. Jei šią atsarginę kopiją jau importavote anksčiau, pakartotinis importavimas sukels pranešimų dubliavimąsi.</string>
+<string name="ImportFragment_this_will_import_messages_from_the_system">Tai importuos pranešimus iš sistemos numatytosios SMS duomenų bazės į „SMSecure“. Jei anksčiau jau importavote sistemos SMS duomenų bazę, pakartotinis importavimas sukels pranešimų dubliavimąsi.</string>
+<!--key_scanning-->
+<string name="share_identity_fingerprint">Pasidalinkite savo tapatybės atspaudu</string>
+<!--KeyExchangeInitiator-->
+<string name="KeyExchangeInitiator_initiate_despite_existing_request_question">Inicijuoti nepaisant esamo prašymo?</string>
+<string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Jūs jau išsiuntėte sesijos inicijavimo prašymą šiam gavėjui, ar tikrai norite išsiųsti dar vieną? Tai panaikins pirmąjį prašymą.</string>
+<!--load_more_header-->
+<string name="load_more_header__see_full_conversation">Žiūrėti visą pokalbį</string>
+<!--log_submit_activity-->
+<string name="log_submit__button_copy">Kopijuoti žurnalą</string>
+<string name="log_submit__button_share_link">Dalintis nuoroda</string>
+<string name="log_submit__button_share_logs">Dalytis žurnalu</string>
+<string name="log_submit_activity__collecting_logs">Renkama žurnalo informacija…</string>
+<string name="log_submit_activity__log_collect_failed">Nepavyko surinkti žurnalo.</string>
+<string name="log_submit_activity__log_fetch_failed">Nepavyko surinkti arba įkelti žurnalo.</string>
+<string name="log_submit_activity__log_upload_failed">Nepavyko įkelti žurnalo.</string>
+<string name="log_submit_activity__log_uploaded">Įkeltas žurnalas. Nuoroda nukopijuota į iškarpinę.</string>
+<string name="log_submit_activity__thanks">Ačiū už pagalbą!</string>
+<string name="log_submit_activity__uploading_logs">Įkeliama žurnalo įrašas…</string>
+<string name="log_submit_copied">Žurnalas nukopijuotas.</string>
+<!--message_details_header-->
+<string name="message_details_header__from">Iš</string>
+<string name="message_details_header__issues_need_your_attention">Kai kurios problemos reikalauja jūsų dėmesio.</string>
+<string name="message_details_header__received">Gauta</string>
+<string name="message_details_header__sent">Išsiųsta</string>
+<string name="message_details_header__to">Į</string>
+<string name="message_details_header__type">Tipas</string>
+<!--message_recipients_list_item-->
+<string name="message_recipients_list_item__resend">Siųsti dar kartą</string>
+<string name="message_recipients_list_item__verify">Patikrinti</string>
+<!--MessageDetailsRecipient-->
+<string name="MessageDetailsRecipient_failed_to_send">Nepavyko išsiųsti</string>
+<string name="MessageDetailsRecipient_new_identity">Nauja tapatybė</string>
+<!--MessageDisplayHelper-->
+<string name="MessageDisplayHelper_bad_encrypted_message">Netinkama užšifruota žinutė</string>
+<string name="MessageDisplayHelper_decrypting_please_wait">Šifravimas, prašome palaukti…</string>
+<string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Prašymas užbaigti neegzistuojančią sesiją</string>
+<string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Pranešimas užšifruotas neegzistuojančiai sesijai</string>
+<!--MessageNotifier-->
+<string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> naujos žinutės <xliff:g id="arg2">%2$d</xliff:g> pokalbiuose</string>
+<string name="MessageNotifier_encrypted_message">Šifruota žinutė</string>
+<string name="MessageNotifier_error_delivering_message">Klaida pristatant pranešimą.</string>
+<string name="MessageNotifier_failed_to_deliver_message">Nepavyko pristatyti pranešimo.</string>
+<string name="MessageNotifier_mark_all_as_read">Pažymėti viską kaip perskaitytą</string>
+<string name="MessageNotifier_mark_read">Pažymėti kaip perskaitytą</string>
+<string name="MessageNotifier_message_delivery_failed">Nepavyko pristatyti pranešimo.</string>
+<string name="MessageNotifier_message_received">Pranešimas gautas per <xliff:g id="arg1">%s</xliff:g>.</string>
+<string name="MessageNotifier_most_recent_from_s">Naujausias iš: <xliff:g id="arg1">%1$s</xliff:g></string>
+<string name="MessageNotifier_reply">Atsakyti</string>
+<!--MessageRecord-->
+<string name="MessageRecord_key_exchange_message">Raktų mainų pranešimas</string>
+<string name="MessageRecord_left_group">Jūs palikote grupę.</string>
+<string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Gauta žinutė, užšifruota naudojant seną „SMSecure“ versiją, kuri nebėra palaikoma. Paprašykite siuntėjo atnaujinti programą iki naujausios versijos ir išsiųsti žinutę iš naujo.</string>
+<string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Gautas keitimosi pranešimas buvo išsiųstas iš pernelyg pasenusios „SMSecure“ versijos, kuri negali bendrauti su jūsų versija. Norėdami pradėti saugią sesiją, turite jį išsiųsti rankiniu būdu. Bakstelėkite, kad išsiųstumėte raktų keitimosi pranešimą.</string>
+<string name="MessageRecord_updated_group">Atnaujinta grupė.</string>
+<!--MuteDialog-->
+<string name="MuteDialog_mute_notifications">Pranešimų nutildymas</string>
+<!--Notification Channels-->
+<string name="NotificationChannel_failures">Sutrikimai</string>
+<string name="NotificationChannel_locked_status">Užrakintas statusas</string>
+<string name="NotificationChannel_messages">Pranešimai</string>
+<string name="NotificationChannel_other">Kita</string>
+<!--PassphraseChangeActivity-->
+<string name="PassphraseChangeActivity_change_passphrase">Pakeisti slaptažodį</string>
+<string name="PassphraseChangeActivity_create_passphrase">Sukurti slaptažodį</string>
+<string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Slaptažodis neįvestas!</string>
+<string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Neteisingas senasis slaptažodis!</string>
+<string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Slaptažodžiai nesutampa!</string>
+<!--PassphrasePromptActivity-->
+<string name="PassphrasePromptActivity_enter_passphrase">Įveskite slaptažodį</string>
+<string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Neteisinga slaptažodžio frazė!</string>
+<string name="PassphrasePromptActivity_watermark_content_description">„SMSecure“ piktograma</string>
+<!--Permissions-->
+<string name="Permissions_not_now">Ne dabar</string>
+<string name="Permissions_permission_required">Reikalingas leidimas</string>
+<!--plurals.xml-->
+<plurals name="hours_ago">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> valanda</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> valandos</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> valandos</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> valandos</item>
+    </plurals>
+<!--preferences.xml-->
+<string name="preferences__about">Apie „SMSecure“</string>
+<string name="preferences__about_version">Versija <xliff:g id="arg1">%s</xliff:g></string>
+<string name="preferences__advanced">Išplėstiniai</string>
+<string name="preferences__always_ask_for_sim_card">Visada prašyti SIM kortelės</string>
+<string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Siunčiant žinutes visada klausti, kurią SIM kortelę naudoti</string>
+<string name="preferences__appearance">Išvaizda</string>
+<string name="preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key">Automatiškai užbaigti raktų mainus naujoms sesijoms arba esamoms sesijoms su tuo pačiu tapatybės raktu</string>
+<string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Automatiškai ištrinti senesnes žinutes, kai pokalbis viršija nurodytą ilgį</string>
+<string name="preferences__blocked_contacts">Užblokuoti kontaktai</string>
+<string name="preferences__change_notification_sound">Pakeisti pranešimo garsą</string>
+<string name="preferences__change_passphrase">Pakeisti slaptažodį</string>
+<string name="preferences__change_your_passphrase">Pakeiskite savo slaptažodį</string>
+<string name="preferences__chats">Pokalbiai ir medija</string>
+<string name="preferences__complete_key_exchanges">Užbaigti raktų mainus</string>
+<string name="preferences__conversation_length_limit">Pokalbio ilgio riba</string>
+<string name="preferences__dark_theme">Tamsus</string>
+<string name="preferences__delete_old_messages">Ištrinti senas žinutes</string>
+<string name="preferences__diagnostic_logging_level">Diagnostikos žurnalo lygis</string>
+<string name="preferences__diagnostic_logging_level_summary">Nustato, kiek diagnostinės informacijos SMSecure saugo viduje.</string>
+<string name="preferences__disable_emoji_drawer">Išjungti emodži meniu</string>
+<string name="preferences__disable_screen_security_to_allow_screen_shots">Užblokuokite ekrano kopijas naujausių sąraše ir programos viduje</string>
+<string name="preferences__disable_smsecures_built_in_emoji_support">Išjungti SMSecure integruotą emodži palaikymą</string>
+<string name="preferences__display_a_notification_when_a_delivery_report_is_received">Rodyti pranešimą, kai gaunamas pristatymo ataskaita</string>
+<string name="preferences__display_in_notifications">Rodyti pranešimuose</string>
+<string name="preferences__display_in_notifications_which_elements_show">Pasirinkite, kokie elementai bus rodomi pranešime</string>
+<string name="preferences__enable_local_encryption_of_messages_and_keys">Įjunkite vietinį pranešimų ir raktų šifravimą</string>
+<string name="preferences__enable_message_notifications">Įjunkite pranešimų įspėjimus</string>
+<string name="preferences__enable_panic_on_device_lock_button">Automatinis užrakinimas, kai ekranas užrakintas</string>
+<string name="preferences__enable_passphrase">Įjungti slaptažodį</string>
+<string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Įjunkite šią parinktį, jei jūsų klaviatūra palaiko emodžius.</string>
+<string name="preferences__enter_key_summary">Pasirinkite, ar klavišas „Enter“ siųs pranešimą, ar įterps naują eilutę</string>
+<string name="preferences__five_times">Penki kartai</string>
+<string name="preferences__forget_passphrase_from_memory_after_some_interval">Reikalauti slaptažodžio, norint pasiekti pranešimus po nurodyto laiko</string>
+<string name="preferences__hide_divider_between_read_and_unread_messages">Paslėpti skyriklį tarp perskaitytų ir neperskaitytų pranešimų</string>
+<string name="preferences__hide_unread_message_divider">Paslėpti neskaitytų pranešimų skyriklį</string>
+<string name="preferences__hours">valandos</string>
+<string name="preferences__in_conversation_notifications">Pranešimai pokalbiuose</string>
+<string name="preferences__incognito_keyboard">„Incognito“ klaviatūra</string>
+<string name="preferences__keyboard_settings">Klaviatūros parinktys</string>
+<string name="preferences__language">Kalba</string>
+<string name="preferences__language_summary">Programos kalba</string>
+<string name="preferences__make_default_sms_app">Nustatyti kaip numatytąją SMS programą</string>
+<string name="preferences__make_smsecure_the_default_sms_app">Nustatykite „SMSecure“ kaip numatytąją SMS programą savo sistemoje.</string>
+<string name="preferences__message_trimming">Pranešimo sutrumpinimas</string>
+<string name="preferences__messages">Pranešimai</string>
+<string name="preferences__minutes">minutes</string>
+<plurals name="preferences__msgs_short">
+        <item quantity="one"><xliff:g id="arg1">%d</xliff:g> pranešimas</item>
+        <item quantity="few"><xliff:g id="arg1">%d</xliff:g> pranešimai</item>
+        <item quantity="many"><xliff:g id="arg1">%d</xliff:g> pranešimai</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> pranešimai</item>
+    </plurals>
+<string name="preferences__never">Niekada</string>
+<string name="preferences__notifications">Pranešimai</string>
+<string name="preferences__one_time">Vieną kartą</string>
+<string name="preferences__panic_button">Panikos mygtukas</string>
+<string name="preferences__play_inthread_notifications">Paleisti pranešimo garsą, kai peržiūrite aktyvią pokalbio istoriją.</string>
+<string name="preferences__pref_timeout_interval_title">Laiko limito intervalas</string>
+<string name="preferences__privacy">Privatumas</string>
+<string name="preferences__privacy_policy">Privatumo politika</string>
+<string name="preferences__repeat_notification">Pakartotinis pranešimas</string>
+<string name="preferences__repeat_notification_number_times_select">Pasirinkite, kiek kartų pranešimas bus kartojamas</string>
+<string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Prašyti pristatymo ataskaitos už kiekvieną išsiųstą SMS žinutę</string>
+<string name="preferences__request_keyboard_to_disable_personalized_learning">Jei nustatytas inkognito režimas, klaviatūra neprisimins, neišmoks ir nesaugos jokių jūsų įvestų žodžių</string>
+<string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Peržiūrėkite visus pokalbius ir taikykite pokalbių ilgio apribojimus</string>
+<string name="preferences__screen_security">Ekrano saugumas</string>
+<string name="preferences__show_sent_time">Rodyti siuntimo laiką</string>
+<string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Rodyti gautų pranešimų siuntimo laiką, o ne gavimo laiką</string>
+<string name="preferences__sms_delivery_reports">SMS pristatymo ataskaitos</string>
+<string name="preferences__sms_delivery_reports_notification">Pranešimas apie SMS pristatymo ataskaitas</string>
+<string name="preferences__sound">Garsas</string>
+<string name="preferences__submit_debug_log">Pateikti derinimo žurnalą</string>
+<string name="preferences__submit_debug_log_summary">Rinkite diagnostinę informaciją ir dalinkitės ja, kad būtų galima išspręsti problemą.</string>
+<string name="preferences__summary_enable_panic_on_device_lock_button">Automatiškai užrakinti programą, kai įrenginys užrakintas</string>
+<string name="preferences__summary_panic_button">Įjunkite panikos mygtuką iš „Ripple: respond when panicking“ (Guardian Project)</string>
+<string name="preferences__ten_times">Dešimt kartų</string>
+<string name="preferences__theme">Tema</string>
+<string name="preferences__theme_light">Šviesus</string>
+<string name="preferences__theme_summary">Pasirinkite programos išvaizdą</string>
+<string name="preferences__theme_systemic">Systemic</string>
+<string name="preferences__three_times">Tris kartus</string>
+<string name="preferences__timeout_passphrase">Laiko limito slaptažodis</string>
+<string name="preferences__trim_all_conversations_now">Išvalyti visus pokalbius dabar</string>
+<string name="preferences__two_times">Du kartus</string>
+<string name="preferences__use_system_emoji">Naudoti sistemos emodžius</string>
+<string name="preferences__write_logs_to_android_logcat">Įrašyti žurnalus į „Android“ „logcat”</string>
+<string name="preferences__write_logs_to_android_logcat_summary">Leidžia „SMSecure“ įrašyti savo žurnalus į sistemos žurnalą. Norėdami užtikrinti didesnį privatumą, išjunkite šią funkciją.</string>
+<!--prompt_passphrase_activity-->
+<string name="prompt_passphrase_activity__unlock">Atrakinti</string>
+<!--QR code-->
+<string name="QrScanActivity__align_qr">Suderinti QR</string>
+<!--QuickResponseService-->
+<string name="QuickResponseService_problem_sending_message">Problema siunčiant pranešimą!</string>
+<string name="QuickResponseService_quick_response_unavailable_when_SMSecure_is_locked">Greitasis atsakymas nepasiekiamas, kai „SMSecure“ yra užrakintas!</string>
+<!--receive_key_dialog-->
+<string name="receive_key_activity__complete">Užbaigta</string>
+<!--ReceiveKeyActivity-->
+<string name="ConfirmIdentityDialog_you_may_wish_to_verify_this_contact">Turėtumėte patikrinti šio kontakto tapatybę.</string>
+<string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_different">Šio raktų mainų parašas skiriasi nuo to, kurį anksčiau gavote iš šio kontakto. Tai gali reikšti, kad kažkas bando perimti jūsų susirašinėjimą arba kad šis kontaktas tiesiog iš naujo įdiegė „SMSecure“ ir dabar turi naują tapatybės raktą.</string>
+<string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but">Šio raktų mainų parašas yra patikimas, tačiau jūsų nustatymas „automatiškai užbaigti raktų mainus“ yra išjungtas.</string>
+<!--recipient_preferences-->
+<string name="recipient_preferences__block">Blokas</string>
+<string name="recipient_preferences__color">Spalva</string>
+<string name="recipient_preferences__color_for_this_contact">Šio kontakto spalva</string>
+<string name="recipient_preferences__disable_notifications_for_this_conversation">Išjungti pranešimus apie šį pokalbį</string>
+<string name="recipient_preferences__mute_conversation">Nutildyti pokalbį</string>
+<string name="recipient_preferences__notification_sound">Pranešimo garsas</string>
+<!--recipient_preferences_activity-->
+<string name="recipient_preference_activity__blocked">Užblokuota</string>
+<!--RecipientPreferencesActivity-->
+<string name="RecipientPreferenceActivity_are_you_sure_you_want_to_unblock_this_contact">Ar tikrai norite atblokuoti šį kontaktą?</string>
+<string name="RecipientPreferenceActivity_block">Blokas</string>
+<string name="RecipientPreferenceActivity_block_this_contact_question">Blokuoti šį kontaktą?</string>
+<string name="RecipientPreferenceActivity_unblock">Atblokuoti</string>
+<string name="RecipientPreferenceActivity_unblock_this_contact_question">Atblokuoti šį kontaktą?</string>
+<string name="RecipientPreferenceActivity_you_will_no_longer_see_messages_from_this_user">Jūs nebematysite šio vartotojo siunčiamų pranešimų.</string>
+<!--recipients_panel-->
+<string name="recipients_panel__add_member">Pridėti dalyvių</string>
+<string name="recipients_panel__to">Įveskite vardą arba numerį</string>
+<!--reminder_header-->
+<string name="reminder_header_delivery_reports_text">Pristatymo ataskaitos leidžia sužinoti, ar ir kada gavėjas gavo jūsų pranešimus. Kai kurie mobiliojo ryšio operatoriai taiko papildomą mokestį.</string>
+<string name="reminder_header_delivery_reports_title">Įjungti pristatymo ataskaitas?</string>
+<string name="reminder_header_rate_button">Įvertinkite dabar!</string>
+<string name="reminder_header_rate_text">Jei jums patinka naudotis šia programa, prašome skirti šiek tiek laiko ir padėti mums ją įvertindami.</string>
+<string name="reminder_header_rate_title">Įvertinkite šią programą</string>
+<string name="reminder_header_sms_default_button">Nustatyti</string>
+<string name="reminder_header_sms_default_text_mandatory">Norėdami gauti pranešimus, „SMSecure“ turi būti jūsų numatytoji SMS programa.</string>
+<string name="reminder_header_sms_default_title">Naudoti kaip numatytąją SMS programėlę?</string>
+<string name="reminder_header_sms_import_text">Bakstelėkite, kad nukopijuotumėte telefono SMS žinutes į „SMSecure“ šifruotą duomenų bazę.</string>
+<string name="reminder_header_sms_import_title">Importuoti sistemos SMS?</string>
+<!--RingtonePreference-->
+<string name="RingtonePreference_add_ringtone_text">Pridėti skambėjimo toną</string>
+<string name="RingtonePreference_application_default">Programos numatytasis</string>
+<string name="RingtonePreference_system_default">Sistemos numatytasis</string>
+<string name="RingtonePreference_unable_to_add_ringtone">Nepavyko pridėti pasirinktinio skambėjimo tono</string>
+<!--ShareActivity-->
+<string name="ShareActivity_share_with">Dalytis su</string>
+<!--single_contact_selection_activity-->
+<string name="SingleContactSelectionActivity_contact_photo">Kontakto nuotrauka</string>
+<!--SingleRecipientNotificationBuilder-->
+<string name="SingleRecipientNotificationBuilder_new_message">Nauja žinutė</string>
+<!--SmsMessageRecord-->
+<string name="SmsMessageRecord_duplicate_message">Pakartotinė žinutė.</string>
+<string name="SmsMessageRecord_received_corrupted_key_exchange_message">Gauta sugadinta raktų keitimosi žinutė!</string>
+<string name="SmsMessageRecord_received_key_exchange_message_for_invalid_protocol_version">Gautas raktų mainų pranešimas dėl neteisingos protokolo versijos.</string>
+<string name="SmsMessageRecord_received_message_with_unknown_identity_key_tap_to_process">Gauta žinutė su nežinomu identifikavimo raktu. Bakstelėkite, kad apdorotumėte ir parodytumėte.</string>
+<string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Gauta atnaujinta, bet nežinoma tapatybės informacija. Bakstelėkite, kad patvirtintumėte tapatybę.</string>
+<string name="SmsMessageRecord_secure_session_ended">Saugi sesija baigėsi.</string>
+<!--SubscriptionInfoCompat-->
+<string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (lizdas <xliff:g id="arg2">%2$d</xliff:g>)</string>
+<string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+<!--ThreadRecord-->
+<string name="ThreadRecord_draft">Juodraštis:</string>
+<string name="ThreadRecord_left_the_group">Išėjo iš grupės</string>
+<string name="ThreadRecord_media_message">Medijos pranešimas</string>
+<!--transport_selection_list_item-->
+<string name="transport_selection_list_item__transport_icon">Transporto piktograma</string>
+<!--TransportOptions-->
+<string name="TransportOptions_no_sim_card_found">SIM kortelė nerasta</string>
+<string name="TransportOptions_sms_disabled">SMS žinutės išjungtos</string>
+<!--Trimmer-->
+<string name="trimmer__deleting_old_messages">Senų pranešimų ištrynimas…</string>
+<string name="trimmer__old_messages_successfully_deleted">Senos žinutės sėkmingai ištrintos</string>
+<!--WelcomeActivity-->
+<string name="cd_welcome_image">Sveikinimo paveikslėlis</string>
+<string name="WelcomeActivity_action_required">Reikia imtis veiksmų!</string>
+<string name="WelcomeActivity_encrypt_your_messages">Šifruokite savo pranešimus su „SMSecure“ vartotojais, o su kitais naudokite įprastus SMS pranešimus.</string>
+<string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Pagerinkite savo privatumą, bendraukite su visais</string>
+<string name="WelcomeActivity_smsecure_needs_access_to_your_contacts_phone_status_and_sms">„SMSecure“ reikia prieigos prie jūsų kontaktų, telefono būsenos ir SMS žinučių, kad galėtų susisiekti su draugais, valdyti jūsų šifravimo raktus ir bendrauti pokalbiuose.</string>
+<string name="WelcomeActivity_smsecure_needs_the_phone_permission_in_order_to_manage_encryption_keys_and_bind_them_to_your_sim_cards_and_sms_permission_in_order_to_receive_sms_messages">„SMSecure“ reikia telefono leidimo, kad galėtų valdyti šifravimo raktus ir susieti juos su jūsų SIM kortelėmis, bei SMS leidimo, kad galėtų gauti SMS žinutes.</string>
+<string name="WelcomeActivity_smsecure_requires_the_phone_and_sms_permissions_in_order_to_work_but_it_has_been_permanently_denied">„SMSecure“ veikimui reikalingi telefono ir SMS leidimai, tačiau jie buvo visam laikui uždrausti. Eikite į programos nustatymus, pasirinkite „Leidimai“, tada įjunkite „Telefonas“ ir „SMS“.</string>
+<string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure">Turite suteikti tam tikrus leidimus „SMSecure“.</string>
+<string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure_in_order_to_continue_to_use_it">Norėdami toliau naudoti „SMSecure“, turite suteikti tam tikrus leidimus. Bakstelėkite, kad tęstumėte.</string>
+</resources>

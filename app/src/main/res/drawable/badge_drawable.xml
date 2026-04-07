@@ -1,0 +1,13 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="bottom|end">
+        <inset
+            android:insetRight="2dp"
+            android:insetBottom="2dp">
+            <scale
+                android:drawable="@drawable/ic_smsecure"
+                android:scaleGravity="center"
+                android:scaleWidth="40%"
+                android:scaleHeight="40%" />
+        </inset>
+    </item>
+</layer-list>

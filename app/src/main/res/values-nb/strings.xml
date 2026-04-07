@@ -1,0 +1,609 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!--AbstractNotificationBuilder-->
+  <string name="AbstractNotificationBuilder_new_message">Ny melding</string>
+  <!--AndroidManifest.xml-->
+  <string name="AndroidManifest__change_passphrase">Endre passord</string>
+  <string name="AndroidManifest__enter_passphrase">Skriv inn passord</string>
+  <string name="AndroidManifest__initializing_secure_storage">Initialiserer sikker lagring…</string>
+  <string name="AndroidManifest__log_submit">Send feilsøkingslogg</string>
+  <string name="AndroidManifest__public_identity_key">Offentlig identitetsnøkkel</string>
+  <string name="AndroidManifest__select_contacts">Velg kontakter</string>
+  <string name="AndroidManifest__verify_identity">Bekreft identitet</string>
+  <string name="AndroidManifest_archived_conversations">Arkiverte samtaler</string>
+  <!--ApplicationMigrationService-->
+  <string name="ApplicationMigrationService_import_complete">Import fullført</string>
+  <string name="ApplicationMigrationService_import_in_progress">Import pågår</string>
+  <string name="ApplicationMigrationService_importing_text_messages">Importerer tekstmeldinger</string>
+  <string name="ApplicationMigrationService_system_database_import_is_complete">Import av systemdatabasen er fullført.</string>
+  <!--ApplicationPreferencesActivity-->
+  <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Du har ikke angitt en passordfrase ennå!</string>
+  <string name="ApplicationPreferencesActivity_appearance_summary">Tema <xliff:g id="arg1">%1$s</xliff:g>, Språk <xliff:g id="arg2">%2$s</xliff:g></string>
+  <string name="ApplicationPreferencesActivity_delete_all_old_messages_now">Slette alle gamle meldinger nå?</string>
+  <string name="ApplicationPreferencesActivity_disable_storage_encryption">Deaktiver lagringskryptering?</string>
+  <string name="ApplicationPreferencesActivity_incoming_summary">Innkommende <xliff:g id="arg1">%s</xliff:g></string>
+  <string name="ApplicationPreferencesActivity_privacy_summary">Passordfrase <xliff:g id="arg1">%1$s</xliff:g>, Skjermsikkerhet <xliff:g id="arg2">%2$s</xliff:g></string>
+  <string name="ApplicationPreferencesActivity_sms_disabled">Innkommende SMS deaktivert</string>
+  <string name="ApplicationPreferencesActivity_sms_enabled">Innkommende SMS aktivert</string>
+  <string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">SMSecure er for øyeblikket din standard SMS-app</string>
+  <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Trykk for å gjøre SMSecure til din standard SMS-app</string>
+  <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">Dette vil umiddelbart redusere alle samtaler til den <xliff:g id="arg1">%1$d</xliff:g> nyeste meldingen.</item>
+        <item quantity="other">Dette vil umiddelbart begrense alle samtaler til de <xliff:g id="arg1">%1$d</xliff:g> siste meldingene.</item>
+    </plurals>
+  <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">Advarsel! Dette vil deaktivere kryptert lagring av alle meldinger og nøkler. Dine krypterte økter vil fortsette å fungere, men alle som sikrer seg fysisk tilgang til enheten din vil kunne lese dem.</string>
+  <!--AppProtectionPreferenceFragment-->
+  <plurals name="AppProtectionPreferenceFragment_minutes">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> minutt</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minutter</item>
+    </plurals>
+  <!--arrays.xml-->
+  <string name="arrays__basic">Grunnleggende</string>
+  <string name="arrays__errors">Kun feil</string>
+  <string name="arrays__mute_for_one_day">Demp i 1 dag</string>
+  <string name="arrays__mute_for_one_hour">Demp i 1 time</string>
+  <string name="arrays__mute_for_one_year">Demp i 1 år</string>
+  <string name="arrays__mute_for_seven_days">Dempet i 7 dager</string>
+  <string name="arrays__mute_for_two_hours">Demp i 2 timer</string>
+  <string name="arrays__name_and_message">Navn og melding</string>
+  <string name="arrays__name_only">Navn</string>
+  <string name="arrays__new_line">Ny linje</string>
+  <string name="arrays__no_name_or_message">Ingenting</string>
+  <string name="arrays__use_custom">Bruk tilpasset</string>
+  <string name="arrays__use_default">Bruk standard</string>
+  <string name="arrays__verbose">Verbose</string>
+  <!--blocked_contacts_fragment-->
+  <string name="blocked_contacts_fragment__no_blocked_contacts">Ingen blokkerte kontakter</string>
+  <!--BlockedContactsActivity-->
+  <string name="BlockedContactsActivity_blocked_contacts">Blokkerte kontakter</string>
+  <!--change_passphrase_activity-->
+  <string name="change_passphrase_activity__new_passphrase">Ny passordfrase</string>
+  <string name="change_passphrase_activity__old_passphrase">Gammelt passord</string>
+  <string name="change_passphrase_activity__repeat_new_passphrase">Gjenta ny passordfrase</string>
+  <!--Common-->
+  <string name="Cancel">Avbryt</string>
+  <string name="Clear">Clear</string>
+  <string name="Close">Lukk</string>
+  <string name="Confirm">Bekreft</string>
+  <string name="Continue">Fortsett</string>
+  <string name="Copied_to_clipboard">Kopiert til utklippstavlen</string>
+  <string name="Copy">Kopier</string>
+  <string name="Custom">Custom</string>
+  <string name="Default">Standard</string>
+  <string name="Delete">Slett</string>
+  <string name="Deleting">Sletter…</string>
+  <string name="Dialpad">Tastatur</string>
+  <string name="Disable">Deaktiver</string>
+  <string name="Disabled">Deaktivert</string>
+  <string name="Enable">Aktiver</string>
+  <string name="Enabled">Aktivert</string>
+  <string name="Flashlight">Lommelykt</string>
+  <string name="Import">Import</string>
+  <string name="Import_Export">Import / Eksport</string>
+  <string name="Importing">Importerer</string>
+  <string name="Keyboard">Tastatur</string>
+  <string name="No">Nei</string>
+  <string name="None">Ingen</string>
+  <string name="Off">Av</string>
+  <string name="On">On</string>
+  <string name="QR_code">QR-kode</string>
+  <string name="Search">Søk</string>
+  <string name="Send">Send</string>
+  <string name="Share">Del</string>
+  <string name="Silent">Silent</string>
+  <string name="SMS">SMS</string>
+  <string name="Yes">Ja</string>
+  <!--contact_selection_activity-->
+  <string name="contact_selection_activity__enter_name_or_number">Skriv inn navn eller nummer</string>
+  <!--contact_selection_group_activity-->
+  <string name="contact_selection_group_activity__finding_contacts">Laster inn kontakter…</string>
+  <string name="contact_selection_group_activity__no_contacts">Ingen kontakter.</string>
+  <!--contact_selection_list-->
+  <string name="contact_selection_list__unknown_contact">Ny melding til…</string>
+  <!--contact_selection_list_fragment-->
+  <string name="contact_selection_list_fragment__show_contacts">Vis kontakter</string>
+  <string name="contact_selection_list_fragment__smsecure_needs_access_to_your_contacts_in_order_to_display_them">SMSecure trenger tilgang til kontaktene dine for å kunne vise dem.</string>
+  <!--ContactSelectionListFragment-->
+  <string name="ContactSelectionListFragment_smsecure_requires_the_contacts_permission_in_order_to_display_your_contacts">SMSecure trenger tillatelse til å bruke kontakter for å kunne vise kontaktene dine, men denne tillatelsen er blitt permanent nektet. Gå til appens innstillingsmeny, velg «Tillatelser» og aktiver «Kontakter».</string>
+  <!--conversation-->
+  <string name="conversation_menu__archive_conversation">Arkiver samtale</string>
+  <string name="conversation_menu__conversation_settings">Samtaleinnstillinger</string>
+  <string name="conversation_menu__delete_conversation">Slett samtale</string>
+  <string name="conversation_menu__unarchive_conversation">Fjern arkivering av samtale</string>
+  <!--conversation_activity-->
+  <string name="conversation_activity__emoji_toggle_description">Slå på/av emoji-tastatur</string>
+  <string name="conversation_activity__type_message_sms_insecure">Send usikret SMS</string>
+  <string name="conversation_activity__type_message_sms_secure">Send sikker SMS</string>
+  <string name="conversation_activity__via_sim_name">Via <xliff:g id="arg1">%1$s</xliff:g></string>
+  <!--conversation_callable-->
+  <string name="conversation_callable__menu_call">Ring</string>
+  <!--conversation_callable-->
+  <string name="conversation_add_to_contacts__menu_add_to_contacts">Legg til i kontakter</string>
+  <!--conversation_context-->
+  <string name="conversation_context__menu_copy_text">Kopier tekst</string>
+  <string name="conversation_context__menu_delete_message">Slett melding</string>
+  <string name="conversation_context__menu_forward_message">Videresend melding</string>
+  <string name="conversation_context__menu_message_details">Meldingsdetaljer</string>
+  <string name="conversation_context__menu_resend_message">Send melding på nytt</string>
+  <!--conversation_fragment-->
+  <string name="conversation_fragment__scroll_to_the_bottom_content_description">Rull ned til bunnen</string>
+  <!--conversation_fragment_cab-->
+  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> valgt</string>
+  <string name="conversation_fragment_cab__batch_selection_mode">Velg</string>
+  <!--conversation_group_options-->
+  <string name="conversation_group_options__recipients_list">Mottakerliste</string>
+  <!--conversation_insecure-->
+  <string name="conversation_insecure__invite">Invite</string>
+  <!--conversation_insecure_no_push-->
+  <string name="conversation_insecure__menu_start_secure_session">Start sikker økt</string>
+  <string name="conversation_insecure__security">Sikkerhet</string>
+  <!--conversation_item-->
+  <string name="conversation_item__secure_message_description">Sikker melding</string>
+  <!--conversation_item_received-->
+  <string name="conversation_item_received__contact_photo_description">Kontaktbilde</string>
+  <!--conversation_item_sent-->
+  <string name="conversation_item_sent__delivered_description">Levert</string>
+  <string name="conversation_item_sent__pending_approval_description">Venter på godkjenning</string>
+  <string name="conversation_item_sent__send_failed_indicator_description">Send mislyktes</string>
+  <string name="conversation_item_sent__sent_description">Sendt</string>
+  <!--conversation_list_batch-->
+  <string name="conversation_list_batch__menu_delete_selected">Slett valgt</string>
+  <string name="conversation_list_batch__menu_select_all">Velg alt</string>
+  <string name="conversation_list_batch__menu_send_drafts">Send valgte utkast</string>
+  <string name="conversation_list_batch_archive__menu_archive_selected">Arkiv valgt</string>
+  <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Fjern arkivering av valgt</string>
+  <!--conversation_list_fragment-->
+  <string name="conversation_list_fragment__fab_content_description">Ny samtale</string>
+  <!--conversation_list_item_view-->
+  <string name="conversation_list_item_view__archive">Arkiv</string>
+  <string name="conversation_list_item_view__archived">Arkivert</string>
+  <string name="conversation_list_item_view__contact_photo_image">Kontaktavatar</string>
+  <string name="conversation_list_item_view__unarchive">Fjern arkivering</string>
+  <!--conversation_list_menu-->
+  <string name="conversation_list_menu__archived_conversations">Arkiverte samtaler</string>
+  <string name="conversation_list_menu__lock">Lås</string>
+  <string name="conversation_list_menu__mark_all_as_read">Merk alle som lest</string>
+  <string name="conversation_list_menu__new_group">Ny gruppe</string>
+  <string name="conversation_list_menu__new_message">Ny melding</string>
+  <string name="conversation_list_menu__settings">Innstillinger</string>
+  <string name="conversation_list_menu__your_identity_key">Din identitetsnøkkel</string>
+  <!--conversation_muted-->
+  <string name="conversation_muted__unmute">Slå på lyd</string>
+  <!--conversation_popup-->
+  <string name="conversation_popup__menu_expand_popup">Utvid popup</string>
+  <!--conversation_secure_verified-->
+  <string name="conversation_secure_verified__menu_abort_secure_session">Avslutt sikker økt</string>
+  <string name="conversation_secure_verified__menu_verify_identity">Bekreft identitet</string>
+  <!--conversation_unmuted-->
+  <string name="conversation_unmuted__mute_notifications">Demp varsler</string>
+  <!--ConversationActivity-->
+  <string name="ConversationActivity__group">Gruppe</string>
+  <string name="ConversationActivity_abort_secure_session_confirmation">Avslutte sikker økt?</string>
+  <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Er du sikker på at du vil avslutte denne sikre økten?</string>
+  <string name="ConversationActivity_calls_not_supported">Samtaler støttes ikke</string>
+  <string name="ConversationActivity_cant_open_link">Finner ikke en app som kan åpne denne lenken.</string>
+  <string name="ConversationActivity_compose_message">Skriv melding</string>
+  <plurals name="ConversationActivity_d_recipients_in_group">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> deltaker</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> deltakere</item>
+    </plurals>
+  <string name="ConversationActivity_delete_thread_question">Slette samtale?</string>
+  <string name="ConversationActivity_detected_smsecure_initiate_session_question">Melding mottatt fra noen som også har SMSecure, skal du starte en sikker, kryptert økt?</string>
+  <string name="ConversationActivity_group_members">Gruppedeltakere</string>
+  <string name="ConversationActivity_initiate_secure_session_question">Starte sikker økt?</string>
+  <string name="ConversationActivity_initiate_secure_session_with_s_question">Start sikker økt med <xliff:g id="arg1">%s</xliff:g>?</string>
+  <string name="ConversationActivity_install_smssecure">La oss chatte sikkert: <xliff:g id="arg1">%s</xliff:g></string>
+  <string name="ConversationActivity_invalid_recipient">Ugyldig mottaker!</string>
+  <string name="ConversationActivity_message_is_empty_exclamation">Meldingen du prøver å sende er tom!</string>
+  <string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">Mottakeren er ikke en gyldig SMS- eller e-postadresse!</string>
+  <string name="ConversationActivity_recipient_self">Sikre økter kan bare opprettes med andre personer.</string>
+  <string name="ConversationActivity_smsecure_needs_sms_permission_in_order_to_send_an_sms">SMSecure trenger SMS-tillatelse for å kunne sende en SMS, men denne er blitt permanent nektet. Gå til appinnstillingene, velg «Tillatelser» og aktiver «SMS».</string>
+  <string name="ConversationActivity_specify_recipient">Velg en kontakt</string>
+  <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">Denne enheten ser ikke ut til å støtte oppringingshandlinger.</string>
+  <string name="ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation">Dette vil slette alle meldinger i denne samtalen permanent.</string>
+  <string name="ConversationActivity_transport_insecure_sms">Usikker SMS</string>
+  <string name="ConversationActivity_transport_secure_sms">Sikker SMS</string>
+  <string name="ConversationActivity_unnamed_group">Ubenavnet gruppe</string>
+  <!--ConversationAdapter-->
+  <plurals name="ConversationAdapter_n_unread_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> ulest melding</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> uleste meldinger</item>
+    </plurals>
+  <!--ConversationFragment-->
+  <string name="ConversationFragment_delete_selected_message">Slette valgt melding?</string>
+  <string name="ConversationFragment_delete_selected_messages">Slette valgte meldinger?</string>
+  <string name="ConversationFragment_deleting_messages">Sletter meldinger…</string>
+  <string name="ConversationFragment_pending">Venter på…</string>
+  <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
+        <item quantity="one">Dette vil slette <xliff:g id="count">%1$d</xliff:g> valgt melding permanent.</item>
+        <item quantity="other">Dette vil slette alle de <xliff:g id="arg1">%1$d</xliff:g> valgte meldingene permanent.</item>
+    </plurals>
+  <!--ConversationItem-->
+  <string name="ConversationItem_click_for_details">Trykk for detaljer</string>
+  <string name="ConversationItem_error_not_delivered">Ikke levert</string>
+  <string name="ConversationItem_error_received_stale_key_exchange_message">Mottatt utdatert nøkkelutvekslingsmelding.</string>
+  <string name="ConversationItem_group_action_left"><xliff:g id="arg1">%1$s</xliff:g> har forlatt gruppen.</string>
+  <string name="ConversationItem_received_key_exchange_message_tap_to_process">Mottatt nøkkelutvekslingsmelding, trykk for å behandle.</string>
+  <string name="ConversationItem_via_s">via <xliff:g id="arg1">%s</xliff:g></string>
+  <string name="ConversationItem_xmpp_address_update_smsecure">XMPP-adresse. Oppdater SMSecure for å aktivere denne funksjonen.</string>
+  <!--ConversationListFragment-->
+  <plurals name="ConversationListFragment_conversations_archived">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> samtale arkivert</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> samtaler arkivert</item>
+    </plurals>
+  <string name="ConversationListFragment_delete_selected_conversation">Slette valgt samtale?</string>
+  <string name="ConversationListFragment_delete_selected_conversations">Slette valgte samtaler?</string>
+  <string name="ConversationListFragment_deleting_selected_conversations">Sletter valgte samtaler…</string>
+  <plurals name="ConversationListFragment_moved_conversations_to_inbox">
+        <item quantity="one">Flyttet <xliff:g id="arg1">%1$d</xliff:g> samtale til innboksen</item>
+        <item quantity="other">Flyttet <xliff:g id="arg1">%1$d</xliff:g> samtaler til innboksen</item>
+    </plurals>
+  <string name="ConversationListFragment_send_drafts">Send utkast</string>
+  <string name="ConversationListFragment_sending">Sending</string>
+  <string name="ConversationListFragment_sending_selected_drafts">Sender valgte utkast…</string>
+  <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
+        <item quantity="one">Dette vil slette <xliff:g id="arg1">%1$d</xliff:g> valgt samtale permanent.</item>
+        <item quantity="other">Dette vil slette alle de <xliff:g id="arg1">%1$d</xliff:g> valgte samtalene permanent.</item>
+    </plurals>
+  <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Dette vil sende utkast til valgte samtaler.</string>
+  <string name="ConversationListFragment_undo">ANGRE</string>
+  <!--ConversationListItemArchived-->
+  <string name="ConversationListItemAction_archived_conversations_d">Arkiverte samtaler (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--CustomDefaultPreference-->
+  <string name="CustomDefaultPreference_using_custom">Bruker custom: <xliff:g id="arg1">%s</xliff:g></string>
+  <string name="CustomDefaultPreference_using_default">Bruker standard: <xliff:g id="arg1">%s</xliff:g></string>
+  <!--database_migration_activity-->
+  <string name="database_migration_activity__import_database_image_description">Illustrasjon av databaseimport</string>
+  <string name="database_migration_activity__import_status">0/100</string>
+  <string name="database_migration_activity__importing_database">Importerer database…</string>
+  <string name="database_migration_activity__this_could_take_a_moment_please_be_patient">Dette kan ta litt tid. Vær tålmodig, du vil få beskjed når importen er fullført.</string>
+  <!--database_upgrade_activity-->
+  <string name="database_upgrade_activity__updating_database">Oppdaterer database…</string>
+  <!--DateUtils-->
+  <string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> min</string>
+  <string name="DateUtils_now">Nå</string>
+  <string name="DateUtils_today">I dag</string>
+  <string name="DateUtils_yesterday">I går</string>
+  <!--Distribution-->
+  <string name="Distribution_long_description">SMSecure er en SMS-app som lar deg beskytte personvernet ditt mens du kommuniserer med venner.\nMed SMSecure kan du sende SMS-meldinger og dele medier eller vedlegg med fullstendig personvern.\n\nFunksjoner:\n* Enkelt. SMSecure fungerer som enhver annen SMS-app. Du trenger ikke registrere deg, og vennene dine trenger ikke melde seg på noen ny tjeneste.\n* Pålitelig. SMSecure kommuniserer ved hjelp av krypterte SMS-meldinger. Ingen servere eller internettforbindelse kreves.\n* Privat. SMSecure tilbyr ende-til-ende-kryptering for meldingene dine ved hjelp av det nøye utviklede Signal-krypteringsprotokollet.\n* Trygt. Alle meldinger krypteres lokalt, så hvis telefonen din blir borte eller stjålet, er meldingene dine beskyttet.\n* Åpen kildekode. SMSecure er gratis og åpen kildekode, noe som gjør det mulig for hvem som helst å verifisere sikkerheten ved å gjennomgå koden.\n\nVennligst rapporter eventuelle feil, problemer eller funksjonsforespørsler på: <xliff:g id="arg1">%1$s</xliff:g>\n\nKildekoden finner du på: <xliff:g id="arg2">%2$s</xliff:g>\n\nFlere detaljer: <xliff:g id="arg3">%3$s</xliff:g>\n\nPersonvernpolicy: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <!--DualSimUtil-->
+  <string name="DualSimUtil__a_new_key_has_been_generated">En ny nøkkel er generert.</string>
+  <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Det er generert en ny nøkkel for det SIM-kortet.</string>
+  <string name="DualSimUtil__new_sim_card_detected">Nytt SIM-kort oppdaget</string>
+  <!--EncryptingSmsDatabase-->
+  <string name="EncryptingSmsDatabase_error_decrypting_message">Feil ved dekryptering av melding.</string>
+  <!--export_fragment-->
+  <string name="export_fragment__export_a_plaintext_backup_compatible_with">Eksporter en sikkerhetskopi i ren tekst (kompatibel med «SMS Backup &amp; Restore»)</string>
+  <string name="export_fragment__export_an_encrypted_backup_to_storage">Eksporter en kryptert sikkerhetskopi til lagringsplass</string>
+  <string name="export_fragment__export_encrypted_backup">Eksporter kryptert sikkerhetskopi</string>
+  <string name="export_fragment__export_plaintext_backup">Eksporter sikkerhetskopi i ren tekst</string>
+  <string name="import_fragment__import_a_plaintext_backup_file">Importer en sikkerhetskopi i ren tekst (kompatibel med «SMS Backup &amp; Restore»)</string>
+  <string name="import_fragment__import_plaintext_backup">Importer sikkerhetskopi i ren tekst</string>
+  <string name="import_fragment__import_system_sms_database">Importer system-SMS-database</string>
+  <string name="import_fragment__import_the_database_from_the_default_system">Importer databasen fra standard system-messenger-appen</string>
+  <string name="import_fragment__restore_a_previously_exported_encrypted_backup">Gjenopprett en tidligere eksportert kryptert sikkerhetskopi</string>
+  <string name="import_fragment__restore_encrypted_backup">Gjenopprett kryptert sikkerhetskopi</string>
+  <!--ExportFragment-->
+  <string name="ExportFragment_error_while_writing_to_storage">Feil ved skriving til lagringsplass.</string>
+  <string name="ExportFragment_export">Eksporter</string>
+  <string name="ExportFragment_export_encrypted_backup">Eksportere kryptert sikkerhetskopi?</string>
+  <string name="ExportFragment_export_plaintext_to_storage">Eksportere ren tekst til lagringsplass?</string>
+  <string name="ExportFragment_export_successful">Eksporten lyktes.</string>
+  <string name="ExportFragment_exporting">Eksportering</string>
+  <string name="ExportFragment_exporting_keys_settings_and_messages">Eksporterer krypterte nøkler, innstillinger og meldinger…</string>
+  <string name="ExportFragment_exporting_plaintext_to_storage">Eksporterer ren tekst til lagringsplass…</string>
+  <string name="ExportFragment_this_will_export_your_encrypted_keys_settings_and_messages">Dette vil eksportere dine krypterte nøkler, innstillinger og meldinger til lagringsplassen.</string>
+  <string name="ExportFragment_warning_this_will_export_the_contents_of_your_messages_to_storage_in_plaintext">Advarsel: Dette vil eksportere innholdet i SMSecure-meldingene dine til lagringsplassen i ren tekst.</string>
+  <!--GroupCreateActivity-->
+  <string name="GroupCreateActivity_actionbar_title">Ny gruppe</string>
+  <string name="GroupCreateActivity_contacts_mms_exception">Kunne ikke opprette gruppe på grunn av en uventet feil.</string>
+  <string name="GroupCreateActivity_contacts_no_members">Du må ha minst én person i gruppen din!</string>
+  <string name="GroupCreateActivity_menu_create_title">Opprett gruppe</string>
+  <!--GroupMembersDialog-->
+  <string name="GroupMembersDialog_me">Me</string>
+  <!--IdentityActivity-->
+  <string name="IdentityActivity__base64_code_title">Base64-kode</string>
+  <string name="IdentityActivity__current_remote_fingerprint">Fingeravtrykk av <xliff:g id="arg1">%1$s</xliff:g></string>
+  <string name="IdentityActivity__detected_format">Oppdaget: <xliff:g id="arg1">%1$s</xliff:g></string>
+  <string name="IdentityActivity__empty_data">Ingen data å vise.</string>
+  <string name="IdentityActivity__enter_hex_or_base64">Skriv inn HEX- eller Base64-kode</string>
+  <string name="IdentityActivity__failed_to_render">Kunne ikke gjengi QR-koden.</string>
+  <string name="IdentityActivity__format_base64">Base64</string>
+  <string name="IdentityActivity__format_hex">HEX</string>
+  <string name="IdentityActivity__format_unknown">Ukjent</string>
+  <string name="IdentityActivity__hex_code">HEX-kode</string>
+  <string name="IdentityActivity__invalid_base64">Ugyldig Base64.</string>
+  <string name="IdentityActivity__invalid_code">Ugyldig kode.</string>
+  <string name="IdentityActivity__invalid_hex">Ugyldig HEX.</string>
+  <string name="IdentityActivity__invalid_hex_length">Ugyldig HEX-lengde.</string>
+  <string name="IdentityActivity__invalid_identity_length">Uventet identitetslengde.</string>
+  <string name="IdentityActivity__manual_ready">Klar til verifisering</string>
+  <string name="IdentityActivity__manual_verify_no_remote">Ingen ekstern identitetsnøkkel tilgjengelig for sammenligning.</string>
+  <string name="IdentityActivity__not_verified_exclamation">IKKE bekreftet!</string>
+  <string name="IdentityActivity__paste_to_verify">Type vil bli oppdaget automatisk.</string>
+  <string name="IdentityActivity__recipient_has_no_identity_key">Mottakeren har ingen identitetsnøkkel.</string>
+  <string name="IdentityActivity__scan_qr_code">Skann QR-kode</string>
+  <string name="IdentityActivity__share_base64">Del Base64-kode</string>
+  <string name="IdentityActivity__share_failed">Kunne ikke dele QR-bildet.</string>
+  <string name="IdentityActivity__share_image">Del QR-bilde</string>
+  <string name="IdentityActivity__their_key_is_correct_it_is_also_necessary_to_verify_your_key_with_them_as_well">Deres nøkkel er korrekt. Det er også nødvendig å verifisere nøkkelen din hos dem.</string>
+  <string name="IdentityActivity__verification_status">Verifiseringsstatus</string>
+  <string name="IdentityActivity__verification_status_idle">Ingen skanning ennå</string>
+  <string name="IdentityActivity__verification_status_not_available">Ikke tilgjengelig</string>
+  <string name="IdentityActivity__verification_status_not_verified">Ikke bekreftet</string>
+  <string name="IdentityActivity__verification_status_verified">Bekreftet</string>
+  <string name="IdentityActivity__verified_exclamation">Bekreftet!</string>
+  <string name="IdentityActivity__verify_entered_code">Bekreft</string>
+  <string name="IdentityActivity__verify_identity">Bekreft identitet</string>
+  <string name="IdentityActivity__view_identity">Vis identitet</string>
+  <string name="IdentityActivity__warning_the_entered_key_does_not_match">Den angitte nøkkelen stemmer ikke. Vennligst sjekk nøye.</string>
+  <string name="IdentityActivity__warning_the_scanned_key_does_not_match_please_check_the_fingerprint_text_carefully">ADVARSEL: Den skannede nøkkelen stemmer IKKE! Vennligst sjekk fingeravtrykksteksten nøye.</string>
+  <string name="IdentityActivity__you_do_not_have_an_identity_key">Du har ikke en identitetsnøkkel.</string>
+  <string name="IdentityActivity__your_fingerprint">Ditt fingeravtrykk</string>
+  <!--import_export_fragment-->
+  <string name="import_export_fragment__backup_restored">«Sikkerhetskopi gjenopprettet. SMSecure lukkes nå — åpne den på nytt for å fullføre gjenopprettingen.»</string>
+  <!--ImportFragment-->
+  <string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages">SMSecure trenger SMS-tillatelse for å kunne importere SMS-meldinger, men denne er blitt permanent nektet. Gå til appinnstillingene, velg «Tillatelser» og aktiver «SMS».</string>
+  <string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages_toast">SMSecure trenger SMS-tillatelse for å kunne importere SMS-meldinger</string>
+  <string name="ImportFragment_error_importing_backup">Feil ved import av sikkerhetskopi!</string>
+  <string name="ImportFragment_import_complete">Import fullført!</string>
+  <string name="ImportFragment_import_plaintext_backup">Importere sikkerhetskopi i ren tekst?</string>
+  <string name="ImportFragment_import_plaintext_backup_ellipse">Importerer sikkerhetskopi i ren tekst…</string>
+  <string name="ImportFragment_import_system_sms_database">Importere systemets SMS-database?</string>
+  <string name="ImportFragment_restore_encrypted_backup">Gjenopprette kryptert sikkerhetskopi?</string>
+  <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Gjenoppretting av en kryptert sikkerhetskopi vil erstatte alle eksisterende nøkler, innstillinger og meldinger. Du vil miste all informasjon som finnes i din nåværende SMSecure-installasjon, men ikke i sikkerhetskopien. SMSecure vil avsluttes etter importen.</string>
+  <string name="ImportFragment_restoring_encrypted_backup">Gjenoppretter kryptert sikkerhetskopi…</string>
+  <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Dette importerer meldinger fra en sikkerhetskopi i ren tekst. Hvis du tidligere har importert denne sikkerhetskopien, vil en ny import føre til dupliserte meldinger.</string>
+  <string name="ImportFragment_this_will_import_messages_from_the_system">Dette vil importere meldinger fra systemets standard SMS-database til SMSecure. Hvis du har importert systemets SMS-database tidligere, vil en ny import føre til dupliserte meldinger.</string>
+  <!--key_scanning-->
+  <string name="share_identity_fingerprint">Del identitetsfingeravtrykket ditt</string>
+  <!--KeyExchangeInitiator-->
+  <string name="KeyExchangeInitiator_initiate_despite_existing_request_question">Starte til tross for eksisterende forespørsel?</string>
+  <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Du har allerede sendt en forespørsel om å starte en økt til denne mottakeren. Er du sikker på at du vil sende en til? Dette vil ugyldiggjøre den første forespørselen.</string>
+  <!--load_more_header-->
+  <string name="load_more_header__see_full_conversation">Se hele samtalen</string>
+  <!--log_submit_activity-->
+  <string name="log_submit__button_copy">Kopier logg</string>
+  <string name="log_submit__button_share_link">Del lenke</string>
+  <string name="log_submit__button_share_logs">Del logg</string>
+  <string name="log_submit_activity__collecting_logs">Samler inn logg…</string>
+  <string name="log_submit_activity__log_collect_failed">Kunne ikke samle inn logg.</string>
+  <string name="log_submit_activity__log_fetch_failed">Kunne ikke samle inn eller laste opp logg.</string>
+  <string name="log_submit_activity__log_upload_failed">Kunne ikke laste opp logg.</string>
+  <string name="log_submit_activity__log_uploaded">Loggen er lastet opp. Lenken er kopiert til utklippstavlen.</string>
+  <string name="log_submit_activity__thanks">Takk for hjelpen!</string>
+  <string name="log_submit_activity__uploading_logs">Laster opp logg…</string>
+  <string name="log_submit_copied">Logg kopiert.</string>
+  <!--message_details_header-->
+  <string name="message_details_header__from">Fra</string>
+  <string name="message_details_header__issues_need_your_attention">Noen problemer krever din oppmerksomhet.</string>
+  <string name="message_details_header__received">Mottatt</string>
+  <string name="message_details_header__sent">Sendt</string>
+  <string name="message_details_header__to">Til</string>
+  <string name="message_details_header__type">Type</string>
+  <!--message_recipients_list_item-->
+  <string name="message_recipients_list_item__resend">Send på nytt</string>
+  <string name="message_recipients_list_item__verify">Bekreft</string>
+  <!--MessageDetailsRecipient-->
+  <string name="MessageDetailsRecipient_failed_to_send">Kunne ikke sende</string>
+  <string name="MessageDetailsRecipient_new_identity">Ny identitet</string>
+  <!--MessageDisplayHelper-->
+  <string name="MessageDisplayHelper_bad_encrypted_message">Feil kryptert melding</string>
+  <string name="MessageDisplayHelper_decrypting_please_wait">Dekryptering, vent…</string>
+  <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Forespørsel om å avslutte en ikke-eksisterende økt</string>
+  <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Melding kryptert for ikke-eksisterende økt</string>
+  <!--MessageNotifier-->
+  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nye meldinger i <xliff:g id="arg2">%2$d</xliff:g> samtaler</string>
+  <string name="MessageNotifier_encrypted_message">Kryptert melding</string>
+  <string name="MessageNotifier_error_delivering_message">Feil ved levering av melding.</string>
+  <string name="MessageNotifier_failed_to_deliver_message">Kunne ikke levere melding.</string>
+  <string name="MessageNotifier_mark_all_as_read">Merk alt som lest</string>
+  <string name="MessageNotifier_mark_read">Merk som lest</string>
+  <string name="MessageNotifier_message_delivery_failed">Meldingslevering mislyktes.</string>
+  <string name="MessageNotifier_message_received">Melding mottatt av <xliff:g id="arg1">%s</xliff:g>.</string>
+  <string name="MessageNotifier_most_recent_from_s">Siste fra: <xliff:g id="arg1">%1$s</xliff:g></string>
+  <string name="MessageNotifier_reply">Svar</string>
+  <!--MessageRecord-->
+  <string name="MessageRecord_key_exchange_message">Nøkkelutvekslingsmelding</string>
+  <string name="MessageRecord_left_group">Du har forlatt gruppen.</string>
+  <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Du har mottatt en melding kryptert med en gammel versjon av SMSecure som ikke lenger støttes. Be avsenderen om å oppgradere til den nyeste versjonen og sende meldingen på nytt.</string>
+  <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Meldingen du mottok, kom fra en versjon av SMSecure som er for utdatert til å kommunisere med din versjon. Du må sende den manuelt for å starte en sikker økt. Trykk for å sende en nøkkelutvekslingsmelding.</string>
+  <string name="MessageRecord_updated_group">Oppdaterte gruppen.</string>
+  <!--MuteDialog-->
+  <string name="MuteDialog_mute_notifications">Demp varsler</string>
+  <!--Notification Channels-->
+  <string name="NotificationChannel_failures">Feil</string>
+  <string name="NotificationChannel_locked_status">Låst status</string>
+  <string name="NotificationChannel_messages">Meldinger</string>
+  <string name="NotificationChannel_other">Annet</string>
+  <!--PassphraseChangeActivity-->
+  <string name="PassphraseChangeActivity_change_passphrase">Endre passord</string>
+  <string name="PassphraseChangeActivity_create_passphrase">Opprett passord</string>
+  <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Ingen passordfrase angitt!</string>
+  <string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Feil gammel passordfrase!</string>
+  <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Passordfrasene stemmer ikke overens!</string>
+  <!--PassphrasePromptActivity-->
+  <string name="PassphrasePromptActivity_enter_passphrase">Skriv inn passord</string>
+  <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Ugyldig passord!</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">SMSecure-ikon</string>
+  <!--Permissions-->
+  <string name="Permissions_not_now">Ikke nå</string>
+  <string name="Permissions_permission_required">Tillatelse kreves</string>
+  <!--plurals.xml-->
+  <plurals name="hours_ago">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> time</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> timer</item>
+    </plurals>
+  <!--preferences.xml-->
+  <string name="preferences__about">Om SMSecure</string>
+  <string name="preferences__about_version">Versjon <xliff:g id="arg1">%s</xliff:g></string>
+  <string name="preferences__advanced">Avansert</string>
+  <string name="preferences__always_ask_for_sim_card">Spør alltid etter SIM-kort</string>
+  <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Spør alltid om hvilket SIM-kort som skal brukes når du sender meldinger</string>
+  <string name="preferences__appearance">Utseende</string>
+  <string name="preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key">Fullfør automatisk nøkkelutveksling for nye økter eller for eksisterende økter med samme identitetsnøkkel</string>
+  <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Slett automatisk eldre meldinger når en samtale overskrider en angitt lengde</string>
+  <string name="preferences__blocked_contacts">Blokkerte kontakter</string>
+  <string name="preferences__change_notification_sound">Endre meldingsvarslingslyd</string>
+  <string name="preferences__change_passphrase">Endre passord</string>
+  <string name="preferences__change_your_passphrase">Endre passordet ditt</string>
+  <string name="preferences__chats">Chat og medier</string>
+  <string name="preferences__complete_key_exchanges">Fullfør nøkkelutveksling</string>
+  <string name="preferences__conversation_length_limit">Begrensning på samtalelengde</string>
+  <string name="preferences__dark_theme">Mørk</string>
+  <string name="preferences__delete_old_messages">Slett gamle meldinger</string>
+  <string name="preferences__diagnostic_logging_level">Diagnostisk loggnivå</string>
+  <string name="preferences__diagnostic_logging_level_summary">Styrer hvor mye diagnostisk informasjon SMSecure lagrer internt.</string>
+  <string name="preferences__disable_emoji_drawer">Deaktiver emoji-skuff</string>
+  <string name="preferences__disable_screen_security_to_allow_screen_shots">Blokker kopiering av skjermbildet i “nylige”-listen og inne i programmet</string>
+  <string name="preferences__disable_smsecures_built_in_emoji_support">Deaktiver SMSecures innebygde emoji-støtte</string>
+  <string name="preferences__display_a_notification_when_a_delivery_report_is_received">Vis en melding når en leveringsrapport mottas</string>
+  <string name="preferences__display_in_notifications">Vis i varsler</string>
+  <string name="preferences__display_in_notifications_which_elements_show">Velg hvilke elementer som skal vises i varselet</string>
+  <string name="preferences__enable_local_encryption_of_messages_and_keys">Aktiver lokal kryptering av meldinger og nøkler</string>
+  <string name="preferences__enable_message_notifications">Aktiver meldingsvarsler</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Automatisk låsing ved skjermlås</string>
+  <string name="preferences__enable_passphrase">Aktiver passord</string>
+  <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Aktiver dette alternativet hvis tastaturet ditt støtter emojier.</string>
+  <string name="preferences__enter_key_summary">Velg om Enter-tasten skal sende meldingen eller sette inn en ny linje</string>
+  <string name="preferences__five_times">Fem ganger</string>
+  <string name="preferences__forget_passphrase_from_memory_after_some_interval">Krev passord for å få tilgang til meldinger etter en viss tid</string>
+  <string name="preferences__hide_divider_between_read_and_unread_messages">Skjul skillelinjen mellom leste og uleste meldinger</string>
+  <string name="preferences__hide_unread_message_divider">Skjul skille for uleste meldinger</string>
+  <string name="preferences__hours">timer</string>
+  <string name="preferences__in_conversation_notifications">Varsler i samtaler</string>
+  <string name="preferences__incognito_keyboard">Incognito-tastatur</string>
+  <string name="preferences__keyboard_settings">Tastaturalternativer</string>
+  <string name="preferences__language">Språk</string>
+  <string name="preferences__language_summary">Applikasjonsspråk</string>
+  <string name="preferences__make_default_sms_app">Angi som standard SMS-app</string>
+  <string name="preferences__make_smsecure_the_default_sms_app">Gjør SMSecure til standard SMS-app for systemet ditt.</string>
+  <string name="preferences__message_trimming">Meldingstrimming</string>
+  <string name="preferences__messages">Meldinger</string>
+  <string name="preferences__minutes">minutter</string>
+  <plurals name="preferences__msgs_short">
+        <item quantity="one"><xliff:g id="arg1">%d</xliff:g> melding</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> meldinger</item>
+    </plurals>
+  <string name="preferences__never">Aldri</string>
+  <string name="preferences__notifications">Varsler</string>
+  <string name="preferences__one_time">Én gang</string>
+  <string name="preferences__panic_button">Panikknapp</string>
+  <string name="preferences__play_inthread_notifications">Spill av varslingslyd når du viser en aktiv samtale.</string>
+  <string name="preferences__pref_timeout_interval_title">Tidsavbruddsintervall</string>
+  <string name="preferences__privacy">Personvern</string>
+  <string name="preferences__privacy_policy">Personvernpolicy</string>
+  <string name="preferences__repeat_notification">Gjenta varsel</string>
+  <string name="preferences__repeat_notification_number_times_select">Velg antall ganger varselet skal gjentas</string>
+  <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Be om en leveringsrapport for hver SMS-melding du sender</string>
+  <string name="preferences__request_keyboard_to_disable_personalized_learning">Hvis du er i inkognitomodus, vil tastaturet ikke huske, lære eller lagre noen ord du skriver</string>
+  <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Gjennomgå alle samtaler og håndhev grensen for samtalelengde</string>
+  <string name="preferences__screen_security">Skjermsikkerhet</string>
+  <string name="preferences__show_sent_time">Vis sendetid</string>
+  <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Vis sendetidspunkt i stedet for mottaksidspunkt for innkommende meldinger</string>
+  <string name="preferences__sms_delivery_reports">SMS-leveringsrapporter</string>
+  <string name="preferences__sms_delivery_reports_notification">Varsel om SMS-leveringsrapporter</string>
+  <string name="preferences__sound">Lyd</string>
+  <string name="preferences__submit_debug_log">Send feilsøkingslogg</string>
+  <string name="preferences__submit_debug_log_summary">Samle inn diagnostisk informasjon og del den for feilsøking.</string>
+  <string name="preferences__summary_enable_panic_on_device_lock_button">Lås appen automatisk når enheten er låst</string>
+  <string name="preferences__summary_panic_button">Aktiver panikknapp fra «Ripple: respond when panicking» av Guardian Project</string>
+  <string name="preferences__ten_times">Ti ganger</string>
+  <string name="preferences__theme">Tema</string>
+  <string name="preferences__theme_light">Lys</string>
+  <string name="preferences__theme_summary">Velg utseende på appen</string>
+  <string name="preferences__theme_systemic">Systemisk</string>
+  <string name="preferences__three_times">Tre ganger</string>
+  <string name="preferences__timeout_passphrase">Passord for tidsavbrudd</string>
+  <string name="preferences__trim_all_conversations_now">Trim alle samtaler nå</string>
+  <string name="preferences__two_times">To ganger</string>
+  <string name="preferences__use_system_emoji">Bruk system-emoji</string>
+  <string name="preferences__write_logs_to_android_logcat">Skriv logger til Android logcat</string>
+  <string name="preferences__write_logs_to_android_logcat_summary">Lar SMSecure skrive loggene sine til systemloggen. Deaktiver dette for bedre personvern.</string>
+  <!--prompt_passphrase_activity-->
+  <string name="prompt_passphrase_activity__unlock">Unlock</string>
+  <!--QR code-->
+  <string name="QrScanActivity__align_qr">Juster QR</string>
+  <!--QuickResponseService-->
+  <string name="QuickResponseService_problem_sending_message">Problem med å sende melding!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_SMSecure_is_locked">Hurtigrespons er ikke tilgjengelig når SMSecure er låst!</string>
+  <!--receive_key_dialog-->
+  <string name="receive_key_activity__complete">Fullført</string>
+  <!--ReceiveKeyActivity-->
+  <string name="ConfirmIdentityDialog_you_may_wish_to_verify_this_contact">Du bør bekrefte identiteten til denne kontakten.</string>
+  <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_different">Signaturen på denne nøkkelutvekslingen er annerledes enn den du tidligere har mottatt fra denne kontakten. Dette kan enten bety at noen prøver å avlytte kommunikasjonen din, eller at denne kontakten ganske enkelt har installert SMSecure på nytt og nå har en ny identitetsnøkkel.</string>
+  <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but">Signaturen tilhørende denne nøkkelutvekslingen er betrodd, men du har skrudd av \’fullfør nøkkelutvekslinger automatisk\’.</string>
+  <!--recipient_preferences-->
+  <string name="recipient_preferences__block">Blokk</string>
+  <string name="recipient_preferences__color">Farge</string>
+  <string name="recipient_preferences__color_for_this_contact">Farge for denne kontakten</string>
+  <string name="recipient_preferences__disable_notifications_for_this_conversation">Deaktiver varsler for denne samtalen</string>
+  <string name="recipient_preferences__mute_conversation">Demp samtale</string>
+  <string name="recipient_preferences__notification_sound">Varslingslyd</string>
+  <!--recipient_preferences_activity-->
+  <string name="recipient_preference_activity__blocked">Blokkert</string>
+  <!--RecipientPreferencesActivity-->
+  <string name="RecipientPreferenceActivity_are_you_sure_you_want_to_unblock_this_contact">Er du sikker på at du vil oppheve blokkeringen av denne kontakten?</string>
+  <string name="RecipientPreferenceActivity_block">Blokk</string>
+  <string name="RecipientPreferenceActivity_block_this_contact_question">Blokkere denne kontakten?</string>
+  <string name="RecipientPreferenceActivity_unblock">Fjern blokkering</string>
+  <string name="RecipientPreferenceActivity_unblock_this_contact_question">Fjern blokkeringen av denne kontakten?</string>
+  <string name="RecipientPreferenceActivity_you_will_no_longer_see_messages_from_this_user">Du vil ikke lenger se meldinger sendt fra denne brukeren.</string>
+  <!--recipients_panel-->
+  <string name="recipients_panel__add_member">Legg til deltaker</string>
+  <string name="recipients_panel__to">Skriv inn et navn eller et nummer</string>
+  <!--reminder_header-->
+  <string name="reminder_header_delivery_reports_text">Leveringsrapporter lar deg vite om og når mottakeren har mottatt meldingene dine. Noen mobilnettverk krever ekstra gebyr.</string>
+  <string name="reminder_header_delivery_reports_title">Aktiver leveringsrapporter?</string>
+  <string name="reminder_header_rate_button">Vurder nå!</string>
+  <string name="reminder_header_rate_text">Hvis du liker å bruke denne appen, kan du ta deg et øyeblikk til å hjelpe oss ved å vurdere den.</string>
+  <string name="reminder_header_rate_title">Vurder denne appen</string>
+  <string name="reminder_header_sms_default_button">Sett</string>
+  <string name="reminder_header_sms_default_text_mandatory">SMSecure må være din standard SMS-app for å motta meldinger.</string>
+  <string name="reminder_header_sms_default_title">Brukes som standard SMS-app?</string>
+  <string name="reminder_header_sms_import_text">Trykk for å kopiere SMS-meldingene på telefonen din til SMSecures krypterte database.</string>
+  <string name="reminder_header_sms_import_title">Importere system-SMS?</string>
+  <!--RingtonePreference-->
+  <string name="RingtonePreference_add_ringtone_text">Legg til ringetone</string>
+  <string name="RingtonePreference_application_default">Applikasjonsstandard</string>
+  <string name="RingtonePreference_system_default">Systemstandard</string>
+  <string name="RingtonePreference_unable_to_add_ringtone">Kan ikke legge til egendefinert ringetone</string>
+  <!--ShareActivity-->
+  <string name="ShareActivity_share_with">Del med</string>
+  <!--single_contact_selection_activity-->
+  <string name="SingleContactSelectionActivity_contact_photo">Kontaktfoto</string>
+  <!--SingleRecipientNotificationBuilder-->
+  <string name="SingleRecipientNotificationBuilder_new_message">Ny melding</string>
+  <!--SmsMessageRecord-->
+  <string name="SmsMessageRecord_duplicate_message">Duplikatmelding.</string>
+  <string name="SmsMessageRecord_received_corrupted_key_exchange_message">Mottok feilaktig nøkkelutvekslingsmelding!</string>
+  <string name="SmsMessageRecord_received_key_exchange_message_for_invalid_protocol_version">Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
+  <string name="SmsMessageRecord_received_message_with_unknown_identity_key_tap_to_process">Mottatt melding med ukjent identitetsnøkkel. Trykk for å behandle og vise.</string>
+  <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Mottatt oppdatert, men ukjent identitetsinformasjon. Trykk for å bekrefte identiteten.</string>
+  <string name="SmsMessageRecord_secure_session_ended">Sikker økt avsluttet.</string>
+  <!--SubscriptionInfoCompat-->
+  <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slot <xliff:g id="arg2">%2$d</xliff:g>)</string>
+  <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+  <!--ThreadRecord-->
+  <string name="ThreadRecord_draft">Utkast:</string>
+  <string name="ThreadRecord_left_the_group">Forlot gruppen</string>
+  <string name="ThreadRecord_media_message">Mediamelding</string>
+  <!--transport_selection_list_item-->
+  <string name="transport_selection_list_item__transport_icon">Transportikon</string>
+  <!--TransportOptions-->
+  <string name="TransportOptions_no_sim_card_found">Ingen SIM-kort funnet</string>
+  <string name="TransportOptions_sms_disabled">SMS-meldinger deaktivert</string>
+  <!--Trimmer-->
+  <string name="trimmer__deleting_old_messages">Sletter gamle meldinger…</string>
+  <string name="trimmer__old_messages_successfully_deleted">Gamle meldinger er slettet</string>
+  <!--WelcomeActivity-->
+  <string name="cd_welcome_image">Velkomstbilde</string>
+  <string name="WelcomeActivity_action_required">Handling kreves!</string>
+  <string name="WelcomeActivity_encrypt_your_messages">Krypter meldingene dine med SMSecure-brukere mens du bruker vanlige SMS-meldinger med andre.</string>
+  <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Forbedre personvernet ditt, snakk med alle</string>
+  <string name="WelcomeActivity_smsecure_needs_access_to_your_contacts_phone_status_and_sms">SMSecure trenger tilgang til kontaktene dine, telefonstatusen din og SMS-meldingene dine for å kunne koble deg til venner, administrere krypteringsnøklene dine og chatte.</string>
+  <string name="WelcomeActivity_smsecure_needs_the_phone_permission_in_order_to_manage_encryption_keys_and_bind_them_to_your_sim_cards_and_sms_permission_in_order_to_receive_sms_messages">SMSecure trenger telefonrettigheter for å administrere krypteringsnøkler og knytte dem til SIM-kortene dine, samt SMS-rettigheter for å motta SMS-meldinger.</string>
+  <string name="WelcomeActivity_smsecure_requires_the_phone_and_sms_permissions_in_order_to_work_but_it_has_been_permanently_denied">SMSecure trenger tillatelser for telefon og SMS for å fungere, men disse er blitt permanent nektet. Gå til appinnstillingene, velg «Tillatelser» og aktiver deretter «Telefon» og «SMS».</string>
+  <string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure">Du må gi SMSecure noen tillatelser.</string>
+  <string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure_in_order_to_continue_to_use_it">Du må gi SMSecure noen tillatelser for å kunne fortsette å bruke den. Trykk for å fortsette.</string>
+  </resources>

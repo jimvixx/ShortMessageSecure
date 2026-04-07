@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <permission
+        android:name="${applicationId}.ACCESS_SECRETS"
+        android:label="Access to SMSecure Secrets"
+        android:protectionLevel="signature" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true"
+        tools:ignore="UnnecessaryRequiredFeature" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="${applicationId}.ACCESS_SECRETS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission
+        android:name="android.permission.RECEIVE_SMS"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission
+        android:name="android.permission.SEND_SMS"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission
+        android:name="android.permission.READ_SMS"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission
+        android:name="android.permission.RECEIVE_MMS"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission
+        android:name="android.permission.WRITE_SMS"
+        tools:ignore="SmsAndCallLogPolicy,SystemPermissionTypo" />
+    <uses-permission
+        android:name="android.permission.RECEIVE_WAP_PUSH"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".ApplicationContext"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SMSecure"
+        tools:targetApi="33">
+        <meta-data
+            android:name="android.app.shortcuts"
+            android:resource="@xml/shortcuts" />
+
+        <receiver
+            android:name=".providers.BadgeWidgetProvider"
+            android:exported="true"
+            android:icon="@drawable/ic_smsecure"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/badge_widget_provider" />
+        </receiver>
+        <receiver
+            android:name=".util.dualsim.SimChangedReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SIM_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <activity
+            android:name=".ImportExportActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false" />
+        <activity
+            android:name=".ShareActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="video/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ConversationListActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.APP_MESSAGING" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ConversationListArchiveActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest_archived_conversations"
+            android:parentActivityName=".ConversationListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ConversationListActivity" />
+        </activity>
+        <activity
+            android:name=".ConversationActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:parentActivityName=".ConversationListActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ConversationListActivity" />
+        </activity>
+        <activity
+            android:name=".ConversationPopupActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:taskAffinity=""
+            android:theme="@style/Theme.SMSecure.Popup"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".MessageDetailsActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__message_details"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".GroupCreateActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".DatabaseMigrationActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false" />
+        <activity
+            android:name=".DatabaseUpgradeActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false" />
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.SMSecure" />
+
+        <activity
+            android:name=".PassphraseCreateActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__initializing_secure_storage"
+            android:theme="@style/SMSecure.IntroTheme"
+            android:windowSoftInputMode="stateUnchanged" />
+
+        <activity
+            android:name=".PassphrasePromptActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__enter_passphrase"
+            android:launchMode="singleTop"
+            android:theme="@style/SMSecure.IntroTheme"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+
+        <activity
+            android:name=".PassphraseChangeActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__change_passphrase" />
+
+        <activity
+            android:name=".NewConversationActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.SMSecure"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name=".PushContactSelectionActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__select_contacts"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ViewIdentityActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__public_identity_key" />
+
+        <activity
+            android:name=".VerifyIdentityActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__verify_identity" />
+        <activity
+            android:name=".ApplicationPreferencesActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false" />
+        <activity
+            android:name=".LogSubmitActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__log_submit"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SmsSendtoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RecipientPreferenceActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.SMSecure" />
+        <activity
+            android:name=".BlockedContactsActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.SMSecure" />
+
+        <activity
+            android:name=".PanicResponderActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="info.guardianproject.panic.action.TRIGGER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ExitActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <activity
+            android:name=".qr.QrScanActivity"
+            android:exported="false"
+            android:resizeableActivity="true" />
+
+        <service
+            android:name=".service.ApplicationMigrationService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".service.KeyCachingService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".service.QuickResponseService"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".security.DeviceLockPanicReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.DEVICE_LOCKED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".service.MmsListener"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".service.PassphraseTimeoutReceiver"
+            android:exported="false">
+            <!-- empty -->
+        </receiver>
+        <receiver
+            android:name=".service.SmsListener"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="1002">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".service.SmsDeliveryListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.services.MESSAGE_SENT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".notifications.MarkReadReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.notifications.CLEAR" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".notifications.RemoteReplyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.notifications.WEAR_REPLY" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".notifications.AndroidAutoHeardReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.notifications.ANDROID_AUTO_HEARD" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".notifications.AndroidAutoReplyReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.notifications.ANDROID_AUTO_REPLY" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".database.DatabaseContentProviders$Conversation"
+            android:authorities="${applicationId}.database.conversation"
+            android:exported="false" />
+        <provider
+            android:name=".database.DatabaseContentProviders$ConversationList"
+            android:authorities="${applicationId}.database.conversationlist"
+            android:exported="false" />
+        <provider
+            android:name=".database.DatabaseContentProviders$Attachment"
+            android:authorities="${applicationId}.database.attachment"
+            android:exported="false" />
+        <provider
+            android:name=".database.DatabaseContentProviders$Identities"
+            android:authorities="${applicationId}.database.identities"
+            android:exported="false" />
+        <provider
+            android:name=".database.DatabaseContentProviders$RecipientPreference"
+            android:authorities="${applicationId}.database.recipients"
+            android:exported="false" />
+
+        <receiver
+            android:name=".notifications.LocaleChangedReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".notifications.MessageNotifier$ReminderReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.MessageNotifier.REMINDER_ACTION" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".notifications.DeleteNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.DELETE_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
+        <receiver
+            android:name=".service.BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

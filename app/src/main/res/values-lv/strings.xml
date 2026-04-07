@@ -1,0 +1,619 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--AbstractNotificationBuilder-->
+<string name="AbstractNotificationBuilder_new_message">Jauns ziņojums</string>
+<!--AndroidManifest.xml-->
+<string name="AndroidManifest__change_passphrase">Mainīt paroli</string>
+<string name="AndroidManifest__enter_passphrase">Ievadiet paroli</string>
+<string name="AndroidManifest__initializing_secure_storage">Inicializē drošu uzglabāšanu…</string>
+<string name="AndroidManifest__log_submit">Nosūtīt debug log</string>
+<string name="AndroidManifest__public_identity_key">Publiskais identifikācijas atslēgas kods</string>
+<string name="AndroidManifest__select_contacts">Izvēlieties kontaktus</string>
+<string name="AndroidManifest__verify_identity">Pārbaudiet identitāti</string>
+<string name="AndroidManifest_archived_conversations">Arhivētās sarunas</string>
+<!--ApplicationMigrationService-->
+<string name="ApplicationMigrationService_import_complete">Importēšana pabeigta</string>
+<string name="ApplicationMigrationService_import_in_progress">Importēšana notiek</string>
+<string name="ApplicationMigrationService_importing_text_messages">Teksta ziņojumu importēšana</string>
+<string name="ApplicationMigrationService_system_database_import_is_complete">Sistēmas datu bāzes importēšana ir pabeigta.</string>
+<!--ApplicationPreferencesActivity-->
+<string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Jūs vēl neesat iestatījis paroli!</string>
+<string name="ApplicationPreferencesActivity_appearance_summary">Tēma <xliff:g id="arg1">%1$s</xliff:g>, Valoda <xliff:g id="arg2">%2$s</xliff:g></string>
+<string name="ApplicationPreferencesActivity_delete_all_old_messages_now">Dzēst visus vecos ziņojumus tagad?</string>
+<string name="ApplicationPreferencesActivity_disable_storage_encryption">Atcelt uzglabāšanas šifrēšanu?</string>
+<string name="ApplicationPreferencesActivity_incoming_summary">Ienākošais <xliff:g id="arg1">%s</xliff:g></string>
+<string name="ApplicationPreferencesActivity_privacy_summary">Parole <xliff:g id="arg1">%1$s</xliff:g>, Ekrāna drošība <xliff:g id="arg2">%2$s</xliff:g></string>
+<string name="ApplicationPreferencesActivity_sms_disabled">Ienākošās SMS ir atspējotas</string>
+<string name="ApplicationPreferencesActivity_sms_enabled">Ienākošo SMS iespēja</string>
+<string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">SMSecure pašlaik ir jūsu noklusējuma SMS lietotne</string>
+<string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Pieskarieties, lai SMSecure kļūtu par jūsu noklusējuma SMS lietotni</string>
+<plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="zero">Tas nekavējoties samazinās visas sarunas līdz <xliff:g id="arg1">%1$d</xliff:g> pēdējām ziņām.</item>
+        <item quantity="one">Tas nekavējoties samazinās visas sarunas līdz <xliff:g id="arg1">%1$d</xliff:g> jaunākajai ziņai.</item>
+        <item quantity="other">Tas nekavējoties samazinās visas sarunas līdz <xliff:g id="arg1">%1$d</xliff:g> jaunākajām ziņām.</item>
+    </plurals>
+<string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">“Brīdinājums: tas atspējos visu ziņojumu un atslēgu uzglabāšanas šifrēšanu. Jūsu šifrētās sesijas turpinās darboties, bet ikviens, kam būs fiziska piekļuve jūsu ierīcei, varēs tās lasīt.”</string>
+<!--AppProtectionPreferenceFragment-->
+<plurals name="AppProtectionPreferenceFragment_minutes">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> minūtes</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> minūte</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minūtes</item>
+    </plurals>
+<!--arrays.xml-->
+<string name="arrays__basic">Pamata</string>
+<string name="arrays__errors">Tikai kļūdas</string>
+<string name="arrays__mute_for_one_day">Apskaņot uz vienu dienu</string>
+<string name="arrays__mute_for_one_hour">Skaņas izslēgšana uz 1 stundu</string>
+<string name="arrays__mute_for_one_year">Apskaņot uz 1 gadu</string>
+<string name="arrays__mute_for_seven_days">Skaņas izslēgšana uz 7 dienām</string>
+<string name="arrays__mute_for_two_hours">Skaņas izslēgšana uz 2 stundām</string>
+<string name="arrays__name_and_message">Nosaukums un ziņojums</string>
+<string name="arrays__name_only">Nosaukums</string>
+<string name="arrays__new_line">Jauna rinda</string>
+<string name="arrays__no_name_or_message">Nekas</string>
+<string name="arrays__use_custom">Izmantojiet custom</string>
+<string name="arrays__use_default">Izmantot noklusējumu</string>
+<string name="arrays__verbose">Verbose</string>
+<!--blocked_contacts_fragment-->
+<string name="blocked_contacts_fragment__no_blocked_contacts">Nav bloķētu kontaktu</string>
+<!--BlockedContactsActivity-->
+<string name="BlockedContactsActivity_blocked_contacts">Bloķētie kontakti</string>
+<!--change_passphrase_activity-->
+<string name="change_passphrase_activity__new_passphrase">Jauna paroles frāze</string>
+<string name="change_passphrase_activity__old_passphrase">Vecā parole</string>
+<string name="change_passphrase_activity__repeat_new_passphrase">Atkārtojiet jauno paroli</string>
+<!--Common-->
+<string name="Cancel">Atcelt</string>
+<string name="Clear">Clear</string>
+<string name="Close">Aizvērt</string>
+<string name="Confirm">Apstiprināt</string>
+<string name="Continue">Turpināt</string>
+<string name="Copied_to_clipboard">Kopēts uz starpliktuvi</string>
+<string name="Copy">Kopēt</string>
+<string name="Custom">Custom</string>
+<string name="Default">Noklusējums</string>
+<string name="Delete">Dzēst</string>
+<string name="Deleting">Dzēšana…</string>
+<string name="Dialpad">Dialpad</string>
+<string name="Disable">Atspējot</string>
+<string name="Disabled">Atspējots</string>
+<string name="Enable">Ieslēgt</string>
+<string name="Enabled">Iespējots</string>
+<string name="Flashlight">Zibspuldze</string>
+<string name="Import">Importēt</string>
+<string name="Import_Export">Importēt / Eksportēt</string>
+<string name="Importing">Importēšana</string>
+<string name="Keyboard">Tastatūra</string>
+<string name="No">Nē</string>
+<string name="None">Nav</string>
+<string name="Off">Izslēgts</string>
+<string name="On">On</string>
+<string name="QR_code">QR kods</string>
+<string name="Search">Meklēšana</string>
+<string name="Send">Sūtīt</string>
+<string name="Share">Dalīties</string>
+<string name="Silent">Silent</string>
+<string name="SMS">SMS</string>
+<string name="Yes">Jā</string>
+<!--contact_selection_activity-->
+<string name="contact_selection_activity__enter_name_or_number">Ievadiet vārdu vai numuru</string>
+<!--contact_selection_group_activity-->
+<string name="contact_selection_group_activity__finding_contacts">Kontaktu ielāde…</string>
+<string name="contact_selection_group_activity__no_contacts">Nav kontaktu.</string>
+<!--contact_selection_list-->
+<string name="contact_selection_list__unknown_contact">Jauns ziņojums uz…</string>
+<!--contact_selection_list_fragment-->
+<string name="contact_selection_list_fragment__show_contacts">Rādīt kontaktus</string>
+<string name="contact_selection_list_fragment__smsecure_needs_access_to_your_contacts_in_order_to_display_them">SMSecure ir nepieciešama piekļuve jūsu kontaktiem, lai tos parādītu.</string>
+<!--ContactSelectionListFragment-->
+<string name="ContactSelectionListFragment_smsecure_requires_the_contacts_permission_in_order_to_display_your_contacts">SMSecure ir nepieciešama atļauja piekļūt kontaktiem, lai parādītu jūsu kontaktus, taču tā ir pastāvīgi atteikta. Lūdzu, dodieties uz lietotnes iestatījumu izvēlni, izvēlieties “Atļaujas” un aktivizējiet “Kontakti”.</string>
+<!--conversation-->
+<string name="conversation_menu__archive_conversation">Arhivēt sarunu</string>
+<string name="conversation_menu__conversation_settings">Sarunas iestatījumi</string>
+<string name="conversation_menu__delete_conversation">Dzēst sarunu</string>
+<string name="conversation_menu__unarchive_conversation">Atvērt sarunas arhīvu</string>
+<!--conversation_activity-->
+<string name="conversation_activity__emoji_toggle_description">Pārslēgt emodži tastatūru</string>
+<string name="conversation_activity__type_message_sms_insecure">Nosūtīt nedrošu SMS</string>
+<string name="conversation_activity__type_message_sms_secure">Nosūtīt drošu SMS</string>
+<string name="conversation_activity__via_sim_name">Caur <xliff:g id="arg1">%1$s</xliff:g></string>
+<!--conversation_callable-->
+<string name="conversation_callable__menu_call">Zvanīt</string>
+<!--conversation_callable-->
+<string name="conversation_add_to_contacts__menu_add_to_contacts">Pievienot kontaktiem</string>
+<!--conversation_context-->
+<string name="conversation_context__menu_copy_text">Kopēt tekstu</string>
+<string name="conversation_context__menu_delete_message">Dzēst ziņojumu</string>
+<string name="conversation_context__menu_forward_message">Pārsūtīt ziņojumu</string>
+<string name="conversation_context__menu_message_details">Ziņojuma informācija</string>
+<string name="conversation_context__menu_resend_message">Nosūtīt ziņojumu atkārtoti</string>
+<!--conversation_fragment-->
+<string name="conversation_fragment__scroll_to_the_bottom_content_description">Pārvietojieties uz apakšu</string>
+<!--conversation_fragment_cab-->
+<string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> izvēlēts</string>
+<string name="conversation_fragment_cab__batch_selection_mode">Izvēlēties</string>
+<!--conversation_group_options-->
+<string name="conversation_group_options__recipients_list">Saņēmēju saraksts</string>
+<!--conversation_insecure-->
+<string name="conversation_insecure__invite">Uzaicinājums</string>
+<!--conversation_insecure_no_push-->
+<string name="conversation_insecure__menu_start_secure_session">Sākt drošu sesiju</string>
+<string name="conversation_insecure__security">Drošība</string>
+<!--conversation_item-->
+<string name="conversation_item__secure_message_description">Droša ziņa</string>
+<!--conversation_item_received-->
+<string name="conversation_item_received__contact_photo_description">Kontakta foto</string>
+<!--conversation_item_sent-->
+<string name="conversation_item_sent__delivered_description">Piegādāts</string>
+<string name="conversation_item_sent__pending_approval_description">Gaida apstiprinājumu</string>
+<string name="conversation_item_sent__send_failed_indicator_description">Nosūtīšana neizdevās</string>
+<string name="conversation_item_sent__sent_description">Nosūtīts</string>
+<!--conversation_list_batch-->
+<string name="conversation_list_batch__menu_delete_selected">Dzēst atlasīto</string>
+<string name="conversation_list_batch__menu_select_all">Izvēlēties visu</string>
+<string name="conversation_list_batch__menu_send_drafts">Nosūtīt atlasītos uzmetumus</string>
+<string name="conversation_list_batch_archive__menu_archive_selected">Arhīvs izvēlēts</string>
+<string name="conversation_list_batch_unarchive__menu_unarchive_selected">Atvērt atlasītos</string>
+<!--conversation_list_fragment-->
+<string name="conversation_list_fragment__fab_content_description">Jauna saruna</string>
+<!--conversation_list_item_view-->
+<string name="conversation_list_item_view__archive">Arhīvs</string>
+<string name="conversation_list_item_view__archived">Arhivēts</string>
+<string name="conversation_list_item_view__contact_photo_image">Kontakta avatārs</string>
+<string name="conversation_list_item_view__unarchive">Atvērt arhīvu</string>
+<!--conversation_list_menu-->
+<string name="conversation_list_menu__archived_conversations">Arhivētās sarunas</string>
+<string name="conversation_list_menu__lock">Bloķēt</string>
+<string name="conversation_list_menu__mark_all_as_read">Atzīmēt visus kā izlasītus</string>
+<string name="conversation_list_menu__new_group">Jauna grupa</string>
+<string name="conversation_list_menu__new_message">Jauns ziņojums</string>
+<string name="conversation_list_menu__settings">Iestatījumi</string>
+<string name="conversation_list_menu__your_identity_key">Jūsu identifikācijas atslēga</string>
+<!--conversation_muted-->
+<string name="conversation_muted__unmute">Atbloķēt</string>
+<!--conversation_popup-->
+<string name="conversation_popup__menu_expand_popup">Izvēlnes izvēršana</string>
+<!--conversation_secure_verified-->
+<string name="conversation_secure_verified__menu_abort_secure_session">Beigt drošo sesiju</string>
+<string name="conversation_secure_verified__menu_verify_identity">Apstiprināt identitāti</string>
+<!--conversation_unmuted-->
+<string name="conversation_unmuted__mute_notifications">Apturēt paziņojumus</string>
+<!--ConversationActivity-->
+<string name="ConversationActivity__group">Grupa</string>
+<string name="ConversationActivity_abort_secure_session_confirmation">Beigt drošo sesiju?</string>
+<string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Vai esat pārliecināts, ka vēlaties pārtraukt šo drošo sesiju?</string>
+<string name="ConversationActivity_calls_not_supported">Zvani netiek atbalstīti</string>
+<string name="ConversationActivity_cant_open_link">Nevar atrast lietotni, kas varētu atvērt šo saiti.</string>
+<string name="ConversationActivity_compose_message">Sagatavot ziņojumu</string>
+<plurals name="ConversationActivity_d_recipients_in_group">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> dalībnieki</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> dalībnieks</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> dalībnieki</item>
+    </plurals>
+<string name="ConversationActivity_delete_thread_question">Dzēst sarunu?</string>
+<string name="ConversationActivity_detected_smsecure_initiate_session_question">Saņemta ziņa no kāda, kam arī ir SMSecure, uzsākt drošu šifrētu sesiju?</string>
+<string name="ConversationActivity_group_members">Grupas dalībnieki</string>
+<string name="ConversationActivity_initiate_secure_session_question">Uzsākt drošu sesiju?</string>
+<string name="ConversationActivity_initiate_secure_session_with_s_question">Uzsākt drošu sesiju ar <xliff:g id="arg1">%s</xliff:g>?</string>
+<string name="ConversationActivity_install_smssecure">Sazināsimies droši: <xliff:g id="arg1">%s</xliff:g></string>
+<string name="ConversationActivity_invalid_recipient">Nepareizs saņēmējs!</string>
+<string name="ConversationActivity_message_is_empty_exclamation">Ziņojums, kuru mēģināt nosūtīt, ir tukšs!</string>
+<string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">Saņēmējs nav derīga SMS vai e-pasta adrese!</string>
+<string name="ConversationActivity_recipient_self">Drošas sesijas var izveidot tikai ar citām personām.</string>
+<string name="ConversationActivity_smsecure_needs_sms_permission_in_order_to_send_an_sms">Lai nosūtītu SMS, SMSecure ir nepieciešama SMS atļauja, taču tā ir pastāvīgi atteikta. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un aktivizējiet “SMS”.</string>
+<string name="ConversationActivity_specify_recipient">Lūdzu, izvēlieties kontaktu</string>
+<string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">Šķiet, ka šī ierīce neatbalsta zvanīšanas darbības.</string>
+<string name="ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation">Tas neatgriezeniski dzēsīs visus ziņojumus šajā sarunā.</string>
+<string name="ConversationActivity_transport_insecure_sms">Nedrošas SMS</string>
+<string name="ConversationActivity_transport_secure_sms">Drošs SMS</string>
+<string name="ConversationActivity_unnamed_group">Nenosauktā grupa</string>
+<!--ConversationAdapter-->
+<plurals name="ConversationAdapter_n_unread_messages">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> nelasīti ziņojumi</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nelasīts ziņojums</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nelasīti ziņojumi</item>
+    </plurals>
+<!--ConversationFragment-->
+<string name="ConversationFragment_delete_selected_message">Dzēst izvēlēto ziņojumu?</string>
+<string name="ConversationFragment_delete_selected_messages">Dzēst atlasītos ziņojumus?</string>
+<string name="ConversationFragment_deleting_messages">Dzēš ziņojumus…</string>
+<string name="ConversationFragment_pending">Pending…</string>
+<plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
+        <item quantity="zero">Tas neatgriezeniski izdzēsīs visus <xliff:g id="arg1">%1$d</xliff:g> atlasītos ziņojumus.</item>
+        <item quantity="one">Tas neatgriezeniski izdzēsīs <xliff:g id="count">%1$d</xliff:g> atlasīto ziņojumu.</item>
+        <item quantity="other">Tas neatgriezeniski izdzēsīs visus <xliff:g id="arg1">%1$d</xliff:g> atlasītos ziņojumus.</item>
+    </plurals>
+<!--ConversationItem-->
+<string name="ConversationItem_click_for_details">Pieskarieties, lai uzzinātu vairāk</string>
+<string name="ConversationItem_error_not_delivered">Nav piegādāts</string>
+<string name="ConversationItem_error_received_stale_key_exchange_message">Saņemts novecojis atslēgas apmaiņas ziņojums.</string>
+<string name="ConversationItem_group_action_left"><xliff:g id="arg1">%1$s</xliff:g> ir izstājies no grupas.</string>
+<string name="ConversationItem_received_key_exchange_message_tap_to_process">Saņemts atslēgas apmaiņas ziņojums, pieskarieties, lai apstrādātu.</string>
+<string name="ConversationItem_via_s">caur <xliff:g id="arg1">%s</xliff:g></string>
+<string name="ConversationItem_xmpp_address_update_smsecure">XMPP adrese. Atjauniniet SMSecure, lai aktivizētu šo funkciju.</string>
+<!--ConversationListFragment-->
+<plurals name="ConversationListFragment_conversations_archived">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> sarunas arhivētas</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> saruna arhivēta</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> sarunas arhivētas</item>
+    </plurals>
+<string name="ConversationListFragment_delete_selected_conversation">Dzēst izvēlēto sarunu?</string>
+<string name="ConversationListFragment_delete_selected_conversations">Dzēst atlasītās sarunas?</string>
+<string name="ConversationListFragment_deleting_selected_conversations">Dzēš izvēlētas sarunas…</string>
+<plurals name="ConversationListFragment_moved_conversations_to_inbox">
+        <item quantity="zero">Pārvietotas <xliff:g id="arg1">%1$d</xliff:g> sarunas uz iesūtni</item>
+        <item quantity="one">Pārvietota <xliff:g id="arg1">%1$d</xliff:g> saruna uz iesūtni</item>
+        <item quantity="other">Pārvietotas <xliff:g id="arg1">%1$d</xliff:g> sarunas uz iesūtni</item>
+    </plurals>
+<string name="ConversationListFragment_send_drafts">Nosūtīt uzmetumus</string>
+<string name="ConversationListFragment_sending">Sūtīšana</string>
+<string name="ConversationListFragment_sending_selected_drafts">Nosūta atlasītos uzmetumus…</string>
+<plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
+        <item quantity="zero">Tas neatgriezeniski dzēsīs visas <xliff:g id="arg1">%1$d</xliff:g> atlasītās sarunas.</item>
+        <item quantity="one">Tas neatgriezeniski dzēsīs <xliff:g id="arg1">%1$d</xliff:g> atlasītu sarunu.</item>
+        <item quantity="other">Tas neatgriezeniski dzēsīs visas <xliff:g id="arg1">%1$d</xliff:g> atlasītās sarunas.</item>
+    </plurals>
+<string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Tas nosūtīs izvēlēto sarunu uzmetumus.</string>
+<string name="ConversationListFragment_undo">ATCELT</string>
+<!--ConversationListItemArchived-->
+<string name="ConversationListItemAction_archived_conversations_d">Arhivētās sarunas (<xliff:g id="arg1">%d</xliff:g>)</string>
+<!--CustomDefaultPreference-->
+<string name="CustomDefaultPreference_using_custom">Izmantojot custom: <xliff:g id="arg1">%s</xliff:g></string>
+<string name="CustomDefaultPreference_using_default">Izmantojot noklusējumu: <xliff:g id="arg1">%s</xliff:g></string>
+<!--database_migration_activity-->
+<string name="database_migration_activity__import_database_image_description">Datubāzes importēšanas ilustrācija</string>
+<string name="database_migration_activity__import_status">0/100</string>
+<string name="database_migration_activity__importing_database">Datubāzes importēšana…</string>
+<string name="database_migration_activity__this_could_take_a_moment_please_be_patient">Tas var aizņemt dažas minūtes. Lūdzu, esiet pacietīgi, jūs saņemsiet paziņojumu, kad importēšana būs pabeigta.</string>
+<!--database_upgrade_activity-->
+<string name="database_upgrade_activity__updating_database">Datubāzes atjaunināšana…</string>
+<!--DateUtils-->
+<string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> min</string>
+<string name="DateUtils_now">Tagad</string>
+<string name="DateUtils_today">Šodien</string>
+<string name="DateUtils_yesterday">Vakar</string>
+<!--Distribution-->
+<string name="Distribution_long_description">SMSecure ir SMS lietotne, kas ļauj aizsargāt jūsu privātumu, sazinoties ar draugiem.\nIzmantojot SMSecure, jūs varat sūtīt SMS ziņojumus un dalīties ar multivides failiem vai pielikumiem, pilnībā saglabājot privātumu.\n\nFunkcijas:\n* Vienkārši. SMSecure darbojas tāpat kā jebkura cita SMS lietotne. Nav nekas jāreģistrē, un jūsu draugiem nav jāpievienojas jaunam pakalpojumam.\n* Uzticams. SMSecure sazinās, izmantojot šifrētus SMS ziņojumus. Nav nepieciešami serveri vai interneta savienojums.\n* Privāts. SMSecure nodrošina jūsu ziņojumu šifrēšanu no gala līdz galam, izmantojot rūpīgi izstrādāto Signal šifrēšanas protokolu.\n* Drošs. Visas ziņas tiek šifrētas lokāli, tādējādi, ja jūsu tālrunis tiek nozaudēts vai nozagts, jūsu ziņas ir aizsargātas.\n* Atvērtā koda. SMSecure ir bezmaksas un atvērtā koda, ļaujot ikvienam pārbaudīt tā drošību, pārbaudot kodu.\n\nLūdzu, ziņojiet par visām kļūdām, problēmām vai funkciju pieprasījumiem šeit: <xliff:g id="arg1">%1$s</xliff:g>\n\nAvota kods ir atrodams šeit: <xliff:g id="arg2">%2$s</xliff:g>\n\nSīkāka informācija: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivātuma politika: <xliff:g id="arg4">%4$s</xliff:g></string>
+<!--DualSimUtil-->
+<string name="DualSimUtil__a_new_key_has_been_generated">Ir ģenerēta jauna atslēga.</string>
+<string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Šai SIM kartei ir ģenerēta jauna atslēga.</string>
+<string name="DualSimUtil__new_sim_card_detected">Atklāta jauna SIM karte</string>
+<!--EncryptingSmsDatabase-->
+<string name="EncryptingSmsDatabase_error_decrypting_message">Kļūda ziņojuma atšifrēšanā.</string>
+<!--export_fragment-->
+<string name="export_fragment__export_a_plaintext_backup_compatible_with">Eksportējiet teksta formāta dublējumu (saderīgs ar “SMS Backup &amp; Restore”)</string>
+<string name="export_fragment__export_an_encrypted_backup_to_storage">Eksportējiet šifrētu dublējumu uz atmiņu</string>
+<string name="export_fragment__export_encrypted_backup">Eksportēt šifrētu dublējumu</string>
+<string name="export_fragment__export_plaintext_backup">Eksportēt teksta dublējumu</string>
+<string name="import_fragment__import_a_plaintext_backup_file">Importēt teksta formāta dublējumu (saderīgs ar “SMS Backup &amp; Restore”)</string>
+<string name="import_fragment__import_plaintext_backup">Importēt teksta dublējumu</string>
+<string name="import_fragment__import_system_sms_database">Importēt sistēmas SMS datubāzi</string>
+<string name="import_fragment__import_the_database_from_the_default_system">Importējiet datu bāzi no sistēmas standarta ziņojumapmaiņas lietotnes</string>
+<string name="import_fragment__restore_a_previously_exported_encrypted_backup">Atjaunot iepriekš eksportētu šifrētu dublējumu</string>
+<string name="import_fragment__restore_encrypted_backup">Atjaunot šifrētu dublējumu</string>
+<!--ExportFragment-->
+<string name="ExportFragment_error_while_writing_to_storage">Kļūda, rakstot uz atmiņas.</string>
+<string name="ExportFragment_export">Eksportēt</string>
+<string name="ExportFragment_export_encrypted_backup">Eksportēt šifrētu dublējumu?</string>
+<string name="ExportFragment_export_plaintext_to_storage">Eksportēt nešifrētu tekstu uz atmiņu?</string>
+<string name="ExportFragment_export_successful">Eksportēšana veiksmīgi pabeigta.</string>
+<string name="ExportFragment_exporting">Eksportēšana</string>
+<string name="ExportFragment_exporting_keys_settings_and_messages">Šifrētu atslēgu, iestatījumu un ziņojumu eksportēšana…</string>
+<string name="ExportFragment_exporting_plaintext_to_storage">Eksportē nešifrētu tekstu uz atmiņu…</string>
+<string name="ExportFragment_this_will_export_your_encrypted_keys_settings_and_messages">Tas eksportēs jūsu šifrētās atslēgas, iestatījumus un ziņojumus uz krātuvi.</string>
+<string name="ExportFragment_warning_this_will_export_the_contents_of_your_messages_to_storage_in_plaintext">Brīdinājums: tas eksportēs jūsu SMSecure ziņojumu saturu uzglabāšanai nešifrētā tekstā.</string>
+<!--GroupCreateActivity-->
+<string name="GroupCreateActivity_actionbar_title">Jauna grupa</string>
+<string name="GroupCreateActivity_contacts_mms_exception">Grupu nevarēja izveidot negaidītas kļūdas dēļ.</string>
+<string name="GroupCreateActivity_contacts_no_members">Tev ir vajadzīgs vismaz viens cilvēks savā grupā!</string>
+<string name="GroupCreateActivity_menu_create_title">Izveidot grupu</string>
+<!--GroupMembersDialog-->
+<string name="GroupMembersDialog_me">Me</string>
+<!--IdentityActivity-->
+<string name="IdentityActivity__base64_code_title">Base64 kods</string>
+<string name="IdentityActivity__current_remote_fingerprint">Pirksta nospiedums <xliff:g id="arg1">%1$s</xliff:g></string>
+<string name="IdentityActivity__detected_format">Atklāts: <xliff:g id="arg1">%1$s</xliff:g></string>
+<string name="IdentityActivity__empty_data">Nav datu, ko parādīt.</string>
+<string name="IdentityActivity__enter_hex_or_base64">Ievadiet HEX vai Base64 kodu</string>
+<string name="IdentityActivity__failed_to_render">QR kods netika attēlots.</string>
+<string name="IdentityActivity__format_base64">Base64</string>
+<string name="IdentityActivity__format_hex">HEX</string>
+<string name="IdentityActivity__format_unknown">Nezināms</string>
+<string name="IdentityActivity__hex_code">HEX kods</string>
+<string name="IdentityActivity__invalid_base64">Nepareizs Base64.</string>
+<string name="IdentityActivity__invalid_code">Nepareizs kods.</string>
+<string name="IdentityActivity__invalid_hex">Nepareizs HEX kods.</string>
+<string name="IdentityActivity__invalid_hex_length">Nepareizs HEX garums.</string>
+<string name="IdentityActivity__invalid_identity_length">Neparedzēts identifikatora garums.</string>
+<string name="IdentityActivity__manual_ready">Gatavs pārbaudei</string>
+<string name="IdentityActivity__manual_verify_no_remote">Nav pieejama attālināta identitātes atslēga salīdzināšanai.</string>
+<string name="IdentityActivity__not_verified_exclamation">Nav pārbaudīts!</string>
+<string name="IdentityActivity__paste_to_verify">Tips tiks noteikts automātiski.</string>
+<string name="IdentityActivity__recipient_has_no_identity_key">Saņēmējam nav identitātes atslēgas.</string>
+<string name="IdentityActivity__scan_qr_code">Skenējiet QR kodu</string>
+<string name="IdentityActivity__share_base64">Dalīties ar Base64 kodu</string>
+<string name="IdentityActivity__share_failed">Neizdevās kopīgot QR attēlu.</string>
+<string name="IdentityActivity__share_image">Dalīties ar QR attēlu</string>
+<string name="IdentityActivity__their_key_is_correct_it_is_also_necessary_to_verify_your_key_with_them_as_well">Viņu atslēga ir pareiza. Ir nepieciešams arī apstiprināt savu atslēgu pie viņiem.</string>
+<string name="IdentityActivity__verification_status">Pārbaudes statuss</string>
+<string name="IdentityActivity__verification_status_idle">Vēl nav skenēts</string>
+<string name="IdentityActivity__verification_status_not_available">Nav pieejams</string>
+<string name="IdentityActivity__verification_status_not_verified">Nav pārbaudīts</string>
+<string name="IdentityActivity__verification_status_verified">Pārbaudīts</string>
+<string name="IdentityActivity__verified_exclamation">Pārbaudīts!</string>
+<string name="IdentityActivity__verify_entered_code">Pārbaudīt</string>
+<string name="IdentityActivity__verify_identity">Pārbaudīt identitāti</string>
+<string name="IdentityActivity__view_identity">Skatīt identitāti</string>
+<string name="IdentityActivity__warning_the_entered_key_does_not_match">Ievadītā atslēga nesakrīt. Lūdzu, pārbaudiet uzmanīgi.</string>
+<string name="IdentityActivity__warning_the_scanned_key_does_not_match_please_check_the_fingerprint_text_carefully">BRĪDINĀJUMS, skenētā atslēga NESAKRITAS! Lūdzu, rūpīgi pārbaudiet pirksta nospieduma tekstu.</string>
+<string name="IdentityActivity__you_do_not_have_an_identity_key">Jums nav identitātes atslēgas.</string>
+<string name="IdentityActivity__your_fingerprint">Jūsu pirksta nospiedums</string>
+<!--import_export_fragment-->
+<string name="import_export_fragment__backup_restored">“Dublējums atjaunots. SMSecure tagad tiks aizvērts — atveriet to atkārtoti, lai pabeigtu atjaunošanu.”</string>
+<!--ImportFragment-->
+<string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages">SMSecure ir nepieciešama SMS atļauja, lai importētu SMS ziņojumus, taču tā ir pastāvīgi atteikta. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un aktivizējiet “SMS”.</string>
+<string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages_toast">SMSecure ir nepieciešama SMS atļauja, lai importētu SMS ziņojumus</string>
+<string name="ImportFragment_error_importing_backup">Kļūda, importējot dublējumu!</string>
+<string name="ImportFragment_import_complete">Importēšana pabeigta!</string>
+<string name="ImportFragment_import_plaintext_backup">Importēt teksta dublējumu?</string>
+<string name="ImportFragment_import_plaintext_backup_ellipse">Importē teksta dublējumu…</string>
+<string name="ImportFragment_import_system_sms_database">Importēt sistēmas SMS datubāzi?</string>
+<string name="ImportFragment_restore_encrypted_backup">Atjaunot šifrētu dublējumu?</string>
+<string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Šifrētas rezerves kopijas atjaunošana pilnībā aizstās jūsu esošās atslēgas, iestatījumus un ziņojumus. Jūs zaudēsiet visu informāciju, kas atrodas jūsu pašreizējā SMSecure instalācijā, bet nav iekļauta rezerves kopijā. SMSecure pārtrauks darbu pēc importēšanas.</string>
+<string name="ImportFragment_restoring_encrypted_backup">Atjaunojot šifrētu dublējumu…</string>
+<string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Tas importēs ziņojumus no teksta formāta dublējuma. Ja šo dublējumu jau iepriekš esat importējis, atkārtota importēšana radīs ziņojumu dublikātus.</string>
+<string name="ImportFragment_this_will_import_messages_from_the_system">Tas importēs ziņojumus no sistēmas noklusējuma SMS datubāzes uz SMSecure. Ja iepriekš jau esat importējis sistēmas SMS datubāzi, atkārtota importēšana radīs ziņojumu dublikātus.</string>
+<!--key_scanning-->
+<string name="share_identity_fingerprint">Dalīties ar savu identitātes pirkstu nospiedumu</string>
+<!--KeyExchangeInitiator-->
+<string name="KeyExchangeInitiator_initiate_despite_existing_request_question">Sākt, neskatoties uz esošo pieprasījumu?</string>
+<string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Jūs jau esat nosūtījis sesijas uzsākšanas pieprasījumu šim saņēmējam. Vai esat pārliecināts, ka vēlaties nosūtīt vēl vienu? Tas padarīs pirmo pieprasījumu par nederīgu.</string>
+<!--load_more_header-->
+<string name="load_more_header__see_full_conversation">Skatīt pilnu sarunu</string>
+<!--log_submit_activity-->
+<string name="log_submit__button_copy">Kopēt žurnālu</string>
+<string name="log_submit__button_share_link">Dalīties ar saiti</string>
+<string name="log_submit__button_share_logs">Dalīties ar žurnālu</string>
+<string name="log_submit_activity__collecting_logs">Vācu žurnālus…</string>
+<string name="log_submit_activity__log_collect_failed">Neizdevās savākt žurnālu.</string>
+<string name="log_submit_activity__log_fetch_failed">Neizdevās savākt vai augšupielādēt žurnālu.</string>
+<string name="log_submit_activity__log_upload_failed">Neizdevās augšupielādēt žurnālu.</string>
+<string name="log_submit_activity__log_uploaded">Log uploaded. Saite kopēta uz starpliktuvi.</string>
+<string name="log_submit_activity__thanks">Paldies par palīdzību!</string>
+<string name="log_submit_activity__uploading_logs">Logu augšupielāde…</string>
+<string name="log_submit_copied">Žurnāls kopēts.</string>
+<!--message_details_header-->
+<string name="message_details_header__from">No</string>
+<string name="message_details_header__issues_need_your_attention">Dažas problēmas prasa jūsu uzmanību.</string>
+<string name="message_details_header__received">Saņemts</string>
+<string name="message_details_header__sent">Nosūtīts</string>
+<string name="message_details_header__to">Uz</string>
+<string name="message_details_header__type">Tips</string>
+<!--message_recipients_list_item-->
+<string name="message_recipients_list_item__resend">Nosūtīt atkārtoti</string>
+<string name="message_recipients_list_item__verify">Pārbaudīt</string>
+<!--MessageDetailsRecipient-->
+<string name="MessageDetailsRecipient_failed_to_send">Neizdevās nosūtīt</string>
+<string name="MessageDetailsRecipient_new_identity">Jauna identitāte</string>
+<!--MessageDisplayHelper-->
+<string name="MessageDisplayHelper_bad_encrypted_message">Nepareizi šifrēts ziņojums</string>
+<string name="MessageDisplayHelper_decrypting_please_wait">Atšifrēšana, lūdzu, uzgaidiet…</string>
+<string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Pieprasījums pārtraukt neeksistējošu sesiju</string>
+<string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Ziņojums šifrēts neeksistējošai sesijai</string>
+<!--MessageNotifier-->
+<string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> jaunas ziņas <xliff:g id="arg2">%2$d</xliff:g> sarunās</string>
+<string name="MessageNotifier_encrypted_message">Šifrēts ziņojums</string>
+<string name="MessageNotifier_error_delivering_message">Kļūda ziņojuma nosūtīšanā.</string>
+<string name="MessageNotifier_failed_to_deliver_message">Neizdevās nosūtīt ziņojumu.</string>
+<string name="MessageNotifier_mark_all_as_read">Atzīmēt visu kā izlasītu</string>
+<string name="MessageNotifier_mark_read">Atzīmēt kā izlasītu</string>
+<string name="MessageNotifier_message_delivery_failed">Ziņojuma nosūtīšana neizdevās.</string>
+<string name="MessageNotifier_message_received">Ziņojumu saņēma <xliff:g id="arg1">%s</xliff:g>.</string>
+<string name="MessageNotifier_most_recent_from_s">Jaunākais no: <xliff:g id="arg1">%1$s</xliff:g></string>
+<string name="MessageNotifier_reply">Atbilde</string>
+<!--MessageRecord-->
+<string name="MessageRecord_key_exchange_message">Atslēgas apmaiņas ziņojums</string>
+<string name="MessageRecord_left_group">Jūs esat pametis grupu.</string>
+<string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Saņemta ziņa, kas šifrēta, izmantojot vecu SMSecure versiju, kura vairs netiek atbalstīta. Lūdzu, lūdziet sūtītājam atjaunināt programmu uz jaunāko versiju un nosūtīt ziņu atkārtoti.</string>
+<string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Saņemtā apmaiņas ziņojuma avots ir pārāk novecojusi SMSecure versija, lai varētu sazināties ar jūsu versiju. Lai uzsāktu drošu sesiju, jums tā jānosūta manuāli. Pieskarieties, lai nosūtītu atslēgas apmaiņas ziņojumu.</string>
+<string name="MessageRecord_updated_group">Atjaunināta grupa.</string>
+<!--MuteDialog-->
+<string name="MuteDialog_mute_notifications">Aizslēgt paziņojumus</string>
+<!--Notification Channels-->
+<string name="NotificationChannel_failures">Kļūdas</string>
+<string name="NotificationChannel_locked_status">Bloķēts statuss</string>
+<string name="NotificationChannel_messages">Ziņojumi</string>
+<string name="NotificationChannel_other">Cits</string>
+<!--PassphraseChangeActivity-->
+<string name="PassphraseChangeActivity_change_passphrase">Mainīt paroli</string>
+<string name="PassphraseChangeActivity_create_passphrase">Izveidot paroli</string>
+<string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Parole nav ievadīta!</string>
+<string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Nepareiza vecā parole!</string>
+<string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Paroles nesakrīt!</string>
+<!--PassphrasePromptActivity-->
+<string name="PassphrasePromptActivity_enter_passphrase">Ievadiet paroli</string>
+<string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nepareiza paroles frāze!</string>
+<string name="PassphrasePromptActivity_watermark_content_description">SMSecure ikona</string>
+<!--Permissions-->
+<string name="Permissions_not_now">Ne tagad</string>
+<string name="Permissions_permission_required">Nepieciešama atļauja</string>
+<!--plurals.xml-->
+<plurals name="hours_ago">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> stundas</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> stunda</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> stundas</item>
+    </plurals>
+<!--preferences.xml-->
+<string name="preferences__about">Par SMSecure</string>
+<string name="preferences__about_version">Versija <xliff:g id="arg1">%s</xliff:g></string>
+<string name="preferences__advanced">Papildu</string>
+<string name="preferences__always_ask_for_sim_card">Vienmēr lūgt ievietot SIM karti</string>
+<string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Vienmēr jautāt, kuru SIM karti izmantot, sūtot ziņojumus</string>
+<string name="preferences__appearance">Izskats</string>
+<string name="preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key">Automātiski pabeigt atslēgu apmaiņu jaunām sesijām vai esošām sesijām ar to pašu identitātes atslēgu</string>
+<string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Automātiski dzēst vecākus ziņojumus, kad saruna pārsniedz noteiktu garumu</string>
+<string name="preferences__blocked_contacts">Bloķētie kontakti</string>
+<string name="preferences__change_notification_sound">Mainīt paziņojuma skaņu</string>
+<string name="preferences__change_passphrase">Mainīt paroli</string>
+<string name="preferences__change_your_passphrase">Mainiet savu paroli</string>
+<string name="preferences__chats">Tērzēšanas un multivides faili</string>
+<string name="preferences__complete_key_exchanges">Pabeigt atslēgu apmaiņu</string>
+<string name="preferences__conversation_length_limit">Sarunas garuma ierobežojums</string>
+<string name="preferences__dark_theme">Tumšs</string>
+<string name="preferences__delete_old_messages">Dzēst vecos ziņojumus</string>
+<string name="preferences__diagnostic_logging_level">Diagnostikas žurnāla līmenis</string>
+<string name="preferences__diagnostic_logging_level_summary">Nosaka, cik daudz diagnostiskās informācijas SMSecure glabā iekšēji.</string>
+<string name="preferences__disable_emoji_drawer">Atspējot emodži atvilktni</string>
+<string name="preferences__disable_screen_security_to_allow_screen_shots">Bloķējiet ekrānuzņēmumus nesen izmantoto sarakstā un lietotnes iekšienē</string>
+<string name="preferences__disable_smsecures_built_in_emoji_support">Atvienot SMSecure iebūvēto emodži atbalstu</string>
+<string name="preferences__display_a_notification_when_a_delivery_report_is_received">Parādīt paziņojumu, kad tiek saņemts piegādes ziņojums</string>
+<string name="preferences__display_in_notifications">Rādīt paziņojumos</string>
+<string name="preferences__display_in_notifications_which_elements_show">Izvēlieties, kuri elementi tiks parādīti paziņojumā</string>
+<string name="preferences__enable_local_encryption_of_messages_and_keys">Iespējot ziņojumu un atslēgu vietējo šifrēšanu</string>
+<string name="preferences__enable_message_notifications">Iespējot ziņojumu paziņojumus</string>
+<string name="preferences__enable_panic_on_device_lock_button">Automātiska bloķēšana, bloķējot ekrānu</string>
+<string name="preferences__enable_passphrase">Iespējot paroli</string>
+<string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Ieslēdziet šo opciju, ja jūsu tastatūra atbalsta emodžus.</string>
+<string name="preferences__enter_key_summary">Izvēlieties, vai Enter taustiņš nosūta ziņojumu vai ievieto jaunu rindu</string>
+<string name="preferences__five_times">Piecas reizes</string>
+<string name="preferences__forget_passphrase_from_memory_after_some_interval">Prasīt paroli, lai piekļūtu ziņojumiem pēc noteiktā laika</string>
+<string name="preferences__hide_divider_between_read_and_unread_messages">Paslēpt atdalītāju starp lasītajām un nelasītajām ziņām</string>
+<string name="preferences__hide_unread_message_divider">Paslēpt nelasīto ziņojumu atdalītāju</string>
+<string name="preferences__hours">stundas</string>
+<string name="preferences__in_conversation_notifications">Paziņojumi sarunā</string>
+<string name="preferences__incognito_keyboard">Incognito tastatūra</string>
+<string name="preferences__keyboard_settings">Tastatūras opcijas</string>
+<string name="preferences__language">Valoda</string>
+<string name="preferences__language_summary">Lietotnes valoda</string>
+<string name="preferences__make_default_sms_app">Iestatīt kā noklusējuma SMS lietotni</string>
+<string name="preferences__make_smsecure_the_default_sms_app">Padariet SMSecure par sistēmas noklusējuma SMS lietotni.</string>
+<string name="preferences__message_trimming">Ziņojuma saīsināšana</string>
+<string name="preferences__messages">Ziņojumi</string>
+<string name="preferences__minutes">minūtes</string>
+<plurals name="preferences__msgs_short">
+        <item quantity="zero"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+    </plurals>
+<string name="preferences__never">Nekad</string>
+<string name="preferences__notifications">Paziņojumi</string>
+<string name="preferences__one_time">Vienreiz</string>
+<string name="preferences__panic_button">Panikas poga</string>
+<string name="preferences__play_inthread_notifications">Atverot aktīvu sarunu, atskaņot paziņojuma skaņu.</string>
+<string name="preferences__pref_timeout_interval_title">Laika intervāls</string>
+<string name="preferences__privacy">Privātums</string>
+<string name="preferences__privacy_policy">Privātuma politika</string>
+<string name="preferences__repeat_notification">Atkārtot paziņojumu</string>
+<string name="preferences__repeat_notification_number_times_select">Izvēlieties, cik reizes atkārtot paziņojumu</string>
+<string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Pieprasiet piegādes ziņojumu par katru nosūtīto SMS ziņojumu</string>
+<string name="preferences__request_keyboard_to_disable_personalized_learning">Ja ir iestatīts inkognito režīms, tastatūra neatcerēsies, nemācīsies un nesaglabās nevienu vārdu, ko jūs ievadāt</string>
+<string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Pārskatīt visas sarunas un piemērot sarunu garuma ierobežojumus</string>
+<string name="preferences__screen_security">Ekrāna drošība</string>
+<string name="preferences__show_sent_time">Rādīt nosūtīšanas laiku</string>
+<string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Rādīt nosūtīšanas laiku, nevis saņemšanas laiku ienākošajiem ziņojumiem</string>
+<string name="preferences__sms_delivery_reports">SMS piegādes ziņojumi</string>
+<string name="preferences__sms_delivery_reports_notification">Paziņojums par SMS piegādes ziņojumiem</string>
+<string name="preferences__sound">Skaņa</string>
+<string name="preferences__submit_debug_log">Nosūtīt atkļūdošanas žurnālu</string>
+<string name="preferences__submit_debug_log_summary">Vāc diagnostisko informāciju un dalies ar to, lai novērstu problēmas.</string>
+<string name="preferences__summary_enable_panic_on_device_lock_button">Automātiski bloķēt lietotni, kad ierīce ir bloķēta</string>
+<string name="preferences__summary_panic_button">Iespējot panikas pogu no “Ripple: respond when panicking” (Ripple: reaģē panikas gadījumā) no Guardian Project</string>
+<string name="preferences__ten_times">Desmit reizes</string>
+<string name="preferences__theme">Tēma</string>
+<string name="preferences__theme_light">Gaišs</string>
+<string name="preferences__theme_summary">Izvēlieties lietotnes izskatu</string>
+<string name="preferences__theme_systemic">Systemic</string>
+<string name="preferences__three_times">Trīs reizes</string>
+<string name="preferences__timeout_passphrase">Laika ierobežojuma parole</string>
+<string name="preferences__trim_all_conversations_now">Apgriezt visas sarunas tagad</string>
+<string name="preferences__two_times">Divreiz</string>
+<string name="preferences__use_system_emoji">Izmanto sistēmas emodžus</string>
+<string name="preferences__write_logs_to_android_logcat">Rakstīt žurnālus Android logcat</string>
+<string name="preferences__write_logs_to_android_logcat_summary">Ļauj SMSecure rakstīt savus žurnālus sistēmas žurnālā. Atvienojiet šo funkciju, lai nodrošinātu labāku privātumu.</string>
+<!--prompt_passphrase_activity-->
+<string name="prompt_passphrase_activity__unlock">Atbloķēt</string>
+<!--QR code-->
+<string name="QrScanActivity__align_qr">Saskaņot QR</string>
+<!--QuickResponseService-->
+<string name="QuickResponseService_problem_sending_message">Problēma ar ziņojuma nosūtīšanu!</string>
+<string name="QuickResponseService_quick_response_unavailable_when_SMSecure_is_locked">Ātrā atbilde nav pieejama, ja SMSecure ir bloķēts!</string>
+<!--receive_key_dialog-->
+<string name="receive_key_activity__complete">Pabeigts</string>
+<!--ReceiveKeyActivity-->
+<string name="ConfirmIdentityDialog_you_may_wish_to_verify_this_contact">Jums vajadzētu pārbaudīt šī kontakta identitāti.</string>
+<string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_different">Šīs atslēgas apmaiņas paraksts atšķiras no tā, ko iepriekš saņēmāt no šī kontakta. Tas var nozīmēt, ka kāds mēģina pārtvert jūsu saziņu vai ka šis kontakts vienkārši ir atkārtoti instalējis SMSecure un tagad tam ir jauna identitātes atslēga.</string>
+<string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but">Šīs atslēgu apmaiņas paraksts ir uzticams, taču jums ir atspējota iestatījuma „automātiski pabeigt atslēgu apmaiņu“.</string>
+<!--recipient_preferences-->
+<string name="recipient_preferences__block">Bloks</string>
+<string name="recipient_preferences__color">Krāsa</string>
+<string name="recipient_preferences__color_for_this_contact">Krāsa šim kontaktam</string>
+<string name="recipient_preferences__disable_notifications_for_this_conversation">Atspējot paziņojumus par šo sarunu</string>
+<string name="recipient_preferences__mute_conversation">Apspriedes klusināšana</string>
+<string name="recipient_preferences__notification_sound">Paziņojuma skaņa</string>
+<!--recipient_preferences_activity-->
+<string name="recipient_preference_activity__blocked">Bloķēts</string>
+<!--RecipientPreferencesActivity-->
+<string name="RecipientPreferenceActivity_are_you_sure_you_want_to_unblock_this_contact">Vai esat pārliecināts, ka vēlaties atbloķēt šo kontaktu?</string>
+<string name="RecipientPreferenceActivity_block">Bloks</string>
+<string name="RecipientPreferenceActivity_block_this_contact_question">Bloķēt šo kontaktu?</string>
+<string name="RecipientPreferenceActivity_unblock">Atbloķēt</string>
+<string name="RecipientPreferenceActivity_unblock_this_contact_question">Atbloķēt šo kontaktu?</string>
+<string name="RecipientPreferenceActivity_you_will_no_longer_see_messages_from_this_user">Jūs vairs neredzēsiet ziņojumus, ko sūta šis lietotājs.</string>
+<!--recipients_panel-->
+<string name="recipients_panel__add_member">Pievienot dalībnieku</string>
+<string name="recipients_panel__to">Ievadiet vārdu vai numuru</string>
+<!--reminder_header-->
+<string name="reminder_header_delivery_reports_text">Piegādes ziņojumi ļauj uzzināt, vai un kad saņēmējs ir saņēmis jūsu ziņojumus. Daži mobilo sakaru tīkli par to iekasē papildu maksu.</string>
+<string name="reminder_header_delivery_reports_title">Iespējot piegādes ziņojumus?</string>
+<string name="reminder_header_rate_button">Novērtējiet tagad!</string>
+<string name="reminder_header_rate_text">Ja jums patīk šī lietotne, lūdzu, veltiet mirkli, lai palīdzētu mums, novērtējot to.</string>
+<string name="reminder_header_rate_title">Novērtējiet šo lietotni</string>
+<string name="reminder_header_sms_default_button">Iestatīt</string>
+<string name="reminder_header_sms_default_text_mandatory">Lai saņemtu ziņojumus, SMSecure jābūt jūsu noklusējuma SMS lietotnei.</string>
+<string name="reminder_header_sms_default_title">Izmantot kā noklusējuma SMS lietotni?</string>
+<string name="reminder_header_sms_import_text">Pieskarieties, lai kopētu tālruņa SMS ziņojumus SMSecure šifrētajā datu bāzē.</string>
+<string name="reminder_header_sms_import_title">Importēt sistēmas SMS?</string>
+<!--RingtonePreference-->
+<string name="RingtonePreference_add_ringtone_text">Pievienot zvana signālu</string>
+<string name="RingtonePreference_application_default">Lietotnes noklusējums</string>
+<string name="RingtonePreference_system_default">Sistēmas noklusējums</string>
+<string name="RingtonePreference_unable_to_add_ringtone">Nevar pievienot pielāgotu zvana signālu</string>
+<!--ShareActivity-->
+<string name="ShareActivity_share_with">Dalīties ar</string>
+<!--single_contact_selection_activity-->
+<string name="SingleContactSelectionActivity_contact_photo">Kontakta foto</string>
+<!--SingleRecipientNotificationBuilder-->
+<string name="SingleRecipientNotificationBuilder_new_message">Jauns ziņojums</string>
+<!--SmsMessageRecord-->
+<string name="SmsMessageRecord_duplicate_message">Ziņojuma dublikāts.</string>
+<string name="SmsMessageRecord_received_corrupted_key_exchange_message">Saņemts bojāts atslēgas apmaiņas ziņojums!</string>
+<string name="SmsMessageRecord_received_key_exchange_message_for_invalid_protocol_version">Saņemts atslēgas apmaiņas ziņojums par nederīgu protokola versiju.</string>
+<string name="SmsMessageRecord_received_message_with_unknown_identity_key_tap_to_process">Saņemta ziņa ar nezināmu identifikācijas atslēgu. Pieskarieties, lai apstrādātu un parādītu.</string>
+<string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Saņemta atjaunināta, bet nezināma identitātes informācija. Pieskarieties, lai apstiprinātu identitāti.</string>
+<string name="SmsMessageRecord_secure_session_ended">Drošā sesija ir beigusies.</string>
+<!--SubscriptionInfoCompat-->
+<string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slots <xliff:g id="arg2">%2$d</xliff:g>)</string>
+<string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+<!--ThreadRecord-->
+<string name="ThreadRecord_draft">Draft:</string>
+<string name="ThreadRecord_left_the_group">Izstājās no grupas</string>
+<string name="ThreadRecord_media_message">Multivides ziņojums</string>
+<!--transport_selection_list_item-->
+<string name="transport_selection_list_item__transport_icon">Transporta ikona</string>
+<!--TransportOptions-->
+<string name="TransportOptions_no_sim_card_found">SIM karte nav atrasta</string>
+<string name="TransportOptions_sms_disabled">SMS ziņojumi ir atspējoti</string>
+<!--Trimmer-->
+<string name="trimmer__deleting_old_messages">Dzēš vecās ziņas…</string>
+<string name="trimmer__old_messages_successfully_deleted">Vecās ziņas veiksmīgi dzēstas</string>
+<!--WelcomeActivity-->
+<string name="cd_welcome_image">Sveiciena attēls</string>
+<string name="WelcomeActivity_action_required">Nepieciešama darbība!</string>
+<string name="WelcomeActivity_encrypt_your_messages">Šifrējiet savus ziņojumus ar SMSecure lietotājiem, vienlaikus izmantojot parastos SMS ziņojumus ar citiem.</string>
+<string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Uzlabojiet savu privātumu, sazinieties ar visiem</string>
+<string name="WelcomeActivity_smsecure_needs_access_to_your_contacts_phone_status_and_sms">SMSecure ir nepieciešama piekļuve jūsu kontaktiem, tālruņa statusam un SMS ziņojumiem, lai sazinātos ar draugiem, pārvaldītu šifrēšanas atslēgas un čatotu.</string>
+<string name="WelcomeActivity_smsecure_needs_the_phone_permission_in_order_to_manage_encryption_keys_and_bind_them_to_your_sim_cards_and_sms_permission_in_order_to_receive_sms_messages">SMSecure ir nepieciešama tālruņa atļauja, lai pārvaldītu šifrēšanas atslēgas un piesaistītu tās jūsu SIM kartēm, kā arī SMS atļauja, lai saņemtu SMS ziņojumus.</string>
+<string name="WelcomeActivity_smsecure_requires_the_phone_and_sms_permissions_in_order_to_work_but_it_has_been_permanently_denied">Lai SMSecure darbotos, tam ir nepieciešamas tālruņa un SMS atļaujas, taču tās ir pastāvīgi atteiktas. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un pēc tam aktivizējiet “Tālrunis” un “SMS”.</string>
+<string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure">Jums ir jāpiešķir dažas atļaujas SMSecure.</string>
+<string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure_in_order_to_continue_to_use_it">Lai turpinātu lietot SMSecure, jums ir jāpiešķir tam atļaujas. Pieskarieties, lai turpinātu.</string>
+</resources>

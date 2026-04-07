@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SMSecure.IntroTheme" parent="Theme.SMSecure">
+        <!-- Intro colors/background -->
+        <item name="android:textColorHint">@color/sm_intro_text_hint</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Base Theme -->
+    <style name="Theme.SMSecure.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="actionOverflowButtonStyle">@style/SMSecure.OverflowButton</item>
+
+        <item name="popupWindowStyle">@style/Widget.SMSecure.PopupWindow</item>
+
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/Widget.SMSecure.ActionMode</item>
+
+        <item name="buttonBarButtonStyle">@style/Widget.SMSecure.ButtonBar</item>
+
+        <!-- Dialog theming -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.SMSecure.Dialog.Alert</item>
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.SMSecure.Dialog.Alert</item>
+    </style>
+
+    <!-- Day Tokens -->
+    <style name="Theme.SMSecure.Tokens" parent="Theme.SMSecure.Base">
+        <!-- Make the app background follow your custom attribute everywhere -->
+        <item name="android:windowBackground">?attr/appColorBackground</item>
+
+        <item name="appColorAccent">@color/blue_400</item>
+        <item name="appColorAlertDialogBackground">@color/gray12</item>
+        <item name="appColorBackground">@color/gray5</item>
+        <item name="appColorBackgroundPrimary">@color/gray20</item>
+        <item name="appColorBackgroundSecondary">@color/gray12</item>
+        <item name="appColorButtonTextPrimary">@color/white</item>
+        <item name="appColorIconInactive">@color/gray50</item>
+        <item name="appColorIconPrimary">@color/gray70</item>
+        <item name="appColorItemSelected">#552090ea</item>
+        <item name="appColorLabelBackground">#bb999999</item>
+        <item name="appColorPopupBackground">@color/gray12</item>
+        <item name="appColorSwipeBackground">@color/blue_400</item>
+        <item name="appColorTextPrimary">@color/black</item>
+        <item name="appColorTextSecondary">@color/gray70</item>
+        <item name="appColorTextSubtitle">@color/gray73</item>
+        <item name="appColorTextTitle">@color/gray80</item>
+        <item name="appColorToolbarActionModeBackground">@color/cyan_500</item>
+        <item name="appColorToolbarBackground">@color/primary_color</item>
+        <item name="appColorToolbarControl">@color/gray5</item>
+        <item name="appColorToolbarTextSubtitle">@color/gray15</item>
+        <item name="appColorToolbarTextTitle">@color/gray5</item>
+
+        <item name="contact_selection_label_text">@color/black_transparent60</item>
+        <item name="contact_selection_push_user">@color/black</item>
+        <item name="contact_selection_lay_user">@color/black_transparent37</item>
+
+        <!-- Conversation items -->
+        <item name="conversation_item_bubble_background_color">@color/gray20</item>
+        <item name="conversation_item_focused_background_color">#882090ea</item>
+        <item name="conversation_item_sent_text_primary_color">@color/grey_800</item>
+        <item name="conversation_item_sent_text_secondary_color">@color/grey_900</item>
+        <item name="conversation_item_sent_text_indicator_tab_color">@color/grey_900</item>
+
+        <!-- Conversation list colors -->
+        <item name="conversation_list_item_archived_background_color">@color/gray20</item>
+        <item name="conversation_list_item_count_color">@color/gray80_transparent60</item>
+        <item name="conversation_list_item_subject_unread_color">@color/gray73</item>
+        <item name="conversation_list_item_background_read_color">@color/gray5</item>
+        <item name="conversation_list_item_background_unread_color">@color/gray20</item>
+
+        <!-- Conversation screen colors -->
+        <item name="conversation_editor_background">@color/black_transparent87</item>
+        <item name="conversation_editor_text_color">@color/gray95</item>
+
+        <item name="conversation_group_member_name_color">@color/black_transparent40</item>
+
+        <!-- Dialog colors -->
+        <item name="dialog_background_color">@color/background_material_light</item>
+    </style>
+
+    <!-- Common Only Tokens -->
+    <style name="Theme.SMSecure.Bridge" parent="Theme.SMSecure.Tokens">
+
+        <item name="conversation_list_item__unread_date_color">?attr/appColorToolbarBackground
+        </item>
+
+        <item name="permissions_rationale_dialog__background_color">
+            ?attr/appColorToolbarBackground
+        </item>
+        <item name="permissions_rationale_dialog__button_text_color">
+            ?attr/appColorButtonTextPrimary
+        </item>
+
+        <item name="transport_options__send_button_secure_background_color">
+            ?attr/appColorToolbarBackground
+        </item>
+        <item name="transport_options__send_button_unsecure_background_color">@color/grey_600</item>
+
+        <!-- Conversation items -->
+        <item name="conversation_item_received_text_primary_color">@color/white</item>
+        <item name="conversation_item_received_text_secondary_color">@color/white_transparent25
+        </item>
+
+        <!-- Dialog icons -->
+        <item name="dialog_info_icon">@drawable/ic_information_outline</item>
+        <item name="dialog_alert_icon">@drawable/ic_alert</item>
+
+        <item name="permissionsRationaleHeaderBackgroundColor">?attr/permissions_rationale_dialog__background_color</item>
+        <item name="permissionsRationaleBodyBackgroundColor">?attr/permissions_rationale_dialog__background_color</item>
+        <item name="permissionsRationaleIconTint">?attr/appColorIconPrimary</item>
+    </style>
+
+    <!-- Main App Theme -->
+    <style name="Theme.SMSecure" parent="Theme.SMSecure.Bridge">
+        <item name="colorControlActivated">?attr/appColorAccent</item>
+
+        <item name="appColorCommonSuccess">#FF2E7D32</item>
+        <item name="appColorCommonAlert">#FFC62828</item>
+
+        <item name="notificationIconTileBackground">@color/white</item>
+        <item name="notificationIconTileStroke">@color/black</item>
+
+        <!-- Material dialog overlay (you had it as timeout picker color) -->
+        <item name="app_protect_timeout_picker_color">
+            @style/ThemeOverlay.Material3.MaterialAlertDialog
+        </item>
+    </style>
+
+    <style name="Theme.SMSecure.Popup" parent="Theme.SMSecure">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">stateUnchanged</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/Widget.SMSecure.ActionMode</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowAnimationStyle">@style/PopupAnimation</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="PopupAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_from_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_to_top</item>
+    </style>
+
+</resources>

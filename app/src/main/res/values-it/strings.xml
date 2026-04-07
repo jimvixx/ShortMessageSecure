@@ -1,0 +1,619 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!--AbstractNotificationBuilder-->
+    <string name="AbstractNotificationBuilder_new_message">Nuovo messaggio</string>
+    <!--AndroidManifest.xml-->
+    <string name="AndroidManifest__change_passphrase">Modifica passphrase</string>
+    <string name="AndroidManifest__enter_passphrase">Inserisci la passphrase</string>
+    <string name="AndroidManifest__initializing_secure_storage">Inizializzazione dell’archivio protetto…</string>
+    <string name="AndroidManifest__log_submit">Invia log di debug</string>
+    <string name="AndroidManifest__public_identity_key">Chiave pubblica dell\’identità</string>
+    <string name="AndroidManifest__select_contacts">Seleziona contatti</string>
+    <string name="AndroidManifest__verify_identity">Verifica identità</string>
+    <string name="AndroidManifest_archived_conversations">Conversazioni archiviate</string>
+    <!--ApplicationMigrationService-->
+    <string name="ApplicationMigrationService_import_complete">Importazione completata</string>
+    <string name="ApplicationMigrationService_import_in_progress">Importazione in corso</string>
+    <string name="ApplicationMigrationService_importing_text_messages">Importazione di messaggi di testo</string>
+    <string name="ApplicationMigrationService_system_database_import_is_complete">L\’importazione del database di sistema è stata completata.</string>
+    <!--ApplicationPreferencesActivity-->
+    <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Non hai ancora impostato una passphrase!</string>
+    <string name="ApplicationPreferencesActivity_appearance_summary">Tema <xliff:g id="arg1">%1$s</xliff:g>, Lingua <xliff:g id="arg2">%2$s</xliff:g></string>
+    <string name="ApplicationPreferencesActivity_delete_all_old_messages_now">Elimina subito tutti i vecchi messaggi?</string>
+    <string name="ApplicationPreferencesActivity_disable_storage_encryption">Disattivare la crittografia dell’archivio?</string>
+    <string name="ApplicationPreferencesActivity_incoming_summary">In arrivo <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="ApplicationPreferencesActivity_privacy_summary">Passphrase <xliff:g id="arg1">%1$s</xliff:g>, Sicurezza dello schermo <xliff:g id="arg2">%2$s</xliff:g></string>
+    <string name="ApplicationPreferencesActivity_sms_disabled">SMS in arrivo disabilitati</string>
+    <string name="ApplicationPreferencesActivity_sms_enabled">SMS in arrivo abilitati</string>
+    <string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">SMSecure è attualmente la tua app SMS predefinita</string>
+    <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Tocca per impostare SMSecure come app SMS predefinita</string>
+    <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
+        <item quantity="one">Questo ridurrà immediatamente tutte le conversazioni all’ultimo messaggio.</item>
+        <item quantity="many">Questo ridurrà immediatamente tutte le conversazioni ai <xliff:g id="arg1">%1$d</xliff:g> messaggi più recenti.</item>
+        <item quantity="other">Questo ridurrà immediatamente tutte le conversazioni ai <xliff:g id="arg1">%1$d</xliff:g> messaggi più recenti.</item>
+    </plurals>
+    <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">Attenzione, così facendo interromperai la cifratura di tutti i messaggi e le chiavi che hai salvato. Le tue sessioni cifrate continueranno a funzionare, ma chiunque avrà accesso fisico al tuo dispositivo sarà in grado di accedere ad esse.</string>
+    <!--AppProtectionPreferenceFragment-->
+    <plurals name="AppProtectionPreferenceFragment_minutes">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> minuto</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> minuti</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minuti</item>
+    </plurals>
+    <!--arrays.xml-->
+    <string name="arrays__basic">Basic</string>
+    <string name="arrays__errors">Solo errori</string>
+    <string name="arrays__mute_for_one_day">Disattiva audio per 1 giorno</string>
+    <string name="arrays__mute_for_one_hour">Silenziamento per 1 ora</string>
+    <string name="arrays__mute_for_one_year">Disattiva audio per 1 anno</string>
+    <string name="arrays__mute_for_seven_days">Silenzio per 7 giorni</string>
+    <string name="arrays__mute_for_two_hours">Silenzio per 2 ore</string>
+    <string name="arrays__name_and_message">Nome e messaggio</string>
+    <string name="arrays__name_only">Nome</string>
+    <string name="arrays__new_line">Nuova riga</string>
+    <string name="arrays__no_name_or_message">Niente</string>
+    <string name="arrays__use_custom">Usa personalizzato</string>
+    <string name="arrays__use_default">Usa impostazione predefinita</string>
+    <string name="arrays__verbose">Verbose</string>
+    <!--blocked_contacts_fragment-->
+    <string name="blocked_contacts_fragment__no_blocked_contacts">Nessun contatto bloccato</string>
+    <!--BlockedContactsActivity-->
+    <string name="BlockedContactsActivity_blocked_contacts">Contatti bloccati</string>
+    <!--change_passphrase_activity-->
+    <string name="change_passphrase_activity__new_passphrase">Nuova passphrase</string>
+    <string name="change_passphrase_activity__old_passphrase">Vecchia passphrase</string>
+    <string name="change_passphrase_activity__repeat_new_passphrase">Ripeti la nuova passphrase</string>
+    <!--Common-->
+    <string name="Cancel">Annulla</string>
+    <string name="Clear">Cancella</string>
+    <string name="Close">Chiudi</string>
+    <string name="Confirm">Conferma</string>
+    <string name="Continue">Continua</string>
+    <string name="Copied_to_clipboard">Copiato negli appunti</string>
+    <string name="Copy">Copia</string>
+    <string name="Custom">Personalizzato</string>
+    <string name="Default">Default</string>
+    <string name="Delete">Elimina</string>
+    <string name="Deleting">Eliminazione in corso…</string>
+    <string name="Dialpad">Tastierino numerico</string>
+    <string name="Disable">Disabilita</string>
+    <string name="Disabled">Disabilitato</string>
+    <string name="Enable">Abilita</string>
+    <string name="Enabled">Abilitato</string>
+    <string name="Flashlight">Torcia</string>
+    <string name="Import">Importa</string>
+    <string name="Import_Export">Importa / Esporta</string>
+    <string name="Importing">Importazione</string>
+    <string name="Keyboard">Tastiera</string>
+    <string name="No">No</string>
+    <string name="None">Nessuno</string>
+    <string name="Off">Off</string>
+    <string name="On">On</string>
+    <string name="QR_code">Codice QR</string>
+    <string name="Search">Cerca</string>
+    <string name="Send">Invia</string>
+    <string name="Share">Condividi</string>
+    <string name="Silent">Silent</string>
+    <string name="SMS">SMS</string>
+    <string name="Yes">Sì</string>
+    <!--contact_selection_activity-->
+    <string name="contact_selection_activity__enter_name_or_number">Inserisci nome o numero</string>
+    <!--contact_selection_group_activity-->
+    <string name="contact_selection_group_activity__finding_contacts">Caricamento dei contatti in corso…</string>
+    <string name="contact_selection_group_activity__no_contacts">Nessun contatto.</string>
+    <!--contact_selection_list-->
+    <string name="contact_selection_list__unknown_contact">Nuovo messaggio a…</string>
+    <!--contact_selection_list_fragment-->
+    <string name="contact_selection_list_fragment__show_contacts">Mostra contatti</string>
+    <string name="contact_selection_list_fragment__smsecure_needs_access_to_your_contacts_in_order_to_display_them">SMSecure deve poter accedere ai tuoi contatti per poterli visualizzare.</string>
+    <!--ContactSelectionListFragment-->
+    <string name="ContactSelectionListFragment_smsecure_requires_the_contacts_permission_in_order_to_display_your_contacts">SMSecure richiede l’autorizzazione "Contatti" per visualizzare i tuoi contatti, ma questa è stata negata in modo permanente. Vai al menu delle impostazioni dell’app, seleziona "Autorizzazioni" e abilita "Contatti".</string>
+    <!--conversation-->
+    <string name="conversation_menu__archive_conversation">Archivia conversazione</string>
+    <string name="conversation_menu__conversation_settings">Impostazioni conversazione</string>
+    <string name="conversation_menu__delete_conversation">Elimina conversazione</string>
+    <string name="conversation_menu__unarchive_conversation">Ripristina conversazione</string>
+    <!--conversation_activity-->
+    <string name="conversation_activity__emoji_toggle_description">Attiva/disattiva tastiera emoji</string>
+    <string name="conversation_activity__type_message_sms_insecure">Invia SMS non protetto</string>
+    <string name="conversation_activity__type_message_sms_secure">Invia SMS sicuro</string>
+    <string name="conversation_activity__via_sim_name">Tramite <xliff:g id="arg1">%1$s</xliff:g></string>
+    <!--conversation_callable-->
+    <string name="conversation_callable__menu_call">Chiamata</string>
+    <!--conversation_callable-->
+    <string name="conversation_add_to_contacts__menu_add_to_contacts">Aggiungi ai contatti</string>
+    <!--conversation_context-->
+    <string name="conversation_context__menu_copy_text">Copia testo</string>
+    <string name="conversation_context__menu_delete_message">Elimina messaggio</string>
+    <string name="conversation_context__menu_forward_message">Inoltra messaggio</string>
+    <string name="conversation_context__menu_message_details">Dettagli del messaggio</string>
+    <string name="conversation_context__menu_resend_message">Invia nuovamente il messaggio</string>
+    <!--conversation_fragment-->
+    <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scorri fino in fondo</string>
+    <!--conversation_fragment_cab-->
+    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> selezionato</string>
+    <string name="conversation_fragment_cab__batch_selection_mode">Seleziona</string>
+    <!--conversation_group_options-->
+    <string name="conversation_group_options__recipients_list">Elenco dei destinatari</string>
+    <!--conversation_insecure-->
+    <string name="conversation_insecure__invite">Invita</string>
+    <!--conversation_insecure_no_push-->
+    <string name="conversation_insecure__menu_start_secure_session">Avvia sessione sicura</string>
+    <string name="conversation_insecure__security">Sicurezza</string>
+    <!--conversation_item-->
+    <string name="conversation_item__secure_message_description">Messaggio protetto</string>
+    <!--conversation_item_received-->
+    <string name="conversation_item_received__contact_photo_description">Foto del contatto</string>
+    <!--conversation_item_sent-->
+    <string name="conversation_item_sent__delivered_description">Consegnato</string>
+    <string name="conversation_item_sent__pending_approval_description">In attesa di approvazione</string>
+    <string name="conversation_item_sent__send_failed_indicator_description">Invio fallito</string>
+    <string name="conversation_item_sent__sent_description">Inviato</string>
+    <!--conversation_list_batch-->
+    <string name="conversation_list_batch__menu_delete_selected">Elimina selezionati</string>
+    <string name="conversation_list_batch__menu_select_all">Seleziona tutto</string>
+    <string name="conversation_list_batch__menu_send_drafts">Invia bozze selezionate</string>
+    <string name="conversation_list_batch_archive__menu_archive_selected">Archiviazione selezionata</string>
+    <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Rimuovi archiviazione da selezionati</string>
+    <!--conversation_list_fragment-->
+    <string name="conversation_list_fragment__fab_content_description">Nuova conversazione</string>
+    <!--conversation_list_item_view-->
+    <string name="conversation_list_item_view__archive">Archivio</string>
+    <string name="conversation_list_item_view__archived">Archiviato</string>
+    <string name="conversation_list_item_view__contact_photo_image">Avatar del contatto</string>
+    <string name="conversation_list_item_view__unarchive">Rimuovi dall’archivio</string>
+    <!--conversation_list_menu-->
+    <string name="conversation_list_menu__archived_conversations">Conversazioni archiviate</string>
+    <string name="conversation_list_menu__lock">Blocco</string>
+    <string name="conversation_list_menu__mark_all_as_read">Segna tutto come letto</string>
+    <string name="conversation_list_menu__new_group">Nuovo gruppo</string>
+    <string name="conversation_list_menu__new_message">Nuovo messaggio</string>
+    <string name="conversation_list_menu__settings">Impostazioni</string>
+    <string name="conversation_list_menu__your_identity_key">La tua chiave di identità</string>
+    <!--conversation_muted-->
+    <string name="conversation_muted__unmute">Riattiva audio</string>
+    <!--conversation_popup-->
+    <string name="conversation_popup__menu_expand_popup">Espandi popup</string>
+    <!--conversation_secure_verified-->
+    <string name="conversation_secure_verified__menu_abort_secure_session">Termina sessione sicura</string>
+    <string name="conversation_secure_verified__menu_verify_identity">Verifica identità</string>
+    <!--conversation_unmuted-->
+    <string name="conversation_unmuted__mute_notifications">Disattiva le notifiche</string>
+    <!--ConversationActivity-->
+    <string name="ConversationActivity__group">Gruppo</string>
+    <string name="ConversationActivity_abort_secure_session_confirmation">Terminare la sessione sicura?</string>
+    <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Sei sicuro di voler terminare questa sessione sicura?</string>
+    <string name="ConversationActivity_calls_not_supported">Chiamate non supportate</string>
+    <string name="ConversationActivity_cant_open_link">Impossibile trovare un’app in grado di aprire questo link.</string>
+    <string name="ConversationActivity_compose_message">Scrivi messaggio</string>
+    <plurals name="ConversationActivity_d_recipients_in_group">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> partecipante</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> partecipanti</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> partecipanti</item>
+    </plurals>
+    <string name="ConversationActivity_delete_thread_question">Eliminare la conversazione?</string>
+    <string name="ConversationActivity_detected_smsecure_initiate_session_question">Messaggio ricevuto da qualcuno che ha anche SMSecure, avviare una sessione crittografata sicura?</string>
+    <string name="ConversationActivity_group_members">Partecipanti al gruppo</string>
+    <string name="ConversationActivity_initiate_secure_session_question">Avviare una sessione sicura?</string>
+    <string name="ConversationActivity_initiate_secure_session_with_s_question">Avviare una sessione sicura con <xliff:g id="arg1">%s</xliff:g>?</string>
+    <string name="ConversationActivity_install_smssecure">Chattiamo in modo sicuro: <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="ConversationActivity_invalid_recipient">Destinatario non valido!</string>
+    <string name="ConversationActivity_message_is_empty_exclamation">Il messaggio che stai cercando di inviare è vuoto!</string>
+    <string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">Il destinatario non è un indirizzo SMS o e-mail valido!</string>
+    <string name="ConversationActivity_recipient_self">È possibile stabilire sessioni sicure solo con altre persone.</string>
+    <string name="ConversationActivity_smsecure_needs_sms_permission_in_order_to_send_an_sms">SMSecure necessita dell’autorizzazione SMS per poter inviare un SMS, ma questa è stata negata in modo permanente. Si prega di accedere alle impostazioni dell’app, selezionare "Autorizzazioni" e abilitare "SMS".</string>
+    <string name="ConversationActivity_specify_recipient">Scegli un contatto</string>
+    <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">Questo dispositivo non sembra supportare le azioni di composizione.</string>
+    <string name="ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation">Questa operazione eliminerà definitivamente tutti i messaggi presenti in questa conversazione.</string>
+    <string name="ConversationActivity_transport_insecure_sms">SMS non sicuro</string>
+    <string name="ConversationActivity_transport_secure_sms">SMS sicuro</string>
+    <string name="ConversationActivity_unnamed_group">Gruppo senza nome</string>
+    <!--ConversationAdapter-->
+    <plurals name="ConversationAdapter_n_unread_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> messaggio non letto</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> messaggi non letti</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> messaggi non letti</item>
+    </plurals>
+    <!--ConversationFragment-->
+    <string name="ConversationFragment_delete_selected_message">Eliminare il messaggio selezionato?</string>
+    <string name="ConversationFragment_delete_selected_messages">Eliminare i messaggi selezionati?</string>
+    <string name="ConversationFragment_deleting_messages">Eliminazione dei messaggi…</string>
+    <string name="ConversationFragment_pending">In attesa…</string>
+    <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
+        <item quantity="one">Questo eliminerà definitivamente <xliff:g id="count">%1$d</xliff:g> messaggio selezionato.</item>
+        <item quantity="many">Questo eliminerà definitivamente tutti i <xliff:g id="arg1">%1$d</xliff:g> messaggi selezionati.</item>
+        <item quantity="other">Questo eliminerà definitivamente tutti i <xliff:g id="arg1">%1$d</xliff:g> messaggi selezionati.</item>
+    </plurals>
+    <!--ConversationItem-->
+    <string name="ConversationItem_click_for_details">Tocca per i dettagli</string>
+    <string name="ConversationItem_error_not_delivered">Non consegnato</string>
+    <string name="ConversationItem_error_received_stale_key_exchange_message">Ricevuto messaggio di scambio chiavi non aggiornato.</string>
+    <string name="ConversationItem_group_action_left"><xliff:g id="arg1">%1$s</xliff:g> ha lasciato il gruppo.</string>
+    <string name="ConversationItem_received_key_exchange_message_tap_to_process">Messaggio di scambio chiavi ricevuto, toccare per elaborare.</string>
+    <string name="ConversationItem_via_s">via <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="ConversationItem_xmpp_address_update_smsecure">Indirizzo XMPP. Aggiorna SMSecure per abilitare questa funzione.</string>
+    <!--ConversationListFragment-->
+    <plurals name="ConversationListFragment_conversations_archived">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> conversazione archiviata</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> conversazioni archiviate</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> conversazioni archiviate</item>
+    </plurals>
+    <string name="ConversationListFragment_delete_selected_conversation">Eliminare la conversazione selezionata?</string>
+    <string name="ConversationListFragment_delete_selected_conversations">Eliminare le conversazioni selezionate?</string>
+    <string name="ConversationListFragment_deleting_selected_conversations">Eliminazione delle conversazioni selezionate…</string>
+    <plurals name="ConversationListFragment_moved_conversations_to_inbox">
+        <item quantity="one">Spostata <xliff:g id="arg1">%1$d</xliff:g> conversazione nella posta in arrivo</item>
+        <item quantity="many">Spostate <xliff:g id="arg1">%1$d</xliff:g> conversazioni nella posta in arrivo</item>
+        <item quantity="other">Spostate <xliff:g id="arg1">%1$d</xliff:g> conversazioni nella posta in arrivo</item>
+    </plurals>
+    <string name="ConversationListFragment_send_drafts">Invia bozze</string>
+    <string name="ConversationListFragment_sending">Invio</string>
+    <string name="ConversationListFragment_sending_selected_drafts">Invio delle bozze selezionate…</string>
+    <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
+        <item quantity="one">Questo eliminerà definitivamente <xliff:g id="arg1">%1$d</xliff:g> conversazione selezionata.</item>
+        <item quantity="many">Questo eliminerà definitivamente tutte le <xliff:g id="arg1">%1$d</xliff:g> conversazioni selezionate.</item>
+        <item quantity="other">Questo eliminerà definitivamente tutte le <xliff:g id="arg1">%1$d</xliff:g> conversazioni selezionate.</item>
+    </plurals>
+    <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Questo invierà le bozze delle conversazioni selezionate.</string>
+    <string name="ConversationListFragment_undo">ANNULLA</string>
+    <!--ConversationListItemArchived-->
+    <string name="ConversationListItemAction_archived_conversations_d">Conversazioni archiviate (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--CustomDefaultPreference-->
+    <string name="CustomDefaultPreference_using_custom">Utilizzo di custom: <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="CustomDefaultPreference_using_default">Utilizzo di default: <xliff:g id="arg1">%s</xliff:g></string>
+    <!--database_migration_activity-->
+    <string name="database_migration_activity__import_database_image_description">Illustrazione dell’importazione del database</string>
+    <string name="database_migration_activity__import_status">0/100</string>
+    <string name="database_migration_activity__importing_database">Importazione del database…</string>
+    <string name="database_migration_activity__this_could_take_a_moment_please_be_patient">Potrebbe volerci un po\’. Attendi per favore, sarai avvisato quando l\’importazione sarà completata.</string>
+    <!--database_upgrade_activity-->
+    <string name="database_upgrade_activity__updating_database">Aggiornamento del database…</string>
+    <!--DateUtils-->
+    <string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> min</string>
+    <string name="DateUtils_now">Ora</string>
+    <string name="DateUtils_today">Oggi</string>
+    <string name="DateUtils_yesterday">Ieri</string>
+    <!--Distribution-->
+    <string name="Distribution_long_description">SMSecure è un’applicazione SMS che ti permette di proteggere la tua privacy mentre comunichi con gli amici.\nUtilizzando SMSecure, puoi inviare messaggi SMS e condividere file multimediali o allegati in totale privacy.\n\nCaratteristiche:\n* Facile. SMSecure funziona come qualsiasi altra applicazione SMS. Non c’è nulla a cui iscriversi e nessun nuovo servizio a cui i tuoi amici debbano aderire.\n* Affidabile. SMSecure comunica utilizzando messaggi SMS crittografati. Non sono richiesti server o connessioni Internet.\n* Riservato. SMSecure fornisce la crittografia end-to-end per i tuoi messaggi utilizzando il protocollo di crittografia Signal, progettato con cura.\n* Sicuro. Tutti i messaggi vengono crittografati localmente, quindi se il tuo telefono viene smarrito o rubato, i tuoi messaggi sono protetti.\n* Open Source. SMSecure è gratuito e open source, consentendo a chiunque di verificarne la sicurezza controllando il codice.\n\nSi prega di segnalare eventuali bug, problemi o richieste di funzionalità all’indirizzo: <xliff:g id="arg1">%1$s</xliff:g>\n\nIl codice sorgente è disponibile all’indirizzo: <xliff:g id="arg2">%2$s</xliff:g>\n\nMaggiori dettagli: <xliff:g id="arg3">%3$s</xliff:g>\n\nInformativa sulla privacy: <xliff:g id="arg4">%4$s</xliff:g></string>
+    <!--DualSimUtil-->
+    <string name="DualSimUtil__a_new_key_has_been_generated">È stata generata una nuova chiave.</string>
+    <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">È stata generata una nuova chiave per quella scheda SIM.</string>
+    <string name="DualSimUtil__new_sim_card_detected">Rilevata nuova scheda SIM</string>
+    <!--EncryptingSmsDatabase-->
+    <string name="EncryptingSmsDatabase_error_decrypting_message">Errore durante la decrittografia del messaggio.</string>
+    <!--export_fragment-->
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Esporta un backup in testo semplice (compatibile con “SMS Backup &amp; Restore”)</string>
+    <string name="export_fragment__export_an_encrypted_backup_to_storage">Esporta un backup crittografato nella memoria</string>
+    <string name="export_fragment__export_encrypted_backup">Esporta backup crittografato</string>
+    <string name="export_fragment__export_plaintext_backup">Esporta backup in testo semplice</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">Importa un backup in testo semplice (compatibile con “SMS Backup &amp; Restore”)</string>
+    <string name="import_fragment__import_plaintext_backup">Importa backup in testo normale</string>
+    <string name="import_fragment__import_system_sms_database">Importa database SMS di sistema</string>
+    <string name="import_fragment__import_the_database_from_the_default_system">Importa il database dall\’applicazione di default per la messaggistica</string>
+    <string name="import_fragment__restore_a_previously_exported_encrypted_backup">Ripristina un backup crittografato esportato in precedenza</string>
+    <string name="import_fragment__restore_encrypted_backup">Ripristina backup crittografato</string>
+    <!--ExportFragment-->
+    <string name="ExportFragment_error_while_writing_to_storage">Errore durante la scrittura nella memoria.</string>
+    <string name="ExportFragment_export">Esporta</string>
+    <string name="ExportFragment_export_encrypted_backup">Esportare il backup crittografato?</string>
+    <string name="ExportFragment_export_plaintext_to_storage">Esportare il testo in chiaro nella memoria?</string>
+    <string name="ExportFragment_export_successful">Esportazione riuscita.</string>
+    <string name="ExportFragment_exporting">Esportazione</string>
+    <string name="ExportFragment_exporting_keys_settings_and_messages">Esportazione di chiavi crittografate, impostazioni e messaggi…</string>
+    <string name="ExportFragment_exporting_plaintext_to_storage">Esportazione testo nell\’archiviazione…</string>
+    <string name="ExportFragment_this_will_export_your_encrypted_keys_settings_and_messages">Questo esporterà le tue chiavi crittografate, le impostazioni e i messaggi nella memoria.</string>
+    <string name="ExportFragment_warning_this_will_export_the_contents_of_your_messages_to_storage_in_plaintext">Attenzione: questa operazione esporterà il contenuto dei tuoi messaggi SMSecure nella memoria in formato testo semplice.</string>
+    <!--GroupCreateActivity-->
+    <string name="GroupCreateActivity_actionbar_title">Nuovo gruppo</string>
+    <string name="GroupCreateActivity_contacts_mms_exception">Impossibile creare il gruppo a causa di un errore imprevisto.</string>
+    <string name="GroupCreateActivity_contacts_no_members">Nel tuo gruppo deve esserci almeno una persona!</string>
+    <string name="GroupCreateActivity_menu_create_title">Crea gruppo</string>
+    <!--GroupMembersDialog-->
+    <string name="GroupMembersDialog_me">Me</string>
+    <!--IdentityActivity-->
+    <string name="IdentityActivity__base64_code_title">Codice Base64</string>
+    <string name="IdentityActivity__current_remote_fingerprint">Impronta digitale di <xliff:g id="arg1">%1$s</xliff:g></string>
+    <string name="IdentityActivity__detected_format">Rilevato: <xliff:g id="arg1">%1$s</xliff:g></string>
+    <string name="IdentityActivity__empty_data">Nessun dato da visualizzare.</string>
+    <string name="IdentityActivity__enter_hex_or_base64">Inserisci codice HEX o Base64</string>
+    <string name="IdentityActivity__failed_to_render">Impossibile visualizzare il codice QR.</string>
+    <string name="IdentityActivity__format_base64">Base64</string>
+    <string name="IdentityActivity__format_hex">HEX</string>
+    <string name="IdentityActivity__format_unknown">Sconosciuto</string>
+    <string name="IdentityActivity__hex_code">Codice HEX</string>
+    <string name="IdentityActivity__invalid_base64">Base64 non valido.</string>
+    <string name="IdentityActivity__invalid_code">Codice non valido.</string>
+    <string name="IdentityActivity__invalid_hex">HEX non valido.</string>
+    <string name="IdentityActivity__invalid_hex_length">Lunghezza HEX non valida.</string>
+    <string name="IdentityActivity__invalid_identity_length">Lunghezza dell’identità non prevista.</string>
+    <string name="IdentityActivity__manual_ready">Pronto per la verifica</string>
+    <string name="IdentityActivity__manual_verify_no_remote">Nessuna chiave di identità remota disponibile per il confronto.</string>
+    <string name="IdentityActivity__not_verified_exclamation">NON verificato!</string>
+    <string name="IdentityActivity__paste_to_verify">Il tipo verrà rilevato automaticamente.</string>
+    <string name="IdentityActivity__recipient_has_no_identity_key">Il destinatario non dispone di una chiave di identità.</string>
+    <string name="IdentityActivity__scan_qr_code">Scansiona codice QR</string>
+    <string name="IdentityActivity__share_base64">Condividi codice Base64</string>
+    <string name="IdentityActivity__share_failed">Condivisione dell’immagine QR non riuscita.</string>
+    <string name="IdentityActivity__share_image">Condividi immagine QR</string>
+    <string name="IdentityActivity__their_key_is_correct_it_is_also_necessary_to_verify_your_key_with_them_as_well">La loro chiave è corretta. È inoltre necessario verificare la propria chiave con loro.</string>
+    <string name="IdentityActivity__verification_status">Stato di verifica</string>
+    <string name="IdentityActivity__verification_status_idle">Nessuna scansione effettuata</string>
+    <string name="IdentityActivity__verification_status_not_available">Non disponibile</string>
+    <string name="IdentityActivity__verification_status_not_verified">Non verificato</string>
+    <string name="IdentityActivity__verification_status_verified">Verificato</string>
+    <string name="IdentityActivity__verified_exclamation">Verificato!</string>
+    <string name="IdentityActivity__verify_entered_code">Verifica</string>
+    <string name="IdentityActivity__verify_identity">Verifica identità</string>
+    <string name="IdentityActivity__view_identity">Visualizza identità</string>
+    <string name="IdentityActivity__warning_the_entered_key_does_not_match">La chiave inserita non corrisponde. Controlla attentamente.</string>
+    <string name="IdentityActivity__warning_the_scanned_key_does_not_match_please_check_the_fingerprint_text_carefully">ATTENZIONE, la chiave scansionata NON corrisponde! Controlla attentamente il testo dell’impronta digitale.</string>
+    <string name="IdentityActivity__you_do_not_have_an_identity_key">Non disponi di una chiave di identità.</string>
+    <string name="IdentityActivity__your_fingerprint">La tua impronta digitale</string>
+    <!--import_export_fragment-->
+    <string name="import_export_fragment__backup_restored">“Backup ripristinato. SMSecure si chiuderà ora — riaprilo per completare il ripristino.”</string>
+    <!--ImportFragment-->
+    <string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages">SMSecure necessita dell’autorizzazione SMS per importare i messaggi SMS, ma questa è stata negata in modo permanente. Si prega di accedere alle impostazioni dell’app, selezionare "Autorizzazioni" e abilitare "SMS".</string>
+    <string name="ImportExportFragment_smsecure_needs_the_sms_permission_in_order_to_import_sms_messages_toast">SMSecure necessita dell’autorizzazione SMS per importare i messaggi SMS</string>
+    <string name="ImportFragment_error_importing_backup">Errore durante l\’importazione della copia!</string>
+    <string name="ImportFragment_import_complete">Importazione completata!</string>
+    <string name="ImportFragment_import_plaintext_backup">Importare il backup in testo semplice?</string>
+    <string name="ImportFragment_import_plaintext_backup_ellipse">Importazione del backup in testo semplice…</string>
+    <string name="ImportFragment_import_system_sms_database">Importare il database SMS di sistema?</string>
+    <string name="ImportFragment_restore_encrypted_backup">Ripristinare il backup crittografato?</string>
+    <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Il ripristino di un backup crittografato sostituirà completamente le chiavi, le preferenze e i messaggi esistenti. Si perderanno tutte le informazioni presenti nell’installazione corrente di SMSecure ma non presenti nel backup. SMSecure si arresterà dopo l’importazione.</string>
+    <string name="ImportFragment_restoring_encrypted_backup">Ripristino del backup crittografato…</string>
+    <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Questo importerà messaggi da una copia. Se hai già importato questa copia, una nuova importazione creerà dei messaggi duplicati.</string>
+    <string name="ImportFragment_this_will_import_messages_from_the_system">Questo importerà i messaggi dal database SMS predefinito del sistema in SMSecure. Se hai già importato il database SMS del sistema in precedenza, importarlo nuovamente comporterà la duplicazione dei messaggi.</string>
+    <!--key_scanning-->
+    <string name="share_identity_fingerprint">Condividi l\’impronta della tua identità</string>
+    <!--KeyExchangeInitiator-->
+    <string name="KeyExchangeInitiator_initiate_despite_existing_request_question">Avviare nonostante la richiesta esistente?</string>
+    <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Hai già inviato una richiesta di avvio della sessione a questo destinatario, sei sicuro di volerne inviare un’altra? Questo invaliderà la prima richiesta.</string>
+    <!--load_more_header-->
+    <string name="load_more_header__see_full_conversation">Mostra l\’intera conversazione</string>
+    <!--log_submit_activity-->
+    <string name="log_submit__button_copy">Copia log</string>
+    <string name="log_submit__button_share_link">Condividi link</string>
+    <string name="log_submit__button_share_logs">Condividi log</string>
+    <string name="log_submit_activity__collecting_logs">Raccolta dei log…</string>
+    <string name="log_submit_activity__log_collect_failed">Impossibile raccogliere il log.</string>
+    <string name="log_submit_activity__log_fetch_failed">Impossibile raccogliere o caricare il log.</string>
+    <string name="log_submit_activity__log_upload_failed">Caricamento del log non riuscito.</string>
+    <string name="log_submit_activity__log_uploaded">Log caricato. Link copiato negli appunti.</string>
+    <string name="log_submit_activity__thanks">Grazie dell\’aiuto!</string>
+    <string name="log_submit_activity__uploading_logs">Caricamento del log in corso…</string>
+    <string name="log_submit_copied">Log copiato.</string>
+    <!--message_details_header-->
+    <string name="message_details_header__from">Da</string>
+    <string name="message_details_header__issues_need_your_attention">Ci sono alcuni problemi che richiedono la tua attenzione.</string>
+    <string name="message_details_header__received">Ricevuto</string>
+    <string name="message_details_header__sent">Inviato</string>
+    <string name="message_details_header__to">A</string>
+    <string name="message_details_header__type">Tipo</string>
+    <!--message_recipients_list_item-->
+    <string name="message_recipients_list_item__resend">Invia nuovamente</string>
+    <string name="message_recipients_list_item__verify">Verifica</string>
+    <!--MessageDetailsRecipient-->
+    <string name="MessageDetailsRecipient_failed_to_send">Invio non riuscito</string>
+    <string name="MessageDetailsRecipient_new_identity">Nuova identità</string>
+    <!--MessageDisplayHelper-->
+    <string name="MessageDisplayHelper_bad_encrypted_message">Messaggio crittografato non valido</string>
+    <string name="MessageDisplayHelper_decrypting_please_wait">Decrittografia in corso, attendere prego…</string>
+    <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Richiesta di chiusura di una sessione inesistente</string>
+    <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Messaggio crittografato per una sessione inesistente</string>
+    <!--MessageNotifier-->
+    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nuovi messaggi nelle <xliff:g id="arg2">%2$d</xliff:g> conversazioni</string>
+    <string name="MessageNotifier_encrypted_message">Messaggio crittografato</string>
+    <string name="MessageNotifier_error_delivering_message">C\’è stato un errore durante l\’invio del messaggio</string>
+    <string name="MessageNotifier_failed_to_deliver_message">Non è riuscito l\’invio del messaggio</string>
+    <string name="MessageNotifier_mark_all_as_read">Contrassegna tutto come letto</string>
+    <string name="MessageNotifier_mark_read">Contrassegna come letto</string>
+    <string name="MessageNotifier_message_delivery_failed">Non è riuscito l\’invio del messaggio</string>
+    <string name="MessageNotifier_message_received">Messaggio ricevuto da <xliff:g id="arg1">%s</xliff:g>.</string>
+    <string name="MessageNotifier_most_recent_from_s">Ultimo da: <xliff:g id="arg1">%1$s</xliff:g></string>
+    <string name="MessageNotifier_reply">Rispondi</string>
+    <!--MessageRecord-->
+    <string name="MessageRecord_key_exchange_message">Messaggio di scambio delle chiavi</string>
+    <string name="MessageRecord_left_group">Hai lasciato il gruppo.</string>
+    <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">È stato ricevuto un messaggio crittografato utilizzando una versione precedente di SMSecure che non è più supportata. Si prega di chiedere al mittente di aggiornare alla versione più recente e di inviare nuovamente il messaggio.</string>
+    <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Il messaggio di scambio che hai ricevuto proviene da una versione di SMSecure troppo obsoleta per comunicare con la tua versione. Devi inviarlo manualmente per avviare una sessione sicura. Tocca per inviare un messaggio di scambio di chiavi.</string>
+    <string name="MessageRecord_updated_group">Il gruppo è stato aggiornato.</string>
+    <!--MuteDialog-->
+    <string name="MuteDialog_mute_notifications">Disattiva le notifiche</string>
+    <!--Notification Channels-->
+    <string name="NotificationChannel_failures">Errori</string>
+    <string name="NotificationChannel_locked_status">Stato bloccato</string>
+    <string name="NotificationChannel_messages">Messaggi</string>
+    <string name="NotificationChannel_other">Altro</string>
+    <!--PassphraseChangeActivity-->
+    <string name="PassphraseChangeActivity_change_passphrase">Modifica passphrase</string>
+    <string name="PassphraseChangeActivity_create_passphrase">Crea passphrase</string>
+    <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Nessuna passphrase inserita!</string>
+    <string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Passphrase precedente errata!</string>
+    <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Le passphrase non corrispondono!</string>
+    <!--PassphrasePromptActivity-->
+    <string name="PassphrasePromptActivity_enter_passphrase">Inserisci passphrase</string>
+    <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Passphrase non valida!</string>
+    <string name="PassphrasePromptActivity_watermark_content_description">Icona SMSecure</string>
+    <!--Permissions-->
+    <string name="Permissions_not_now">Non ora</string>
+    <string name="Permissions_permission_required">Autorizzazione richiesta</string>
+    <!--plurals.xml-->
+    <plurals name="hours_ago">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> ora</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> ore</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> ore</item>
+    </plurals>
+    <!--preferences.xml-->
+    <string name="preferences__about">Informazioni su SMSecure</string>
+    <string name="preferences__about_version">Versione <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="preferences__advanced">Avanzate</string>
+    <string name="preferences__always_ask_for_sim_card">Richiedi sempre la scheda SIM</string>
+    <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Chiedi sempre quale SIM utilizzare quando invii messaggi</string>
+    <string name="preferences__appearance">Aspetto</string>
+    <string name="preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key">Completa automaticamente lo scambio di chiavi per le nuove sessioni o per quelle esistenti con la stessa chiave di identità</string>
+    <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Elimina automaticamente i messaggi più vecchi quando una conversazione supera una lunghezza specificata</string>
+    <string name="preferences__blocked_contacts">Contatti bloccati</string>
+    <string name="preferences__change_notification_sound">Modifica suono di notifica</string>
+    <string name="preferences__change_passphrase">Modifica passphrase</string>
+    <string name="preferences__change_your_passphrase">Cambia la tua passphrase</string>
+    <string name="preferences__chats">Chat e contenuti multimediali</string>
+    <string name="preferences__complete_key_exchanges">Completare lo scambio di chiavi</string>
+    <string name="preferences__conversation_length_limit">Limite di lunghezza della conversazione</string>
+    <string name="preferences__dark_theme">Scuro</string>
+    <string name="preferences__delete_old_messages">Elimina i messaggi vecchi</string>
+    <string name="preferences__diagnostic_logging_level">Livello di registrazione diagnostica</string>
+    <string name="preferences__diagnostic_logging_level_summary">Controlla la quantità di informazioni diagnostiche che SMSecure memorizza internamente.</string>
+    <string name="preferences__disable_emoji_drawer">Disattiva il menu emoji</string>
+    <string name="preferences__disable_screen_security_to_allow_screen_shots">Blocca il fotografare dello schermo nella lista recenti e all\’interno dell\’app</string>
+    <string name="preferences__disable_smsecures_built_in_emoji_support">Disattiva il supporto integrato per le emoji di SMSecure</string>
+    <string name="preferences__display_a_notification_when_a_delivery_report_is_received">Visualizza una notifica quando viene ricevuto un rapporto di consegna</string>
+    <string name="preferences__display_in_notifications">Visualizza nelle notifiche</string>
+    <string name="preferences__display_in_notifications_which_elements_show">Seleziona quali elementi visualizzare nella notifica</string>
+    <string name="preferences__enable_local_encryption_of_messages_and_keys">Abilita la crittografia locale di messaggi e chiavi</string>
+    <string name="preferences__enable_message_notifications">Abilita le notifiche dei messaggi</string>
+    <string name="preferences__enable_panic_on_device_lock_button">Blocco automatico su Blocco schermo</string>
+    <string name="preferences__enable_passphrase">Abilita passphrase</string>
+    <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Attiva quest\’opzione se la tua tastiera supporta gli emoji.</string>
+    <string name="preferences__enter_key_summary">Scegli se il tasto Invio invia il messaggio o inserisce una nuova riga</string>
+    <string name="preferences__five_times">Cinque volte</string>
+    <string name="preferences__forget_passphrase_from_memory_after_some_interval">Richiedere la passphrase per accedere ai messaggi dopo un determinato periodo di tempo</string>
+    <string name="preferences__hide_divider_between_read_and_unread_messages">Nascondi il divisore tra i messaggi letti e quelli non letti</string>
+    <string name="preferences__hide_unread_message_divider">Nascondi il separatore dei messaggi non letti</string>
+    <string name="preferences__hours">ore</string>
+    <string name="preferences__in_conversation_notifications">Notifiche nelle conversazioni</string>
+    <string name="preferences__incognito_keyboard">Tastiera in incognito</string>
+    <string name="preferences__keyboard_settings">Opzioni della tastiera</string>
+    <string name="preferences__language">Lingua</string>
+    <string name="preferences__language_summary">Lingua dell’applicazione</string>
+    <string name="preferences__make_default_sms_app">Imposta come app SMS predefinita</string>
+    <string name="preferences__make_smsecure_the_default_sms_app">Imposta SMSecure come app SMS predefinita per il tuo sistema.</string>
+    <string name="preferences__message_trimming">Riduzione del messaggio</string>
+    <string name="preferences__messages">Messaggi</string>
+    <string name="preferences__minutes">minuti</string>
+    <plurals name="preferences__msgs_short">
+        <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>
+        <item quantity="many"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+    </plurals>
+    <string name="preferences__never">Mai</string>
+    <string name="preferences__notifications">Notifiche</string>
+    <string name="preferences__one_time">Una volta</string>
+    <string name="preferences__panic_button">Pulsante di emergenza</string>
+    <string name="preferences__play_inthread_notifications">Riproduci il suono di notifica durante la visualizzazione di una conversazione attiva.</string>
+    <string name="preferences__pref_timeout_interval_title">Intervallo di timeout</string>
+    <string name="preferences__privacy">Privacy</string>
+    <string name="preferences__privacy_policy">Informativa sulla privacy</string>
+    <string name="preferences__repeat_notification">Notifica di ripetizione</string>
+    <string name="preferences__repeat_notification_number_times_select">Seleziona il numero di volte in cui ripetere la notifica</string>
+    <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Richiedi un rapporto di consegna per ogni messaggio SMS inviato</string>
+    <string name="preferences__request_keyboard_to_disable_personalized_learning">Se impostata in modalità incognito, la tastiera non ricorderà, non imparerà né memorizzerà alcuna parola digitata</string>
+    <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Scansiona tutte le conversazioni e applica i limiti di lunghezza delle conversazioni</string>
+    <string name="preferences__screen_security">Sicurezza dello schermo</string>
+    <string name="preferences__show_sent_time">Mostrare la data dell\’invio</string>
+    <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Mostra l\’ora dell\’invio al posto dell\’ora di ricevimento per i messaggi in entrata</string>
+    <string name="preferences__sms_delivery_reports">Rapporti di consegna SMS</string>
+    <string name="preferences__sms_delivery_reports_notification">Notifica dei rapporti di consegna SMS</string>
+    <string name="preferences__sound">Suono</string>
+    <string name="preferences__submit_debug_log">Invia log di debug</string>
+    <string name="preferences__submit_debug_log_summary">Raccogli le informazioni diagnostiche e condividile per la risoluzione dei problemi.</string>
+    <string name="preferences__summary_enable_panic_on_device_lock_button">Blocca automaticamente l’app quando il dispositivo è bloccato</string>
+    <string name="preferences__summary_panic_button">Abilita il pulsante di emergenza da "Ripple: rispondi in caso di panico" di Guardian Project</string>
+    <string name="preferences__ten_times">Dieci volte</string>
+    <string name="preferences__theme">Tema</string>
+    <string name="preferences__theme_light">Luminoso</string>
+    <string name="preferences__theme_summary">Scegli l’aspetto dell’app</string>
+    <string name="preferences__theme_systemic">Systemic</string>
+    <string name="preferences__three_times">Tre volte</string>
+    <string name="preferences__timeout_passphrase">Passphrase di timeout</string>
+    <string name="preferences__trim_all_conversations_now">Elimina tutte le conversazioni ora</string>
+    <string name="preferences__two_times">Due volte</string>
+    <string name="preferences__use_system_emoji">Usa le emoji di sistema</string>
+    <string name="preferences__write_logs_to_android_logcat">Scrivi i log su Logcat di Android</string>
+    <string name="preferences__write_logs_to_android_logcat_summary">Consente a SMSecure di scrivere i propri log nel log di sistema. Disattivare questa opzione per una maggiore privacy.</string>
+    <!--prompt_passphrase_activity-->
+    <string name="prompt_passphrase_activity__unlock">Sblocca</string>
+    <!--QR code-->
+    <string name="QrScanActivity__align_qr">Allinea QR</string>
+    <!--QuickResponseService-->
+    <string name="QuickResponseService_problem_sending_message">Problema nell\’inviare il messaggio</string>
+    <string name="QuickResponseService_quick_response_unavailable_when_SMSecure_is_locked">Risposta rapida non disponibile quando SMSecure è bloccato!</string>
+    <!--receive_key_dialog-->
+    <string name="receive_key_activity__complete">Completo</string>
+    <!--ReceiveKeyActivity-->
+    <string name="ConfirmIdentityDialog_you_may_wish_to_verify_this_contact">Dovresti verificare l\’identità di questo contatto.</string>
+    <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_different">La firma di questo scambio di chiavi è diversa da quella che hai ricevuto in precedenza da questo contatto. Ciò potrebbe significare che qualcuno sta cercando di intercettare la tua comunicazione, oppure che questo contatto ha semplicemente reinstallato SMSecure e ora dispone di una nuova chiave di identità.</string>
+    <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but">La firma di questa chiave è fidata, ma al momento hai lo scambio automatico della chiave disabilitato.</string>
+    <!--recipient_preferences-->
+    <string name="recipient_preferences__block">Blocco</string>
+    <string name="recipient_preferences__color">Colore</string>
+    <string name="recipient_preferences__color_for_this_contact">Colore per questo contatto</string>
+    <string name="recipient_preferences__disable_notifications_for_this_conversation">Disattiva le notifiche per questa conversazione</string>
+    <string name="recipient_preferences__mute_conversation">Silenzia conversazione</string>
+    <string name="recipient_preferences__notification_sound">Suono di notifica</string>
+    <!--recipient_preferences_activity-->
+    <string name="recipient_preference_activity__blocked">Bloccato</string>
+    <!--RecipientPreferencesActivity-->
+    <string name="RecipientPreferenceActivity_are_you_sure_you_want_to_unblock_this_contact">Sei sicuro di voler sbloccare questo contatto?</string>
+    <string name="RecipientPreferenceActivity_block">Blocco</string>
+    <string name="RecipientPreferenceActivity_block_this_contact_question">Bloccare questo contatto?</string>
+    <string name="RecipientPreferenceActivity_unblock">Sblocca</string>
+    <string name="RecipientPreferenceActivity_unblock_this_contact_question">Sbloccare questo contatto?</string>
+    <string name="RecipientPreferenceActivity_you_will_no_longer_see_messages_from_this_user">Non vedrai più i messaggi inviati da questo utente.</string>
+    <!--recipients_panel-->
+    <string name="recipients_panel__add_member">Aggiungi partecipante</string>
+    <string name="recipients_panel__to">Inserisci un nome o un numero</string>
+    <!--reminder_header-->
+    <string name="reminder_header_delivery_reports_text">I rapporti di consegna ti consentono di sapere se e quando il destinatario ha ricevuto i tuoi messaggi. Alcune reti mobili applicano un costo aggiuntivo.</string>
+    <string name="reminder_header_delivery_reports_title">Abilitare i rapporti di consegna?</string>
+    <string name="reminder_header_rate_button">Vota ora!</string>
+    <string name="reminder_header_rate_text">Se ti piace quest\’applicazione, perfavore aiutaci valutandola</string>
+    <string name="reminder_header_rate_title">Valuta quest\’applicazione</string>
+    <string name="reminder_header_sms_default_button">Imposta</string>
+    <string name="reminder_header_sms_default_text_mandatory">SMSecure deve essere l’app SMS predefinita per ricevere i messaggi.</string>
+    <string name="reminder_header_sms_default_title">Utilizzare come app SMS predefinita?</string>
+    <string name="reminder_header_sms_import_text">Tocca per copiare i messaggi SMS del tuo telefono nel database crittografato di SMSecure.</string>
+    <string name="reminder_header_sms_import_title">Importare SMS di sistema?</string>
+    <!--RingtonePreference-->
+    <string name="RingtonePreference_add_ringtone_text">Aggiungi suoneria</string>
+    <string name="RingtonePreference_application_default">Impostazione predefinita dell’applicazione</string>
+    <string name="RingtonePreference_system_default">Impostazione predefinita del sistema</string>
+    <string name="RingtonePreference_unable_to_add_ringtone">Impossibile aggiungere una suoneria personalizzata</string>
+    <!--ShareActivity-->
+    <string name="ShareActivity_share_with">Condividi con</string>
+    <!--single_contact_selection_activity-->
+    <string name="SingleContactSelectionActivity_contact_photo">Foto del contatto</string>
+    <!--SingleRecipientNotificationBuilder-->
+    <string name="SingleRecipientNotificationBuilder_new_message">Nuovo messaggio</string>
+    <!--SmsMessageRecord-->
+    <string name="SmsMessageRecord_duplicate_message">Messaggio duplicato.</string>
+    <string name="SmsMessageRecord_received_corrupted_key_exchange_message">Ricevuta una chiave corrotta scambia un altro messaggio!</string>
+    <string name="SmsMessageRecord_received_key_exchange_message_for_invalid_protocol_version">Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valida.</string>
+    <string name="SmsMessageRecord_received_message_with_unknown_identity_key_tap_to_process">Messaggio ricevuto con chiave di identità sconosciuta. Tocca per elaborare e visualizzare.</string>
+    <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Ricevute informazioni di identità aggiornate ma sconosciute. Clicca per validare l\’identità.</string>
+    <string name="SmsMessageRecord_secure_session_ended">Sessione sicura terminata.</string>
+    <!--SubscriptionInfoCompat-->
+    <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slot <xliff:g id="arg2">%2$d</xliff:g>)</string>
+    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+    <!--ThreadRecord-->
+    <string name="ThreadRecord_draft">Bozza:</string>
+    <string name="ThreadRecord_left_the_group">Ha lasciato il gruppo</string>
+    <string name="ThreadRecord_media_message">Messaggio multimediale</string>
+    <!--transport_selection_list_item-->
+    <string name="transport_selection_list_item__transport_icon">Icona del mezzo di trasporto</string>
+    <!--TransportOptions-->
+    <string name="TransportOptions_no_sim_card_found">Nessuna scheda SIM rilevata</string>
+    <string name="TransportOptions_sms_disabled">Messaggi SMS disabilitati</string>
+    <!--Trimmer-->
+    <string name="trimmer__deleting_old_messages">Eliminazione dei vecchi messaggi…</string>
+    <string name="trimmer__old_messages_successfully_deleted">Messaggi precedenti eliminati con successo</string>
+    <!--WelcomeActivity-->
+    <string name="cd_welcome_image">Immagine di benvenuto</string>
+    <string name="WelcomeActivity_action_required">Azione richiesta!</string>
+    <string name="WelcomeActivity_encrypt_your_messages">Crittografa i tuoi messaggi con gli utenti SMSecure mentre utilizzi normali messaggi SMS con gli altri.</string>
+    <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Migliora la tua privacy, parla con tutti</string>
+    <string name="WelcomeActivity_smsecure_needs_access_to_your_contacts_phone_status_and_sms">SMSecure necessita dell’accesso ai tuoi contatti, allo stato del telefono e ai messaggi SMS per connettersi con gli amici, gestire le tue chiavi di crittografia e chattare.</string>
+    <string name="WelcomeActivity_smsecure_needs_the_phone_permission_in_order_to_manage_encryption_keys_and_bind_them_to_your_sim_cards_and_sms_permission_in_order_to_receive_sms_messages">SMSecure necessita dell’autorizzazione "Telefono" per gestire le chiavi di crittografia e associarle alle tue schede SIM, nonché dell’autorizzazione "SMS" per ricevere messaggi SMS.</string>
+    <string name="WelcomeActivity_smsecure_requires_the_phone_and_sms_permissions_in_order_to_work_but_it_has_been_permanently_denied">SMSecure necessita delle autorizzazioni per il telefono e gli SMS per funzionare, ma queste sono state negate in modo permanente. Si prega di accedere alle impostazioni dell’app, selezionare "Autorizzazioni", quindi abilitare "Telefono" e "SMS".</string>
+    <string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure">È necessario concedere alcune autorizzazioni a SMSecure.</string>
+    <string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure_in_order_to_continue_to_use_it">È necessario concedere alcune autorizzazioni a SMSecure per poter continuare a utilizzarlo. Toccare per continuare.</string>
+    </resources>

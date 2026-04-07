@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Night Tokens -->
+    <style name="Theme.SMSecure.Tokens" parent="Theme.SMSecure.Base">
+        <!-- Make the app background follow your custom attribute everywhere -->
+        <item name="android:windowBackground">?attr/appColorBackground</item>
+
+        <item name="appColorAccent">@color/blue_700</item>
+        <item name="appColorAlertDialogBackground">@color/gray85</item>
+        <item name="appColorBackground">@color/black</item>
+        <item name="appColorBackgroundPrimary">@color/gray80</item>
+        <item name="appColorBackgroundSecondary">@color/gray88</item>
+        <item name="appColorButtonTextPrimary">@color/black</item>
+        <item name="appColorIconInactive">@color/gray50</item>
+        <item name="appColorIconPrimary">@color/gray25</item>
+        <item name="appColorItemSelected">#552090ea</item>
+        <item name="appColorLabelBackground">#bb999999</item>
+        <item name="appColorPopupBackground">@color/gray87</item>
+        <item name="appColorSwipeBackground">@color/blue_700</item>
+        <item name="appColorTextPrimary">@color/white</item>
+        <item name="appColorTextSecondary">@color/gray30</item>
+        <item name="appColorTextSubtitle">@color/gray13</item>
+        <item name="appColorTextTitle">@color/gray13</item>
+        <item name="appColorToolbarActionModeBackground">@color/cyan_500</item>
+        <item name="appColorToolbarBackground">@color/primary_color</item>
+        <item name="appColorToolbarControl">@color/gray5</item>
+        <item name="appColorToolbarTextSubtitle">@color/gray15</item>
+        <item name="appColorToolbarTextTitle">@color/gray5</item>
+
+        <item name="contact_selection_label_text">@color/gray5_transparent60</item>
+        <item name="contact_selection_push_user">@color/gray5</item>
+        <item name="contact_selection_lay_user">@color/gray5_transparent31</item>
+
+
+        <!-- Conversation items -->
+        <item name="conversation_item_bubble_background_color">@color/gray80</item>
+        <item name="conversation_item_focused_background_color">#882090ea</item>
+        <item name="conversation_item_sent_text_primary_color">@color/white</item>
+        <item name="conversation_item_sent_text_secondary_color">@color/gray5_transparent33</item>
+        <item name="conversation_item_sent_text_indicator_tab_color">@color/white_transparent40</item>
+
+        <!-- Conversation list colors -->
+        <item name="conversation_list_item_archived_background_color">@color/gray80</item>
+        <item name="conversation_list_item_count_color">@color/gray13_transparent60</item>
+        <item name="conversation_list_item_background_read_color">@color/gray95</item>
+        <item name="conversation_list_item_background_unread_color">@color/gray80</item>
+
+        <!-- Conversation screen colors -->
+        <item name="conversation_editor_background">@color/white_transparent87</item>
+        <item name="conversation_editor_text_color">@color/gray5</item>
+
+        <item name="conversation_group_member_name_color">@color/white_transparent40</item>
+
+        <!-- Dialog colors -->
+        <item name="dialog_background_color">@color/background_material_dark</item>
+
+    </style>
+</resources>

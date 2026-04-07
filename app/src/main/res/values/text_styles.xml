@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main -->
+    <style name="SMSecure.TextAppearance.Headline" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">?attr/appColorTextTitle</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Title" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?attr/appColorTextTitle</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Subtitle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?attr/appColorTextSubtitle</item>
+    </style>
+
+
+    <!-- Toolbar -->
+    <style name="SMSecure.TextAppearance.Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">?attr/appColorToolbarTextTitle</item>
+        <item name="android:textColorHint">@color/white_transparent25</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Toolbar.Subtitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textColor">?attr/appColorToolbarTextSubtitle</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Toolbar.SearchEdit" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">?attr/appColorToolbarTextTitle</item>
+        <item name="android:textColorHint">@color/white_transparent25</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
+        <item name="backgroundTint">@color/toolbar_search_underline_tint</item>
+        <item name="backgroundTintMode">src_in</item>
+    </style>
+
+    <!-- ActionMode Toolbar -->
+    <style name="SMSecure.TextAppearance.ActionMode.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">?attr/appColorToolbarTextTitle</item>
+    </style>
+    <style name="SMSecure.TextAppearance.ActionMode.Subtitle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?attr/appColorToolbarTextSubtitle</item>
+    </style>
+
+    <!-- Preference -->
+    <style name="SMSecure.TextAppearance.Preference.Title" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?attr/appColorTextPrimary</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Preference.Summary" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?attr/appColorTextSecondary</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Preference.RightSummary" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?attr/appColorAccent</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Preference.Category.Title" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?attr/appColorTextPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="SMSecure.TextAppearance.Preference.Category.Summary" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?attr/appColorTextSecondary</item>
+    </style>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_key_recipient_mute"
+        android:icon="@drawable/ic_volume_off"
+        android:title="@string/recipient_preferences__mute_conversation"
+        android:summary="@string/recipient_preferences__disable_notifications_for_this_conversation"
+        android:defaultValue="false"
+        android:disableDependentsState="true"
+        android:persistent="false"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.AdvancedRingtonePreference
+        android:key="pref_key_recipient_ringtone"
+        android:icon="@drawable/ic_cellphone_sound"
+        android:title="@string/recipient_preferences__notification_sound"
+        android:summary="@string/preferences__change_notification_sound"
+        android:dependency="pref_key_recipient_mute"
+        android:persistent="false"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:showSilent="true"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="true" />
+
+
+    <org.jimvixx.smsecure.preferences.widgets.ColorPickerPreference
+        android:key="pref_key_recipient_color"
+        android:icon="@drawable/ic_palette"
+        android:title="@string/recipient_preferences__color"
+        android:summary="@string/recipient_preferences__color_for_this_contact"
+        android:defaultValue="@android:color/black"
+        android:persistent="false"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="true"
+        app:numColumns="5" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="pref_key_recipient_block"
+        android:icon="@drawable/ic_block"
+        android:title="@string/recipient_preferences__block" />
+
+</PreferenceScreen>

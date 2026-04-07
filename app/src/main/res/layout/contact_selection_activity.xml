@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.SMSecure.Toolbar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.SMSecure.Popup">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Container that Java expects to be LinearLayout (expandTapArea uses it) -->
+            <LinearLayout
+                android:id="@+id/toggle_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- AnimatingToggle that Java expects by id=button_toggle -->
+                <org.jimvixx.smsecure.components.AnimatingToggle
+                    android:id="@+id/button_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/search_dialpad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_circle_touch_highlight"
+                        android:clickable="true"
+                        android:contentDescription="@string/Dialpad"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes"
+                        android:minHeight="48dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_dialpad"
+                        app:tint="?attr/appColorToolbarControl" />
+
+                    <ImageView
+                        android:id="@+id/search_keyboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_circle_touch_highlight"
+                        android:clickable="true"
+                        android:contentDescription="@string/Keyboard"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes"
+                        android:minHeight="48dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_keyboard"
+                        android:visibility="gone"
+                        app:tint="?attr/appColorToolbarControl" />
+
+                    <ImageView
+                        android:id="@+id/search_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_circle_touch_highlight"
+                        android:clickable="true"
+                        android:contentDescription="@string/Clear"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes"
+                        android:minHeight="48dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_close"
+                        android:visibility="gone"
+                        app:tint="?attr/appColorToolbarControl" />
+
+                </org.jimvixx.smsecure.components.AnimatingToggle>
+
+            </LinearLayout>
+
+            <!-- Search field -->
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/search_view"
+                style="@style/SMSecure.TextAppearance.Toolbar.SearchEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="?attr/editTextBackground"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="@string/contact_selection_activity__enter_name_or_number"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/action_icon"
+                app:layout_constraintStart_toEndOf="@id/toggle_container"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Search action icon -->
+            <ImageView
+                android:id="@+id/action_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_circle_touch_highlight"
+                android:clickable="false"
+                android:contentDescription="@string/Confirm"
+                android:focusable="false"
+                android:importantForAccessibility="yes"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_magnify"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/appColorToolbarControl" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Contact list fragment -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/contact_selection_list_fragment"
+        android:name="org.jimvixx.smsecure.ContactSelectionListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

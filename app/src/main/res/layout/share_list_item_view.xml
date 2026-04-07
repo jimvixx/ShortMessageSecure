@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.jimvixx.smsecure.ShareListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <org.jimvixx.smsecure.components.AvatarImageView
+        android:id="@+id/contact_photo_image"
+        android:foreground="@drawable/bg_contact_photo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:cropToPadding="true"
+        android:contentDescription="@string/SingleContactSelectionActivity_contact_photo"
+        tools:src="@drawable/ic_account_box"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
+        android:layout_marginStart="4dip"
+        android:layout_marginEnd="8dip"
+        android:layout_marginBottom="4dip"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/contact_photo_image"
+        android:orientation="vertical">
+
+        <org.jimvixx.smsecure.components.FromTextView
+            android:id="@+id/from"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textAppearance="@style/SMSecure.TextAppearance.Title"
+            android:singleLine="true"
+            android:gravity="bottom"
+            android:ellipsize="marquee"
+            tools:text="Jules Bonnot"/>
+
+    </LinearLayout>
+</org.jimvixx.smsecure.ShareListItem>

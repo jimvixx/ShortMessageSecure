@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_touch_highlight_item"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/smsecure_preference_horizontal_padding"
+    android:paddingTop="@dimen/smsecure_preference_category_top_padding"
+    android:paddingEnd="@dimen/smsecure_preference_horizontal_padding"
+    android:paddingBottom="@dimen/smsecure_preference_category_bottom_padding">
+
+    <TextView
+        android:id="@android:id/title"
+        style="@style/SMSecure.TextAppearance.Preference.Category.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        tools:text="Test category title" />
+
+    <TextView
+        android:id="@android:id/summary"
+        style="@style/SMSecure.TextAppearance.Preference.Category.Summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/smsecure_preference_category_summary_margin_top"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:visibility="gone"
+        tools:text="Test category summary"
+        tools:visibility="visible" />
+
+</LinearLayout>

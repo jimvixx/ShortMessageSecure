@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/appColorToolbarActionModeBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <LinearLayout
+        android:id="@+id/reminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/reminder_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/SMSecure.TextAppearance.Toolbar.Title"
+            tools:text="Reminder title" />
+
+        <TextView
+            android:id="@+id/reminder_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/SMSecure.TextAppearance.Toolbar.Subtitle"
+            tools:text="Reminder text" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_touch_highlight_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:text="@string/Close"
+        android:textAllCaps="true"
+        android:textAppearance="@style/SMSecure.TextAppearance.Toolbar.Title"
+        android:textColor="?attr/appColorToolbarControl" />
+
+    <TextView
+        android:id="@+id/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_touch_highlight_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:text="@string/Enable"
+        android:textAllCaps="true"
+        android:textAppearance="@style/SMSecure.TextAppearance.Toolbar.Title"
+        android:textColor="?attr/appColorToolbarControl" />
+
+</LinearLayout>

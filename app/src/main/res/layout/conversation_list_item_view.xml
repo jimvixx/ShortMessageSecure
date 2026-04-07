@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.jimvixx.smsecure.ConversationListItem
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:focusable="true"
+    android:nextFocusLeft="@+id/container"
+    android:nextFocusRight="@+id/fab">
+
+    <org.jimvixx.smsecure.components.AvatarImageView
+        android:id="@+id/contact_photo_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="3dp"
+        android:contentDescription="@string/conversation_list_item_view__contact_photo_image"
+        android:cropToPadding="true"
+        android:foreground="@drawable/bg_contact_photo"
+        tools:src="@drawable/ic_account_outline" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4dip"
+        android:layout_marginEnd="8dip"
+        android:layout_toEndOf="@id/contact_photo_image"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <org.jimvixx.smsecure.components.FromTextView
+            android:id="@+id/from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/date"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="@style/SMSecure.TextAppearance.Title"
+            tools:text="Jules Bonnot" />
+
+        <org.jimvixx.smsecure.components.AlertView
+            android:id="@+id/indicators_parent"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_below="@id/from"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="2dp"
+            android:paddingTop="2dp"
+            android:visibility="gone"
+            app:useSmallIcon="true"
+            tools:visibility="visible" />
+
+        <org.jimvixx.smsecure.components.emoji.EmojiTextView
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/from"
+            android:layout_toStartOf="@+id/delivery_status"
+            android:layout_toEndOf="@id/indicators_parent"
+            android:ellipsize="end"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:singleLine="true"
+            android:textAppearance="@style/SMSecure.TextAppearance.Subtitle"
+            tools:text="Wheels arrive at 3pm flat. This is a somewhat longer message." />
+
+        <TextView
+            android:id="@id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/subject"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="3dip"
+            android:singleLine="true"
+            android:textAppearance="@style/SMSecure.TextAppearance.Subtitle"
+            tools:text="30 mins" />
+
+        <TextView
+            android:id="@+id/archived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date"
+            android:layout_alignBaseline="@id/subject"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/bg_rounded_rectangle"
+            android:backgroundTint="?attr/appColorTextSubtitle"
+            android:text="@string/conversation_list_item_view__archived"
+            android:textAppearance="@style/SMSecure.TextAppearance.Subtitle" />
+
+        <org.jimvixx.smsecure.components.DeliveryStatusView
+            android:id="@+id/delivery_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_below="@+id/date"
+            android:layout_toStartOf="@+id/archived"
+            app:iconColor="?attr/appColorTextSubtitle" />
+
+    </RelativeLayout>
+</org.jimvixx.smsecure.ConversationListItem>

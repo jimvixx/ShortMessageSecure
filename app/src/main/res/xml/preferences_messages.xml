@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="pref_set_default"
+        android:summary="@string/preferences__make_smsecure_the_default_sms_app"
+        android:title="@string/preferences__make_default_sms_app"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_show_sent_time"
+        android:summary="@string/preferences__show_sent_time_instead_of_received_time_in_conversations"
+        android:title="@string/preferences__show_sent_time"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_hide_unread_message_divider"
+        android:summary="@string/preferences__hide_divider_between_read_and_unread_messages"
+        android:title="@string/preferences__hide_unread_message_divider"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_delivery_report_sms"
+        android:summary="@string/preferences__request_a_delivery_report_for_each_sms_message_you_send"
+        android:title="@string/preferences__sms_delivery_reports"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:dependency="pref_delivery_report_sms"
+        android:key="pref_delivery_report_toast_sms"
+        android:summary="@string/preferences__display_a_notification_when_a_delivery_report_is_received"
+        android:title="@string/preferences__sms_delivery_reports_notification"
+        app:rightSummaryMaxLines="1" />
+
+</PreferenceScreen>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_items">
+        <item>zz|Default</item>
+        <item>en|English</item>
+        <item>ar|Arabic العربية</item>
+        <item>bg|Bulgarian Български</item>
+        <item>cs|Čeština</item>
+        <item>da|Dansk</item>
+        <item>de|Deutsch</item>
+        <item>el|Greek Ελληνικά</item>
+        <item>es|Español</item>
+        <item>et|Eesti</item>
+        <item>fi|Suomi</item>
+        <item>fr|Français</item>
+        <item>he|Hebrew עברית</item>
+        <item>hu|Magyar</item>
+        <item>id|Bahasa Indonesia</item>
+        <item>it|Italiano</item>
+        <item>ja|Japanese 日本語</item>
+        <item>ko|Korean 한국어</item>
+        <item>lt|Lietuvių</item>
+        <item>lv|Latviešu</item>
+        <item>nb|Norsk</item>
+        <item>nl|Nederlands</item>
+        <item>pl|Polski</item>
+        <item>pt|Português</item>
+        <item>pt-rBR|Português (Brasil)</item>
+        <item>ro|Română</item>
+        <item>ru|Russian Русский</item>
+        <item>sk|Slovenčina</item>
+        <item>sl|Slovenščina</item>
+        <item>sv|Svenska</item>
+        <item>tr|Türkçe</item>
+        <item>uk|Ukrainian Українська</item>
+        <item>zh-rCN|Chinese (Simplified) 中文（简体）</item>
+    </string-array>
+
+    <string-array name="pref_theme_entries">
+        <item>@string/preferences__theme_systemic</item>
+        <item>@string/preferences__theme_light</item>
+        <item>@string/preferences__dark_theme</item>
+    </string-array>
+
+    <string-array name="pref_theme_values" translatable="false">
+        <item>system</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="pref_repeat_notification_entries">
+        <item>@string/preferences__never</item>
+        <item>@string/preferences__one_time</item>
+        <item>@string/preferences__two_times</item>
+        <item>@string/preferences__three_times</item>
+        <item>@string/preferences__five_times</item>
+        <item>@string/preferences__ten_times</item>
+    </string-array>
+
+    <string-array name="pref_repeat_notification_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="default_or_custom_values" translatable="false">
+        <item>default</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="default_or_custom_entries">
+        <item>@string/arrays__use_default</item>
+        <item>@string/arrays__use_custom</item>
+    </string-array>
+
+    <string-array name="mute_durations">
+        <item>@string/arrays__mute_for_one_hour</item>
+        <item>@string/arrays__mute_for_two_hours</item>
+        <item>@string/arrays__mute_for_one_day</item>
+        <item>@string/arrays__mute_for_seven_days</item>
+        <item>@string/arrays__mute_for_one_year</item>
+    </string-array>
+
+    <string-array name="pref_notification_privacy_entries">
+        <item>@string/arrays__name_and_message</item>
+        <item>@string/arrays__name_only</item>
+        <item>@string/arrays__no_name_or_message</item>
+    </string-array>
+
+    <string-array name="pref_notification_privacy_values">
+        <item>all</item>
+        <item>contact</item>
+        <item>none</item>
+    </string-array>
+
+    <string-array name="pref_enter_key_entries">
+        <item>@string/arrays__new_line</item>
+        <item>@string/Send</item>
+    </string-array>
+
+    <string-array name="pref_enter_key_values">
+        <item>enter</item>
+        <item>send</item>
+    </string-array>
+
+    <string-array name="pref_log_level_entries">
+        <item>@string/Off</item>
+        <item>@string/arrays__errors</item>
+        <item>@string/arrays__basic</item>
+        <item>@string/arrays__verbose</item>
+    </string-array>
+
+    <string-array name="pref_log_level_values">
+        <item>off</item>
+        <item>errors</item>
+        <item>basic</item>
+        <item>verbose</item>
+    </string-array>
+
+</resources>

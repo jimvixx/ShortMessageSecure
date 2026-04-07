@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_frame"
+    android:background="@null"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/widget_layout_padding"
+    android:paddingTop="@dimen/widget_layout_padding"
+    android:paddingRight="@dimen/widget_layout_padding"
+    android:paddingBottom="@dimen/widget_layout_padding">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/widget_layout_padding"
+        android:paddingTop="@dimen/widget_layout_padding"
+        android:paddingRight="@dimen/widget_layout_padding"
+        android:paddingBottom="@dimen/widget_layout_padding">
+
+        <ImageView
+            android:id="@+id/widget_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:paddingLeft="@dimen/widget_image_padding"
+            android:paddingTop="@dimen/widget_image_padding"
+            android:paddingRight="@dimen/widget_image_padding"
+            android:paddingBottom="@dimen/widget_image_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_smsecure" />
+
+        <TextView
+            android:id="@+id/widget_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:background="@drawable/bg_widget_unread_count"
+            android:paddingLeft="@dimen/widget_count_padding_right_left"
+            android:paddingTop="@dimen/widget_count_padding_bottom_top"
+            android:paddingRight="@dimen/widget_count_padding_right_left"
+            android:paddingBottom="@dimen/widget_count_padding_bottom_top"
+            android:textColor="@color/white"
+            android:textSize="@dimen/widget_count_text_size"
+            android:visibility="gone"
+            tools:ignore="SpUsage" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/widget_app_name"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:shadowColor="@color/white"
+        android:shadowDy="1.0"
+        android:shadowDx="0"
+        android:shadowRadius="4.0"
+        android:fontFamily="sans-serif-condensed"
+
+    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/widget_app_name_margin_top"
+        android:singleLine="true"
+        android:text="@string/app_name" />
+
+</LinearLayout>

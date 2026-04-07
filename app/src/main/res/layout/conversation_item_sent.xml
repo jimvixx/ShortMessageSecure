@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.jimvixx.smsecure.ConversationItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conversation_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_conversation_item"
+    android:focusable="true"
+    android:nextFocusLeft="@id/container"
+    android:nextFocusRight="@id/embedded_text_editor"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="6dp">
+
+        <org.jimvixx.smsecure.components.AlertView
+            android:id="@+id/indicators_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="6dp"
+            android:gravity="start|center_vertical"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/body_bubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@id/indicators_parent"
+            android:background="@drawable/sent_bubble"
+            android:orientation="vertical">
+
+            <org.jimvixx.smsecure.components.emoji.EmojiTextView
+                android:id="@+id/conversation_item_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:linksClickable="true"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?attr/conversation_item_sent_text_primary_color"
+                android:textColorLink="?attr/conversation_item_sent_text_primary_color"
+                android:textSize="@dimen/conversation_item_body_text_size"
+                tools:text="Mango pickle lorem ipsum" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:id="@+id/group_message_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="8dp"
+                    android:linksClickable="false"
+                    android:paddingTop="1dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/conversation_item_sent_text_secondary_color"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/conversation_item_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:autoLink="none"
+                    android:fontFamily="sans-serif-light"
+                    android:linksClickable="false"
+                    android:minWidth="15sp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="2dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/conversation_item_sent_text_secondary_color"
+                    android:textSize="@dimen/conversation_item_date_text_size"
+                    tools:text="30 mins" />
+
+                <TextView
+                    android:id="@+id/sim_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:autoLink="none"
+                    android:fontFamily="sans-serif-light"
+                    android:linksClickable="false"
+                    android:minWidth="15sp"
+                    android:paddingStart="4dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="2dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/conversation_item_sent_text_secondary_color"
+                    android:textSize="@dimen/conversation_item_date_text_size"
+                    android:visibility="gone"
+                    tools:text="to SIM1"
+                    tools:visibility="visible" />
+
+                <org.jimvixx.smsecure.components.DeliveryStatusView
+                    android:id="@+id/delivery_status"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    app:iconColor="?conversation_item_sent_text_secondary_color" />
+
+                <ImageView
+                    android:id="@+id/secure_indicator"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:contentDescription="@string/conversation_item__secure_message_description"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="3dp"
+                    android:src="@drawable/ic_lock"
+                    android:tintMode="src_in"
+                    android:visibility="gone"
+                    app:tint="?attr/conversation_item_sent_text_secondary_color" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/indicator_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/body_bubble"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/indicators_parent"
+            android:background="@color/transparent"
+            android:paddingStart="5dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="3dp"
+            android:textColor="?attr/conversation_item_sent_text_indicator_tab_color"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+</org.jimvixx.smsecure.ConversationItem>
