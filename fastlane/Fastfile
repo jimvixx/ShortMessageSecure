@@ -27,6 +27,8 @@ end
 def find_unsigned_apk!
   apk_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 
+  UI.message("Gradle APK output: #{apk_path}")
+
   UI.user_error!("No APK output path returned by Gradle") if apk_path.to_s.empty?
   UI.user_error!("Expected unsigned APK, got: #{apk_path}") unless apk_path.end_with?("-unsigned.apk")
 
