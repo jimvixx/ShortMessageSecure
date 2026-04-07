@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preference_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/smsecure_preference_min_height"
+    android:background="@drawable/bg_touch_highlight_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/smsecure_preference_horizontal_padding"
+    android:paddingTop="@dimen/smsecure_preference_vertical_padding"
+    android:paddingEnd="@dimen/smsecure_preference_horizontal_padding"
+    android:paddingBottom="@dimen/smsecure_preference_vertical_padding">
+
+    <ImageView
+        android:id="@android:id/icon"
+        android:layout_width="@dimen/smsecure_preference_icon_size"
+        android:layout_height="@dimen/smsecure_preference_icon_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/smsecure_preference_icon_margin_end"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:src="@drawable/ic_information"/>
+
+    <LinearLayout
+        android:id="@+id/text_frame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/title_summary_frame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@android:id/title"
+                style="@style/SMSecure.TextAppearance.Preference.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                tools:text="Setting title"/>
+
+            <TextView
+                android:id="@android:id/summary"
+                style="@style/SMSecure.TextAppearance.Preference.Summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/smsecure_preference_summary_margin_top"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:text="Setting summary"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/right_summary"
+            style="@style/SMSecure.TextAppearance.Preference.RightSummary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/smsecure_preference_content_spacing"
+            android:layout_weight="0.5"
+            android:ellipsize="end"
+            android:gravity="end|center_vertical"
+            android:maxLines="3"
+            android:textAlignment="viewEnd"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="Right summary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@android:id/widget_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/smsecure_preference_widget_spacing"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" />
+
+</LinearLayout>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appColorBackground"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.SMSecure.Toolbar"
+        app:popupTheme="@style/ThemeOverlay.SMSecure.Popup"
+        app:title="@string/IdentityActivity__verify_identity" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/layout_verify_identity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="@dimen/message_bubble_corner_radius"
+                card_view:cardElevation="@dimen/message_bubble_corner_radius"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/appColorBackgroundSecondary"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/IdentityActivity__verification_status"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <!-- Verification status -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingStart="15dp"
+                            android:paddingTop="12dp"
+                            android:paddingEnd="30dp"
+                            android:paddingBottom="12dp"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                android:id="@+id/scan_status_icon"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginEnd="8dp"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_minus_circle" />
+
+                            <TextView
+                                android:id="@+id/scan_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/IdentityActivity__verification_status_idle"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Scan button (icon + text) -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/scan_qr_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_import_export_item"
+                            android:drawableStart="@drawable/ic_qr_scan"
+                            android:drawablePadding="12dp"
+                            android:minHeight="48dp"
+                            android:paddingStart="12dp"
+                            android:paddingTop="12dp"
+                            android:paddingEnd="40dp"
+                            android:paddingBottom="12dp"
+                            android:text="@string/IdentityActivity__scan_qr_code"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                        <!-- Manual verify (one input for HEX or Base64) -->
+                        <LinearLayout
+                            android:id="@+id/layout_manual_verify"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_import_export_item"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/manual_code_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_mono_regular"
+                                android:hint="@string/IdentityActivity__enter_hex_or_base64"
+                                android:inputType="textMultiLine|textNoSuggestions"
+                                android:lineSpacingExtra="2dp"
+                                android:maxLines="6"
+                                android:minLines="2"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                android:scrollbars="vertical"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                            <TextView
+                                android:id="@+id/manual_code_hint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/IdentityActivity__paste_to_verify"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Subtitle"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/manual_verify_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:enabled="false"
+                                android:text="@string/IdentityActivity__verify_entered_code"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                                tools:enabled="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="@dimen/message_bubble_corner_radius"
+                card_view:cardElevation="@dimen/message_bubble_corner_radius"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/appColorBackgroundSecondary"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/IdentityActivity__your_fingerprint"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/bg_import_export_item"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <!-- QR code -->
+                        <TextView
+                            android:id="@+id/title_qr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/QR_code"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/appColorBackgroundPrimary"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:id="@+id/identity_qr"
+                                android:layout_width="0dp"
+                                android:layout_height="250dp"
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:contentDescription="@string/QR_code"
+                                android:scaleType="fitCenter" />
+
+                            <ImageButton
+                                android:id="@+id/share_qr_image"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/Share"
+                                android:src="@drawable/ic_share_variant_outline" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/bg_import_export_item"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+
+                        <!-- Text code (collapsible) -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/toggle_text_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:drawableEnd="@drawable/ic_expand_more"
+                            android:drawablePadding="8dp"
+                            android:paddingStart="40dp"
+                            android:paddingEnd="4dp"
+                            android:text="@string/IdentityActivity__base64_code_title"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                        <LinearLayout
+                            android:id="@+id/section_text_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/identity_text_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:breakStrategy="simple"
+                                android:fontFamily="@font/roboto_mono_regular"
+                                android:lineSpacingExtra="2dp"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                                android:textIsSelectable="true"
+                                tools:text="XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <ImageButton
+                                    android:id="@+id/copy_text_code"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="@string/Copy"
+                                    android:src="@drawable/ic_content_copy" />
+
+                                <ImageButton
+                                    android:id="@+id/share_text_code"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="@string/Share"
+                                    android:src="@drawable/ic_share_variant_outline" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/bg_import_export_item"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <!-- Fingerprint (collapsible) -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/toggle_fingerprint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:drawableEnd="@drawable/ic_expand_more"
+                            android:drawablePadding="8dp"
+                            android:paddingStart="40dp"
+                            android:paddingEnd="4dp"
+                            android:text="@string/IdentityActivity__hex_code"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                        <LinearLayout
+                            android:id="@+id/section_fingerprint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/identity_fingerprint"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:breakStrategy="simple"
+                                android:fontFamily="@font/roboto_mono_regular"
+                                android:lineSpacingExtra="2dp"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                                android:textIsSelectable="true"
+                                tools:text="XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX " />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <ImageButton
+                                    android:id="@+id/copy_fingerprint"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="@string/Copy"
+                                    android:src="@drawable/ic_content_copy" />
+
+                                <ImageButton
+                                    android:id="@+id/share_fingerprint"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="@string/Share"
+                                    android:src="@drawable/ic_share_variant_outline" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_remote_fingerprint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                card_view:cardCornerRadius="@dimen/message_bubble_corner_radius"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/appColorBackgroundSecondary"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <!-- Remote fingerprint (collapsible) -->
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/toggle_remote_fingerprint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:drawableEnd="@drawable/ic_expand_more"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="4dp"
+                        android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="Current fingerprint\n of Jules Bonnot" />
+
+                    <LinearLayout
+                        android:id="@+id/section_remote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:background="@drawable/bg_import_export_item"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/IdentityActivity__base64_code_title"
+                                android:textAlignment="center"
+                                android:paddingBottom="8dp"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                            <TextView
+                                android:id="@+id/remote_text_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:breakStrategy="simple"
+                                android:fontFamily="@font/roboto_mono_regular"
+                                android:lineSpacingExtra="2dp"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                                tools:text="XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_import_export_item"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/IdentityActivity__hex_code"
+                                android:textAlignment="center"
+                                android:padding="8dp"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                            <TextView
+                                android:id="@+id/remote_fingerprint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:breakStrategy="simple"
+                                android:fontFamily="@font/roboto_mono_regular"
+                                android:lineSpacingExtra="2dp"
+                                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                                tools:text="XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX " />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

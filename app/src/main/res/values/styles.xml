@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dialogs -->
+    <style name="ThemeOverlay.SMSecure.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorAccent">?attr/appColorAccent</item>
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+
+        <item name="android:windowTitleStyle">@style/TextAppearance.SMSecure.DialogTitle</item>
+    </style>
+
+    <style name="ThemeOverlay.SMSecure.Dialog.Alert" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="colorAccent">?attr/appColorAccent</item>
+        <item name="android:windowBackground">?attr/appColorAlertDialogBackground</item>
+        <item name="android:tint">?attr/appColorIconPrimary</item>
+        <item name="android:windowTitleStyle">@style/TextAppearance.SMSecure.DialogTitle</item>
+
+        <item name="android:textColorLink">?attr/appColorTextPrimary</item>
+    </style>
+    <style name="TextAppearance.SMSecure.DialogTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:shadowColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Toolbar only for Conversation Activity -->
+    <style name="ThemeOverlay.SMSecure.Conversation.Toolbar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="toolbarStyle">@style/Widget.SMSecure.Toolbar</item>
+        <item name="titleTextAppearance">@style/SMSecure.TextAppearance.Toolbar.Title</item>
+        <item name="subtitleTextAppearance">@style/SMSecure.TextAppearance.Toolbar.Subtitle</item>
+        <item name="colorControlNormal">?attr/appColorToolbarControl</item>
+    </style>
+    <!-- Toolbar for all other Activities -->
+    <style name="ThemeOverlay.SMSecure.Toolbar" parent="ThemeOverlay.SMSecure.Conversation.Toolbar">
+        <item name="android:background">?attr/appColorToolbarBackground</item>
+    </style>
+
+    <style name="Widget.SMSecure.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/appColorToolbarBackground</item>
+        <item name="android:elevation">4dp</item>
+        <item name="titleTextAppearance">@style/SMSecure.TextAppearance.Toolbar.Title</item>
+        <item name="subtitleTextAppearance">@style/SMSecure.TextAppearance.Toolbar.Subtitle</item>
+        <item name="popupTheme">@style/ThemeOverlay.SMSecure.Popup</item>
+    </style>
+
+    <!-- Popup -->
+    <style name="ThemeOverlay.SMSecure.Popup" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:background">@drawable/bg_touch_highlight_item</item>
+        <item name="android:textColorPrimary">?attr/appColorTextPrimary</item>
+        <item name="android:textColorSecondary">?attr/appColorTextSecondary</item>
+    </style>
+
+    <!-- ActionMode -->
+    <style name="Widget.SMSecure.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">?attr/appColorToolbarActionModeBackground</item>
+        <item name="theme">@style/ThemeOverlay.SMSecure.ActionMode</item>
+        <item name="titleTextStyle">@style/SMSecure.TextAppearance.ActionMode.Title</item>
+        <item name="subtitleTextStyle">@style/SMSecure.TextAppearance.ActionMode.Subtitle</item>
+    </style>
+    <style name="ThemeOverlay.SMSecure.ActionMode" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="android:background">@color/transparent</item>
+        <item name="colorControlNormal">?attr/appColorToolbarControl</item>
+        <item name="iconTint">?attr/appColorToolbarControl</item>
+    </style>
+
+    <style name="Widget.SMSecure.PopupWindow" parent="Widget.AppCompat.PopupWindow">
+        <item name="android:popupBackground">?attr/appColorPopupBackground</item>
+    </style>
+
+    <style name="SMSecure.OverflowButton" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">?attr/appColorToolbarControl</item>
+    </style>
+
+    <style name="Widget.SMSecure.ButtonBar" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/button_bar_text</item>
+        <item name="android:background">@drawable/bg_touch_highlight_button</item>
+        <item name="android:textAppearance">@style/SMSecure.TextAppearance.Title</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="MaterialButton">
+        <item name="android:elevation">1dp</item>
+        <item name="android:translationZ">1dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

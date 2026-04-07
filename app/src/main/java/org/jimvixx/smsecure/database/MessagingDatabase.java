@@ -1,0 +1,139 @@
+package org.jimvixx.smsecure.database;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
+import org.jimvixx.smsecure.logging.Log;
+
+import org.jimvixx.smsecure.database.documents.Document;
+import org.jimvixx.smsecure.database.documents.IdentityKeyMismatch;
+import org.jimvixx.smsecure.database.documents.IdentityKeyMismatchList;
+import org.jimvixx.smsecure.util.JsonUtils;
+import org.whispersystems.libsignal.IdentityKey;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public abstract class MessagingDatabase extends Database implements MessageColumns {
+
+  private static final String TAG = MessagingDatabase.class.getSimpleName();
+
+  public MessagingDatabase(Context context, SQLiteOpenHelper databaseHelper) {
+    super(context, databaseHelper);
+  }
+
+  protected abstract String getTableName();
+
+  public void addMismatchedIdentity(long messageId, long recipientId, IdentityKey identityKey) {
+    try {
+      addToDocument(messageId, MISMATCHED_IDENTITIES,
+                    new IdentityKeyMismatch(recipientId, identityKey),
+                    IdentityKeyMismatchList.class);
+    } catch (IOException e) {
+      Log.w(TAG, e);
+    }
+  }
+
+  public void removeMismatchedIdentity(long messageId, long recipientId, IdentityKey identityKey) {
+    try {
+      removeFromDocument(messageId, MISMATCHED_IDENTITIES,
+                         new IdentityKeyMismatch(recipientId, identityKey),
+                         IdentityKeyMismatchList.class);
+    } catch (IOException e) {
+      Log.w(TAG, e);
+    }
+  }
+
+  protected <D extends Document<I>, I> void removeFromDocument(long messageId, String column, I object, Class<D> clazz) throws IOException {
+    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+    database.beginTransaction();
+
+    try {
+      D           document = getDocument(database, messageId, column, clazz);
+      Iterator<I> iterator = document.getList().iterator();
+
+      while (iterator.hasNext()) {
+        I item = iterator.next();
+
+        if (item.equals(object)) {
+          iterator.remove();
+          break;
+        }
+      }
+
+      setDocument(database, messageId, column, document);
+      database.setTransactionSuccessful();
+    } finally {
+      database.endTransaction();
+    }
+  }
+
+  protected <T extends Document<I>, I> void addToDocument(long messageId, String column, final I object, Class<T> clazz) throws IOException {
+    List<I> list = new ArrayList<>() {{
+      add(object);
+    }};
+
+    addToDocument(messageId, column, list, clazz);
+  }
+
+  protected <T extends Document<I>, I> void addToDocument(long messageId, String column, List<I> objects, Class<T> clazz) throws IOException {
+    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+    database.beginTransaction();
+
+    try {
+      T document = getDocument(database, messageId, column, clazz);
+      document.getList().addAll(objects);
+      setDocument(database, messageId, column, document);
+
+      database.setTransactionSuccessful();
+    } finally {
+      database.endTransaction();
+    }
+  }
+
+  private void setDocument(SQLiteDatabase database, long messageId, String column, Document document) throws IOException {
+    ContentValues contentValues = new ContentValues();
+
+    if (document == null || document.size() == 0) {
+      contentValues.put(column, (String)null);
+    } else {
+      contentValues.put(column, JsonUtils.toJson(document));
+    }
+
+    database.update(getTableName(), contentValues, ID_WHERE, new String[] {String.valueOf(messageId)});
+  }
+
+  private <D extends Document> D getDocument(SQLiteDatabase database, long messageId,
+                                             String column, Class<D> clazz)
+  {
+
+    try (Cursor cursor = database.query(getTableName(), new String[]{column},
+            ID_WHERE, new String[]{String.valueOf(messageId)},
+            null, null, null)) {
+
+      if (cursor.moveToNext()) {
+        String document = cursor.getString(cursor.getColumnIndexOrThrow(column));
+
+        try {
+          if (!TextUtils.isEmpty(document)) {
+            return JsonUtils.fromJson(document, clazz);
+          }
+        } catch (IOException e) {
+          Log.w(TAG, e);
+        }
+      }
+
+      try {
+        return clazz.newInstance();
+      } catch (InstantiationException | IllegalAccessException e) {
+        throw new AssertionError(e);
+      }
+
+    }
+  }
+}

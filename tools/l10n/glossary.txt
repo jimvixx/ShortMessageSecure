@@ -1,0 +1,8 @@
+[common]
+SMSecure
+HEX
+SMS
+SIM
+Base64
+XMPP
+QR

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.jimvixx.smsecure.ConversationUpdateItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conversation_update_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/conversation_update_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/conversation_update_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:linksClickable="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/conversation_group_member_name_color"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+
+</org.jimvixx.smsecure.ConversationUpdateItem>

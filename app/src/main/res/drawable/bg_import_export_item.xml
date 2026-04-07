@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/appColorItemSelected">
+
+    <!-- Base background -->
+    <item>
+        <layer-list>
+
+            <!-- Shadow layer -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="?attr/appColorBackgroundSecondary" />
+                    <corners android:radius="@dimen/message_bubble_corner_radius" />
+                </shape>
+            </item>
+
+            <!-- Content layer (slightly shifted up) -->
+            <item android:bottom="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="?attr/appColorBackgroundPrimary" />
+                    <corners android:radius="@dimen/message_bubble_corner_radius" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+</ripple>

@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Questions and support
+    url: https://github.com/jimvixx/ShortMessageSecure/discussions
+    about: Ask questions, share ideas, or request help here.
+
+  - name: Security vulnerability
+    url: https://github.com/jimvixx/ShortMessageSecure/security/policy
+    about: Please report security vulnerabilities privately. Do not open a public issue.

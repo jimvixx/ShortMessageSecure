@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.SMSecure.Conversation.Toolbar"
+        app:popupTheme="@style/ThemeOverlay.SMSecure.Popup"
+        tools:background="@color/cyan">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <org.jimvixx.smsecure.components.AvatarImageView
+                android:id="@+id/avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:cropToPadding="true"
+                android:foreground="@drawable/bg_contact_photo"
+                app:inverted="true"
+                tools:src="@drawable/ic_account_outline" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <org.jimvixx.smsecure.components.emoji.EmojiTextView
+                    android:id="@+id/name"
+                    style="@style/SMSecure.TextAppearance.Toolbar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:transitionName="recipient_name"
+                    tools:text="Jules Bonnot" />
+
+                <TextView
+                    android:id="@+id/blocked_indicator"
+                    style="@style/SMSecure.TextAppearance.Toolbar.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/bg_blocked_indicator"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="3dp"
+                    android:text="@string/recipient_preference_activity__blocked"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/appColorCommonAlert"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/preference_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,59 @@
+name: Feature request
+description: Suggest an improvement for SMSecure
+labels: ["feature request", "needs triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Hi there
+
+        Thanks for taking the time to suggest an improvement for SMSecure.
+
+        Please keep the request focused and describe the user problem it solves.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I made sure there are no existing open or closed issues requesting the same feature.
+          required: true
+        - label: I have read and understood the contribution guidelines.
+          required: true
+        - label: This issue contains only one feature request.
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does this affect most?
+      options:
+        - Messaging
+        - Encryption / identity verification
+        - Notifications
+        - Backup / restore
+        - Search
+        - UI / UX
+        - Build / developer tooling
+        - Localization / translations
+        - Other
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information

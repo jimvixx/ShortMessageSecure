@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <!-- Brand Colors -->
+    <color name="primary_color">@color/blue_500</color>
+
+    <color name="LogoIconPrimaryColor">@color/blue_500</color>
+    <color name="LogoIconSecondaryColor">#439d66</color>
+    <color name="LogoIconPanelColor">@color/blue_50</color>
+    <color name="LogoIconLauncherBgColor">@color/blue_50</color>
+
+    <color name="sm_intro_text_hint">@color/black_transparent20</color>
+
+    <!-- Named Color -->
+    <color name="transparent">#00000000</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="gray5">#ffeeeeee</color>
+    <color name="gray12">#ffe0e0e0</color>
+    <color name="gray13">#ffdddddd</color>
+    <color name="gray15">#ffd8d8d8</color>
+    <color name="gray16">#ffd5d5d5</color>
+    <color name="gray20">#ffcccccc</color>
+    <color name="gray25">#ffbfbfbf</color>!
+    <color name="gray27">#ffbbbbbb</color>
+    <color name="gray30">#ffb2b2b2</color>
+    <color name="gray33">#ffababab</color>
+    <color name="gray40">#ff999999</color>
+    <color name="gray50">#ff808080</color>
+    <color name="gray65">#ff595959</color>
+    <color name="gray70">#ff4d4d4d</color>
+    <color name="gray73">#ff444444</color>
+    <color name="gray75">#ff3f3f3f</color>
+    <color name="gray78">#ff383838</color>
+    <color name="gray80">#ff333333</color>
+    <color name="gray85">#ff262626</color>
+    <color name="gray87">#ff222222</color>
+    <color name="gray88">#ff1f1f1f</color>
+    <color name="gray95">#ff111111</color>
+    <color name="black">#ff000000</color>
+
+    <color name="white_transparent25">#BFffffff</color>
+    <color name="white_transparent40">#99ffffff</color>
+    <color name="white_transparent60">#66ffffff</color>
+    <color name="white_transparent75">#40ffffff</color>
+    <color name="white_transparent80">#33ffffff</color>
+    <color name="white_transparent87">#22ffffff</color>
+
+    <color name="gray95_transparent50">#7F111111</color>
+
+    <color name="gray80_transparent60">#66333333</color>
+
+    <color name="gray67_transparent60">#66555555</color>
+    <color name="gray67_transparent73">#44555555</color>
+
+    <color name="gray13_transparent60">#66dddddd</color>
+
+    <color name="gray5_transparent31">#AFeeeeee</color>
+    <color name="gray5_transparent33">#AAeeeeee</color>
+    <color name="gray5_transparent60">#66eeeeee</color>
+
+    <color name="black_transparent20">#CC000000</color>
+    <color name="black_transparent37">#A0000000</color>
+    <color name="black_transparent40">#99000000</color>
+    <color name="black_transparent60">#66000000</color>
+    <color name="black_transparent67">#55000000</color>
+    <color name="black_transparent80">#32000000</color>
+    <color name="black_transparent87">#22000000</color>
+    <color name="black_transparent92">#15000000</color>
+
+</resources>

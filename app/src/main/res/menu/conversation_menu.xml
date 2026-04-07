@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/menu_security"
+        android:icon="@drawable/ic_lock_open_variant"
+        android:title="@string/conversation_insecure__security"
+        app:iconTint="?attr/appColorToolbarControl"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_start_secure_session"
+                android:title="@string/conversation_insecure__menu_start_secure_session" />
+
+            <item
+                android:id="@+id/menu_start_secure_session_dual_sim"
+                android:title="@string/conversation_insecure__menu_start_secure_session">
+                <menu>
+
+                </menu>
+            </item>
+            <item
+                android:id="@+id/menu_abort_session"
+                android:title="@string/conversation_secure_verified__menu_abort_secure_session" />
+
+            <item
+                android:id="@+id/menu_abort_session_dual_sim"
+                android:title="@string/conversation_secure_verified__menu_abort_secure_session">
+                <menu>
+
+                </menu>
+            </item>
+            <item
+                android:id="@+id/menu_verify_identity"
+                android:title="@string/conversation_secure_verified__menu_verify_identity" />
+
+            <item
+                android:id="@+id/menu_verify_identity_dual_sim"
+                android:title="@string/conversation_secure_verified__menu_verify_identity">
+                <menu>
+
+                </menu>
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu_call"
+        android:icon="@drawable/ic_phone"
+        android:title="@string/conversation_callable__menu_call"
+        android:visible="false"
+        app:iconTint="?attr/appColorToolbarControl"
+        app:showAsAction="ifRoom"
+        tool:visible="true" />
+
+    <item
+        android:id="@+id/menu_group_recipients"
+        android:icon="@drawable/ic_account_multiple"
+        android:title="@string/conversation_group_options__recipients_list"
+        android:visible="false"
+        app:iconTint="?attr/appColorToolbarControl"
+        app:showAsAction="ifRoom"
+        tool:visible="true" />
+
+    <item
+        android:id="@+id/menu_invite"
+        android:title="@string/conversation_insecure__invite" />
+
+    <item
+        android:id="@+id/menu_archive_conversation"
+        android:icon="@drawable/ic_package_down"
+        android:title="@string/conversation_menu__archive_conversation"
+        android:visible="false"
+        tool:visible="true" />
+    <item
+        android:id="@+id/menu_unarchive_conversation"
+        android:icon="@drawable/ic_package_up"
+        android:title="@string/conversation_menu__unarchive_conversation"
+        android:visible="false"
+        tool:visible="true" />
+
+    <item
+        android:id="@+id/menu_delete_conversation"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/conversation_menu__delete_conversation" />
+
+    <item
+        android:id="@+id/menu_conversation_settings"
+        android:icon="@drawable/ic_cog"
+        android:title="@string/conversation_menu__conversation_settings" />
+
+    <item
+        android:id="@+id/menu_mute_notifications"
+        android:icon="@drawable/ic_volume_off"
+        android:title="@string/conversation_unmuted__mute_notifications" />
+
+    <item
+        android:id="@+id/menu_unmute_notifications"
+        android:icon="@drawable/ic_volume_high"
+        android:title="@string/conversation_muted__unmute"
+        android:visible="false"
+        tool:visible="true" />
+
+    <item
+        android:id="@+id/menu_add_to_contacts"
+        android:title="@string/conversation_add_to_contacts__menu_add_to_contacts"
+        android:visible="false"
+        app:showAsAction="never"
+        tool:visible="true" />
+
+</menu>

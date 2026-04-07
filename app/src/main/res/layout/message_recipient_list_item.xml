@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.jimvixx.smsecure.MessageRecipientListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <org.jimvixx.smsecure.components.AvatarImageView
+        android:id="@+id/contact_photo_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="3dp"
+        android:contentDescription="@string/SingleContactSelectionActivity_contact_photo"
+        android:cropToPadding="true"
+        android:foreground="@drawable/bg_contact_photo"
+        tools:src="@drawable/ic_account_outline" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="4dip"
+        android:layout_marginBottom="4dip"
+        android:layout_toEndOf="@id/contact_photo_image"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <org.jimvixx.smsecure.components.FromTextView
+                android:id="@+id/from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="marquee"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textAppearance="@style/SMSecure.TextAppearance.Title"
+                tools:text="Jules Bonnot" />
+
+            <TextView
+                android:id="@+id/error_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/appColorCommonAlert"
+                android:visibility="gone"
+                tools:text="Failed to send"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/conflict_button"
+            style="@style/MaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="38sp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_round"
+            android:backgroundTint="?attr/appColorCommonAlert"
+            android:drawableStart="@drawable/ic_information"
+            android:drawableTint="?attr/appColorToolbarControl"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:text="@string/message_recipients_list_item__verify"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/resend_button"
+            style="@style/MaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="38sp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_round"
+            android:backgroundTint="?attr/appColorAccent"
+            android:drawableStart="@drawable/ic_refresh"
+            android:drawableTint="?attr/appColorToolbarControl"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/message_recipients_list_item__resend"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</org.jimvixx.smsecure.MessageRecipientListItem>

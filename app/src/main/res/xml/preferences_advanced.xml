@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_enter_key_type"
+        android:icon="@drawable/ic_keyboard"
+        android:title="@string/preferences__keyboard_settings"
+        android:summary="@string/preferences__enter_key_summary"
+        android:defaultValue="enter"
+        android:entries="@array/pref_enter_key_entries"
+        android:entryValues="@array/pref_enter_key_values"
+        app:rightSummaryMaxLines="2" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_system_emoji"
+        android:icon="@drawable/ic_emoticon_neutral"
+        android:title="@string/preferences__use_system_emoji"
+        android:summary="@string/preferences__disable_smsecures_built_in_emoji_support"
+        android:defaultValue="false"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_disable_emoji_drawer"
+        android:icon="@drawable/ic_emoticon_remove"
+        android:title="@string/preferences__disable_emoji_drawer"
+        android:summary="@string/preferences__enable_this_option_if_your_keyboard_supports_emojis"
+        android:defaultValue="false"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_auto_complete_key_exchange"
+        android:icon="@drawable/ic_file_arrow_left_right"
+        android:title="@string/preferences__complete_key_exchanges"
+        android:summary="@string/preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key"
+        android:defaultValue="true"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_always_ask_for_sim_card"
+        android:icon="@drawable/ic_sim"
+        android:title="@string/preferences__always_ask_for_sim_card"
+        android:summary="@string/preferences__always_ask_for_the_sim_card_to_use_when_sending_messages"
+        android:defaultValue="true"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_log_level"
+        android:icon="@drawable/ic_bug_check"
+        android:title="@string/preferences__diagnostic_logging_level"
+        android:summary="@string/preferences__diagnostic_logging_level_summary"
+        android:defaultValue="errors"
+        android:entries="@array/pref_log_level_entries"
+        android:entryValues="@array/pref_log_level_values"
+        app:rightSummaryMaxLines="2" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_system_log_enabled"
+        android:icon="@drawable/ic_shield_bug"
+        android:title="@string/preferences__write_logs_to_android_logcat"
+        android:summary="@string/preferences__write_logs_to_android_logcat_summary"
+        android:defaultValue="false"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="pref_submit_debug_logs"
+        android:icon="@drawable/ic_bug"
+        android:title="@string/preferences__submit_debug_log"
+        android:summary="@string/preferences__submit_debug_log_summary" />
+
+</PreferenceScreen>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_theme"
+        android:icon="@drawable/ic_brightness"
+        android:title="@string/preferences__theme"
+        android:summary="@string/preferences__theme_summary"
+        android:defaultValue="system"
+        android:entries="@array/pref_theme_entries"
+        android:entryValues="@array/pref_theme_values"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_language"
+        android:icon="@drawable/ic_alphabetical_variant"
+        android:title="@string/preferences__language"
+        android:summary="@string/preferences__language_summary"
+        android:defaultValue="zz"
+        app:rightSummaryMaxLines="3" />
+
+</PreferenceScreen>

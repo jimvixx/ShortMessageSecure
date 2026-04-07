@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_category_messages"
+        android:icon="@drawable/ic_message_processing"
+        android:title="@string/preferences__messages" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_category_notifications"
+        android:icon="@drawable/ic_bell"
+        android:title="@string/preferences__notifications" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_category_app_protection"
+        android:icon="@drawable/ic_account_lock"
+        android:title="@string/preferences__privacy" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_category_appearance"
+        android:icon="@drawable/ic_brightness"
+        android:title="@string/preferences__appearance" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_category_chats"
+        android:icon="@drawable/ic_forum"
+        android:title="@string/preferences__chats" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_category_advanced"
+        android:icon="@drawable/ic_braces"
+        android:title="@string/preferences__advanced" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_about"
+        android:icon="@drawable/ic_information"
+        android:title="@string/preferences__about" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_privacy_policy"
+        android:icon="@drawable/ic_safe_square"
+        android:title="@string/preferences__privacy_policy" />
+
+</PreferenceScreen>

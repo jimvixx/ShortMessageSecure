@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="appColorAccent" format="reference|color"/>
+    <attr name="appColorAlertDialogBackground" format="reference|color"/>
+    <attr name="appColorBackground" format="reference|color"/>
+    <attr name="appColorBackgroundPrimary" format="reference|color"/>
+    <attr name="appColorBackgroundSecondary" format="reference|color"/>
+    <attr name="appColorButtonTextPrimary" format="reference|color"/>
+    <attr name="appColorCommonAlert" format="reference|color"/>
+    <attr name="appColorCommonSuccess" format="reference|color"/>
+    <attr name="appColorIconInactive" format="reference|color"/>
+    <attr name="appColorIconPrimary" format="reference|color"/>
+    <attr name="appColorItemSelected" format="reference|color"/>
+    <attr name="appColorLabelBackground" format="reference|color"/>
+    <attr name="appColorPopupBackground" format="reference|color"/>
+    <attr name="appColorSwipeBackground" format="reference|color"/>
+    <attr name="appColorTextPrimary" format="reference|color"/>
+    <attr name="appColorTextSecondary" format="reference|color"/>
+    <attr name="appColorTextSubtitle" format="reference|color"/>
+    <attr name="appColorTextTitle" format="reference|color"/>
+    <attr name="appColorToolbarActionModeBackground" format="reference|color"/>
+    <attr name="appColorToolbarBackground" format="reference|color"/>
+    <attr name="appColorToolbarControl" format="reference|color"/>
+    <attr name="appColorToolbarTextSubtitle" format="reference|color"/>
+    <attr name="appColorToolbarTextTitle" format="reference|color"/>
+
+    <attr name="conversation_list_item_archived_background_color" format="reference|color"/>
+    <attr name="conversation_list_item_background_read_color" format="reference|color"/>
+    <attr name="conversation_list_item_background_unread_color" format="reference|color"/>
+    <attr name="conversation_list_item_count_color" format="reference|color"/>
+    <attr name="conversation_list_item_subject_unread_color" format="reference|color"/>
+    <attr name="conversation_list_item__unread_date_color" format="reference|color"/>
+
+    <attr name="conversation_group_member_name_color" format="reference|color"/>
+
+    <attr name="conversation_editor_background" format="reference|color"/>
+    <attr name="conversation_editor_text_color" format="reference|color"/>
+    <attr name="conversation_transport_indicators" format="reference"/>
+    <attr name="conversation_transport_popup_background" format="reference"/>
+    <attr name="conversation_attach" format="reference"/>
+
+    <attr name="conversation_item_bubble_background_color" format="reference|color"/>
+    <attr name="conversation_item_focused_background_color" format="reference|color"/>
+    <attr name="conversation_item_sent_text_primary_color" format="reference|color"/>
+    <attr name="conversation_item_sent_text_secondary_color" format="reference|color"/>
+    <attr name="conversation_item_received_text_primary_color" format="reference|color"/>
+    <attr name="conversation_item_received_text_secondary_color" format="reference|color"/>
+    <attr name="conversation_item_sent_text_indicator_tab_color" format="reference|color"/>
+
+    <attr name="dialog_info_icon" format="reference" />
+    <attr name="dialog_alert_icon" format="reference" />
+    <attr name="dialog_background_color" format="reference|color" />
+
+    <attr name="contact_selection_push_user" format="reference|color" />
+    <attr name="contact_selection_lay_user" format="reference|color" />
+    <attr name="contact_selection_label_text" format="reference|color" />
+
+
+    <attr name="permissions_rationale_dialog__background_color" format="reference|color" />
+    <attr name="permissions_rationale_dialog__button_text_color" format="reference|color" />
+
+    <attr name="permissionsRationaleHeaderBackgroundColor" format="color" />
+    <attr name="permissionsRationaleBodyBackgroundColor" format="color" />
+    <attr name="permissionsRationaleIconTint" format="color" />
+
+    <attr name="notificationIconTileBackground" format="color"/>
+    <attr name="notificationIconTileStroke" format="color"/>
+
+
+    <attr name="transport_options__send_button_secure_background_color" format="reference|color" />
+    <attr name="transport_options__send_button_unsecure_background_color" format="reference|color" />
+
+    <attr name="app_protect_timeout_picker_color" format="reference"/>
+
+    <declare-styleable name="CustomDefaultPreference">
+        <attr name="custom_pref_toggle" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="ColorPreference">
+        <attr name="itemLayout" format="reference" />
+        <attr name="choices" format="reference" />
+        <attr name="numColumns" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="AvatarImageView">
+        <attr name="inverted" format="boolean" />
+        <attr name="showBadge" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ThumbnailView">
+        <attr name="backgroundColorHint" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="DeliveryStatusView">
+        <attr name="iconColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="AlertView">
+        <attr name="useSmallIcon" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RingtonePreference">
+        <attr name="showAdd" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ColorPickerPreference">
+        <attr name="currentColor" format="reference" />
+
+        <attr name="colors" format="reference" />
+
+        <attr name="sortColors" format="boolean|reference" />
+
+        <attr name="colorDescriptions" format="reference" />
+
+        <attr name="columns" format="integer|reference" />
+
+        <attr name="colorSize" format="enum|reference">
+            <enum name="large" value="1" />
+            <enum name="small" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ContactSelection">
+        <attr name="contact_selection_push_user" />
+        <attr name="contact_selection_lay_user" />
+        <attr name="contact_selection_label_text" />
+    </declare-styleable>
+
+    <declare-styleable name="SMSecureRightSummaryPreference">
+        <attr name="rightSummary" format="string" />
+        <attr name="rightSummaryOn" format="string" />
+        <attr name="rightSummaryOff" format="string" />
+        <attr name="rightSummaryPasswordMask" format="boolean" />
+        <attr name="rightSummaryPasswordMaskText" format="string" />
+        <attr name="rightSummaryMaxLines" format="integer" />
+        <attr name="hideRightSummaryWhenDisabled" format="boolean" />
+    </declare-styleable>
+</resources>

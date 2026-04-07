@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <org.jimvixx.smsecure.components.reminder.ReminderView
+            android:id="@+id/reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/fab"
+            android:nextFocusForward="@+id/fab"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/conversation_list_item_view" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/conversation_list_fragment__fab_content_description"
+        android:focusable="true"
+        app:backgroundTint="?attr/appColorToolbarBackground"
+        android:src="@drawable/ic_pencil"
+        android:tint="?attr/appColorToolbarControl"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

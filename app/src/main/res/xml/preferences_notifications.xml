@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_key_enable_notifications"
+        android:icon="@drawable/ic_bell"
+        android:title="@string/preferences__notifications"
+        android:summary="@string/preferences__enable_message_notifications"
+        android:defaultValue="true"
+        android:switchTextOn=""
+        android:switchTextOff=""
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.AdvancedRingtonePreference
+        android:key="pref_key_ringtone"
+        android:icon="@drawable/ic_cellphone_sound"
+        android:title="@string/preferences__sound"
+        android:summary="@string/preferences__change_notification_sound"
+        android:defaultValue="content://settings/system/notification_sound"
+        android:dependency="pref_key_enable_notifications"
+        android:ringtoneType="notification"
+        app:allowDividerAbove="false" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_key_inthread_notifications"
+        android:icon="@drawable/ic_message_alert"
+        android:title="@string/preferences__in_conversation_notifications"
+        android:summary="@string/preferences__play_inthread_notifications"
+        android:defaultValue="true"
+        android:dependency="pref_key_enable_notifications"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_repeat_notification"
+        android:icon="@drawable/ic_numeric"
+        android:title="@string/preferences__repeat_notification"
+        android:summary="@string/preferences__repeat_notification_number_times_select"
+        android:defaultValue="0"
+        android:dependency="pref_key_enable_notifications"
+        android:entries="@array/pref_repeat_notification_entries"
+        android:entryValues="@array/pref_repeat_notification_values"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_notification_privacy"
+        android:icon="@drawable/ic_message_text"
+        android:title="@string/preferences__display_in_notifications"
+        android:summary="@string/preferences__display_in_notifications_which_elements_show"
+        android:defaultValue="all"
+        android:dependency="pref_key_enable_notifications"
+        android:entries="@array/pref_notification_privacy_entries"
+        android:entryValues="@array/pref_notification_privacy_values"
+        app:rightSummaryMaxLines="3" />
+
+</PreferenceScreen>
