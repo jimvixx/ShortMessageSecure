@@ -24,17 +24,46 @@ def write_keystore_properties!
   PROPS
 end
 
-def find_signed_apk!
-  apks = Dir.glob("app/build/outputs/apk/**/*.apk").sort
+def find_unsigned_apk!
+  apk_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 
-  UI.message("APK candidates: #{apks}")
+  UI.user_error!("No APK output path returned by Gradle") if apk_path.to_s.empty?
+  UI.user_error!("Expected unsigned APK, got: #{apk_path}") unless apk_path.end_with?("-unsigned.apk")
 
-  signed_apk = apks.find { |path| !path.end_with?("-unsigned.apk") }
+  apk_path
+end
 
-  UI.user_error!("No APK files found in app/build/outputs/apk") if apks.empty?
-  UI.user_error!("No signed APK found. Found only: #{apks}") if signed_apk.to_s.empty?
+def sign_apk!(unsigned_apk_path)
+  signed_apk_path = unsigned_apk_path.sub(/-unsigned\.apk\z/, ".apk")
 
-  signed_apk
+  build_tools_dir = ENV["ANDROID_HOME"] ? Dir.glob(File.join(ENV["ANDROID_HOME"], "build-tools", "*")).sort.last : nil
+  build_tools_dir ||= ENV["ANDROID_SDK_ROOT"] ? Dir.glob(File.join(ENV["ANDROID_SDK_ROOT"], "build-tools", "*")).sort.last : nil
+
+  UI.user_error!("Android build-tools not found") if build_tools_dir.to_s.empty?
+
+  apksigner = File.join(build_tools_dir, "apksigner")
+  zipalign = File.join(build_tools_dir, "zipalign")
+
+  UI.user_error!("apksigner not found at #{apksigner}") unless File.exist?(apksigner)
+  UI.user_error!("zipalign not found at #{zipalign}") unless File.exist?(zipalign)
+
+  aligned_apk_path = unsigned_apk_path.sub(/-unsigned\.apk\z/, "-aligned.apk")
+
+  sh("#{zipalign.shellescape} -f -p 4 #{unsigned_apk_path.shellescape} #{aligned_apk_path.shellescape}")
+
+  sh(
+    "#{apksigner.shellescape} sign " \
+    "--ks smsecure-release.keystore " \
+    "--ks-key-alias #{ENV['SIGNING_KEY_ALIAS'].shellescape} " \
+    "--ks-pass env:SIGNING_STORE_PASSWORD " \
+    "--key-pass env:SIGNING_KEY_PASSWORD " \
+    "--out #{signed_apk_path.shellescape} " \
+    "#{aligned_apk_path.shellescape}"
+  )
+
+  sh("#{apksigner.shellescape} verify --verbose #{signed_apk_path.shellescape}")
+
+  signed_apk_path
 end
 
 platform :android do
@@ -46,17 +75,13 @@ platform :android do
 
   desc "Build signed release APK and publish a GitHub release"
   lane :release do
-    UI.message("STORE_PASSWORD set? #{!ENV['SIGNING_STORE_PASSWORD'].to_s.empty?}")
-    UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
-    UI.message("KEY_PASSWORD set? #{!ENV['SIGNING_KEY_PASSWORD'].to_s.empty?}")
-    UI.message("KEYSTORE base64 size: #{ENV['ANDROID_KEYSTORE_BASE64']&.length}")
-
     decode_keystore!
     write_keystore_properties!
 
     gradle(task: "assembleRelease")
 
-    apk_path = find_signed_apk!
+    unsigned_apk_path = find_unsigned_apk!
+    signed_apk_path = sign_apk!(unsigned_apk_path)
 
     sh("git fetch --tags --force")
 
@@ -82,7 +107,7 @@ platform :android do
       commitish: ENV["GITHUB_SHA"],
       is_draft: ENV["FASTLANE_DRAFT_RELEASE"] == "true",
       is_prerelease: ENV["FASTLANE_PRERELEASE"] == "true",
-      upload_assets: [apk_path]
+      upload_assets: [signed_apk_path]
     )
   end
 end
