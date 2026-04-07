@@ -1,5 +1,7 @@
 default_platform(:android)
 
+require "shellwords"
+
 def decode_keystore!
   keystore_base64 = ENV["ANDROID_KEYSTORE_BASE64"]
   UI.user_error!("Missing ANDROID_KEYSTORE_BASE64") if keystore_base64.to_s.empty?
@@ -35,13 +37,28 @@ def find_unsigned_apk!
   apk_path
 end
 
-def sign_apk!(unsigned_apk_path)
-  signed_apk_path = unsigned_apk_path.sub(/-unsigned\.apk\z/, ".apk")
+def find_latest_build_tools_dir!
+  android_home = ENV["ANDROID_HOME"]
+  android_sdk_root = ENV["ANDROID_SDK_ROOT"]
 
-  build_tools_dir = ENV["ANDROID_HOME"] ? Dir.glob(File.join(ENV["ANDROID_HOME"], "build-tools", "*")).sort.last : nil
-  build_tools_dir ||= ENV["ANDROID_SDK_ROOT"] ? Dir.glob(File.join(ENV["ANDROID_SDK_ROOT"], "build-tools", "*")).sort.last : nil
+  candidates = []
 
+  if !android_home.to_s.empty?
+    candidates.concat(Dir.glob(File.join(android_home, "build-tools", "*")))
+  end
+
+  if !android_sdk_root.to_s.empty?
+    candidates.concat(Dir.glob(File.join(android_sdk_root, "build-tools", "*")))
+  end
+
+  build_tools_dir = candidates.uniq.sort.last
   UI.user_error!("Android build-tools not found") if build_tools_dir.to_s.empty?
+
+  build_tools_dir
+end
+
+def sign_apk!(unsigned_apk_path)
+  build_tools_dir = find_latest_build_tools_dir!
 
   apksigner = File.join(build_tools_dir, "apksigner")
   zipalign = File.join(build_tools_dir, "zipalign")
@@ -50,8 +67,13 @@ def sign_apk!(unsigned_apk_path)
   UI.user_error!("zipalign not found at #{zipalign}") unless File.exist?(zipalign)
 
   aligned_apk_path = unsigned_apk_path.sub(/-unsigned\.apk\z/, "-aligned.apk")
+  signed_apk_path = unsigned_apk_path.sub(/-unsigned\.apk\z/, ".apk")
 
-  sh("#{zipalign.shellescape} -f -p 4 #{unsigned_apk_path.shellescape} #{aligned_apk_path.shellescape}")
+  sh(
+    "#{zipalign.shellescape} -f -p 4 " \
+    "#{unsigned_apk_path.shellescape} " \
+    "#{aligned_apk_path.shellescape}"
+  )
 
   sh(
     "#{apksigner.shellescape} sign " \
@@ -77,6 +99,11 @@ platform :android do
 
   desc "Build signed release APK and publish a GitHub release"
   lane :release do
+    UI.message("STORE_PASSWORD set? #{!ENV['SIGNING_STORE_PASSWORD'].to_s.empty?}")
+    UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
+    UI.message("KEY_PASSWORD set? #{!ENV['SIGNING_KEY_PASSWORD'].to_s.empty?}")
+    UI.message("KEYSTORE base64 size: #{ENV['ANDROID_KEYSTORE_BASE64']&.length}")
+
     decode_keystore!
     write_keystore_properties!
 
