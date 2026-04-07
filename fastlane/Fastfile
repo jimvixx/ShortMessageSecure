@@ -112,6 +112,18 @@ platform :android do
     unsigned_apk_path = find_unsigned_apk!
     signed_apk_path = sign_apk!(unsigned_apk_path)
 
+    version_name = sh("grep versionName app/build.gradle.kts | head -1").strip rescue "unknown"
+    version_name = version_name.gsub(/.*versionName\s*=\s*"?([^"\n]+)"?.*/, '\1')
+
+    tag = ENV["GITHUB_REF_NAME"].to_s.empty? ? version_name : ENV["GITHUB_REF_NAME"]
+
+    final_apk_name = "SMSecure-#{tag}.apk"
+    final_apk_path = File.join(File.dirname(signed_apk_path), final_apk_name)
+
+    sh("mv #{signed_apk_path.shellescape} #{final_apk_path.shellescape}")
+
+    signed_apk_path = final_apk_path
+
     sh("git fetch --tags --force")
 
     tag_name =
