@@ -168,7 +168,7 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:5.0.5")
     implementation("com.github.bumptech.glide:okhttp3-integration:5.0.5@aar")
-    implementation("com.github.chrisbanes.photoview:library:1.2.4")
+    implementation("com.github.chrisbanes.photoview:library:2.3.0")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
     implementation("com.google.android.material:material:1.13.0")
