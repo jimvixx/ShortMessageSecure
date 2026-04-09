@@ -368,9 +368,16 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
       closeSearchIfOpen();
       handleMyIdentity();
       return true;
+    } else if (id == R.id.menu_blocked_contacts) {
+      closeSearchIfOpen();
+      handleBlockedContacts();
+      return true;
     }
-
     return super.onOptionsItemSelected(item);
+  }
+
+  private void handleBlockedContacts() {
+    startActivity(new Intent(this, BlockedContactsActivity.class));
   }
 
   @Override

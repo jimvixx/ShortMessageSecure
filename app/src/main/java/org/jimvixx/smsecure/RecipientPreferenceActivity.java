@@ -241,6 +241,27 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
       bindMutePreference(recipients);
       bindRingtonePreference(recipients);
       bindSingleRecipientPreferences(recipients);
+      bindBlockedState(recipients);
+    }
+
+    private void bindBlockedState(@NonNull Recipients recipients) {
+      boolean blocked = recipients.isBlocked();
+
+      Preference mute = findPreference(PREFERENCE_MUTED);
+      Preference tone = findPreference(PREFERENCE_TONE);
+
+      if (mute != null) {
+        if (blocked) {
+          mute.setSummary(R.string.recipient_preferences__muted_when_blocked);
+        } else {
+          mute.setSummary(R.string.recipient_preferences__disable_notifications_for_this_conversation);
+        }
+        mute.setEnabled(!blocked);
+      }
+
+      if (tone != null) {
+        tone.setEnabled(!blocked);
+      }
     }
 
     private void bindMutePreference(@NonNull Recipients recipients) {
@@ -477,6 +498,10 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
         Context appContext = context.getApplicationContext();
         executor.execute(() -> DatabaseFactory.getRecipientPreferenceDatabase(appContext)
                 .setBlocked(recipients, blocked));
+
+        handler.post(() -> {
+          setSummaries(recipients);
+        });
       }
     }
   }
