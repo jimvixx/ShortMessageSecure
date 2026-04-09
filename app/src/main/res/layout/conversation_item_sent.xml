@@ -76,8 +76,8 @@
                 <TextView
                     android:id="@+id/conversation_item_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|center_vertical"
                     android:autoLink="none"
                     android:fontFamily="sans-serif-light"
                     android:linksClickable="false"
@@ -92,8 +92,8 @@
                 <TextView
                     android:id="@+id/sim_info"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|center_vertical"
                     android:autoLink="none"
                     android:fontFamily="sans-serif-light"
                     android:linksClickable="false"
@@ -111,8 +111,8 @@
 
                 <org.jimvixx.smsecure.components.DeliveryStatusView
                     android:id="@+id/delivery_status"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     app:iconColor="?conversation_item_sent_text_secondary_color" />
 
                 <ImageView

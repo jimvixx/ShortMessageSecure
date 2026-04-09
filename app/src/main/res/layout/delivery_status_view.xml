@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
-        android:id="@+id/pending_indicator_stub"
+        android:id="@+id/pending_indicator_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp" />
+        android:layout_gravity="center_vertical|end"
+        android:paddingHorizontal="2dp"
+        android:paddingBottom="2dp" />
 
     <ImageView
         android:id="@+id/sent_indicator"
@@ -15,8 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:contentDescription="@string/conversation_item_sent__sent_description"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp"
+        android:paddingHorizontal="2dp"
         android:paddingBottom="2dp"
         android:src="@drawable/ic_check"
         android:visibility="gone"
@@ -28,8 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:contentDescription="@string/conversation_item_sent__delivered_description"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp"
+        android:paddingHorizontal="2dp"
         android:paddingBottom="2dp"
         android:src="@drawable/ic_check_all"
         android:visibility="gone"

@@ -448,10 +448,10 @@ public class ConversationListFragment extends Fragment
 
     adapter.selectAllThreads();
 
-    actionMode.setSubtitle(getString(
-            R.string.conversation_fragment_cab__batch_selection_amount,
-            adapter.getBatchSelections().size()));
-  }
+    actionMode.setSubtitle(getResources().getQuantityString(
+            R.plurals.conversation_fragment_cab__batch_selection_amount,
+            adapter.getBatchSelections().size(),
+            adapter.getBatchSelections().size()));  }
 
   private void handleCreateConversation(long threadId,
                                         Recipients recipients,
@@ -561,10 +561,10 @@ public class ConversationListFragment extends Fragment
       actionMode.finish();
       actionMode = null;
     } else {
-      actionMode.setSubtitle(getString(
-              R.string.conversation_fragment_cab__batch_selection_amount,
-              adapter.getBatchSelections().size()));
-    }
+      actionMode.setSubtitle(getResources().getQuantityString(
+              R.plurals.conversation_fragment_cab__batch_selection_amount,
+              adapter.getBatchSelections().size(),
+              adapter.getBatchSelections().size()));    }
 
     if (position >= 0) {
       adapter.notifyItemChanged(position);

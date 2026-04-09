@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.jimvixx.smsecure.R;
 
@@ -36,9 +35,10 @@ public class DeliveryStatusView extends FrameLayout {
   @SuppressWarnings("unused")
   private static final String TAG = DeliveryStatusView.class.getSimpleName();
 
-  private final ViewGroup pendingIndicatorStub;
+  private final ViewGroup pendingIndicatorContainer;
   private final ImageView sentIndicator;
   private final ImageView deliveredIndicator;
+  private final PendingDotsView pendingIndicator;
 
   public DeliveryStatusView(Context context) {
     this(context, null);
@@ -48,14 +48,14 @@ public class DeliveryStatusView extends FrameLayout {
     this(context, attrs, 0);
   }
 
-  public DeliveryStatusView(final Context context, AttributeSet attrs, int defStyle) {
+  public DeliveryStatusView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
 
     inflate(context, R.layout.delivery_status_view, this);
 
     this.deliveredIndicator = findViewById(R.id.delivered_indicator);
     this.sentIndicator = findViewById(R.id.sent_indicator);
-    this.pendingIndicatorStub = findViewById(R.id.pending_indicator_stub);
+    this.pendingIndicatorContainer = findViewById(R.id.pending_indicator_container);
 
     final int iconColor;
     if (attrs != null) {
@@ -70,33 +70,37 @@ public class DeliveryStatusView extends FrameLayout {
     deliveredIndicator.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
     sentIndicator.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
 
-    inflate(context, R.layout.conversation_item_pending, pendingIndicatorStub);
-    TextView pendingIndicator = findViewById(R.id.pending_indicator);
-    pendingIndicator.setTextColor(iconColor);
+    inflate(context, R.layout.conversation_item_pending, pendingIndicatorContainer);
+    this.pendingIndicator = findViewById(R.id.pending_indicator);
+    this.pendingIndicator.setDotColor(iconColor);
   }
 
   public void setNone() {
-    this.setVisibility(View.GONE);
+    setVisibility(View.GONE);
+    pendingIndicator.stop();
   }
 
   public void setPending() {
-    this.setVisibility(View.VISIBLE);
-    pendingIndicatorStub.setVisibility(View.VISIBLE);
+    setVisibility(View.VISIBLE);
+    pendingIndicatorContainer.setVisibility(View.VISIBLE);
     sentIndicator.setVisibility(View.GONE);
     deliveredIndicator.setVisibility(View.GONE);
+    pendingIndicator.start();
   }
 
   public void setSent() {
-    this.setVisibility(View.VISIBLE);
-    pendingIndicatorStub.setVisibility(View.GONE);
+    setVisibility(View.VISIBLE);
+    pendingIndicatorContainer.setVisibility(View.GONE);
     sentIndicator.setVisibility(View.VISIBLE);
     deliveredIndicator.setVisibility(View.GONE);
+    pendingIndicator.stop();
   }
 
   public void setDelivered() {
-    this.setVisibility(View.VISIBLE);
-    pendingIndicatorStub.setVisibility(View.GONE);
+    setVisibility(View.VISIBLE);
+    pendingIndicatorContainer.setVisibility(View.GONE);
     sentIndicator.setVisibility(View.GONE);
     deliveredIndicator.setVisibility(View.VISIBLE);
+    pendingIndicator.stop();
   }
 }
