@@ -28,7 +28,7 @@
   <string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">O SMSecure é atualmente a sua aplicação de SMS predefinida</string>
   <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Toque para definir o SMSecure como a sua aplicação de SMS predefinida</string>
   <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
-        <item quantity="one">Isto irá reduzir imediatamente todas as conversas para a mensagem mais recente.</item>
+        <item quantity="one">Isto irá reduzir imediatamente todas as conversas para a  <xliff:g id="arg1">%1$d</xliff:g> mensagem mais recente.</item>
         <item quantity="many">Isto irá reduzir imediatamente todas as conversas às <xliff:g id="arg1">%1$d</xliff:g> mensagens mais recentes.</item>
         <item quantity="other">Isto irá reduzir imediatamente todas as conversas às <xliff:g id="arg1">%1$d</xliff:g> mensagens mais recentes.</item>
     </plurals>
