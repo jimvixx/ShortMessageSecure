@@ -18,7 +18,6 @@
 
 package org.jimvixx.smsecure.notifications;
 
-import static org.jimvixx.smsecure.util.ResUtil.getDrawableRes;
 import static org.jimvixx.smsecure.util.ThemeUtil.resolveThemeColor;
 
 import android.app.PendingIntent;
@@ -39,12 +38,14 @@ public class FailedNotificationBuilder extends AbstractNotificationBuilder {
     super(context, privacy, channelId);
 
     setSmallIcon(R.drawable.ic_smsecure);
+
     setLargeIcon(NotificationIconUtil.getLargeIcon(
             context,
-            getDrawableRes(context, R.attr.dialog_alert_icon),
+            R.drawable.ic_smsecure,
             48,
             resolveThemeColor(context, R.attr.appColorCommonAlert)
     ));
+
     setContentTitle(context.getString(R.string.MessageNotifier_message_delivery_failed));
     setContentText(context.getString(R.string.MessageNotifier_failed_to_deliver_message));
     setTicker(context.getString(R.string.MessageNotifier_error_delivering_message));
