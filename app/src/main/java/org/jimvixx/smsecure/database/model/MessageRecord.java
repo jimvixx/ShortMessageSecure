@@ -27,8 +27,8 @@ import android.text.style.StyleSpan;
 import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.database.MessageColumns;
 import org.jimvixx.smsecure.database.SmsDatabase;
-import org.jimvixx.smsecure.database.documents.NetworkFailure;
 import org.jimvixx.smsecure.database.documents.IdentityKeyMismatch;
+import org.jimvixx.smsecure.database.documents.NetworkFailure;
 import org.jimvixx.smsecure.protocol.AutoInitiate;
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.Recipients;
@@ -47,12 +47,12 @@ public abstract class MessageRecord extends DisplayRecord {
 
   private static final int MAX_DISPLAY_LENGTH = 2000;
 
-  private final Recipient                 individualRecipient;
-  private final int                       recipientDeviceId;
-  private final long                      id;
+  private final Recipient individualRecipient;
+  private final int recipientDeviceId;
+  private final long id;
   private final List<IdentityKeyMismatch> mismatches;
-  private final List<NetworkFailure>      networkFailures;
-  private final int                       subscriptionId;
+  private final List<NetworkFailure> networkFailures;
+  private final int subscriptionId;
 
   MessageRecord(Context context, long id, Body body, Recipients recipients,
                 Recipient individualRecipient, int recipientDeviceId,
@@ -60,15 +60,14 @@ public abstract class MessageRecord extends DisplayRecord {
                 int deliveryStatus, long dateDeliveryReceived, long type,
                 List<IdentityKeyMismatch> mismatches,
                 List<NetworkFailure> networkFailures,
-                int subscriptionId)
-  {
+                int subscriptionId) {
     super(context, body, recipients, dateSent, dateReceived, dateDeliveryReceived, threadId, deliveryStatus, type);
-    this.id                  = id;
+    this.id = id;
     this.individualRecipient = individualRecipient;
-    this.recipientDeviceId   = recipientDeviceId;
-    this.mismatches          = mismatches;
-    this.networkFailures     = networkFailures;
-    this.subscriptionId      = subscriptionId;
+    this.recipientDeviceId = recipientDeviceId;
+    this.mismatches = mismatches;
+    this.networkFailures = networkFailures;
+    this.subscriptionId = subscriptionId;
   }
 
   public boolean isSecure() {
@@ -110,8 +109,9 @@ public abstract class MessageRecord extends DisplayRecord {
 
   public long getTimestamp() {
     if (SMSecurePreferences.showSentTime(context)) return getDateSent();
-    else                                            return getDateReceived();
+    else return getDateReceived();
   }
+
   public boolean isStaleKeyExchange() {
     return SmsDatabase.Types.isStaleKeyExchange(type);
   }
@@ -178,7 +178,7 @@ public abstract class MessageRecord extends DisplayRecord {
   }
 
   public int hashCode() {
-    return (int)getId();
+    return (int) getId();
   }
 
   public int getSubscriptionId() {

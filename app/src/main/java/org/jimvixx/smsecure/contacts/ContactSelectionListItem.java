@@ -37,13 +37,13 @@ import org.jimvixx.smsecure.util.ViewUtil;
 public class ContactSelectionListItem extends LinearLayout implements Recipients.RecipientsModifiedListener {
 
   private AvatarImageView contactPhotoImage;
-  private TextView        numberView;
-  private TextView        nameView;
-  private TextView        labelView;
-  private CheckBox        checkBox;
+  private TextView numberView;
+  private TextView nameView;
+  private TextView labelView;
+  private CheckBox checkBox;
 
-  private long       id;
-  private String     number;
+  private long id;
+  private String number;
   private Recipients recipients;
 
   public ContactSelectionListItem(Context context) {
@@ -59,16 +59,16 @@ public class ContactSelectionListItem extends LinearLayout implements Recipients
     super.onFinishInflate();
 
     this.contactPhotoImage = findViewById(R.id.contact_photo_image);
-    this.numberView        = findViewById(R.id.number);
-    this.labelView         = findViewById(R.id.label);
-    this.nameView          = findViewById(R.id.name);
-    this.checkBox          = findViewById(R.id.check_box);
+    this.numberView = findViewById(R.id.number);
+    this.labelView = findViewById(R.id.label);
+    this.nameView = findViewById(R.id.name);
+    this.checkBox = findViewById(R.id.check_box);
 
     ViewUtil.setTextViewGravityStart(this.nameView, getContext());
   }
 
   public void set(long id, int type, String name, String number, String label, int color, boolean multiSelect) {
-    this.id     = id;
+    this.id = id;
     this.number = number;
 
     if (type == ContactsDatabase.NEW_TYPE) {
@@ -78,8 +78,7 @@ public class ContactSelectionListItem extends LinearLayout implements Recipients
       this.recipients = RecipientFactory.getRecipientsFromString(getContext(), number, true);
 
       this.recipients.getPrimaryRecipient();
-      if (this.recipients.getPrimaryRecipient().getName() != null)
-      {
+      if (this.recipients.getPrimaryRecipient().getName() != null) {
         name = this.recipients.getPrimaryRecipient().getName();
       }
 
@@ -111,7 +110,7 @@ public class ContactSelectionListItem extends LinearLayout implements Recipients
 
   private void setText(int type, String name, String number, String label) {
     String safeNumber = (number == null) ? "" : number.trim();
-    String safeName   = (name == null) ? "" : name.trim();
+    String safeName = (name == null) ? "" : name.trim();
 
     // If we don't have a name, fall back to number.
     if (TextUtils.isEmpty(safeName)) {

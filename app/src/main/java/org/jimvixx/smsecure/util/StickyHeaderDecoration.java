@@ -40,16 +40,16 @@ public class StickyHeaderDecoration<T extends RecyclerView.ViewHolder> extends R
   private final boolean sticky;
 
   public StickyHeaderDecoration(@NonNull StickyHeaderAdapter<T> adapter, boolean renderInline, boolean sticky) {
-    this.adapter      = adapter;
-    this.headerCache  = new HashMap<>();
+    this.adapter = adapter;
+    this.headerCache = new HashMap<>();
     this.renderInline = renderInline;
-    this.sticky       = sticky;
+    this.sticky = sticky;
   }
 
   @Override
   public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                              @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-    int position     = parent.getChildAdapterPosition(view);
+    int position = parent.getChildAdapterPosition(view);
     int headerHeight = 0;
 
     if (position != RecyclerView.NO_POSITION && hasHeader(parent, adapter, position)) {
@@ -72,8 +72,8 @@ public class StickyHeaderDecoration<T extends RecyclerView.ViewHolder> extends R
       return true;
     }
 
-    int  previous         = adapterPos + (isReverse ? 1 : -1);
-    long headerId         = adapter.getHeaderId(adapterPos);
+    int previous = adapterPos + (isReverse ? 1 : -1);
+    long headerId = adapter.getHeaderId(adapterPos);
     long previousHeaderId = adapter.getHeaderId(previous);
 
     return headerId != NO_HEADER_ID &&
@@ -94,7 +94,7 @@ public class StickyHeaderDecoration<T extends RecyclerView.ViewHolder> extends R
 
     adapter.onBindHeaderViewHolder(holder, position);
 
-    int widthSpec  = View.MeasureSpec.makeMeasureSpec(parent.getWidth(), View.MeasureSpec.EXACTLY);
+    int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(), View.MeasureSpec.EXACTLY);
     int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(), View.MeasureSpec.UNSPECIFIED);
 
     int childWidth = ViewGroup.getChildMeasureSpec(
@@ -128,7 +128,7 @@ public class StickyHeaderDecoration<T extends RecyclerView.ViewHolder> extends R
         View header = getHeader(parent, adapter, adapterPos).itemView;
         c.save();
         final int left = child.getLeft();
-        final int top  = getHeaderTop(parent, child, header, adapterPos, layoutPos);
+        final int top = getHeaderTop(parent, child, header, adapterPos, layoutPos);
         c.translate(left, top);
         header.draw(c);
         c.restore();
@@ -184,8 +184,12 @@ public class StickyHeaderDecoration<T extends RecyclerView.ViewHolder> extends R
 
   public interface StickyHeaderAdapter<T extends RecyclerView.ViewHolder> {
     long getHeaderId(int position);
+
     int getItemCount();
-    @NonNull T onCreateHeaderViewHolder(@NonNull ViewGroup parent);
+
+    @NonNull
+    T onCreateHeaderViewHolder(@NonNull ViewGroup parent);
+
     void onBindHeaderViewHolder(@NonNull T viewHolder, int position);
   }
 }

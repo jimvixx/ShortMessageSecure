@@ -43,7 +43,8 @@ public class ColorPickerPreferenceDialogFragmentCompat extends DialogFragment
 
   private static final String ARG_KEY = "key";
 
-  @Nullable private ColorPickerPreference preference;
+  @Nullable
+  private ColorPickerPreference preference;
 
   public static ColorPickerPreferenceDialogFragmentCompat newInstance(@NonNull String key) {
     ColorPickerPreferenceDialogFragmentCompat fragment = new ColorPickerPreferenceDialogFragmentCompat();
@@ -51,6 +52,30 @@ public class ColorPickerPreferenceDialogFragmentCompat extends DialogFragment
     b.putString(ARG_KEY, key);
     fragment.setArguments(b);
     return fragment;
+  }
+
+  @Nullable
+  private static ColorPickerPreference findInFragment(@Nullable Fragment fragment, @NonNull String key) {
+    if (fragment instanceof PreferenceFragmentCompat prefFragment) {
+      Preference p = prefFragment.findPreference(key);
+      if (p instanceof ColorPickerPreference) return (ColorPickerPreference) p;
+    }
+
+    // Search children recursively (covers nested fragments).
+    if (fragment != null) {
+      return findInFragmentManager(fragment.getChildFragmentManager(), key);
+    }
+
+    return null;
+  }
+
+  @Nullable
+  private static ColorPickerPreference findInFragmentManager(@NonNull FragmentManager fm, @NonNull String key) {
+    for (Fragment f : fm.getFragments()) {
+      ColorPickerPreference found = findInFragment(f, key);
+      if (found != null) return found;
+    }
+    return null;
   }
 
   @NonNull
@@ -108,29 +133,5 @@ public class ColorPickerPreferenceDialogFragmentCompat extends DialogFragment
     if (fromActivityManager != null) return fromActivityManager;
 
     throw new IllegalStateException("Unable to resolve ColorPickerPreference for key: " + key);
-  }
-
-  @Nullable
-  private static ColorPickerPreference findInFragment(@Nullable Fragment fragment, @NonNull String key) {
-    if (fragment instanceof PreferenceFragmentCompat prefFragment) {
-      Preference p = prefFragment.findPreference(key);
-      if (p instanceof ColorPickerPreference) return (ColorPickerPreference) p;
-    }
-
-    // Search children recursively (covers nested fragments).
-    if (fragment != null) {
-      return findInFragmentManager(fragment.getChildFragmentManager(), key);
-    }
-
-    return null;
-  }
-
-  @Nullable
-  private static ColorPickerPreference findInFragmentManager(@NonNull FragmentManager fm, @NonNull String key) {
-    for (Fragment f : fm.getFragments()) {
-      ColorPickerPreference found = findInFragment(f, key);
-      if (found != null) return found;
-    }
-    return null;
   }
 }

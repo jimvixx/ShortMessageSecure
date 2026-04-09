@@ -1,26 +1,26 @@
 /**
  * Copyright (C) 2011 Whisper Systems
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.jimvixx.smsecure.recipients;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
-import org.jimvixx.smsecure.contacts.avatars.ContactPhotoFactory;
+import androidx.annotation.NonNull;
+
 import org.jimvixx.smsecure.database.CanonicalAddressDatabase;
 import org.jimvixx.smsecure.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -42,7 +42,7 @@ public class RecipientFactory {
 
   public static Recipients getRecipientsFor(Context context, List<Recipient> recipients, boolean asynchronous) {
     long[] ids = new long[recipients.size()];
-    int    i   = 0;
+    int i = 0;
 
     for (Recipient recipient : recipients) {
       ids[i++] = recipient.getRecipientId();
@@ -68,7 +68,7 @@ public class RecipientFactory {
 
   public static @NonNull Recipients getRecipientsFromString(Context context, @NonNull String rawText, boolean asynchronous) {
     StringTokenizer tokenizer = new StringTokenizer(rawText, ",");
-    List<String>    ids       = new LinkedList<>();
+    List<String> ids = new LinkedList<>();
 
     while (tokenizer.hasMoreTokens()) {
       Optional<Long> id = getRecipientIdFromNumber(context, tokenizer.nextToken());
@@ -96,8 +96,8 @@ public class RecipientFactory {
   }
 
   private static @NonNull Recipients getRecipientsForIds(Context context, List<String> idStrings, boolean asynchronous) {
-    long[]       ids      = new long[idStrings.size()];
-    int          i        = 0;
+    long[] ids = new long[idStrings.size()];
+    int i = 0;
 
     for (String id : idStrings) {
       ids[i++] = Long.parseLong(id);
@@ -122,12 +122,12 @@ public class RecipientFactory {
     int openBracketIndex = recipient.indexOf('<');
 
     return (openBracketIndex != -1) &&
-           (recipient.indexOf('>', openBracketIndex) != -1);
+            (recipient.indexOf('>', openBracketIndex) != -1);
   }
 
   private static String parseBracketedNumber(String recipient) {
-    int begin    = recipient.indexOf('<');
-    int end      = recipient.indexOf('>', begin);
+    int begin = recipient.indexOf('<');
+    int end = recipient.indexOf('>', begin);
 
     return recipient.substring(begin + 1, end);
   }

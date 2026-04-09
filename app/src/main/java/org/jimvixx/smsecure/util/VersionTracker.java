@@ -2,6 +2,7 @@ package org.jimvixx.smsecure.util;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+
 import org.jimvixx.smsecure.logging.Log;
 
 import java.io.IOException;

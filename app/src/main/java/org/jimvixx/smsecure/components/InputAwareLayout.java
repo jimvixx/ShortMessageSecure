@@ -76,7 +76,7 @@ public class InputAwareLayout extends KeyboardAwareLinearLayout implements OnKey
 
   public void hideCurrentInput(EditText imeTarget) {
     if (isKeyboardOpen()) hideSoftkey(imeTarget, null);
-    else                  hideAttachedInput(false);
+    else hideAttachedInput(false);
   }
 
   public void hideAttachedInput(boolean instant) {
@@ -140,7 +140,9 @@ public class InputAwareLayout extends KeyboardAwareLinearLayout implements OnKey
 
   public interface InputView {
     void show(int height, boolean immediate);
+
     void hide(boolean immediate);
+
     boolean isShowing();
   }
 }

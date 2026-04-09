@@ -65,6 +65,27 @@ public class QrScanActivity extends AppCompatActivity {
   private boolean torchOn = false;
   private boolean finished = false;
 
+  private static int clamp(int v, int min, int max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+  private static Rect convertRectFromViewToRoot(@NonNull View fromView, @NonNull View root, @NonNull Rect rectInFromView) {
+    int[] fromLoc = new int[2];
+    int[] rootLoc = new int[2];
+    fromView.getLocationOnScreen(fromLoc);
+    root.getLocationOnScreen(rootLoc);
+
+    int dx = fromLoc[0] - rootLoc[0];
+    int dy = fromLoc[1] - rootLoc[1];
+
+    return new Rect(
+            rectInFromView.left + dx,
+            rectInFromView.top + dy,
+            rectInFromView.right + dx,
+            rectInFromView.bottom + dy
+    );
+  }
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -261,27 +282,6 @@ public class QrScanActivity extends AppCompatActivity {
   private int dpToPx(int dp) {
     float d = getResources().getDisplayMetrics().density;
     return Math.round(dp * d);
-  }
-
-  private static int clamp(int v, int min, int max) {
-    return Math.max(min, Math.min(max, v));
-  }
-
-  private static Rect convertRectFromViewToRoot(@NonNull View fromView, @NonNull View root, @NonNull Rect rectInFromView) {
-    int[] fromLoc = new int[2];
-    int[] rootLoc = new int[2];
-    fromView.getLocationOnScreen(fromLoc);
-    root.getLocationOnScreen(rootLoc);
-
-    int dx = fromLoc[0] - rootLoc[0];
-    int dy = fromLoc[1] - rootLoc[1];
-
-    return new Rect(
-            rectInFromView.left + dx,
-            rectInFromView.top + dy,
-            rectInFromView.right + dx,
-            rectInFromView.bottom + dy
-    );
   }
 
   private void toggleTorch() {

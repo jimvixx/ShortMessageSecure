@@ -25,7 +25,7 @@ public class GeneratedContactPhoto implements ContactPhoto {
   public Drawable asDrawable(Context context, int color, boolean inverted) {
     int targetSize = context.getResources().getDimensionPixelSize(R.dimen.contact_photo_target_size);
 
-    int bgColor   = inverted ? Color.WHITE : color;
+    int bgColor = inverted ? Color.WHITE : color;
     int textColor = inverted ? color : Color.WHITE;
 
     AvatarDrawable drawable = new AvatarDrawable(getCharacter(name), bgColor, textColor);

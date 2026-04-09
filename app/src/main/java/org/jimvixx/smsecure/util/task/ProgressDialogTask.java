@@ -36,18 +36,7 @@ import java.lang.ref.WeakReference;
  */
 public final class ProgressDialogTask {
 
-  private ProgressDialogTask() {}
-
-  public interface Worker<R> {
-    @Nullable R run() throws Exception;
-  }
-
-  public interface ResultCallback<R> {
-    @MainThread void onResult(@Nullable R result);
-  }
-
-  public interface ErrorCallback {
-    @MainThread void onError(@NonNull Throwable error);
+  private ProgressDialogTask() {
   }
 
   public static <R> void run(@NonNull Context context,
@@ -100,7 +89,8 @@ public final class ProgressDialogTask {
           if (dialog != null) {
             try {
               if (dialog.isShowing()) dialog.dismiss();
-            } catch (Throwable ignored) {}
+            } catch (Throwable ignored) {
+            }
           }
 
           if (finalError != null) {
@@ -134,5 +124,20 @@ public final class ProgressDialogTask {
                              @NonNull Worker<R> worker,
                              @NonNull ResultCallback<R> onResult) {
     run(context, title, message, worker, onResult, null);
+  }
+
+  public interface Worker<R> {
+    @Nullable
+    R run() throws Exception;
+  }
+
+  public interface ResultCallback<R> {
+    @MainThread
+    void onResult(@Nullable R result);
+  }
+
+  public interface ErrorCallback {
+    @MainThread
+    void onError(@NonNull Throwable error);
   }
 }

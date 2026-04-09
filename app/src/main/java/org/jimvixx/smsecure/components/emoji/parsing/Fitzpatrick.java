@@ -58,7 +58,7 @@ public enum Fitzpatrick {
     for (Fitzpatrick v : values()) {
       boolean match = true;
 
-      for (int i = 0; i< v.unicode.length(); i++) {
+      for (int i = 0; i < v.unicode.length(); i++) {
         if (v.unicode.toCharArray()[i] != unicode.charAt(index + i)) {
           match = false;
         }

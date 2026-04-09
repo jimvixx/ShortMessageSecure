@@ -18,9 +18,9 @@
 
 package org.jimvixx.smsecure.components.reminder;
 
-import androidx.annotation.NonNull;
-
 import android.view.View.OnClickListener;
+
+import androidx.annotation.NonNull;
 
 public abstract class Reminder {
   private final CharSequence buttonText;
@@ -32,10 +32,9 @@ public abstract class Reminder {
 
   public Reminder(@NonNull CharSequence title,
                   @NonNull CharSequence text,
-                  @NonNull CharSequence buttonText)
-  {
-    this.title      = title;
-    this.text       = text;
+                  @NonNull CharSequence buttonText) {
+    this.title = title;
+    this.text = text;
     this.buttonText = buttonText;
   }
 
@@ -55,12 +54,12 @@ public abstract class Reminder {
     return okListener;
   }
 
-  public OnClickListener getDismissListener() {
-    return dismissListener;
-  }
-
   public void setOkListener(OnClickListener okListener) {
     this.okListener = okListener;
+  }
+
+  public OnClickListener getDismissListener() {
+    return dismissListener;
   }
 
   public void setDismissListener(OnClickListener dismissListener) {

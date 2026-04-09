@@ -19,10 +19,10 @@
 package org.jimvixx.smsecure.crypto.storage;
 
 import android.content.Context;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.crypto.MasterCipher;
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.Conversions;
 import org.whispersystems.libsignal.InvalidKeyIdException;
 import org.whispersystems.libsignal.InvalidMessageException;
@@ -43,21 +43,64 @@ import java.util.List;
 
 public class SMSecurePreKeyStore implements PreKeyStore, SignedPreKeyStore {
 
-  public static final String PREKEY_DIRECTORY        = "prekeys";
+  public static final String PREKEY_DIRECTORY = "prekeys";
   public static final String SIGNED_PREKEY_DIRECTORY = "signed_prekeys";
 
-  private static final int    CURRENT_VERSION_MARKER = 1;
-  private static final Object FILE_LOCK              = new Object();
-  private static final String TAG                    = SMSecurePreKeyStore.class.getSimpleName();
+  private static final int CURRENT_VERSION_MARKER = 1;
+  private static final Object FILE_LOCK = new Object();
+  private static final String TAG = SMSecurePreKeyStore.class.getSimpleName();
 
-  private final Context      context;
+  private final Context context;
   private final MasterSecret masterSecret;
-  private final int          subscriptionId;
+  private final int subscriptionId;
 
   public SMSecurePreKeyStore(Context context, MasterSecret masterSecret, int subscriptionId) {
-    this.context        = context.getApplicationContext();
-    this.masterSecret   = masterSecret;
+    this.context = context.getApplicationContext();
+    this.masterSecret = masterSecret;
     this.subscriptionId = subscriptionId;
+  }
+
+  /**
+   * Atomically replaces {@code dest} with {@code tmp} using rename within the same directory.
+   * Falls back to delete+rename if needed.
+   */
+  private static void atomicReplace(File tmp, File dest) throws IOException {
+    // If destination exists, rename may fail on some devices/filesystems; delete first (best-effort).
+    if (dest.exists() && !dest.delete()) {
+      throw new IOException("Failed to delete destination file before replace: " + dest.getAbsolutePath());
+    }
+
+    if (!tmp.renameTo(dest)) {
+      // If rename fails, try one more time after ensuring destination is gone.
+      if (dest.exists() && !dest.delete()) {
+        throw new IOException("Failed to delete destination file during retry: " + dest.getAbsolutePath());
+      }
+      if (!tmp.renameTo(dest)) {
+        throw new IOException("Failed to atomically replace file. tmp=" + tmp.getAbsolutePath()
+                + " dest=" + dest.getAbsolutePath());
+      }
+    }
+  }
+
+  private static void readFully(FileInputStream in, byte[] target) throws IOException {
+    int offset = 0;
+
+    while (offset < target.length) {
+      int read = in.read(target, offset, target.length - offset);
+      if (read < 0) {
+        throw new EOFException("Unexpected EOF while reading " + target.length + " bytes");
+      }
+      offset += read;
+    }
+  }
+
+  private static void writeFully(FileChannel out, ByteBuffer buffer) throws IOException {
+    while (buffer.hasRemaining()) {
+      int written = out.write(buffer);
+      if (written <= 0) {
+        throw new IOException("Failed to write to FileChannel (wrote " + written + " bytes)");
+      }
+    }
   }
 
   @Override
@@ -160,8 +203,7 @@ public class SMSecurePreKeyStore implements PreKeyStore, SignedPreKeyStore {
   }
 
   private byte[] loadSerializedRecord(File recordFile)
-          throws IOException, InvalidMessageException
-  {
+          throws IOException, InvalidMessageException {
     MasterCipher masterCipher = new MasterCipher(masterSecret);
 
     try (FileInputStream fin = new FileInputStream(recordFile)) {
@@ -201,8 +243,7 @@ public class SMSecurePreKeyStore implements PreKeyStore, SignedPreKeyStore {
 
     // Write the full contents to the temp file.
     try (RandomAccessFile raf = new RandomAccessFile(tmpFile, "rw");
-         FileChannel out = raf.getChannel())
-    {
+         FileChannel out = raf.getChannel()) {
       out.position(0);
       writeInteger(CURRENT_VERSION_MARKER, out);
       writeBlob(masterCipher.encryptBytes(serialized), out);
@@ -214,28 +255,6 @@ public class SMSecurePreKeyStore implements PreKeyStore, SignedPreKeyStore {
 
     // Replace the destination atomically.
     atomicReplace(tmpFile, destFile);
-  }
-
-  /**
-   * Atomically replaces {@code dest} with {@code tmp} using rename within the same directory.
-   * Falls back to delete+rename if needed.
-   */
-  private static void atomicReplace(File tmp, File dest) throws IOException {
-    // If destination exists, rename may fail on some devices/filesystems; delete first (best-effort).
-    if (dest.exists() && !dest.delete()) {
-      throw new IOException("Failed to delete destination file before replace: " + dest.getAbsolutePath());
-    }
-
-    if (!tmp.renameTo(dest)) {
-      // If rename fails, try one more time after ensuring destination is gone.
-      if (dest.exists() && !dest.delete()) {
-        throw new IOException("Failed to delete destination file during retry: " + dest.getAbsolutePath());
-      }
-      if (!tmp.renameTo(dest)) {
-        throw new IOException("Failed to atomically replace file. tmp=" + tmp.getAbsolutePath()
-                + " dest=" + dest.getAbsolutePath());
-      }
-    }
   }
 
   private File getPreKeyFile(int preKeyId) {
@@ -295,26 +314,5 @@ public class SMSecurePreKeyStore implements PreKeyStore, SignedPreKeyStore {
 
   private void writeInteger(int value, FileChannel out) throws IOException {
     writeFully(out, ByteBuffer.wrap(Conversions.intToByteArray(value)));
-  }
-
-  private static void readFully(FileInputStream in, byte[] target) throws IOException {
-    int offset = 0;
-
-    while (offset < target.length) {
-      int read = in.read(target, offset, target.length - offset);
-      if (read < 0) {
-        throw new EOFException("Unexpected EOF while reading " + target.length + " bytes");
-      }
-      offset += read;
-    }
-  }
-
-  private static void writeFully(FileChannel out, ByteBuffer buffer) throws IOException {
-    while (buffer.hasRemaining()) {
-      int written = out.write(buffer);
-      if (written <= 0) {
-        throw new IOException("Failed to write to FileChannel (wrote " + written + " bytes)");
-      }
-    }
   }
 }

@@ -99,6 +99,6 @@ public class ListenableFutureTask<V> extends FutureTask<V> {
   @Override
   public int hashCode() {
     if (identifier != null) return identifier.hashCode();
-    else                    return super.hashCode();
+    else return super.hashCode();
   }
 }

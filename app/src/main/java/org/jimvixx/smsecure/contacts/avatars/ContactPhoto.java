@@ -5,8 +5,9 @@ import android.graphics.drawable.Drawable;
 
 public interface ContactPhoto {
 
-  public Drawable asDrawable(Context context, int color);
-  public Drawable asDrawable(Context context, int color, boolean inverted);
+  Drawable asDrawable(Context context, int color);
+
+  Drawable asDrawable(Context context, int color, boolean inverted);
 
 
 }

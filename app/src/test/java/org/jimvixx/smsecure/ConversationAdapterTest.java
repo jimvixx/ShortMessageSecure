@@ -1,26 +1,26 @@
 package org.jimvixx.smsecure;
 
-import android.content.Context;
-import android.database.Cursor;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import android.content.Context;
+import android.database.Cursor;
+
+import org.junit.Before;
+import org.junit.Test;
+
 public class ConversationAdapterTest {
 
-  private Cursor              cursor;
+  private Cursor cursor;
   private ConversationAdapter adapter;
 
   @Before
   public void setUp() {
     Context context = mock(Context.class);
-    cursor  = mock(Cursor.class);
+    cursor = mock(Cursor.class);
 
     adapter = new ConversationAdapter(context, cursor);
 

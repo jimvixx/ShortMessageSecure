@@ -39,18 +39,18 @@ import java.util.regex.Pattern;
 
 public class XmlBackup {
 
-  private static final String PROTOCOL       = "protocol";
-  private static final String ADDRESS        = "address";
-  private static final String DATE           = "date";
-  private static final String TYPE           = "type";
-  private static final String SUBJECT        = "subject";
-  private static final String BODY           = "body";
+  private static final String PROTOCOL = "protocol";
+  private static final String ADDRESS = "address";
+  private static final String DATE = "date";
+  private static final String TYPE = "type";
+  private static final String SUBJECT = "subject";
+  private static final String BODY = "body";
   private static final String SERVICE_CENTER = "service_center";
-  private static final String READ           = "read";
-  private static final String STATUS         = "status";
-  private static final String TOA            = "toa";
-  private static final String SC_TOA         = "sc_toa";
-  private static final String LOCKED         = "locked";
+  private static final String READ = "read";
+  private static final String STATUS = "status";
+  private static final String TOA = "toa";
+  private static final String SC_TOA = "sc_toa";
+  private static final String LOCKED = "locked";
 
   private final XmlPullParser parser;
 
@@ -88,7 +88,7 @@ public class XmlBackup {
 
       XmlBackupItem item = new XmlBackupItem();
 
-      for (int i=0;i<attributeCount;i++) {
+      for (int i = 0; i < attributeCount; i++) {
         String attributeName = parser.getAttributeName(i);
 
         switch (attributeName) {
@@ -111,30 +111,30 @@ public class XmlBackup {
   }
 
   public static class XmlBackupItem {
-    private int    protocol;
+    private int protocol;
     private String address;
-    private long   date;
-    private int    type;
+    private long date;
+    private int type;
     private String subject;
     private String body;
     private String serviceCenter;
-    private int    read;
-    private int    status;
+    private int read;
+    private int status;
 
-    public XmlBackupItem() {}
+    public XmlBackupItem() {
+    }
 
     public XmlBackupItem(int protocol, String address, long date, int type, String subject,
-                         String body, String serviceCenter, int read, int status)
-    {
-      this.protocol      = protocol;
-      this.address       = address;
-      this.date          = date;
-      this.type          = type;
-      this.subject       = subject;
-      this.body          = body;
+                         String body, String serviceCenter, int read, int status) {
+      this.protocol = protocol;
+      this.address = address;
+      this.date = date;
+      this.type = type;
+      this.subject = subject;
+      this.body = body;
       this.serviceCenter = serviceCenter;
-      this.read          = read;
-      this.status        = status;
+      this.read = read;
+      this.status = status;
     }
 
     public int getProtocol() {
@@ -176,16 +176,16 @@ public class XmlBackup {
 
   public static class Writer {
 
-    private static final String  XML_HEADER      = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>";
-    private static final String  CREATED_BY      = "<!-- File Created By SMSecure -->";
-    private static final String  OPEN_TAG_SMSES  = "<smses count=\"%d\">";
-    private static final String  CLOSE_TAG_SMSES = "</smses>";
-    private static final String  OPEN_TAG_SMS    = " <sms ";
-    private static final String  CLOSE_EMPTYTAG  = "/>";
-    private static final String  OPEN_ATTRIBUTE  = "=\"";
-    private static final String  CLOSE_ATTRIBUTE = "\" ";
+    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>";
+    private static final String CREATED_BY = "<!-- File Created By SMSecure -->";
+    private static final String OPEN_TAG_SMSES = "<smses count=\"%d\">";
+    private static final String CLOSE_TAG_SMSES = "</smses>";
+    private static final String OPEN_TAG_SMS = " <sms ";
+    private static final String CLOSE_EMPTYTAG = "/>";
+    private static final String OPEN_ATTRIBUTE = "=\"";
+    private static final String CLOSE_ATTRIBUTE = "\" ";
 
-    private static final Pattern PATTERN         = Pattern.compile("[^ -\uD7FF]");
+    private static final Pattern PATTERN = Pattern.compile("[^ -\uD7FF]");
 
     private final BufferedWriter bufferedWriter;
 
@@ -249,11 +249,11 @@ public class XmlBackup {
     private String escapeXML(String s) {
       if (TextUtils.isEmpty(s)) return s;
 
-      Matcher matcher = PATTERN.matcher( s.replace("&",  "&amp;")
-              .replace("<",  "&lt;")
-              .replace(">",  "&gt;")
+      Matcher matcher = PATTERN.matcher(s.replace("&", "&amp;")
+              .replace("<", "&lt;")
+              .replace(">", "&gt;")
               .replace("\"", "&quot;")
-              .replace("'",  "&apos;"));
+              .replace("'", "&apos;"));
       StringBuffer st = new StringBuffer();
 
       while (matcher.find()) {

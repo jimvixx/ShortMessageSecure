@@ -19,8 +19,8 @@
 package org.jimvixx.smsecure.crypto;
 
 import androidx.annotation.NonNull;
-import org.jimvixx.smsecure.logging.Log;
 
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.Base64;
 import org.jimvixx.smsecure.util.Hex;
 import org.whispersystems.libsignal.InvalidMessageException;
@@ -44,9 +44,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Class that handles encryption for local storage.
- *
+ * <p>
  * The protocol format is roughly:
- *
+ * <p>
  * 1) 16 byte random IV.
  * 2) AES-CBC(plaintext)
  * 3) HMAC-SHA1 of 1 and 2
@@ -66,7 +66,7 @@ public class MasterCipher {
       this.masterSecret = masterSecret;
       this.encryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
       this.decryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-      this.hmac             = Mac.getInstance("HmacSHA1");
+      this.hmac = Mac.getInstance("HmacSHA1");
     } catch (NoSuchPaddingException | NoSuchAlgorithmException nspe) {
       throw new AssertionError(nspe);
     }
@@ -76,7 +76,7 @@ public class MasterCipher {
     return encryptBytes(privateKey.serialize());
   }
 
-  public String encryptBody(String body)  {
+  public String encryptBody(String body) {
     return encryptAndEncodeBytes(body.getBytes());
   }
 
@@ -85,8 +85,7 @@ public class MasterCipher {
   }
 
   public ECPrivateKey decryptKey(byte[] key)
-      throws org.whispersystems.libsignal.InvalidKeyException
-  {
+          throws org.whispersystems.libsignal.InvalidKeyException {
     try {
       return Curve.decodePrivatePoint(decryptBytes(key));
     } catch (InvalidMessageException ime) {
@@ -96,10 +95,10 @@ public class MasterCipher {
 
   public byte[] decryptBytes(@NonNull byte[] decodedBody) throws InvalidMessageException {
     try {
-      Mac mac              = getMac(masterSecret.getMacKey());
+      Mac mac = getMac(masterSecret.getMacKey());
       byte[] encryptedBody = verifyMacBody(mac, decodedBody);
 
-      Cipher cipher        = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
+      Cipher cipher = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
 
       return getDecryptedBody(cipher, encryptedBody);
     } catch (GeneralSecurityException ge) {
@@ -109,10 +108,10 @@ public class MasterCipher {
 
   public byte[] encryptBytes(byte[] body) {
     try {
-      Cipher cipher              = getEncryptingCipher(masterSecret.getEncryptionKey());
-      Mac    mac                 = getMac(masterSecret.getMacKey());
+      Cipher cipher = getEncryptingCipher(masterSecret.getEncryptionKey());
+      Mac mac = getMac(masterSecret.getMacKey());
 
-      byte[] encryptedBody       = getEncryptedBody(cipher, body);
+      byte[] encryptedBody = getEncryptedBody(cipher, body);
 
       return getMacBody(mac, encryptedBody);
     } catch (GeneralSecurityException ge) {
@@ -164,7 +163,7 @@ public class MasterCipher {
     byte[] remoteMac = new byte[hmac.getMacLength()];
     System.arraycopy(encryptedAndMac, encryptedAndMac.length - remoteMac.length, remoteMac, 0, remoteMac.length);
 
-    byte[] localMac  = hmac.doFinal(encrypted);
+    byte[] localMac = hmac.doFinal(encrypted);
 
     if (!Arrays.equals(remoteMac, localMac))
       throw new InvalidMessageException("MAC doesen't match.");
@@ -178,7 +177,7 @@ public class MasterCipher {
 
   private byte[] getEncryptedBody(Cipher cipher, byte[] body) throws IllegalBlockSizeException, BadPaddingException {
     byte[] encrypted = cipher.doFinal(body);
-    byte[] iv        = cipher.getIV();
+    byte[] iv = cipher.getIV();
 
     byte[] ivAndBody = new byte[iv.length + encrypted.length];
     System.arraycopy(iv, 0, ivAndBody, 0, iv.length);
@@ -195,7 +194,7 @@ public class MasterCipher {
   }
 
   private byte[] getMacBody(Mac hmac, byte[] encryptedBody) {
-    byte[] mac             = hmac.doFinal(encryptedBody);
+    byte[] mac = hmac.doFinal(encryptedBody);
     byte[] encryptedAndMac = new byte[encryptedBody.length + mac.length];
 
     System.arraycopy(encryptedBody, 0, encryptedAndMac, 0, encryptedBody.length);

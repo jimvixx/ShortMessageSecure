@@ -1,20 +1,10 @@
-
 package org.jimvixx.smsecure;
 
-import android.content.Intent;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class ExitActivity extends Activity {
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    finishAndRemoveTask();
-
-    System.exit(0);
-  }
 
   public static void exitAndRemoveFromRecentApps(Activity activity) {
     Intent intent = new Intent(activity, ExitActivity.class);
@@ -25,5 +15,14 @@ public class ExitActivity extends Activity {
             | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
     activity.startActivity(intent);
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    finishAndRemoveTask();
+
+    System.exit(0);
   }
 }

@@ -19,7 +19,6 @@
 package org.jimvixx.smsecure.jobs;
 
 import android.content.Context;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.crypto.AsymmetricMasterCipher;
 import org.jimvixx.smsecure.crypto.AsymmetricMasterSecret;
@@ -34,6 +33,7 @@ import org.jimvixx.smsecure.database.EncryptingSmsDatabase;
 import org.jimvixx.smsecure.database.NoSuchMessageException;
 import org.jimvixx.smsecure.database.model.SmsMessageRecord;
 import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.recipients.Recipients;
@@ -61,7 +61,7 @@ public class SmsDecryptJob extends MasterSecretJob {
 
   private static final String TAG = SmsDecryptJob.class.getSimpleName();
 
-  private final long    messageId;
+  private final long messageId;
   private final boolean manualOverride;
   private final Boolean isReceivedWhenLocked;
 
@@ -71,8 +71,8 @@ public class SmsDecryptJob extends MasterSecretJob {
             .withRequirement(new MasterSecretRequirement(context))
             .create());
 
-    this.messageId            = messageId;
-    this.manualOverride       = manualOverride;
+    this.messageId = messageId;
+    this.manualOverride = manualOverride;
     this.isReceivedWhenLocked = isReceivedWhenLocked;
 
     Log.w(TAG, "manualOverride: " + manualOverride);
@@ -88,24 +88,30 @@ public class SmsDecryptJob extends MasterSecretJob {
   }
 
   @Override
-  public void onAdded() {}
+  public void onAdded() {
+  }
 
   @Override
   public void onRun(MasterSecret masterSecret) throws NoSuchMessageException {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
 
     try {
-      SmsMessageRecord    record    = database.getMessage(masterSecret, messageId);
-      IncomingTextMessage message   = createIncomingTextMessage(masterSecret, record);
-      long                messageId = record.getId();
-      long                threadId  = record.getThreadId();
+      SmsMessageRecord record = database.getMessage(masterSecret, messageId);
+      IncomingTextMessage message = createIncomingTextMessage(masterSecret, record);
+      long messageId = record.getId();
+      long threadId = record.getThreadId();
 
-      if      (message.isSecureMessage()) handleSecureMessage(masterSecret, messageId, threadId, message);
-      else if (message.isPreKeyBundle())  handlePreKeySignalMessage(masterSecret, messageId, threadId, (IncomingPreKeyBundleMessage) message);
-      else if (message.isKeyExchange())   handleKeyExchangeMessage(masterSecret, messageId, threadId, (IncomingKeyExchangeMessage) message);
-      else if (message.isEndSession())    handleSecureMessage(masterSecret, messageId, threadId, message);
-      else if (message.isXmppExchange())  handleXmppExchangeMessage(masterSecret, messageId, threadId, (IncomingXmppExchangeMessage) message);
-      else                                database.updateMessageBody(masterSecret, messageId, message.getMessageBody());
+      if (message.isSecureMessage())
+        handleSecureMessage(masterSecret, messageId, threadId, message);
+      else if (message.isPreKeyBundle())
+        handlePreKeySignalMessage(masterSecret, messageId, threadId, (IncomingPreKeyBundleMessage) message);
+      else if (message.isKeyExchange())
+        handleKeyExchangeMessage(masterSecret, messageId, threadId, (IncomingKeyExchangeMessage) message);
+      else if (message.isEndSession())
+        handleSecureMessage(masterSecret, messageId, threadId, message);
+      else if (message.isXmppExchange())
+        handleXmppExchangeMessage(masterSecret, messageId, threadId, (IncomingXmppExchangeMessage) message);
+      else database.updateMessageBody(masterSecret, messageId, message.getMessageBody());
 
       if (!isReceivedWhenLocked) {
         MessageNotifier.updateNotification(context, masterSecret, threadId);
@@ -141,11 +147,10 @@ public class SmsDecryptJob extends MasterSecretJob {
                                    IncomingTextMessage message)
           throws NoSessionException, DuplicateMessageException,
           InvalidMessageException, LegacyMessageException,
-          UntrustedIdentityException
-  {
-    EncryptingSmsDatabase database  = DatabaseFactory.getEncryptingSmsDatabase(context);
-    SmsCipher             cipher    = new SmsCipher(new SMSecureSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
-    IncomingTextMessage   plaintext = cipher.decrypt(context, message);
+          UntrustedIdentityException {
+    EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
+    SmsCipher cipher = new SmsCipher(new SMSecureSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
+    IncomingTextMessage plaintext = cipher.decrypt(context, message);
 
     database.updateMessageBody(masterSecret, messageId, plaintext.getMessageBody());
 
@@ -155,12 +160,11 @@ public class SmsDecryptJob extends MasterSecretJob {
   private void handlePreKeySignalMessage(MasterSecret masterSecret, long messageId, long threadId,
                                          IncomingPreKeyBundleMessage message)
           throws NoSessionException, DuplicateMessageException,
-          InvalidMessageException, LegacyMessageException
-  {
+          InvalidMessageException, LegacyMessageException {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
 
     try {
-      SmsCipher                smsCipher = new SmsCipher(new SMSecureSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
+      SmsCipher smsCipher = new SmsCipher(new SMSecureSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
       IncomingEncryptedMessage plaintext = smsCipher.decrypt(context, message);
 
       database.updateBundleMessageBody(masterSecret, messageId, plaintext.getMessageBody());
@@ -175,12 +179,11 @@ public class SmsDecryptJob extends MasterSecretJob {
   }
 
   private void handleKeyExchangeMessage(MasterSecret masterSecret, long messageId, long threadId,
-                                        IncomingKeyExchangeMessage message)
-  {
+                                        IncomingKeyExchangeMessage message) {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
 
     try {
-      SmsCipher                  cipher   = new SmsCipher(new SMSecureSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
+      SmsCipher cipher = new SmsCipher(new SMSecureSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
       OutgoingKeyExchangeMessage response = cipher.process(context, message);
 
       if (shouldSend()) {
@@ -228,15 +231,13 @@ public class SmsDecryptJob extends MasterSecretJob {
 
   private void handleXmppExchangeMessage(MasterSecret masterSecret, long messageId, long threadId,
                                          IncomingXmppExchangeMessage message)
-          throws NoSessionException, DuplicateMessageException, InvalidMessageException, LegacyMessageException
-  {
+          throws NoSessionException, DuplicateMessageException, InvalidMessageException, LegacyMessageException {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
     database.markAsXmppExchange(messageId);
   }
 
   private String getAsymmetricDecryptedBody(MasterSecret masterSecret, String body, int subscriptionId)
-          throws InvalidMessageException
-  {
+          throws InvalidMessageException {
     try {
       AsymmetricMasterSecret asymmetricMasterSecret = MasterSecretUtil.getAsymmetricMasterSecret(context, masterSecret);
       AsymmetricMasterCipher asymmetricMasterCipher = new AsymmetricMasterCipher(asymmetricMasterSecret);
@@ -248,8 +249,7 @@ public class SmsDecryptJob extends MasterSecretJob {
   }
 
   private IncomingTextMessage createIncomingTextMessage(MasterSecret masterSecret, SmsMessageRecord record)
-          throws InvalidMessageException
-  {
+          throws InvalidMessageException {
     String plaintextBody = record.getBody().getBody();
 
     if (record.isAsymmetricEncryption()) {

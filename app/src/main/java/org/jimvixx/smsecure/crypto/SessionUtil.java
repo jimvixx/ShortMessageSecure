@@ -1,6 +1,7 @@
 package org.jimvixx.smsecure.crypto;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import org.jimvixx.smsecure.crypto.storage.SMSecureSessionStore;
@@ -8,13 +9,13 @@ import org.jimvixx.smsecure.util.dualsim.SubscriptionInfoCompat;
 import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.state.SessionStore;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 public class SessionUtil {
 
   public static boolean hasSession(Context context, MasterSecret masterSecret, @NonNull String number, int subscriptionId) {
-    SessionStore   sessionStore   = new SMSecureSessionStore(context, masterSecret, subscriptionId);
+    SessionStore sessionStore = new SMSecureSessionStore(context, masterSecret, subscriptionId);
     SignalProtocolAddress axolotlAddress = new SignalProtocolAddress(number, 1);
 
     return sessionStore.containsSession(axolotlAddress);

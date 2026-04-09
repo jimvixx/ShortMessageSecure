@@ -18,11 +18,13 @@
 
 package org.jimvixx.smsecure.crypto.storage;
 
+import static org.whispersystems.libsignal.state.StorageProtos.SessionStructure;
+
 import android.content.Context;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.crypto.MasterCipher;
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.util.Conversions;
@@ -42,29 +44,82 @@ import java.nio.channels.FileChannel;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.whispersystems.libsignal.state.StorageProtos.SessionStructure;
-
 public class SMSecureSessionStore implements SessionStore {
 
-  private static final String TAG                   = SMSecureSessionStore.class.getSimpleName();
+  private static final String TAG = SMSecureSessionStore.class.getSimpleName();
   private static final String SESSIONS_DIRECTORY_V2 = "sessions-v2";
-  private static final Object FILE_LOCK             = new Object();
+  private static final Object FILE_LOCK = new Object();
 
-  private static final int SINGLE_STATE_VERSION   = 1;
+  private static final int SINGLE_STATE_VERSION = 1;
   private static final int ARCHIVE_STATES_VERSION = 2;
-  private static final int CURRENT_VERSION        = 2;
+  private static final int CURRENT_VERSION = 2;
 
-  private final Context      context;
+  private final Context context;
   private final MasterSecret masterSecret;
-  private final int          subscriptionId;
+  private final int subscriptionId;
 
   public SMSecureSessionStore(Context context, MasterSecret masterSecret, int subscriptionId) {
     Log.w(TAG, "SMSecureSessionStore for subscription ID " + subscriptionId);
     if (subscriptionId == -1) Log.w(TAG, "Subscription ID should not be -1!");
 
-    this.context        = context.getApplicationContext();
-    this.masterSecret   = masterSecret;
+    this.context = context.getApplicationContext();
+    this.masterSecret = masterSecret;
     this.subscriptionId = subscriptionId;
+  }
+
+  /**
+   * Atomically replaces {@code dest} with {@code tmp} using rename within the same directory.
+   * Falls back to delete+rename if needed.
+   */
+  private static void atomicReplace(File tmp, File dest) throws IOException {
+    // If destination exists, rename may fail on some devices/filesystems; delete first.
+    if (dest.exists() && !dest.delete()) {
+      throw new IOException("Failed to delete destination file before replace: " + dest.getAbsolutePath());
+    }
+
+    if (!tmp.renameTo(dest)) {
+      // Retry once after ensuring destination is gone.
+      if (dest.exists() && !dest.delete()) {
+        throw new IOException("Failed to delete destination file during retry: " + dest.getAbsolutePath());
+      }
+      if (!tmp.renameTo(dest)) {
+        throw new IOException("Failed to atomically replace file. tmp=" + tmp.getAbsolutePath()
+                + " dest=" + dest.getAbsolutePath());
+      }
+    }
+  }
+
+  public static File getSessionDirectory(Context context) {
+    File directory = new File(context.getFilesDir(), SESSIONS_DIRECTORY_V2);
+
+    if (!directory.exists()) {
+      if (!directory.mkdirs()) {
+        Log.w(TAG, "Session directory creation failed!");
+      }
+    }
+
+    return directory;
+  }
+
+  private static void readFully(FileInputStream in, byte[] target) throws IOException {
+    int offset = 0;
+
+    while (offset < target.length) {
+      int read = in.read(target, offset, target.length - offset);
+      if (read < 0) {
+        throw new EOFException("Unexpected EOF while reading " + target.length + " bytes");
+      }
+      offset += read;
+    }
+  }
+
+  private static void writeFully(FileChannel out, ByteBuffer buffer) throws IOException {
+    while (buffer.hasRemaining()) {
+      int written = out.write(buffer);
+      if (written <= 0) {
+        throw new IOException("Failed to write to FileChannel (wrote " + written + " bytes)");
+      }
+    }
   }
 
   @Override
@@ -85,7 +140,7 @@ public class SMSecureSessionStore implements SessionStore {
 
         if (versionMarker == SINGLE_STATE_VERSION) {
           SessionStructure sessionStructure = SessionStructure.parseFrom(serialized);
-          SessionState     sessionState     = new SessionState(sessionStructure);
+          SessionState sessionState = new SessionState(sessionStructure);
           return new SessionRecord(sessionState);
         } else if (versionMarker == ARCHIVE_STATES_VERSION) {
           return new SessionRecord(serialized);
@@ -142,16 +197,16 @@ public class SMSecureSessionStore implements SessionStore {
             .getPrimaryRecipient()
             .getRecipientId();
 
-    List<Integer> results  = new LinkedList<>();
-    File          parent   = getSessionDirectory();
-    String[]      children = parent.list();
+    List<Integer> results = new LinkedList<>();
+    File parent = getSessionDirectory();
+    String[] children = parent.list();
 
     if (children == null) return results;
 
     for (String child : children) {
       try {
-        String[] parts              = child.split("[.]", 2);
-        long     sessionRecipientId = Long.parseLong(parts[0]);
+        String[] parts = child.split("[.]", 2);
+        long sessionRecipientId = Long.parseLong(parts[0]);
 
         if (sessionRecipientId == recipientId && parts.length > 1) {
           results.add(Integer.parseInt(parts[1]));
@@ -188,8 +243,7 @@ public class SMSecureSessionStore implements SessionStore {
 
     // Write the full contents to the temp file.
     try (RandomAccessFile raf = new RandomAccessFile(tmpFile, "rw");
-         FileChannel out = raf.getChannel())
-    {
+         FileChannel out = raf.getChannel()) {
       out.position(0);
       writeInteger(CURRENT_VERSION, out);
       writeBlob(encrypted, out);
@@ -203,28 +257,6 @@ public class SMSecureSessionStore implements SessionStore {
     atomicReplace(tmpFile, destFile);
   }
 
-  /**
-   * Atomically replaces {@code dest} with {@code tmp} using rename within the same directory.
-   * Falls back to delete+rename if needed.
-   */
-  private static void atomicReplace(File tmp, File dest) throws IOException {
-    // If destination exists, rename may fail on some devices/filesystems; delete first.
-    if (dest.exists() && !dest.delete()) {
-      throw new IOException("Failed to delete destination file before replace: " + dest.getAbsolutePath());
-    }
-
-    if (!tmp.renameTo(dest)) {
-      // Retry once after ensuring destination is gone.
-      if (dest.exists() && !dest.delete()) {
-        throw new IOException("Failed to delete destination file during retry: " + dest.getAbsolutePath());
-      }
-      if (!tmp.renameTo(dest)) {
-        throw new IOException("Failed to atomically replace file. tmp=" + tmp.getAbsolutePath()
-                + " dest=" + dest.getAbsolutePath());
-      }
-    }
-  }
-
   private File getSessionFile(SignalProtocolAddress address) {
     String sessionName = getSessionName(address);
     return new File(getSessionDirectory(), sessionName);
@@ -234,22 +266,10 @@ public class SMSecureSessionStore implements SessionStore {
     return getSessionDirectory(context);
   }
 
-  public static File getSessionDirectory(Context context) {
-    File directory = new File(context.getFilesDir(), SESSIONS_DIRECTORY_V2);
-
-    if (!directory.exists()) {
-      if (!directory.mkdirs()) {
-        Log.w(TAG, "Session directory creation failed!");
-      }
-    }
-
-    return directory;
-  }
-
   private String getSessionName(SignalProtocolAddress axolotlAddress) {
-    Recipient recipient   = RecipientFactory.getRecipientsFromString(context, axolotlAddress.getName(), true)
+    Recipient recipient = RecipientFactory.getRecipientsFromString(context, axolotlAddress.getName(), true)
             .getPrimaryRecipient();
-    long      recipientId = recipient.getRecipientId();
+    long recipientId = recipient.getRecipientId();
 
     return recipientId + (subscriptionId == -1 ? "" : "." + subscriptionId);
   }
@@ -281,26 +301,5 @@ public class SMSecureSessionStore implements SessionStore {
 
   private void writeInteger(int value, FileChannel out) throws IOException {
     writeFully(out, ByteBuffer.wrap(Conversions.intToByteArray(value)));
-  }
-
-  private static void readFully(FileInputStream in, byte[] target) throws IOException {
-    int offset = 0;
-
-    while (offset < target.length) {
-      int read = in.read(target, offset, target.length - offset);
-      if (read < 0) {
-        throw new EOFException("Unexpected EOF while reading " + target.length + " bytes");
-      }
-      offset += read;
-    }
-  }
-
-  private static void writeFully(FileChannel out, ByteBuffer buffer) throws IOException {
-    while (buffer.hasRemaining()) {
-      int written = out.write(buffer);
-      if (written <= 0) {
-        throw new IOException("Failed to write to FileChannel (wrote " + written + " bytes)");
-      }
-    }
   }
 }

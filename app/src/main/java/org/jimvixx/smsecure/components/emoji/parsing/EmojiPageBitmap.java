@@ -20,11 +20,11 @@ package org.jimvixx.smsecure.components.emoji.parsing;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 
 import org.jimvixx.smsecure.components.emoji.EmojiPageModel;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.BitmapDecodingException;
 import org.jimvixx.smsecure.util.BitmapUtil;
 import org.jimvixx.smsecure.util.ListenableFutureTask;

@@ -6,12 +6,11 @@ import java.util.HashMap;
 public class MultipartSmsIdentifier {
 
   private static final MultipartSmsIdentifier instance = new MultipartSmsIdentifier();
+  private final HashMap<String, Integer> idMap = new HashMap<String, Integer>();
 
   public static MultipartSmsIdentifier getInstance() {
     return instance;
   }
-
-  private final HashMap<String, Integer>  idMap = new HashMap<String, Integer>();
 
   public synchronized byte getIdForRecipient(String recipient) {
     Integer currentId;
@@ -23,7 +22,7 @@ public class MultipartSmsIdentifier {
       currentId = 0;
     }
 
-    byte id  = currentId.byteValue();
+    byte id = currentId.byteValue();
     idMap.put(recipient, (currentId + 1) % 255);
 
     return id;

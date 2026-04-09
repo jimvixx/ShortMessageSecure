@@ -2,6 +2,7 @@ package org.jimvixx.smsecure.database.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
+
 import androidx.loader.content.CursorLoader;
 
 import org.jimvixx.smsecure.database.DatabaseFactory;
@@ -12,7 +13,7 @@ public class IdentityLoader extends CursorLoader {
 
   public IdentityLoader(Context context) {
     super(context);
-    this.context      = context.getApplicationContext();
+    this.context = context.getApplicationContext();
   }
 
   @Override

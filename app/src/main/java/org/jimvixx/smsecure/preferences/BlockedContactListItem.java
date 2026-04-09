@@ -13,8 +13,8 @@ import org.jimvixx.smsecure.util.Util;
 public class BlockedContactListItem extends RelativeLayout implements Recipients.RecipientsModifiedListener {
 
   private AvatarImageView contactPhotoImage;
-  private TextView        nameView;
-  private Recipients      recipients;
+  private TextView nameView;
+  private Recipients recipients;
 
   public BlockedContactListItem(Context context) {
     super(context);
@@ -32,7 +32,7 @@ public class BlockedContactListItem extends RelativeLayout implements Recipients
   public void onFinishInflate() {
     super.onFinishInflate();
     this.contactPhotoImage = findViewById(R.id.contact_photo_image);
-    this.nameView          = findViewById(R.id.name);
+    this.nameView = findViewById(R.id.name);
   }
 
   public void set(Recipients recipients) {
@@ -45,7 +45,7 @@ public class BlockedContactListItem extends RelativeLayout implements Recipients
   @Override
   public void onModified(final Recipients recipients) {
     final AvatarImageView contactPhotoImage = this.contactPhotoImage;
-    final TextView        nameView          = this.nameView;
+    final TextView nameView = this.nameView;
 
     Util.runOnMain(() -> {
       contactPhotoImage.setAvatar(recipients, false);

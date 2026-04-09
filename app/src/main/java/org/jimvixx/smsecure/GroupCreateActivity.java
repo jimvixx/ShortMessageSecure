@@ -67,6 +67,12 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
   private Set<Recipient> selectedContacts;
 
+  private static <T> ArrayList<T> setToArrayList(Set<T> set) {
+    ArrayList<T> arrayList = new ArrayList<>(set.size());
+    arrayList.addAll(set);
+    return arrayList;
+  }
+
   @Override
   protected void onCreate(Bundle state, @NonNull MasterSecret masterSecret) {
     super.onCreate(state, masterSecret);
@@ -259,17 +265,10 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
     adapter.clear();
     for (Recipient contact : selectedContacts) {
-      if (contact != null) adapter.add(new SelectedRecipientsAdapter.RecipientWrapper(contact, true));
+      if (contact != null)
+        adapter.add(new SelectedRecipientsAdapter.RecipientWrapper(contact, true));
     }
     adapter.notifyDataSetChanged();
-  }
-
-  private class AddRecipientButtonListener implements View.OnClickListener {
-    @Override
-    public void onClick(View v) {
-      Intent intent = new Intent(GroupCreateActivity.this, PushContactSelectionActivity.class);
-      pickContactLauncher.launch(intent);
-    }
   }
 
   private long handleCreateBroadcastGroup(Set<Recipient> members) {
@@ -278,9 +277,11 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
             .getThreadIdFor(recipients, ThreadDatabase.DistributionTypes.BROADCAST);
   }
 
-  private static <T> ArrayList<T> setToArrayList(Set<T> set) {
-    ArrayList<T> arrayList = new ArrayList<>(set.size());
-    arrayList.addAll(set);
-    return arrayList;
+  private class AddRecipientButtonListener implements View.OnClickListener {
+    @Override
+    public void onClick(View v) {
+      Intent intent = new Intent(GroupCreateActivity.this, PushContactSelectionActivity.class);
+      pickContactLauncher.launch(intent);
+    }
   }
 }

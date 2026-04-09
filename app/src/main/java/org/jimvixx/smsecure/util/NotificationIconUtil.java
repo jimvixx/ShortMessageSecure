@@ -34,11 +34,11 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * Helpers for notification icons.
- *
+ * <p>
  * Notes:
  * - NotificationCompat.Builder#setLargeIcon() requires a Bitmap.
  * - Many of our assets are VectorDrawables; BitmapFactory.decodeResource() is not suitable for them
- *   when tinting / theming is needed.
+ * when tinting / theming is needed.
  * - This util converts a drawable into a tinted Bitmap and caches results.
  */
 public final class NotificationIconUtil {
@@ -54,7 +54,8 @@ public final class NotificationIconUtil {
             }
           };
 
-  private NotificationIconUtil() {}
+  private NotificationIconUtil() {
+  }
 
   /**
    * Returns a Bitmap suitable for Notification largeIcon with optional tint.

@@ -54,111 +54,50 @@ import java.io.IOException;
  */
 public abstract class BaseIdentityActivity extends PassphraseRequiredActionBarActivity {
 
-  private static final String STATE_FP_EXPANDED   = "state_fp_expanded";
+  private static final String STATE_FP_EXPANDED = "state_fp_expanded";
   private static final String STATE_TEXT_EXPANDED = "state_text_expanded";
 
   // Spoilers (local)
-  @Nullable protected View toggleFingerprint;
-  @Nullable protected View sectionFingerprint;
-  @Nullable protected View toggleTextCode;
-  @Nullable protected View sectionTextCode;
+  @Nullable
+  protected View toggleFingerprint;
+  @Nullable
+  protected View sectionFingerprint;
+  @Nullable
+  protected View toggleTextCode;
+  @Nullable
+  protected View sectionTextCode;
 
-  protected boolean fpExpanded   = false;
+  protected boolean fpExpanded = false;
   protected boolean textExpanded = false;
 
   // Local content views
-  @Nullable protected TextView identityFingerprint;
-  @Nullable protected ImageView identityQr;
-  @Nullable protected TextView identityTextCode;
+  @Nullable
+  protected TextView identityFingerprint;
+  @Nullable
+  protected ImageView identityQr;
+  @Nullable
+  protected TextView identityTextCode;
 
-  @Nullable protected ImageButton copyFingerprint;
-  @Nullable protected ImageButton shareFingerprint;
-  @Nullable protected ImageButton shareQrImage;
-  @Nullable protected ImageButton copyTextCode;
-  @Nullable protected ImageButton shareTextCode;
+  @Nullable
+  protected ImageButton copyFingerprint;
+  @Nullable
+  protected ImageButton shareFingerprint;
+  @Nullable
+  protected ImageButton shareQrImage;
+  @Nullable
+  protected ImageButton copyTextCode;
+  @Nullable
+  protected ImageButton shareTextCode;
 
   // Local computed data (RAW)
-  @Nullable protected IdentityKey localIdentityKey;
-  @Nullable protected String localHexRaw;
-  @Nullable protected String localBase64Raw;
-  @Nullable protected Bitmap qrBitmap;
-
-  /** Subclass must bind at least the "local" views + spoiler toggles */
-  protected abstract void bindBaseViews();
-
-  /** Subclass provides local key (or null). Called from base in onCreate after views are bound. */
-  @Nullable protected abstract IdentityKey resolveLocalIdentityKey();
-
-  /** Subclass may hide/show additional sections after base render. Optional. */
-  protected void afterBaseRendered() {}
-
-  @Override
-  protected void onRestoreInstanceState(@NonNull android.os.Bundle savedInstanceState) {
-    super.onRestoreInstanceState(savedInstanceState);
-    fpExpanded   = savedInstanceState.getBoolean(STATE_FP_EXPANDED, false);
-    textExpanded = savedInstanceState.getBoolean(STATE_TEXT_EXPANDED, false);
-  }
-
-  @Override
-  public void onSaveInstanceState(@NonNull android.os.Bundle outState) {
-    super.onSaveInstanceState(outState);
-    outState.putBoolean(STATE_FP_EXPANDED, fpExpanded);
-    outState.putBoolean(STATE_TEXT_EXPANDED, textExpanded);
-  }
-
-  /** Call this from subclass onCreate() after setContentView() and toolbar setup. */
-  protected final void initBaseIdentityUi(@Nullable android.os.Bundle icicle) {
-    bindBaseViews();
-
-    if (icicle != null) {
-      fpExpanded   = icicle.getBoolean(STATE_FP_EXPANDED, false);
-      textExpanded = icicle.getBoolean(STATE_TEXT_EXPANDED, false);
-    }
-
-    localIdentityKey = resolveLocalIdentityKey();
-
-    renderAndPopulateLocal();
-    bindBaseActions();
-    applySpoilers();
-
-    afterBaseRendered();
-  }
-
-  // -------------------------
-  // Rendering / formatting
-  // -------------------------
-
-  private void renderAndPopulateLocal() {
-    if (identityFingerprint == null || identityTextCode == null || identityQr == null) return;
-
-    if (localIdentityKey == null) {
-      identityFingerprint.setText(R.string.IdentityActivity__you_do_not_have_an_identity_key);
-      identityTextCode.setText("");
-      identityQr.setImageDrawable(null);
-      localHexRaw = null;
-      localBase64Raw = null;
-      qrBitmap = null;
-      return;
-    }
-
-    localHexRaw    = Hex.toStringCondensed(localIdentityKey.serialize());
-    localBase64Raw = Base64.encodeBytes(localIdentityKey.serialize());
-
-    // DISPLAY strings
-    identityFingerprint.setText(formatHexForDisplay(localHexRaw));
-    identityTextCode.setText(formatBase64ForDisplay(localBase64Raw));
-
-    // QR bitmap (uses RAW base64)
-    try {
-      int sizePx = calculateQrSizePx();
-      qrBitmap = renderQr(localBase64Raw, sizePx, sizePx);
-      identityQr.setImageBitmap(qrBitmap);
-    } catch (WriterException e) {
-      qrBitmap = null;
-      identityQr.setImageDrawable(null);
-      Toast.makeText(this, R.string.IdentityActivity__failed_to_render, Toast.LENGTH_LONG).show();
-    }
-  }
+  @Nullable
+  protected IdentityKey localIdentityKey;
+  @Nullable
+  protected String localHexRaw;
+  @Nullable
+  protected String localBase64Raw;
+  @Nullable
+  protected Bitmap qrBitmap;
 
   private static Bitmap renderQr(@NonNull String text, int width, int height) throws WriterException {
     QRCodeWriter writer = new QRCodeWriter();
@@ -199,6 +138,93 @@ public abstract class BaseIdentityActivity extends PassphraseRequiredActionBarAc
   @NonNull
   protected static String formatBase64ForDisplay(@NonNull String b64) {
     return formatGrouped(b64, 4);
+  }
+
+  /**
+   * Subclass must bind at least the "local" views + spoiler toggles
+   */
+  protected abstract void bindBaseViews();
+
+  /**
+   * Subclass provides local key (or null). Called from base in onCreate after views are bound.
+   */
+  @Nullable
+  protected abstract IdentityKey resolveLocalIdentityKey();
+
+  // -------------------------
+  // Rendering / formatting
+  // -------------------------
+
+  /**
+   * Subclass may hide/show additional sections after base render. Optional.
+   */
+  protected void afterBaseRendered() {
+  }
+
+  @Override
+  protected void onRestoreInstanceState(@NonNull android.os.Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    fpExpanded = savedInstanceState.getBoolean(STATE_FP_EXPANDED, false);
+    textExpanded = savedInstanceState.getBoolean(STATE_TEXT_EXPANDED, false);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull android.os.Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(STATE_FP_EXPANDED, fpExpanded);
+    outState.putBoolean(STATE_TEXT_EXPANDED, textExpanded);
+  }
+
+  /**
+   * Call this from subclass onCreate() after setContentView() and toolbar setup.
+   */
+  protected final void initBaseIdentityUi(@Nullable android.os.Bundle icicle) {
+    bindBaseViews();
+
+    if (icicle != null) {
+      fpExpanded = icicle.getBoolean(STATE_FP_EXPANDED, false);
+      textExpanded = icicle.getBoolean(STATE_TEXT_EXPANDED, false);
+    }
+
+    localIdentityKey = resolveLocalIdentityKey();
+
+    renderAndPopulateLocal();
+    bindBaseActions();
+    applySpoilers();
+
+    afterBaseRendered();
+  }
+
+  private void renderAndPopulateLocal() {
+    if (identityFingerprint == null || identityTextCode == null || identityQr == null) return;
+
+    if (localIdentityKey == null) {
+      identityFingerprint.setText(R.string.IdentityActivity__you_do_not_have_an_identity_key);
+      identityTextCode.setText("");
+      identityQr.setImageDrawable(null);
+      localHexRaw = null;
+      localBase64Raw = null;
+      qrBitmap = null;
+      return;
+    }
+
+    localHexRaw = Hex.toStringCondensed(localIdentityKey.serialize());
+    localBase64Raw = Base64.encodeBytes(localIdentityKey.serialize());
+
+    // DISPLAY strings
+    identityFingerprint.setText(formatHexForDisplay(localHexRaw));
+    identityTextCode.setText(formatBase64ForDisplay(localBase64Raw));
+
+    // QR bitmap (uses RAW base64)
+    try {
+      int sizePx = calculateQrSizePx();
+      qrBitmap = renderQr(localBase64Raw, sizePx, sizePx);
+      identityQr.setImageBitmap(qrBitmap);
+    } catch (WriterException e) {
+      qrBitmap = null;
+      identityQr.setImageDrawable(null);
+      Toast.makeText(this, R.string.IdentityActivity__failed_to_render, Toast.LENGTH_LONG).show();
+    }
   }
 
   protected final int calculateQrSizePx() {

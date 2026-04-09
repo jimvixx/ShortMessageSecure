@@ -6,10 +6,10 @@
  * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
  * sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -35,7 +35,7 @@ public class EmojiTree {
   public void add(String emojiEncoding, EmojiDrawInfo emoji) {
     EmojiTreeNode tree = root;
 
-    for (char c: emojiEncoding.toCharArray()) {
+    for (char c : emojiEncoding.toCharArray()) {
       if (!tree.hasChild(c)) {
         tree.addChild(c);
       }
@@ -53,7 +53,7 @@ public class EmojiTree {
 
     EmojiTreeNode tree = root;
 
-    for (int i=startPosition; i<endPosition; i++) {
+    for (int i = startPosition; i < endPosition; i++) {
       char character = sequence.charAt(i);
 
       if (!tree.hasChild(character)) {
@@ -69,7 +69,7 @@ public class EmojiTree {
   public @Nullable EmojiDrawInfo getEmoji(CharSequence unicode, int startPosition, int endPosition) {
     EmojiTreeNode tree = root;
 
-    for (int i=startPosition; i<endPosition; i++) {
+    for (int i = startPosition; i < endPosition; i++) {
       char character = unicode.charAt(i);
 
       if (!tree.hasChild(character)) {
@@ -83,17 +83,29 @@ public class EmojiTree {
   }
 
 
+  public enum Matches {
+    EXACTLY, POSSIBLY, IMPOSSIBLE;
+
+    public boolean exactMatch() {
+      return this == EXACTLY;
+    }
+
+    public boolean impossibleMatch() {
+      return this == IMPOSSIBLE;
+    }
+  }
+
   private static class EmojiTreeNode {
 
     private final Map<Character, EmojiTreeNode> children = new HashMap<>();
     private EmojiDrawInfo emoji;
 
-    public void setEmoji(EmojiDrawInfo emoji) {
-      this.emoji = emoji;
-    }
-
     public @Nullable EmojiDrawInfo getEmoji() {
       return emoji;
+    }
+
+    public void setEmoji(EmojiDrawInfo emoji) {
+      this.emoji = emoji;
     }
 
     boolean hasChild(char child) {
@@ -110,18 +122,6 @@ public class EmojiTree {
 
     boolean isEndOfEmoji() {
       return emoji != null;
-    }
-  }
-
-  public enum Matches {
-    EXACTLY, POSSIBLY, IMPOSSIBLE;
-
-    public boolean exactMatch() {
-      return this == EXACTLY;
-    }
-
-    public boolean impossibleMatch() {
-      return this == IMPOSSIBLE;
     }
   }
 

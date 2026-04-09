@@ -20,10 +20,11 @@ package org.jimvixx.smsecure.database;
 
 import android.content.Context;
 import android.net.Uri;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import org.jimvixx.smsecure.logging.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -140,7 +141,10 @@ public class EncryptedBackupExporter {
           // Unreadable files should not fail the whole export.
           Log.w(TAG, "Skipping unreadable file: " + f.getAbsolutePath(), ioe);
         } finally {
-          try { zos.closeEntry(); } catch (IOException ignored) {}
+          try {
+            zos.closeEntry();
+          } catch (IOException ignored) {
+          }
         }
       }
     }
@@ -297,7 +301,8 @@ public class EncryptedBackupExporter {
   private static File getAppDataParentDir(@NonNull Context context) throws IOException {
     File filesDir = context.getFilesDir();
     File parent = filesDir.getParentFile();
-    if (parent == null) throw new IOException("Files directory has no parent: " + filesDir.getAbsolutePath());
+    if (parent == null)
+      throw new IOException("Files directory has no parent: " + filesDir.getAbsolutePath());
     return parent;
   }
 
@@ -341,7 +346,8 @@ public class EncryptedBackupExporter {
       for (File c : children) {
         File dest = new File(to, c.getName());
         if (c.isDirectory()) {
-          if (!dest.mkdirs() && !dest.exists()) throw new IOException("Failed to mkdir: " + dest.getAbsolutePath());
+          if (!dest.mkdirs() && !dest.exists())
+            throw new IOException("Failed to mkdir: " + dest.getAbsolutePath());
           copyRecursive(c, dest);
         } else {
           copyFile(c, dest);

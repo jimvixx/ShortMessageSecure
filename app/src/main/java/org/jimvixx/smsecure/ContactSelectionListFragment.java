@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  Fragment for selecting a one or more contacts from a list.
+ * Fragment for selecting a one or more contacts from a list.
  *
  * @author Moxie
  */
@@ -67,7 +67,7 @@ public class ContactSelectionListFragment extends Fragment implements LoaderMana
 
   private static final int LOADER_ID = 0;
 
-  private static final String[] CONTACT_PERMISSIONS = new String[] {
+  private static final String[] CONTACT_PERMISSIONS = new String[]{
           Manifest.permission.READ_CONTACTS,
           Manifest.permission.WRITE_CONTACTS
   };
@@ -98,7 +98,7 @@ public class ContactSelectionListFragment extends Fragment implements LoaderMana
             registerForActivityResult(
                     new ActivityResultContracts.RequestMultiplePermissions(),
                     result -> {
-                      final boolean readGranted  = Boolean.TRUE.equals(result.get(Manifest.permission.READ_CONTACTS));
+                      final boolean readGranted = Boolean.TRUE.equals(result.get(Manifest.permission.READ_CONTACTS));
 
                       if (readGranted) {
                         handleContactPermissionGranted();
@@ -120,11 +120,11 @@ public class ContactSelectionListFragment extends Fragment implements LoaderMana
                            @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.contact_selection_list_fragment, container, false);
 
-    emptyText               = ViewUtil.findById(view, android.R.id.empty);
-    recyclerView            = ViewUtil.findById(view, R.id.recycler_view);
-    fastScroller            = ViewUtil.findById(view, R.id.fast_scroller);
-    showContactsLayout      = view.findViewById(R.id.show_contacts_container);
-    showContactsButton      = view.findViewById(R.id.show_contacts_button);
+    emptyText = ViewUtil.findById(view, android.R.id.empty);
+    recyclerView = ViewUtil.findById(view, R.id.recycler_view);
+    fastScroller = ViewUtil.findById(view, R.id.fast_scroller);
+    showContactsLayout = view.findViewById(R.id.show_contacts_container);
+    showContactsButton = view.findViewById(R.id.show_contacts_button);
     showContactsDescription = view.findViewById(R.id.show_contacts_description);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -283,6 +283,14 @@ public class ContactSelectionListFragment extends Fragment implements LoaderMana
     emptyText.setVisibility(View.GONE);
   }
 
+  public void setOnContactSelectedListener(@Nullable OnContactSelectedListener onContactSelectedListener) {
+    this.onContactSelectedListener = onContactSelectedListener;
+  }
+
+  public interface OnContactSelectedListener {
+    void onContactSelected(String number);
+  }
+
   private class ListClickListener implements ContactSelectionListAdapter.ItemClickListener {
     @Override
     public void onItemClick(ContactSelectionListItem contact) {
@@ -299,13 +307,5 @@ public class ContactSelectionListFragment extends Fragment implements LoaderMana
         contact.setChecked(false);
       }
     }
-  }
-
-  public void setOnContactSelectedListener(@Nullable OnContactSelectedListener onContactSelectedListener) {
-    this.onContactSelectedListener = onContactSelectedListener;
-  }
-
-  public interface OnContactSelectedListener {
-    void onContactSelected(String number);
   }
 }

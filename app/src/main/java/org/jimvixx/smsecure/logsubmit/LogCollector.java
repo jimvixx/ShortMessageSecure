@@ -41,7 +41,8 @@ public final class LogCollector {
 
   private static final int MAX_LOGCAT_CHARS = 700_000;
 
-  private LogCollector() {}
+  private LogCollector() {
+  }
 
   @NonNull
   public static String collect(@NonNull Context context) {

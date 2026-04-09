@@ -2,6 +2,7 @@ package org.jimvixx.smsecure.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+
 import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;

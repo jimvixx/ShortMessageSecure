@@ -42,6 +42,66 @@ public class AppearancePreferenceFragment extends PreferenceFragmentCompat {
   private static final String LANGUAGE_SEPARATOR = "\\|";
   private static final String KEY_LANGUAGE = "pref_language";
 
+  public static CharSequence getSummary(@NonNull Context context) {
+    LanguageListData languageData = parseLanguageList(context);
+
+    String[] themeEntries = context.getResources().getStringArray(R.array.pref_theme_entries);
+    String[] themeEntryValues = context.getResources().getStringArray(R.array.pref_theme_values);
+
+    int langIndex = Math.max(0,
+            Arrays.asList(languageData.values).indexOf(SMSecurePreferences.getLanguage(context)));
+
+    int themeIndex = Math.max(0,
+            Arrays.asList(themeEntryValues).indexOf(SMSecurePreferences.getTheme(context)));
+
+    if (langIndex >= languageData.entries.length) langIndex = 0;
+    if (themeIndex >= themeEntries.length) themeIndex = 0;
+
+    return context.getString(
+            R.string.ApplicationPreferencesActivity_appearance_summary,
+            themeEntries[themeIndex],
+            languageData.entries[langIndex]
+    );
+  }
+
+  @NonNull
+  private static LanguageListData parseLanguageList(@NonNull Context context) {
+    String[] rawItems = context.getResources().getStringArray(R.array.language_items);
+
+    List<CharSequence> entries = new ArrayList<>(rawItems.length);
+    List<CharSequence> values = new ArrayList<>(rawItems.length);
+
+    for (String rawItem : rawItems) {
+      if (rawItem == null) continue;
+
+      String[] parts = rawItem.split(LANGUAGE_SEPARATOR, 2);
+
+      if (parts.length != 2) {
+        continue;
+      }
+
+      String value = parts[0].trim();
+      String entry = parts[1].trim();
+
+      if (value.isEmpty() || entry.isEmpty()) {
+        continue;
+      }
+
+      values.add(value);
+      entries.add(entry);
+    }
+
+    if (entries.isEmpty()) {
+      values.add("zz");
+      entries.add(context.getString(R.string.Default));
+    }
+
+    return new LanguageListData(
+            entries.toArray(new CharSequence[0]),
+            values.toArray(new CharSequence[0])
+    );
+  }
+
   @Override
   public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
     setPreferencesFromResource(R.xml.preferences_appearance, rootKey);
@@ -141,66 +201,6 @@ public class AppearancePreferenceFragment extends PreferenceFragmentCompat {
     return (getActivity() instanceof SharedPreferences.OnSharedPreferenceChangeListener)
             ? (SharedPreferences.OnSharedPreferenceChangeListener) getActivity()
             : null;
-  }
-
-  public static CharSequence getSummary(@NonNull Context context) {
-    LanguageListData languageData = parseLanguageList(context);
-
-    String[] themeEntries = context.getResources().getStringArray(R.array.pref_theme_entries);
-    String[] themeEntryValues = context.getResources().getStringArray(R.array.pref_theme_values);
-
-    int langIndex = Math.max(0,
-            Arrays.asList(languageData.values).indexOf(SMSecurePreferences.getLanguage(context)));
-
-    int themeIndex = Math.max(0,
-            Arrays.asList(themeEntryValues).indexOf(SMSecurePreferences.getTheme(context)));
-
-    if (langIndex >= languageData.entries.length) langIndex = 0;
-    if (themeIndex >= themeEntries.length) themeIndex = 0;
-
-    return context.getString(
-            R.string.ApplicationPreferencesActivity_appearance_summary,
-            themeEntries[themeIndex],
-            languageData.entries[langIndex]
-    );
-  }
-
-  @NonNull
-  private static LanguageListData parseLanguageList(@NonNull Context context) {
-    String[] rawItems = context.getResources().getStringArray(R.array.language_items);
-
-    List<CharSequence> entries = new ArrayList<>(rawItems.length);
-    List<CharSequence> values = new ArrayList<>(rawItems.length);
-
-    for (String rawItem : rawItems) {
-      if (rawItem == null) continue;
-
-      String[] parts = rawItem.split(LANGUAGE_SEPARATOR, 2);
-
-      if (parts.length != 2) {
-        continue;
-      }
-
-      String value = parts[0].trim();
-      String entry = parts[1].trim();
-
-      if (value.isEmpty() || entry.isEmpty()) {
-        continue;
-      }
-
-      values.add(value);
-      entries.add(entry);
-    }
-
-    if (entries.isEmpty()) {
-      values.add("zz");
-      entries.add(context.getString(R.string.Default));
-    }
-
-    return new LanguageListData(
-            entries.toArray(new CharSequence[0]),
-            values.toArray(new CharSequence[0])
-    );
   }
 
   private static final class LanguageListData {

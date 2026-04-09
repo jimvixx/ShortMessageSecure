@@ -27,7 +27,8 @@ import com.makeramen.roundedimageview.RoundedDrawable;
 
 public class TransparentContactPhoto implements ContactPhoto {
 
-  TransparentContactPhoto() {}
+  TransparentContactPhoto() {
+  }
 
   @Override
   public Drawable asDrawable(Context context, int color) {

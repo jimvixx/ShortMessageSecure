@@ -15,11 +15,11 @@ public abstract class ContextJob extends Job implements ContextDependent {
     this.context = context;
   }
 
-  public void setContext(Context context) {
-    this.context = context;
-  }
-
   protected Context getContext() {
     return context;
+  }
+
+  public void setContext(Context context) {
+    this.context = context;
   }
 }

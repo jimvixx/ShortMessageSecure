@@ -20,7 +20,6 @@ package org.jimvixx.smsecure.components.emoji;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -29,6 +28,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import org.jimvixx.smsecure.R;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.JsonUtils;
 
 import java.io.IOException;

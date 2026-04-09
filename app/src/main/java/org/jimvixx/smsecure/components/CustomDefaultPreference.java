@@ -26,7 +26,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import org.jimvixx.smsecure.logging.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -41,6 +40,7 @@ import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import org.jimvixx.smsecure.R;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
 import java.net.URI;
@@ -48,15 +48,15 @@ import java.net.URISyntaxException;
 
 /**
  * Preference that lets the user choose between a default value and a custom value.
- *
+ * <p>
  * Stores:
- *  - a boolean toggle (customToggleKey) indicating whether "custom" is enabled
- *  - a string value (customPreferenceKey) containing the custom value
- *
+ * - a boolean toggle (customToggleKey) indicating whether "custom" is enabled
+ * - a string value (customPreferenceKey) containing the custom value
+ * <p>
  * Dialog UI:
- *  - spinner: default vs custom
- *  - either shows a default label or an editable custom value
- *  - validates custom input via a validator
+ * - spinner: default vs custom
+ * - either shows a default label or an editable custom value
+ * - validates custom input via a validator
  */
 public class CustomDefaultPreference extends DialogPreference {
 
@@ -85,16 +85,6 @@ public class CustomDefaultPreference extends DialogPreference {
 
     setPersistent(false);
     setDialogLayoutResource(R.layout.custom_default_preference_dialog);
-  }
-
-  /**
-   * Validator for custom input.
-   *
-   * Must be public because validator implementations (e.g. UriValidator) are public and may be
-   * referenced from outside this class. This avoids "exposed outside its defined visibility scope".
-   */
-  public interface CustomPreferenceValidator {
-    boolean isValid(@NonNull String value);
   }
 
   public @NonNull CustomDefaultPreference setValidator(@NonNull CustomPreferenceValidator validator) {
@@ -147,6 +137,16 @@ public class CustomDefaultPreference extends DialogPreference {
   }
 
   /**
+   * Validator for custom input.
+   * <p>
+   * Must be public because validator implementations (e.g. UriValidator) are public and may be
+   * referenced from outside this class. This avoids "exposed outside its defined visibility scope".
+   */
+  public interface CustomPreferenceValidator {
+    boolean isValid(@NonNull String value);
+  }
+
+  /**
    * Dialog fragment for CustomDefaultPreference.
    */
   public static class CustomDefaultPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
@@ -170,9 +170,9 @@ public class CustomDefaultPreference extends DialogPreference {
 
       CustomDefaultPreference preference = (CustomDefaultPreference) getPreference();
 
-      spinner      = view.findViewById(R.id.default_or_custom);
+      spinner = view.findViewById(R.id.default_or_custom);
       defaultLabel = view.findViewById(R.id.default_label);
-      customText   = view.findViewById(R.id.custom_edit);
+      customText = view.findViewById(R.id.custom_edit);
 
       customText.setInputType(preference.inputType);
       customText.addTextChangedListener(new TextValidator());
@@ -206,6 +206,38 @@ public class CustomDefaultPreference extends DialogPreference {
         if (customText != null) preference.setCustomValue(customText.getText().toString());
         preference.setSummary(preference.getSummary());
       }
+    }
+
+    /**
+     * Enables/disables the positive button depending on selection and validation state.
+     * <p>
+     * getDialog() can be null early; getButton() can be null until the dialog is shown.
+     * We guard both to avoid NPE.
+     */
+    private void updatePositiveButtonState() {
+      if (spinner == null || customText == null) return;
+
+      Dialog d = getDialog();
+      if (!(d instanceof AlertDialog)) return;
+
+      Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+      if (positive == null) return;
+
+      CustomDefaultPreference preference = (CustomDefaultPreference) getPreference();
+      boolean defaultSelected = spinner.getSelectedItemPosition() == 0;
+
+      if (defaultSelected) {
+        positive.setEnabled(true);
+      } else {
+        positive.setEnabled(preference.validator.isValid(customText.getText().toString()));
+      }
+    }
+
+    @Override
+    public void onStart() {
+      super.onStart();
+      // Buttons are created now; update once.
+      updatePositiveButtonState();
     }
 
     public static class UriValidator implements CustomPreferenceValidator {
@@ -249,8 +281,13 @@ public class CustomDefaultPreference extends DialogPreference {
     }
 
     private final class TextValidator implements TextWatcher {
-      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-      @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+      }
 
       @Override
       public void afterTextChanged(Editable s) {
@@ -261,7 +298,8 @@ public class CustomDefaultPreference extends DialogPreference {
     private final class SelectionListener implements AdapterView.OnItemSelectedListener {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (defaultLabel != null) defaultLabel.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
+        if (defaultLabel != null)
+          defaultLabel.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
         if (customText != null) customText.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         updatePositiveButtonState();
       }
@@ -272,38 +310,6 @@ public class CustomDefaultPreference extends DialogPreference {
         if (customText != null) customText.setVisibility(View.GONE);
         updatePositiveButtonState();
       }
-    }
-
-    /**
-     * Enables/disables the positive button depending on selection and validation state.
-     *
-     * getDialog() can be null early; getButton() can be null until the dialog is shown.
-     * We guard both to avoid NPE.
-     */
-    private void updatePositiveButtonState() {
-      if (spinner == null || customText == null) return;
-
-      Dialog d = getDialog();
-      if (!(d instanceof AlertDialog)) return;
-
-      Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
-      if (positive == null) return;
-
-      CustomDefaultPreference preference = (CustomDefaultPreference) getPreference();
-      boolean defaultSelected = spinner.getSelectedItemPosition() == 0;
-
-      if (defaultSelected) {
-        positive.setEnabled(true);
-      } else {
-        positive.setEnabled(preference.validator.isValid(customText.getText().toString()));
-      }
-    }
-
-    @Override
-    public void onStart() {
-      super.onStart();
-      // Buttons are created now; update once.
-      updatePositiveButtonState();
     }
   }
 }

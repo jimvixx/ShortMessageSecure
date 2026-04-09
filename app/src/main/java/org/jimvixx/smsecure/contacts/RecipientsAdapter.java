@@ -37,10 +37,10 @@ import org.jimvixx.smsecure.recipients.RecipientsFormatter;
 public class RecipientsAdapter extends ResourceCursorAdapter {
 
   public static final int CONTACT_ID_INDEX = 1;
-  public static final int TYPE_INDEX       = 2;
-  public static final int NUMBER_INDEX     = 3;
-  public static final int LABEL_INDEX      = 4;
-  public static final int NAME_INDEX       = 5;
+  public static final int TYPE_INDEX = 2;
+  public static final int NUMBER_INDEX = 3;
+  public static final int LABEL_INDEX = 4;
+  public static final int NAME_INDEX = 5;
 
   private final Context mContext;
   private final ContentResolver mContentResolver;
@@ -54,10 +54,36 @@ public class RecipientsAdapter extends ResourceCursorAdapter {
     mContactAccessor = ContactAccessor.getInstance();
   }
 
+  /**
+   * Returns true if all the characters are meaningful as digits in a phone number:
+   * letters, digits, and a few punctuation marks.
+   */
+  public static boolean usefulAsDigits(CharSequence cons) {
+    int len = cons.length();
+
+    for (int i = 0; i < len; i++) {
+      char c = cons.charAt(i);
+
+      if (c >= '0' && c <= '9') continue;
+
+      if (c == ' ' || c == '-' || c == '(' || c == ')' || c == '.' || c == '+'
+              || c == '#' || c == '*') {
+        continue;
+      }
+
+      if (c >= 'A' && c <= 'Z') continue;
+      if (c >= 'a' && c <= 'z') continue;
+
+      return false;
+    }
+
+    return true;
+  }
+
   @Override
   public final CharSequence convertToString(Cursor cursor) {
-    String name   = cursor.getString(NAME_INDEX);
-    int type      = cursor.getInt(TYPE_INDEX);
+    String name = cursor.getString(NAME_INDEX);
+    int type = cursor.getInt(TYPE_INDEX);
     String number = cursor.getString(NUMBER_INDEX);
 
     if (number == null) number = "";
@@ -124,31 +150,5 @@ public class RecipientsAdapter extends ResourceCursorAdapter {
   @Override
   public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
     return mContactAccessor.getCursorForRecipientFilter(constraint, mContentResolver);
-  }
-
-  /**
-   * Returns true if all the characters are meaningful as digits in a phone number:
-   * letters, digits, and a few punctuation marks.
-   */
-  public static boolean usefulAsDigits(CharSequence cons) {
-    int len = cons.length();
-
-    for (int i = 0; i < len; i++) {
-      char c = cons.charAt(i);
-
-      if (c >= '0' && c <= '9') continue;
-
-      if (c == ' ' || c == '-' || c == '(' || c == ')' || c == '.' || c == '+'
-              || c == '#' || c == '*') {
-        continue;
-      }
-
-      if (c >= 'A' && c <= 'Z') continue;
-      if (c >= 'a' && c <= 'z') continue;
-
-      return false;
-    }
-
-    return true;
   }
 }

@@ -971,15 +971,15 @@ public class Base64 {
       }   // end try
       finally {
         try {
-          if (gzos != null)  gzos.close();
+          if (gzos != null) gzos.close();
         } catch (Exception ignored) {
         }
         try {
-          if (b64os != null)  b64os.close();
+          if (b64os != null) b64os.close();
         } catch (Exception ignored) {
         }
         try {
-          if (baos != null)  baos.close();
+          if (baos != null) baos.close();
         } catch (Exception ignored) {
         }
       }   // end finally
@@ -1098,7 +1098,7 @@ public class Base64 {
 
     byte[] DECODABET = getDecodabet(options);
 
-    int s0 = source[srcOffset]     & 0x7f;
+    int s0 = source[srcOffset] & 0x7f;
     int s1 = source[srcOffset + 1] & 0x7f;
     int s2 = source[srcOffset + 2] & 0x7f;
     int s3 = source[srcOffset + 3] & 0x7f;
@@ -1650,14 +1650,14 @@ public class Base64 {
   public static class InputStream extends java.io.FilterInputStream {
 
     private final boolean encode;         // Encoding or decoding
-    private int position;       // Current position in the buffer
     private final byte[] buffer;         // Small buffer holding converted data
     private final int bufferLength;   // Length of buffer (3 or 4)
-    private int numSigBytes;    // Number of meaningful bytes in the buffer
-    private int lineLength;
     private final boolean breakLines;     // Break lines at less than 80 characters
     private final int options;        // Record options used to create the stream.
     private final byte[] decodabet;      // Local copies to avoid extra method calls
+    private int position;       // Current position in the buffer
+    private int numSigBytes;    // Number of meaningful bytes in the buffer
+    private int lineLength;
 
 
     /**
@@ -1852,15 +1852,15 @@ public class Base64 {
   public static class OutputStream extends java.io.FilterOutputStream {
 
     private final boolean encode;
-    private int position;
-    private byte[] buffer;
     private final int bufferLength;
-    private int lineLength;
     private final boolean breakLines;
     private final byte[] b4;         // Scratch used in a few places
-    private boolean suspendEncoding;
     private final int options;    // Record for later
     private final byte[] decodabet;  // Local copies to avoid extra method calls
+    private int position;
+    private byte[] buffer;
+    private int lineLength;
+    private boolean suspendEncoding;
 
     /**
      * Constructs a {@link Base64.OutputStream} in ENCODE mode.

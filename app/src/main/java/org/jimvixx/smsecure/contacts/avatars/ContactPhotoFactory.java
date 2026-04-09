@@ -4,11 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-
-import androidx.annotation.Nullable;
-
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 
@@ -26,7 +25,7 @@ public class ContactPhotoFactory {
 
   public static ContactPhoto getDefaultContactPhoto(@Nullable String name) {
     if (!TextUtils.isEmpty(name)) return new GeneratedContactPhoto(name);
-    else                          return new GeneratedContactPhoto("#");
+    else return new GeneratedContactPhoto("#");
   }
 
   public static ContactPhoto getDefaultGroupPhoto() {
@@ -55,7 +54,7 @@ public class ContactPhotoFactory {
 
   @Nullable
   private static Uri getContactPhotoThumbUri(Context context, Uri contactUri) {
-    String[] projection = { ContactsContract.Contacts.PHOTO_THUMBNAIL_URI };
+    String[] projection = {ContactsContract.Contacts.PHOTO_THUMBNAIL_URI};
     try (Cursor c = context.getContentResolver().query(contactUri, projection, null, null, null)) {
       if (c != null && c.moveToFirst()) {
         String s = c.getString(0);

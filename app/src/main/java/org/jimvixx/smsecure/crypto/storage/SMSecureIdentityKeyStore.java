@@ -34,13 +34,13 @@ public class SMSecureIdentityKeyStore implements IdentityKeyStore {
 
   private static final Object LOCK = new Object();
 
-  private final Context      context;
+  private final Context context;
   private final MasterSecret masterSecret;
-  private final int          subscriptionId;
+  private final int subscriptionId;
 
   public SMSecureIdentityKeyStore(Context context, MasterSecret masterSecret, int subscriptionId) {
-    this.context        = context;
-    this.masterSecret   = masterSecret;
+    this.context = context;
+    this.masterSecret = masterSecret;
     this.subscriptionId = subscriptionId;
   }
 
@@ -77,7 +77,7 @@ public class SMSecureIdentityKeyStore implements IdentityKeyStore {
   public boolean isTrustedIdentity(SignalProtocolAddress address, IdentityKey identityKey) {
     long recipientId = RecipientFactory.getRecipientsFromString(context, address.getName(), true).getPrimaryRecipient().getRecipientId();
     return DatabaseFactory.getIdentityDatabase(context)
-                          .isValidIdentity(masterSecret, recipientId, identityKey);
+            .isValidIdentity(masterSecret, recipientId, identityKey);
   }
 
   @Override

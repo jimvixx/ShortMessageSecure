@@ -41,7 +41,7 @@ public class BitmapContactPhoto implements ContactPhoto {
   @Override
   public Drawable asDrawable(Context context, int color, boolean inverted) {
     return RoundedDrawable.fromBitmap(bitmap)
-                          .setScaleType(ImageView.ScaleType.CENTER_CROP)
-                          .setOval(true);
+            .setScaleType(ImageView.ScaleType.CENTER_CROP)
+            .setOval(true);
   }
 }

@@ -49,24 +49,23 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AttachmentCipherInputStream extends FileInputStream {
 
-  private static final int BLOCK_SIZE      = 16;
+  private static final int BLOCK_SIZE = 16;
   private static final int CIPHER_KEY_SIZE = 32;
-  private static final int MAC_KEY_SIZE    = 32;
+  private static final int MAC_KEY_SIZE = 32;
 
-  private final Cipher  cipher;
+  private final Cipher cipher;
+  private final long totalDataSize;
   private boolean done;
-  private final long    totalDataSize;
-  private long    totalRead;
-  private byte[]  overflowBuffer;
+  private long totalRead;
+  private byte[] overflowBuffer;
 
   public AttachmentCipherInputStream(File file, byte[] combinedKeyMaterial, Optional<byte[]> digest)
-      throws IOException, InvalidMessageException
-  {
+          throws IOException, InvalidMessageException {
     super(file);
 
     try {
       byte[][] parts = Util.split(combinedKeyMaterial, CIPHER_KEY_SIZE, MAC_KEY_SIZE);
-      Mac      mac   = Mac.getInstance("HmacSHA256");
+      Mac mac = Mac.getInstance("HmacSHA256");
 
       mac.init(new SecretKeySpec(parts[1], "HmacSHA256"));
 
@@ -82,10 +81,11 @@ public class AttachmentCipherInputStream extends FileInputStream {
       this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
       this.cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(parts[0], "AES"), new IvParameterSpec(iv));
 
-      this.done          = false;
-      this.totalRead     = 0;
+      this.done = false;
+      this.totalRead = 0;
       this.totalDataSize = file.length() - cipher.getBlockSize() - mac.getMacLength();
-    } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
+    } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException |
+             InvalidAlgorithmParameterException e) {
       throw new AssertionError(e);
     } catch (InvalidMacException e) {
       throw new InvalidMessageException(e);
@@ -99,17 +99,17 @@ public class AttachmentCipherInputStream extends FileInputStream {
 
   @Override
   public int read(byte[] buffer, int offset, int length) throws IOException {
-    if      (totalRead != totalDataSize) return readIncremental(buffer, offset, length);
-    else if (!done)                      return readFinal(buffer, offset);
-    else                                 return -1;
+    if (totalRead != totalDataSize) return readIncremental(buffer, offset, length);
+    else if (!done) return readFinal(buffer, offset);
+    else return -1;
   }
 
   @Override
   public long skip(long byteCount) throws IOException {
     long skipped = 0L;
     while (skipped < byteCount) {
-      byte[] buf  = new byte[Math.min(4096, (int)(byteCount-skipped))];
-      int    read = read(buf);
+      byte[] buf = new byte[Math.min(4096, (int) (byteCount - skipped))];
+      int read = read(buf);
 
       skipped += read;
     }
@@ -149,11 +149,11 @@ public class AttachmentCipherInputStream extends FileInputStream {
     }
 
     if (length + totalRead > totalDataSize)
-      length = (int)(totalDataSize - totalRead);
+      length = (int) (totalDataSize - totalRead);
 
     byte[] internalBuffer = new byte[length];
-    int read              = super.read(internalBuffer, 0, internalBuffer.length <= cipher.getBlockSize() ? internalBuffer.length : internalBuffer.length - cipher.getBlockSize());
-    totalRead            += read;
+    int read = super.read(internalBuffer, 0, internalBuffer.length <= cipher.getBlockSize() ? internalBuffer.length : internalBuffer.length - cipher.getBlockSize());
+    totalRead += read;
 
     try {
       int outputLen = cipher.getOutputSize(read);
@@ -180,13 +180,12 @@ public class AttachmentCipherInputStream extends FileInputStream {
   }
 
   private void verifyMac(File file, Mac mac, Optional<byte[]> theirDigest)
-      throws InvalidMacException
-  {
+          throws InvalidMacException {
     try {
-      MessageDigest   digest        = MessageDigest.getInstance("SHA256");
-      FileInputStream fin           = new FileInputStream(file);
-      int             remainingData = Util.toIntExact(file.length()) - mac.getMacLength();
-      byte[]          buffer        = new byte[4096];
+      MessageDigest digest = MessageDigest.getInstance("SHA256");
+      FileInputStream fin = new FileInputStream(file);
+      int remainingData = Util.toIntExact(file.length()) - mac.getMacLength();
+      byte[] buffer = new byte[4096];
 
       while (remainingData > 0) {
         int read = fin.read(buffer, 0, Math.min(buffer.length, remainingData));
@@ -195,7 +194,7 @@ public class AttachmentCipherInputStream extends FileInputStream {
         remainingData -= read;
       }
 
-      byte[] ourMac   = mac.doFinal();
+      byte[] ourMac = mac.doFinal();
       byte[] theirMac = new byte[mac.getMacLength()];
       Util.readFully(fin, theirMac);
 
@@ -219,11 +218,11 @@ public class AttachmentCipherInputStream extends FileInputStream {
   private void readFully(byte[] buffer) throws IOException {
     int offset = 0;
 
-    for (;;) {
+    for (; ; ) {
       int read = super.read(buffer, offset, buffer.length - offset);
 
       if (read + offset < buffer.length) offset += read;
-      else                		           return;
+      else return;
     }
   }
 

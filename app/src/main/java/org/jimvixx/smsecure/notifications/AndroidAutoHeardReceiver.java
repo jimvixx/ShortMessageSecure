@@ -20,7 +20,6 @@ package org.jimvixx.smsecure.notifications;
 
 import android.content.Context;
 import android.content.Intent;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +27,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.DatabaseFactory;
+import org.jimvixx.smsecure.logging.Log;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,9 +35,9 @@ import java.util.concurrent.Executors;
 /// Marks an Android Auto as read after the driver have listened to it
 public class AndroidAutoHeardReceiver extends MasterSecretBroadcastReceiver {
 
-  public static final String TAG                   = AndroidAutoHeardReceiver.class.getSimpleName();
-  public static final String HEARD_ACTION          = "org.jimvixx.smsecure.notifications.ANDROID_AUTO_HEARD";
-  public static final String THREAD_IDS_EXTRA      = "car_heard_thread_ids";
+  public static final String TAG = AndroidAutoHeardReceiver.class.getSimpleName();
+  public static final String HEARD_ACTION = "org.jimvixx.smsecure.notifications.ANDROID_AUTO_HEARD";
+  public static final String THREAD_IDS_EXTRA = "car_heard_thread_ids";
   public static final String NOTIFICATION_ID_EXTRA = "car_notification_id";
 
   private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
@@ -45,8 +45,7 @@ public class AndroidAutoHeardReceiver extends MasterSecretBroadcastReceiver {
   @Override
   protected void onReceive(@NonNull Context context,
                            @NonNull Intent intent,
-                           @Nullable MasterSecret masterSecret)
-  {
+                           @Nullable MasterSecret masterSecret) {
     if (!HEARD_ACTION.equals(intent.getAction())) return;
 
     final long[] threadIds = intent.getLongArrayExtra(THREAD_IDS_EXTRA);

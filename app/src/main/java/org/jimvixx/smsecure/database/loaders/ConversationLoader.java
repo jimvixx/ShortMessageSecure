@@ -8,13 +8,13 @@ import org.jimvixx.smsecure.util.AbstractCursorLoader;
 
 public class ConversationLoader extends AbstractCursorLoader {
   private final long threadId;
-  private       long limit;
-  private       long lastSeen;
+  private final long limit;
+  private long lastSeen;
 
   public ConversationLoader(Context context, long threadId, long limit, long lastSeen) {
     super(context);
     this.threadId = threadId;
-    this.limit    = limit;
+    this.limit = limit;
     this.lastSeen = lastSeen;
   }
 

@@ -32,11 +32,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import org.jimvixx.smsecure.crypto.IdentityKeyParcelable;
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.crypto.storage.SMSecureIdentityKeyStore;
@@ -52,7 +47,6 @@ import org.jimvixx.smsecure.sms.IncomingKeyExchangeMessage;
 import org.jimvixx.smsecure.sms.IncomingPreKeyBundleMessage;
 import org.jimvixx.smsecure.sms.IncomingTextMessage;
 import org.jimvixx.smsecure.util.Base64;
-
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.InvalidMessageException;
@@ -61,6 +55,11 @@ import org.whispersystems.libsignal.LegacyMessageException;
 import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.protocol.PreKeySignalMessage;
 import org.whispersystems.libsignal.state.IdentityKeyStore;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /// Activity for displaying sent/received session keys.
 public class ReceiveKeyDialog extends AlertDialog {
@@ -73,13 +72,12 @@ public class ReceiveKeyDialog extends AlertDialog {
 
   public ReceiveKeyDialog(@NonNull Context context,
                           @NonNull MasterSecret masterSecret,
-                          @NonNull MessageRecord messageRecord)
-  {
+                          @NonNull MessageRecord messageRecord) {
     super(context);
 
     try {
       final IncomingKeyExchangeMessage message = getMessage(messageRecord);
-      final IdentityKey identityKey            = getIdentityKey(message);
+      final IdentityKey identityKey = getIdentityKey(message);
 
       if (isTrusted(masterSecret, identityKey, messageRecord.getIndividualRecipient(), messageRecord.getSubscriptionId())) {
         setMessage(context.getString(R.string.ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but));
@@ -95,7 +93,41 @@ public class ReceiveKeyDialog extends AlertDialog {
               context.getString(android.R.string.cancel),
               new CancelListener());
 
-    } catch (InvalidKeyException | InvalidVersionException | InvalidMessageException | LegacyMessageException e) {
+    } catch (InvalidKeyException | InvalidVersionException | InvalidMessageException |
+             LegacyMessageException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  private static IncomingKeyExchangeMessage getMessage(@NonNull MessageRecord messageRecord)
+          throws InvalidKeyException, InvalidVersionException, InvalidMessageException, LegacyMessageException {
+    IncomingTextMessage message =
+            new IncomingTextMessage(messageRecord.getIndividualRecipient().getNumber(),
+                    messageRecord.getRecipientDeviceId(),
+                    System.currentTimeMillis(),
+                    messageRecord.getBody().getBody(),
+                    messageRecord.getSubscriptionId());
+
+    if (messageRecord.isBundleKeyExchange()) {
+      return new IncomingPreKeyBundleMessage(message, message.getMessageBody());
+    } else if (messageRecord.isIdentityUpdate()) {
+      return new IncomingIdentityUpdateMessage(message, message.getMessageBody());
+    } else {
+      return new IncomingKeyExchangeMessage(message, message.getMessageBody());
+    }
+  }
+
+  private static IdentityKey getIdentityKey(@NonNull IncomingKeyExchangeMessage message)
+          throws InvalidKeyException, InvalidVersionException, InvalidMessageException, LegacyMessageException {
+    try {
+      if (message.isIdentityUpdate()) {
+        return new IdentityKey(Base64.decodeWithoutPadding(message.getMessageBody()), 0);
+      } else if (message.isPreKeyBundle()) {
+        return new PreKeySignalMessage(Base64.decodeWithoutPadding(message.getMessageBody())).getIdentityKey();
+      } else {
+        return new KeyExchangeMessage(Base64.decodeWithoutPadding(message.getMessageBody())).getIdentityKey();
+      }
+    } catch (IOException e) {
       throw new AssertionError(e);
     }
   }
@@ -122,8 +154,7 @@ public class ReceiveKeyDialog extends AlertDialog {
   }
 
   private void setUntrustedText(@NonNull final MessageRecord messageRecord,
-                                @NonNull final IdentityKey identityKey)
-  {
+                                @NonNull final IdentityKey identityKey) {
     String introText = getContext().getString(
             R.string.ReceiveKeyActivity_the_signature_on_this_key_exchange_is_different);
 
@@ -150,8 +181,7 @@ public class ReceiveKeyDialog extends AlertDialog {
   private boolean isTrusted(@NonNull MasterSecret masterSecret,
                             @NonNull IdentityKey identityKey,
                             @NonNull Recipient recipient,
-                            int subscriptionId)
-  {
+                            int subscriptionId) {
     IdentityKeyStore identityKeyStore =
             new SMSecureIdentityKeyStore(getContext(), masterSecret, subscriptionId);
 
@@ -162,85 +192,52 @@ public class ReceiveKeyDialog extends AlertDialog {
     );
   }
 
-  private static IncomingKeyExchangeMessage getMessage(@NonNull MessageRecord messageRecord)
-          throws InvalidKeyException, InvalidVersionException, InvalidMessageException, LegacyMessageException
-  {
-    IncomingTextMessage message =
-            new IncomingTextMessage(messageRecord.getIndividualRecipient().getNumber(),
-                    messageRecord.getRecipientDeviceId(),
-                    System.currentTimeMillis(),
-                    messageRecord.getBody().getBody(),
-                    messageRecord.getSubscriptionId());
-
-    if (messageRecord.isBundleKeyExchange()) {
-      return new IncomingPreKeyBundleMessage(message, message.getMessageBody());
-    } else if (messageRecord.isIdentityUpdate()) {
-      return new IncomingIdentityUpdateMessage(message, message.getMessageBody());
-    } else {
-      return new IncomingKeyExchangeMessage(message, message.getMessageBody());
+  /// Override setButton to ensure our AcceptListener has access to this dialog instance.
+  @Override
+  public void setButton(int whichButton, CharSequence text, OnClickListener listener) {
+    // If it's our AcceptListener, re-create it with a dialog ref.
+    if (listener instanceof AcceptListener accept) {
+      super.setButton(whichButton, text, accept.attach(this));
+      return;
     }
-  }
-
-  private static IdentityKey getIdentityKey(@NonNull IncomingKeyExchangeMessage message)
-          throws InvalidKeyException, InvalidVersionException, InvalidMessageException, LegacyMessageException
-  {
-    try {
-      if (message.isIdentityUpdate()) {
-        return new IdentityKey(Base64.decodeWithoutPadding(message.getMessageBody()), 0);
-      } else if (message.isPreKeyBundle()) {
-        return new PreKeySignalMessage(Base64.decodeWithoutPadding(message.getMessageBody())).getIdentityKey();
-      } else {
-        return new KeyExchangeMessage(Base64.decodeWithoutPadding(message.getMessageBody())).getIdentityKey();
-      }
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  private class CancelListener implements OnClickListener {
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-      if (callback != null) callback.onClick(null, 0);
-    }
+    super.setButton(whichButton, text, listener);
   }
 
   private static final class AcceptListener implements OnClickListener {
 
     private final WeakReference<ReceiveKeyDialog> dialogRef;
 
-    private final MasterSecret               masterSecret;
-    private final MessageRecord              messageRecord;
+    private final MasterSecret masterSecret;
+    private final MessageRecord messageRecord;
     private final IncomingKeyExchangeMessage message;
-    private final IdentityKey                identityKey;
+    private final IdentityKey identityKey;
 
     private AcceptListener(@NonNull MasterSecret masterSecret,
                            @NonNull MessageRecord messageRecord,
                            @NonNull IncomingKeyExchangeMessage message,
-                           @NonNull IdentityKey identityKey)
-    {
-      this.dialogRef     = new WeakReference<>(null); // will be replaced in constructor below
-      this.masterSecret  = masterSecret;
+                           @NonNull IdentityKey identityKey) {
+      this.dialogRef = new WeakReference<>(null); // will be replaced in constructor below
+      this.masterSecret = masterSecret;
       this.messageRecord = messageRecord;
-      this.message       = message;
-      this.identityKey   = identityKey;
-    }
-
-    // Helper: attach dialog after creation
-    private AcceptListener attach(@NonNull ReceiveKeyDialog dialog) {
-      return new AcceptListener(dialog, masterSecret, messageRecord, message, identityKey);
+      this.message = message;
+      this.identityKey = identityKey;
     }
 
     private AcceptListener(@NonNull ReceiveKeyDialog dialog,
                            @NonNull MasterSecret masterSecret,
                            @NonNull MessageRecord messageRecord,
                            @NonNull IncomingKeyExchangeMessage message,
-                           @NonNull IdentityKey identityKey)
-    {
+                           @NonNull IdentityKey identityKey) {
       this.dialogRef = new WeakReference<>(dialog);
       this.masterSecret = masterSecret;
       this.messageRecord = messageRecord;
       this.message = message;
       this.identityKey = identityKey;
+    }
+
+    // Helper: attach dialog after creation
+    private AcceptListener attach(@NonNull ReceiveKeyDialog dialog) {
+      return new AcceptListener(dialog, masterSecret, messageRecord, message, identityKey);
     }
 
     @Override
@@ -258,22 +255,21 @@ public class ReceiveKeyDialog extends AlertDialog {
 
     private final WeakReference<ReceiveKeyDialog> dialogRef;
 
-    private final MasterSecret               masterSecret;
-    private final MessageRecord              messageRecord;
+    private final MasterSecret masterSecret;
+    private final MessageRecord messageRecord;
     private final IncomingKeyExchangeMessage message;
-    private final IdentityKey                identityKey;
+    private final IdentityKey identityKey;
 
     AcceptRunner(@NonNull ReceiveKeyDialog dialog,
                  @NonNull MasterSecret masterSecret,
                  @NonNull MessageRecord messageRecord,
                  @NonNull IncomingKeyExchangeMessage message,
-                 @NonNull IdentityKey identityKey)
-    {
-      this.dialogRef     = new WeakReference<>(dialog);
-      this.masterSecret  = masterSecret;
+                 @NonNull IdentityKey identityKey) {
+      this.dialogRef = new WeakReference<>(dialog);
+      this.masterSecret = masterSecret;
       this.messageRecord = messageRecord;
-      this.message       = message;
-      this.identityKey   = identityKey;
+      this.message = message;
+      this.identityKey = identityKey;
     }
 
     @Override
@@ -299,14 +295,10 @@ public class ReceiveKeyDialog extends AlertDialog {
     }
   }
 
-  /// Override setButton to ensure our AcceptListener has access to this dialog instance.
-  @Override
-  public void setButton(int whichButton, CharSequence text, OnClickListener listener) {
-    // If it's our AcceptListener, re-create it with a dialog ref.
-    if (listener instanceof AcceptListener accept) {
-      super.setButton(whichButton, text, accept.attach(this));
-      return;
+  private class CancelListener implements OnClickListener {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+      if (callback != null) callback.onClick(null, 0);
     }
-    super.setButton(whichButton, text, listener);
   }
 }

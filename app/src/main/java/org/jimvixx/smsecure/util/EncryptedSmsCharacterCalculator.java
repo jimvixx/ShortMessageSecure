@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 Whisper Systems
+ * Copyright (C) 2025 Jimvixx
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,15 +30,15 @@ public class EncryptedSmsCharacterCalculator extends CharacterCalculator {
 
   private CharacterState calculateMultiRecordCharacters(int charactersSpent) {
     int charactersInFirstRecord = SmsTransportDetails.ENCRYPTED_SINGLE_MESSAGE_BODY_MAX_SIZE;
-    int spillover               = charactersSpent - charactersInFirstRecord;
-    int spilloverMessagesSpent  = spillover / SmsTransportDetails.MULTI_MESSAGE_MAX_BYTES;
+    int spillover = charactersSpent - charactersInFirstRecord;
+    int spilloverMessagesSpent = spillover / SmsTransportDetails.MULTI_MESSAGE_MAX_BYTES;
 
     if ((spillover % SmsTransportDetails.MULTI_MESSAGE_MAX_BYTES) > 0)
       spilloverMessagesSpent++;
 
     int charactersRemaining = (SmsTransportDetails.MULTI_MESSAGE_MAX_BYTES * spilloverMessagesSpent) - spillover;
 
-    return new CharacterState(spilloverMessagesSpent+1, charactersRemaining, SmsTransportDetails.MULTI_MESSAGE_MAX_BYTES);
+    return new CharacterState(spilloverMessagesSpent + 1, charactersRemaining, SmsTransportDetails.MULTI_MESSAGE_MAX_BYTES);
   }
 
   @Override

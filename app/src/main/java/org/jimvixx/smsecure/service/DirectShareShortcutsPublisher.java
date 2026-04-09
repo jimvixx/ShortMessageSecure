@@ -24,7 +24,8 @@ import androidx.annotation.NonNull;
 
 public final class DirectShareShortcutsPublisher {
 
-  private DirectShareShortcutsPublisher() {}
+  private DirectShareShortcutsPublisher() {
+  }
 
   public static void refreshAsync(@NonNull Context context) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {

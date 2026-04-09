@@ -20,13 +20,14 @@ package org.jimvixx.smsecure;
 
 import android.content.Context;
 import android.graphics.PorterDuff.Mode;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import org.jimvixx.smsecure.util.ViewUtil;
 
@@ -38,10 +39,9 @@ public class TransportOptionsAdapter extends BaseAdapter {
   private List<TransportOption> enabledTransports;
 
   public TransportOptionsAdapter(@NonNull Context context,
-                                 @NonNull List<TransportOption> enabledTransports)
-  {
+                                 @NonNull List<TransportOption> enabledTransports) {
     super();
-    this.inflater          = LayoutInflater.from(context);
+    this.inflater = LayoutInflater.from(context);
     this.enabledTransports = enabledTransports;
   }
 
@@ -70,10 +70,10 @@ public class TransportOptionsAdapter extends BaseAdapter {
       convertView = inflater.inflate(R.layout.transport_selection_list_item, parent, false);
     }
 
-    TransportOption transport   = (TransportOption) getItem(position);
-    ImageView       imageView   = ViewUtil.findById(convertView, R.id.icon);
-    TextView        textView    = ViewUtil.findById(convertView, R.id.text);
-    TextView        subtextView = ViewUtil.findById(convertView, R.id.subtext);
+    TransportOption transport = (TransportOption) getItem(position);
+    ImageView imageView = ViewUtil.findById(convertView, R.id.icon);
+    TextView textView = ViewUtil.findById(convertView, R.id.text);
+    TextView subtextView = ViewUtil.findById(convertView, R.id.subtext);
 
     imageView.getBackground().setColorFilter(transport.getBackgroundColor(), Mode.MULTIPLY);
     imageView.setImageResource(transport.getDrawable());

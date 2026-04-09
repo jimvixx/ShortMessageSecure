@@ -20,7 +20,6 @@ package org.jimvixx.smsecure.notifications;
 
 import android.content.Context;
 import android.content.Intent;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,25 +27,23 @@ import androidx.core.app.NotificationManagerCompat;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.DatabaseFactory;
+import org.jimvixx.smsecure.logging.Log;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MarkReadReceiver extends MasterSecretBroadcastReceiver {
 
-  private static final String TAG = MarkReadReceiver.class.getSimpleName();
-
-  public static final String CLEAR_ACTION          = "org.jimvixx.smsecure.notifications.CLEAR";
-  public static final String THREAD_IDS_EXTRA      = "thread_ids";
+  public static final String CLEAR_ACTION = "org.jimvixx.smsecure.notifications.CLEAR";
+  public static final String THREAD_IDS_EXTRA = "thread_ids";
   public static final String NOTIFICATION_ID_EXTRA = "notification_id";
-
+  private static final String TAG = MarkReadReceiver.class.getSimpleName();
   private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
   @Override
   protected void onReceive(@NonNull Context context,
                            @NonNull Intent intent,
-                           @Nullable MasterSecret masterSecret)
-  {
+                           @Nullable MasterSecret masterSecret) {
     if (!CLEAR_ACTION.equals(intent.getAction())) return;
 
     final long[] threadIds = intent.getLongArrayExtra(THREAD_IDS_EXTRA);

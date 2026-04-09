@@ -21,10 +21,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
 /**
@@ -33,6 +33,12 @@ import org.jimvixx.smsecure.util.SMSecurePreferences;
 public final class PanicLockReceiver extends BroadcastReceiver {
 
   private static final String TAG = PanicLockReceiver.class.getSimpleName();
+
+  @NonNull
+  public static IntentFilterBuilder newIntentFilter() {
+    return new IntentFilterBuilder()
+            .add(Intent.ACTION_SCREEN_OFF);
+  }
 
   @Override
   public void onReceive(Context context, Intent intent) {
@@ -55,12 +61,6 @@ public final class PanicLockReceiver extends BroadcastReceiver {
               PanicResponderActivity.REASON_DEVICE_LOCK
       );
     }
-  }
-
-  @NonNull
-  public static IntentFilterBuilder newIntentFilter() {
-    return new IntentFilterBuilder()
-            .add(Intent.ACTION_SCREEN_OFF);
   }
 
   /**

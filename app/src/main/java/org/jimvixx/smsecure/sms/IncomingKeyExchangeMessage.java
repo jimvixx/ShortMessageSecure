@@ -13,11 +13,11 @@ public class IncomingKeyExchangeMessage extends IncomingTextMessage {
     super(base, newBody);
 
     if (base instanceof IncomingKeyExchangeMessage) {
-      this.isStale          = ((IncomingKeyExchangeMessage)base).isStale;
-      this.isProcessed      = ((IncomingKeyExchangeMessage)base).isProcessed;
-      this.isCorrupted      = ((IncomingKeyExchangeMessage)base).isCorrupted;
-      this.isInvalidVersion = ((IncomingKeyExchangeMessage)base).isInvalidVersion;
-      this.isLegacyVersion  = ((IncomingKeyExchangeMessage)base).isLegacyVersion;
+      this.isStale = ((IncomingKeyExchangeMessage) base).isStale;
+      this.isProcessed = ((IncomingKeyExchangeMessage) base).isProcessed;
+      this.isCorrupted = ((IncomingKeyExchangeMessage) base).isCorrupted;
+      this.isInvalidVersion = ((IncomingKeyExchangeMessage) base).isInvalidVersion;
+      this.isLegacyVersion = ((IncomingKeyExchangeMessage) base).isLegacyVersion;
     }
   }
 
@@ -34,12 +34,12 @@ public class IncomingKeyExchangeMessage extends IncomingTextMessage {
     return isStale;
   }
 
-  public boolean isProcessed() {
-    return isProcessed;
-  }
-
   public void setStale(boolean isStale) {
     this.isStale = isStale;
+  }
+
+  public boolean isProcessed() {
+    return isProcessed;
   }
 
   public void setProcessed(boolean isProcessed) {
@@ -70,12 +70,12 @@ public class IncomingKeyExchangeMessage extends IncomingTextMessage {
     this.isLegacyVersion = isLegacyVersion;
   }
 
-  public void setDuplicate(boolean isDuplicate) {
-    this.isDuplicate = isDuplicate;
-  }
-
   public boolean isDuplicate() {
     return isDuplicate;
+  }
+
+  public void setDuplicate(boolean isDuplicate) {
+    this.isDuplicate = isDuplicate;
   }
 
   @Override

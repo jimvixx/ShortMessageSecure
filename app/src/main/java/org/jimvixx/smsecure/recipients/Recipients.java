@@ -19,10 +19,10 @@
 package org.jimvixx.smsecure.recipients;
 
 import android.net.Uri;
+import android.util.Patterns;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import org.jimvixx.smsecure.logging.Log;
-import android.util.Patterns;
 
 import org.jimvixx.smsecure.color.MaterialColor;
 import org.jimvixx.smsecure.contacts.avatars.ContactColors;
@@ -30,6 +30,7 @@ import org.jimvixx.smsecure.contacts.avatars.ContactPhoto;
 import org.jimvixx.smsecure.contacts.avatars.ContactPhotoFactory;
 import org.jimvixx.smsecure.database.RecipientPreferenceDatabase.RecipientsPreferences;
 import org.jimvixx.smsecure.database.RecipientPreferenceDatabase.VibrateState;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.recipients.Recipient.RecipientModifiedListener;
 import org.jimvixx.smsecure.util.FutureTaskListener;
 import org.jimvixx.smsecure.util.ListenableFutureTask;
@@ -52,12 +53,12 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   private final Set<RecipientsModifiedListener> listeners = Collections.newSetFromMap(new WeakHashMap<>());
   private final List<Recipient> recipients;
 
-  private Uri          ringtone              = null;
-  private long         mutedUntil            = 0;
-  private boolean      blocked               = false;
-  private VibrateState vibrate               = VibrateState.DEFAULT;
-  private boolean      stale                 = false;
-  private int          defaultSubscriptionId = -1;
+  private Uri ringtone = null;
+  private long mutedUntil = 0;
+  private boolean blocked = false;
+  private VibrateState vibrate = VibrateState.DEFAULT;
+  private boolean stale = false;
+  private int defaultSubscriptionId = -1;
 
   Recipients() {
     this(new LinkedList<>(), null);
@@ -67,25 +68,24 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
     this.recipients = recipients;
 
     if (preferences != null) {
-      ringtone              = preferences.getRingtone();
-      mutedUntil            = preferences.getMuteUntil();
-      vibrate               = preferences.getVibrateState();
-      blocked               = preferences.isBlocked();
+      ringtone = preferences.getRingtone();
+      mutedUntil = preferences.getMuteUntil();
+      vibrate = preferences.getVibrateState();
+      blocked = preferences.isBlocked();
       defaultSubscriptionId = preferences.getDefaultSubscriptionId().or(-1);
     }
   }
 
-  Recipients(@NonNull  List<Recipient> recipients,
+  Recipients(@NonNull List<Recipient> recipients,
              @Nullable Recipients stale,
-             @NonNull  ListenableFutureTask<RecipientsPreferences> preferences)
-  {
+             @NonNull ListenableFutureTask<RecipientsPreferences> preferences) {
     this.recipients = recipients;
 
     if (stale != null) {
-      ringtone              = stale.ringtone;
-      mutedUntil            = stale.mutedUntil;
-      vibrate               = stale.vibrate;
-      blocked               = stale.blocked;
+      ringtone = stale.ringtone;
+      mutedUntil = stale.mutedUntil;
+      vibrate = stale.vibrate;
+      blocked = stale.blocked;
       defaultSubscriptionId = stale.defaultSubscriptionId;
     }
 
@@ -169,18 +169,19 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
 
   public @NonNull ContactPhoto getContactPhoto() {
     if (recipients.size() == 1) return recipients.get(0).getContactPhoto();
-    else                        return ContactPhotoFactory.getDefaultGroupPhoto();
+    else return ContactPhotoFactory.getDefaultGroupPhoto();
   }
 
   public synchronized @NonNull MaterialColor getColor() {
-    if      (!isSingleRecipient() || isGroupRecipient()) return MaterialColor.GROUP;
-    else if (isEmpty())                                  return ContactColors.UNKNOWN_COLOR;
-    else                                                 return recipients.get(0).getColor();
+    if (!isSingleRecipient() || isGroupRecipient()) return MaterialColor.GROUP;
+    else if (isEmpty()) return ContactColors.UNKNOWN_COLOR;
+    else return recipients.get(0).getColor();
   }
 
   public synchronized void setColor(@NonNull MaterialColor color) {
-    if      (!isSingleRecipient() || isGroupRecipient()) throw new AssertionError("Groups don't have colors!");
-    else if (!isEmpty())                                 recipients.get(0).setColor(color);
+    if (!isSingleRecipient() || isGroupRecipient())
+      throw new AssertionError("Groups don't have colors!");
+    else if (!isEmpty()) recipients.get(0).setColor(color);
   }
 
   public synchronized void addListener(RecipientsModifiedListener listener) {
@@ -238,21 +239,21 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
 
   public long[] getIds() {
     long[] ids = new long[recipients.size()];
-    for (int i=0; i<recipients.size(); i++) {
+    for (int i = 0; i < recipients.size(); i++) {
       ids[i] = recipients.get(i).getRecipientId();
     }
     return ids;
   }
 
   public String getSortedIdsString() {
-    Set<Long> recipientSet  = new HashSet<>();
+    Set<Long> recipientSet = new HashSet<>();
 
     for (Recipient recipient : this.recipients) {
       recipientSet.add(recipient.getRecipientId());
     }
 
     long[] recipientArray = new long[recipientSet.size()];
-    int i                 = 0;
+    int i = 0;
 
     for (Long recipientId : recipientSet) {
       recipientArray[i++] = recipientId;
@@ -290,10 +291,10 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   public String toShortString() {
     StringBuilder fromString = new StringBuilder();
 
-    for (int i=0;i<recipients.size();i++) {
+    for (int i = 0; i < recipients.size(); i++) {
       fromString.append(recipients.get(i).toShortString());
 
-      if (i != recipients.size() -1 )
+      if (i != recipients.size() - 1)
         fromString.append(", ");
     }
 

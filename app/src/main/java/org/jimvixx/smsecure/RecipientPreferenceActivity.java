@@ -499,9 +499,7 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
         executor.execute(() -> DatabaseFactory.getRecipientPreferenceDatabase(appContext)
                 .setBlocked(recipients, blocked));
 
-        handler.post(() -> {
-          setSummaries(recipients);
-        });
+        handler.post(() -> setSummaries(recipients));
       }
     }
   }

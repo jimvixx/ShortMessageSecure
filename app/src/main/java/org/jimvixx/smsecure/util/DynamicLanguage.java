@@ -32,6 +32,31 @@ public class DynamicLanguage {
 
   private static final String DEFAULT = "zz";
 
+  @NonNull
+  public static LocaleListCompat getSelectedLocales(@NonNull Context context) {
+    String pref = SMSecurePreferences.getLanguage(context);
+
+    if (TextUtils.isEmpty(pref) || DEFAULT.equals(pref)) {
+      return LocaleListCompat.getEmptyLocaleList();
+    }
+
+    String languageTag = pref.replace("-r", "-");
+    return LocaleListCompat.forLanguageTags(languageTag);
+  }
+
+  public static int getLayoutDirection(@NonNull Context context) {
+    return context.getResources().getConfiguration().getLayoutDirection();
+  }
+
+  private static void applyIfNeeded(@NonNull Context context) {
+    LocaleListCompat selected = getSelectedLocales(context);
+    LocaleListCompat applied = AppCompatDelegate.getApplicationLocales();
+
+    if (!TextUtils.equals(applied.toLanguageTags(), selected.toLanguageTags())) {
+      AppCompatDelegate.setApplicationLocales(selected);
+    }
+  }
+
   public void onCreate(@NonNull Activity activity) {
     applyIfNeeded(activity);
   }
@@ -54,30 +79,5 @@ public class DynamicLanguage {
     }
 
     return Locale.getDefault();
-  }
-
-  @NonNull
-  public static LocaleListCompat getSelectedLocales(@NonNull Context context) {
-    String pref = SMSecurePreferences.getLanguage(context);
-
-    if (TextUtils.isEmpty(pref) || DEFAULT.equals(pref)) {
-      return LocaleListCompat.getEmptyLocaleList();
-    }
-
-    String languageTag = pref.replace("-r", "-");
-    return LocaleListCompat.forLanguageTags(languageTag);
-  }
-
-  public static int getLayoutDirection(@NonNull Context context) {
-    return context.getResources().getConfiguration().getLayoutDirection();
-  }
-
-  private static void applyIfNeeded(@NonNull Context context) {
-    LocaleListCompat selected = getSelectedLocales(context);
-    LocaleListCompat applied  = AppCompatDelegate.getApplicationLocales();
-
-    if (!TextUtils.equals(applied.toLanguageTags(), selected.toLanguageTags())) {
-      AppCompatDelegate.setApplicationLocales(selected);
-    }
   }
 }

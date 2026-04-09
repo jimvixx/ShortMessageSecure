@@ -50,8 +50,7 @@ public class SelectedRecipientsAdapter extends ArrayAdapter<SelectedRecipientsAd
 
   public SelectedRecipientsAdapter(@NonNull Context context,
                                    int resource,
-                                   @NonNull ArrayList<RecipientWrapper> recipients)
-  {
+                                   @NonNull ArrayList<RecipientWrapper> recipients) {
     super(context, resource, recipients);
     this.recipients = recipients;
   }
@@ -74,7 +73,7 @@ public class SelectedRecipientsAdapter extends ArrayAdapter<SelectedRecipientsAd
     if (wrapper == null) return convertView;
 
     final Recipient recipient = wrapper.getRecipient();
-    final boolean modifiable  = wrapper.isModifiable();
+    final boolean modifiable = wrapper.isModifiable();
 
     bindTexts(holder, recipient);
     bindAvatar(holder, recipient);
@@ -101,8 +100,7 @@ public class SelectedRecipientsAdapter extends ArrayAdapter<SelectedRecipientsAd
 
   private void bindDelete(@NonNull ViewHolder holder,
                           @NonNull RecipientWrapper wrapper,
-                          boolean modifiable)
-  {
+                          boolean modifiable) {
     if (modifiable) {
       holder.delete.setVisibility(View.VISIBLE);
       holder.delete.setOnClickListener(v -> {
@@ -135,8 +133,8 @@ public class SelectedRecipientsAdapter extends ArrayAdapter<SelectedRecipientsAd
 
     ViewHolder(@NonNull View root) {
       avatar = root.findViewById(R.id.avatar);
-      name   = root.findViewById(R.id.name);
-      phone  = root.findViewById(R.id.phone);
+      name = root.findViewById(R.id.name);
+      phone = root.findViewById(R.id.phone);
       delete = root.findViewById(R.id.delete);
     }
   }

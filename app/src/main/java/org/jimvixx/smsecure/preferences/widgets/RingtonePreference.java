@@ -113,6 +113,10 @@ public class RingtonePreference extends DialogPreference {
     this(context, null);
   }
 
+  private static boolean equalsNullable(@Nullable Object first, @Nullable Object second) {
+    return Objects.equals(first, second);
+  }
+
   @Override
   public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
     super.onBindViewHolder(holder);
@@ -330,10 +334,6 @@ public class RingtonePreference extends DialogPreference {
     }
 
     return null;
-  }
-
-  private static boolean equalsNullable(@Nullable Object first, @Nullable Object second) {
-    return Objects.equals(first, second);
   }
 
   @IntDef({

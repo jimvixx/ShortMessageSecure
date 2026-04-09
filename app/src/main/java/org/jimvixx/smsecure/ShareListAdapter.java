@@ -20,17 +20,18 @@ package org.jimvixx.smsecure;
 
 import android.content.Context;
 import android.database.Cursor;
-import androidx.cursoradapter.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 
+import androidx.cursoradapter.widget.CursorAdapter;
+
+import org.jimvixx.smsecure.crypto.MasterCipher;
+import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.DatabaseFactory;
 import org.jimvixx.smsecure.database.ThreadDatabase;
 import org.jimvixx.smsecure.database.model.ThreadRecord;
-import org.jimvixx.smsecure.crypto.MasterCipher;
-import org.jimvixx.smsecure.crypto.MasterSecret;
 
 /**
  * A CursorAdapter for building a list of open conversations
@@ -40,17 +41,17 @@ import org.jimvixx.smsecure.crypto.MasterSecret;
 public class ShareListAdapter extends CursorAdapter implements AbsListView.RecyclerListener {
 
   private final ThreadDatabase threadDatabase;
-  private final MasterCipher   masterCipher;
+  private final MasterCipher masterCipher;
   private final LayoutInflater inflater;
 
   public ShareListAdapter(Context context, Cursor cursor, MasterSecret masterSecret) {
     super(context, cursor, 0);
 
     if (masterSecret != null) this.masterCipher = new MasterCipher(masterSecret);
-    else                      this.masterCipher = null;
+    else this.masterCipher = null;
 
     this.threadDatabase = DatabaseFactory.getThreadDatabase(context);
-    this.inflater       = LayoutInflater.from(context);
+    this.inflater = LayoutInflater.from(context);
   }
 
   @Override
@@ -62,14 +63,14 @@ public class ShareListAdapter extends CursorAdapter implements AbsListView.Recyc
   public void bindView(View view, Context context, Cursor cursor) {
     if (masterCipher != null) {
       ThreadDatabase.Reader reader = threadDatabase.readerFor(cursor, masterCipher);
-      ThreadRecord          record = reader.getCurrent();
+      ThreadRecord record = reader.getCurrent();
 
-      ((ShareListItem)view).set(record);
+      ((ShareListItem) view).set(record);
     }
   }
 
   @Override
   public void onMovedToScrapHeap(View view) {
-    ((ShareListItem)view).unbind();
+    ((ShareListItem) view).unbind();
   }
 }

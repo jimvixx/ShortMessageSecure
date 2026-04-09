@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2015 Open Whisper Systems
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -19,12 +19,13 @@ package org.jimvixx.smsecure.database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.jimvixx.smsecure.util.VisibleForTesting;
 
@@ -32,24 +33,20 @@ import org.jimvixx.smsecure.util.VisibleForTesting;
  * RecyclerView.Adapter that manages a Cursor, comparable to the CursorAdapter usable in ListView/GridView.
  */
 public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+  @VisibleForTesting
+  static final int HEADER_TYPE = Integer.MIN_VALUE;
+  @VisibleForTesting
+  static final int FOOTER_TYPE = Integer.MIN_VALUE + 1;
+  @VisibleForTesting
+  static final long HEADER_ID = Long.MIN_VALUE;
+  @VisibleForTesting
+  static final long FOOTER_ID = Long.MIN_VALUE + 1;
   private final Context context;
   private final DataSetObserver observer = new AdapterDataSetObserver();
-
-  @VisibleForTesting static final int  HEADER_TYPE = Integer.MIN_VALUE;
-  @VisibleForTesting static final int  FOOTER_TYPE = Integer.MIN_VALUE + 1;
-  @VisibleForTesting static final long HEADER_ID   = Long.MIN_VALUE;
-  @VisibleForTesting static final long FOOTER_ID   = Long.MIN_VALUE + 1;
-
-  private           Cursor  cursor;
-  private           boolean valid;
-  private @Nullable View    header;
-  private @Nullable View    footer;
-
-  private static class HeaderFooterViewHolder extends RecyclerView.ViewHolder {
-    public HeaderFooterViewHolder(View itemView) {
-      super(itemView);
-    }
-  }
+  private Cursor cursor;
+  private boolean valid;
+  private @Nullable View header;
+  private @Nullable View footer;
 
   protected CursorRecyclerViewAdapter(Context context, Cursor cursor) {
     this.context = context;
@@ -116,19 +113,20 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     if (!isActiveCursor()) return 0;
 
     return cursor.getCount()
-           + (hasHeaderView() ? 1 : 0)
-           + (hasFooterView() ? 1 : 0);
+            + (hasHeaderView() ? 1 : 0)
+            + (hasFooterView() ? 1 : 0);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public final void onViewRecycled(@NonNull ViewHolder holder) {
     if (!(holder instanceof HeaderFooterViewHolder)) {
-      onItemViewRecycled((VH)holder);
+      onItemViewRecycled((VH) holder);
     }
   }
 
-  public void onItemViewRecycled(VH holder) {}
+  public void onItemViewRecycled(VH holder) {
+  }
 
   @NonNull
   @Override
@@ -146,7 +144,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
   @Override
   public final void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
     if (!isHeaderPosition(position) && !isFooterPosition(position)) {
-      onBindItemViewHolder((VH)viewHolder, getCursorAtPositionOrThrow(position));
+      onBindItemViewHolder((VH) viewHolder, getCursorAtPositionOrThrow(position));
     }
   }
 
@@ -199,6 +197,12 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
 
   private int getCursorPosition(int position) {
     return hasHeaderView() ? position - 1 : position;
+  }
+
+  private static class HeaderFooterViewHolder extends RecyclerView.ViewHolder {
+    public HeaderFooterViewHolder(View itemView) {
+      super(itemView);
+    }
   }
 
   private class AdapterDataSetObserver extends DataSetObserver {

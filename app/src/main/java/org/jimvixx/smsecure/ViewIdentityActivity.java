@@ -64,24 +64,24 @@ public class ViewIdentityActivity extends BaseIdentityActivity {
   @Override
   protected void bindBaseViews() {
     // Spoilers
-    toggleFingerprint  = findViewById(R.id.toggle_fingerprint);
+    toggleFingerprint = findViewById(R.id.toggle_fingerprint);
     sectionFingerprint = findViewById(R.id.section_fingerprint);
 
-    toggleTextCode  = findViewById(R.id.toggle_text_code);
+    toggleTextCode = findViewById(R.id.toggle_text_code);
     sectionTextCode = findViewById(R.id.section_text_code);
 
     // Local content
     identityFingerprint = findViewById(R.id.identity_fingerprint);
-    identityQr          = findViewById(R.id.identity_qr);
-    identityTextCode    = findViewById(R.id.identity_text_code);
+    identityQr = findViewById(R.id.identity_qr);
+    identityTextCode = findViewById(R.id.identity_text_code);
 
     // Local actions
-    copyFingerprint  = findViewById(R.id.copy_fingerprint);
+    copyFingerprint = findViewById(R.id.copy_fingerprint);
     shareFingerprint = findViewById(R.id.share_fingerprint);
 
     shareQrImage = findViewById(R.id.share_qr_image);
 
-    copyTextCode  = findViewById(R.id.copy_text_code);
+    copyTextCode = findViewById(R.id.copy_text_code);
     shareTextCode = findViewById(R.id.share_text_code);
   }
 

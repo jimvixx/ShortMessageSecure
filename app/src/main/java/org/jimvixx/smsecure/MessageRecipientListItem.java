@@ -49,19 +49,16 @@ import java.util.concurrent.Executors;
  * @author Jake McGinty
  */
 public class MessageRecipientListItem extends RelativeLayout
-        implements Recipient.RecipientModifiedListener
-{
+        implements Recipient.RecipientModifiedListener {
   private static final String TAG = MessageRecipientListItem.class.getSimpleName();
-
+  private final Handler handler = new Handler(Looper.getMainLooper());
+  private final Executor resendExecutor = Executors.newSingleThreadExecutor();
   private @Nullable Recipient recipient;
   private FromTextView fromView;
   private TextView errorDescription;
   private Button conflictButton;
   private Button resendButton;
   private AvatarImageView contactPhotoImage;
-
-  private final Handler handler = new Handler(Looper.getMainLooper());
-  private final Executor resendExecutor = Executors.newSingleThreadExecutor();
 
   public MessageRecipientListItem(@NonNull Context context) {
     super(context);
@@ -74,17 +71,16 @@ public class MessageRecipientListItem extends RelativeLayout
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    fromView          = findViewById(R.id.from);
-    errorDescription  = findViewById(R.id.error_description);
+    fromView = findViewById(R.id.from);
+    errorDescription = findViewById(R.id.error_description);
     contactPhotoImage = findViewById(R.id.contact_photo_image);
-    conflictButton    = findViewById(R.id.conflict_button);
-    resendButton      = findViewById(R.id.resend_button);
+    conflictButton = findViewById(R.id.conflict_button);
+    resendButton = findViewById(R.id.resend_button);
   }
 
   public void set(@NonNull MasterSecret masterSecret,
                   @NonNull MessageRecord record,
-                  @NonNull Recipient recipient)
-  {
+                  @NonNull Recipient recipient) {
     unbind();
 
     this.recipient = recipient;
@@ -112,8 +108,7 @@ public class MessageRecipientListItem extends RelativeLayout
   }
 
   private void setIssueIndicators(@NonNull final MasterSecret masterSecret,
-                                  @NonNull final MessageRecord record)
-  {
+                                  @NonNull final MessageRecord record) {
     final NetworkFailure networkFailure = getNetworkFailure(record);
     final IdentityKeyMismatch keyMismatch = (networkFailure == null) ? getKeyMismatch(record) : null;
 
@@ -160,8 +155,7 @@ public class MessageRecipientListItem extends RelativeLayout
   }
 
   private void resendMessage(@NonNull MasterSecret masterSecret,
-                             @NonNull MessageRecord record)
-  {
+                             @NonNull MessageRecord record) {
     Context context = getContext();
     if (context == null) {
       return;

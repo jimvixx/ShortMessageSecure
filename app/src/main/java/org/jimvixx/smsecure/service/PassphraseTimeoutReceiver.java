@@ -20,6 +20,7 @@ package org.jimvixx.smsecure.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import org.jimvixx.smsecure.logging.Log;
 
 public class PassphraseTimeoutReceiver extends BroadcastReceiver {

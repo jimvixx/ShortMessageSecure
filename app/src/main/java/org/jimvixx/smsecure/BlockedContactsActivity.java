@@ -29,19 +29,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
-
-import org.jimvixx.smsecure.crypto.MasterSecret;
-import org.jimvixx.smsecure.database.loaders.BlockedContactsLoader;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-
+import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.database.loaders.BlockedContactsLoader;
 
 public class BlockedContactsActivity extends PassphraseRequiredActionBarActivity {
 
@@ -96,7 +92,7 @@ public class BlockedContactsActivity extends PassphraseRequiredActionBarActivity
         actionBar.setTitle(R.string.BlockedContactsActivity_blocked_contacts);
       }
 
-      emptyView   = view.findViewById(R.id.empty);
+      emptyView = view.findViewById(R.id.empty);
       recyclerView = view.findViewById(R.id.recycler_view);
 
       recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

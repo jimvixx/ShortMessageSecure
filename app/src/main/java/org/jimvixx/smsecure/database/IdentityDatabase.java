@@ -23,12 +23,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 
 import org.jimvixx.smsecure.crypto.MasterCipher;
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.jimvixx.smsecure.util.Base64;
@@ -39,29 +39,23 @@ import java.io.IOException;
 
 public class IdentityDatabase extends Database {
 
-  private static final String TAG = "IdentityDatabase";
-
-  private static final Uri CHANGE_URI = DatabaseContentProviders.Identities.CONTENT_URI;
-
-  private static final String TABLE_NAME = "identities";
-  private static final String ID         = "_id";
-
-  public static final String RECIPIENT    = "recipient";
+  public static final String RECIPIENT = "recipient";
   public static final String IDENTITY_KEY = "identity_key";
-  public static final String MAC          = "mac";
-
+  public static final String MAC = "mac";
   /**
    * Persistent verification state (INTEGER):
    * 0 = unknown/idle
    * 1 = verified (matches)
    * 2 = mismatch (last scan did not match)
    */
-  public static final String VERIFIED     = "verified";
-
-  public static final int VERIFY_STATE_UNKNOWN  = 0;
+  public static final String VERIFIED = "verified";
+  public static final int VERIFY_STATE_UNKNOWN = 0;
   public static final int VERIFY_STATE_VERIFIED = 1;
   public static final int VERIFY_STATE_MISMATCH = 2;
-
+  private static final String TAG = "IdentityDatabase";
+  private static final Uri CHANGE_URI = DatabaseContentProviders.Identities.CONTENT_URI;
+  private static final String TABLE_NAME = "identities";
+  private static final String ID = "_id";
   public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
           " (" + ID + " INTEGER PRIMARY KEY, " +
           RECIPIENT + " INTEGER UNIQUE, " +
@@ -73,9 +67,15 @@ public class IdentityDatabase extends Database {
     super(context, databaseHelper);
   }
 
+  private static int normalizeState(int state) {
+    if (state == VERIFY_STATE_VERIFIED) return VERIFY_STATE_VERIFIED;
+    if (state == VERIFY_STATE_MISMATCH) return VERIFY_STATE_MISMATCH;
+    return VERIFY_STATE_UNKNOWN;
+  }
+
   public Cursor getIdentities() {
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
-    Cursor cursor           = database.query(TABLE_NAME, null, null, null, null, null, null);
+    Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, null);
 
     cursor.setNotificationUri(context.getContentResolver(), CHANGE_URI);
 
@@ -89,9 +89,8 @@ public class IdentityDatabase extends Database {
    */
   public boolean isValidIdentity(@NonNull MasterSecret masterSecret,
                                  long recipientId,
-                                 @NonNull IdentityKey theirIdentity)
-  {
-    SQLiteDatabase database   = databaseHelper.getReadableDatabase();
+                                 @NonNull IdentityKey theirIdentity) {
+    SQLiteDatabase database = databaseHelper.getReadableDatabase();
     MasterCipher masterCipher = new MasterCipher(masterSecret);
 
     try (Cursor cursor = database.query(TABLE_NAME, null, RECIPIENT + " = ?",
@@ -99,7 +98,7 @@ public class IdentityDatabase extends Database {
 
       if (cursor.moveToFirst()) {
         String serializedIdentity = cursor.getString(cursor.getColumnIndexOrThrow(IDENTITY_KEY));
-        String mac                = cursor.getString(cursor.getColumnIndexOrThrow(MAC));
+        String mac = cursor.getString(cursor.getColumnIndexOrThrow(MAC));
 
         if (!masterCipher.verifyMacFor(recipientId + serializedIdentity, Base64.decode(mac))) {
           Log.w(TAG, "MAC failed");
@@ -121,11 +120,11 @@ public class IdentityDatabase extends Database {
    * Saves identity and resets verification state (because identity changed / could be new).
    */
   public void saveIdentity(@NonNull MasterSecret masterSecret, long recipientId, @NonNull IdentityKey identityKey) {
-    SQLiteDatabase database   = databaseHelper.getWritableDatabase();
+    SQLiteDatabase database = databaseHelper.getWritableDatabase();
     MasterCipher masterCipher = new MasterCipher(masterSecret);
 
-    String identityKeyString  = Base64.encodeBytes(identityKey.serialize());
-    String macString          = Base64.encodeBytes(masterCipher.getMacFor(recipientId + identityKeyString));
+    String identityKeyString = Base64.encodeBytes(identityKey.serialize());
+    String macString = Base64.encodeBytes(masterCipher.getMacFor(recipientId + identityKeyString));
 
     ContentValues contentValues = new ContentValues();
     contentValues.put(RECIPIENT, recipientId);
@@ -221,8 +220,7 @@ public class IdentityDatabase extends Database {
    */
   public boolean setVerifiedIfIdentityMatches(@NonNull MasterSecret masterSecret,
                                               long recipientId,
-                                              @NonNull IdentityKey theirIdentity)
-  {
+                                              @NonNull IdentityKey theirIdentity) {
     boolean ok = isValidIdentity(masterSecret, recipientId, theirIdentity);
     setVerificationState(recipientId, ok ? VERIFY_STATE_VERIFIED : VERIFY_STATE_MISMATCH);
     return ok;
@@ -232,63 +230,18 @@ public class IdentityDatabase extends Database {
    * Stronger status check:
    * - state must be VERIFIED
    * - identity must still match the stored identity
-   *
+   * <p>
    * If identity key changed later, this returns false even if state was left VERIFIED somehow.
    */
   public boolean isVerifiedAndIdentityMatches(@NonNull MasterSecret masterSecret,
                                               long recipientId,
-                                              @NonNull IdentityKey theirIdentity)
-  {
+                                              @NonNull IdentityKey theirIdentity) {
     if (getVerificationState(recipientId) != VERIFY_STATE_VERIFIED) return false;
     return isValidIdentity(masterSecret, recipientId, theirIdentity);
   }
 
   public Reader readerFor(MasterSecret masterSecret, Cursor cursor) {
     return new Reader(masterSecret, cursor);
-  }
-
-  private static int normalizeState(int state) {
-    if (state == VERIFY_STATE_VERIFIED) return VERIFY_STATE_VERIFIED;
-    if (state == VERIFY_STATE_MISMATCH) return VERIFY_STATE_MISMATCH;
-    return VERIFY_STATE_UNKNOWN;
-  }
-
-  public class Reader {
-    private final Cursor cursor;
-    private final MasterCipher cipher;
-
-    public Reader(MasterSecret masterSecret, Cursor cursor) {
-      this.cursor = cursor;
-      this.cipher = new MasterCipher(masterSecret);
-    }
-
-    public Identity getCurrent() {
-      long recipientId = cursor.getLong(cursor.getColumnIndexOrThrow(RECIPIENT));
-      Recipients recipients = RecipientFactory.getRecipientsForIds(context, new long[]{recipientId}, true);
-
-      try {
-        String identityKeyString = cursor.getString(cursor.getColumnIndexOrThrow(IDENTITY_KEY));
-        String mac               = cursor.getString(cursor.getColumnIndexOrThrow(MAC));
-
-        if (!cipher.verifyMacFor(recipientId + identityKeyString, Base64.decode(mac))) {
-          // MAC failed: treat identity as unavailable and state as unknown.
-          return new Identity(recipients, null, false, VERIFY_STATE_UNKNOWN);
-        }
-
-        IdentityKey identityKey = new IdentityKey(Base64.decode(identityKeyString), 0);
-
-        int state = VERIFY_STATE_UNKNOWN;
-        int idx = cursor.getColumnIndex(VERIFIED);
-        if (idx >= 0 && !cursor.isNull(idx)) state = normalizeState(cursor.getInt(idx));
-
-        boolean verified = state == VERIFY_STATE_VERIFIED;
-
-        return new Identity(recipients, identityKey, verified, state);
-      } catch (IOException | InvalidKeyException e) {
-        Log.w(TAG, e);
-        return new Identity(recipients, null, false, VERIFY_STATE_UNKNOWN);
-      }
-    }
   }
 
   public static class Identity {
@@ -310,10 +263,10 @@ public class IdentityDatabase extends Database {
     }
 
     public Identity(Recipients recipients, IdentityKey identityKey, boolean verified, int verificationState) {
-      this.recipients         = recipients;
-      this.identityKey        = identityKey;
-      this.verified           = verified;
-      this.verificationState  = normalizeState(verificationState);
+      this.recipients = recipients;
+      this.identityKey = identityKey;
+      this.verified = verified;
+      this.verificationState = normalizeState(verificationState);
     }
 
     public Recipients getRecipients() {
@@ -330,6 +283,44 @@ public class IdentityDatabase extends Database {
 
     public int getVerificationState() {
       return verificationState;
+    }
+  }
+
+  public class Reader {
+    private final Cursor cursor;
+    private final MasterCipher cipher;
+
+    public Reader(MasterSecret masterSecret, Cursor cursor) {
+      this.cursor = cursor;
+      this.cipher = new MasterCipher(masterSecret);
+    }
+
+    public Identity getCurrent() {
+      long recipientId = cursor.getLong(cursor.getColumnIndexOrThrow(RECIPIENT));
+      Recipients recipients = RecipientFactory.getRecipientsForIds(context, new long[]{recipientId}, true);
+
+      try {
+        String identityKeyString = cursor.getString(cursor.getColumnIndexOrThrow(IDENTITY_KEY));
+        String mac = cursor.getString(cursor.getColumnIndexOrThrow(MAC));
+
+        if (!cipher.verifyMacFor(recipientId + identityKeyString, Base64.decode(mac))) {
+          // MAC failed: treat identity as unavailable and state as unknown.
+          return new Identity(recipients, null, false, VERIFY_STATE_UNKNOWN);
+        }
+
+        IdentityKey identityKey = new IdentityKey(Base64.decode(identityKeyString), 0);
+
+        int state = VERIFY_STATE_UNKNOWN;
+        int idx = cursor.getColumnIndex(VERIFIED);
+        if (idx >= 0 && !cursor.isNull(idx)) state = normalizeState(cursor.getInt(idx));
+
+        boolean verified = state == VERIFY_STATE_VERIFIED;
+
+        return new Identity(recipients, identityKey, verified, state);
+      } catch (IOException | InvalidKeyException e) {
+        Log.w(TAG, e);
+        return new Identity(recipients, null, false, VERIFY_STATE_UNKNOWN);
+      }
     }
   }
 }

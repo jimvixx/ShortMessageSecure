@@ -21,19 +21,17 @@ package org.jimvixx.smsecure.components;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.LinearLayoutCompat;
-
 import android.util.AttributeSet;
-import org.jimvixx.smsecure.logging.Log;
 import android.view.Surface;
 import android.view.ViewTreeObserver;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import org.jimvixx.smsecure.R;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.ServiceUtil;
 import org.jimvixx.smsecure.util.Util;
 
@@ -54,15 +52,13 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   private final Rect rect = new Rect();
 
   private final Set<OnKeyboardHiddenListener> hiddenListeners = new HashSet<>();
-  private final Set<OnKeyboardShownListener>  shownListeners  = new HashSet<>();
-
-  private int minKeyboardSize;
+  private final Set<OnKeyboardShownListener> shownListeners = new HashSet<>();
   private final int minCustomKeyboardSize;
   private final int defaultCustomKeyboardSize;
   private final int minCustomKeyboardTopMargin;
-
+  private int minKeyboardSize;
   private boolean keyboardOpen = false;
-  private int     rotation     = -1;
+  private int rotation = -1;
 
   // Insets-based state
   private int lastImeBottom = 0;
@@ -72,6 +68,37 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
 
   // Last known "real" keyboard height (from insets or fallback).
   private int lastKnownKeyboardHeight = 0;
+  // Fallback listener: compute keyboard height as "root height - visible frame height".
+  private final ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener =
+          () -> {
+            if (isLandscape()) return;
+
+            int rootHeight = getRootView() != null ? getRootView().getHeight() : 0;
+            if (rootHeight <= 0) return;
+
+            getWindowVisibleDisplayFrame(rect);
+            int visibleHeight = rect.bottom - rect.top;
+            int diff = Math.max(0, rootHeight - visibleHeight);
+
+            int height = diff > minKeyboardSize ? diff : 0;
+
+            if (height == lastFallbackHeight) return;
+            lastFallbackHeight = height;
+
+            // If insets already indicate keyboard, prefer that.
+            if (lastImeBottom > 0) return;
+
+            if (height > 0) {
+              lastKnownKeyboardHeight = height;
+
+              if (getKeyboardPortraitHeight() != height) {
+                setKeyboardPortraitHeight(height);
+              }
+              if (!keyboardOpen) onKeyboardOpen(height);
+            } else {
+              if (keyboardOpen) onKeyboardClose();
+            }
+          };
 
   public KeyboardAwareLinearLayout(Context context) {
     this(context, null);
@@ -85,15 +112,15 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
     super(context, attrs, defStyle);
 
     // Initialize ALL final fields here (fixes "might not have been initialized").
-    minKeyboardSize            = getResources().getDimensionPixelSize(R.dimen.min_keyboard_size);
-    minCustomKeyboardSize      = getResources().getDimensionPixelSize(R.dimen.min_custom_keyboard_size);
-    defaultCustomKeyboardSize  = getResources().getDimensionPixelSize(R.dimen.default_custom_keyboard_size);
+    minKeyboardSize = getResources().getDimensionPixelSize(R.dimen.min_keyboard_size);
+    minCustomKeyboardSize = getResources().getDimensionPixelSize(R.dimen.min_custom_keyboard_size);
+    defaultCustomKeyboardSize = getResources().getDimensionPixelSize(R.dimen.default_custom_keyboard_size);
     minCustomKeyboardTopMargin = getResources().getDimensionPixelSize(R.dimen.min_custom_keyboard_top_margin);
 
     // Primary path: IME insets (public API).
     ViewCompat.setOnApplyWindowInsetsListener(this, (v, insets) -> {
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
-      int imeBottom      = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+      int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
 
       onKeyboardFromInsets(imeVisible, Math.max(imeBottom, 0));
 
@@ -159,38 +186,6 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
       if (keyboardOpen) onKeyboardClose();
     }
   }
-
-  // Fallback listener: compute keyboard height as "root height - visible frame height".
-  private final ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener =
-          () -> {
-            if (isLandscape()) return;
-
-            int rootHeight = getRootView() != null ? getRootView().getHeight() : 0;
-            if (rootHeight <= 0) return;
-
-            getWindowVisibleDisplayFrame(rect);
-            int visibleHeight = rect.bottom - rect.top;
-            int diff = Math.max(0, rootHeight - visibleHeight);
-
-            int height = diff > minKeyboardSize ? diff : 0;
-
-            if (height == lastFallbackHeight) return;
-            lastFallbackHeight = height;
-
-            // If insets already indicate keyboard, prefer that.
-            if (lastImeBottom > 0) return;
-
-            if (height > 0) {
-              lastKnownKeyboardHeight = height;
-
-              if (getKeyboardPortraitHeight() != height) {
-                setKeyboardPortraitHeight(height);
-              }
-              if (!keyboardOpen) onKeyboardOpen(height);
-            } else {
-              if (keyboardOpen) onKeyboardClose();
-            }
-          };
 
   protected void onKeyboardOpen(int keyboardHeight) {
     Log.w(TAG, String.format(Locale.ROOT, "onKeyboardOpen(%d)", keyboardHeight));
@@ -271,7 +266,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   public void postOnKeyboardClose(final Runnable runnable) {
     if (keyboardOpen) {
       addOnKeyboardHiddenListener(new OnKeyboardHiddenListener() {
-        @Override public void onKeyboardHidden() {
+        @Override
+        public void onKeyboardHidden() {
           removeOnKeyboardHiddenListener(this);
           runnable.run();
         }
@@ -284,7 +280,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   public void postOnKeyboardOpen(final Runnable runnable) {
     if (!keyboardOpen) {
       addOnKeyboardShownListener(new OnKeyboardShownListener() {
-        @Override public void onKeyboardShown() {
+        @Override
+        public void onKeyboardShown() {
           removeOnKeyboardShownListener(this);
           runnable.run();
         }

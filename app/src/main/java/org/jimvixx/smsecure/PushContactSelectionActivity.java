@@ -20,6 +20,7 @@ package org.jimvixx.smsecure;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
@@ -45,7 +46,7 @@ public class PushContactSelectionActivity extends ContactSelectionActivity {
     action.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_check));
 
     action.setOnClickListener(v -> {
-      Intent       resultIntent     = getIntent();
+      Intent resultIntent = getIntent();
       List<String> selectedContacts = contactsFragment.getSelectedContacts();
 
       if (selectedContacts != null) {

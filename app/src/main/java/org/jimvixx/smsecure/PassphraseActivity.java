@@ -95,6 +95,29 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
     } catch (IllegalArgumentException e) {
       Log.w(TAG, "Service was already unbound", e);
     }
+  }
+
+  @Nullable
+  private Intent sanitizeNextIntent(@NonNull Intent unsafe) {
+    if (unsafe.getComponent() == null) return null;
+
+    IntentSanitizer sanitizer = new IntentSanitizer.Builder()
+            .allowComponent(cn -> cn != null && getPackageName().equals(cn.getPackageName()))
+            .allowFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            .allowExtra(ConversationActivity.RECIPIENTS_EXTRA, long[].class)
+            .allowExtra(ConversationActivity.THREAD_ID_EXTRA, Long.class)
+            .allowExtra(ConversationActivity.IS_ARCHIVED_EXTRA, Boolean.class)
+            .allowExtra(ConversationActivity.TEXT_EXTRA, String.class)
+            .allowExtra(ConversationActivity.DISTRIBUTION_TYPE_EXTRA, Integer.class)
+            .allowExtra(ConversationActivity.TIMING_EXTRA, Long.class)
+            .allowExtra(ConversationActivity.LAST_SEEN_EXTRA, Long.class)
+            .build();
+
+    Intent sanitized = sanitizer.sanitizeByFiltering(unsafe);
+
+    if (sanitized.getComponent() == null) return null;
+
+    return sanitized;
   }  private final ServiceConnection serviceConnection = new ServiceConnection() {
     @Override
     public void onServiceConnected(ComponentName className, IBinder service) {
@@ -133,28 +156,7 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
     }
   };
 
-  @Nullable
-  private Intent sanitizeNextIntent(@NonNull Intent unsafe) {
-    if (unsafe.getComponent() == null) return null;
 
-    IntentSanitizer sanitizer = new IntentSanitizer.Builder()
-            .allowComponent(cn -> cn != null && getPackageName().equals(cn.getPackageName()))
-            .allowFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            .allowExtra(ConversationActivity.RECIPIENTS_EXTRA, long[].class)
-            .allowExtra(ConversationActivity.THREAD_ID_EXTRA, Long.class)
-            .allowExtra(ConversationActivity.IS_ARCHIVED_EXTRA, Boolean.class)
-            .allowExtra(ConversationActivity.TEXT_EXTRA, String.class)
-            .allowExtra(ConversationActivity.DISTRIBUTION_TYPE_EXTRA, Integer.class)
-            .allowExtra(ConversationActivity.TIMING_EXTRA, Long.class)
-            .allowExtra(ConversationActivity.LAST_SEEN_EXTRA, Long.class)
-            .build();
-
-    Intent sanitized = sanitizer.sanitizeByFiltering(unsafe);
-
-    if (sanitized.getComponent() == null) return null;
-
-    return sanitized;
-  }
 
 
 }

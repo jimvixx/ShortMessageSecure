@@ -21,29 +21,27 @@ package org.jimvixx.smsecure.crypto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
+
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * When a user first initializes SMSecure, a few secrets
  * are generated.  These are:
- *
+ * <p>
  * 1) A 128bit symmetric encryption key.
  * 2) A 160bit symmetric MAC key.
  * 3) An ECC keypair.
- *
+ * <p>
  * The first two, along with the ECC keypair's private key, are
  * then encrypted on disk using PBE.
- *
+ * <p>
  * This class represents 1 and 2.
  *
  * @author Moxie Marlinspike
  */
 
 public class MasterSecret implements Parcelable {
-
-  private final SecretKeySpec encryptionKey;
-  private final SecretKeySpec macKey;
 
   public static final Parcelable.Creator<MasterSecret> CREATOR = new Parcelable.Creator<>() {
     @Override
@@ -56,10 +54,12 @@ public class MasterSecret implements Parcelable {
       return new MasterSecret[size];
     }
   };
+  private final SecretKeySpec encryptionKey;
+  private final SecretKeySpec macKey;
 
   public MasterSecret(SecretKeySpec encryptionKey, SecretKeySpec macKey) {
     this.encryptionKey = encryptionKey;
-    this.macKey        = macKey;
+    this.macKey = macKey;
   }
 
   private MasterSecret(Parcel in) {
@@ -70,11 +70,11 @@ public class MasterSecret implements Parcelable {
     in.readByteArray(macKeyBytes);
 
     this.encryptionKey = new SecretKeySpec(encryptionKeyBytes, "AES");
-    this.macKey        = new SecretKeySpec(macKeyBytes, "HmacSHA1");
+    this.macKey = new SecretKeySpec(macKeyBytes, "HmacSHA1");
 
     // SecretKeySpec does an internal copy in its constructor.
     Arrays.fill(encryptionKeyBytes, (byte) 0x00);
-    Arrays.fill(macKeyBytes, (byte)0x00);
+    Arrays.fill(macKeyBytes, (byte) 0x00);
   }
 
 
@@ -110,7 +110,7 @@ public class MasterSecret implements Parcelable {
     thatParcel.unmarshall(bytes, 0, bytes.length);
     thatParcel.setDataPosition(0);
 
-    MasterSecret that = (MasterSecret)thatParcel.readValue(MasterSecret.class.getClassLoader());
+    MasterSecret that = (MasterSecret) thatParcel.readValue(MasterSecret.class.getClassLoader());
 
     thisParcel.recycle();
     thatParcel.recycle();

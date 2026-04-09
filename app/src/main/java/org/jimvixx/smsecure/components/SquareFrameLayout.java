@@ -33,12 +33,12 @@ public class SquareFrameLayout extends FrameLayout {
     super(context, attrs);
   }
 
-   @SuppressWarnings("unused")
+  @SuppressWarnings("unused")
   public SquareFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
   }
 
-   @SuppressWarnings("unused")
+  @SuppressWarnings("unused")
   public SquareFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
   }

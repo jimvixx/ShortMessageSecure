@@ -20,6 +20,7 @@
 package org.jimvixx.smsecure.crypto;
 
 import org.jimvixx.smsecure.util.Base64;
+import org.jimvixx.smsecure.util.Conversions;
 import org.jimvixx.smsecure.util.Util;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.InvalidMessageException;
@@ -27,7 +28,6 @@ import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECKeyPair;
 import org.whispersystems.libsignal.ecc.ECPrivateKey;
 import org.whispersystems.libsignal.ecc.ECPublicKey;
-import org.jimvixx.smsecure.util.Conversions;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -39,14 +39,14 @@ import javax.crypto.spec.SecretKeySpec;
  * This class is used to asymmetrically encrypt local data.  This is used in the case
  * where SMSecure receives an SMS, but the user's local encryption passphrase is
  * not cached (either because of a timeout, or because it hasn't yet been entered).
- *
+ * <p>
  * In this case, we have access to the public key of a local keypair.  We encrypt
  * the message with this, and put it into the DB.  When the user enters their passphrase,
  * we can get access to the private key of the local keypair, decrypt the message, and
  * replace it into the DB with symmetric encryption.
- *
+ * <p>
  * The encryption protocol is as follows:
- *
+ * <p>
  * 1) Generate an ephemeral keypair.
  * 2) Do ECDH with the public key of the local durable keypair.
  * 3) Do KMF with the ECDH result to obtain a master secret.
@@ -65,14 +65,14 @@ public class AsymmetricMasterCipher {
 
   public String decryptBody(String body) throws IOException, InvalidMessageException {
     try {
-      byte[]    combined       = Base64.decode(body);
-      byte[][]  parts          = Util.split(combined, PublicKey.KEY_SIZE, combined.length - PublicKey.KEY_SIZE);
+      byte[] combined = Base64.decode(body);
+      byte[][] parts = Util.split(combined, PublicKey.KEY_SIZE, combined.length - PublicKey.KEY_SIZE);
       PublicKey theirPublicKey = new PublicKey(parts[0], 0);
 
       ECPrivateKey ourPrivateKey = asymmetricMasterSecret.getPrivateKey();
-      byte[]       secret        = Curve.calculateAgreement(theirPublicKey.getKey(), ourPrivateKey);
-      MasterCipher masterCipher  = getMasterCipherForSecret(secret);
-      byte[]       decryptedBody = masterCipher.decryptBytes(parts[1]);
+      byte[] secret = Curve.calculateAgreement(theirPublicKey.getKey(), ourPrivateKey);
+      MasterCipher masterCipher = getMasterCipherForSecret(secret);
+      byte[] decryptedBody = masterCipher.decryptBytes(parts[1]);
 
       return new String(decryptedBody);
     } catch (InvalidKeyException | InvalidMessageException ike) {
@@ -82,15 +82,15 @@ public class AsymmetricMasterCipher {
 
   public String encryptBody(String body) {
     try {
-      ECPublicKey  theirPublic        = asymmetricMasterSecret.getDjbPublicKey();
-      ECKeyPair    ourKeyPair         = Curve.generateKeyPair();
-      byte[]       secret             = Curve.calculateAgreement(theirPublic, ourKeyPair.getPrivateKey());
-      MasterCipher masterCipher       = getMasterCipherForSecret(secret);
-      byte[]       encryptedBodyBytes = masterCipher.encryptBytes(body.getBytes());
+      ECPublicKey theirPublic = asymmetricMasterSecret.getDjbPublicKey();
+      ECKeyPair ourKeyPair = Curve.generateKeyPair();
+      byte[] secret = Curve.calculateAgreement(theirPublic, ourKeyPair.getPrivateKey());
+      MasterCipher masterCipher = getMasterCipherForSecret(secret);
+      byte[] encryptedBodyBytes = masterCipher.encryptBytes(body.getBytes());
 
-      PublicKey    ourPublicKey       = new PublicKey(31337, ourKeyPair.getPublicKey());
-      byte[]       publicKeyBytes     = ourPublicKey.serialize();
-      byte[]       combined           = Util.combine(publicKeyBytes, encryptedBodyBytes);
+      PublicKey ourPublicKey = new PublicKey(31337, ourKeyPair.getPublicKey());
+      byte[] publicKeyBytes = ourPublicKey.serialize();
+      byte[] combined = Util.combine(publicKeyBytes, encryptedBodyBytes);
 
       return Base64.encodeBytes(combined);
     } catch (InvalidKeyException e) {
@@ -99,8 +99,8 @@ public class AsymmetricMasterCipher {
   }
 
   private MasterCipher getMasterCipherForSecret(byte[] secretBytes) {
-    SecretKeySpec cipherKey   = deriveCipherKey(secretBytes);
-    SecretKeySpec macKey      = deriveMacKey(secretBytes);
+    SecretKeySpec cipherKey = deriveCipherKey(secretBytes);
+    SecretKeySpec macKey = deriveMacKey(secretBytes);
     MasterSecret masterSecret = new MasterSecret(cipherKey, macKey);
 
     return new MasterCipher(masterSecret);
@@ -108,14 +108,14 @@ public class AsymmetricMasterCipher {
 
   private SecretKeySpec deriveMacKey(byte[] secretBytes) {
     byte[] digestedBytes = getDigestedBytes(secretBytes, 1);
-    byte[] macKeyBytes   = new byte[20];
+    byte[] macKeyBytes = new byte[20];
 
     System.arraycopy(digestedBytes, 0, macKeyBytes, 0, macKeyBytes.length);
     return new SecretKeySpec(macKeyBytes, "HmacSHA1");
   }
 
   private SecretKeySpec deriveCipherKey(byte[] secretBytes) {
-    byte[] digestedBytes  = getDigestedBytes(secretBytes, 0);
+    byte[] digestedBytes = getDigestedBytes(secretBytes, 0);
     byte[] cipherKeyBytes = new byte[16];
 
     System.arraycopy(digestedBytes, 0, cipherKeyBytes, 0, cipherKeyBytes.length);

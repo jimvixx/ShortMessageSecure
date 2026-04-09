@@ -20,7 +20,6 @@ package org.jimvixx.smsecure.database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
-import org.jimvixx.smsecure.logging.Log;
 import android.util.Pair;
 
 import org.jimvixx.smsecure.R;
@@ -30,6 +29,7 @@ import org.jimvixx.smsecure.crypto.MasterCipher;
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.model.DisplayRecord;
 import org.jimvixx.smsecure.database.model.SmsMessageRecord;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.sms.IncomingTextMessage;
 import org.jimvixx.smsecure.sms.OutgoingTextMessage;
 import org.jimvixx.smsecure.util.LRUCache;

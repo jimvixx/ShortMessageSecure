@@ -18,11 +18,11 @@
 
 package org.jimvixx.smsecure.components.reminder;
 
+import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Telephony;
-import android.app.role.RoleManager;
 
 import androidx.annotation.Nullable;
 
@@ -31,10 +31,6 @@ import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.Util;
 
 public class DefaultSmsReminder extends Reminder {
-
-  public interface Launcher {
-    void launch(Intent intent);
-  }
 
   public DefaultSmsReminder(Context context, @Nullable Launcher launcher) {
     super(context.getString(R.string.reminder_header_sms_default_title),
@@ -86,5 +82,9 @@ public class DefaultSmsReminder extends Reminder {
       SMSecurePreferences.setPromptedDefaultSmsProvider(context, false);
     }
     return !isDefault && !SMSecurePreferences.hasPromptedDefaultSmsProvider(context);
+  }
+
+  public interface Launcher {
+    void launch(Intent intent);
   }
 }

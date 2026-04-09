@@ -22,8 +22,8 @@ package org.jimvixx.smsecure.crypto;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import org.jimvixx.smsecure.logging.Log;
 
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.Base64;
 import org.jimvixx.smsecure.util.dualsim.DualSimUtil;
 import org.whispersystems.libsignal.IdentityKey;
@@ -44,15 +44,15 @@ import java.io.IOException;
 public class IdentityKeyUtil {
   private final static String TAG = IdentityKeyUtil.class.getSimpleName();
 
-  private static final String IDENTITY_PUBLIC_KEY_DJB_PREF  = "pref_identity_public_curve25519";
+  private static final String IDENTITY_PUBLIC_KEY_DJB_PREF = "pref_identity_public_curve25519";
   private static final String IDENTITY_PRIVATE_KEY_DJB_PREF = "pref_identity_private_curve25519";
 
   public static boolean hasIdentityKey(Context context, int subscriptionId) {
     SharedPreferences preferences = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
 
     return
-        preferences.contains(getIdentityPublicKeyDjbPref(subscriptionId)) &&
-        preferences.contains(getIdentityPrivateKeyDjbPref(subscriptionId));
+            preferences.contains(getIdentityPublicKeyDjbPref(subscriptionId)) &&
+                    preferences.contains(getIdentityPrivateKeyDjbPref(subscriptionId));
   }
 
   public static IdentityKey getIdentityKey(Context context, int subscriptionId) {
@@ -69,15 +69,14 @@ public class IdentityKeyUtil {
 
   public static IdentityKeyPair getIdentityKeyPair(Context context,
                                                    MasterSecret masterSecret,
-                                                   int subscriptionId)
-  {
+                                                   int subscriptionId) {
     if (!hasIdentityKey(context, subscriptionId))
       return null;
 
     try {
       MasterCipher masterCipher = new MasterCipher(masterSecret);
-      IdentityKey  publicKey    = getIdentityKey(context, subscriptionId);
-      ECPrivateKey privateKey   = masterCipher.decryptKey(Base64.decode(retrieve(context, getIdentityPrivateKeyDjbPref(subscriptionId))));
+      IdentityKey publicKey = getIdentityKey(context, subscriptionId);
+      ECPrivateKey privateKey = masterCipher.decryptKey(Base64.decode(retrieve(context, getIdentityPrivateKeyDjbPref(subscriptionId))));
 
       return new IdentityKeyPair(publicKey, privateKey);
     } catch (IOException | InvalidKeyException e) {
@@ -91,11 +90,11 @@ public class IdentityKeyUtil {
 
   public static void generateIdentityKeys(Context context, MasterSecret masterSecret, int subscriptionId, boolean displayNotification) {
     Log.w(TAG, "Generating identity keys for subscription ID " + subscriptionId);
-    ECKeyPair    djbKeyPair     = Curve.generateKeyPair();
+    ECKeyPair djbKeyPair = Curve.generateKeyPair();
 
-    MasterCipher masterCipher   = new MasterCipher(masterSecret);
-    IdentityKey  djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
-    byte[]       djbPrivateKey  = masterCipher.encryptKey(djbKeyPair.getPrivateKey());
+    MasterCipher masterCipher = new MasterCipher(masterSecret);
+    IdentityKey djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
+    byte[] djbPrivateKey = masterCipher.encryptKey(djbKeyPair.getPrivateKey());
 
     save(context, getIdentityPublicKeyDjbPref(subscriptionId), Base64.encodeBytes(djbIdentityKey.serialize()));
     save(context, getIdentityPrivateKeyDjbPref(subscriptionId), Base64.encodeBytes(djbPrivateKey));
@@ -105,15 +104,15 @@ public class IdentityKeyUtil {
 
   public static boolean hasCurve25519IdentityKeys(Context context, int subscriptionId) {
     return
-        retrieve(context, getIdentityPublicKeyDjbPref(subscriptionId)) != null &&
-        retrieve(context, getIdentityPrivateKeyDjbPref(subscriptionId)) != null;
+            retrieve(context, getIdentityPublicKeyDjbPref(subscriptionId)) != null &&
+                    retrieve(context, getIdentityPrivateKeyDjbPref(subscriptionId)) != null;
   }
 
   public static void generateCurve25519IdentityKeys(Context context, MasterSecret masterSecret, int subscriptionId) {
-    MasterCipher masterCipher    = new MasterCipher(masterSecret);
-    ECKeyPair    djbKeyPair      = Curve.generateKeyPair();
-    IdentityKey  djbIdentityKey  = new IdentityKey(djbKeyPair.getPublicKey());
-    byte[]       djbPrivateKey   = masterCipher.encryptKey(djbKeyPair.getPrivateKey());
+    MasterCipher masterCipher = new MasterCipher(masterSecret);
+    ECKeyPair djbKeyPair = Curve.generateKeyPair();
+    IdentityKey djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
+    byte[] djbPrivateKey = masterCipher.encryptKey(djbKeyPair.getPrivateKey());
 
     save(context, getIdentityPublicKeyDjbPref(subscriptionId), Base64.encodeBytes(djbIdentityKey.serialize()));
     save(context, getIdentityPrivateKeyDjbPref(subscriptionId), Base64.encodeBytes(djbPrivateKey));
@@ -125,19 +124,21 @@ public class IdentityKeyUtil {
   }
 
   public static void save(Context context, String key, String value) {
-    SharedPreferences preferences   = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
-    Editor preferencesEditor        = preferences.edit();
+    SharedPreferences preferences = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
+    Editor preferencesEditor = preferences.edit();
 
     preferencesEditor.putString(key, value);
-    if (!preferencesEditor.commit()) throw new AssertionError("failed to save identity key/value to shared preferences");
+    if (!preferencesEditor.commit())
+      throw new AssertionError("failed to save identity key/value to shared preferences");
   }
 
   public static void remove(Context context, String key) {
-    SharedPreferences preferences   = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
-    Editor preferencesEditor        = preferences.edit();
+    SharedPreferences preferences = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
+    Editor preferencesEditor = preferences.edit();
 
     preferencesEditor.remove(key);
-    if (!preferencesEditor.commit()) throw new AssertionError("failed to remove identity key/value to shared preferences");
+    if (!preferencesEditor.commit())
+      throw new AssertionError("failed to remove identity key/value to shared preferences");
   }
 
   public static String getIdentityPublicKeyDjbPref(int subscriptionId) {

@@ -22,21 +22,15 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.InvalidNumberException;
 import org.jimvixx.smsecure.util.LRUCache;
 import org.jimvixx.smsecure.util.PhoneNumberFormatter;
@@ -44,35 +38,45 @@ import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.ShortCodeUtil;
 import org.jimvixx.smsecure.util.VisibleForTesting;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class CanonicalAddressDatabase {
 
   private static final String TAG = CanonicalAddressDatabase.class.getSimpleName();
 
-  private static final int    DATABASE_VERSION = 1;
-  private static final String DATABASE_NAME    = "canonical_address.db";
-  private static final String TABLE            = "canonical_addresses";
-  private static final String ID_COLUMN        = "_id";
-  private static final String ADDRESS_COLUMN   = "address";
+  private static final int DATABASE_VERSION = 1;
+  private static final String DATABASE_NAME = "canonical_address.db";
+  private static final String TABLE = "canonical_addresses";
+  private static final String ID_COLUMN = "_id";
+  private static final String ADDRESS_COLUMN = "address";
 
-  private static final String DATABASE_CREATE  =
+  private static final String DATABASE_CREATE =
           "CREATE TABLE " + TABLE + " (" +
                   ID_COLUMN + " INTEGER PRIMARY KEY, " +
                   ADDRESS_COLUMN + " TEXT NOT NULL" +
                   ");";
 
   private static final String SELECTION_NUMBER = "PHONE_NUMBERS_EQUAL(" + ADDRESS_COLUMN + ", ?)";
-  private static final String SELECTION_OTHER  = ADDRESS_COLUMN + " = ? COLLATE NOCASE";
+  private static final String SELECTION_OTHER = ADDRESS_COLUMN + " = ? COLLATE NOCASE";
 
   @SuppressLint("StaticFieldLeak")
   private static CanonicalAddressDatabase instance;
-
-  private DatabaseHelper databaseHelper;
-  private final Context  appContext;
-
-  private final Map<String, Long>   addressCache          = new ConcurrentHashMap<>();
-  private final Map<Long, String>   idCache               = new ConcurrentHashMap<>();
+  private final Context appContext;
+  private final Map<String, Long> addressCache = new ConcurrentHashMap<>();
+  private final Map<Long, String> idCache = new ConcurrentHashMap<>();
   private final Map<String, String> formattedAddressCache =
           Collections.synchronizedMap(new LRUCache<>(100));
+  private DatabaseHelper databaseHelper;
+
+  private CanonicalAddressDatabase(@NonNull Context appContext) {
+    this.appContext = appContext;
+    this.databaseHelper = new DatabaseHelper(appContext, DATABASE_NAME, null, DATABASE_VERSION);
+    fillCache();
+  }
 
   public static synchronized CanonicalAddressDatabase getInstance(@NonNull Context context) {
     if (instance == null) {
@@ -81,14 +85,20 @@ public class CanonicalAddressDatabase {
     return instance;
   }
 
-  private CanonicalAddressDatabase(@NonNull Context appContext) {
-    this.appContext     = appContext;
-    this.databaseHelper = new DatabaseHelper(appContext, DATABASE_NAME, null, DATABASE_VERSION);
-    fillCache();
+  @VisibleForTesting
+  static boolean isNumberAddress(@NonNull String number) {
+    if (number.contains("@")) return false;
+
+    final String networkNumber = PhoneNumberUtils.extractNetworkPortion(number);
+
+    if (TextUtils.isEmpty(networkNumber)) return false;
+    if (networkNumber.length() < 3) return false;
+
+    return PhoneNumberUtils.isWellFormedSmsAddress(number);
   }
 
   public synchronized void reset(@NonNull Context context) {
-    DatabaseHelper old  = this.databaseHelper;
+    DatabaseHelper old = this.databaseHelper;
     this.databaseHelper = new DatabaseHelper(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
     old.close();
 
@@ -104,10 +114,10 @@ public class CanonicalAddressDatabase {
 
     try {
       SQLiteDatabase db = databaseHelper.getReadableDatabase();
-      cursor            = db.query(TABLE, null, null, null, null, null, null);
+      cursor = db.query(TABLE, null, null, null, null, null, null);
 
       while (cursor.moveToNext()) {
-        long   id      = cursor.getLong(cursor.getColumnIndexOrThrow(ID_COLUMN));
+        long id = cursor.getLong(cursor.getColumnIndexOrThrow(ID_COLUMN));
         String address = cursor.getString(cursor.getColumnIndexOrThrow(ADDRESS_COLUMN));
 
         if (address == null || address.trim().isEmpty()) address = "Anonymous";
@@ -131,7 +141,7 @@ public class CanonicalAddressDatabase {
       Log.w(TAG, "Hitting DB on query [ID].");
 
       SQLiteDatabase db = databaseHelper.getReadableDatabase();
-      cursor            = db.query(TABLE, null, ID_COLUMN + " = ?", new String[] { id + "" }, null, null, null);
+      cursor = db.query(TABLE, null, ID_COLUMN + " = ?", new String[]{id + ""}, null, null, null);
 
       if (!cursor.moveToFirst()) return "Anonymous";
 
@@ -217,8 +227,7 @@ public class CanonicalAddressDatabase {
     if (TextUtils.isEmpty(localNumber) ||
             !isNumberAddress(address) ||
             !SMSecurePreferences.isPushRegistered(appContext) ||
-            ShortCodeUtil.isShortCode(localNumber, address))
-    {
+            ShortCodeUtil.isShortCode(localNumber, address)) {
       formattedAddress = address;
     } else {
       formattedAddress = PhoneNumberFormatter.formatNumber(address, localNumber);
@@ -237,12 +246,12 @@ public class CanonicalAddressDatabase {
     Cursor cursor = null;
     try {
       SQLiteDatabase db = databaseHelper.getReadableDatabase();
-      boolean isNumber  = isNumberAddress(address);
+      boolean isNumber = isNumberAddress(address);
 
       cursor = db.query(TABLE,
-              new String[] { ID_COLUMN },
+              new String[]{ID_COLUMN},
               isNumber ? SELECTION_NUMBER : SELECTION_OTHER,
-              new String[] { address },
+              new String[]{address},
               null, null, null);
 
       if (cursor.moveToFirst()) {
@@ -267,12 +276,12 @@ public class CanonicalAddressDatabase {
 
     try {
       SQLiteDatabase db = databaseHelper.getWritableDatabase();
-      boolean isNumber  = isNumberAddress(address);
+      boolean isNumber = isNumberAddress(address);
 
       cursor = db.query(TABLE,
               null,
               isNumber ? SELECTION_NUMBER : SELECTION_OTHER,
-              new String[] { address },
+              new String[]{address},
               null, null, null);
 
       if (cursor.getCount() == 0 || !cursor.moveToFirst()) {
@@ -280,13 +289,13 @@ public class CanonicalAddressDatabase {
         contentValues.put(ADDRESS_COLUMN, address);
         return db.insert(TABLE, ADDRESS_COLUMN, contentValues);
       } else {
-        long   canonicalId = cursor.getLong(cursor.getColumnIndexOrThrow(ID_COLUMN));
-        String oldAddress  = cursor.getString(cursor.getColumnIndexOrThrow(ADDRESS_COLUMN));
+        long canonicalId = cursor.getLong(cursor.getColumnIndexOrThrow(ID_COLUMN));
+        String oldAddress = cursor.getString(cursor.getColumnIndexOrThrow(ADDRESS_COLUMN));
 
         if (oldAddress != null && !address.equals(oldAddress)) {
           ContentValues contentValues = new ContentValues(1);
           contentValues.put(ADDRESS_COLUMN, address);
-          db.update(TABLE, contentValues, ID_COLUMN + " = ?", new String[] { canonicalId + "" });
+          db.update(TABLE, contentValues, ID_COLUMN + " = ?", new String[]{canonicalId + ""});
 
           addressCache.remove(oldAddress);
         }
@@ -296,18 +305,6 @@ public class CanonicalAddressDatabase {
     } finally {
       if (cursor != null) cursor.close();
     }
-  }
-
-  @VisibleForTesting
-  static boolean isNumberAddress(@NonNull String number) {
-    if (number.contains("@")) return false;
-
-    final String networkNumber = PhoneNumberUtils.extractNetworkPortion(number);
-
-    if (TextUtils.isEmpty(networkNumber)) return false;
-    if (networkNumber.length() < 3) return false;
-
-    return PhoneNumberUtils.isWellFormedSmsAddress(number);
   }
 
   private static class DatabaseHelper extends SQLiteOpenHelper {

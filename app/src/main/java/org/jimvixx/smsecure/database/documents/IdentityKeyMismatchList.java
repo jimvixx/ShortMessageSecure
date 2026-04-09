@@ -8,7 +8,7 @@ import java.util.List;
 public class IdentityKeyMismatchList implements Document<IdentityKeyMismatch> {
 
   @JsonProperty(value = "m")
-  private List<IdentityKeyMismatch> mismatches;
+  private final List<IdentityKeyMismatch> mismatches;
 
   public IdentityKeyMismatchList() {
     this.mismatches = new LinkedList<>();
@@ -21,7 +21,7 @@ public class IdentityKeyMismatchList implements Document<IdentityKeyMismatch> {
   @Override
   public int size() {
     if (mismatches == null) return 0;
-    else                    return mismatches.size();
+    else return mismatches.size();
   }
 
   @Override

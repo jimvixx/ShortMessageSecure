@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Encapsulates Contact-related logic.
- *
+ * <p>
  * Historically it abstracted API differences (1.x vs 2.x). Today it is mainly
  * a centralized helper for contact lookups.
  */

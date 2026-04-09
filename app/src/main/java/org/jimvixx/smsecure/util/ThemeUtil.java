@@ -33,7 +33,8 @@ public final class ThemeUtil {
   @SuppressWarnings("unused")
   private static final String TAG = ThemeUtil.class.getSimpleName();
 
-  private ThemeUtil() {}
+  private ThemeUtil() {
+  }
 
   /**
    * Resolve a theme color attribute to a ColorInt.
@@ -49,7 +50,7 @@ public final class ThemeUtil {
     }
 
     // Fallback for ColorStateList / reference
-    TypedArray ta = context.obtainStyledAttributes(new int[]{ attr });
+    TypedArray ta = context.obtainStyledAttributes(new int[]{attr});
     int color = ta.getColor(0, Color.TRANSPARENT);
     ta.recycle();
     return color;
@@ -64,7 +65,7 @@ public final class ThemeUtil {
       return fallback;
     }
 
-    return colorFromTypedValue(context,tv);
+    return colorFromTypedValue(context, tv);
   }
 
   @ColorInt

@@ -33,16 +33,23 @@ import org.jimvixx.smsecure.recipients.Recipients;
 
 final class BlockedContactsAdapter extends ListAdapter<BlockedContactsAdapter.Item, BlockedContactsAdapter.VH> {
 
-  interface OnClickListener {
-    void onClick(@NonNull Recipients recipients);
-  }
+  private static final DiffUtil.ItemCallback<Item> DIFF = new DiffUtil.ItemCallback<>() {
+    @Override
+    public boolean areItemsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
+      return oldItem.recipientIds.equals(newItem.recipientIds);
+    }
 
+    @Override
+    public boolean areContentsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
+      return oldItem.recipientIds.equals(newItem.recipientIds);
+    }
+  };
   private final @NonNull Context context;
   private final @NonNull OnClickListener listener;
 
   BlockedContactsAdapter(@NonNull Context context, @NonNull OnClickListener listener) {
     super(DIFF);
-    this.context  = context.getApplicationContext();
+    this.context = context.getApplicationContext();
     this.listener = listener;
     setHasStableIds(true);
   }
@@ -69,6 +76,10 @@ final class BlockedContactsAdapter extends ListAdapter<BlockedContactsAdapter.It
     holder.bind(recipients, listener);
   }
 
+  interface OnClickListener {
+    void onClick(@NonNull Recipients recipients);
+  }
+
   static final class VH extends RecyclerView.ViewHolder {
     VH(@NonNull View itemView) {
       super(itemView);
@@ -89,16 +100,4 @@ final class BlockedContactsAdapter extends ListAdapter<BlockedContactsAdapter.It
       this.recipientIds = recipientIds;
     }
   }
-
-  private static final DiffUtil.ItemCallback<Item> DIFF = new DiffUtil.ItemCallback<>() {
-    @Override
-    public boolean areItemsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
-      return oldItem.recipientIds.equals(newItem.recipientIds);
-    }
-
-    @Override
-    public boolean areContentsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
-      return oldItem.recipientIds.equals(newItem.recipientIds);
-    }
-  };
 }

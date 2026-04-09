@@ -25,7 +25,7 @@ public class EncryptingJobSerializer implements JobSerializer {
 
     if (job.getEncryptionKeys() != null) {
       MasterSecret masterSecret = ParcelUtil.deserialize(job.getEncryptionKeys().getEncoded(),
-                                                         MasterSecret.CREATOR);
+              MasterSecret.CREATOR);
       MasterCipher masterCipher = new MasterCipher(masterSecret);
 
       return masterCipher.encryptBody(plaintext);

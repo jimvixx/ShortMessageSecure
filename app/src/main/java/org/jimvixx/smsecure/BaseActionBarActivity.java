@@ -83,7 +83,7 @@ public abstract class BaseActionBarActivity extends AppCompatActivity {
 
     ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
       Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-      Insets ime  = insets.getInsets(WindowInsetsCompat.Type.ime());
+      Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
 
       int bottom = Math.max(bars.bottom, ime.bottom);
 

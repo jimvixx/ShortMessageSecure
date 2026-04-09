@@ -22,9 +22,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.provider.ContactsContract;
-import androidx.appcompat.app.AlertDialog;
-import org.jimvixx.smsecure.logging.Log;
 
+import androidx.appcompat.app.AlertDialog;
+
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.jimvixx.smsecure.util.InvalidNumberException;
@@ -39,11 +40,11 @@ public class GroupMembersDialog {
   private static final String TAG = GroupMembersDialog.class.getSimpleName();
 
   private final Recipients recipients;
-  private final Context    context;
+  private final Context context;
 
   public GroupMembersDialog(Context context, Recipients recipients) {
     this.recipients = recipients;
-    this.context    = context;
+    this.context = context;
   }
 
   public void display() {
@@ -59,10 +60,10 @@ public class GroupMembersDialog {
 
   private static class GroupMembersOnClickListener implements DialogInterface.OnClickListener {
     private final GroupMembers groupMembers;
-    private final Context      context;
+    private final Context context;
 
     public GroupMembersOnClickListener(Context context, GroupMembers members) {
-      this.context      = context;
+      this.context = context;
       this.groupMembers = members;
     }
 
@@ -71,9 +72,9 @@ public class GroupMembersDialog {
       Recipient recipient = groupMembers.get(item);
 
       if (recipient.getContactUri() != null) {
-        ContactsContract.QuickContact.showQuickContact(context, new Rect(0,0,0,0),
-                                                       recipient.getContactUri(),
-                                                       ContactsContract.QuickContact.MODE_LARGE, null);
+        ContactsContract.QuickContact.showQuickContact(context, new Rect(0, 0, 0, 0),
+                recipient.getContactUri(),
+                ContactsContract.QuickContact.MODE_LARGE, null);
       } else {
         final Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
         intent.putExtra(ContactsContract.Intents.Insert.PHONE, recipient.getNumber());
@@ -113,7 +114,7 @@ public class GroupMembersDialog {
         if (isLocalNumber(recipient)) {
           recipientStrings.add(context.getString(R.string.GroupMembersDialog_me));
         } else {
-          recipientStrings.add(((recipient.getName() != null) ? recipient.getName() : "")+ "\n" + recipient.getNumber() );
+          recipientStrings.add(((recipient.getName() != null) ? recipient.getName() : "") + "\n" + recipient.getNumber());
         }
       }
 
@@ -127,7 +128,7 @@ public class GroupMembersDialog {
     private boolean isLocalNumber(Recipient recipient) {
       try {
         String localNumber = SMSecurePreferences.getLocalNumber(context);
-        String e164Number  = Util.canonicalizeNumber(context, recipient.getNumber());
+        String e164Number = Util.canonicalizeNumber(context, recipient.getNumber());
 
         return e164Number != null && e164Number.equals(localNumber);
       } catch (InvalidNumberException e) {

@@ -1,12 +1,13 @@
 package org.jimvixx.smsecure.util;
 
 import androidx.annotation.NonNull;
-import org.jimvixx.smsecure.logging.Log;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.ShortNumberInfo;
+
+import org.jimvixx.smsecure.logging.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,10 +25,10 @@ public class ShortCodeUtil {
 
   public static boolean isShortCode(@NonNull String localNumber, @NonNull String number) {
     try {
-      PhoneNumberUtil         util              = PhoneNumberUtil.getInstance();
+      PhoneNumberUtil util = PhoneNumberUtil.getInstance();
       Phonenumber.PhoneNumber localNumberObject = util.parse(localNumber, null);
-      String                  localCountryCode  = util.getRegionCodeForNumber(localNumberObject);
-      String                  bareNumber        = number.replaceAll("[^0-9+]", "");
+      String localCountryCode = util.getRegionCodeForNumber(localNumberObject);
+      String bareNumber = number.replaceAll("[^0-9+]", "");
 
       // libphonenumber doesn't seem to be correct for Germany and Finland
       if (bareNumber.length() <= 6 && ("DE".equals(localCountryCode) || "FI".equals(localCountryCode) || "SK".equals(localCountryCode))) {

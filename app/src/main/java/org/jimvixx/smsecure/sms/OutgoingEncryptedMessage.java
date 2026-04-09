@@ -1,6 +1,5 @@
 package org.jimvixx.smsecure.sms;
 
-import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.Recipients;
 
 public class OutgoingEncryptedMessage extends OutgoingTextMessage {

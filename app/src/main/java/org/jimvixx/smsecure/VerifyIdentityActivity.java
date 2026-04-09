@@ -63,11 +63,11 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
 
   public static final String IDENTITY_KEY = "identity_key";
 
-  private static final String STATE_SCAN_STATUS        = "state_scan_status";
+  private static final String STATE_SCAN_STATUS = "state_scan_status";
   private static final String STATE_REMOTE_FP_EXPANDED = "state_remote_fp_expanded";
 
-  private static final int SCAN_STATUS_IDLE         = 0;
-  private static final int SCAN_STATUS_VERIFIED     = 1;
+  private static final int SCAN_STATUS_IDLE = 0;
+  private static final int SCAN_STATUS_VERIFIED = 1;
   private static final int SCAN_STATUS_NOT_VERIFIED = 2;
   private static final int SCAN_STATUS_NOT_AVAILABLE = 3;
 
@@ -82,7 +82,8 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
   private View manualVerifyButton;
 
   // Parsed manual bytes cache (set by TextWatcher, consumed by button)
-  @Nullable private byte[] manualParsedBytes;
+  @Nullable
+  private byte[] manualParsedBytes;
   private boolean manualParsedValid = false;
 
   // Remote section
@@ -98,15 +99,51 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
   // Data
   private int lastScanStatus = SCAN_STATUS_IDLE;
 
-  @Nullable private Recipient recipient;
-  @Nullable private MasterSecret masterSecret;
+  @Nullable
+  private Recipient recipient;
+  @Nullable
+  private MasterSecret masterSecret;
 
-  @Nullable private ActivityResultLauncher<Intent> qrScanLauncher;
+  @Nullable
+  private ActivityResultLauncher<Intent> qrScanLauncher;
 
   // Remote RAW (source of truth)
-  @Nullable private String remoteHexRaw;
-  @Nullable private String remoteBase64Raw;
-  @Nullable private byte[] remoteBytesRaw;
+  @Nullable
+  private String remoteHexRaw;
+  @Nullable
+  private String remoteBase64Raw;
+  @Nullable
+  private byte[] remoteBytesRaw;
+
+  private static boolean looksLikeHex(@NonNull String s) {
+    if (s.length() < 8) return false;
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      boolean hex =
+              (c >= '0' && c <= '9') ||
+                      (c >= 'a' && c <= 'f') ||
+                      (c >= 'A' && c <= 'F');
+      if (!hex) return false;
+    }
+    return true;
+  }
+
+  private static boolean constantTimeEquals(@NonNull byte[] a, @NonNull byte[] b) {
+    if (a.length != b.length) return false;
+    int r = 0;
+    for (int i = 0; i < a.length; i++) r |= (a[i] ^ b[i]);
+    return r == 0;
+  }
+
+  private static @NonNull String stripWhitespace(@NonNull String s) {
+    int n = s.length();
+    StringBuilder out = new StringBuilder(n);
+    for (int i = 0; i < n; i++) {
+      char c = s.charAt(i);
+      if (!Character.isWhitespace(c)) out.append(c);
+    }
+    return out.toString();
+  }
 
   @Override
   protected void onPreCreate() {
@@ -149,10 +186,10 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
 
     if (icicle != null) {
       remoteFpExpanded = icicle.getBoolean(STATE_REMOTE_FP_EXPANDED, false);
-      lastScanStatus   = icicle.getInt(STATE_SCAN_STATUS, SCAN_STATUS_IDLE);
+      lastScanStatus = icicle.getInt(STATE_SCAN_STATUS, SCAN_STATUS_IDLE);
     } else {
       remoteFpExpanded = false;
-      lastScanStatus   = SCAN_STATUS_IDLE;
+      lastScanStatus = SCAN_STATUS_IDLE;
     }
 
     // Init base (local UI: bind, render, local actions, local spoilers)
@@ -169,6 +206,10 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     refreshManualParseUi(); // in case field pre-filled
   }
 
+  // -------------------------
+  // Base hooks
+  // -------------------------
+
   @Override
   public void onResume() {
     super.onResume();
@@ -183,6 +224,10 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     outState.putInt(STATE_SCAN_STATUS, lastScanStatus);
   }
 
+  // -------------------------
+  // Verify-specific binding
+  // -------------------------
+
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
@@ -192,31 +237,27 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  // -------------------------
-  // Base hooks
-  // -------------------------
-
   @Override
   protected void bindBaseViews() {
     // Local spoilers
-    toggleFingerprint  = findViewById(R.id.toggle_fingerprint);
+    toggleFingerprint = findViewById(R.id.toggle_fingerprint);
     sectionFingerprint = findViewById(R.id.section_fingerprint);
 
-    toggleTextCode  = findViewById(R.id.toggle_text_code);
+    toggleTextCode = findViewById(R.id.toggle_text_code);
     sectionTextCode = findViewById(R.id.section_text_code);
 
     // Local content
     identityFingerprint = findViewById(R.id.identity_fingerprint);
-    identityQr          = findViewById(R.id.identity_qr);
-    identityTextCode    = findViewById(R.id.identity_text_code);
+    identityQr = findViewById(R.id.identity_qr);
+    identityTextCode = findViewById(R.id.identity_text_code);
 
     // Local actions
-    copyFingerprint  = findViewById(R.id.copy_fingerprint);
+    copyFingerprint = findViewById(R.id.copy_fingerprint);
     shareFingerprint = findViewById(R.id.share_fingerprint);
 
     shareQrImage = findViewById(R.id.share_qr_image);
 
-    copyTextCode  = findViewById(R.id.copy_text_code);
+    copyTextCode = findViewById(R.id.copy_text_code);
     shareTextCode = findViewById(R.id.share_text_code);
   }
 
@@ -237,27 +278,27 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
   }
 
   // -------------------------
-  // Verify-specific binding
+  // Manual parse (live UI) + Verify button
   // -------------------------
 
   private void bindVerifyViews() {
-    scanStatus     = findViewById(R.id.scan_status);
-    scanQrButton   = findViewById(R.id.scan_qr_button);
+    scanStatus = findViewById(R.id.scan_status);
+    scanQrButton = findViewById(R.id.scan_qr_button);
     scanStatusIcon = findViewById(R.id.scan_status_icon);
 
     // Manual verify views
-    manualCodeInput    = findViewById(R.id.manual_code_input);
-    manualCodeHint     = findViewById(R.id.manual_code_hint);
+    manualCodeInput = findViewById(R.id.manual_code_input);
+    manualCodeHint = findViewById(R.id.manual_code_hint);
     manualVerifyButton = findViewById(R.id.manual_verify_button);
 
     toggleRemoteFingerprint = findViewById(R.id.toggle_remote_fingerprint);
-    sectionRemote           = findViewById(R.id.section_remote);
+    sectionRemote = findViewById(R.id.section_remote);
 
     remoteFingerprint = findViewById(R.id.remote_fingerprint);
-    remoteTextCode    = findViewById(R.id.remote_text_code);
+    remoteTextCode = findViewById(R.id.remote_text_code);
 
     verificationLayout = findViewById(R.id.layout_verify_identity);
-    remoteFingerprintCard  = findViewById(R.id.card_view_remote_fingerprint);
+    remoteFingerprintCard = findViewById(R.id.card_view_remote_fingerprint);
 
     if (verificationLayout != null) verificationLayout.setVisibility(View.VISIBLE);
     if (remoteFingerprintCard != null) remoteFingerprintCard.setVisibility(View.VISIBLE);
@@ -286,17 +327,20 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     setSpoilerState(toggleRemoteFingerprint, sectionRemote, remoteFpExpanded);
   }
 
-  // -------------------------
-  // Manual parse (live UI) + Verify button
-  // -------------------------
-
   private void bindManualParseWatcher() {
     if (manualCodeInput == null) return;
 
     manualCodeInput.addTextChangedListener(new TextWatcher() {
-      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-      @Override public void afterTextChanged(Editable s) {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
         refreshManualParseUi();
       }
     });
@@ -351,6 +395,10 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
 
     if (manualVerifyButton != null) manualVerifyButton.setEnabled(true);
   }
+
+  // -------------------------
+  // Verify logic (QR scan)
+  // -------------------------
 
   private void verifyManuallyEnteredCode() {
     if (!manualParsedValid || manualParsedBytes == null) {
@@ -407,10 +455,6 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     manualCodeHint.setTextColor(resolveThemeColor(this, R.attr.appColorCommonAlert));
   }
 
-  // -------------------------
-  // Verify logic (QR scan)
-  // -------------------------
-
   private void updateRemoteSectionAndStatusFromDb() {
     IdentityKey remoteIdentityKey = getRemoteIdentityKey(masterSecret, recipient);
 
@@ -424,15 +468,17 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
       remoteBase64Raw = null;
       remoteBytesRaw = null;
 
-      if (remoteFingerprint != null) remoteFingerprint.setText(R.string.IdentityActivity__recipient_has_no_identity_key);
-      if (remoteTextCode != null)    remoteTextCode.setText(R.string.IdentityActivity__recipient_has_no_identity_key);
+      if (remoteFingerprint != null)
+        remoteFingerprint.setText(R.string.IdentityActivity__recipient_has_no_identity_key);
+      if (remoteTextCode != null)
+        remoteTextCode.setText(R.string.IdentityActivity__recipient_has_no_identity_key);
     } else {
-      remoteBytesRaw  = remoteIdentityKey.serialize();
-      remoteHexRaw    = Hex.toStringCondensed(remoteBytesRaw);
+      remoteBytesRaw = remoteIdentityKey.serialize();
+      remoteHexRaw = Hex.toStringCondensed(remoteBytesRaw);
       remoteBase64Raw = Base64.encodeBytes(remoteBytesRaw);
 
       if (remoteFingerprint != null) remoteFingerprint.setText(formatHexForDisplay(remoteHexRaw));
-      if (remoteTextCode != null)    remoteTextCode.setText(formatBase64ForDisplay(remoteBase64Raw));
+      if (remoteTextCode != null) remoteTextCode.setText(formatBase64ForDisplay(remoteBase64Raw));
     }
 
     if (recipient == null || remoteIdentityKey == null) {
@@ -487,7 +533,7 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
 
     String expectedRaw = remoteBase64Raw != null ? remoteBase64Raw : Base64.encodeBytes(remote.serialize());
 
-    String scannedNorm  = stripWhitespace(scanned);
+    String scannedNorm = stripWhitespace(scanned);
     String expectedNorm = stripWhitespace(expectedRaw);
 
     boolean ok = scannedNorm.equals(expectedNorm);
@@ -519,6 +565,10 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     applyScanStatus(lastScanStatus);
     updateRemoteSectionAndStatusFromDb();
   }
+
+  // -------------------------
+  // Parsing / helpers
+  // -------------------------
 
   private void applyScanStatus(int status) {
     if (scanStatus == null || scanStatusIcon == null) return;
@@ -581,26 +631,6 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     return recipient.getNumber();
   }
 
-  // -------------------------
-  // Parsing / helpers
-  // -------------------------
-
-  private enum DetectedFormat { HEX, BASE64, UNKNOWN }
-
-  private static final class ParseResult {
-    final boolean ok;
-    @Nullable final byte[] bytes;
-    final int errorRes;
-    final DetectedFormat detected;
-
-    ParseResult(boolean ok, @Nullable byte[] bytes, int errorRes, @NonNull DetectedFormat detected) {
-      this.ok = ok;
-      this.bytes = bytes;
-      this.errorRes = errorRes;
-      this.detected = detected;
-    }
-  }
-
   private ParseResult parseHexOrBase64Identity(@NonNull String rawInput) {
     String s = stripWhitespace(rawInput);
     s = s.replace(":", "").replace("-", "");
@@ -639,41 +669,28 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     return new ParseResult(true, bytes, 0, detected);
   }
 
-  private static boolean looksLikeHex(@NonNull String s) {
-    if (s.length() < 8) return false;
-    for (int i = 0; i < s.length(); i++) {
-      char c = s.charAt(i);
-      boolean hex =
-              (c >= '0' && c <= '9') ||
-                      (c >= 'a' && c <= 'f') ||
-                      (c >= 'A' && c <= 'F');
-      if (!hex) return false;
-    }
-    return true;
-  }
-
-  private static boolean constantTimeEquals(@NonNull byte[] a, @NonNull byte[] b) {
-    if (a.length != b.length) return false;
-    int r = 0;
-    for (int i = 0; i < a.length; i++) r |= (a[i] ^ b[i]);
-    return r == 0;
-  }
-
-  private static @NonNull String stripWhitespace(@NonNull String s) {
-    int n = s.length();
-    StringBuilder out = new StringBuilder(n);
-    for (int i = 0; i < n; i++) {
-      char c = s.charAt(i);
-      if (!Character.isWhitespace(c)) out.append(c);
-    }
-    return out.toString();
-  }
-
   private String detectedLabel(@NonNull DetectedFormat f) {
     return switch (f) {
       case HEX -> getString(R.string.IdentityActivity__format_hex);
       case BASE64 -> getString(R.string.IdentityActivity__format_base64);
       default -> getString(R.string.IdentityActivity__format_unknown);
     };
+  }
+
+  private enum DetectedFormat {HEX, BASE64, UNKNOWN}
+
+  private static final class ParseResult {
+    final boolean ok;
+    @Nullable
+    final byte[] bytes;
+    final int errorRes;
+    final DetectedFormat detected;
+
+    ParseResult(boolean ok, @Nullable byte[] bytes, int errorRes, @NonNull DetectedFormat detected) {
+      this.ok = ok;
+      this.bytes = bytes;
+      this.errorRes = errorRes;
+      this.detected = detected;
+    }
   }
 }

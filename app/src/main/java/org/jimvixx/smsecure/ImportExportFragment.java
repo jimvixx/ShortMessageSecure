@@ -25,7 +25,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import org.jimvixx.smsecure.logging.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +43,7 @@ import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.EncryptedBackupExporter;
 import org.jimvixx.smsecure.database.PlaintextBackupExporter;
 import org.jimvixx.smsecure.database.PlaintextBackupImporter;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.permissions.Permissions;
 import org.jimvixx.smsecure.service.ApplicationMigrationService;
 
@@ -61,18 +61,17 @@ public class ImportExportFragment extends Fragment {
 
   private static final String TAG = ImportExportFragment.class.getSimpleName();
 
-  private static final int SUCCESS  = 0;
+  private static final int SUCCESS = 0;
   private static final int ERROR_IO = 2;
-
-  @Nullable private MasterSecret masterSecret;
-
   private final Handler mainHandler = new Handler(Looper.getMainLooper());
   private final ExecutorService backgroundExecutor = Executors.newSingleThreadExecutor();
+  @Nullable
+  private MasterSecret masterSecret;
+  @Nullable
+  private AlertDialog progressDialog;
 
-  @Nullable private AlertDialog progressDialog;
-
-  private ActivityResultLauncher<String>   createPlaintextDocLauncher;
-  private ActivityResultLauncher<String>   createEncryptedZipLauncher;
+  private ActivityResultLauncher<String> createPlaintextDocLauncher;
+  private ActivityResultLauncher<String> createEncryptedZipLauncher;
   private ActivityResultLauncher<String[]> openEncryptedZipLauncher;
   private ActivityResultLauncher<String[]> openPlaintextXmlLauncher;
 
@@ -91,28 +90,36 @@ public class ImportExportFragment extends Fragment {
     createPlaintextDocLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.CreateDocument("text/xml"),
-                    uri -> { if (uri != null) exportPlaintextToUri(uri); }
+                    uri -> {
+                      if (uri != null) exportPlaintextToUri(uri);
+                    }
             );
 
     // Pick plaintext backup file.
     openPlaintextXmlLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.OpenDocument(),
-                    uri -> { if (uri != null) importPlaintextFromUri(uri); }
+                    uri -> {
+                      if (uri != null) importPlaintextFromUri(uri);
+                    }
             );
 
     // Create encrypted zip backup.
     createEncryptedZipLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.CreateDocument("application/zip"),
-                    uri -> { if (uri != null) exportEncryptedZipToUri(uri); }
+                    uri -> {
+                      if (uri != null) exportEncryptedZipToUri(uri);
+                    }
             );
 
     // Pick encrypted zip for restore.
     openEncryptedZipLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.OpenDocument(),
-                    uri -> { if (uri != null) importEncryptedZipFromUri(uri); }
+                    uri -> {
+                      if (uri != null) importEncryptedZipFromUri(uri);
+                    }
             );
   }
 
@@ -120,8 +127,8 @@ public class ImportExportFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater,
                            @Nullable ViewGroup container,
                            @Nullable Bundle bundle) {
-    View layout              = inflater.inflate(R.layout.import_export_fragment, container, false);
-    View importSmsView       = layout.findViewById(R.id.import_sms);
+    View layout = inflater.inflate(R.layout.import_export_fragment, container, false);
+    View importSmsView = layout.findViewById(R.id.import_sms);
     View importEncryptedView = layout.findViewById(R.id.import_encrypted_backup);
     View importPlaintextView = layout.findViewById(R.id.import_plaintext_backup);
     View exportEncryptedView = layout.findViewById(R.id.export_encrypted_backup);

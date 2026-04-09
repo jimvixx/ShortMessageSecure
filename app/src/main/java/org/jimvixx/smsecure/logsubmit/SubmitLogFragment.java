@@ -49,22 +49,17 @@ import java.util.concurrent.Executors;
 
 public class SubmitLogFragment extends Fragment {
 
-  public interface OnLogSubmittedListener {
-    void onSuccess();
-    void onFailure();
-  }
-
   private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
   private ProgressBar progress;
   private TextView status;
   private TextView preview;
   private Button copyButton;
   private Button shareLogsButton;
   private Button shareLinkButton;
-
-  @Nullable private String collectedLogs;
-  @Nullable private String uploadedUrl;
+  @Nullable
+  private String collectedLogs;
+  @Nullable
+  private String uploadedUrl;
 
   public static SubmitLogFragment newInstance() {
     return new SubmitLogFragment();
@@ -82,10 +77,10 @@ public class SubmitLogFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    status          = view.findViewById(R.id.log_submit_status);
-    progress        = view.findViewById(R.id.log_submit_progress);
-    preview         = view.findViewById(R.id.log_submit_preview);
-    copyButton      = view.findViewById(R.id.log_submit_copy_button);
+    status = view.findViewById(R.id.log_submit_status);
+    progress = view.findViewById(R.id.log_submit_progress);
+    preview = view.findViewById(R.id.log_submit_preview);
+    copyButton = view.findViewById(R.id.log_submit_copy_button);
     shareLogsButton = view.findViewById(R.id.log_submit_share_logs_button);
     shareLinkButton = view.findViewById(R.id.log_submit_share_link_button);
 
@@ -294,5 +289,11 @@ public class SubmitLogFragment extends Fragment {
   public void onDestroy() {
     super.onDestroy();
     executor.shutdownNow();
+  }
+
+  public interface OnLogSubmittedListener {
+    void onSuccess();
+
+    void onFailure();
   }
 }

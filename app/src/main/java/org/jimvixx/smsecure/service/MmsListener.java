@@ -22,14 +22,14 @@ import android.content.Intent;
 
 /**
  * WARNING: Manifest compatibility stub.
- *
+ * <p>
  * This receiver exists ONLY to satisfy Android's default SMS app
  * eligibility requirements. Removing it will cause the system to
  * stop recognizing SMSecure as a valid default SMS application.
- *
+ * <p>
  * SMSecure intentionally does not support MMS, but Android still
  * requires the WAP_PUSH_DELIVER declaration for MMS messages.
- *
+ * <p>
  * Do not remove unless the default SMS role support is intentionally dropped.
  */
 public class MmsListener extends BroadcastReceiver {
@@ -51,7 +51,6 @@ public class MmsListener extends BroadcastReceiver {
     // Optional extra hardening:
     String type = intent.getType();
     if (!"application/vnd.wap.mms-message".equals(type)) {
-      return;
     }
 
     // no-op stub

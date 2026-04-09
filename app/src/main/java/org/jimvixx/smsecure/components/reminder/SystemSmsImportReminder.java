@@ -26,8 +26,8 @@ import org.jimvixx.smsecure.ConversationListActivity;
 import org.jimvixx.smsecure.DatabaseMigrationActivity;
 import org.jimvixx.smsecure.PassphraseActivity;
 import org.jimvixx.smsecure.R;
-import org.jimvixx.smsecure.service.ApplicationMigrationService;
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.service.ApplicationMigrationService;
 
 public class SystemSmsImportReminder extends Reminder {
 

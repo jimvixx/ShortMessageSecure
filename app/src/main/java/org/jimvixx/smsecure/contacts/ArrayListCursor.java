@@ -18,7 +18,6 @@ package org.jimvixx.smsecure.contacts;
 import android.database.AbstractCursor;
 import android.database.CursorWindow;
 
-import java.lang.System;
 import java.util.ArrayList;
 
 /**
@@ -26,144 +25,143 @@ import java.util.ArrayList;
  * as a Cursor.
  */
 public class ArrayListCursor extends AbstractCursor {
-    private String[] mColumnNames;
-    private ArrayList<Object>[] mRows;
+  private String[] mColumnNames;
+  private final ArrayList<Object>[] mRows;
 
-    @SuppressWarnings({"unchecked"})
-    public ArrayListCursor(String[] columnNames, ArrayList<ArrayList> rows) {
-        int colCount = columnNames.length;
-        boolean foundID = false;
-        // Add an _id column if not in columnNames
-        for (String columnName : columnNames) {
-            if (columnName.compareToIgnoreCase("_id") == 0) {
-                mColumnNames = columnNames;
-                foundID = true;
+  @SuppressWarnings({"unchecked"})
+  public ArrayListCursor(String[] columnNames, ArrayList<ArrayList> rows) {
+    int colCount = columnNames.length;
+    boolean foundID = false;
+    // Add an _id column if not in columnNames
+    for (String columnName : columnNames) {
+      if (columnName.compareToIgnoreCase("_id") == 0) {
+        mColumnNames = columnNames;
+        foundID = true;
+        break;
+      }
+    }
+
+    if (!foundID) {
+      mColumnNames = new String[colCount + 1];
+      System.arraycopy(columnNames, 0, mColumnNames, 0, columnNames.length);
+      mColumnNames[colCount] = "_id";
+    }
+
+    int rowCount = rows.size();
+    mRows = new ArrayList[rowCount];
+
+    for (int i = 0; i < rowCount; ++i) {
+      mRows[i] = rows.get(i);
+      if (!foundID) {
+        mRows[i].add(i);
+      }
+    }
+  }
+
+  @Override
+  public void fillWindow(int position, CursorWindow window) {
+    if (position < 0 || position > getCount()) {
+      return;
+    }
+
+    window.acquireReference();
+    try {
+      int oldpos = mPos;
+      mPos = position - 1;
+      window.clear();
+      window.setStartPosition(position);
+      int columnNum = getColumnCount();
+      window.setNumColumns(columnNum);
+      while (moveToNext() && window.allocRow()) {
+        for (int i = 0; i < columnNum; i++) {
+          final Object data = mRows[mPos].get(i);
+          if (data != null) {
+            if (data instanceof byte[] field) {
+              if (!window.putBlob(field, mPos, i)) {
+                window.freeLastRow();
                 break;
+              }
+            } else {
+              String field = data.toString();
+              if (!window.putString(field, mPos, i)) {
+                window.freeLastRow();
+                break;
+              }
             }
-        }
-
-        if (!foundID) {
-            mColumnNames = new String[colCount + 1];
-            System.arraycopy(columnNames, 0, mColumnNames, 0, columnNames.length);
-            mColumnNames[colCount] = "_id";
-        }
-
-        int rowCount = rows.size();
-        mRows = new ArrayList[rowCount];
-
-        for (int i = 0; i < rowCount; ++i) {
-            mRows[i] = rows.get(i);
-            if (!foundID) {
-                mRows[i].add(i);
+          } else {
+            if (!window.putNull(mPos, i)) {
+              window.freeLastRow();
+              break;
             }
+          }
         }
+      }
+
+      mPos = oldpos;
+    } catch (IllegalStateException e) {
+      // simply ignore it
+    } finally {
+      window.releaseReference();
     }
+  }
 
-    @Override
-    public void fillWindow(int position, CursorWindow window) {
-        if (position < 0 || position > getCount()) {
-            return;
-        }
+  @Override
+  public int getCount() {
+    return mRows.length;
+  }
 
-        window.acquireReference();
-        try {
-            int oldpos = mPos;
-            mPos = position - 1;
-            window.clear();
-            window.setStartPosition(position);
-            int columnNum = getColumnCount();
-            window.setNumColumns(columnNum);
-            while (moveToNext() && window.allocRow()) {
-                for (int i = 0; i < columnNum; i++) {
-                    final Object data = mRows[mPos].get(i);
-                    if (data != null) {
-                        if (data instanceof byte[]) {
-                            byte[] field = (byte[]) data;
-                            if (!window.putBlob(field, mPos, i)) {
-                                window.freeLastRow();
-                                break;
-                            }
-                        } else {
-                            String field = data.toString();
-                            if (!window.putString(field, mPos, i)) {
-                                window.freeLastRow();
-                                break;
-                            }
-                        }
-                    } else {
-                        if (!window.putNull(mPos, i)) {
-                            window.freeLastRow();
-                            break;
-                        }
-                    }
-                }
-            }
+  public boolean deleteRow() {
+    return false;
+  }
 
-            mPos = oldpos;
-        } catch (IllegalStateException e){
-            // simply ignore it
-        } finally {
-            window.releaseReference();
-        }
-    }
+  @Override
+  public String[] getColumnNames() {
+    return mColumnNames;
+  }
 
-    @Override
-    public int getCount() {
-        return mRows.length;
-    }
+  @Override
+  public byte[] getBlob(int columnIndex) {
+    return (byte[]) mRows[mPos].get(columnIndex);
+  }
 
-    public boolean deleteRow() {
-        return false;
-    }
+  @Override
+  public String getString(int columnIndex) {
+    Object cell = mRows[mPos].get(columnIndex);
+    return (cell == null) ? null : cell.toString();
+  }
 
-    @Override
-    public String[] getColumnNames() {
-        return mColumnNames;
-    }
+  @Override
+  public short getShort(int columnIndex) {
+    Number num = (Number) mRows[mPos].get(columnIndex);
+    return num.shortValue();
+  }
 
-    @Override
-    public byte[] getBlob(int columnIndex) {
-        return (byte[]) mRows[mPos].get(columnIndex);
-    }
+  @Override
+  public int getInt(int columnIndex) {
+    Number num = (Number) mRows[mPos].get(columnIndex);
+    return num.intValue();
+  }
 
-    @Override
-    public String getString(int columnIndex) {
-        Object cell = mRows[mPos].get(columnIndex);
-        return (cell == null) ? null : cell.toString();
-    }
+  @Override
+  public long getLong(int columnIndex) {
+    Number num = (Number) mRows[mPos].get(columnIndex);
+    return num.longValue();
+  }
 
-    @Override
-    public short getShort(int columnIndex) {
-        Number num = (Number) mRows[mPos].get(columnIndex);
-        return num.shortValue();
-    }
+  @Override
+  public float getFloat(int columnIndex) {
+    Number num = (Number) mRows[mPos].get(columnIndex);
+    return num.floatValue();
+  }
 
-    @Override
-    public int getInt(int columnIndex) {
-        Number num = (Number) mRows[mPos].get(columnIndex);
-        return num.intValue();
-    }
+  @Override
+  public double getDouble(int columnIndex) {
+    Number num = (Number) mRows[mPos].get(columnIndex);
+    return num.doubleValue();
+  }
 
-    @Override
-    public long getLong(int columnIndex) {
-        Number num = (Number) mRows[mPos].get(columnIndex);
-        return num.longValue();
-    }
-
-    @Override
-    public float getFloat(int columnIndex) {
-        Number num = (Number) mRows[mPos].get(columnIndex);
-        return num.floatValue();
-    }
-
-    @Override
-    public double getDouble(int columnIndex) {
-        Number num = (Number) mRows[mPos].get(columnIndex);
-        return num.doubleValue();
-    }
-
-    @Override
-    public boolean isNull(int columnIndex) {
-        return mRows[mPos].get(columnIndex) == null;
-    }
+  @Override
+  public boolean isNull(int columnIndex) {
+    return mRows[mPos].get(columnIndex) == null;
+  }
 }

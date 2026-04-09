@@ -55,7 +55,8 @@ final class DirectShareShortcutsPublisherApi25 {
   private static final String SHORTCUT_PREFIX = "share_thread_";
   private static final String SHARE_CATEGORY = "org.jimvixx.smsecure.SHARE_TARGET";
 
-  private DirectShareShortcutsPublisherApi25() {}
+  private DirectShareShortcutsPublisherApi25() {
+  }
 
   static void refreshAsync(@NonNull Context context) {
     final Context appContext = context.getApplicationContext();
@@ -117,7 +118,8 @@ final class DirectShareShortcutsPublisherApi25 {
 
         result.add(b.build());
       }
-    } catch (RuntimeException ignored) {}
+    } catch (RuntimeException ignored) {
+    }
 
     return result;
   }

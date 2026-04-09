@@ -32,8 +32,7 @@ public class EmojiFilter implements InputFilter {
   }
 
   @Override
-  public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend)
-  {
+  public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
     char[] v = new char[end - start];
     TextUtils.getChars(source, start, end, v, 0);
 

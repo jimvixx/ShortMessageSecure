@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.telephony.SmsMessage;
 
-import org.whispersystems.libsignal.util.guava.Optional;
-
 import java.util.List;
 
 public class IncomingTextMessage implements Parcelable {
@@ -22,17 +20,17 @@ public class IncomingTextMessage implements Parcelable {
     }
   };
 
-  private final String  message;
-  private final String  sender;
-  private final int     senderDeviceId;
-  private final int     protocol;
-  private final String  serviceCenterAddress;
+  private final String message;
+  private final String sender;
+  private final int senderDeviceId;
+  private final int protocol;
+  private final String serviceCenterAddress;
   private final boolean replyPathPresent;
-  private final String  pseudoSubject;
-  private final long    sentTimestampMillis;
-  private final String  groupId;
+  private final String pseudoSubject;
+  private final long sentTimestampMillis;
+  private final String groupId;
   private final boolean push;
-  private final int     subscriptionId;
+  private final int subscriptionId;
   private final boolean receivedWhenLocked;
 
   public IncomingTextMessage(SmsMessage message, int subscriptionId) {
@@ -40,63 +38,63 @@ public class IncomingTextMessage implements Parcelable {
   }
 
   public IncomingTextMessage(SmsMessage message, int subscriptionId, boolean receivedWhenLocked) {
-    this.message              = message.getDisplayMessageBody();
-    this.sender               = message.getDisplayOriginatingAddress();
-    this.senderDeviceId       = 1;
-    this.protocol             = message.getProtocolIdentifier();
+    this.message = message.getDisplayMessageBody();
+    this.sender = message.getDisplayOriginatingAddress();
+    this.senderDeviceId = 1;
+    this.protocol = message.getProtocolIdentifier();
     this.serviceCenterAddress = message.getServiceCenterAddress();
-    this.replyPathPresent     = message.isReplyPathPresent();
-    this.pseudoSubject        = message.getPseudoSubject();
-    this.sentTimestampMillis  = message.getTimestampMillis();
-    this.subscriptionId       = subscriptionId;
-    this.groupId              = null;
-    this.push                 = false;
-    this.receivedWhenLocked   = receivedWhenLocked;
+    this.replyPathPresent = message.isReplyPathPresent();
+    this.pseudoSubject = message.getPseudoSubject();
+    this.sentTimestampMillis = message.getTimestampMillis();
+    this.subscriptionId = subscriptionId;
+    this.groupId = null;
+    this.push = false;
+    this.receivedWhenLocked = receivedWhenLocked;
   }
 
   public IncomingTextMessage(String sender, int senderDeviceId, long sentTimestampMillis, String encodedBody, int subscriptionId) {
-    this.message              = encodedBody;
-    this.sender               = sender;
-    this.senderDeviceId       = senderDeviceId;
-    this.protocol             = 31337;
+    this.message = encodedBody;
+    this.sender = sender;
+    this.senderDeviceId = senderDeviceId;
+    this.protocol = 31337;
     this.serviceCenterAddress = "GCM";
-    this.replyPathPresent     = true;
-    this.pseudoSubject        = "";
-    this.sentTimestampMillis  = sentTimestampMillis;
-    this.push                 = true;
-    this.subscriptionId       = subscriptionId;
-    this.groupId              = null;
-    this.receivedWhenLocked   = false;
+    this.replyPathPresent = true;
+    this.pseudoSubject = "";
+    this.sentTimestampMillis = sentTimestampMillis;
+    this.push = true;
+    this.subscriptionId = subscriptionId;
+    this.groupId = null;
+    this.receivedWhenLocked = false;
   }
 
   public IncomingTextMessage(Parcel in) {
-    this.message              = in.readString();
-    this.sender               = in.readString();
-    this.senderDeviceId       = in.readInt();
-    this.protocol             = in.readInt();
+    this.message = in.readString();
+    this.sender = in.readString();
+    this.senderDeviceId = in.readInt();
+    this.protocol = in.readInt();
     this.serviceCenterAddress = in.readString();
-    this.replyPathPresent     = (in.readInt() == 1);
-    this.pseudoSubject        = in.readString();
-    this.sentTimestampMillis  = in.readLong();
-    this.groupId              = in.readString();
-    this.push                 = (in.readInt() == 1);
-    this.subscriptionId       = in.readInt();
-    this.receivedWhenLocked   = (in.readInt() == 1);
+    this.replyPathPresent = (in.readInt() == 1);
+    this.pseudoSubject = in.readString();
+    this.sentTimestampMillis = in.readLong();
+    this.groupId = in.readString();
+    this.push = (in.readInt() == 1);
+    this.subscriptionId = in.readInt();
+    this.receivedWhenLocked = (in.readInt() == 1);
   }
 
   public IncomingTextMessage(IncomingTextMessage base, String newBody) {
-    this.message              = newBody;
-    this.sender               = base.getSender();
-    this.senderDeviceId       = base.getSenderDeviceId();
-    this.protocol             = base.getProtocol();
+    this.message = newBody;
+    this.sender = base.getSender();
+    this.senderDeviceId = base.getSenderDeviceId();
+    this.protocol = base.getProtocol();
     this.serviceCenterAddress = base.getServiceCenterAddress();
-    this.replyPathPresent     = base.isReplyPathPresent();
-    this.pseudoSubject        = base.getPseudoSubject();
-    this.sentTimestampMillis  = base.getSentTimestampMillis();
-    this.groupId              = base.getGroupId();
-    this.push                 = base.isPush();
-    this.subscriptionId       = base.getSubscriptionId();
-    this.receivedWhenLocked   = base.isReceivedWhenLocked();
+    this.replyPathPresent = base.isReplyPathPresent();
+    this.pseudoSubject = base.getPseudoSubject();
+    this.sentTimestampMillis = base.getSentTimestampMillis();
+    this.groupId = base.getGroupId();
+    this.push = base.isPush();
+    this.subscriptionId = base.getSubscriptionId();
+    this.receivedWhenLocked = base.isReceivedWhenLocked();
   }
 
   public IncomingTextMessage(List<IncomingTextMessage> fragments) {
@@ -106,34 +104,33 @@ public class IncomingTextMessage implements Parcelable {
       body.append(message.getMessageBody());
     }
 
-    this.message              = body.toString();
-    this.sender               = fragments.get(0).getSender();
-    this.senderDeviceId       = fragments.get(0).getSenderDeviceId();
-    this.protocol             = fragments.get(0).getProtocol();
+    this.message = body.toString();
+    this.sender = fragments.get(0).getSender();
+    this.senderDeviceId = fragments.get(0).getSenderDeviceId();
+    this.protocol = fragments.get(0).getProtocol();
     this.serviceCenterAddress = fragments.get(0).getServiceCenterAddress();
-    this.replyPathPresent     = fragments.get(0).isReplyPathPresent();
-    this.pseudoSubject        = fragments.get(0).getPseudoSubject();
-    this.sentTimestampMillis  = fragments.get(0).getSentTimestampMillis();
-    this.groupId              = fragments.get(0).getGroupId();
-    this.push                 = fragments.get(0).isPush();
-    this.subscriptionId       = fragments.get(0).getSubscriptionId();
-    this.receivedWhenLocked   = fragments.get(0).isReceivedWhenLocked();
+    this.replyPathPresent = fragments.get(0).isReplyPathPresent();
+    this.pseudoSubject = fragments.get(0).getPseudoSubject();
+    this.sentTimestampMillis = fragments.get(0).getSentTimestampMillis();
+    this.groupId = fragments.get(0).getGroupId();
+    this.push = fragments.get(0).isPush();
+    this.subscriptionId = fragments.get(0).getSubscriptionId();
+    this.receivedWhenLocked = fragments.get(0).isReceivedWhenLocked();
   }
 
-  protected IncomingTextMessage(String sender, String groupId)
-  {
-    this.message              = "";
-    this.sender               = sender;
-    this.senderDeviceId       = 1;
-    this.protocol             = 31338;
+  protected IncomingTextMessage(String sender, String groupId) {
+    this.message = "";
+    this.sender = sender;
+    this.senderDeviceId = 1;
+    this.protocol = 31338;
     this.serviceCenterAddress = "Outgoing";
-    this.replyPathPresent     = true;
-    this.pseudoSubject        = "";
-    this.sentTimestampMillis  = System.currentTimeMillis();
-    this.groupId              = groupId;
-    this.push                 = true;
-    this.subscriptionId       = -1;
-    this.receivedWhenLocked   = false;
+    this.replyPathPresent = true;
+    this.pseudoSubject = "";
+    this.sentTimestampMillis = System.currentTimeMillis();
+    this.groupId = groupId;
+    this.push = true;
+    this.subscriptionId = -1;
+    this.receivedWhenLocked = false;
   }
 
   public int getSubscriptionId() {

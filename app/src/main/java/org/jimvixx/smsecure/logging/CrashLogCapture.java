@@ -24,10 +24,10 @@ import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.BuildConfig;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +37,8 @@ public final class CrashLogCapture {
 
   private static final String CRASH_FILE_NAME = "last_crash.txt";
 
-  private CrashLogCapture() {}
+  private CrashLogCapture() {
+  }
 
   public static void install(@NonNull Context context) {
     final Context appContext = context.getApplicationContext();

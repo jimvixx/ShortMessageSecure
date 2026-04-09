@@ -18,7 +18,9 @@
 package org.jimvixx.smsecure.util;
 
 import android.content.Context;
+
 import androidx.appcompat.app.AlertDialog;
+
 import org.jimvixx.smsecure.R;
 
 public class Dialogs {

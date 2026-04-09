@@ -41,7 +41,7 @@ public final class SubscriptionManagerCompat {
    * Snapshot of the last successfully loaded compat list.
    * This is kept only as a best-effort cache for callers that explicitly invoke
    * updateActiveSubscriptionInfoList() and then want to reuse the last result.
-   *
+   * <p>
    * Important:
    * getActiveSubscriptionInfoList() does NOT trust this cache blindly and always
    * refreshes from the system to avoid stale or empty data being stuck after app install,
@@ -121,7 +121,7 @@ public final class SubscriptionManagerCompat {
 
   /**
    * Returns the current active subscription list.
-   *
+   * <p>
    * This method always refreshes from the framework instead of returning a stale cached list.
    * That prevents the common failure mode where the first query happens too early after install
    * or before telephony becomes ready, resulting in an empty list that remains cached forever.

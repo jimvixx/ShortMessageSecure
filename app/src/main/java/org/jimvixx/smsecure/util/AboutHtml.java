@@ -22,11 +22,11 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jimvixx.smsecure.BuildConfig;
 import org.jimvixx.smsecure.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Builds HTML for the About screen from the localized Distribution_long_description string.
@@ -34,12 +34,13 @@ import org.jimvixx.smsecure.R;
  */
 public final class AboutHtml {
 
-  private AboutHtml() {}
+  private AboutHtml() {
+  }
 
   @NonNull
   public static String build(@NonNull Context context) {
-    String issuesLink  = link(BuildConfig.ISSUES_REQUESTS_URL, BuildConfig.ISSUES_REQUESTS_URL);
-    String sourceLink  = link(BuildConfig.SOURCE_CODE_URL, BuildConfig.SOURCE_CODE_URL);
+    String issuesLink = link(BuildConfig.ISSUES_REQUESTS_URL, BuildConfig.ISSUES_REQUESTS_URL);
+    String sourceLink = link(BuildConfig.SOURCE_CODE_URL, BuildConfig.SOURCE_CODE_URL);
     String detailsLink = link(BuildConfig.MORE_DETAILS_URL, BuildConfig.MORE_DETAILS_URL);
     String privacyLink = link(BuildConfig.PRIVACY_POLICY_URL, BuildConfig.PRIVACY_POLICY_URL);
 

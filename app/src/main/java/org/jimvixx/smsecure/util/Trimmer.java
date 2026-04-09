@@ -43,7 +43,8 @@ import java.util.concurrent.Executors;
 /// Trims message history in all threads with an optional UI progress dialog.
 public final class Trimmer {
 
-  private Trimmer() {}
+  private Trimmer() {
+  }
 
   public static void trimAllThreads(@NonNull Context context, int threadLengthLimit) {
     new TrimmingProgressRunner(context).start(threadLengthLimit);
@@ -52,9 +53,9 @@ public final class Trimmer {
   private static final class TrimmingProgressRunner implements ThreadDatabase.ProgressListener {
 
     private final WeakReference<Context> contextRef;
-    private final Context                appContext;
-    private final Handler                mainHandler = new Handler(Looper.getMainLooper());
-    private final ExecutorService        executor    = Executors.newSingleThreadExecutor();
+    private final Context appContext;
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     // UI (only if we can show it)
     private AlertDialog dialog;
@@ -63,6 +64,11 @@ public final class Trimmer {
     TrimmingProgressRunner(@NonNull Context context) {
       this.contextRef = new WeakReference<>(context);
       this.appContext = context.getApplicationContext();
+    }
+
+    private static int dp(@NonNull Context context, int dp) {
+      float density = context.getResources().getDisplayMetrics().density;
+      return (int) (dp * density + 0.5f);
     }
 
     void start(int threadLengthLimit) {
@@ -175,11 +181,6 @@ public final class Trimmer {
       }
       dialog = null;
       progressBar = null;
-    }
-
-    private static int dp(@NonNull Context context, int dp) {
-      float density = context.getResources().getDisplayMetrics().density;
-      return (int) (dp * density + 0.5f);
     }
   }
 }

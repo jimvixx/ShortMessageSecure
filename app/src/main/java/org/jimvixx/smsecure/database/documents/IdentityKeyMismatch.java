@@ -1,7 +1,5 @@
 package org.jimvixx.smsecure.database.documents;
 
-import org.jimvixx.smsecure.logging.Log;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -12,6 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.Base64;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.InvalidKeyException;
@@ -30,7 +29,8 @@ public class IdentityKeyMismatch {
   @JsonDeserialize(using = IdentityKeyDeserializer.class)
   private IdentityKey identityKey;
 
-  public IdentityKeyMismatch() {}
+  public IdentityKeyMismatch() {
+  }
 
   public IdentityKeyMismatch(long recipientId, IdentityKey identityKey) {
     this.recipientId = recipientId;
@@ -47,24 +47,22 @@ public class IdentityKeyMismatch {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof IdentityKeyMismatch)) {
+    if (other == null || !(other instanceof IdentityKeyMismatch that)) {
       return false;
     }
 
-    IdentityKeyMismatch that = (IdentityKeyMismatch)other;
     return that.recipientId == this.recipientId && that.identityKey.equals(this.identityKey);
   }
 
   @Override
   public int hashCode() {
-    return (int)recipientId ^ identityKey.hashCode();
+    return (int) recipientId ^ identityKey.hashCode();
   }
 
   private static class IdentityKeySerializer extends JsonSerializer<IdentityKey> {
     @Override
     public void serialize(IdentityKey value, JsonGenerator jsonGenerator, SerializerProvider serializers)
-        throws IOException
-    {
+            throws IOException {
       jsonGenerator.writeString(Base64.encodeBytes(value.serialize()));
     }
   }
@@ -72,8 +70,7 @@ public class IdentityKeyMismatch {
   private static class IdentityKeyDeserializer extends JsonDeserializer<IdentityKey> {
     @Override
     public IdentityKey deserialize(JsonParser jsonParser, DeserializationContext ctxt)
-        throws IOException
-    {
+            throws IOException {
       try {
         return new IdentityKey(Base64.decode(jsonParser.getValueAsString()), 0);
       } catch (InvalidKeyException e) {

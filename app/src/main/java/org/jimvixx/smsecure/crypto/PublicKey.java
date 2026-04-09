@@ -20,13 +20,12 @@
 package org.jimvixx.smsecure.crypto;
 
 import org.jimvixx.smsecure.logging.Log;
-
+import org.jimvixx.smsecure.util.Conversions;
 import org.jimvixx.smsecure.util.Hex;
 import org.jimvixx.smsecure.util.Util;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECPublicKey;
-import org.jimvixx.smsecure.util.Conversions;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -39,7 +38,7 @@ public class PublicKey {
   private int id;
 
   public PublicKey(PublicKey publicKey) {
-    this.id        = publicKey.id;
+    this.id = publicKey.id;
 
     // FIXME :: This not strictly an accurate copy constructor.
     this.publicKey = publicKey.publicKey;
@@ -47,7 +46,7 @@ public class PublicKey {
 
   public PublicKey(int id, ECPublicKey publicKey) {
     this.publicKey = publicKey;
-    this.id        = id;
+    this.id = id;
   }
 
   public PublicKey(byte[] bytes, int offset) throws InvalidKeyException {
@@ -56,7 +55,7 @@ public class PublicKey {
     if ((bytes.length - offset) < KEY_SIZE)
       throw new InvalidKeyException("Provided bytes are too short.");
 
-    this.id        = Conversions.byteArrayToMedium(bytes, offset);
+    this.id = Conversions.byteArrayToMedium(bytes, offset);
     this.publicKey = Curve.decodePoint(bytes, offset + 3);
   }
 
@@ -68,12 +67,12 @@ public class PublicKey {
     return publicKey.getType();
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
   public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public ECPublicKey getKey() {
@@ -95,7 +94,7 @@ public class PublicKey {
   }
 
   public byte[] serialize() {
-    byte[] keyIdBytes      = Conversions.mediumToByteArray(id);
+    byte[] keyIdBytes = Conversions.mediumToByteArray(id);
     byte[] serializedPoint = publicKey.serialize();
 
     Log.w("PublicKey", "Serializing public key point: " + Hex.toString(serializedPoint));

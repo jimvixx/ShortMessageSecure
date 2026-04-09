@@ -33,11 +33,11 @@ import org.jimvixx.smsecure.util.ViewUtil;
  * View to display actionable reminders to the user
  */
 public class ReminderView extends LinearLayout {
-  private ViewGroup   container;
-  private TextView    acceptButton;
-  private TextView    closeButton;
-  private TextView    title;
-  private TextView    text;
+  private ViewGroup container;
+  private TextView acceptButton;
+  private TextView closeButton;
+  private TextView title;
+  private TextView text;
 
   public ReminderView(Context context) {
     super(context);
@@ -56,11 +56,11 @@ public class ReminderView extends LinearLayout {
 
   private void initialize() {
     LayoutInflater.from(getContext()).inflate(R.layout.reminder_header, this, true);
-    container    = ViewUtil.findById(this, R.id.container);
+    container = ViewUtil.findById(this, R.id.container);
     acceptButton = ViewUtil.findById(this, R.id.accept);
-    closeButton  = ViewUtil.findById(this, R.id.cancel);
-    title        = ViewUtil.findById(this, R.id.reminder_title);
-    text         = ViewUtil.findById(this, R.id.reminder_text);
+    closeButton = ViewUtil.findById(this, R.id.cancel);
+    title = ViewUtil.findById(this, R.id.reminder_title);
+    text = ViewUtil.findById(this, R.id.reminder_text);
   }
 
   public void showReminder(final Reminder reminder) {

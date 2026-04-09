@@ -42,33 +42,28 @@ import org.jimvixx.smsecure.util.ViewUtil;
 public class RecyclerViewFastScroller extends LinearLayout {
 
   private static final int BUBBLE_ANIMATION_DURATION = 100;
-  private static final int TRACK_SNAP_RANGE          = 5;
+  private static final int TRACK_SNAP_RANGE = 5;
 
   private final @NonNull TextView bubble;
-  private final @NonNull View     handle;
+  private final @NonNull View handle;
 
   private @Nullable RecyclerView recyclerView;
 
   private int height;
-  private @Nullable ObjectAnimator currentAnimator;
-
   private final RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
       if (handle.isSelected()) return;
 
-      final int offset      = recyclerView.computeVerticalScrollOffset();
-      final int range       = recyclerView.computeVerticalScrollRange();
-      final int extent      = recyclerView.computeVerticalScrollExtent();
+      final int offset = recyclerView.computeVerticalScrollOffset();
+      final int range = recyclerView.computeVerticalScrollRange();
+      final int extent = recyclerView.computeVerticalScrollExtent();
       final int offsetRange = Math.max(range - extent, 1);
 
       setBubbleAndHandlePosition((float) Util.clamp(offset, 0, offsetRange) / offsetRange);
     }
   };
-
-  public interface FastScrollAdapter {
-    CharSequence getBubbleText(int pos);
-  }
+  private @Nullable ObjectAnimator currentAnimator;
 
   public RecyclerViewFastScroller(@NonNull Context context) {
     this(context, null);
@@ -166,7 +161,7 @@ public class RecyclerViewFastScroller extends LinearLayout {
         if (handle.isSelected()) return true;
 
         final int verticalScrollOffset = recyclerView.computeVerticalScrollOffset();
-        final int verticalScrollRange  = recyclerView.computeVerticalScrollRange();
+        final int verticalScrollRange = recyclerView.computeVerticalScrollRange();
 
         // Avoid division by zero / negative.
         final int denom = Math.max(verticalScrollRange - height, 1);
@@ -271,5 +266,9 @@ public class RecyclerViewFastScroller extends LinearLayout {
     });
 
     currentAnimator.start();
+  }
+
+  public interface FastScrollAdapter {
+    CharSequence getBubbleText(int pos);
   }
 }

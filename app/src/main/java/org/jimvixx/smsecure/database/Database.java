@@ -26,12 +26,11 @@ import java.util.Set;
 public abstract class Database {
 
   protected static final String ID_WHERE = "_id = ?";
-
-  protected       SQLiteOpenHelper databaseHelper;
   protected final Context context;
+  protected SQLiteOpenHelper databaseHelper;
 
   public Database(Context context, SQLiteOpenHelper databaseHelper) {
-    this.context        = context;
+    this.context = context;
     this.databaseHelper = databaseHelper;
   }
 

@@ -21,11 +21,11 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 
 import org.jimvixx.smsecure.PanicResponderActivity;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
 public class DeviceLockPanicReceiver extends BroadcastReceiver {

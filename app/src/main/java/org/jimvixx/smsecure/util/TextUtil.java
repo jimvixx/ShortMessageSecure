@@ -21,7 +21,9 @@ import androidx.annotation.Nullable;
 
 public final class TextUtil {
 
-  private TextUtil() {}
+  private TextUtil() {
+  }
+
   @SuppressWarnings("SizeReplaceableByIsEmpty")
   public static boolean isEmpty(@Nullable CharSequence cs) {
     return cs == null || cs.length() == 0;

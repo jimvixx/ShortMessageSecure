@@ -18,5 +18,6 @@ package org.jimvixx.smsecure.util;
 
 public interface FutureTaskListener<V> {
   void onSuccess(V result);
+
   void onFailure(Throwable error);
 }

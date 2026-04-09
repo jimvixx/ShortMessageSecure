@@ -43,8 +43,8 @@ public class SendButtonController
   private boolean forceSend;
 
   public SendButtonController(@NonNull Context context, @NonNull SendButton sendButton) {
-    this.context          = context;
-    this.sendButton       = sendButton;
+    this.context = context;
+    this.sendButton = sendButton;
     this.transportOptions = new TransportOptions(context);
 
     this.transportOptions.addOnTransportChangedListener(this);

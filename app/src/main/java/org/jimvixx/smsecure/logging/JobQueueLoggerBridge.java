@@ -30,36 +30,30 @@ public final class JobQueueLoggerBridge implements JobQueueLogger {
                  @NonNull String message,
                  @Nullable Throwable throwable) {
     return switch (priority) {
-      case org.jimvixx.smsecure.logging.Log.VERBOSE ->
-              throwable != null
-                      ? org.jimvixx.smsecure.logging.Log.v(tag, message, throwable)
-                      : org.jimvixx.smsecure.logging.Log.v(tag, message);
+      case org.jimvixx.smsecure.logging.Log.VERBOSE -> throwable != null
+              ? org.jimvixx.smsecure.logging.Log.v(tag, message, throwable)
+              : org.jimvixx.smsecure.logging.Log.v(tag, message);
 
-      case org.jimvixx.smsecure.logging.Log.DEBUG ->
-              throwable != null
-                      ? org.jimvixx.smsecure.logging.Log.d(tag, message, throwable)
-                      : org.jimvixx.smsecure.logging.Log.d(tag, message);
+      case org.jimvixx.smsecure.logging.Log.DEBUG -> throwable != null
+              ? org.jimvixx.smsecure.logging.Log.d(tag, message, throwable)
+              : org.jimvixx.smsecure.logging.Log.d(tag, message);
 
-      case org.jimvixx.smsecure.logging.Log.INFO ->
-              throwable != null
-                      ? org.jimvixx.smsecure.logging.Log.i(tag, message, throwable)
-                      : org.jimvixx.smsecure.logging.Log.i(tag, message);
+      case org.jimvixx.smsecure.logging.Log.INFO -> throwable != null
+              ? org.jimvixx.smsecure.logging.Log.i(tag, message, throwable)
+              : org.jimvixx.smsecure.logging.Log.i(tag, message);
 
       case org.jimvixx.smsecure.logging.Log.ERROR,
-           org.jimvixx.smsecure.logging.Log.ASSERT ->
-              throwable != null
-                      ? org.jimvixx.smsecure.logging.Log.e(tag, message, throwable)
-                      : org.jimvixx.smsecure.logging.Log.e(tag, message);
+           org.jimvixx.smsecure.logging.Log.ASSERT -> throwable != null
+              ? org.jimvixx.smsecure.logging.Log.e(tag, message, throwable)
+              : org.jimvixx.smsecure.logging.Log.e(tag, message);
 
-      case org.jimvixx.smsecure.logging.Log.WARN ->
-              throwable != null
-                      ? org.jimvixx.smsecure.logging.Log.w(tag, message, throwable)
-                      : org.jimvixx.smsecure.logging.Log.w(tag, message);
+      case org.jimvixx.smsecure.logging.Log.WARN -> throwable != null
+              ? org.jimvixx.smsecure.logging.Log.w(tag, message, throwable)
+              : org.jimvixx.smsecure.logging.Log.w(tag, message);
 
-      default ->
-              throwable != null
-                      ? org.jimvixx.smsecure.logging.Log.w(tag, message, throwable)
-                      : org.jimvixx.smsecure.logging.Log.println(priority, tag, message);
+      default -> throwable != null
+              ? org.jimvixx.smsecure.logging.Log.w(tag, message, throwable)
+              : org.jimvixx.smsecure.logging.Log.println(priority, tag, message);
     };
   }
 

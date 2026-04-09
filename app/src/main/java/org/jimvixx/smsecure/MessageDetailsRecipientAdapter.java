@@ -14,18 +14,17 @@ import org.jimvixx.smsecure.recipients.Recipients;
 
 public class MessageDetailsRecipientAdapter extends BaseAdapter implements AbsListView.RecyclerListener {
 
-  private final Context       context;
-  private final MasterSecret  masterSecret;
+  private final Context context;
+  private final MasterSecret masterSecret;
   private final MessageRecord record;
-  private final Recipients    recipients;
+  private final Recipients recipients;
 
   public MessageDetailsRecipientAdapter(Context context, MasterSecret masterSecret,
-                                        MessageRecord record, Recipients recipients)
-  {
-    this.context      = context;
+                                        MessageRecord record, Recipients recipients) {
+    this.context = context;
     this.masterSecret = masterSecret;
-    this.record       = record;
-    this.recipients   = recipients;
+    this.record = record;
+    this.recipients = recipients;
   }
 
   @Override
@@ -50,13 +49,13 @@ public class MessageDetailsRecipientAdapter extends BaseAdapter implements AbsLi
     }
 
     Recipient recipient = recipients.getRecipientsList().get(position);
-    ((MessageRecipientListItem)convertView).set(masterSecret, record, recipient);
+    ((MessageRecipientListItem) convertView).set(masterSecret, record, recipient);
     return convertView;
   }
 
   @Override
   public void onMovedToScrapHeap(View view) {
-    ((MessageRecipientListItem)view).unbind();
+    ((MessageRecipientListItem) view).unbind();
   }
 
 }

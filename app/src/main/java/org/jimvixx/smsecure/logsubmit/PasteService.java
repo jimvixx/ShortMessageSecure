@@ -33,13 +33,13 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Uploads logs to paste services with fallbacks.
- *
+ * <p>
  * Fallback chain:
- *  1) paste.rs
- *  2) dpaste
- *  3) paste.c-net.org
- *  4) transfer.sh
- *  5) 0x0.st
+ * 1) paste.rs
+ * 2) dpaste
+ * 3) paste.c-net.org
+ * 4) transfer.sh
+ * 5) 0x0.st
  */
 public final class PasteService {
 
@@ -58,7 +58,8 @@ public final class PasteService {
   private static final String ENDPOINT_TRANSFER_SH = "https://transfer.sh/smsecure-logcat.txt";
   private static final String ENDPOINT_0X0 = "https://0x0.st";
 
-  private PasteService() {}
+  private PasteService() {
+  }
 
   @NonNull
   public static PasteResult upload(@NonNull String text) {

@@ -24,13 +24,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 
 import org.jimvixx.smsecure.DatabaseUpgradeActivity;
 import org.jimvixx.smsecure.contacts.ContactsDatabase;
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 
 import java.util.ArrayList;
@@ -39,52 +39,49 @@ import java.util.List;
 public class DatabaseFactory {
   private static final String TAG = DatabaseFactory.class.getSimpleName();
 
-  private static final int INTRODUCED_IDENTITIES_VERSION                   = 2;
-  private static final int INTRODUCED_INDEXES_VERSION                      = 3;
-  private static final int INTRODUCED_DATE_SENT_VERSION                    = 4;
-  private static final int INTRODUCED_DRAFTS_VERSION                       = 5;
-  private static final int INTRODUCED_NEW_TYPES_VERSION                    = 6;
-  private static final int INTRODUCED_MMS_BODY_VERSION                     = 7;
-  private static final int INTRODUCED_MMS_FROM_VERSION                     = 8;
-  private static final int INTRODUCED_TOFU_IDENTITY_VERSION                = 9;
-  private static final int INTRODUCED_PUSH_DATABASE_VERSION                = 10;
-  private static final int INTRODUCED_GROUP_DATABASE_VERSION               = 11;
-  private static final int INTRODUCED_DELIVERY_RECEIPTS                    = 13;
-  private static final int INTRODUCED_PART_DATA_SIZE_VERSION               = 14;
-  private static final int INTRODUCED_THUMBNAILS_VERSION                   = 15;
-  private static final int INTRODUCED_IDENTITY_COLUMN_VERSION              = 16;
-  private static final int INTRODUCED_UNIQUE_PART_IDS_VERSION              = 17;
-  private static final int INTRODUCED_RECIPIENT_PREFS_DB                   = 18;
-  private static final int INTRODUCED_COLOR_PREFERENCE_VERSION             = 20;
-  private static final int INTRODUCED_DELIVERY_DATE                        = 21;
-  private static final int INTRODUCED_DB_OPTIMIZATIONS_VERSION             = 22;
+  private static final int INTRODUCED_IDENTITIES_VERSION = 2;
+  private static final int INTRODUCED_INDEXES_VERSION = 3;
+  private static final int INTRODUCED_DATE_SENT_VERSION = 4;
+  private static final int INTRODUCED_DRAFTS_VERSION = 5;
+  private static final int INTRODUCED_NEW_TYPES_VERSION = 6;
+  private static final int INTRODUCED_MMS_BODY_VERSION = 7;
+  private static final int INTRODUCED_MMS_FROM_VERSION = 8;
+  private static final int INTRODUCED_TOFU_IDENTITY_VERSION = 9;
+  private static final int INTRODUCED_PUSH_DATABASE_VERSION = 10;
+  private static final int INTRODUCED_GROUP_DATABASE_VERSION = 11;
+  private static final int INTRODUCED_DELIVERY_RECEIPTS = 13;
+  private static final int INTRODUCED_PART_DATA_SIZE_VERSION = 14;
+  private static final int INTRODUCED_THUMBNAILS_VERSION = 15;
+  private static final int INTRODUCED_IDENTITY_COLUMN_VERSION = 16;
+  private static final int INTRODUCED_UNIQUE_PART_IDS_VERSION = 17;
+  private static final int INTRODUCED_RECIPIENT_PREFS_DB = 18;
+  private static final int INTRODUCED_COLOR_PREFERENCE_VERSION = 20;
+  private static final int INTRODUCED_DELIVERY_DATE = 21;
+  private static final int INTRODUCED_DB_OPTIMIZATIONS_VERSION = 22;
   private static final int INTRODUCED_CONVERSATION_LIST_THUMBNAILS_VERSION = 23;
-  private static final int INTRODUCED_ARCHIVE_VERSION                      = 24;
-  private static final int INTRODUCED_CONVERSATION_LIST_STATUS_VERSION     = 25;
-  private static final int MIGRATED_CONVERSATION_LIST_STATUS_VERSION       = 26;
-  private static final int INTRODUCED_SUBSCRIPTION_ID_VERSION              = 28;
-  private static final int INTRODUCED_LAST_SEEN                            = 29;
-  private static final int INTRODUCED_NOTIFIED                             = 30;
+  private static final int INTRODUCED_ARCHIVE_VERSION = 24;
+  private static final int INTRODUCED_CONVERSATION_LIST_STATUS_VERSION = 25;
+  private static final int MIGRATED_CONVERSATION_LIST_STATUS_VERSION = 26;
+  private static final int INTRODUCED_SUBSCRIPTION_ID_VERSION = 28;
+  private static final int INTRODUCED_LAST_SEEN = 29;
+  private static final int INTRODUCED_NOTIFIED = 30;
 
   /*
    * Yes, INTRODUCED_XMPP_TRANSPORT > DATABASE_VERSION to allow database
    * downgrade when XMPP transport will be included in unstable branch.
    */
-  private static final int INTRODUCED_XMPP_TRANSPORT                       = 31;
+  private static final int INTRODUCED_XMPP_TRANSPORT = 31;
   private static final int RENAMED_IDENTITY_KEY_COLUMN_VERSION = 33;
   private static final int INTRODUCED_IDENTITY_VERIFIED_VERSION = 34;
 
   //removed MmsDatabase & MmsAddressDatabase & AttachmentDatabase
   //private static final int DROPPED_MMS_LEGACY_TABLES_VERSION = 35;
 
-  private static final int DATABASE_VERSION                     = 34;
-  private static final String DATABASE_NAME    = "messages.db";
-  private static final Object lock             = new Object();
+  private static final int DATABASE_VERSION = 34;
+  private static final String DATABASE_NAME = "messages.db";
+  private static final Object lock = new Object();
 
   private static DatabaseFactory instance;
-
-  private DatabaseHelper databaseHelper;
-
   private final SmsDatabase sms;
   private final EncryptingSmsDatabase encryptingSms;
   private final ThreadDatabase thread;
@@ -94,6 +91,20 @@ public class DatabaseFactory {
   private final DraftDatabase draftDatabase;
   private final RecipientPreferenceDatabase recipientPreferenceDatabase;
   private final ContactsDatabase contactsDatabase;
+  private DatabaseHelper databaseHelper;
+
+  private DatabaseFactory(Context context) {
+    this.databaseHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+    this.sms = new SmsDatabase(context, databaseHelper);
+    this.encryptingSms = new EncryptingSmsDatabase(context, databaseHelper);
+    this.thread = new ThreadDatabase(context, databaseHelper);
+    this.address = CanonicalAddressDatabase.getInstance(context);
+    this.messageDatabase = new MessageDatabase(context, databaseHelper);
+    this.identityDatabase = new IdentityDatabase(context, databaseHelper);
+    this.draftDatabase = new DraftDatabase(context, databaseHelper);
+    this.recipientPreferenceDatabase = new RecipientPreferenceDatabase(context, databaseHelper);
+    this.contactsDatabase = new ContactsDatabase(context);
+  }
 
   public static DatabaseFactory getInstance(Context context) {
     synchronized (lock) {
@@ -140,19 +151,6 @@ public class DatabaseFactory {
     return getInstance(context).contactsDatabase;
   }
 
-  private DatabaseFactory(Context context) {
-    this.databaseHelper              = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
-    this.sms                         = new SmsDatabase(context, databaseHelper);
-    this.encryptingSms               = new EncryptingSmsDatabase(context, databaseHelper);
-    this.thread                      = new ThreadDatabase(context, databaseHelper);
-    this.address                     = CanonicalAddressDatabase.getInstance(context);
-    this.messageDatabase              = new MessageDatabase(context, databaseHelper);
-    this.identityDatabase            = new IdentityDatabase(context, databaseHelper);
-    this.draftDatabase               = new DraftDatabase(context, databaseHelper);
-    this.recipientPreferenceDatabase = new RecipientPreferenceDatabase(context, databaseHelper);
-    this.contactsDatabase            = new ContactsDatabase(context);
-  }
-
   public void reset(Context context) {
     DatabaseHelper old = this.databaseHelper;
     this.databaseHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -170,8 +168,7 @@ public class DatabaseFactory {
   }
 
   public void onApplicationLevelUpgrade(Context context, MasterSecret masterSecret, int fromVersion,
-                                        DatabaseUpgradeActivity.DatabaseUpgradeListener listener)
-  {
+                                        DatabaseUpgradeActivity.DatabaseUpgradeListener listener) {
     int total = 5;
     listener.setProgress(0, total);
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -193,6 +190,83 @@ public class DatabaseFactory {
 
     public DatabaseHelper(Context context, String name, CursorFactory factory, int version) {
       super(context, name, factory, version);
+    }
+
+    private static void dropTableIfExists(@NonNull SQLiteDatabase db, @NonNull String table) {
+      if (tableExists(db, table)) {
+        db.execSQL("DROP TABLE IF EXISTS " + table);
+      }
+    }
+
+    private static void dropIndexIfExists(@NonNull SQLiteDatabase db, @NonNull String index) {
+      db.execSQL("DROP INDEX IF EXISTS " + index);
+    }
+
+    private static void migrateIdentityKeyColumn(@NonNull SQLiteDatabase db) {
+      if (!tableExists(db, "identities")) return;
+
+      boolean hasKey = hasColumn(db, "identities", "key");
+      boolean hasIdentityKey = hasColumn(db, "identities", "identity_key");
+
+      if (!hasKey || hasIdentityKey) return;
+
+      boolean hasRecipient = hasColumn(db, "identities", "recipient");
+      boolean hasName = hasColumn(db, "identities", "name");
+      boolean hasMac = hasColumn(db, "identities", "mac");
+
+      db.execSQL("ALTER TABLE identities RENAME TO identities_old;");
+
+      db.execSQL(
+              "CREATE TABLE identities (" +
+                      "_id INTEGER PRIMARY KEY, " +
+                      "recipient INTEGER UNIQUE, " +
+                      "identity_key TEXT, " +
+                      "name TEXT, " +
+                      "mac TEXT" +
+                      ");"
+      );
+
+      String recipientExpr = hasRecipient ? "recipient" : "NULL";
+      String nameExpr = hasName ? "name" : "NULL";
+      String macExpr = hasMac ? "mac" : "NULL";
+
+      db.execSQL(
+              "INSERT INTO identities (_id, recipient, identity_key, name, mac) " +
+                      "SELECT _id, " + recipientExpr + ", key, " + nameExpr + ", " + macExpr + " " +
+                      "FROM identities_old;"
+      );
+
+      db.execSQL("DROP TABLE identities_old;");
+    }
+
+    private static void addIdentityVerifiedColumn(@NonNull SQLiteDatabase db) {
+      if (!tableExists(db, "identities")) return;
+
+      // if already exists - no-op
+      if (hasColumn(db, "identities", "verified")) return;
+
+      db.execSQL("ALTER TABLE identities ADD COLUMN verified INTEGER DEFAULT 0");
+    }
+
+    private static boolean tableExists(@NonNull SQLiteDatabase db, @NonNull String table) {
+      try (Cursor c = db.rawQuery(
+              "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+              new String[]{table})) {
+        return c.moveToFirst();
+      }
+    }
+
+    private static boolean hasColumn(@NonNull SQLiteDatabase db,
+                                     @NonNull String table,
+                                     @NonNull String column) {
+      try (Cursor c = db.rawQuery("PRAGMA table_info(" + table + ")", null)) {
+        int nameIndex = c.getColumnIndex("name");
+        while (c.moveToNext()) {
+          String name = c.getString(nameIndex);
+          if (column.equals(name)) return true;
+        }
+        return false;
+      }
     }
 
     @Override
@@ -225,26 +299,26 @@ public class DatabaseFactory {
       }
 
       if (oldVersion < INTRODUCED_INDEXES_VERSION) {
-        executeStatements(db, new String[] {
-            "CREATE INDEX IF NOT EXISTS sms_thread_id_index ON sms (thread_id);",
-            "CREATE INDEX IF NOT EXISTS sms_read_index ON sms (read);",
-            "CREATE INDEX IF NOT EXISTS sms_read_and_thread_id_index ON sms (read,thread_id);",
-            "CREATE INDEX IF NOT EXISTS sms_type_index ON sms (type);"
+        executeStatements(db, new String[]{
+                "CREATE INDEX IF NOT EXISTS sms_thread_id_index ON sms (thread_id);",
+                "CREATE INDEX IF NOT EXISTS sms_read_index ON sms (read);",
+                "CREATE INDEX IF NOT EXISTS sms_read_and_thread_id_index ON sms (read,thread_id);",
+                "CREATE INDEX IF NOT EXISTS sms_type_index ON sms (type);"
         });
-        executeStatements(db, new String[] {
-            "CREATE INDEX IF NOT EXISTS mms_thread_id_index ON mms (thread_id);",
-            "CREATE INDEX IF NOT EXISTS mms_read_index ON mms (read);",
-            "CREATE INDEX IF NOT EXISTS mms_read_and_thread_id_index ON mms (read,thread_id);",
-            "CREATE INDEX IF NOT EXISTS mms_message_box_index ON mms (msg_box);"
+        executeStatements(db, new String[]{
+                "CREATE INDEX IF NOT EXISTS mms_thread_id_index ON mms (thread_id);",
+                "CREATE INDEX IF NOT EXISTS mms_read_index ON mms (read);",
+                "CREATE INDEX IF NOT EXISTS mms_read_and_thread_id_index ON mms (read,thread_id);",
+                "CREATE INDEX IF NOT EXISTS mms_message_box_index ON mms (msg_box);"
         });
-        executeStatements(db, new String[] {
-            "CREATE INDEX IF NOT EXISTS part_mms_id_index ON part (mid);"
+        executeStatements(db, new String[]{
+                "CREATE INDEX IF NOT EXISTS part_mms_id_index ON part (mid);"
         });
-        executeStatements(db, new String[] {
-            "CREATE INDEX IF NOT EXISTS thread_recipient_ids_index ON thread (recipient_ids);",
+        executeStatements(db, new String[]{
+                "CREATE INDEX IF NOT EXISTS thread_recipient_ids_index ON thread (recipient_ids);",
         });
-        executeStatements(db, new String[] {
-            "CREATE INDEX IF NOT EXISTS mms_addresses_mms_id_index ON mms_addresses (mms_id);",
+        executeStatements(db, new String[]{
+                "CREATE INDEX IF NOT EXISTS mms_addresses_mms_id_index ON mms_addresses (mms_id);",
         });
       }
 
@@ -258,116 +332,116 @@ public class DatabaseFactory {
 
       if (oldVersion < INTRODUCED_DRAFTS_VERSION) {
         db.execSQL("CREATE TABLE drafts (_id INTEGER PRIMARY KEY, thread_id INTEGER, type TEXT, value TEXT);");
-        executeStatements(db, new String[] {
-            "CREATE INDEX IF NOT EXISTS draft_thread_index ON drafts (thread_id);",
+        executeStatements(db, new String[]{
+                "CREATE INDEX IF NOT EXISTS draft_thread_index ON drafts (thread_id);",
         });
       }
 
       if (oldVersion < INTRODUCED_NEW_TYPES_VERSION) {
-        String KEY_EXCHANGE             = "?SMSecureKeyExchange";
-        String SYMMETRIC_ENCRYPT        = "?SMSecureLocalEncrypt";
-        String ASYMMETRIC_ENCRYPT       = "?SMSecureAsymmetricEncrypt";
+        String KEY_EXCHANGE = "?SMSecureKeyExchange";
+        String SYMMETRIC_ENCRYPT = "?SMSecureLocalEncrypt";
+        String ASYMMETRIC_ENCRYPT = "?SMSecureAsymmetricEncrypt";
         String ASYMMETRIC_LOCAL_ENCRYPT = "?SMSecureAsymmetricLocalEncrypt";
-        String PROCESSED_KEY_EXCHANGE   = "?SMSecureKeyExchangd";
-        String STALE_KEY_EXCHANGE       = "?SMSecureKeyExchangs";
+        String PROCESSED_KEY_EXCHANGE = "?SMSecureKeyExchangd";
+        String STALE_KEY_EXCHANGE = "?SMSecureKeyExchangs";
 
         // SMS Updates
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {20L+"", 1L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {21L+"", 43L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {22L+"", 4L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {23L+"", 2L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {24L+"", 5L+""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{20L + "", 1L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{21L + "", 43L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{22L + "", 4L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{23L + "", 2L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{24L + "", 5L + ""});
 
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {(21L | 0x800000L)+"", 42L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {(23L | 0x800000L)+"", 44L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {(20L | 0x800000L)+"", 45L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {(20L | 0x800000L | 0x10000000L)+"", 46L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {(20L)+"", 47L+""});
-        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[] {(20L | 0x800000L | 0x08000000L)+"", 48L+""});
-
-        db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
-                   new String[] {(SYMMETRIC_ENCRYPT.length()+1)+"",
-                                  0x80000000L+"",
-                                  SYMMETRIC_ENCRYPT + "%"});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{(21L | 0x800000L) + "", 42L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{(23L | 0x800000L) + "", 44L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{(20L | 0x800000L) + "", 45L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{(20L | 0x800000L | 0x10000000L) + "", 46L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{(20L) + "", 47L + ""});
+        db.execSQL("UPDATE sms SET type = ? WHERE type = ?", new String[]{(20L | 0x800000L | 0x08000000L) + "", 48L + ""});
 
         db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
-                   new String[] {(ASYMMETRIC_LOCAL_ENCRYPT.length()+1)+"",
-                                  0x40000000L+"",
-                                  ASYMMETRIC_LOCAL_ENCRYPT + "%"});
+                new String[]{(SYMMETRIC_ENCRYPT.length() + 1) + "",
+                        0x80000000L + "",
+                        SYMMETRIC_ENCRYPT + "%"});
 
         db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
-                   new String[] {(ASYMMETRIC_ENCRYPT.length()+1)+"",
-                                 (0x800000L | 0x20000000L)+"",
-                                 ASYMMETRIC_ENCRYPT + "%"});
+                new String[]{(ASYMMETRIC_LOCAL_ENCRYPT.length() + 1) + "",
+                        0x40000000L + "",
+                        ASYMMETRIC_LOCAL_ENCRYPT + "%"});
 
         db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
-                   new String[] {(KEY_EXCHANGE.length()+1)+"",
-                                  0x8000L+"",
-                                  KEY_EXCHANGE + "%"});
+                new String[]{(ASYMMETRIC_ENCRYPT.length() + 1) + "",
+                        (0x800000L | 0x20000000L) + "",
+                        ASYMMETRIC_ENCRYPT + "%"});
 
         db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
-                   new String[] {(PROCESSED_KEY_EXCHANGE.length()+1)+"",
-                                  (0x8000L | 0x2000L)+"",
-                                  PROCESSED_KEY_EXCHANGE + "%"});
+                new String[]{(KEY_EXCHANGE.length() + 1) + "",
+                        0x8000L + "",
+                        KEY_EXCHANGE + "%"});
 
         db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
-                   new String[] {(STALE_KEY_EXCHANGE.length()+1)+"",
-                                 (0x8000L | 0x4000L)+"",
-                                 STALE_KEY_EXCHANGE + "%"});
+                new String[]{(PROCESSED_KEY_EXCHANGE.length() + 1) + "",
+                        (0x8000L | 0x2000L) + "",
+                        PROCESSED_KEY_EXCHANGE + "%"});
+
+        db.execSQL("UPDATE sms SET body = substr(body, ?), type = type | ? WHERE body LIKE ?",
+                new String[]{(STALE_KEY_EXCHANGE.length() + 1) + "",
+                        (0x8000L | 0x4000L) + "",
+                        STALE_KEY_EXCHANGE + "%"});
 
         // MMS Updates
 
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(20L | 0x80000000L)+"", 1+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(23L | 0x80000000L)+"", 2+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(21L | 0x80000000L)+"", 4+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(24L | 0x80000000L)+"", 12+""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(20L | 0x80000000L) + "", 1 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(23L | 0x80000000L) + "", 2 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(21L | 0x80000000L) + "", 4 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(24L | 0x80000000L) + "", 12 + ""});
 
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(21L | 0x80000000L | 0x800000L) +"", 5+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(23L | 0x80000000L | 0x800000L) +"", 6+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(20L | 0x20000000L | 0x800000L) +"", 7+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(20L | 0x80000000L | 0x800000L) +"", 8+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(20L | 0x08000000L | 0x800000L) +"", 9+""});
-        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[] {(20L | 0x10000000L | 0x800000L) +"", 10+""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(21L | 0x80000000L | 0x800000L) + "", 5 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(23L | 0x80000000L | 0x800000L) + "", 6 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(20L | 0x20000000L | 0x800000L) + "", 7 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(20L | 0x80000000L | 0x800000L) + "", 8 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(20L | 0x08000000L | 0x800000L) + "", 9 + ""});
+        db.execSQL("UPDATE mms SET msg_box = ? WHERE msg_box = ?", new String[]{(20L | 0x10000000L | 0x800000L) + "", 10 + ""});
 
         // Thread Updates
 
         db.execSQL("ALTER TABLE thread ADD COLUMN snippet_type INTEGER;");
 
         db.execSQL("UPDATE thread SET snippet = substr(snippet, ?), " +
-                   "snippet_type = ? WHERE snippet LIKE ?",
-                   new String[] {(SYMMETRIC_ENCRYPT.length()+1)+"",
-                                 0x80000000L+"",
-                                 SYMMETRIC_ENCRYPT + "%"});
+                        "snippet_type = ? WHERE snippet LIKE ?",
+                new String[]{(SYMMETRIC_ENCRYPT.length() + 1) + "",
+                        0x80000000L + "",
+                        SYMMETRIC_ENCRYPT + "%"});
 
         db.execSQL("UPDATE thread SET snippet = substr(snippet, ?), " +
-                   "snippet_type = ? WHERE snippet LIKE ?",
-                   new String[] {(ASYMMETRIC_LOCAL_ENCRYPT.length()+1)+"",
-                                  0x40000000L+"",
-                                  ASYMMETRIC_LOCAL_ENCRYPT + "%"});
+                        "snippet_type = ? WHERE snippet LIKE ?",
+                new String[]{(ASYMMETRIC_LOCAL_ENCRYPT.length() + 1) + "",
+                        0x40000000L + "",
+                        ASYMMETRIC_LOCAL_ENCRYPT + "%"});
 
         db.execSQL("UPDATE thread SET snippet = substr(snippet, ?), " +
-                   "snippet_type = ? WHERE snippet LIKE ?",
-                   new String[] {(ASYMMETRIC_ENCRYPT.length()+1)+"",
-                                 (0x800000L | 0x20000000L)+"",
-                                 ASYMMETRIC_ENCRYPT + "%"});
+                        "snippet_type = ? WHERE snippet LIKE ?",
+                new String[]{(ASYMMETRIC_ENCRYPT.length() + 1) + "",
+                        (0x800000L | 0x20000000L) + "",
+                        ASYMMETRIC_ENCRYPT + "%"});
 
         db.execSQL("UPDATE thread SET snippet = substr(snippet, ?), " +
-                   "snippet_type = ? WHERE snippet LIKE ?",
-                   new String[] {(KEY_EXCHANGE.length()+1)+"",
-                       0x8000L+"",
-                       KEY_EXCHANGE + "%"});
+                        "snippet_type = ? WHERE snippet LIKE ?",
+                new String[]{(KEY_EXCHANGE.length() + 1) + "",
+                        0x8000L + "",
+                        KEY_EXCHANGE + "%"});
 
         db.execSQL("UPDATE thread SET snippet = substr(snippet, ?), " +
-                   "snippet_type = ? WHERE snippet LIKE ?",
-                   new String[] {(STALE_KEY_EXCHANGE.length()+1)+"",
-                                 (0x8000L | 0x4000L)+"",
-                                 STALE_KEY_EXCHANGE + "%"});
+                        "snippet_type = ? WHERE snippet LIKE ?",
+                new String[]{(STALE_KEY_EXCHANGE.length() + 1) + "",
+                        (0x8000L | 0x4000L) + "",
+                        STALE_KEY_EXCHANGE + "%"});
 
         db.execSQL("UPDATE thread SET snippet = substr(snippet, ?), " +
-                   "snippet_type = ? WHERE snippet LIKE ?",
-                   new String[] {(PROCESSED_KEY_EXCHANGE.length()+1)+"",
-                                 (0x8000L | 0x2000L)+"",
-                                 PROCESSED_KEY_EXCHANGE + "%"});
+                        "snippet_type = ? WHERE snippet LIKE ?",
+                new String[]{(PROCESSED_KEY_EXCHANGE.length() + 1) + "",
+                        (0x8000L | 0x2000L) + "",
+                        PROCESSED_KEY_EXCHANGE + "%"});
       }
 
       if (oldVersion < INTRODUCED_MMS_BODY_VERSION) {
@@ -378,15 +452,15 @@ public class DatabaseFactory {
       if (oldVersion < INTRODUCED_MMS_FROM_VERSION) {
         db.execSQL("ALTER TABLE mms ADD COLUMN address TEXT");
 
-        Cursor cursor = db.query("mms_addresses", null, "type = ?", new String[] {0x89+""},
-                                 null, null, null);
+        Cursor cursor = db.query("mms_addresses", null, "type = ?", new String[]{0x89 + ""},
+                null, null, null);
 
         while (cursor.moveToNext()) {
-          long mmsId     = cursor.getLong(cursor.getColumnIndexOrThrow("mms_id"));
+          long mmsId = cursor.getLong(cursor.getColumnIndexOrThrow("mms_id"));
           String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
           if (!TextUtils.isEmpty(address)) {
-            db.execSQL("UPDATE mms SET address = ? WHERE _id = ?", new String[]{address, mmsId+""});
+            db.execSQL("UPDATE mms SET address = ? WHERE _id = ?", new String[]{address, mmsId + ""});
           }
         }
 
@@ -436,8 +510,8 @@ public class DatabaseFactory {
 
       if (oldVersion < INTRODUCED_RECIPIENT_PREFS_DB) {
         db.execSQL("CREATE TABLE recipient_preferences " +
-                   "(_id INTEGER PRIMARY KEY, recipient_ids TEXT UNIQUE, block INTEGER DEFAULT 0, " +
-                   "notification TEXT DEFAULT NULL, vibrate INTEGER DEFAULT 0, mute_until INTEGER DEFAULT 0)");
+                "(_id INTEGER PRIMARY KEY, recipient_ids TEXT UNIQUE, block INTEGER DEFAULT 0, " +
+                "notification TEXT DEFAULT NULL, vibrate INTEGER DEFAULT 0, mute_until INTEGER DEFAULT 0)");
       }
 
       if (oldVersion < INTRODUCED_COLOR_PREFERENCE_VERSION) {
@@ -543,7 +617,7 @@ public class DatabaseFactory {
 //        dropTableIfExists(db, "mms_addresses");
 //        dropTableIfExists(db, "mms");
 
-        //AttachmentDatabase
+      //AttachmentDatabase
 //      dropIndexIfExists(db, "part_mms_id_index");
 //      dropIndexIfExists(db, "pending_push_index");
 //      dropTableIfExists(db, "part");
@@ -551,83 +625,6 @@ public class DatabaseFactory {
 
       db.setTransactionSuccessful();
       db.endTransaction();
-    }
-
-    private static void dropTableIfExists(@NonNull SQLiteDatabase db, @NonNull String table) {
-      if (tableExists(db, table)) {
-        db.execSQL("DROP TABLE IF EXISTS " + table);
-      }
-    }
-
-    private static void dropIndexIfExists(@NonNull SQLiteDatabase db, @NonNull String index) {
-      db.execSQL("DROP INDEX IF EXISTS " + index);
-    }
-
-    private static void migrateIdentityKeyColumn(@NonNull SQLiteDatabase db) {
-      if (!tableExists(db, "identities")) return;
-
-      boolean hasKey = hasColumn(db, "identities", "key");
-      boolean hasIdentityKey = hasColumn(db, "identities", "identity_key");
-
-      if (!hasKey || hasIdentityKey) return;
-
-      boolean hasRecipient = hasColumn(db, "identities", "recipient");
-      boolean hasName      = hasColumn(db, "identities", "name");
-      boolean hasMac       = hasColumn(db, "identities", "mac");
-
-      db.execSQL("ALTER TABLE identities RENAME TO identities_old;");
-
-      db.execSQL(
-              "CREATE TABLE identities (" +
-                      "_id INTEGER PRIMARY KEY, " +
-                      "recipient INTEGER UNIQUE, " +
-                      "identity_key TEXT, " +
-                      "name TEXT, " +
-                      "mac TEXT" +
-                      ");"
-      );
-
-      String recipientExpr = hasRecipient ? "recipient" : "NULL";
-      String nameExpr      = hasName ? "name" : "NULL";
-      String macExpr       = hasMac ? "mac" : "NULL";
-
-      db.execSQL(
-              "INSERT INTO identities (_id, recipient, identity_key, name, mac) " +
-                      "SELECT _id, " + recipientExpr + ", key, " + nameExpr + ", " + macExpr + " " +
-                      "FROM identities_old;"
-      );
-
-      db.execSQL("DROP TABLE identities_old;");
-    }
-
-    private static void addIdentityVerifiedColumn(@NonNull SQLiteDatabase db) {
-      if (!tableExists(db, "identities")) return;
-
-      // if already exists - no-op
-      if (hasColumn(db, "identities", "verified")) return;
-
-      db.execSQL("ALTER TABLE identities ADD COLUMN verified INTEGER DEFAULT 0");
-    }
-
-    private static boolean tableExists(@NonNull SQLiteDatabase db, @NonNull String table) {
-      try (Cursor c = db.rawQuery(
-              "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
-              new String[]{table})) {
-        return c.moveToFirst();
-      }
-    }
-
-    private static boolean hasColumn(@NonNull SQLiteDatabase db,
-                                     @NonNull String table,
-                                     @NonNull String column) {
-      try (Cursor c = db.rawQuery("PRAGMA table_info(" + table + ")", null)) {
-        int nameIndex = c.getColumnIndex("name");
-        while (c.moveToNext()) {
-          String name = c.getString(nameIndex);
-          if (column.equals(name)) return true;
-        }
-        return false;
-      }
     }
 
     private void executeStatements(SQLiteDatabase db, String[] statements) {

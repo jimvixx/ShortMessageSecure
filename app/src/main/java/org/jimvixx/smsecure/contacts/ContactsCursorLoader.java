@@ -23,34 +23,30 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
 import android.text.TextUtils;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 import androidx.loader.content.CursorLoader;
 
 import org.jimvixx.smsecure.database.DatabaseFactory;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.NumberUtil;
 
 import java.util.ArrayList;
 
 /**
  * CursorLoader that merges SMSSecure contacts and system contacts.
- *
+ * <p>
  * Important:
  * MergeCursor merges rows by column INDEX, not by column NAME.
  * If underlying cursors have the same columns in different orders, data gets scrambled.
- *
+ * <p>
  * We normalize every cursor to a stable schema (same columns in same order) before merging.
  */
 public class ContactsCursorLoader extends CursorLoader {
 
   private static final String TAG = ContactsCursorLoader.class.getSimpleName();
-
-  private final String  filter;
-  private final boolean includeSmsContacts;
-
   // Stable schema used for MergeCursor (order matters!)
-  private static final String[] STABLE_COLUMNS = new String[] {
+  private static final String[] STABLE_COLUMNS = new String[]{
           ContactsDatabase.ID_COLUMN,
           ContactsDatabase.CONTACT_TYPE_COLUMN,
           ContactsDatabase.NAME_COLUMN,
@@ -58,20 +54,29 @@ public class ContactsCursorLoader extends CursorLoader {
           ContactsDatabase.NUMBER_TYPE_COLUMN,
           ContactsDatabase.LABEL_COLUMN
   };
+  private final String filter;
+  private final boolean includeSmsContacts;
 
   public ContactsCursorLoader(Context context, boolean includeSmsContacts, String filter) {
     super(context);
-    this.filter              = filter;
-    this.includeSmsContacts  = includeSmsContacts;
+    this.filter = filter;
+    this.includeSmsContacts = includeSmsContacts;
+  }
+
+  private static void closeQuietly(Cursor c) {
+    try {
+      if (c != null) c.close();
+    } catch (Throwable ignored) {
+    }
   }
 
   @Override
   public Cursor loadInBackground() {
     ContactsDatabase contactsDatabase = DatabaseFactory.getContactsDatabase(getContext());
-    ArrayList<Cursor> cursorList      = new ArrayList<>(3);
+    ArrayList<Cursor> cursorList = new ArrayList<>(3);
 
     Cursor smsecure = null;
-    Cursor system   = null;
+    Cursor system = null;
     Cursor typedNew = null;
 
     try {
@@ -101,13 +106,6 @@ public class ContactsCursorLoader extends CursorLoader {
     }
   }
 
-  private static void closeQuietly(Cursor c) {
-    try {
-      if (c != null) c.close();
-    } catch (Throwable ignored) {
-    }
-  }
-
   /**
    * Normalize an arbitrary cursor into a MatrixCursor with STABLE_COLUMNS order.
    * This avoids MergeCursor column-index corruption when sources use different projections.
@@ -116,12 +114,12 @@ public class ContactsCursorLoader extends CursorLoader {
     MatrixCursor out = new MatrixCursor(STABLE_COLUMNS);
 
     // Resolve indices by NAME in the source cursor.
-    final int idxId         = source.getColumnIndex(ContactsDatabase.ID_COLUMN);
-    final int idxType       = source.getColumnIndex(ContactsDatabase.CONTACT_TYPE_COLUMN);
-    final int idxName       = source.getColumnIndex(ContactsDatabase.NAME_COLUMN);
-    final int idxNumber     = source.getColumnIndex(ContactsDatabase.NUMBER_COLUMN);
+    final int idxId = source.getColumnIndex(ContactsDatabase.ID_COLUMN);
+    final int idxType = source.getColumnIndex(ContactsDatabase.CONTACT_TYPE_COLUMN);
+    final int idxName = source.getColumnIndex(ContactsDatabase.NAME_COLUMN);
+    final int idxNumber = source.getColumnIndex(ContactsDatabase.NUMBER_COLUMN);
     final int idxNumberType = source.getColumnIndex(ContactsDatabase.NUMBER_TYPE_COLUMN);
-    final int idxLabel      = source.getColumnIndex(ContactsDatabase.LABEL_COLUMN);
+    final int idxLabel = source.getColumnIndex(ContactsDatabase.LABEL_COLUMN);
 
     if (idxId < 0 || idxType < 0) {
       Log.w(TAG, "Cursor '" + label + "' is missing required columns. id=" + idxId + " type=" + idxType);

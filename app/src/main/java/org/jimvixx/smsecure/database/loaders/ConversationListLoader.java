@@ -36,28 +36,27 @@ import java.util.List;
 /**
  * Loader for conversation list.
  * Handles:
- *  - normal (unarchived) list
- *  - archived list
- *  - filtered (search) list
- *
+ * - normal (unarchived) list
+ * - archived list
+ * - filtered (search) list
+ * <p>
  * Search is delegated to ThreadDatabase and is performed against chats as represented
  * by the application itself, not against Android contacts.
  */
 public class ConversationListLoader extends AbstractCursorLoader {
 
-  private final String       filter;
-  private final boolean      archived;
+  private final String filter;
+  private final boolean archived;
   private final MasterSecret masterSecret;
 
   public ConversationListLoader(Context context,
                                 @Nullable MasterSecret masterSecret,
                                 @Nullable String filter,
-                                boolean archived)
-  {
+                                boolean archived) {
     super(context);
     this.masterSecret = masterSecret;
-    this.filter       = filter;
-    this.archived     = archived;
+    this.filter = filter;
+    this.archived = archived;
   }
 
   @Override
@@ -81,7 +80,7 @@ public class ConversationListLoader extends AbstractCursorLoader {
 
     if (archivedCount > 0) {
       MatrixCursor switchToArchiveCursor =
-              new MatrixCursor(new String[] {
+              new MatrixCursor(new String[]{
                       ThreadDatabase.ID,
                       ThreadDatabase.DATE,
                       ThreadDatabase.MESSAGE_COUNT,
@@ -96,7 +95,7 @@ public class ConversationListLoader extends AbstractCursorLoader {
                       ThreadDatabase.LAST_SEEN
               }, 1);
 
-      switchToArchiveCursor.addRow(new Object[] {
+      switchToArchiveCursor.addRow(new Object[]{
               -1L,
               System.currentTimeMillis(),
               archivedCount,

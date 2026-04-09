@@ -42,13 +42,12 @@ public class ConversationUpdateItem extends LinearLayout
         implements Recipients.RecipientsModifiedListener,
         Recipient.RecipientModifiedListener,
         BindableConversationItem,
-        View.OnClickListener
-{
+        View.OnClickListener {
   private static final String TAG = ConversationUpdateItem.class.getSimpleName();
 
-  private ImageView     icon;
-  private TextView      body;
-  private Recipient     sender;
+  private ImageView icon;
+  private TextView body;
+  private Recipient sender;
   private MessageRecord messageRecord;
 
   public ConversationUpdateItem(Context context) {
@@ -74,14 +73,13 @@ public class ConversationUpdateItem extends LinearLayout
                    @NonNull MessageRecord messageRecord,
                    @NonNull Locale locale,
                    @NonNull Set<MessageRecord> batchSelected,
-                   @NonNull Recipients conversationRecipients)
-  {
+                   @NonNull Recipients conversationRecipients) {
     bind(messageRecord);
   }
 
   private void bind(@NonNull MessageRecord messageRecord) {
     this.messageRecord = messageRecord;
-    this.sender        = messageRecord.getIndividualRecipient();
+    this.sender = messageRecord.getIndividualRecipient();
 
     this.sender.addListener(this);
 
@@ -118,7 +116,7 @@ public class ConversationUpdateItem extends LinearLayout
     if (messageRecord.isIdentityUpdate()) {
       Intent intent = new Intent(getContext(), RecipientPreferenceActivity.class);
       intent.putExtra(RecipientPreferenceActivity.RECIPIENTS_EXTRA,
-              new long[] { messageRecord.getIndividualRecipient().getRecipientId() });
+              new long[]{messageRecord.getIndividualRecipient().getRecipientId()});
 
       getContext().startActivity(intent);
     }

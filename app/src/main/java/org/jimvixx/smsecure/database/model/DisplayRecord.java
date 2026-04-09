@@ -39,26 +39,25 @@ public abstract class DisplayRecord {
   protected final long type;
 
   private final Recipients recipients;
-  private final long       dateSent;
-  private final long       dateReceived;
-  private final long       dateDeliveryReceived;
-  private final long       threadId;
-  private final Body       body;
-  private final int        deliveryStatus;
+  private final long dateSent;
+  private final long dateReceived;
+  private final long dateDeliveryReceived;
+  private final long threadId;
+  private final Body body;
+  private final int deliveryStatus;
 
   public DisplayRecord(Context context, Body body, Recipients recipients, long dateSent,
                        long dateReceived, long dateDeliveryReceived, long threadId,
-                       int deliveryStatus, long type)
-  {
-    this.context              = context.getApplicationContext();
-    this.threadId             = threadId;
-    this.recipients           = recipients;
-    this.dateSent             = dateSent;
-    this.dateReceived         = dateReceived;
+                       int deliveryStatus, long type) {
+    this.context = context.getApplicationContext();
+    this.threadId = threadId;
+    this.recipients = recipients;
+    this.dateSent = dateSent;
+    this.dateReceived = dateReceived;
     this.dateDeliveryReceived = dateDeliveryReceived;
-    this.type                 = type;
-    this.body                 = body;
-    this.deliveryStatus       = deliveryStatus;
+    this.type = type;
+    this.body = body;
+    this.deliveryStatus = deliveryStatus;
   }
 
   public Body getBody() {
@@ -67,8 +66,8 @@ public abstract class DisplayRecord {
 
   public boolean isFailed() {
     return
-        MessageColumns.Types.isFailedMessageType(type)            ||
-        deliveryStatus >= SmsDatabase.Status.STATUS_FAILED;
+            MessageColumns.Types.isFailedMessageType(type) ||
+                    deliveryStatus >= SmsDatabase.Status.STATUS_FAILED;
   }
 
   public boolean isPending() {
@@ -143,7 +142,7 @@ public abstract class DisplayRecord {
     private final boolean plaintext;
 
     public Body(String body, boolean plaintext) {
-      this.body      = body;
+      this.body = body;
       this.plaintext = plaintext;
     }
 

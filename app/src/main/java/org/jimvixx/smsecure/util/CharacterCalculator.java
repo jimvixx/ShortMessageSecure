@@ -28,9 +28,9 @@ public abstract class CharacterCalculator {
     public int maxMessageSize;
 
     public CharacterState(int messagesSpent, int charactersRemaining, int maxMessageSize) {
-      this.messagesSpent       = messagesSpent;
+      this.messagesSpent = messagesSpent;
       this.charactersRemaining = charactersRemaining;
-      this.maxMessageSize      = maxMessageSize;
+      this.maxMessageSize = maxMessageSize;
     }
   }
 }

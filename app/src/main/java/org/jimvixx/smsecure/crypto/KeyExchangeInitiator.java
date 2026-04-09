@@ -76,19 +76,19 @@ public class KeyExchangeInitiator {
   }
 
   public static void initiateKeyExchange(Context context, MasterSecret masterSecret, Recipients recipients, int subscriptionId) {
-    Recipient         recipient         = recipients.getPrimaryRecipient();
-    SessionStore      sessionStore      = new SMSecureSessionStore(context, masterSecret, subscriptionId);
-    PreKeyStore       preKeyStore       = new SMSecurePreKeyStore(context, masterSecret, subscriptionId);
+    Recipient recipient = recipients.getPrimaryRecipient();
+    SessionStore sessionStore = new SMSecureSessionStore(context, masterSecret, subscriptionId);
+    PreKeyStore preKeyStore = new SMSecurePreKeyStore(context, masterSecret, subscriptionId);
     SignedPreKeyStore signedPreKeyStore = new SMSecurePreKeyStore(context, masterSecret, subscriptionId);
-    IdentityKeyStore  identityKeyStore  = new SMSecureIdentityKeyStore(context, masterSecret, subscriptionId);
+    IdentityKeyStore identityKeyStore = new SMSecureIdentityKeyStore(context, masterSecret, subscriptionId);
 
-    SessionBuilder    sessionBuilder    = new SessionBuilder(sessionStore, preKeyStore, signedPreKeyStore,
-                                                             identityKeyStore, new SignalProtocolAddress(recipient.getNumber(), 1));
+    SessionBuilder sessionBuilder = new SessionBuilder(sessionStore, preKeyStore, signedPreKeyStore,
+            identityKeyStore, new SignalProtocolAddress(recipient.getNumber(), 1));
 
     if (identityKeyStore.getIdentityKeyPair() != null) {
-      KeyExchangeMessage         keyExchangeMessage = sessionBuilder.process();
-      String                     serializedMessage  = Base64.encodeBytesWithoutPadding(keyExchangeMessage.serialize());
-      OutgoingKeyExchangeMessage textMessage        = new OutgoingKeyExchangeMessage(recipients, serializedMessage, subscriptionId);
+      KeyExchangeMessage keyExchangeMessage = sessionBuilder.process();
+      String serializedMessage = Base64.encodeBytesWithoutPadding(keyExchangeMessage.serialize());
+      OutgoingKeyExchangeMessage textMessage = new OutgoingKeyExchangeMessage(recipients, serializedMessage, subscriptionId);
 
       MessageSender.send(context, masterSecret, textMessage, -1, false);
     } else {
@@ -98,10 +98,9 @@ public class KeyExchangeInitiator {
   }
 
   private static boolean hasInitiatedSession(Context context, MasterSecret masterSecret,
-                                             Recipients recipients, int subscriptionId)
-  {
-    Recipient     recipient     = recipients.getPrimaryRecipient();
-    SessionStore  sessionStore  = new SMSecureSessionStore(context, masterSecret, subscriptionId);
+                                             Recipients recipients, int subscriptionId) {
+    Recipient recipient = recipients.getPrimaryRecipient();
+    SessionStore sessionStore = new SMSecureSessionStore(context, masterSecret, subscriptionId);
     SessionRecord sessionRecord = sessionStore.loadSession(new SignalProtocolAddress(recipient.getNumber(), 1));
 
     return sessionRecord.getSessionState().hasPendingKeyExchange();

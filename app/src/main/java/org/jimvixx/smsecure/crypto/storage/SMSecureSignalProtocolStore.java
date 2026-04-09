@@ -21,16 +21,16 @@ package org.jimvixx.smsecure.crypto.storage;
 import android.content.Context;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
-import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
 import org.whispersystems.libsignal.InvalidKeyIdException;
-import org.whispersystems.libsignal.state.SignalProtocolStore;
+import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.state.IdentityKeyStore;
 import org.whispersystems.libsignal.state.PreKeyRecord;
 import org.whispersystems.libsignal.state.PreKeyStore;
 import org.whispersystems.libsignal.state.SessionRecord;
 import org.whispersystems.libsignal.state.SessionStore;
+import org.whispersystems.libsignal.state.SignalProtocolStore;
 import org.whispersystems.libsignal.state.SignedPreKeyRecord;
 import org.whispersystems.libsignal.state.SignedPreKeyStore;
 
@@ -38,16 +38,16 @@ import java.util.List;
 
 public class SMSecureSignalProtocolStore implements SignalProtocolStore {
 
-  private final PreKeyStore       preKeyStore;
+  private final PreKeyStore preKeyStore;
   private final SignedPreKeyStore signedPreKeyStore;
-  private final IdentityKeyStore  identityKeyStore;
-  private final SessionStore      sessionStore;
+  private final IdentityKeyStore identityKeyStore;
+  private final SessionStore sessionStore;
 
   public SMSecureSignalProtocolStore(Context context, MasterSecret masterSecret, int subscriptionId) {
-    this.preKeyStore       = new SMSecurePreKeyStore(context, masterSecret, subscriptionId);
+    this.preKeyStore = new SMSecurePreKeyStore(context, masterSecret, subscriptionId);
     this.signedPreKeyStore = new SMSecurePreKeyStore(context, masterSecret, subscriptionId);
-    this.identityKeyStore  = new SMSecureIdentityKeyStore(context, masterSecret, subscriptionId);
-    this.sessionStore      = new SMSecureSessionStore(context, masterSecret, subscriptionId);
+    this.identityKeyStore = new SMSecureIdentityKeyStore(context, masterSecret, subscriptionId);
+    this.sessionStore = new SMSecureSessionStore(context, masterSecret, subscriptionId);
   }
 
   @Override

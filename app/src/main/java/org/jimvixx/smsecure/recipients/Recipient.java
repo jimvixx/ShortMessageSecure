@@ -19,14 +19,15 @@
 package org.jimvixx.smsecure.recipients;
 
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.color.MaterialColor;
 import org.jimvixx.smsecure.contacts.avatars.ContactColors;
 import org.jimvixx.smsecure.contacts.avatars.ContactPhoto;
 import org.jimvixx.smsecure.contacts.avatars.ContactPhotoFactory;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.recipients.RecipientProvider.RecipientDetails;
 import org.jimvixx.smsecure.util.FutureTaskListener;
 import org.jimvixx.smsecure.util.ListenableFutureTask;
@@ -45,31 +46,31 @@ public class Recipient {
   private final long recipientId;
 
   private @NonNull String number;
-  private String  name;
+  private String name;
   private boolean stale;
   private boolean resolving;
 
   private ContactPhoto contactPhoto;
-  private Uri          contactUri;
+  private Uri contactUri;
 
-  @Nullable private MaterialColor color;
+  @Nullable
+  private MaterialColor color;
 
   Recipient(long recipientId,
-            @NonNull  String number,
+            @NonNull String number,
             @Nullable Recipient stale,
-            @NonNull  ListenableFutureTask<RecipientDetails> future)
-  {
-    this.recipientId  = recipientId;
-    this.number       = number;
+            @NonNull ListenableFutureTask<RecipientDetails> future) {
+    this.recipientId = recipientId;
+    this.number = number;
     this.contactPhoto = ContactPhotoFactory.getLoadingPhoto();
-    this.color        = null;
-    this.resolving    = true;
+    this.color = null;
+    this.resolving = true;
 
     if (stale != null) {
-      this.name         = stale.name;
-      this.contactUri   = stale.contactUri;
+      this.name = stale.name;
+      this.contactUri = stale.contactUri;
       this.contactPhoto = stale.contactPhoto;
-      this.color        = stale.color;
+      this.color = stale.color;
     }
 
     future.addListener(new FutureTaskListener<>() {
@@ -97,13 +98,18 @@ public class Recipient {
   }
 
   Recipient(long recipientId, RecipientDetails details) {
-    this.recipientId  = recipientId;
-    this.number       = java.util.Objects.requireNonNull(details.number, "RecipientDetails.number == null");
-    this.contactUri   = details.contactUri;
-    this.name         = details.name;
+    this.recipientId = recipientId;
+    this.number = java.util.Objects.requireNonNull(details.number, "RecipientDetails.number == null");
+    this.contactUri = details.contactUri;
+    this.name = details.name;
     this.contactPhoto = details.avatar;
-    this.color        = details.color;
-    this.resolving    = false;
+    this.color = details.color;
+    this.resolving = false;
+  }
+
+  public static Recipient getUnknownRecipient() {
+    return new Recipient(-1, new RecipientDetails("Unknown", "Unknown", null,
+            ContactPhotoFactory.getDefaultContactPhoto(null), null));
   }
 
   public synchronized @Nullable Uri getContactUri() {
@@ -115,9 +121,9 @@ public class Recipient {
   }
 
   public synchronized @NonNull MaterialColor getColor() {
-    if      (color != null) return color;
-    else if (name != null)  return ContactColors.generateFor(name);
-    else                    return ContactColors.UNKNOWN_COLOR;
+    if (color != null) return color;
+    else if (name != null) return ContactColors.generateFor(name);
+    else return ContactColors.UNKNOWN_COLOR;
   }
 
   public void setColor(@NonNull MaterialColor color) {
@@ -156,11 +162,6 @@ public class Recipient {
     return contactPhoto;
   }
 
-  public static Recipient getUnknownRecipient() {
-    return new Recipient(-1, new RecipientDetails("Unknown", "Unknown", null,
-                                                  ContactPhotoFactory.getDefaultContactPhoto(null), null));
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -185,10 +186,6 @@ public class Recipient {
       listener.onModified(this);
   }
 
-  public interface RecipientModifiedListener {
-    void onModified(Recipient recipient);
-  }
-
   boolean isStale() {
     return stale;
   }
@@ -199,6 +196,10 @@ public class Recipient {
 
   synchronized boolean isResolving() {
     return resolving;
+  }
+
+  public interface RecipientModifiedListener {
+    void onModified(Recipient recipient);
   }
 
 }

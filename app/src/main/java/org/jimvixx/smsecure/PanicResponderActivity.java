@@ -23,31 +23,55 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.iilab.IilabEngineeringRSA2048Pin;
+import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.service.KeyCachingService;
+import org.jimvixx.smsecure.util.SMSecurePreferences;
+
 import info.guardianproject.GuardianProjectRSA4096;
 import info.guardianproject.trustedintents.TrustedIntents;
 
-import org.jimvixx.smsecure.service.KeyCachingService;
-import org.jimvixx.smsecure.util.SMSecurePreferences;
-import org.iilab.IilabEngineeringRSA2048Pin;
-
 /**
  * PanicKit entry point.
- *
+ * <p>
  * Exported activity for external PanicKit triggers:
- *   info.guardianproject.panic.action.TRIGGER
+ * info.guardianproject.panic.action.TRIGGER
  */
 public class PanicResponderActivity extends Activity {
 
-  private static final String TAG = PanicResponderActivity.class.getSimpleName();
   public static final String PANIC_TRIGGER_ACTION = "info.guardianproject.panic.action.TRIGGER";
-  private static final String RIPPLE_PACKAGE = "info.guardianproject.ripple"; // Known sender package (Ripple panic button)
   public static final int REASON_PANICKIT_EXTERNAL = 1;
-  public static final int REASON_DEVICE_LOCK      = 2;
+  public static final int REASON_DEVICE_LOCK = 2;
+  private static final String TAG = PanicResponderActivity.class.getSimpleName();
+  private static final String RIPPLE_PACKAGE = "info.guardianproject.ripple"; // Known sender package (Ripple panic button)
+
+  public static void triggerInternalPanic(@NonNull Context context, int reason) {
+    Context app = context.getApplicationContext();
+    Log.w(TAG, "triggerInternalPanic(), reason=" + reason);
+
+    if (SMSecurePreferences.isPasswordDisabled(app)) {
+      Log.w(TAG, "Password disabled -> ignoring internal trigger");
+      return;
+    }
+
+    // Clear cached key directly.
+    KeyCachingService.clearMasterSecretDirect(app, KeyCachingService.CLEAR_REASON_PANIC);
+
+    // Exit UI (only if we truly have an Activity context).
+    if (context instanceof Activity) {
+      try {
+        ExitActivity.exitAndRemoveFromRecentApps((Activity) context);
+      } catch (Throwable t) {
+        Log.w(TAG, "ExitActivity failed", t);
+      }
+    } else {
+      Log.w(TAG, "No Activity context -> skipping UI exit");
+    }
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,30 +161,6 @@ public class PanicResponderActivity extends Activity {
     } catch (Throwable t) {
       // Some OEMs/older APIs can be weird; fall back safely.
       finish();
-    }
-  }
-
-  public static void triggerInternalPanic(@NonNull Context context, int reason) {
-    Context app = context.getApplicationContext();
-    Log.w(TAG, "triggerInternalPanic(), reason=" + reason);
-
-    if (SMSecurePreferences.isPasswordDisabled(app)) {
-      Log.w(TAG, "Password disabled -> ignoring internal trigger");
-      return;
-    }
-
-    // Clear cached key directly.
-    KeyCachingService.clearMasterSecretDirect(app, KeyCachingService.CLEAR_REASON_PANIC);
-
-    // Exit UI (only if we truly have an Activity context).
-    if (context instanceof Activity) {
-      try {
-        ExitActivity.exitAndRemoveFromRecentApps((Activity) context);
-      } catch (Throwable t) {
-        Log.w(TAG, "ExitActivity failed", t);
-      }
-    } else {
-      Log.w(TAG, "No Activity context -> skipping UI exit");
     }
   }
 }

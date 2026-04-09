@@ -21,11 +21,11 @@ package org.jimvixx.smsecure.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import org.jimvixx.smsecure.logging.Log;
 
 import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.WelcomeActivity;
+import org.jimvixx.smsecure.logging.Log;
 
 public class BootReceiver extends BroadcastReceiver {
   private static final String TAG = BootReceiver.class.getSimpleName();

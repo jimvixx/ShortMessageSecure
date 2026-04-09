@@ -26,11 +26,29 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class DynamicTheme {
 
-  public static final String DARK   = "dark";
-  public static final String LIGHT  = "light";
+  public static final String DARK = "dark";
+  public static final String LIGHT = "light";
 
   @AppCompatDelegate.NightMode
   private int currentNightMode = AppCompatDelegate.MODE_NIGHT_UNSPECIFIED;
+
+  public static boolean isNightMode(@NonNull Context context) {
+    int mask = context.getResources().getConfiguration().uiMode
+            & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+    return mask == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+  }
+
+  @AppCompatDelegate.NightMode
+  public static int resolveNightMode(@NonNull Context context) {
+    String theme = SMSecurePreferences.getTheme(context);
+
+    return switch (theme) {
+      case DARK -> AppCompatDelegate.MODE_NIGHT_YES;
+      case LIGHT -> AppCompatDelegate.MODE_NIGHT_NO;
+      default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+    };
+
+  }
 
   public void onCreate(@NonNull Activity activity) {
     currentNightMode = getSelectedNightMode(activity);
@@ -55,23 +73,6 @@ public class DynamicTheme {
   @AppCompatDelegate.NightMode
   protected int getSelectedNightMode(@NonNull Activity activity) {
     String theme = SMSecurePreferences.getTheme(activity);
-
-    return switch (theme) {
-      case DARK -> AppCompatDelegate.MODE_NIGHT_YES;
-      case LIGHT -> AppCompatDelegate.MODE_NIGHT_NO;
-      default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-    };
-
-  }
-
-  public static boolean isNightMode(@NonNull Context context) {
-    int mask = context.getResources().getConfiguration().uiMode
-            & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-    return mask == android.content.res.Configuration.UI_MODE_NIGHT_YES;
-  }
-  @AppCompatDelegate.NightMode
-  public static int resolveNightMode(@NonNull Context context) {
-    String theme = SMSecurePreferences.getTheme(context);
 
     return switch (theme) {
       case DARK -> AppCompatDelegate.MODE_NIGHT_YES;

@@ -20,19 +20,19 @@ package org.jimvixx.smsecure;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.core.app.ActivityOptionsCompat;
-
 import android.util.DisplayMetrics;
-import org.jimvixx.smsecure.logging.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.core.app.ActivityOptionsCompat;
+
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
@@ -53,19 +53,19 @@ public class ConversationPopupActivity extends ConversationActivity {
             WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
     WindowManager.LayoutParams params = getWindow().getAttributes();
-    params.alpha     = 1.0f;
+    params.alpha = 1.0f;
     params.dimAmount = 0.1f;
-    params.gravity   = Gravity.TOP;
+    params.gravity = Gravity.TOP;
     getWindow().setAttributes(params);
 
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-    int width  = metrics.widthPixels;
+    int width = metrics.widthPixels;
     int height = metrics.heightPixels;
 
     if (height > width) getWindow().setLayout((int) (width * .85), (int) (height * .5));
-    else                getWindow().setLayout((int) (width * .7), (int) (height * .75));
+    else getWindow().setLayout((int) (width * .7), (int) (height * .75));
 
     super.onCreate(bundle, masterSecret);
 

@@ -66,10 +66,6 @@ public class EmojiDrawer extends LinearLayout implements InputView {
 
   private boolean pageCallbackRegistered = false;
 
-  private interface SelectablePageViewHolder {
-    void onSelected();
-  }
-
   public EmojiDrawer(Context context) {
     this(context, null);
   }
@@ -96,7 +92,7 @@ public class EmojiDrawer extends LinearLayout implements InputView {
 
   private void initializeResources(@NonNull View v) {
     this.pager = v.findViewById(R.id.emoji_pager);
-    this.tabs  = v.findViewById(R.id.tabs);
+    this.tabs = v.findViewById(R.id.tabs);
 
     RepeatableImageKey backspace = v.findViewById(R.id.backspace);
     backspace.setOnKeyEventListener(() -> {
@@ -216,14 +212,14 @@ public class EmojiDrawer extends LinearLayout implements InputView {
     final int normal;
 
     selected = ResUtil.getColor(getContext(), R.attr.appColorIconPrimary);
-    normal   = ResUtil.getColor(getContext(), R.attr.appColorIconInactive);
+    normal = ResUtil.getColor(getContext(), R.attr.appColorIconInactive);
 
     return new ColorStateList(
             new int[][]{
-                    new int[]{ android.R.attr.state_selected },
-                    new int[]{ -android.R.attr.state_selected }
+                    new int[]{android.R.attr.state_selected},
+                    new int[]{-android.R.attr.state_selected}
             },
-            new int[]{ selected, normal }
+            new int[]{selected, normal}
     );
   }
 
@@ -253,17 +249,32 @@ public class EmojiDrawer extends LinearLayout implements InputView {
     super.onDetachedFromWindow();
   }
 
+  private interface SelectablePageViewHolder {
+    void onSelected();
+  }
+
+  public interface EmojiEventListener extends EmojiSelectionListener {
+    void onKeyEvent(KeyEvent keyEvent);
+  }
+
+  public interface EmojiDrawerListener {
+    void onShown();
+
+    void onHidden();
+  }
+
   public static final class EmojiPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context context;
     private final List<EmojiPageModel> pages;
-    @Nullable private final EmojiSelectionListener listener;
+    @Nullable
+    private final EmojiSelectionListener listener;
 
     public EmojiPagerAdapter(@NonNull Context context,
                              @NonNull List<EmojiPageModel> pages,
                              @Nullable EmojiSelectionListener listener) {
-      this.context  = context;
-      this.pages    = pages;
+      this.context = context;
+      this.pages = pages;
       this.listener = listener;
       setHasStableIds(true);
     }
@@ -314,14 +325,5 @@ public class EmojiDrawer extends LinearLayout implements InputView {
         page.onSelected();
       }
     }
-  }
-
-  public interface EmojiEventListener extends EmojiSelectionListener {
-    void onKeyEvent(KeyEvent keyEvent);
-  }
-
-  public interface EmojiDrawerListener {
-    void onShown();
-    void onHidden();
   }
 }

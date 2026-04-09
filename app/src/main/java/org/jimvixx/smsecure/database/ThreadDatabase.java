@@ -331,12 +331,12 @@ public class ThreadDatabase extends Database {
 
   /**
    * Thread-centric search for the current view.
-   *
+   * <p>
    * Search sources:
    * - app-resolved participant labels for each thread
    * - thread snippet
    * - full conversation message bodies through MessageDatabase.Reader
-   *
+   * <p>
    * This intentionally does not use Android contacts.
    */
   public Cursor getFilteredConversationList(@NonNull String rawQuery,
@@ -745,6 +745,7 @@ public class ThreadDatabase extends Database {
       }
     }
   }
+
   public Reader readerFor(Cursor cursor, MasterCipher masterCipher) {
     return new Reader(cursor, masterCipher);
   }
@@ -758,6 +759,7 @@ public class ThreadDatabase extends Database {
     public static final int DEFAULT = BROADCAST;
     public static final int ARCHIVE = 3;
   }
+
   public class Reader {
 
     private final Cursor cursor;

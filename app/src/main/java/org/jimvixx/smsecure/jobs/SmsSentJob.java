@@ -21,7 +21,6 @@ package org.jimvixx.smsecure.jobs;
 import android.app.Activity;
 import android.content.Context;
 import android.telephony.SmsManager;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.crypto.MasterSecret;
@@ -32,6 +31,7 @@ import org.jimvixx.smsecure.database.EncryptingSmsDatabase;
 import org.jimvixx.smsecure.database.NoSuchMessageException;
 import org.jimvixx.smsecure.database.model.SmsMessageRecord;
 import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
@@ -45,7 +45,7 @@ public class SmsSentJob extends MasterSecretJob {
   /**
    * If a "DELIVERED" callback arrives too quickly after send time, it is often a false positive
    * (device/vendor/modem fires it without a real delivery receipt from the network).
-   *
+   * <p>
    * Tune this value based on your field tests.
    */
   private static final long MIN_DELIVERY_DELAY_MS = 1800L;
@@ -56,9 +56,9 @@ public class SmsSentJob extends MasterSecretJob {
    */
   private static final long MAX_DELIVERY_DELAY_MS = 7L * 24L * 60L * 60L * 1000L; // 7 days
 
-  private final long   messageId;
+  private final long messageId;
   private final String action;
-  private final int    result;
+  private final int result;
 
   public SmsSentJob(Context context, long messageId, String action, int result) {
     super(context, JobParameters.newBuilder()
@@ -67,12 +67,13 @@ public class SmsSentJob extends MasterSecretJob {
             .create());
 
     this.messageId = messageId;
-    this.action    = action;
-    this.result    = result;
+    this.action = action;
+    this.result = result;
   }
 
   @Override
-  public void onAdded() { }
+  public void onAdded() {
+  }
 
   @Override
   public void onRun(MasterSecret masterSecret) {
@@ -96,16 +97,17 @@ public class SmsSentJob extends MasterSecretJob {
   }
 
   @Override
-  public void onCanceled() { }
+  public void onCanceled() {
+  }
 
   private void handleDeliveredResult(MasterSecret masterSecret, long messageId, int result) {
     try {
       EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
       SmsMessageRecord record = database.getMessage(masterSecret, messageId);
 
-      final long now    = System.currentTimeMillis();
+      final long now = System.currentTimeMillis();
       final long sentAt = record.getDateSent();
-      final long delta  = now - sentAt;
+      final long delta = now - sentAt;
 
       Log.w(TAG, "DELIVERED handle: msgId=" + messageId +
               " result=" + result +
@@ -166,7 +168,7 @@ public class SmsSentJob extends MasterSecretJob {
   private void handleSentResult(MasterSecret masterSecret, long messageId, int result) {
     try {
       EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
-      SmsMessageRecord      record   = database.getMessage(masterSecret, messageId);
+      SmsMessageRecord record = database.getMessage(masterSecret, messageId);
 
       switch (result) {
         case Activity.RESULT_OK:

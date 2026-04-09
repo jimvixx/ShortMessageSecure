@@ -25,15 +25,17 @@ public abstract class MasterSecretJob extends ContextJob {
   }
 
   public abstract void onRun(MasterSecret masterSecret) throws Exception;
+
   public abstract boolean onShouldRetryThrowable(Exception exception);
 
   private MasterSecret getMasterSecret() throws RequirementNotMetException {
     MasterSecret masterSecret = KeyCachingService.getMasterSecret(context);
 
     if (masterSecret == null) throw new RequirementNotMetException();
-    else                      return masterSecret;
+    else return masterSecret;
   }
 
-  protected static class RequirementNotMetException extends Exception {}
+  protected static class RequirementNotMetException extends Exception {
+  }
 
 }

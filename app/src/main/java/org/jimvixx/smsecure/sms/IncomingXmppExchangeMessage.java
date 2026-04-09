@@ -13,12 +13,12 @@ public class IncomingXmppExchangeMessage extends IncomingTextMessage {
     return new IncomingXmppExchangeMessage(this, messageBody);
   }
 
-  public void setDuplicate(boolean isDuplicate) {
-    this.isDuplicate = isDuplicate;
-  }
-
   public boolean isDuplicate() {
     return isDuplicate;
+  }
+
+  public void setDuplicate(boolean isDuplicate) {
+    this.isDuplicate = isDuplicate;
   }
 
   @Override

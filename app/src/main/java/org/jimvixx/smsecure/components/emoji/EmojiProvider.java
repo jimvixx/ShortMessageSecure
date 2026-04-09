@@ -28,7 +28,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import org.jimvixx.smsecure.logging.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +38,7 @@ import org.jimvixx.smsecure.components.emoji.parsing.EmojiDrawInfo;
 import org.jimvixx.smsecure.components.emoji.parsing.EmojiPageBitmap;
 import org.jimvixx.smsecure.components.emoji.parsing.EmojiParser;
 import org.jimvixx.smsecure.components.emoji.parsing.EmojiTree;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.FutureTaskListener;
 import org.jimvixx.smsecure.util.Util;
 

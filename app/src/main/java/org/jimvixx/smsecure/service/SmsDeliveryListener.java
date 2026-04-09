@@ -22,18 +22,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.jobs.SmsSentJob;
+import org.jimvixx.smsecure.logging.Log;
 import org.whispersystems.jobqueue.JobManager;
 
 public class SmsDeliveryListener extends BroadcastReceiver {
 
-  private static final String TAG = SmsDeliveryListener.class.getSimpleName();
-
-  public static final String SENT_SMS_ACTION      = "org.jimvixx.smsecure.SendReceiveService.SENT_SMS_ACTION";
+  public static final String SENT_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.SENT_SMS_ACTION";
   public static final String DELIVERED_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERED_SMS_ACTION";
+  private static final String TAG = SmsDeliveryListener.class.getSimpleName();
 
   @Override
   public void onReceive(Context context, Intent intent) {

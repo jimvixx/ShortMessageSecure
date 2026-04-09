@@ -2,7 +2,6 @@ package org.jimvixx.smsecure.jobs;
 
 import android.content.Context;
 import android.telephony.SmsMessage;
-import org.jimvixx.smsecure.logging.Log;
 import android.util.Pair;
 
 import org.jimvixx.smsecure.ApplicationContext;
@@ -10,6 +9,7 @@ import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.crypto.MasterSecretUtil;
 import org.jimvixx.smsecure.database.DatabaseFactory;
 import org.jimvixx.smsecure.database.EncryptingSmsDatabase;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.protocol.WirePrefix;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
@@ -35,23 +35,24 @@ public class SmsReceiveJob extends ContextJob {
   private static final MultipartSmsMessageHandler multipartMessageHandler = new MultipartSmsMessageHandler();
 
   private final Object[] pdus;
-  private final int      subscriptionId;
+  private final int subscriptionId;
 
   public SmsReceiveJob(Context context, Object[] pdus, int subscriptionId) {
     super(context, JobParameters.newBuilder()
-                                .withPersistence()
-                                .withWakeLock(true)
-                                .create());
+            .withPersistence()
+            .withWakeLock(true)
+            .create());
 
     Log.w(TAG, "subscriptionId: " + subscriptionId);
     Log.w(TAG, "Found app subscription ID: " + DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId));
 
-    this.pdus           = pdus;
+    this.pdus = pdus;
     this.subscriptionId = DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId);
   }
 
   @Override
-  public void onAdded() {}
+  public void onAdded() {
+  }
 
   @Override
   public void onRun() {
@@ -63,17 +64,16 @@ public class SmsReceiveJob extends ContextJob {
 
       IncomingTextMessage incomingTextMessage = message.get();
       if (incomingTextMessage.isReceivedWhenLocked() ||
-         (!incomingTextMessage.isSecureMessage()     &&
-          !incomingTextMessage.isKeyExchange()       &&
-          !incomingTextMessage.isXmppExchange()))
-      {
+              (!incomingTextMessage.isSecureMessage() &&
+                      !incomingTextMessage.isKeyExchange() &&
+                      !incomingTextMessage.isXmppExchange())) {
         MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
       }
 
       if (incomingTextMessage.getSender() != null) {
         Recipients recipients = RecipientFactory.getRecipientsFromString(context, incomingTextMessage.getSender(), false);
         DatabaseFactory.getRecipientPreferenceDatabase(context)
-                       .setDefaultSubscriptionId(recipients, incomingTextMessage.getSubscriptionId());
+                .setDefaultSubscriptionId(recipients, incomingTextMessage.getSubscriptionId());
       }
     } else if (message.isPresent()) {
       Log.w(TAG, "*** Received blocked SMS, ignoring...");
@@ -100,13 +100,13 @@ public class SmsReceiveJob extends ContextJob {
   }
 
   private Pair<Long, Long> storeMessage(IncomingTextMessage message) {
-    EncryptingSmsDatabase database     = DatabaseFactory.getEncryptingSmsDatabase(context);
-    MasterSecret          masterSecret = KeyCachingService.getMasterSecret(context);
+    EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
+    MasterSecret masterSecret = KeyCachingService.getMasterSecret(context);
 
     Pair<Long, Long> messageAndThreadId;
 
     if (message.isSecureMessage()) {
-      messageAndThreadId = database.insertMessageInbox((MasterSecret)null, message);
+      messageAndThreadId = database.insertMessageInbox((MasterSecret) null, message);
     } else if (masterSecret == null) {
       messageAndThreadId = database.insertMessageInbox(MasterSecretUtil.getAsymmetricMasterSecret(context, null), message);
     } else {
@@ -115,8 +115,8 @@ public class SmsReceiveJob extends ContextJob {
 
     if (masterSecret == null || message.isSecureMessage() || message.isKeyExchange() || message.isEndSession() || message.isXmppExchange()) {
       ApplicationContext.getInstance(context)
-                        .getJobManager()
-                        .add(new SmsDecryptJob(context, messageAndThreadId.first, masterSecret == null));
+              .getJobManager()
+              .add(new SmsDecryptJob(context, messageAndThreadId.first, masterSecret == null));
     }
 
     return messageAndThreadId;
@@ -127,7 +127,7 @@ public class SmsReceiveJob extends ContextJob {
 
     for (Object pdu : pdus) {
       SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdu);
-      if (msg != null){
+      if (msg != null) {
         messages.add(new IncomingTextMessage(msg, subscriptionId, masterSecret == null));
       }
     }

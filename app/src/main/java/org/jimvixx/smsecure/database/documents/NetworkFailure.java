@@ -11,7 +11,8 @@ public class NetworkFailure {
     this.recipientId = recipientId;
   }
 
-  public NetworkFailure() {}
+  public NetworkFailure() {
+  }
 
   public long getRecipientId() {
     return recipientId;
@@ -19,14 +20,13 @@ public class NetworkFailure {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof NetworkFailure)) return false;
+    if (other == null || !(other instanceof NetworkFailure that)) return false;
 
-    NetworkFailure that = (NetworkFailure)other;
     return this.recipientId == that.recipientId;
   }
 
   @Override
   public int hashCode() {
-    return (int)recipientId;
+    return (int) recipientId;
   }
 }

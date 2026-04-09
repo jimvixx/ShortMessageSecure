@@ -29,12 +29,12 @@ public abstract class AbstractCursorLoader extends AsyncTaskLoader<Cursor> {
   private static final String TAG = AbstractCursorLoader.class.getSimpleName();
 
   protected final ForceLoadContentObserver observer;
-  protected final Context                  context;
-  protected       Cursor                   cursor;
+  protected final Context context;
+  protected Cursor cursor;
 
   public AbstractCursorLoader(Context context) {
     super(context);
-    this.context  = context.getApplicationContext();
+    this.context = context.getApplicationContext();
     this.observer = new ForceLoadContentObserver();
   }
 

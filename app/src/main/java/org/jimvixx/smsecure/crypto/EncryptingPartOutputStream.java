@@ -18,6 +18,8 @@
 
 package org.jimvixx.smsecure.crypto;
 
+import org.jimvixx.smsecure.logging.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,8 +33,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-
-import org.jimvixx.smsecure.logging.Log;
 
 /**
  * A class for streaming an encrypted MMS "part" to disk.
@@ -50,7 +50,7 @@ public class EncryptingPartOutputStream extends FileOutputStream {
     super(file);
 
     try {
-      mac    = initializeMac(masterSecret.getMacKey());
+      mac = initializeMac(masterSecret.getMacKey());
       cipher = initializeCipher(mac, masterSecret.getEncryptionKey());
       closed = false;
     } catch (IOException ioe) {

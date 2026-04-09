@@ -24,13 +24,11 @@ import java.io.IOException;
  */
 public class Hex {
 
-  private final static int HEX_DIGITS_START = 10;
-  private final static int ASCII_TEXT_START = HEX_DIGITS_START + (16*2 + (16/2));
-
   final static String EOL = System.lineSeparator();
-
+  private final static int HEX_DIGITS_START = 10;
+  private final static int ASCII_TEXT_START = HEX_DIGITS_START + (16 * 2 + (16 / 2));
   private final static char[] HEX_DIGITS = {
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+          '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
   };
 
   public static String toString(byte[] bytes) {
@@ -48,15 +46,15 @@ public class Hex {
 
   public static String toStringCondensed(byte[] bytes) {
     StringBuffer buf = new StringBuffer();
-      for (byte aByte : bytes) {
-          appendHexChar(buf, aByte);
-      }
+    for (byte aByte : bytes) {
+      appendHexChar(buf, aByte);
+    }
     return buf.toString();
   }
 
   public static byte[] fromStringCondensed(String encoded) throws IOException {
     final char[] data = encoded.toCharArray();
-    final int    len  = data.length;
+    final int len = data.length;
 
     if ((len & 0x01) != 0) {
       throw new IOException("Odd number of characters.");
@@ -102,9 +100,9 @@ public class Hex {
     buf.append(HEX_DIGITS[(line >> 20) & 0xf]);
     buf.append(HEX_DIGITS[(line >> 16) & 0xf]);
     buf.append(HEX_DIGITS[(line >> 12) & 0xf]);
-    buf.append(HEX_DIGITS[(line >>  8) & 0xf]);
-    buf.append(HEX_DIGITS[(line >>  4) & 0xf]);
-    buf.append(HEX_DIGITS[(line      ) & 0xf]);
+    buf.append(HEX_DIGITS[(line >> 8) & 0xf]);
+    buf.append(HEX_DIGITS[(line >> 4) & 0xf]);
+    buf.append(HEX_DIGITS[(line) & 0xf]);
     buf.append(": ");
 
     for (int i = 0; i < 16; i++) {
@@ -124,7 +122,7 @@ public class Hex {
       int idx = i + lineOffset;
       int b = bytes[idx];
       if (b >= 0x20 && b <= 0x7e) {
-        buf.append((char)b);
+        buf.append((char) b);
       } else {
         buf.append('.');
       }

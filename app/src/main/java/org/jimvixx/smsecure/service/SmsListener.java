@@ -42,26 +42,12 @@ public class SmsListener extends BroadcastReceiver {
 
   private static final String TAG = "SmsListener";
 
-  private static final String SMS_RECEIVED_ACTION  = Telephony.Sms.Intents.SMS_RECEIVED_ACTION;
+  private static final String SMS_RECEIVED_ACTION = Telephony.Sms.Intents.SMS_RECEIVED_ACTION;
   private static final String SMS_DELIVERED_ACTION = Telephony.Sms.Intents.SMS_DELIVER_ACTION;
 
-  private static final String EXTRA_PDUS         = "pdus";
-  private static final String EXTRA_FORMAT       = "format";
+  private static final String EXTRA_PDUS = "pdus";
+  private static final String EXTRA_FORMAT = "format";
   private static final String EXTRA_SUBSCRIPTION = "subscription";
-
-  private static final class ParsedSmsData {
-    private final @NonNull Object[] rawPdus;
-    private final @NonNull SmsMessage[] messages;
-    private final @Nullable String body;
-
-    private ParsedSmsData(@NonNull Object[] rawPdus,
-                          @NonNull SmsMessage[] messages,
-                          @Nullable String body) {
-      this.rawPdus  = rawPdus;
-      this.messages = messages;
-      this.body     = body;
-    }
-  }
 
   private boolean isExemption(@NonNull SmsMessage message, @NonNull String messageBody) {
     // Ignore CLASS0 ("flash") messages.
@@ -206,5 +192,19 @@ public class SmsListener extends BroadcastReceiver {
             .add(new SmsReceiveJob(context, smsData.rawPdus, subscriptionId));
 
     abortBroadcast();
+  }
+
+  private static final class ParsedSmsData {
+    private final @NonNull Object[] rawPdus;
+    private final @NonNull SmsMessage[] messages;
+    private final @Nullable String body;
+
+    private ParsedSmsData(@NonNull Object[] rawPdus,
+                          @NonNull SmsMessage[] messages,
+                          @Nullable String body) {
+      this.rawPdus = rawPdus;
+      this.messages = messages;
+      this.body = body;
+    }
   }
 }

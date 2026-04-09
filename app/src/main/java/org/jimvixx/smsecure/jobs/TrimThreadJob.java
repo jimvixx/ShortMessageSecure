@@ -1,25 +1,25 @@
 /**
  * Copyright (C) 2014 Open Whisper Systems
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.jimvixx.smsecure.jobs;
 
 import android.content.Context;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.database.DatabaseFactory;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.whispersystems.jobqueue.Job;
 import org.whispersystems.jobqueue.JobParameters;
@@ -29,11 +29,11 @@ public class TrimThreadJob extends Job {
   private static final String TAG = TrimThreadJob.class.getSimpleName();
 
   private final Context context;
-  private final long    threadId;
+  private final long threadId;
 
   public TrimThreadJob(Context context, long threadId) {
     super(JobParameters.newBuilder().withGroupId(TrimThreadJob.class.getSimpleName()).create());
-    this.context  = context;
+    this.context = context;
     this.threadId = threadId;
   }
 
@@ -44,8 +44,8 @@ public class TrimThreadJob extends Job {
 
   @Override
   public void onRun() {
-    boolean trimmingEnabled   = SMSecurePreferences.isThreadLengthTrimmingEnabled(context);
-    int     threadLengthLimit = SMSecurePreferences.getThreadTrimLength(context);
+    boolean trimmingEnabled = SMSecurePreferences.isThreadLengthTrimmingEnabled(context);
+    int threadLengthLimit = SMSecurePreferences.getThreadTrimLength(context);
 
     if (!trimmingEnabled)
       return;

@@ -5,11 +5,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
-
-import android.widget.ImageView;
 
 import com.makeramen.roundedimageview.RoundedDrawable;
 
@@ -28,7 +27,7 @@ public class ResourceContactPhoto implements ContactPhoto {
 
   @Override
   public Drawable asDrawable(Context context, int color, boolean inverted) {
-    int bgColor   = inverted ? Color.WHITE : color;
+    int bgColor = inverted ? Color.WHITE : color;
     int textColor = inverted ? color : Color.WHITE;
 
     AvatarDrawable background = new AvatarDrawable(" ", bgColor, textColor);
@@ -45,7 +44,7 @@ public class ResourceContactPhoto implements ContactPhoto {
       foreground.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
 
-    return new ExpandingLayerDrawable(new Drawable[]{ background, foreground });
+    return new ExpandingLayerDrawable(new Drawable[]{background, foreground});
   }
 
   private static class ExpandingLayerDrawable extends LayerDrawable {

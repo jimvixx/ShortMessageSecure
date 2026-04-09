@@ -27,8 +27,8 @@ import java.util.Objects;
 
 public final class Stub<T extends View> {
 
-  private ViewStub viewStub;
   private final Class<T> type;
+  private ViewStub viewStub;
   private T view;
 
   public Stub(@NonNull ViewStub viewStub, @NonNull Class<T> type) {

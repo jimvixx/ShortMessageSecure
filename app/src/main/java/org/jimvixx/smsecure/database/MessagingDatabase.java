@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import org.jimvixx.smsecure.logging.Log;
 
 import org.jimvixx.smsecure.database.documents.Document;
 import org.jimvixx.smsecure.database.documents.IdentityKeyMismatch;
 import org.jimvixx.smsecure.database.documents.IdentityKeyMismatchList;
+import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.JsonUtils;
 import org.whispersystems.libsignal.IdentityKey;
 
@@ -32,8 +32,8 @@ public abstract class MessagingDatabase extends Database implements MessageColum
   public void addMismatchedIdentity(long messageId, long recipientId, IdentityKey identityKey) {
     try {
       addToDocument(messageId, MISMATCHED_IDENTITIES,
-                    new IdentityKeyMismatch(recipientId, identityKey),
-                    IdentityKeyMismatchList.class);
+              new IdentityKeyMismatch(recipientId, identityKey),
+              IdentityKeyMismatchList.class);
     } catch (IOException e) {
       Log.w(TAG, e);
     }
@@ -42,8 +42,8 @@ public abstract class MessagingDatabase extends Database implements MessageColum
   public void removeMismatchedIdentity(long messageId, long recipientId, IdentityKey identityKey) {
     try {
       removeFromDocument(messageId, MISMATCHED_IDENTITIES,
-                         new IdentityKeyMismatch(recipientId, identityKey),
-                         IdentityKeyMismatchList.class);
+              new IdentityKeyMismatch(recipientId, identityKey),
+              IdentityKeyMismatchList.class);
     } catch (IOException e) {
       Log.w(TAG, e);
     }
@@ -54,7 +54,7 @@ public abstract class MessagingDatabase extends Database implements MessageColum
     database.beginTransaction();
 
     try {
-      D           document = getDocument(database, messageId, column, clazz);
+      D document = getDocument(database, messageId, column, clazz);
       Iterator<I> iterator = document.getList().iterator();
 
       while (iterator.hasNext()) {
@@ -100,17 +100,16 @@ public abstract class MessagingDatabase extends Database implements MessageColum
     ContentValues contentValues = new ContentValues();
 
     if (document == null || document.size() == 0) {
-      contentValues.put(column, (String)null);
+      contentValues.put(column, (String) null);
     } else {
       contentValues.put(column, JsonUtils.toJson(document));
     }
 
-    database.update(getTableName(), contentValues, ID_WHERE, new String[] {String.valueOf(messageId)});
+    database.update(getTableName(), contentValues, ID_WHERE, new String[]{String.valueOf(messageId)});
   }
 
   private <D extends Document> D getDocument(SQLiteDatabase database, long messageId,
-                                             String column, Class<D> clazz)
-  {
+                                             String column, Class<D> clazz) {
 
     try (Cursor cursor = database.query(getTableName(), new String[]{column},
             ID_WHERE, new String[]{String.valueOf(messageId)},
