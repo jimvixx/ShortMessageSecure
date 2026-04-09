@@ -598,6 +598,7 @@
   <string name="trimmer__old_messages_successfully_deleted">Eski mesajlar başarıyla silindi</string>
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Hoş geldiniz görüntüsü</string>
+  <string name="recipient_preferences__muted_when_blocked">Engellendiğinde sessize alınır</string>
   <string name="WelcomeActivity_action_required">Eylem gerekli!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Diğer kişilerle normal SMS mesajları kullanırken, SMSecure kullanıcılarıyla mesajlarınızı şifreleyin.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Gizliliğinizi artırın, herkesle konuşun</string>

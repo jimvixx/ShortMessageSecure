@@ -608,6 +608,7 @@
     <string name="trimmer__old_messages_successfully_deleted">הודעות ישנות נמחקו בהצלחה</string>
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">תמונת ברכה</string>
+    <string name="recipient_preferences__muted_when_blocked">מושתק כאשר חסום</string>
     <string name="WelcomeActivity_action_required">נדרשת פעולה!</string>
     <string name="WelcomeActivity_encrypt_your_messages">הצפן את ההודעות שלך עם משתמשי SMSecure תוך שימוש בהודעות SMS רגילות עם אחרים.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">שפר את הפרטיות שלך, דבר עם כולם</string>

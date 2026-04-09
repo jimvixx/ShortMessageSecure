@@ -644,6 +644,7 @@
     <string name="trimmer__old_messages_successfully_deleted">Old messages successfully deleted</string>
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">Welcome image</string>
+    <string name="recipient_preferences__muted_when_blocked">Muted when blocked</string>
     <string name="WelcomeActivity_action_required">Action required!</string>
     <string name="WelcomeActivity_encrypt_your_messages">Encrypt your messages with SMSecure users while using regular SMS messages with others.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Improve your privacy, talk to everyone</string>
@@ -652,5 +653,4 @@
     <string name="WelcomeActivity_smsecure_requires_the_phone_and_sms_permissions_in_order_to_work_but_it_has_been_permanently_denied">SMSecure needs the Phone and SMS permissions in order to work, but they has been permanently denied. Please continue to app settings, select “Permissions”, then enable “Phone” and “SMS”.</string>
     <string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure">You need to grant some permissions to SMSecure.</string>
     <string name="WelcomeActivity_you_need_to_grant_some_permissions_to_smsecure_in_order_to_continue_to_use_it">You need to grant some permissions to SMSecure in order to continue to use it. Tap to continue.</string>
-    <string name="recipient_preferences__muted_when_blocked">Muted when blocked</string>
 </resources>

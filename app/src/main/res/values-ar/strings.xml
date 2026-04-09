@@ -638,6 +638,7 @@
 <string name="trimmer__old_messages_successfully_deleted">تم حذف الرسائل القديمة بنجاح</string>
 <!--WelcomeActivity-->
 <string name="cd_welcome_image">صورة الترحيب</string>
+<string name="recipient_preferences__muted_when_blocked">يتم كتم الصوت عند الحظر</string>
 <string name="WelcomeActivity_action_required">مطلوب اتخاذ إجراء!</string>
 <string name="WelcomeActivity_encrypt_your_messages">قم بتشفير رسائلك مع مستخدمي SMSecure أثناء استخدام رسائل SMS العادية مع الآخرين.</string>
 <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">حسّن خصوصيتك، تحدث مع الجميع</string>

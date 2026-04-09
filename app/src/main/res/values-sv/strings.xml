@@ -598,6 +598,7 @@
   <string name="trimmer__old_messages_successfully_deleted">Gamla meddelanden har raderats</string>
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Välkomstbild</string>
+  <string name="recipient_preferences__muted_when_blocked">Tystad när blockerad</string>
   <string name="WelcomeActivity_action_required">Åtgärd krävs!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Kryptera dina meddelanden med SMSecure-användare samtidigt som du använder vanliga SMS-meddelanden med andra.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Förbättra din integritet, prata med alla</string>

@@ -618,6 +618,7 @@
   <string name="trimmer__old_messages_successfully_deleted">Staré zprávy byly úspěšně smazány</string>
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Úvodní obrázek</string>
+  <string name="recipient_preferences__muted_when_blocked">Ztlumeno při blokování</string>
   <string name="WelcomeActivity_action_required">Je třeba provést akci!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Šifrujte své zprávy s uživateli SMSecure, zatímco s ostatními používejte běžné SMS zprávy.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Zlepšete své soukromí, komunikujte s každým</string>

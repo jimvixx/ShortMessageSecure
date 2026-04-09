@@ -618,6 +618,7 @@
 <string name="trimmer__old_messages_successfully_deleted">Senos žinutės sėkmingai ištrintos</string>
 <!--WelcomeActivity-->
 <string name="cd_welcome_image">Sveikinimo paveikslėlis</string>
+<string name="recipient_preferences__muted_when_blocked">Išjungtas garsas, kai užblokuota</string>
 <string name="WelcomeActivity_action_required">Reikia imtis veiksmų!</string>
 <string name="WelcomeActivity_encrypt_your_messages">Šifruokite savo pranešimus su „SMSecure“ vartotojais, o su kitais naudokite įprastus SMS pranešimus.</string>
 <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Pagerinkite savo privatumą, bendraukite su visais</string>

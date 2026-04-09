@@ -608,6 +608,7 @@
     <string name="trimmer__old_messages_successfully_deleted">Anciens messages supprimés avec succès</string>
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">Image de bienvenue</string>
+    <string name="recipient_preferences__muted_when_blocked">Silencieux lorsque bloqué</string>
     <string name="WelcomeActivity_action_required">Action nécessaire !</string>
     <string name="WelcomeActivity_encrypt_your_messages">Cryptez vos messages avec les utilisateurs de SMSecure tout en continuant à envoyer des SMS classiques aux autres.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Améliorez votre confidentialité, parlez à tout le monde</string>

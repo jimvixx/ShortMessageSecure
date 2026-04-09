@@ -588,6 +588,7 @@
     <string name="trimmer__old_messages_successfully_deleted">旧消息已成功删除</string>
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">欢迎图片</string>
+    <string name="recipient_preferences__muted_when_blocked">被屏蔽时静音</string>
     <string name="WelcomeActivity_action_required">请执行操作！</string>
     <string name="WelcomeActivity_encrypt_your_messages">在与他人使用普通 SMS 消息时，请通过 SMSecure 用户对消息进行加密。</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">增强隐私保护，与所有人交流</string>

@@ -618,6 +618,7 @@
     <string name="trimmer__old_messages_successfully_deleted">Старые сообщения успешно удалены</string>
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">Изображение приветствия</string>
+    <string name="recipient_preferences__muted_when_blocked">Звук отключен при блокировке</string>
     <string name="WelcomeActivity_action_required">Требуется действие!</string>
     <string name="WelcomeActivity_encrypt_your_messages">Шифруйте свои сообщения при общении с пользователями SMSecure, а при общении с другими людьми используйте обычные SMS-сообщения.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Повысьте уровень конфиденциальности, общайтесь со всеми</string>

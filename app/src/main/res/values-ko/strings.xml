@@ -588,6 +588,7 @@
   <string name="trimmer__old_messages_successfully_deleted">이전 메시지가 성공적으로 삭제되었습니다</string>
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">환영 이미지</string>
+  <string name="recipient_preferences__muted_when_blocked">차단 시 음소거됨</string>
   <string name="WelcomeActivity_action_required">조치가 필요합니다!</string>
   <string name="WelcomeActivity_encrypt_your_messages">다른 사람들과 일반 SMS 메시지를 주고받을 때는 SMSecure 사용자와 메시지를 암호화하세요.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">개인정보 보호를 강화하고, 모두와 소통하세요</string>

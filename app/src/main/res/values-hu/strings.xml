@@ -598,6 +598,7 @@
   <string name="trimmer__old_messages_successfully_deleted">A régi üzenetek sikeresen törölve</string>
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Üdvözlő kép</string>
+  <string name="recipient_preferences__muted_when_blocked">Blokkoláskor elnémítva</string>
   <string name="WelcomeActivity_action_required">Művelet szükséges!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Titkosítsa üzeneteit az SMSecure felhasználókkal, miközben másokkal hagyományos SMS-üzeneteket használ.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Növelje adatvédelmét, beszéljen mindenkivel</string>

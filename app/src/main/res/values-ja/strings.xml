@@ -588,6 +588,7 @@
   <string name="trimmer__old_messages_successfully_deleted">古いメッセージが正常に削除されました</string>
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">ウェルカム画像</string>
+  <string name="recipient_preferences__muted_when_blocked">ブロックされるとミュートされます</string>
   <string name="WelcomeActivity_action_required">操作が必要です！</string>
   <string name="WelcomeActivity_encrypt_your_messages">他のユーザーとは通常のSMSメッセージを使用しつつ、SMSecureユーザーとはメッセージを暗号化してください。</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">プライバシーを強化し、皆と交流しましょう</string>
