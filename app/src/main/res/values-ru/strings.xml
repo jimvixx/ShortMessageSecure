@@ -132,7 +132,12 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Прокрутите вниз</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> выбран</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d выбран</item>
+        <item quantity="few">%1$d выбран</item>
+        <item quantity="many">%1$d выбран</item>
+        <item quantity="other">%1$d выбран</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">Выбрать</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">Список получателей</string>
@@ -143,9 +148,8 @@
     <string name="conversation_insecure__security">Безопасность</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Защищенное сообщение</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Фотография контакта</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">Доставлено</string>
     <string name="conversation_item_sent__pending_approval_description">Ожидает утверждения</string>
     <string name="conversation_item_sent__send_failed_indicator_description">Ошибка отправки</string>
@@ -265,6 +269,8 @@
     <string name="ConversationListFragment_undo">ОТМЕНА</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">Архивные разговоры (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">Пользовательское значение</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">Использование custom: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">Использование значения по умолчанию: <xliff:g id="arg1">%s</xliff:g></string>
@@ -281,7 +287,7 @@
     <string name="DateUtils_today">Сегодня</string>
     <string name="DateUtils_yesterday">Вчера</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure — это приложение для обмена SMS, которое позволяет защитить вашу конфиденциальность при общении с друзьями.\nС помощью SMSecure вы можете отправлять SMS-сообщения и делиться мультимедиа или вложениями с полной конфиденциальностью.\n\nОсобенности:\n* Простота. SMSecure работает как любое другое приложение для обмена SMS. Не нужно нигде регистрироваться, и вашим друзьям не нужно подключаться к новой услуге.\n* Надежность. SMSecure обменивается данными с помощью зашифрованных SMS-сообщений. Не требуется ни серверов, ни подключения к Интернету.\n* Конфиденциальность. SMSecure обеспечивает сквозное шифрование ваших сообщений с помощью тщательно разработанного протокола шифрования Signal.\n* Безопасность. Все сообщения шифруются локально, поэтому в случае потери или кражи телефона ваши сообщения останутся защищенными.\n* Открытый исходный код. SMSecure — бесплатное приложение с открытым исходным кодом, что позволяет любому проверить его безопасность путем аудита кода.\n\nПожалуйста, сообщайте о любых ошибках, проблемах или пожеланиях по поводу функций по адресу: <xliff:g id="arg1">%1$s</xliff:g>\n\nИсходный код можно найти по адресу: <xliff:g id="arg2">%2$s</xliff:g>\n\nПодробнее: <xliff:g id="arg3">%3$s</xliff:g>\n\nПолитика конфиденциальности: <xliff:g id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure — это приложение для обмена SMS, которое позволяет защитить вашу конфиденциальность при общении с друзьями.\nС помощью SMSecure вы можете отправлять SMS-сообщения и делиться медиафайлами или вложениями с полной конфиденциальностью.\n\nОсобенности:\n* Простота. SMSecure работает как любое другое приложение для обмена SMS. Не нужно нигде регистрироваться, и вашим друзьям не нужно подключаться к новой услуге.\n* Надежность. SMSecure обменивается данными с помощью зашифрованных SMS-сообщений. Не требуется ни серверов, ни подключения к Интернету.\n* Конфиденциальность. SMSecure обеспечивает сквозное шифрование ваших сообщений с помощью тщательно разработанного протокола шифрования Signal.\n* Безопасность. Все сообщения шифруются локально, поэтому в случае потери или кражи телефона ваши сообщения останутся защищенными.\n* Открытый исходный код. SMSecure — бесплатное приложение с открытым исходным кодом, что позволяет любому проверить его безопасность путем аудита кода.\n\nПожалуйста, сообщайте о любых ошибках, проблемах или пожеланиях по поводу функций по адресу: <xliff:g id="arg1">%1$s</xliff:g>\n\nИсходный код можно найти по адресу: <xliff:g id="arg2">%2$s</xliff:g>\n\nПодробнее: <xliff:g id="arg3">%3$s</xliff:g>\n\nПолитика конфиденциальности: <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">Был сгенерирован новый ключ.</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Для этой SIM-карты был сгенерирован новый ключ.</string>
@@ -409,7 +415,19 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Запрос на завершение несуществующего сеанса</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Сообщение зашифровано для несуществующей сессии</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> новых сообщений в <xliff:g id="arg2">%2$d</xliff:g> беседах</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">в <xliff:g id="arg1">%1$d</xliff:g> разговоре</item>
+        <item quantity="few">в <xliff:g id="arg1">%1$d</xliff:g> диалогах</item>
+        <item quantity="many">в <xliff:g id="arg1">%1$d</xliff:g> диалогах</item>
+        <item quantity="other">в <xliff:g id="arg1">%1$d</xliff:g> разговорах</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> новое сообщение</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> новых сообщения</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> новых сообщений</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> новых сообщений</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">Зашифрованное сообщение</string>
     <string name="MessageNotifier_error_delivering_message">Ошибка при доставке сообщения.</string>
     <string name="MessageNotifier_failed_to_deliver_message">Не удалось доставить сообщение.</string>
@@ -603,7 +621,7 @@
     <string name="SmsMessageRecord_secure_session_ended">Безопасный сеанс завершен.</string>
     <!--SubscriptionInfoCompat-->
     <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (слот <xliff:g id="arg2">%2$d</xliff:g>)</string>
-    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+    <string name="SubscriptionInfoCompat_slot">Слот <xliff:g id="arg1">%1$d</xliff:g></string>
     <!--ThreadRecord-->
     <string name="ThreadRecord_draft">Черновик:</string>
     <string name="ThreadRecord_left_the_group">Покинул группу</string>

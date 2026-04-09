@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <Spinner android:id="@+id/default_or_custom"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:entries="@array/default_or_custom_entries"
-             android:entryValues="@array/default_or_custom_values"
-             android:layout_marginStart="16dip"
-             android:spinnerMode="dropdown"/>
+    <Spinner
+        android:id="@+id/default_or_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dip"
+        android:entries="@array/default_or_custom_entries"
+        android:entryValues="@array/default_or_custom_values"
+        android:spinnerMode="dropdown" />
 
-    <TextView android:id="@+id/default_label"
-              android:layout_marginStart="18dip"
-              android:layout_marginEnd="16dip"
-              android:layout_marginTop="16dip"
-              android:layout_marginBottom="16dip"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/default_label"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="18dip"
+        android:layout_marginTop="16dip"
+        android:layout_marginEnd="16dip"
+        android:layout_marginBottom="16dip" />
 
-    <EditText android:id="@+id/custom_edit"
-              android:layout_marginLeft="16dip"
-              android:layout_marginRight="16dip"
-              android:layout_marginTop="16dip"
-              android:layout_marginBottom="16dip"
-              android:visibility="gone"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"/>
+    <EditText
+        android:id="@+id/custom_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/custom_default_preference_dialog__custom_value"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </LinearLayout>

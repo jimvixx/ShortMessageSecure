@@ -128,7 +128,10 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scroll naar beneden</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> geselecteerd</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d geselecteerd</item>
+        <item quantity="other">%1$d geselecteerd</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Meerdere tegelijk selecteren</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Lijst met ontvangers</string>
@@ -139,9 +142,8 @@
   <string name="conversation_insecure__security">Beveiliging</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Beveiligd bericht</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Contactfoto</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Bezorgd</string>
   <string name="conversation_item_sent__pending_approval_description">In afwachting van goedkeuring</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Verzenden mislukt</string>
@@ -249,6 +251,8 @@
   <string name="ConversationListFragment_undo">ONGEDAAN MAKEN</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Gearchiveerde gesprekken (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Aangepaste waarde</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Met custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Standaard gebruiken: <xliff:g id="arg1">%s</xliff:g></string>
@@ -265,7 +269,7 @@
   <string name="DateUtils_today">Vandaag</string>
   <string name="DateUtils_yesterday">Gisteren</string>
   <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure is een sms-app waarmee je je privacy kunt beschermen terwijl je met vrienden communiceert.\nMet SMSecure kun je sms-berichten versturen en media of bijlagen delen met volledige privacy.\n\nFuncties:\n* Eenvoudig. SMSecure werkt net als elke andere sms-app. Je hoeft je nergens voor aan te melden en je vrienden hoeven zich niet aan te sluiten bij een nieuwe dienst.\n* Betrouwbaar. SMSecure communiceert via versleutelde sms-berichten. Geen servers of internetverbinding nodig.\n* Privé. SMSecure biedt end-to-end-versleuteling voor uw berichten met behulp van het zorgvuldig ontworpen Signal-versleutelingsprotocol.\n* Veilig. Alle berichten worden lokaal versleuteld, dus als uw telefoon zoekraakt of wordt gestolen, zijn uw berichten beschermd.\n* Open Source. SMSecure is gratis en open source, waardoor iedereen de veiligheid ervan kan controleren door de code te auditen.\n\nMeld bugs, problemen of verzoeken om nieuwe functies op: <xliff:g id="arg1">%1$s</xliff:g>\n\nDe broncode is te vinden op: <xliff:g id="arg2">%2$s</xliff:g>\n\nMeer details: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivacybeleid: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <string name="Distribution_long_description">SMSecure is een sms-app waarmee je je privacy kunt beschermen terwijl je met vrienden communiceert.\nMet SMSecure kun je sms-berichten versturen en media of bijlagen delen met volledige privacy.\n\nFuncties:\n* Eenvoudig. SMSecure werkt net als elke andere sms-app. Je hoeft je nergens voor aan te melden en je vrienden hoeven zich niet aan te sluiten bij een nieuwe dienst.\n* Betrouwbaar. SMSecure communiceert via versleutelde sms-berichten. Geen servers of internetverbinding nodig.\n* Privé. SMSecure biedt end-to-end-versleuteling voor uw berichten met behulp van het zorgvuldig ontworpen Signal-versleutelingsprotocol.\n* Veilig. Alle berichten worden lokaal versleuteld, dus als uw telefoon zoekraakt of wordt gestolen, blijven uw berichten beschermd.\n* Open Source. SMSecure is gratis en open source, waardoor iedereen de beveiliging kan controleren door de code te auditen.\n\nMeld bugs, problemen of verzoeken om nieuwe functies op: <xliff:g id="arg1">%1$s</xliff:g>\n\nDe broncode is te vinden op: <xliff:g id="arg2">%2$s</xliff:g>\n\nMeer details: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivacybeleid: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Er is een nieuwe sleutel gegenereerd.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Er is een nieuwe sleutel gegenereerd voor die SIM-kaart.</string>
@@ -393,7 +397,15 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Verzoek om een niet-bestaande sessie te beëindigen</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Bericht versleuteld voor niet-bestaande sessie</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nieuwe berichten in <xliff:g id="arg2">%2$d</xliff:g> gesprekken</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">in <xliff:g id="arg1">%1$d</xliff:g> gesprek</item>
+        <item quantity="other">in <xliff:g id="arg1">%1$d</xliff:g> gesprekken</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nieuw bericht</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nieuwe berichten</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Versleuteld bericht</string>
   <string name="MessageNotifier_error_delivering_message">Fout bij het afleveren van bericht.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Bericht kon niet worden afgeleverd.</string>

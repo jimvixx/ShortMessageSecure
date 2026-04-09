@@ -10,7 +10,7 @@
         android:paddingTop="1dip"
         android:paddingEnd="2dip"
         android:paddingBottom="5dp"
-        android:text="..."
+        android:text="@string/conversation_item_pending__indicator"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="?attr/conversation_item_sent_text_secondary_color"
         android:textSize="@dimen/conversation_item_date_text_size" />

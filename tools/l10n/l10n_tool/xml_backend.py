@@ -116,6 +116,9 @@ class XmlBackend:
             return ET.parse(str(path))
 
     def tostring(self, tree) -> str:
+        _ensure_root_xliff_namespace(tree)
+        _remove_local_xliff_ns_from_plurals(tree)
+
         if self.use_lxml:
             xml = self.LET.tostring(
                 tree,
@@ -132,6 +135,58 @@ class XmlBackend:
 
 
 _XLIFF_NS = "urn:oasis:names:tc:xliff:document:1.2"
+
+
+def _ensure_root_xliff_namespace(tree) -> None:
+    if not hasattr(tree, "getroot"):
+        return
+
+    root = tree.getroot()
+    if root is None:
+        return
+
+    if getattr(root, "tag", None) != "resources":
+        return
+
+    if getattr(root, "nsmap", None) is not None:
+        nsmap = dict(root.nsmap or {})
+        if nsmap.get("xliff") != _XLIFF_NS:
+            import lxml.etree as LET2  # type: ignore
+
+            new_root = LET2.Element("resources", nsmap={**nsmap, "xliff": _XLIFF_NS})
+            new_root.text = root.text
+            new_root.tail = root.tail
+
+            for key, value in root.attrib.items():
+                new_root.set(key, value)
+
+            for child in list(root):
+                root.remove(child)
+                new_root.append(child)
+
+            parent = root.getparent()
+            if parent is None:
+                tree._setroot(new_root)
+            else:
+                parent.replace(root, new_root)
+    else:
+        import xml.etree.ElementTree as ET
+        ET.register_namespace("xliff", _XLIFF_NS)
+
+
+def _remove_local_xliff_ns_from_plurals(tree) -> None:
+    root = tree.getroot()
+    if root is None:
+        return
+
+    for node in root.findall("plurals"):
+        bad_keys = [
+            key
+            for key in list(node.attrib.keys())
+            if key == "xmlns:xliff" or key.endswith("}xliff")
+        ]
+        for key in bad_keys:
+            node.attrib.pop(key, None)
 
 
 def _lxml_inner_xml(node) -> str:
@@ -443,6 +498,8 @@ def lxml_upsert_plurals(tree, e: PluralsEntry, items: Dict[str, str]) -> None:
     else:
         node.attrib.pop("translatable", None)
 
+    node.attrib.pop("xmlns:xliff", None)
+
     for child in list(node.findall("item")):
         node.remove(child)
 
@@ -623,6 +680,8 @@ def etree_upsert_plurals(tree, e: PluralsEntry, items: Dict[str, str]) -> None:
         node.set("translatable", "false")
     else:
         node.attrib.pop("translatable", None)
+
+    node.attrib.pop("xmlns:xliff", None)
 
     import xml.etree.ElementTree as ET
 

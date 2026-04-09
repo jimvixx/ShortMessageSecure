@@ -29,7 +29,7 @@
     <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Натиснете, за да направите SMSecure вашето приложение за SMS по подразбиране</string>
     <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
         <item quantity="one">Това ще съкрати незабавно всички разговори до <xliff:g id="arg1">%1$d</xliff:g> най-скорошно съобщение.</item>
-        <item quantity="other">Това незабавно ще съкрати всички разговори до <xliff:g id="arg1">%1$d</xliff:g> най-новите съобщения.</item>
+        <item quantity="other">Това незабавно ще съкрати всички разговори до последните <xliff:g id="arg1">%1$d</xliff:g> съобщения.</item>
     </plurals>
     <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">„Предупреждение: това ще деактивира криптирането на съхранението за всички съобщения и ключове. Вашите криптирани сесии ще продължат да функционират, но всеки, който получи физически достъп до вашето устройство, ще може да ги прочете.“</string>
     <!--AppProtectionPreferenceFragment-->
@@ -128,7 +128,10 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Превъртете до края</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> избрано</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d избрано</item>
+        <item quantity="other">%1$d избрано</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">Избор</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">Списък с получатели</string>
@@ -139,9 +142,8 @@
     <string name="conversation_insecure__security">Сигурност</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Защитено съобщение</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Снимка на контакт</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">Доставено</string>
     <string name="conversation_item_sent__pending_approval_description">В очакване на одобрение</string>
     <string name="conversation_item_sent__send_failed_indicator_description">Изпращането се провали</string>
@@ -249,6 +251,8 @@
     <string name="ConversationListFragment_undo">UNDO</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">Архивирани разговори (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">Персонализирана стойност</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">Използване на custom: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">Използване на default: <xliff:g id="arg1">%s</xliff:g></string>
@@ -260,12 +264,12 @@
     <!--database_upgrade_activity-->
     <string name="database_upgrade_activity__updating_database">Актуализиране на базата данни…</string>
     <!--DateUtils-->
-    <string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> мин.</string>
+    <string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> мин</string>
     <string name="DateUtils_now">Сега</string>
     <string name="DateUtils_today">Днес</string>
     <string name="DateUtils_yesterday">Вчера</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure е приложение за SMS, което ви позволява да защитите личните си данни, докато общувате с приятели.\nС помощта на SMSecure можете да изпращате SMS съобщения и да споделяте медийни файлове или прикачени файлове с пълна конфиденциалност.\n\nХарактеристики:\n* Лесно. SMSecure работи като всяко друго приложение за SMS. Не е необходимо да се регистрирате и приятелите ви не трябва да се присъединяват към нова услуга.\n* Надеждно. SMSecure комуникира чрез криптирани SMS съобщения. Не са необходими сървъри или интернет връзка.\n* Частност. SMSecure осигурява криптиране от край до край за вашите съобщения, използвайки внимателно разработения протокол за криптиране Signal.\n* Безопасност. Всички съобщения се криптират локално, така че ако загубите или ви откраднат телефона, съобщенията ви са защитени.\n* Отворен код. SMSecure е безплатно и с отворен код, което позволява на всеки да провери неговата сигурност чрез одит на кода.\n\nМоля, подавайте всички бъгове, проблеми или искания за функции на: <xliff:g id="arg1">%1$s</xliff:g>\n\nИзходният код може да бъде намерен на: <xliff:g id="arg2">%2$s</xliff:g>\n\nПовече подробности: <xliff:g id="arg3">%3$s</xliff:g>\n\nПолитика за поверителност: <xliff:g id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure е приложение за SMS, което ви позволява да защитите личните си данни, докато общувате с приятели.\nС помощта на SMSecure можете да изпращате SMS съобщения и да споделяте мултимедия или прикачени файлове с пълна конфиденциалност.\n\nХарактеристики:\n* Лесно. SMSecure работи като всяко друго приложение за SMS. Няма нужда да се регистрирате и приятелите ви не трябва да се присъединяват към нова услуга.\n* Надеждно. SMSecure комуникира чрез криптирани SMS съобщения. Не са необходими сървъри или интернет връзка.\n* Частност. SMSecure осигурява криптиране от край до край за вашите съобщения, използвайки внимателно разработения протокол за криптиране Signal.\n* Безопасност. Всички съобщения се криптират локално, така че ако загубите или ви откраднат телефона, съобщенията ви са защитени.\n* Отворен код. SMSecure е безплатно и с отворен код, което позволява на всеки да провери неговата сигурност чрез одит на кода.\n\nМоля, докладвайте всички бъгове, проблеми или искания за функции на: <xliff:g id="arg1">%1$s</xliff:g>\n\nИзходният код може да бъде намерен на: <xliff:g id="arg2">%2$s</xliff:g>\n\nПовече подробности: <xliff:g id="arg3">%3$s</xliff:g>\n\nПолитика за поверителност: <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">Генериран е нов ключ.</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">За тази SIM карта е генериран нов ключ.</string>
@@ -393,7 +397,15 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Искане за прекратяване на несъществуваща сесия</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Съобщение, криптирано за несъществуваща сесия</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> нови съобщения в <xliff:g id="arg2">%2$d</xliff:g> разговори</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">в <xliff:g id="arg1">%1$d</xliff:g> разговор</item>
+        <item quantity="other">в <xliff:g id="arg1">%1$d</xliff:g> разговора</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> ново съобщение</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> нови съобщения</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">Шифровано съобщение</string>
     <string name="MessageNotifier_error_delivering_message">Грешка при доставката на съобщение.</string>
     <string name="MessageNotifier_failed_to_deliver_message">Не успя да достави съобщение.</string>
@@ -583,7 +595,7 @@
     <string name="SmsMessageRecord_secure_session_ended">Сигурната сесия приключи.</string>
     <!--SubscriptionInfoCompat-->
     <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (слот <xliff:g id="arg2">%2$d</xliff:g>)</string>
-    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+    <string name="SubscriptionInfoCompat_slot">Слот <xliff:g id="arg1">%1$d</xliff:g></string>
     <!--ThreadRecord-->
     <string name="ThreadRecord_draft">Чернова:</string>
     <string name="ThreadRecord_left_the_group">Напусна групата</string>

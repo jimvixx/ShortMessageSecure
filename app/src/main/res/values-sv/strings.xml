@@ -128,7 +128,10 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Bläddra till botten</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> valt</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d valt</item>
+        <item quantity="other">%1$d valt</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Välj</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Mottagarlista</string>
@@ -139,9 +142,8 @@
   <string name="conversation_insecure__security">Säkerhet</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Säker meddelande</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Levererad</string>
   <string name="conversation_item_sent__pending_approval_description">Väntar på godkännande</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Skickningen misslyckades</string>
@@ -249,6 +251,8 @@
   <string name="ConversationListFragment_undo">ÅNGRA</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Arkiverade konversationer (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Anpassat värde</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Använder custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Använder standard: <xliff:g id="arg1">%s</xliff:g></string>
@@ -265,7 +269,7 @@
   <string name="DateUtils_today">Idag</string>
   <string name="DateUtils_yesterday">Igår</string>
   <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure är en SMS-app som låter dig skydda din integritet när du kommunicerar med vänner.\nMed SMSecure kan du skicka SMS och dela media eller bilagor med fullständig integritet.\n\nFunktioner:\n* Enkelt. SMSecure fungerar som vilken annan SMS-app som helst. Det finns inget att registrera sig för och ingen ny tjänst som dina vänner behöver gå med i.\n* Pålitligt. SMSecure kommunicerar med krypterade SMS-meddelanden. Inga servrar eller internetanslutning krävs.\n* Privat. SMSecure erbjuder end-to-end-kryptering för dina meddelanden med hjälp av det noggrant utformade Signal-krypteringsprotokollet.\n* Säker. Alla meddelanden krypteras lokalt, så om din telefon tappas bort eller blir stulen är dina meddelanden skyddade.\n* Öppen källkod. SMSecure är gratis och har öppen källkod, vilket gör det möjligt för vem som helst att verifiera dess säkerhet genom att granska koden.\n\nVänligen rapportera eventuella buggar, problem eller önskemål om funktioner på: <xliff:g id="arg1">%1$s</xliff:g>\n\nKällkoden finns på: <xliff:g id="arg2">%2$s</xliff:g>\n\nMer information: <xliff:g id="arg3">%3$s</xliff:g>\n\nSekretesspolicy: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <string name="Distribution_long_description">SMSecure är en SMS-app som låter dig skydda din integritet när du kommunicerar med vänner.\nMed SMSecure kan du skicka SMS och dela media eller bilagor med fullständig integritet.\n\nFunktioner:\n* Enkelt. SMSecure fungerar som vilken annan SMS-app som helst. Det finns inget att registrera sig för och ingen ny tjänst som dina vänner behöver gå med i.\n* Pålitligt. SMSecure kommunicerar med krypterade SMS-meddelanden. Inga servrar eller internetanslutning krävs.\n* Privat. SMSecure erbjuder end-to-end-kryptering för dina meddelanden med hjälp av det noggrant utformade Signal-krypteringsprotokollet.\n* Säkert. Alla meddelanden krypteras lokalt, så om din telefon skulle försvinna eller bli stulen är dina meddelanden skyddade.\n* Öppen källkod. SMSecure är gratis och har öppen källkod, vilket gör det möjligt för vem som helst att verifiera säkerheten genom att granska koden.\n\nVänligen rapportera eventuella buggar, problem eller önskemål om funktioner på: <xliff:g id="arg1">%1$s</xliff:g>\n\nKällkoden finns på: <xliff:g id="arg2">%2$s</xliff:g>\n\nMer information: <xliff:g id="arg3">%3$s</xliff:g>\n\nIntegritetspolicy: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">En ny nyckel har genererats.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">En ny nyckel har genererats för det SIM-kortet.</string>
@@ -393,7 +397,15 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Begäran om att avsluta en icke-existerande session</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Meddelande krypterat för icke-existerande session</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nya meddelanden i <xliff:g id="arg2">%2$d</xliff:g> konversationer</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">i <xliff:g id="arg1">%1$d</xliff:g> konversation</item>
+        <item quantity="other">i <xliff:g id="arg1">%1$d</xliff:g> konversationer</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nytt meddelande</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nya meddelanden</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Krypterat meddelande</string>
   <string name="MessageNotifier_error_delivering_message">Fel vid leverans av meddelande.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Det gick inte att leverera meddelandet.</string>

@@ -128,7 +128,10 @@
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">Kerige alla</string>
 <!--conversation_fragment_cab-->
-<string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> valitud</string>
+<plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d valitud</item>
+        <item quantity="other">%1$d valitud</item>
+    </plurals>
 <string name="conversation_fragment_cab__batch_selection_mode">Vali</string>
 <!--conversation_group_options-->
 <string name="conversation_group_options__recipients_list">Saajate nimekiri</string>
@@ -139,9 +142,8 @@
 <string name="conversation_insecure__security">Turvalisus</string>
 <!--conversation_item-->
 <string name="conversation_item__secure_message_description">Turvaline sõnum</string>
-<!--conversation_item_received-->
+<string name="conversation_item_pending__indicator">…</string>
 <string name="conversation_item_received__contact_photo_description">Kontakti foto</string>
-<!--conversation_item_sent-->
 <string name="conversation_item_sent__delivered_description">Kohale toimetatud</string>
 <string name="conversation_item_sent__pending_approval_description">Ootab kinnitust</string>
 <string name="conversation_item_sent__send_failed_indicator_description">Saadetud ebaõnnestus</string>
@@ -249,6 +251,8 @@
 <string name="ConversationListFragment_undo">UNDO</string>
 <!--ConversationListItemArchived-->
 <string name="ConversationListItemAction_archived_conversations_d">Arhiveeritud vestlused (<xliff:g id="arg1">%d</xliff:g>)</string>
+<!--custom_default_preference_dialog-->
+<string name="custom_default_preference_dialog__custom_value">Kohandatud väärtus</string>
 <!--CustomDefaultPreference-->
 <string name="CustomDefaultPreference_using_custom">Kasutades custom: <xliff:g id="arg1">%s</xliff:g></string>
 <string name="CustomDefaultPreference_using_default">Kasutades default: <xliff:g id="arg1">%s</xliff:g></string>
@@ -393,7 +397,15 @@
 <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Taotlus lõpetada olematu sessioon</string>
 <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Sõnum krüpteeritud olematu seansi jaoks</string>
 <!--MessageNotifier-->
-<string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> uued sõnumid <xliff:g id="arg2">%2$d</xliff:g> vestlustes</string>
+<plurals name="MessageNotifier__in_conversations">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> vestluses</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> vestluses</item>
+    </plurals>
+<string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+<plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> uus sõnum</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> uut sõnumit</item>
+    </plurals>
 <string name="MessageNotifier_encrypted_message">Krüpteeritud sõnum</string>
 <string name="MessageNotifier_error_delivering_message">Viga sõnumi edastamisel.</string>
 <string name="MessageNotifier_failed_to_deliver_message">Sõnumi edastamine ebaõnnestus.</string>
@@ -582,7 +594,7 @@
 <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Saadi uuendatud, kuid tundmatu identiteediinfo. Puuduta, et identiteeti kinnitada.</string>
 <string name="SmsMessageRecord_secure_session_ended">Turvaline seanss lõppes.</string>
 <!--SubscriptionInfoCompat-->
-<string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (pesa <xliff:g id="arg2">%2$d</xliff:g>)</string>
+<string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slot <xliff:g id="arg2">%2$d</xliff:g>)</string>
 <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
 <!--ThreadRecord-->
 <string name="ThreadRecord_draft">Eelnõu:</string>

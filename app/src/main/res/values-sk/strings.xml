@@ -132,7 +132,12 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Prejdite na koniec</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> vybrané</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d vybraných</item>
+        <item quantity="few">%1$d vybrané</item>
+        <item quantity="many">%1$d vybrané</item>
+        <item quantity="other">%1$d vybrané</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Vybrať</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Zoznam príjemcov</string>
@@ -143,9 +148,8 @@
   <string name="conversation_insecure__security">Bezpečnosť</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Zabezpečená správa</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Fotografia kontaktu</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Doručené</string>
   <string name="conversation_item_sent__pending_approval_description">Čaká na schválenie</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Odoslanie sa nepodarilo</string>
@@ -265,6 +269,8 @@
   <string name="ConversationListFragment_undo">UNDO</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Archív konverzácií (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Vlastná hodnota</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Použitie custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Použitie predvoleného nastavenia: <xliff:g id="arg1">%s</xliff:g></string>
@@ -409,7 +415,19 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Žiadosť o ukončenie neexistujúcej relácie</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Správa zašifrovaná pre neexistujúcu reláciu</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nové správy v <xliff:g id="arg2">%2$d</xliff:g> konverzáciách</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">v <xliff:g id="arg1">%1$d</xliff:g> konverzácii</item>
+        <item quantity="few">v <xliff:g id="arg1">%1$d</xliff:g> konverzáciách</item>
+        <item quantity="many">v <xliff:g id="arg1">%1$d</xliff:g> konverzáciách</item>
+        <item quantity="other">v <xliff:g id="arg1">%1$d</xliff:g> konverzáciách</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nová správa</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> nové správy</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> nových správ</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nových správ</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Šifrovaná správa</string>
   <string name="MessageNotifier_error_delivering_message">Chyba pri doručovaní správy.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Nepodarilo sa doručiť správu.</string>

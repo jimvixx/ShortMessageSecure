@@ -426,7 +426,10 @@ def _write_base_sorted_with_lxml(base_file: Path, entries: List) -> None:
     if LxmlEtree is None:
         raise SystemExit("lxml is required for base sorting with section comments")
 
-    root = LxmlEtree.Element("resources")
+    root = LxmlEtree.Element(
+        "resources",
+        nsmap={"xliff": "urn:oasis:names:tc:xliff:document:1.2"},
+    )
     root.text = "\n    "
 
     for entry in entries:

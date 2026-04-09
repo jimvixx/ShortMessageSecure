@@ -126,7 +126,9 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">滚动至底部</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> 已选中</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="other">%1$d 已选</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">选择</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">收件人列表</string>
@@ -137,9 +139,8 @@
     <string name="conversation_insecure__security">安全</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">安全消息</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">联系人照片</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">已送达</string>
     <string name="conversation_item_sent__pending_approval_description">待审批</string>
     <string name="conversation_item_sent__send_failed_indicator_description">发送失败</string>
@@ -241,6 +242,8 @@
     <string name="ConversationListFragment_undo">撤销</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">已存档的对话 (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">自定义值</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">使用 custom：<xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">使用默认值：<xliff:g id="arg1">%s</xliff:g></string>
@@ -257,7 +260,7 @@
     <string name="DateUtils_today">今天</string>
     <string name="DateUtils_yesterday">昨天</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure 是一款短信应用，可让您在与朋友沟通时保护隐私。\n使用 SMSecure，您可以完全私密地发送短信并分享媒体或附件。\n\n功能：\n* 简单。SMSecure 的使用方式与其他短信应用无异。无需注册，您的朋友也无需加入任何新服务。\n* 可靠。SMSecure 通过加密短信进行通信。 无需服务器或互联网连接。\n* 私密。SMSecure 采用精心设计的 Signal 加密协议，为您的消息提供端到端加密。\n* 安全。所有消息均在本地加密，因此即使手机丢失或被盗，您的消息依然受到保护。\n* 开源。SMSecure 是免费且开源的，任何人都可以通过审核代码来验证其安全性。n\n如有任何错误、问题或功能请求，请提交至：<xliff:g id="arg1">%1$s</xliff:g>\n\n源代码可在以下位置找到：<xliff:g id="arg2">%2$s</xliff:g>\n\n更多详情：<xliff:g id="arg3">%3$s</xliff:g>\n\n隐私政策： <xliff:g id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure 是一款短信应用，可让您在与朋友沟通时保护隐私。\n使用 SMSecure，您可以完全私密地发送短信并分享媒体或附件。\n\n功能：\n* 简单易用。SMSecure 的使用方式与其他短信应用无异。无需注册，您的朋友也无需加入任何新服务。\n* 可靠。SMSecure 通过加密短信进行通信。 无需服务器或互联网连接。\n* 私密。SMSecure 采用精心设计的 Signal 加密协议，为您的消息提供端到端加密。\n* 安全。所有消息均在本地加密，因此即使手机丢失或被盗，您的消息依然受到保护。\n* 开源。SMSecure 是免费且开源的，任何人都可以通过审核代码来验证其安全性。n\n如有任何错误、问题或功能请求，请提交至：<xliff:g id="arg1">%1$s</xliff:g>\n\n源代码位于：<xliff:g id="arg2">%2$s</xliff:g>\n\n更多详情：<xliff:g id="arg3">%3$s</xliff:g>\n\n隐私政策： <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">已生成一个新密钥。</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">已为该 SIM 卡生成了一把新密钥。</string>
@@ -385,7 +388,13 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">请求结束一个不存在的会话</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">为不存在的会话加密的消息</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> 对话中<xliff:g id="arg2">%2$d</xliff:g>有新消息</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="other">在 <xliff:g id="arg1">%1$d</xliff:g> 次对话中</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> 条新消息</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">加密消息</string>
     <string name="MessageNotifier_error_delivering_message">发送消息时发生错误。</string>
     <string name="MessageNotifier_failed_to_deliver_message">无法发送消息。</string>
@@ -573,7 +582,7 @@
     <string name="SmsMessageRecord_secure_session_ended">安全会话已结束。</string>
     <!--SubscriptionInfoCompat-->
     <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (插槽 <xliff:g id="arg2">%2$d</xliff:g>)</string>
-    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+    <string name="SubscriptionInfoCompat_slot">插槽 <xliff:g id="arg1">%1$d</xliff:g></string>
     <!--ThreadRecord-->
     <string name="ThreadRecord_draft">草稿：</string>
     <string name="ThreadRecord_left_the_group">已离开群组</string>

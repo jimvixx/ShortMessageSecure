@@ -128,7 +128,10 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Vieritä alareunaan</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> valittu</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d valittu</item>
+        <item quantity="other">%1$d valittu</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Valitse</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Vastaanottajaluettelo</string>
@@ -139,9 +142,8 @@
   <string name="conversation_insecure__security">Turvallisuus</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Suojattu viesti</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Yhteystiedon valokuva</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Toimitettu</string>
   <string name="conversation_item_sent__pending_approval_description">Odottaa hyväksyntää</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Lähetys epäonnistui</string>
@@ -236,7 +238,7 @@
   <string name="ConversationListFragment_deleting_selected_conversations">Valittujen keskustelujen poistaminen…</string>
   <plurals name="ConversationListFragment_moved_conversations_to_inbox">
         <item quantity="one">Siirretty <xliff:g id="arg1">%1$d</xliff:g> keskustelu Saapuneet-kansioon</item>
-        <item quantity="other">Siirrettiin <xliff:g id="arg1">%1$d</xliff:g> keskustelua Saapuneet-kansioon</item>
+        <item quantity="other">Siirretty <xliff:g id="arg1">%1$d</xliff:g> keskustelua Saapuneet-kansioon</item>
     </plurals>
   <string name="ConversationListFragment_send_drafts">Lähetä luonnokset</string>
   <string name="ConversationListFragment_sending">Lähetys</string>
@@ -249,6 +251,8 @@
   <string name="ConversationListFragment_undo">PERUUTA</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Arkistoidut keskustelut (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Mukautettu arvo</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Käyttämällä custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Käytetään oletusarvoa: <xliff:g id="arg1">%s</xliff:g></string>
@@ -265,7 +269,7 @@
   <string name="DateUtils_today">Tänään</string>
   <string name="DateUtils_yesterday">Eilen</string>
   <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure on tekstiviestisovellus, jonka avulla voit suojata yksityisyyttäsi viestittäessäsi ystävien kanssa.\nSMSecuren avulla voit lähettää tekstiviestejä ja jakaa mediaa tai liitteitä täysin yksityisesti.\n\nOminaisuudet:\n* Helppo. SMSecure toimii kuten mikä tahansa muu tekstiviestisovellus. Sinun ei tarvitse rekisteröityä mihinkään, eikä ystäviesi tarvitse liittyä mihinkään uuteen palveluun.\n* Luotettava. SMSecure viestii salattujen tekstiviestien avulla. Palvelimia tai internetyhteyttä ei tarvita.\n* Yksityinen. SMSecure tarjoaa viesteillesi päästä päähän -salauksen käyttämällä huolellisesti suunniteltua Signal-salausprotokollaa.\n* Turvallinen. Kaikki viestit salataan paikallisesti, joten jos puhelimesi katoaa tai varastetaan, viestisi ovat suojattuja.\n* Avoin lähdekoodi. SMSecure on ilmainen ja avoimen lähdekoodin sovellus, joten kuka tahansa voi tarkistaa sen turvallisuuden tarkastamalla koodin.\n\nIlmoita virheistä, ongelmista tai ominaisuuspyyntöistä osoitteessa: <xliff:g id="arg1">%1$s</xliff:g>\n\nLähdekoodi löytyy osoitteesta: <xliff:g id="arg2">%2$s</xliff:g>\n\nLisätietoja: <xliff:g id="arg3">%3$s</xliff:g>\n\nTietosuojakäytäntö: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <string name="Distribution_long_description">SMSecure on tekstiviestisovellus, jonka avulla voit suojata yksityisyyttäsi viestitessäsi ystävien kanssa.\nSMSecuren avulla voit lähettää tekstiviestejä ja jakaa mediaa tai liitteitä täysin yksityisesti.\n\nOminaisuudet:\n* Helppo. SMSecure toimii kuten mikä tahansa muu tekstiviestisovellus. Sinun ei tarvitse rekisteröityä mihinkään, eikä ystäviesi tarvitse liittyä mihinkään uuteen palveluun.\n* Luotettava. SMSecure viestii salattujen tekstiviestien avulla. Palvelimia tai internetyhteyttä ei tarvita.\n* Yksityinen. SMSecure tarjoaa viesteillesi päästä päähän -salauksen käyttämällä huolellisesti suunniteltua Signal-salausprotokollaa.\n* Turvallinen. Kaikki viestit salataan paikallisesti, joten jos puhelimesi katoaa tai varastetaan, viestisi ovat suojattuja.\n* Avoin lähdekoodi. SMSecure on ilmainen ja avoimen lähdekoodin sovellus, joten kuka tahansa voi tarkistaa sen turvallisuuden tarkastamalla koodin.\n\nIlmoita virheistä, ongelmista tai ominaisuuspyyntöistä osoitteessa: <xliff:g id="arg1">%1$s</xliff:g>\n\nLähdekoodi löytyy osoitteesta: <xliff:g id="arg2">%2$s</xliff:g>\n\nLisätietoja: <xliff:g id="arg3">%3$s</xliff:g>\n\nTietosuojakäytäntö: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Uusi avain on luotu.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Tuolle SIM-kortille on luotu uusi avain.</string>
@@ -393,7 +397,15 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Pyyntö lopettaa olematon istunto</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Viesti salattu olemattomalle istunnolle</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> uusia viestejä <xliff:g id="arg2">%2$d</xliff:g> keskusteluissa</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> keskustelussa</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> keskustelussa</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> uusi viesti</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> uutta viestiä</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Salattu viesti</string>
   <string name="MessageNotifier_error_delivering_message">Virhe viestin toimittamisessa.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Viestin toimittaminen epäonnistui.</string>
@@ -483,7 +495,7 @@
   <string name="preferences__minutes">minuutit</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> viesti</item>
-        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> viestiä</item>
     </plurals>
   <string name="preferences__never">Ei koskaan</string>
   <string name="preferences__notifications">Ilmoitukset</string>
@@ -583,7 +595,7 @@
   <string name="SmsMessageRecord_secure_session_ended">Suojattu istunto päättynyt.</string>
   <!--SubscriptionInfoCompat-->
   <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (paikka <xliff:g id="arg2">%2$d</xliff:g>)</string>
-  <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+  <string name="SubscriptionInfoCompat_slot">Paikka <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">Luonnos:</string>
   <string name="ThreadRecord_left_the_group">Poistui ryhmästä</string>

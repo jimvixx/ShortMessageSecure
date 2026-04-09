@@ -130,7 +130,11 @@
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pārvietojieties uz apakšu</string>
 <!--conversation_fragment_cab-->
-<string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> izvēlēts</string>
+<plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="zero">%1$d izvēlēts</item>
+        <item quantity="one">%1$d izvēlēts</item>
+        <item quantity="other">%1$d izvēlēts</item>
+    </plurals>
 <string name="conversation_fragment_cab__batch_selection_mode">Izvēlēties</string>
 <!--conversation_group_options-->
 <string name="conversation_group_options__recipients_list">Saņēmēju saraksts</string>
@@ -141,9 +145,8 @@
 <string name="conversation_insecure__security">Drošība</string>
 <!--conversation_item-->
 <string name="conversation_item__secure_message_description">Droša ziņa</string>
-<!--conversation_item_received-->
+<string name="conversation_item_pending__indicator">…</string>
 <string name="conversation_item_received__contact_photo_description">Kontakta foto</string>
-<!--conversation_item_sent-->
 <string name="conversation_item_sent__delivered_description">Piegādāts</string>
 <string name="conversation_item_sent__pending_approval_description">Gaida apstiprinājumu</string>
 <string name="conversation_item_sent__send_failed_indicator_description">Nosūtīšana neizdevās</string>
@@ -257,6 +260,8 @@
 <string name="ConversationListFragment_undo">ATCELT</string>
 <!--ConversationListItemArchived-->
 <string name="ConversationListItemAction_archived_conversations_d">Arhivētās sarunas (<xliff:g id="arg1">%d</xliff:g>)</string>
+<!--custom_default_preference_dialog-->
+<string name="custom_default_preference_dialog__custom_value">Pielāgota vērtība</string>
 <!--CustomDefaultPreference-->
 <string name="CustomDefaultPreference_using_custom">Izmantojot custom: <xliff:g id="arg1">%s</xliff:g></string>
 <string name="CustomDefaultPreference_using_default">Izmantojot noklusējumu: <xliff:g id="arg1">%s</xliff:g></string>
@@ -273,7 +278,7 @@
 <string name="DateUtils_today">Šodien</string>
 <string name="DateUtils_yesterday">Vakar</string>
 <!--Distribution-->
-<string name="Distribution_long_description">SMSecure ir SMS lietotne, kas ļauj aizsargāt jūsu privātumu, sazinoties ar draugiem.\nIzmantojot SMSecure, jūs varat sūtīt SMS ziņojumus un dalīties ar multivides failiem vai pielikumiem, pilnībā saglabājot privātumu.\n\nFunkcijas:\n* Vienkārši. SMSecure darbojas tāpat kā jebkura cita SMS lietotne. Nav nekas jāreģistrē, un jūsu draugiem nav jāpievienojas jaunam pakalpojumam.\n* Uzticams. SMSecure sazinās, izmantojot šifrētus SMS ziņojumus. Nav nepieciešami serveri vai interneta savienojums.\n* Privāts. SMSecure nodrošina jūsu ziņojumu šifrēšanu no gala līdz galam, izmantojot rūpīgi izstrādāto Signal šifrēšanas protokolu.\n* Drošs. Visas ziņas tiek šifrētas lokāli, tādējādi, ja jūsu tālrunis tiek nozaudēts vai nozagts, jūsu ziņas ir aizsargātas.\n* Atvērtā koda. SMSecure ir bezmaksas un atvērtā koda, ļaujot ikvienam pārbaudīt tā drošību, pārbaudot kodu.\n\nLūdzu, ziņojiet par visām kļūdām, problēmām vai funkciju pieprasījumiem šeit: <xliff:g id="arg1">%1$s</xliff:g>\n\nAvota kods ir atrodams šeit: <xliff:g id="arg2">%2$s</xliff:g>\n\nSīkāka informācija: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivātuma politika: <xliff:g id="arg4">%4$s</xliff:g></string>
+<string name="Distribution_long_description">SMSecure ir SMS lietotne, kas ļauj jums aizsargāt savu privātumu, sazinoties ar draugiem.\nIzmantojot SMSecure, jūs varat sūtīt SMS ziņojumus un dalīties ar multivides failiem vai pielikumiem, pilnībā saglabājot privātumu.\n\nFunkcijas:\n* Vienkārši. SMSecure darbojas tāpat kā jebkura cita SMS lietotne. Nav nekas jāreģistrē, un jūsu draugiem nav jāpievienojas nevienam jaunam pakalpojumam.\n* Uzticams. SMSecure sazinās, izmantojot šifrētus SMS ziņojumus. Nav nepieciešami serveri vai interneta savienojums.\n* Privāts. SMSecure nodrošina jūsu ziņojumu šifrēšanu no gala līdz galam, izmantojot rūpīgi izstrādāto Signal šifrēšanas protokolu.\n* Drošs. Visas ziņas tiek šifrētas lokāli, tādējādi, ja jūsu tālrunis tiek nozaudēts vai nozagts, jūsu ziņas ir aizsargātas.\n* Atvērtā koda. SMSecure ir bezmaksas un atvērtā koda, ļaujot ikvienam pārbaudīt tā drošību, pārbaudot kodu.\n\nLūdzu, ziņojiet par visām kļūdām, problēmām vai funkciju pieprasījumiem šeit: <xliff:g id="arg1">%1$s</xliff:g>\n\nAvota kods ir atrodams šeit: <xliff:g id="arg2">%2$s</xliff:g>\n\nSīkāka informācija: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivātuma politika: <xliff:g id="arg4">%4$s</xliff:g></string>
 <!--DualSimUtil-->
 <string name="DualSimUtil__a_new_key_has_been_generated">Ir ģenerēta jauna atslēga.</string>
 <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Šai SIM kartei ir ģenerēta jauna atslēga.</string>
@@ -401,7 +406,17 @@
 <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Pieprasījums pārtraukt neeksistējošu sesiju</string>
 <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Ziņojums šifrēts neeksistējošai sesijai</string>
 <!--MessageNotifier-->
-<string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> jaunas ziņas <xliff:g id="arg2">%2$d</xliff:g> sarunās</string>
+<plurals name="MessageNotifier__in_conversations">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> sarunās</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> sarunā</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> sarunās</item>
+    </plurals>
+<string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+<plurals name="MessageNotifier__new_messages">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> jaunas ziņas</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> jauns ziņojums</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> jauni ziņojumi</item>
+    </plurals>
 <string name="MessageNotifier_encrypted_message">Šifrēts ziņojums</string>
 <string name="MessageNotifier_error_delivering_message">Kļūda ziņojuma nosūtīšanā.</string>
 <string name="MessageNotifier_failed_to_deliver_message">Neizdevās nosūtīt ziņojumu.</string>
@@ -593,7 +608,7 @@
 <string name="SmsMessageRecord_secure_session_ended">Drošā sesija ir beigusies.</string>
 <!--SubscriptionInfoCompat-->
 <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slots <xliff:g id="arg2">%2$d</xliff:g>)</string>
-<string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+<string name="SubscriptionInfoCompat_slot">Slots <xliff:g id="arg1">%1$d</xliff:g></string>
 <!--ThreadRecord-->
 <string name="ThreadRecord_draft">Draft:</string>
 <string name="ThreadRecord_left_the_group">Izstājās no grupas</string>

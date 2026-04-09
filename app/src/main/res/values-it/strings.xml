@@ -130,7 +130,11 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scorri fino in fondo</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> selezionato</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d selezionato</item>
+        <item quantity="many">%1$d selezionato</item>
+        <item quantity="other">%1$d selezionato</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">Seleziona</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">Elenco dei destinatari</string>
@@ -141,9 +145,8 @@
     <string name="conversation_insecure__security">Sicurezza</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Messaggio protetto</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Foto del contatto</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">Consegnato</string>
     <string name="conversation_item_sent__pending_approval_description">In attesa di approvazione</string>
     <string name="conversation_item_sent__send_failed_indicator_description">Invio fallito</string>
@@ -251,12 +254,14 @@
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Questo eliminerà definitivamente <xliff:g id="arg1">%1$d</xliff:g> conversazione selezionata.</item>
         <item quantity="many">Questo eliminerà definitivamente tutte le <xliff:g id="arg1">%1$d</xliff:g> conversazioni selezionate.</item>
-        <item quantity="other">Questo eliminerà definitivamente tutte le <xliff:g id="arg1">%1$d</xliff:g> conversazioni selezionate.</item>
+        <item quantity="other">Questo eliminerà definitivamente tutte e <xliff:g id="arg1">%1$d</xliff:g> le conversazioni selezionate.</item>
     </plurals>
     <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Questo invierà le bozze delle conversazioni selezionate.</string>
     <string name="ConversationListFragment_undo">ANNULLA</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">Conversazioni archiviate (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">Valore personalizzato</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">Utilizzo di custom: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">Utilizzo di default: <xliff:g id="arg1">%s</xliff:g></string>
@@ -401,7 +406,17 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Richiesta di chiusura di una sessione inesistente</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Messaggio crittografato per una sessione inesistente</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nuovi messaggi nelle <xliff:g id="arg2">%2$d</xliff:g> conversazioni</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">in <xliff:g id="arg1">%1$d</xliff:g> conversazione</item>
+        <item quantity="many">in <xliff:g id="arg1">%1$d</xliff:g> conversazioni</item>
+        <item quantity="other">in <xliff:g id="arg1">%1$d</xliff:g> conversazioni</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nuovo messaggio</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> nuovi messaggi</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nuovi messaggi</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">Messaggio crittografato</string>
     <string name="MessageNotifier_error_delivering_message">C\’è stato un errore durante l\’invio del messaggio</string>
     <string name="MessageNotifier_failed_to_deliver_message">Non è riuscito l\’invio del messaggio</string>

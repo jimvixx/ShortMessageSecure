@@ -29,7 +29,7 @@
   <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Érintse meg, hogy SMSecure-t alapértelmezett SMS-alkalmazássá tegye</string>
   <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
         <item quantity="one">Ez azonnal az <xliff:g id="arg1">%1$d</xliff:g> legutóbbi üzenetre rövidíti az összes beszélgetést.</item>
-        <item quantity="other">Ez azonnal az <xliff:g id="arg1">%1$d</xliff:g> legutóbbi üzenetre rövidíti az összes beszélgetést.</item>
+        <item quantity="other">Ez azonnal a legutóbbi <xliff:g id="arg1">%1$d</xliff:g> üzenetre rövidíti az összes beszélgetést.</item>
     </plurals>
   <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">Figyelmeztetés, ez letiltja a titkosított tárolást minden üzenethez és kulcshoz. A titkosított üzenetváltásod működni fog, de bárki aki fizikailag hozzáférhet az eszközödhöz hozzájuk férhet!</string>
   <!--AppProtectionPreferenceFragment-->
@@ -128,7 +128,10 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Görgessen az aljára</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> kiválasztva</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d kiválasztva</item>
+        <item quantity="other">%1$d kiválasztva</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Kiválasztás</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Címzettek listája</string>
@@ -139,9 +142,8 @@
   <string name="conversation_insecure__security">Biztonság</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Biztonságos üzenet</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Névjegy fotó</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Kézbesítve</string>
   <string name="conversation_item_sent__pending_approval_description">Jóváhagyásra vár</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Küldés sikertelen</string>
@@ -249,6 +251,8 @@
   <string name="ConversationListFragment_undo">VISSZAVONÁS</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Archivált beszélgetések (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Egyéni érték</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">A custom használata: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Alapértelmezett használata: <xliff:g id="arg1">%s</xliff:g></string>
@@ -393,7 +397,15 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Kérés egy nem létező munkamenet lezárására</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Üzenet titkosítva nem létező munkamenethez</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> új üzenetek a <xliff:g id="arg2">%2$d</xliff:g> beszélgetésekben</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> beszélgetésben</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> beszélgetésben</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> új üzenet</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> új üzenet</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Titkosított üzenet</string>
   <string name="MessageNotifier_error_delivering_message">Hiba az üzenet kézbesítése során.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Az üzenet kézbesítése sikertelen.</string>
@@ -582,7 +594,7 @@
   <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Frissített, de ismeretlen azonosító információt kapott. Érintse meg az azonosítás érvényesítéséhez.</string>
   <string name="SmsMessageRecord_secure_session_ended">A biztonságos munkamenet véget ért.</string>
   <!--SubscriptionInfoCompat-->
-  <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (hely <xliff:g id="arg2">%2$d</xliff:g>)</string>
+  <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slot <xliff:g id="arg2">%2$d</xliff:g>)</string>
   <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">Vázlat:</string>

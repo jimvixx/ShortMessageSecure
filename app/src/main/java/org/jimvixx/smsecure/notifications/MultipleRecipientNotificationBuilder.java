@@ -65,8 +65,25 @@ public class MultipleRecipientNotificationBuilder extends AbstractNotificationBu
   }
 
   public void setMessageCount(int messageCount, int threadCount) {
-    setSubText(context.getString(R.string.MessageNotifier_d_new_messages_in_d_conversations,
-            messageCount, threadCount));
+    String messagesPart = context.getResources().getQuantityString(
+            R.plurals.MessageNotifier__new_messages,
+            messageCount,
+            messageCount
+    );
+
+    String conversationsPart = context.getResources().getQuantityString(
+            R.plurals.MessageNotifier__in_conversations,
+            threadCount,
+            threadCount
+    );
+
+    String subText = context.getString(
+            R.string.MessageNotifier__messages_in_conversations,
+            messagesPart,
+            conversationsPart
+    );
+
+    setSubText(subText);
     setContentInfo(String.valueOf(messageCount));
     setNumber(messageCount);
   }

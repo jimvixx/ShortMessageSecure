@@ -130,7 +130,11 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Desplázate hasta el final</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> seleccionado</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d seleccionado</item>
+        <item quantity="many">%1$d seleccionado</item>
+        <item quantity="other">%1$d seleccionado</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Seleccionar</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Lista de destinatarios</string>
@@ -141,9 +145,8 @@
   <string name="conversation_insecure__security">Seguridad</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Mensaje seguro</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Foto de contacto</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Entregado</string>
   <string name="conversation_item_sent__pending_approval_description">Pendiente de aprobación</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Error al enviar</string>
@@ -221,7 +224,7 @@
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Esto eliminará definitivamente <xliff:g id="count">%1$d</xliff:g> mensaje seleccionado.</item>
         <item quantity="many">Esto eliminará definitivamente los <xliff:g id="arg1">%1$d</xliff:g> mensajes seleccionados.</item>
-        <item quantity="other">Esto eliminará permanentemente todos los <xliff:g id="arg1">%1$d</xliff:g> mensajes seleccionados.</item>
+        <item quantity="other">Esto eliminará definitivamente los <xliff:g id="arg1">%1$d</xliff:g> mensajes seleccionados.</item>
     </plurals>
   <!--ConversationItem-->
   <string name="ConversationItem_click_for_details">Toca para obtener más detalles</string>
@@ -251,12 +254,14 @@
   <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Esto eliminará definitivamente <xliff:g id="arg1">%1$d</xliff:g> conversación seleccionada.</item>
         <item quantity="many">Esto eliminará de forma permanente las <xliff:g id="arg1">%1$d</xliff:g> conversaciones seleccionadas.</item>
-        <item quantity="other">Esto eliminará definitivamente todas las <xliff:g id="arg1">%1$d</xliff:g> conversaciones seleccionadas.</item>
+        <item quantity="other">Esto eliminará definitivamente las <xliff:g id="arg1">%1$d</xliff:g> conversaciones seleccionadas.</item>
     </plurals>
   <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Esto enviará los borradores de las conversaciones seleccionadas.</string>
   <string name="ConversationListFragment_undo">DESHACER</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversaciones archivadas (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Valor personalizado</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usando custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Usando el valor predeterminado: <xliff:g id="arg1">%s</xliff:g></string>
@@ -401,7 +406,17 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Solicitud para finalizar una sesión inexistente</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Mensaje cifrado para una sesión inexistente</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nuevos mensajes en <xliff:g id="arg2">%2$d</xliff:g> conversaciones</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">en <xliff:g id="arg1">%1$d</xliff:g> conversación</item>
+        <item quantity="many">en <xliff:g id="arg1">%1$d</xliff:g> conversaciones</item>
+        <item quantity="other">en <xliff:g id="arg1">%1$d</xliff:g> conversaciones</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> mensaje nuevo</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> mensajes nuevos</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> mensajes nuevos</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Mensaje cifrado</string>
   <string name="MessageNotifier_error_delivering_message">Error al enviar el mensaje.</string>
   <string name="MessageNotifier_failed_to_deliver_message">No se ha podido enviar el mensaje.</string>
@@ -593,7 +608,7 @@
   <string name="SmsMessageRecord_secure_session_ended">La sesión segura ha finalizado.</string>
   <!--SubscriptionInfoCompat-->
   <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (ranura <xliff:g id="arg2">%2$d</xliff:g>)</string>
-  <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+  <string name="SubscriptionInfoCompat_slot">Ranura <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">Borrador:</string>
   <string name="ThreadRecord_left_the_group">Ha abandonado el grupo</string>

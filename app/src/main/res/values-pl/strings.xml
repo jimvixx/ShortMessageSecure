@@ -132,7 +132,12 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Przewiń do dołu</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> wybrane</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d wybrane</item>
+        <item quantity="few">%1$d wybrane</item>
+        <item quantity="many">%1$d wybrane</item>
+        <item quantity="other">%1$d wybrane</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Wybierz</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Lista odbiorców</string>
@@ -143,9 +148,8 @@
   <string name="conversation_insecure__security">Bezpieczeństwo</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Wiadomość zabezpieczona</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Zdjęcie kontaktu</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Dostarczono</string>
   <string name="conversation_item_sent__pending_approval_description">Oczekuje na zatwierdzenie</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Wysyłanie nie powiodło się</string>
@@ -265,6 +269,8 @@
   <string name="ConversationListFragment_undo">COFNĄĆ</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Archiwalne rozmowy (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Wartość niestandardowa</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Korzystanie z custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Użycie wartości domyślnej: <xliff:g id="arg1">%s</xliff:g></string>
@@ -281,7 +287,7 @@
   <string name="DateUtils_today">Dzisiaj</string>
   <string name="DateUtils_yesterday">Wczoraj</string>
   <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure to aplikacja do obsługi wiadomości SMS, która pozwala chronić prywatność podczas komunikacji ze znajomymi.\nKorzystając z SMSecure, możesz wysyłać wiadomości SMS oraz udostępniać multimedia lub załączniki z zachowaniem pełnej prywatności.\n\nFunkcje:\n* Łatwość obsługi. SMSecure działa jak każda inna aplikacja do obsługi wiadomości SMS. Nie trzeba się nigdzie rejestrować, a Twoi znajomi nie muszą dołączać do żadnej nowej usługi.\n* Niezawodność. SMSecure komunikuje się za pomocą zaszyfrowanych wiadomości SMS. Nie są wymagane żadne serwery ani połączenie internetowe.\n* Prywatność. SMSecure zapewnia kompleksowe szyfrowanie wiadomości przy użyciu starannie opracowanego protokołu szyfrowania Signal.\n* Bezpieczeństwo. Wszystkie wiadomości są szyfrowane lokalnie, więc w przypadku zgubienia lub kradzieży telefonu Twoje wiadomości są chronione.\n* Otwarte oprogramowanie. SMSecure jest darmowe i oparte na otwartym kodzie źródłowym, co pozwala każdemu zweryfikować jego bezpieczeństwo poprzez audyt kodu.\n\nWszelkie błędy, problemy lub prośby o dodanie nowych funkcji prosimy zgłaszać pod adresem: <xliff:g id="arg1">%1$s</xliff:g>\n\nKod źródłowy można znaleźć pod adresem: <xliff:g id="arg2">%2$s</xliff:g>\n\nWięcej szczegółów: <xliff:g id="arg3">%3$s</xliff:g>\n\nPolityka prywatności: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <string name="Distribution_long_description">SMSecure to aplikacja do obsługi wiadomości SMS, która pozwala chronić prywatność podczas komunikacji ze znajomymi.\nKorzystając z SMSecure, możesz wysyłać wiadomości SMS oraz udostępniać multimedia lub załączniki z zachowaniem pełnej prywatności.\n\nFunkcje:\n* Łatwość obsługi. SMSecure działa jak każda inna aplikacja do obsługi wiadomości SMS. Nie trzeba się nigdzie rejestrować, a Twoi znajomi nie muszą dołączać do żadnej nowej usługi.\n* Niezawodność. SMSecure komunikuje się za pomocą zaszyfrowanych wiadomości SMS. Nie są wymagane żadne serwery ani połączenie internetowe.\n* Prywatność. SMSecure zapewnia kompleksowe szyfrowanie wiadomości przy użyciu starannie opracowanego protokołu szyfrowania Signal.\n* Bezpieczeństwo. Wszystkie wiadomości są szyfrowane lokalnie, więc w przypadku zgubienia lub kradzieży telefonu Twoje wiadomości są chronione.\n* Otwarte oprogramowanie. SMSecure jest darmowe i oparte na otwartym kodzie źródłowym, co pozwala każdemu zweryfikować jego bezpieczeństwo poprzez audyt kodu.\n\nWszelkie błędy, problemy lub prośby o nowe funkcje prosimy zgłaszać pod adresem: <xliff:g id="arg1">%1$s</xliff:g>\n\nKod źródłowy można znaleźć pod adresem: <xliff:g id="arg2">%2$s</xliff:g>\n\nWięcej szczegółów: <xliff:g id="arg3">%3$s</xliff:g>\n\nPolityka prywatności: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Został wygenerowany nowy klucz.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Dla tej karty SIM wygenerowano nowy klucz.</string>
@@ -409,7 +415,19 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Żądanie zakończenia nieistniejącej sesji</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Komunikat zaszyfrowany dla nieistniejącej sesji</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nowe wiadomości w <xliff:g id="arg2">%2$d</xliff:g> rozmowach</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">w <xliff:g id="arg1">%1$d</xliff:g> rozmowie</item>
+        <item quantity="few">w <xliff:g id="arg1">%1$d</xliff:g> rozmowach</item>
+        <item quantity="many">w <xliff:g id="arg1">%1$d</xliff:g> rozmowach</item>
+        <item quantity="other">w <xliff:g id="arg1">%1$d</xliff:g> rozmowy</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nowa wiadomość</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> nowe wiadomości</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> nowych wiadomości</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nowych wiadomości</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Wiadomość zaszyfrowana</string>
   <string name="MessageNotifier_error_delivering_message">Błąd podczas dostarczania wiadomości.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Nie udało się dostarczyć wiadomości.</string>

@@ -39,7 +39,7 @@
         <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> minuta</item>
         <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> minuty</item>
         <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> minut</item>
-        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minuty</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minut</item>
     </plurals>
   <!--arrays.xml-->
   <string name="arrays__basic">Základní</string>
@@ -132,7 +132,12 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Přejít na konec</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> vybráno</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d vybráno</item>
+        <item quantity="few">%1$d vybráno</item>
+        <item quantity="many">%1$d vybráno</item>
+        <item quantity="other">%1$d vybráno</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Vybrat</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Seznam příjemců</string>
@@ -143,9 +148,8 @@
   <string name="conversation_insecure__security">Zabezpečení</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Zabezpečená zpráva</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie kontaktu</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Doručeno</string>
   <string name="conversation_item_sent__pending_approval_description">Čeká na schválení</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Odeslání se nezdařilo</string>
@@ -226,7 +230,7 @@
         <item quantity="one">Tímto se trvale smaže <xliff:g id="count">%1$d</xliff:g> vybraná zpráva.</item>
         <item quantity="few">Tímto se trvale smažou všechny <xliff:g id="arg1">%1$d</xliff:g> vybrané zprávy.</item>
         <item quantity="many">Tímto se trvale smažou všech <xliff:g id="arg1">%1$d</xliff:g> vybraných zpráv.</item>
-        <item quantity="other">Tím se trvale smažou všechny <xliff:g id="arg1">%1$d</xliff:g> vybrané zprávy.</item>
+        <item quantity="other">Tímto se trvale smažou všech <xliff:g id="arg1">%1$d</xliff:g> vybraných zpráv.</item>
     </plurals>
   <!--ConversationItem-->
   <string name="ConversationItem_click_for_details">Klepněte pro podrobnosti</string>
@@ -250,7 +254,7 @@
         <item quantity="one">Přesunul jsem <xliff:g id="arg1">%1$d</xliff:g> konverzaci do doručené pošty</item>
         <item quantity="few">Přesunul jsem <xliff:g id="arg1">%1$d</xliff:g> konverzace do doručené pošty</item>
         <item quantity="many">Přesunuto <xliff:g id="arg1">%1$d</xliff:g> konverzací do doručené pošty</item>
-        <item quantity="other">Přesunuto <xliff:g id="arg1">%1$d</xliff:g> konverzace do doručené pošty</item>
+        <item quantity="other">Přesunuto <xliff:g id="arg1">%1$d</xliff:g> konverzací do doručené pošty</item>
     </plurals>
   <string name="ConversationListFragment_send_drafts">Odeslat koncepty</string>
   <string name="ConversationListFragment_sending">Odesílání</string>
@@ -259,12 +263,14 @@
         <item quantity="one">Tímto se trvale smaže <xliff:g id="arg1">%1$d</xliff:g> vybraná konverzace.</item>
         <item quantity="few">Tímto se trvale smažou všechny <xliff:g id="arg1">%1$d</xliff:g> vybrané konverzace.</item>
         <item quantity="many">Tímto se trvale smažou všech <xliff:g id="arg1">%1$d</xliff:g> vybraných konverzací.</item>
-        <item quantity="other">Tím se trvale smažou všechny <xliff:g id="arg1">%1$d</xliff:g> vybrané konverzace.</item>
+        <item quantity="other">Tímto se trvale smažou všech <xliff:g id="arg1">%1$d</xliff:g> vybraných konverzací.</item>
     </plurals>
   <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Tím se odešlou koncepty vybraných konverzací.</string>
   <string name="ConversationListFragment_undo">ZRUŠIT</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Archivované konverzace (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Vlastní hodnota</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Použití custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Použití výchozího nastavení: <xliff:g id="arg1">%s</xliff:g></string>
@@ -409,7 +415,19 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Žádost o ukončení neexistující relace</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Zpráva zašifrována pro neexistující relaci</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nové zprávy v <xliff:g id="arg2">%2$d</xliff:g> konverzacích</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">v <xliff:g id="arg1">%1$d</xliff:g> konverzaci</item>
+        <item quantity="few">ve <xliff:g id="arg1">%1$d</xliff:g> konverzacích</item>
+        <item quantity="many">v <xliff:g id="arg1">%1$d</xliff:g> konverzacích</item>
+        <item quantity="other">v <xliff:g id="arg1">%1$d</xliff:g> konverzacích</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nová zpráva</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> nové zprávy</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> nových zpráv</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nových zpráv</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Šifrovaná zpráva</string>
   <string name="MessageNotifier_error_delivering_message">Chyba při doručování zprávy.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Doručení zprávy se nezdařilo.</string>
@@ -450,7 +468,7 @@
         <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> hodina</item>
         <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> hodiny</item>
         <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> hodin</item>
-        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> hodiny</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> hodin</item>
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">O aplikaci SMSecure</string>
@@ -503,7 +521,7 @@
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>
         <item quantity="few"><xliff:g id="arg1">%d</xliff:g> zprávy</item>
         <item quantity="many"><xliff:g id="arg1">%d</xliff:g> zpráv</item>
-        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> zpráv</item>
     </plurals>
   <string name="preferences__never">Nikdy</string>
   <string name="preferences__notifications">Oznámení</string>

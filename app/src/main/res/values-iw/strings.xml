@@ -130,7 +130,11 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">גלול לתחתית</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> נבחר</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d נבחר</item>
+        <item quantity="two">%1$d נבחר</item>
+        <item quantity="other">%1$d נבחר</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">בחר</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">רשימת נמענים</string>
@@ -141,9 +145,8 @@
     <string name="conversation_insecure__security">אבטחה</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">הודעה מאובטחת</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">תמונת איש הקשר</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">נמסר</string>
     <string name="conversation_item_sent__pending_approval_description">ממתין לאישור</string>
     <string name="conversation_item_sent__send_failed_indicator_description">השיגור נכשל</string>
@@ -257,6 +260,8 @@
     <string name="ConversationListFragment_undo">בטל</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">שיחות בארכיון (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">ערך מותאם אישית</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">שימוש ב-custom: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">שימוש ב-default: <xliff:g id="arg1">%s</xliff:g></string>
@@ -273,7 +278,7 @@
     <string name="DateUtils_today">היום</string>
     <string name="DateUtils_yesterday">אתמול</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure היא אפליקציית SMS המאפשרת לך להגן על פרטיותך בעת תקשורת עם חברים.\nבאמצעות SMSecure, תוכל לשלוח הודעות SMS ולשתף מדיה או קבצים מצורפים בפרטיות מוחלטת.\n\nתכונות:\n* קל. SMSecure פועלת כמו כל אפליקציית SMS אחרת. אין צורך להירשם ואין שירות חדש שחבריך צריכים להצטרף אליו.\n* אמין. SMSecure מתקשרת באמצעות הודעות SMS מוצפנות. אין צורך בשרתים או בחיבור לאינטרנט.\n* פרטיות. SMSecure מספקת הצפנה מקצה לקצה להודעות שלך באמצעות פרוטוקול ההצפנה Signal, שתוכנן בקפידה.\n* בטיחות. כל ההודעות מוצפנות באופן מקומי, כך שאם הטלפון שלך אבד או נגנב, ההודעות שלך מוגנות.\n* קוד פתוח. SMSecure היא תוכנה חופשית וקוד פתוח, המאפשרת לכל אחד לאמת את אבטחתה על ידי בדיקת הקוד.\n\nאנא דווחו על באגים, בעיות או בקשות לתכונות בכתובת: <xliff:g id="arg1">%1$s</xliff:g>\n\nקוד המקור נמצא בכתובת: <xliff:g id="arg2">%2$s</xliff:g>\n\nפרטים נוספים: <xliff:g id="arg3">%3$s</xliff:g>\n\nמדיניות פרטיות: <xliff:g id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure היא אפליקציית SMS המאפשרת לך להגן על פרטיותך בעת תקשורת עם חברים.\nבאמצעות SMSecure, תוכל לשלוח הודעות SMS ולשתף מדיה או קבצים מצורפים בפרטיות מוחלטת.\n\nתכונות:\n* קל. SMSecure פועלת כמו כל אפליקציית SMS אחרת. אין צורך להירשם ואין שירות חדש שחבריך צריכים להצטרף אליו.\n* אמין. SMSecure מתקשרת באמצעות הודעות SMS מוצפנות. אין צורך בשרתים או בחיבור לאינטרנט.\n* פרטית. SMSecure מספקת הצפנה מקצה לקצה להודעות שלך באמצעות פרוטוקול ההצפנה Signal, שתוכנן בקפידה.\n* בטוחה. כל ההודעות מוצפנות באופן מקומי, כך שאם הטלפון שלך אבד או נגנב, ההודעות שלך מוגנות.\n* קוד פתוח. SMSecure היא תוכנה חינמית וקוד פתוח, המאפשרת לכל אחד לאמת את אבטחתה על ידי בדיקת הקוד.\n\nאנא דווחו על באגים, בעיות או בקשות לתכונות בכתובת: <xliff:g id="arg1">%1$s</xliff:g>\n\nקוד המקור נמצא בכתובת: <xliff:g id="arg2">%2$s</xliff:g>\n\nפרטים נוספים: <xliff:g id="arg3">%3$s</xliff:g>\n\nמדיניות פרטיות: <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">נוצר מפתח חדש.</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">נוצר מפתח חדש עבור כרטיס ה-SIM הזה.</string>
@@ -401,7 +406,17 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">בקשה לסיום הפעלה שאינה קיימת</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">הודעה מוצפנת עבור הפעלה שאינה קיימת</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> הודעות חדשות בשיחות <xliff:g id="arg2">%2$d</xliff:g></string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">בשיחה אחת</item>
+        <item quantity="two">ב-<xliff:g id="arg1">%1$d</xliff:g> שיחות</item>
+        <item quantity="other">ב-<xliff:g id="arg1">%1$d</xliff:g> שיחות</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="one">הודעה חדשה אחת</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> הודעות חדשות</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> הודעות חדשות</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">הודעה מוצפנת</string>
     <string name="MessageNotifier_error_delivering_message">שגיאה במסירת הודעה.</string>
     <string name="MessageNotifier_failed_to_deliver_message">לא הצליח לשלוח הודעה.</string>

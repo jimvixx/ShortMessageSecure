@@ -126,7 +126,9 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">하단으로 스크롤</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> 선택됨</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="other">%1$d 선택됨</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">선택</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">수신자 목록</string>
@@ -137,9 +139,8 @@
   <string name="conversation_insecure__security">보안</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">보안 메시지</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">연락처 사진</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">전달됨</string>
   <string name="conversation_item_sent__pending_approval_description">승인 대기 중</string>
   <string name="conversation_item_sent__send_failed_indicator_description">전송 실패</string>
@@ -241,6 +242,8 @@
   <string name="ConversationListFragment_undo">되돌리기</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">보관된 대화 (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">사용자 지정 값</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">custom 사용: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">기본값 사용: <xliff:g id="arg1">%s</xliff:g></string>
@@ -257,7 +260,7 @@
   <string name="DateUtils_today">오늘</string>
   <string name="DateUtils_yesterday">어제</string>
   <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure는 친구들과 소통할 때 개인 정보를 보호할 수 있는 SMS 애플리케이션입니다.\nSMSecure를 사용하면 완벽한 개인 정보 보호 하에 SMS 메시지를 보내고 미디어나 첨부 파일을 공유할 수 있습니다.\n\n기능:\n* 간편함. SMSecure는 다른 SMS 애플리케이션과 동일하게 작동합니다. 별도의 가입 절차가 필요하지 않으며, 친구들이 새로운 서비스에 가입할 필요도 없습니다.\n* 신뢰성. SMSecure는 암호화된 SMS 메시지를 통해 통신합니다. 서버나 인터넷 연결이 필요하지 않습니다.\n* 비공개. SMSecure는 정교하게 설계된 Signal 암호화 프로토콜을 사용하여 메시지에 종단 간 암호화를 제공합니다.\n* 안전. 모든 메시지는 로컬에서 암호화되므로, 휴대폰을 분실하거나 도난당하더라도 메시지는 안전하게 보호됩니다.\n* 오픈 소스. SMSecure는 무료이며 오픈 소스이므로, 누구나 코드를 검토하여 보안성을 확인할 수 있습니다.\n\n버그, 문제점 또는 기능 요청은 다음 주소로 제출해 주세요: <xliff:g id="arg1">%1$s</xliff:g>\n\n소스 코드는 다음에서 확인할 수 있습니다: <xliff:g id="arg2">%2$s</xliff:g>\n\n자세한 내용: <xliff:g id="arg3">%3$s</xliff:g>\n\n개인정보 처리방침: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <string name="Distribution_long_description">SMSecure는 친구들과 소통할 때 개인 정보를 보호할 수 있는 SMS 애플리케이션입니다.\nSMSecure를 사용하면 완벽한 개인 정보 보호 하에 SMS 메시지를 보내고 미디어나 첨부 파일을 공유할 수 있습니다.\n\n기능:\n* 간편함. SMSecure는 다른 SMS 애플리케이션과 마찬가지로 작동합니다. 별도의 가입 절차가 필요하지 않으며, 친구들이 새로운 서비스에 가입할 필요도 없습니다.\n* 신뢰성. SMSecure는 암호화된 SMS 메시지를 통해 통신합니다. 서버나 인터넷 연결이 필요하지 않습니다.\n* 비공개. SMSecure는 정교하게 설계된 Signal 암호화 프로토콜을 사용하여 메시지에 종단 간 암호화를 제공합니다.\n* 안전. 모든 메시지는 로컬에서 암호화되므로, 휴대폰을 분실하거나 도난당하더라도 메시지는 안전하게 보호됩니다.\n* 오픈 소스. SMSecure는 무료이며 오픈 소스이므로, 누구나 코드를 검토하여 보안성을 확인할 수 있습니다.\n\n버그, 문제점 또는 기능 요청은 다음 주소로 제출해 주세요: <xliff:g id="arg1">%1$s</xliff:g>\n\n소스 코드는 다음에서 확인할 수 있습니다: <xliff:g id="arg2">%2$s</xliff:g>\n\n자세한 내용: <xliff:g id="arg3">%3$s</xliff:g>\n\n개인정보 처리방침: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">새 키가 생성되었습니다.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">해당 SIM 카드에 대한 새 키가 생성되었습니다.</string>
@@ -385,7 +388,13 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">존재하지 않는 세션 종료 요청</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">존재하지 않는 세션에 대한 메시지가 암호화되었습니다</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> 대화에서 새 메시지 <xliff:g id="arg2">%2$d</xliff:g></string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g>건의 대화</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="other">새 메시지 <xliff:g id="arg1">%1$d</xliff:g>개</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">암호화된 메시지</string>
   <string name="MessageNotifier_error_delivering_message">메시지 전송 오류.</string>
   <string name="MessageNotifier_failed_to_deliver_message">메시지 전달에 실패했습니다.</string>
@@ -573,7 +582,7 @@
   <string name="SmsMessageRecord_secure_session_ended">보안 세션이 종료되었습니다.</string>
   <!--SubscriptionInfoCompat-->
   <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (슬롯 <xliff:g id="arg2">%2$d</xliff:g>)</string>
-  <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+  <string name="SubscriptionInfoCompat_slot">슬롯 <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">초안:</string>
   <string name="ThreadRecord_left_the_group">그룹을 떠났습니다</string>

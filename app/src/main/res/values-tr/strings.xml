@@ -128,7 +128,10 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">En alta kaydır</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> seçildi</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d seçildi</item>
+        <item quantity="other">%1$d seçildi</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Seç</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Alıcılar listesi</string>
@@ -139,9 +142,8 @@
   <string name="conversation_insecure__security">Güvenlik</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Güvenli mesaj</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Kişi fotoğrafı</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Teslim edildi</string>
   <string name="conversation_item_sent__pending_approval_description">Onay Bekliyor</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Gönderme Başarısız</string>
@@ -249,6 +251,8 @@
   <string name="ConversationListFragment_undo">GERİ AL</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Arşivlenmiş konuşmalar (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Özel değer</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">custom kullanımı: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Varsayılanı kullanma: <xliff:g id="arg1">%s</xliff:g></string>
@@ -393,7 +397,15 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Var olmayan bir oturumu sonlandırma isteği</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Var olmayan oturum için şifrelenmiş mesaj</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> <xliff:g id="arg2">%2$d</xliff:g> sohbetlerinde yeni mesajlar</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> konuşmada</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> konuşmada</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> yeni mesaj</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> yeni mesaj</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Şifreli mesaj</string>
   <string name="MessageNotifier_error_delivering_message">Mesaj gönderirken hata oluştu.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Mesaj gönderilemedi.</string>
@@ -583,7 +595,7 @@
   <string name="SmsMessageRecord_secure_session_ended">Güvenli oturum sona erdi.</string>
   <!--SubscriptionInfoCompat-->
   <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (yuva <xliff:g id="arg2">%2$d</xliff:g>)</string>
-  <string name="SubscriptionInfoCompat_slot">Yuvası <xliff:g id="arg1">%1$d</xliff:g></string>
+  <string name="SubscriptionInfoCompat_slot">Yuva <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">Taslak:</string>
   <string name="ThreadRecord_left_the_group">Gruptan ayrıldı</string>

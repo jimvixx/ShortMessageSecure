@@ -132,7 +132,12 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Прокрутіть до кінця</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> вибрано</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d вибрано</item>
+        <item quantity="few">%1$d вибрано</item>
+        <item quantity="many">%1$d вибрано</item>
+        <item quantity="other">%1$d вибрано</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">Вибрати</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">Список одержувачів</string>
@@ -143,9 +148,8 @@
     <string name="conversation_insecure__security">Безпека</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Захищене повідомлення</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Фото контакту</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">Доставлено</string>
     <string name="conversation_item_sent__pending_approval_description">Очікує затвердження</string>
     <string name="conversation_item_sent__send_failed_indicator_description">Помилка відправлення</string>
@@ -265,6 +269,8 @@
     <string name="ConversationListFragment_undo">UNDO</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">Архівні розмови (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">Налаштоване значення</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">Використання custom: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">Використання за замовчуванням: <xliff:g id="arg1">%s</xliff:g></string>
@@ -409,7 +415,19 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Запит на завершення неіснуючої сесії</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Повідомлення зашифровано для сеансу, що не існує</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> нові повідомлення в <xliff:g id="arg2">%2$d</xliff:g> діалогах</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">в <xliff:g id="arg1">%1$d</xliff:g> розмові</item>
+        <item quantity="few">у <xliff:g id="arg1">%1$d</xliff:g> розмовах</item>
+        <item quantity="many">у <xliff:g id="arg1">%1$d</xliff:g> розмовах</item>
+        <item quantity="other">у <xliff:g id="arg1">%1$d</xliff:g> розмовах</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> нове повідомлення</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> нових повідомлення</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> нових повідомлень</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> нових повідомлень</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">Зашифроване повідомлення</string>
     <string name="MessageNotifier_error_delivering_message">Помилка під час доставки повідомлення.</string>
     <string name="MessageNotifier_failed_to_deliver_message">Не вдалося доставити повідомлення.</string>
@@ -603,7 +621,7 @@
     <string name="SmsMessageRecord_secure_session_ended">Захищений сеанс завершено.</string>
     <!--SubscriptionInfoCompat-->
     <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (слот <xliff:g id="arg2">%2$d</xliff:g>)</string>
-    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+    <string name="SubscriptionInfoCompat_slot">Слот <xliff:g id="arg1">%1$d</xliff:g></string>
     <!--ThreadRecord-->
     <string name="ThreadRecord_draft">Чернетка:</string>
     <string name="ThreadRecord_left_the_group">Вийшов із групи</string>

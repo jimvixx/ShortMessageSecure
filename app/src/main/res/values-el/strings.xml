@@ -128,7 +128,10 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Μεταβείτε στο κάτω μέρος</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> επιλεγμένο</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d επιλεγμένα</item>
+        <item quantity="other">%1$d επιλεγμένα</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Επιλογή</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Λίστα παραληπτών</string>
@@ -139,9 +142,8 @@
   <string name="conversation_insecure__security">Ασφάλεια</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Ασφαλές μήνυμα</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Φωτογραφία επαφής</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Παραδόθηκε</string>
   <string name="conversation_item_sent__pending_approval_description">Σε αναμονή έγκρισης</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Αποτυχία αποστολής</string>
@@ -216,7 +218,7 @@
   <string name="ConversationFragment_pending">Σε αναμονή…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Αυτό θα διαγράψει οριστικά <xliff:g id="count">%1$d</xliff:g> επιλεγμένο μήνυμα.</item>
-        <item quantity="other">Αυτό θα διαγράψει οριστικά όλα τα <xliff:g id="arg1">%1$d</xliff:g> επιλεγμένα μηνύματα.</item>
+        <item quantity="other">Αυτό θα διαγράψει οριστικά και τα <xliff:g id="arg1">%1$d</xliff:g> επιλεγμένα μηνύματα.</item>
     </plurals>
   <!--ConversationItem-->
   <string name="ConversationItem_click_for_details">Πατήστε για λεπτομέρειες</string>
@@ -236,19 +238,21 @@
   <string name="ConversationListFragment_deleting_selected_conversations">Διαγραφή επιλεγμένων συνομιλιών…</string>
   <plurals name="ConversationListFragment_moved_conversations_to_inbox">
         <item quantity="one">Μετακινήθηκαν <xliff:g id="arg1">%1$d</xliff:g> συνομιλία στο εισερχόμενα</item>
-        <item quantity="other">Μετακινήθηκαν <xliff:g id="arg1">%1$d</xliff:g> συνομιλίες στο φάκελο εισερχομένων</item>
+        <item quantity="other">Μετακινήθηκαν <xliff:g id="arg1">%1$d</xliff:g> συνομιλίες στο εισερχόμενα</item>
     </plurals>
   <string name="ConversationListFragment_send_drafts">Αποστολή προσχεδίων</string>
   <string name="ConversationListFragment_sending">Αποστολή</string>
   <string name="ConversationListFragment_sending_selected_drafts">Αποστολή επιλεγμένων προσχεδίων…</string>
   <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Αυτό θα διαγράψει οριστικά <xliff:g id="arg1">%1$d</xliff:g> επιλεγμένη συνομιλία.</item>
-        <item quantity="other">Αυτό θα διαγράψει οριστικά όλες τις <xliff:g id="arg1">%1$d</xliff:g> επιλεγμένες συνομιλίες.</item>
+        <item quantity="other">Αυτό θα διαγράψει οριστικά και τις <xliff:g id="arg1">%1$d</xliff:g> επιλεγμένες συνομιλίες.</item>
     </plurals>
   <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Αυτό θα στείλει τα πρόχειρα των επιλεγμένων συνομιλιών.</string>
   <string name="ConversationListFragment_undo">UNDO</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Αρχειοθετημένες συνομιλίες (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Προσαρμοσμένη τιμή</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Χρήση custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Χρήση προεπιλογής: <xliff:g id="arg1">%s</xliff:g></string>
@@ -393,7 +397,15 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Αίτημα τερματισμού μη υπάρχουσας συνεδρίας</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Μήνυμα κρυπτογραφημένο για μη υπάρχουσα συνεδρία</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> νέα μηνύματα στις <xliff:g id="arg2">%2$d</xliff:g> συνομιλίες</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">σε <xliff:g id="arg1">%1$d</xliff:g> συνομιλία</item>
+        <item quantity="other">σε <xliff:g id="arg1">%1$d</xliff:g> συνομιλίες</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> νέο μήνυμα</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> νέα μηνύματα</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Κρυπτογραφημένο μήνυμα</string>
   <string name="MessageNotifier_error_delivering_message">Σφάλμα κατά την παράδοση μηνύματος.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Αποτυχία παράδοσης μηνύματος.</string>
@@ -583,7 +595,7 @@
   <string name="SmsMessageRecord_secure_session_ended">Η ασφαλής συνεδρία τερματίστηκε.</string>
   <!--SubscriptionInfoCompat-->
   <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (θέση <xliff:g id="arg2">%2$d</xliff:g>)</string>
-  <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+  <string name="SubscriptionInfoCompat_slot">Θέση <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">Πρόχειρο:</string>
   <string name="ThreadRecord_left_the_group">Έφυγε από την ομάδα</string>

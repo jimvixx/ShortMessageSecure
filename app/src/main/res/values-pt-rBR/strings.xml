@@ -130,7 +130,11 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Role até o final</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> selecionado</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d selecionado</item>
+        <item quantity="many">%1$d selecionado</item>
+        <item quantity="other">%1$d selecionado</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Selecionar</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Lista de destinatários</string>
@@ -141,9 +145,8 @@
   <string name="conversation_insecure__security">Segurança</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Mensagem segura</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Foto do contato</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Entregue</string>
   <string name="conversation_item_sent__pending_approval_description">Aguardando aprovação</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Falha no envio</string>
@@ -257,6 +260,8 @@
   <string name="ConversationListFragment_undo">DESFAZER</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversas arquivadas (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Valor personalizado</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usando custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Usando o padrão: <xliff:g id="arg1">%s</xliff:g></string>
@@ -401,7 +406,17 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Solicitação para encerrar uma sessão inexistente</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Mensagem criptografada para sessão inexistente</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> novas mensagens nas <xliff:g id="arg2">%2$d</xliff:g> conversas</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">em <xliff:g id="arg1">%1$d</xliff:g> conversa</item>
+        <item quantity="many">em <xliff:g id="arg1">%1$d</xliff:g> conversas</item>
+        <item quantity="other">em <xliff:g id="arg1">%1$d</xliff:g> conversas</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nova mensagem</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> novas mensagens</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> novas mensagens</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Mensagem criptografada</string>
   <string name="MessageNotifier_error_delivering_message">Erro ao enviar mensagem.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Falha ao enviar a mensagem.</string>

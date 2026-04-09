@@ -130,7 +130,11 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Derulați până la capăt</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> selectat</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d selectat</item>
+        <item quantity="few">%1$d selectat</item>
+        <item quantity="other">%1$d selectat</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Selectați</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Lista destinatarilor</string>
@@ -141,9 +145,8 @@
   <string name="conversation_insecure__security">Securitate</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Mesaj securizat</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie de contact</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Livrat</string>
   <string name="conversation_item_sent__pending_approval_description">În așteptare de aprobare</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Trimitere eșuată</string>
@@ -257,6 +260,8 @@
   <string name="ConversationListFragment_undo">ANULARE</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversații arhivate (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Valoare personalizată</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Utilizând custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Utilizând valoarea implicită: <xliff:g id="arg1">%s</xliff:g></string>
@@ -273,7 +278,7 @@
   <string name="DateUtils_today">Astăzi</string>
   <string name="DateUtils_yesterday">Ieri</string>
   <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure este o aplicație SMS care vă permite să vă protejați confidențialitatea în timp ce comunicați cu prietenii.\nFolosind SMSecure, puteți trimite mesaje SMS și partaja fișiere media sau atașamente cu confidențialitate deplină.\n\nCaracteristici:\n* Simplu. SMSecure funcționează ca orice altă aplicație SMS. Nu este nevoie să vă înregistrați și prietenii dvs. nu trebuie să se înscrie la niciun serviciu nou.\n* Fiabil. SMSecure comunică folosind mesaje SMS criptate. Nu sunt necesare servere sau conexiune la internet.\n* Confidențial. SMSecure oferă criptare end-to-end pentru mesajele dvs. folosind protocolul de criptare Signal, proiectat cu mare atenție.\n* Sigur. Toate mesajele sunt criptate local, astfel încât, dacă telefonul dvs. este pierdut sau furat, mesajele dvs. sunt protejate.\n* Open Source. SMSecure este gratuit și open source, permițând oricui să îi verifice securitatea prin auditarea codului.\n\nVă rugăm să raportați orice erori, probleme sau solicitări de funcționalități la: <xliff:g id="arg1">%1$s</xliff:g>\n\nCodul sursă poate fi găsit la: <xliff:g id="arg2">%2$s</xliff:g>\n\nMai multe detalii: <xliff:g id="arg3">%3$s</xliff:g>\n\nPolitica de confidențialitate: <xliff:g id="arg4">%4$s</xliff:g></string>
+  <string name="Distribution_long_description">SMSecure este o aplicație SMS care vă permite să vă protejați confidențialitatea în timp ce comunicați cu prietenii.\nFolosind SMSecure, puteți trimite mesaje SMS și partaja fișiere media sau atașamente cu confidențialitate deplină.\n\nCaracteristici:\n* Simplu. SMSecure funcționează ca orice altă aplicație SMS. Nu este nevoie să vă înregistrați și prietenii dvs. nu trebuie să se alăture niciunui serviciu nou.\n* Fiabil. SMSecure comunică folosind mesaje SMS criptate. Nu sunt necesare servere sau conexiune la internet.\n* Confidențial. SMSecure oferă criptare end-to-end pentru mesajele dvs. folosind protocolul de criptare Signal, proiectat cu mare atenție la detalii.\n* Sigur. Toate mesajele sunt criptate local, astfel încât, dacă telefonul dvs. este pierdut sau furat, mesajele dvs. sunt protejate.\n* Open Source. SMSecure este gratuit și open source, permițând oricui să îi verifice securitatea prin auditarea codului.\n\nVă rugăm să raportați orice erori, probleme sau solicitări de funcționalități la: <xliff:g id="arg1">%1$s</xliff:g>\n\nCodul sursă poate fi găsit la: <xliff:g id="arg2">%2$s</xliff:g>\n\nMai multe detalii: <xliff:g id="arg3">%3$s</xliff:g>\n\nPolitica de confidențialitate: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">A fost generată o nouă cheie.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">A fost generată o nouă cheie pentru acea cartelă SIM.</string>
@@ -401,7 +406,17 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Solicitare de încheiere a unei sesiuni inexistente</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Mesaj criptat pentru o sesiune inexistentă</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> mesaje noi în <xliff:g id="arg2">%2$d</xliff:g> conversații</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">în <xliff:g id="arg1">%1$d</xliff:g> conversație</item>
+        <item quantity="few">în <xliff:g id="arg1">%1$d</xliff:g> conversații</item>
+        <item quantity="other">în <xliff:g id="arg1">%1$d</xliff:g> conversații</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> mesaj nou</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> mesaje noi</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> mesaje noi</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Mesaj criptat</string>
   <string name="MessageNotifier_error_delivering_message">Eroare la livrarea mesajului.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Nu s-a reușit livrarea mesajului.</string>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" translatable="false">SMSecure</string>
     <!--AbstractNotificationBuilder-->
     <string name="AbstractNotificationBuilder_new_message">New message</string>
@@ -20,32 +20,32 @@
     <string name="ApplicationMigrationService_system_database_import_is_complete">System database import is complete.</string>
     <!--ApplicationPreferencesActivity-->
     <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">You haven’t set a passphrase yet!</string>
-    <string name="ApplicationPreferencesActivity_appearance_summary">Theme <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g>, Language <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg2">%2$s</xliff:g></string>
+    <string name="ApplicationPreferencesActivity_appearance_summary">Theme <xliff:g id="arg1">%1$s</xliff:g>, Language <xliff:g id="arg2">%2$s</xliff:g></string>
     <string name="ApplicationPreferencesActivity_delete_all_old_messages_now">Delete all old messages now?</string>
     <string name="ApplicationPreferencesActivity_disable_storage_encryption">Disable storage encryption?</string>
-    <string name="ApplicationPreferencesActivity_incoming_summary">Incoming <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g></string>
-    <string name="ApplicationPreferencesActivity_privacy_summary">Passphrase <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g>, Screen security <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg2">%2$s</xliff:g></string>
+    <string name="ApplicationPreferencesActivity_incoming_summary">Incoming <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="ApplicationPreferencesActivity_privacy_summary">Passphrase <xliff:g id="arg1">%1$s</xliff:g>, Screen security <xliff:g id="arg2">%2$s</xliff:g></string>
     <string name="ApplicationPreferencesActivity_sms_disabled">Incoming SMS disabled</string>
     <string name="ApplicationPreferencesActivity_sms_enabled">Incoming SMS enabled</string>
     <string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">SMSecure is currently your default SMS app</string>
     <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Tap to make SMSecure your default SMS app</string>
     <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
-        <item quantity="zero">This will immediately trim all conversations to the <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> most recent messages.</item>
-        <item quantity="one">This will immediately trim all conversations to the <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> most recent message.</item>
-        <item quantity="two">This will immediately trim all conversations to the <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> most recent messages.</item>
-        <item quantity="few">This will immediately trim all conversations to the <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> most recent messages.</item>
-        <item quantity="many">This will immediately trim all conversations to the <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> most recent messages.</item>
-        <item quantity="other">This will immediately trim all conversations to the <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> most recent messages.</item>
+        <item quantity="zero">This will immediately trim all conversations to the <xliff:g id="arg1">%1$d</xliff:g> most recent messages.</item>
+        <item quantity="one">This will immediately trim all conversations to the <xliff:g id="arg1">%1$d</xliff:g> most recent message.</item>
+        <item quantity="two">This will immediately trim all conversations to the <xliff:g id="arg1">%1$d</xliff:g> most recent messages.</item>
+        <item quantity="few">This will immediately trim all conversations to the <xliff:g id="arg1">%1$d</xliff:g> most recent messages.</item>
+        <item quantity="many">This will immediately trim all conversations to the <xliff:g id="arg1">%1$d</xliff:g> most recent messages.</item>
+        <item quantity="other">This will immediately trim all conversations to the <xliff:g id="arg1">%1$d</xliff:g> most recent messages.</item>
     </plurals>
     <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">“Warning, this will disable storage encryption for all messages and keys. Your encrypted sessions will continue to function, but anyone who gains physical access to your device will be able to read them.”</string>
     <!--AppProtectionPreferenceFragment-->
     <plurals name="AppProtectionPreferenceFragment_minutes">
-        <item quantity="zero"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> minutes</item>
-        <item quantity="one"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> minute</item>
-        <item quantity="two"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> minutes</item>
-        <item quantity="few"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> minutes</item>
-        <item quantity="many"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> minutes</item>
-        <item quantity="other"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> minutes</item>
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> minutes</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> minute</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> minutes</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> minutes</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> minutes</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> minutes</item>
     </plurals>
     <!--arrays.xml-->
     <string name="arrays__basic">Basic</string>
@@ -124,7 +124,7 @@
     <string name="conversation_activity__emoji_toggle_description">Toggle emoji keyboard</string>
     <string name="conversation_activity__type_message_sms_insecure">Send unsecured SMS</string>
     <string name="conversation_activity__type_message_sms_secure">Send secure SMS</string>
-    <string name="conversation_activity__via_sim_name">Via <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g></string>
+    <string name="conversation_activity__via_sim_name">Via <xliff:g id="arg1">%1$s</xliff:g></string>
     <!--conversation_callable-->
     <string name="conversation_callable__menu_call">Call</string>
     <!--conversation_callable-->
@@ -138,7 +138,14 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scroll to the bottom</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="zero">%1$d selected</item>
+        <item quantity="one">%1$d selected</item>
+        <item quantity="two">%1$d selected</item>
+        <item quantity="few">%1$d selected</item>
+        <item quantity="many">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">Select</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">Recipients list</string>
@@ -149,9 +156,8 @@
     <string name="conversation_insecure__security">Security</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Secure message</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Contact photo</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">Delivered</string>
     <string name="conversation_item_sent__pending_approval_description">Pending Approval</string>
     <string name="conversation_item_sent__send_failed_indicator_description">Send Failed</string>
@@ -194,19 +200,19 @@
     <string name="ConversationActivity_cant_open_link">Can’t find an app able to open this link.</string>
     <string name="ConversationActivity_compose_message">Compose message</string>
     <plurals name="ConversationActivity_d_recipients_in_group">
-        <item quantity="zero"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> participants</item>
-        <item quantity="one"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> participant</item>
-        <item quantity="two"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> participants</item>
-        <item quantity="few"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> participants</item>
-        <item quantity="many"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> participants</item>
-        <item quantity="other"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> participants</item>
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> participants</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> participant</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> participants</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> participants</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> participants</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> participants</item>
     </plurals>
     <string name="ConversationActivity_delete_thread_question">Delete conversation?</string>
     <string name="ConversationActivity_detected_smsecure_initiate_session_question">Message received from someone who also has SMSecure, initiate a secure encrypted session?</string>
     <string name="ConversationActivity_group_members">Group participants</string>
     <string name="ConversationActivity_initiate_secure_session_question">Initiate secure session?</string>
-    <string name="ConversationActivity_initiate_secure_session_with_s_question">Initiate secure session with <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g>?</string>
-    <string name="ConversationActivity_install_smssecure">Let’s chat securely: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g></string>
+    <string name="ConversationActivity_initiate_secure_session_with_s_question">Initiate secure session with <xliff:g id="arg1">%s</xliff:g>?</string>
+    <string name="ConversationActivity_install_smssecure">Let’s chat securely: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="ConversationActivity_invalid_recipient">Invalid recipient!</string>
     <string name="ConversationActivity_message_is_empty_exclamation">The message you are trying to send is empty!</string>
     <string name="ConversationActivity_recipient_is_not_a_valid_sms_or_email_address_exclamation">Recipient is not a valid SMS or email address!</string>
@@ -220,12 +226,12 @@
     <string name="ConversationActivity_unnamed_group">Unnamed group</string>
     <!--ConversationAdapter-->
     <plurals name="ConversationAdapter_n_unread_messages">
-        <item quantity="zero"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> unread messages</item>
-        <item quantity="one"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> unread message</item>
-        <item quantity="two"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> unread messages</item>
-        <item quantity="few"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> unread messages</item>
-        <item quantity="many"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> unread messages</item>
-        <item quantity="other"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> unread messages</item>
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> unread messages</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> unread message</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> unread messages</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> unread messages</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> unread messages</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> unread messages</item>
     </plurals>
     <!--ConversationFragment-->
     <string name="ConversationFragment_delete_selected_message">Delete selected message?</string>
@@ -233,74 +239,76 @@
     <string name="ConversationFragment_deleting_messages">Deleting messages…</string>
     <string name="ConversationFragment_pending">Pending…</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
-        <item quantity="zero">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected messages.</item>
-        <item quantity="one">This will permanently delete <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="count">%1$d</xliff:g> selected message.</item>
-        <item quantity="two">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected messages.</item>
-        <item quantity="few">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected messages.</item>
-        <item quantity="many">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected messages.</item>
-        <item quantity="other">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected messages.</item>
+        <item quantity="zero">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected messages.</item>
+        <item quantity="one">This will permanently delete <xliff:g id="count">%1$d</xliff:g> selected message.</item>
+        <item quantity="two">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected messages.</item>
+        <item quantity="few">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected messages.</item>
+        <item quantity="many">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected messages.</item>
+        <item quantity="other">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected messages.</item>
     </plurals>
     <!--ConversationItem-->
     <string name="ConversationItem_click_for_details">Tap for details</string>
     <string name="ConversationItem_error_not_delivered">Not delivered</string>
     <string name="ConversationItem_error_received_stale_key_exchange_message">Outdated key exchange message received.</string>
-    <string name="ConversationItem_group_action_left"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g> has left the group.</string>
+    <string name="ConversationItem_group_action_left"><xliff:g id="arg1">%1$s</xliff:g> has left the group.</string>
     <string name="ConversationItem_received_key_exchange_message_tap_to_process">Received key exchange message, tap to process.</string>
-    <string name="ConversationItem_via_s">via <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g></string>
+    <string name="ConversationItem_via_s">via <xliff:g id="arg1">%s</xliff:g></string>
     <string name="ConversationItem_xmpp_address_update_smsecure">XMPP address. Update SMSecure to enable this feature.</string>
     <!--ConversationListFragment-->
     <plurals name="ConversationListFragment_conversations_archived">
-        <item quantity="zero"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations archived</item>
-        <item quantity="one"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversation archived</item>
-        <item quantity="two"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations archived</item>
-        <item quantity="few"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations archived</item>
-        <item quantity="many"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations archived</item>
-        <item quantity="other"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations archived</item>
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> conversations archived</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> conversation archived</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> conversations archived</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> conversations archived</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> conversations archived</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> conversations archived</item>
     </plurals>
     <string name="ConversationListFragment_delete_selected_conversation">Delete selected conversation?</string>
     <string name="ConversationListFragment_delete_selected_conversations">Delete selected conversations?</string>
     <string name="ConversationListFragment_deleting_selected_conversations">Deleting selected conversations…</string>
     <plurals name="ConversationListFragment_moved_conversations_to_inbox">
-        <item quantity="zero">Moved <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations to inbox</item>
-        <item quantity="one">Moved <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversation to inbox</item>
-        <item quantity="two">Moved <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations to inbox</item>
-        <item quantity="few">Moved <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations to inbox</item>
-        <item quantity="many">Moved <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations to inbox</item>
-        <item quantity="other">Moved <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> conversations to inbox</item>
+        <item quantity="zero">Moved <xliff:g id="arg1">%1$d</xliff:g> conversations to inbox</item>
+        <item quantity="one">Moved <xliff:g id="arg1">%1$d</xliff:g> conversation to inbox</item>
+        <item quantity="two">Moved <xliff:g id="arg1">%1$d</xliff:g> conversations to inbox</item>
+        <item quantity="few">Moved <xliff:g id="arg1">%1$d</xliff:g> conversations to inbox</item>
+        <item quantity="many">Moved <xliff:g id="arg1">%1$d</xliff:g> conversations to inbox</item>
+        <item quantity="other">Moved <xliff:g id="arg1">%1$d</xliff:g> conversations to inbox</item>
     </plurals>
     <string name="ConversationListFragment_send_drafts">Send drafts</string>
     <string name="ConversationListFragment_sending">Sending</string>
     <string name="ConversationListFragment_sending_selected_drafts">Sending selected drafts…</string>
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
-        <item quantity="zero">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected conversations.</item>
-        <item quantity="one">This will permanently delete <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected conversation.</item>
-        <item quantity="two">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected conversations.</item>
-        <item quantity="few">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected conversations.</item>
-        <item quantity="many">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected conversations.</item>
-        <item quantity="other">This will permanently delete all <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> selected conversations.</item>
+        <item quantity="zero">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected conversations.</item>
+        <item quantity="one">This will permanently delete <xliff:g id="arg1">%1$d</xliff:g> selected conversation.</item>
+        <item quantity="two">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected conversations.</item>
+        <item quantity="few">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected conversations.</item>
+        <item quantity="many">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected conversations.</item>
+        <item quantity="other">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected conversations.</item>
     </plurals>
     <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">This will send drafts of selected conversations.</string>
     <string name="ConversationListFragment_undo">UNDO</string>
     <!--ConversationListItemArchived-->
-    <string name="ConversationListItemAction_archived_conversations_d">Archived conversations (<xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g>)</string>
+    <string name="ConversationListItemAction_archived_conversations_d">Archived conversations (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">Custom value</string>
     <!--CustomDefaultPreference-->
-    <string name="CustomDefaultPreference_using_custom">Using custom: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g></string>
-    <string name="CustomDefaultPreference_using_default">Using default: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g></string>
+    <string name="CustomDefaultPreference_using_custom">Using custom: <xliff:g id="arg1">%s</xliff:g></string>
+    <string name="CustomDefaultPreference_using_default">Using default: <xliff:g id="arg1">%s</xliff:g></string>
     <!--database_migration_activity-->
     <string name="database_migration_activity__import_database_image_description">Database import illustration</string>
     <string name="database_migration_activity__import_status">0/100</string>
     <string name="database_migration_activity__importing_database">Importing database…</string>
-    <string name="database_migration_activity__progress" translatable="false"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g>/<xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg2">%2$d</xliff:g></string>
+    <string name="database_migration_activity__progress" translatable="false"><xliff:g id="arg1">%1$d</xliff:g>/<xliff:g id="arg2">%2$d</xliff:g></string>
     <string name="database_migration_activity__this_could_take_a_moment_please_be_patient">This could take a moment. Please be patient, you will be notified when the import is complete.</string>
     <!--database_upgrade_activity-->
     <string name="database_upgrade_activity__updating_database">Updating database…</string>
     <!--DateUtils-->
-    <string name="DateUtils_minutes_ago"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> min</string>
+    <string name="DateUtils_minutes_ago"><xliff:g id="arg1">%1$d</xliff:g> min</string>
     <string name="DateUtils_now">Now</string>
     <string name="DateUtils_today">Today</string>
     <string name="DateUtils_yesterday">Yesterday</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure is an SMS application that allows you to protect your privacy while communicating with friends.\nUsing SMSecure, you can send SMS messages and share media or attachments with complete privacy.\n\nFeatures:\n* Easy. SMSecure works like any other SMS application. There’s nothing to sign up for and no new service your friends need to join.\n* Reliable. SMSecure communicates using encrypted SMS messages. No servers or internet connection required.\n* Private. SMSecure provides end-to-end encryption for your messages using the painstakingly engineered Signal encryption protocol.\n* Safe. All messages are encrypted locally, so if your phone is lost or stolen, your messages are protected.\n* Open Source. SMSecure is Free and Open Source, enabling anyone to verify its security by auditing the code.\n\nPlease file any bugs, issues, or feature requests at: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g>\n\nThe source code can be found at: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg2">%2$s</xliff:g>\n\nMore details: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg3">%3$s</xliff:g>\n\nPrivacy policy: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure is an SMS application that allows you to protect your privacy while communicating with friends.\nUsing SMSecure, you can send SMS messages and share media or attachments with complete privacy.\n\nFeatures:\n* Easy. SMSecure works like any other SMS application. There’s nothing to sign up for and no new service your friends need to join.\n* Reliable. SMSecure communicates using encrypted SMS messages. No servers or internet connection required.\n* Private. SMSecure provides end-to-end encryption for your messages using the painstakingly engineered Signal encryption protocol.\n* Safe. All messages are encrypted locally, so if your phone is lost or stolen, your messages are protected.\n* Open Source. SMSecure is Free and Open Source, enabling anyone to verify its security by auditing the code.\n\nPlease file any bugs, issues, or feature requests at: <xliff:g id="arg1">%1$s</xliff:g>\n\nThe source code can be found at: <xliff:g id="arg2">%2$s</xliff:g>\n\nMore details: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivacy policy: <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">A new key has been generated.</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">A new key has been generated for that SIM card.</string>
@@ -338,8 +346,8 @@
     <string name="GroupMembersDialog_me">Me</string>
     <!--IdentityActivity-->
     <string name="IdentityActivity__base64_code_title">Base64 code</string>
-    <string name="IdentityActivity__current_remote_fingerprint">Fingerprint of <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g></string>
-    <string name="IdentityActivity__detected_format">Detected: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g></string>
+    <string name="IdentityActivity__current_remote_fingerprint">Fingerprint of <xliff:g id="arg1">%1$s</xliff:g></string>
+    <string name="IdentityActivity__detected_format">Detected: <xliff:g id="arg1">%1$s</xliff:g></string>
     <string name="IdentityActivity__empty_data">No data to display.</string>
     <string name="IdentityActivity__enter_hex_or_base64">Enter HEX or Base64 code</string>
     <string name="IdentityActivity__failed_to_render">Failed to render QR code.</string>
@@ -428,15 +436,31 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Request to end a non-existing session</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Message encrypted for non-existing session</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> new messages in <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg2">%2$d</xliff:g> conversations</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="zero">in <xliff:g id="arg1">%1$d</xliff:g> conversations</item>
+        <item quantity="one">in <xliff:g id="arg1">%1$d</xliff:g> conversation</item>
+        <item quantity="two">in <xliff:g id="arg1">%1$d</xliff:g> conversations</item>
+        <item quantity="few">in <xliff:g id="arg1">%1$d</xliff:g> conversations</item>
+        <item quantity="many">in <xliff:g id="arg1">%1$d</xliff:g> conversations</item>
+        <item quantity="other">in <xliff:g id="arg1">%1$d</xliff:g> conversations</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> new messages</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> new message</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> new messages</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> new messages</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> new messages</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> new messages</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">Encrypted message</string>
     <string name="MessageNotifier_error_delivering_message">Error delivering message.</string>
     <string name="MessageNotifier_failed_to_deliver_message">Failed to deliver message.</string>
     <string name="MessageNotifier_mark_all_as_read">Mark all as read</string>
     <string name="MessageNotifier_mark_read">Mark read</string>
     <string name="MessageNotifier_message_delivery_failed">Message delivery failed.</string>
-    <string name="MessageNotifier_message_received">Message received by <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g>.</string>
-    <string name="MessageNotifier_most_recent_from_s">Most recent from: <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g></string>
+    <string name="MessageNotifier_message_received">Message received by <xliff:g id="arg1">%s</xliff:g>.</string>
+    <string name="MessageNotifier_most_recent_from_s">Most recent from: <xliff:g id="arg1">%1$s</xliff:g></string>
     <string name="MessageNotifier_reply">Reply</string>
     <!--MessageRecord-->
     <string name="MessageRecord_key_exchange_message">Key exchange message</string>
@@ -466,16 +490,16 @@
     <string name="Permissions_permission_required">Permission required</string>
     <!--plurals.xml-->
     <plurals name="hours_ago">
-        <item quantity="zero"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> hours</item>
-        <item quantity="one"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> hour</item>
-        <item quantity="two"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> hours</item>
-        <item quantity="few"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> hours</item>
-        <item quantity="many"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> hours</item>
-        <item quantity="other"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g> hours</item>
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> hours</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> hour</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> hours</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> hours</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> hours</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> hours</item>
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">About SMSecure</string>
-    <string name="preferences__about_version">Version <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%s</xliff:g></string>
+    <string name="preferences__about_version">Version <xliff:g id="arg1">%s</xliff:g></string>
     <string name="preferences__advanced">Advanced</string>
     <string name="preferences__always_ask_for_sim_card">Always ask for SIM card</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Always ask for the SIM card to use when sending messages</string>
@@ -521,12 +545,12 @@
     <string name="preferences__messages">Messages</string>
     <string name="preferences__minutes">minutes</string>
     <plurals name="preferences__msgs_short">
-        <item quantity="zero"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g> msgs</item>
-        <item quantity="one"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g> msg</item>
-        <item quantity="two"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g> msgs</item>
-        <item quantity="few"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g> msgs</item>
-        <item quantity="many"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g> msgs</item>
-        <item quantity="other"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="zero"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>
+        <item quantity="two"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="few"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="many"><xliff:g id="arg1">%d</xliff:g> msgs</item>
+        <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>
     </plurals>
     <string name="preferences__never">Never</string>
     <string name="preferences__notifications">Notifications</string>
@@ -596,7 +620,7 @@
     <string name="recipients_panel__add_member">Add participant</string>
     <string name="recipients_panel__to">Enter a name or number</string>
     <!--RecipientsAdapter-->
-    <string name="recipient_number_parens" translatable="false">(<xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g>)</string>
+    <string name="recipient_number_parens" translatable="false">(<xliff:g id="arg1">%1$s</xliff:g>)</string>
     <!--reminder_header-->
     <string name="reminder_header_delivery_reports_text">Delivery reports allow you to know if and when your recipient had received your messages. Some mobile networks charge additional fee.</string>
     <string name="reminder_header_delivery_reports_title">Enable delivery reports?</string>
@@ -628,8 +652,8 @@
     <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Received updated but unknown identity information. Tap to validate identity.</string>
     <string name="SmsMessageRecord_secure_session_ended">Secure session ended.</string>
     <!--SubscriptionInfoCompat-->
-    <string name="SubscriptionInfoCompat_display_name"><xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$s</xliff:g> (slot <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg2">%2$d</xliff:g>)</string>
-    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" id="arg1">%1$d</xliff:g></string>
+    <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slot <xliff:g id="arg2">%2$d</xliff:g>)</string>
+    <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
     <!--ThreadRecord-->
     <string name="ThreadRecord_draft">Draft:</string>
     <string name="ThreadRecord_left_the_group">Left the group</string>

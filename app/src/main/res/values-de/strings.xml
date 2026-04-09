@@ -128,7 +128,10 @@
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Zum Ende scrollen</string>
     <!--conversation_fragment_cab-->
-    <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> ausgewählt</string>
+    <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d ausgewählt</item>
+        <item quantity="other">%1$d ausgewählt</item>
+    </plurals>
     <string name="conversation_fragment_cab__batch_selection_mode">Auswählen</string>
     <!--conversation_group_options-->
     <string name="conversation_group_options__recipients_list">Empfängerliste</string>
@@ -139,9 +142,8 @@
     <string name="conversation_insecure__security">Sicherheit</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Sichere Nachricht</string>
-    <!--conversation_item_received-->
+    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
-    <!--conversation_item_sent-->
     <string name="conversation_item_sent__delivered_description">Zugestellt</string>
     <string name="conversation_item_sent__pending_approval_description">Zur Genehmigung ausstehend</string>
     <string name="conversation_item_sent__send_failed_indicator_description">Senden fehlgeschlagen</string>
@@ -229,7 +231,7 @@
     <!--ConversationListFragment-->
     <plurals name="ConversationListFragment_conversations_archived">
         <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> Konversation archiviert</item>
-        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> archivierte Konversationen</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> Konversationen archiviert</item>
     </plurals>
     <string name="ConversationListFragment_delete_selected_conversation">Ausgewählte Konversation löschen?</string>
     <string name="ConversationListFragment_delete_selected_conversations">Ausgewählte Konversationen löschen?</string>
@@ -243,12 +245,14 @@
     <string name="ConversationListFragment_sending_selected_drafts">Ausgewählte Entwürfe werden gesendet …</string>
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
         <item quantity="one">Dadurch wird <xliff:g id="arg1">%1$d</xliff:g> ausgewählte Konversation endgültig gelöscht.</item>
-        <item quantity="other">Dadurch werden alle <xliff:g id="arg1">%1$d</xliff:g> ausgewählten Konversationen dauerhaft gelöscht.</item>
+        <item quantity="other">Dadurch werden alle <xliff:g id="arg1">%1$d</xliff:g> ausgewählten Konversationen endgültig gelöscht.</item>
     </plurals>
     <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Dadurch werden Entwürfe ausgewählter Unterhaltungen gesendet.</string>
     <string name="ConversationListFragment_undo">RÜCKGÄNGIG</string>
     <!--ConversationListItemArchived-->
     <string name="ConversationListItemAction_archived_conversations_d">Archivierte Konversationen (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <!--custom_default_preference_dialog-->
+    <string name="custom_default_preference_dialog__custom_value">Benutzerdefinierter Wert</string>
     <!--CustomDefaultPreference-->
     <string name="CustomDefaultPreference_using_custom">Verwendung von „custom“: <xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">Verwendung von „default“: <xliff:g id="arg1">%s</xliff:g></string>
@@ -265,7 +269,7 @@
     <string name="DateUtils_today">Heute</string>
     <string name="DateUtils_yesterday">Gestern</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure ist eine SMS-Anwendung, mit der Sie Ihre Privatsphäre bei der Kommunikation mit Freunden schützen können.\nMit SMSecure können Sie SMS-Nachrichten versenden und Medien oder Anhänge unter vollständiger Wahrung Ihrer Privatsphäre teilen.\n\nFunktionen:\n* Einfach. SMSecure funktioniert wie jede andere SMS-Anwendung. Es ist keine Anmeldung erforderlich und Ihre Freunde müssen keinem neuen Dienst beitreten.\n* Zuverlässig. SMSecure kommuniziert über verschlüsselte SMS-Nachrichten. Es sind keine Server oder Internetverbindung erforderlich.\n* Privat. SMSecure bietet End-to-End-Verschlüsselung für Ihre Nachrichten unter Verwendung des sorgfältig entwickelten Signal-Verschlüsselungsprotokolls.\n* Sicher. Alle Nachrichten werden lokal verschlüsselt, sodass Ihre Nachrichten auch bei Verlust oder Diebstahl Ihres Telefons geschützt sind.\n* Open Source. SMSecure ist kostenlos und Open Source, sodass jeder die Sicherheit durch Überprüfung des Codes verifizieren kann.\n\nBitte melden Sie Fehler, Probleme oder Feature-Anfragen unter: <xliff:g id="arg1">%1$s</xliff:g>\n\nDen Quellcode finden Sie unter: <xliff:g id="arg2">%2$s</xliff:g>\n\nWeitere Details: <xliff:g id="arg3">%3$s</xliff:g>\n\nDatenschutzerklärung: <xliff:g id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure ist eine SMS-Anwendung, mit der Sie Ihre Privatsphäre bei der Kommunikation mit Freunden schützen können.\nMit SMSecure können Sie SMS-Nachrichten versenden und Medien oder Anhänge unter vollständiger Wahrung der Privatsphäre teilen.\n\nFunktionen:\n* Einfach. SMSecure funktioniert wie jede andere SMS-Anwendung. Es ist keine Anmeldung erforderlich und Ihre Freunde müssen keinem neuen Dienst beitreten.\n* Zuverlässig. SMSecure kommuniziert über verschlüsselte SMS-Nachrichten. Es sind keine Server oder Internetverbindung erforderlich.\n* Privat. SMSecure bietet End-to-End-Verschlüsselung für Ihre Nachrichten unter Verwendung des sorgfältig entwickelten Signal-Verschlüsselungsprotokolls.\n* Sicher. Alle Nachrichten werden lokal verschlüsselt, sodass Ihre Nachrichten auch bei Verlust oder Diebstahl Ihres Telefons geschützt sind.\n* Open Source. SMSecure ist kostenlos und Open Source, sodass jeder die Sicherheit durch Überprüfung des Codes verifizieren kann.\n\nBitte melden Sie Fehler, Probleme oder Feature-Anfragen unter: <xliff:g id="arg1">%1$s</xliff:g>\n\nDen Quellcode finden Sie unter: <xliff:g id="arg2">%2$s</xliff:g>\n\nWeitere Details: <xliff:g id="arg3">%3$s</xliff:g>\n\nDatenschutzerklärung: <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">Ein neuer Schlüssel wurde generiert.</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Für diese SIM-Karte wurde ein neuer Schlüssel generiert.</string>
@@ -393,7 +397,15 @@
     <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Anfrage zum Beenden einer nicht vorhandenen Sitzung</string>
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Nachricht für nicht vorhandene Sitzung verschlüsselt</string>
     <!--MessageNotifier-->
-    <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> neue Nachrichten in <xliff:g id="arg2">%2$d</xliff:g> Konversationen</string>
+    <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">in <xliff:g id="arg1">%1$d</xliff:g> Gespräch</item>
+        <item quantity="other">in <xliff:g id="arg1">%1$d</xliff:g> Gesprächen</item>
+    </plurals>
+    <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+    <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> neue Nachricht</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> neue Nachrichten</item>
+    </plurals>
     <string name="MessageNotifier_encrypted_message">Verschlüsselte Nachricht</string>
     <string name="MessageNotifier_error_delivering_message">Fehler beim Senden der Nachricht.</string>
     <string name="MessageNotifier_failed_to_deliver_message">Die Nachricht konnte nicht zugestellt werden.</string>

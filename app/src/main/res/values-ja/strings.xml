@@ -126,7 +126,9 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">一番下までスクロール</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> 選択済み</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="other">%1$d 選択</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">選択</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">受信者リスト</string>
@@ -137,9 +139,8 @@
   <string name="conversation_insecure__security">セキュリティ</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">セキュアメッセージ</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">連絡先の写真</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">配信済み</string>
   <string name="conversation_item_sent__pending_approval_description">承認待ち</string>
   <string name="conversation_item_sent__send_failed_indicator_description">送信に失敗しました</string>
@@ -241,6 +242,8 @@
   <string name="ConversationListFragment_undo">元に戻す</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">アーカイブされた会話 (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">カスタム値</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">custom を使用: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">デフォルトを使用: <xliff:g id="arg1">%s</xliff:g></string>
@@ -385,7 +388,13 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">存在しないセッションを終了するリクエスト</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">存在しないセッションに対してメッセージが暗号化されました</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> <xliff:g id="arg2">%2$d</xliff:g> の会話に新しいメッセージがあります</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g>件の会話</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g>件の新しいメッセージ</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">暗号化されたメッセージ</string>
   <string name="MessageNotifier_error_delivering_message">メッセージの配信に失敗しました。</string>
   <string name="MessageNotifier_failed_to_deliver_message">メッセージの配信に失敗しました。</string>
@@ -573,7 +582,7 @@
   <string name="SmsMessageRecord_secure_session_ended">セキュアセッションが終了しました。</string>
   <!--SubscriptionInfoCompat-->
   <string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (スロット <xliff:g id="arg2">%2$d</xliff:g>)</string>
-  <string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+  <string name="SubscriptionInfoCompat_slot">スロット <xliff:g id="arg1">%1$d</xliff:g></string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_draft">下書き:</string>
   <string name="ThreadRecord_left_the_group">グループを離れました</string>

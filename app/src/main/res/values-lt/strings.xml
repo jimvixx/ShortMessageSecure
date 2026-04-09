@@ -132,7 +132,12 @@
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pereikite į apačią</string>
 <!--conversation_fragment_cab-->
-<string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> pasirinkta</string>
+<plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d pasirinkta</item>
+        <item quantity="few">%1$d selected</item>
+        <item quantity="many">%1$d pasirinkta</item>
+        <item quantity="other">%1$d pasirinkta</item>
+    </plurals>
 <string name="conversation_fragment_cab__batch_selection_mode">Pasirinkti</string>
 <!--conversation_group_options-->
 <string name="conversation_group_options__recipients_list">Gavėjų sąrašas</string>
@@ -143,9 +148,8 @@
 <string name="conversation_insecure__security">Saugumas</string>
 <!--conversation_item-->
 <string name="conversation_item__secure_message_description">Saugus pranešimas</string>
-<!--conversation_item_received-->
+<string name="conversation_item_pending__indicator">…</string>
 <string name="conversation_item_received__contact_photo_description">Kontakto nuotrauka</string>
-<!--conversation_item_sent-->
 <string name="conversation_item_sent__delivered_description">Pristatyta</string>
 <string name="conversation_item_sent__pending_approval_description">Laukiama patvirtinimo</string>
 <string name="conversation_item_sent__send_failed_indicator_description">Siuntimas nepavyko</string>
@@ -265,6 +269,8 @@
 <string name="ConversationListFragment_undo">ATŠAUKTI</string>
 <!--ConversationListItemArchived-->
 <string name="ConversationListItemAction_archived_conversations_d">Archyvuoti pokalbiai (<xliff:g id="arg1">%d</xliff:g>)</string>
+<!--custom_default_preference_dialog-->
+<string name="custom_default_preference_dialog__custom_value">Custom value</string>
 <!--CustomDefaultPreference-->
 <string name="CustomDefaultPreference_using_custom">Naudojant custom: <xliff:g id="arg1">%s</xliff:g></string>
 <string name="CustomDefaultPreference_using_default">Naudojant numatytąjį: <xliff:g id="arg1">%s</xliff:g></string>
@@ -409,7 +415,19 @@
 <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Prašymas užbaigti neegzistuojančią sesiją</string>
 <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Pranešimas užšifruotas neegzistuojančiai sesijai</string>
 <!--MessageNotifier-->
-<string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> naujos žinutės <xliff:g id="arg2">%2$d</xliff:g> pokalbiuose</string>
+<plurals name="MessageNotifier__in_conversations">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> pokalbyje</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> pokalbiuose</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> pokalbiuose</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> pokalbiuose</item>
+    </plurals>
+<string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+<plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> nauja žinutė</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> naujos žinutės</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> nauji pranešimai</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> naujos žinutės</item>
+    </plurals>
 <string name="MessageNotifier_encrypted_message">Šifruota žinutė</string>
 <string name="MessageNotifier_error_delivering_message">Klaida pristatant pranešimą.</string>
 <string name="MessageNotifier_failed_to_deliver_message">Nepavyko pristatyti pranešimo.</string>
@@ -602,8 +620,8 @@
 <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">Gauta atnaujinta, bet nežinoma tapatybės informacija. Bakstelėkite, kad patvirtintumėte tapatybę.</string>
 <string name="SmsMessageRecord_secure_session_ended">Saugi sesija baigėsi.</string>
 <!--SubscriptionInfoCompat-->
-<string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (lizdas <xliff:g id="arg2">%2$d</xliff:g>)</string>
-<string name="SubscriptionInfoCompat_slot">Slot <xliff:g id="arg1">%1$d</xliff:g></string>
+<string name="SubscriptionInfoCompat_display_name"><xliff:g id="arg1">%1$s</xliff:g> (slot <xliff:g id="arg2">%2$d</xliff:g>)</string>
+<string name="SubscriptionInfoCompat_slot">Lentelė <xliff:g id="arg1">%1$d</xliff:g></string>
 <!--ThreadRecord-->
 <string name="ThreadRecord_draft">Juodraštis:</string>
 <string name="ThreadRecord_left_the_group">Išėjo iš grupės</string>

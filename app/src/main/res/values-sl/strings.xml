@@ -132,7 +132,12 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pomaknite se na dno</string>
   <!--conversation_fragment_cab-->
-  <string name="conversation_fragment_cab__batch_selection_amount"><xliff:g id="arg1">%1$d</xliff:g> izbrano</string>
+  <plurals name="conversation_fragment_cab__batch_selection_amount">
+        <item quantity="one">%1$d izbrano</item>
+        <item quantity="two">%1$d izbrano</item>
+        <item quantity="few">%1$d izbrano</item>
+        <item quantity="other">%1$d izbrano</item>
+    </plurals>
   <string name="conversation_fragment_cab__batch_selection_mode">Izberi</string>
   <!--conversation_group_options-->
   <string name="conversation_group_options__recipients_list">Seznam prejemnikov</string>
@@ -143,9 +148,8 @@
   <string name="conversation_insecure__security">Varnost</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Varnostno sporočilo</string>
-  <!--conversation_item_received-->
+  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Fotografija stika</string>
-  <!--conversation_item_sent-->
   <string name="conversation_item_sent__delivered_description">Dostavljeno</string>
   <string name="conversation_item_sent__pending_approval_description">V čakanju na odobritev</string>
   <string name="conversation_item_sent__send_failed_indicator_description">Pošiljanje ni uspelo</string>
@@ -265,6 +269,8 @@
   <string name="ConversationListFragment_undo">UNDO</string>
   <!--ConversationListItemArchived-->
   <string name="ConversationListItemAction_archived_conversations_d">Arhivirani pogovori (<xliff:g id="arg1">%d</xliff:g>)</string>
+  <!--custom_default_preference_dialog-->
+  <string name="custom_default_preference_dialog__custom_value">Prilagojena vrednost</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Uporaba custom: <xliff:g id="arg1">%s</xliff:g></string>
   <string name="CustomDefaultPreference_using_default">Uporaba privzete vrednosti: <xliff:g id="arg1">%s</xliff:g></string>
@@ -409,7 +415,19 @@
   <string name="MessageDisplayHelper_end_session_encrypted_for_non_existing_session">Zahteva za zaključek neobstoječe seje</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Sporočilo, šifrirano za neobstoječo sejo</string>
   <!--MessageNotifier-->
-  <string name="MessageNotifier_d_new_messages_in_d_conversations"><xliff:g id="arg1">%1$d</xliff:g> nova sporočila v <xliff:g id="arg2">%2$d</xliff:g> pogovorih</string>
+  <plurals name="MessageNotifier__in_conversations">
+        <item quantity="one">v <xliff:g id="arg1">%1$d</xliff:g> pogovoru</item>
+        <item quantity="two">v <xliff:g id="arg1">%1$d</xliff:g> pogovorih</item>
+        <item quantity="few">v <xliff:g id="arg1">%1$d</xliff:g> pogovorih</item>
+        <item quantity="other">v <xliff:g id="arg1">%1$d</xliff:g> pogovorih</item>
+    </plurals>
+  <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
+  <plurals name="MessageNotifier__new_messages">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> novo sporočilo</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> nova sporočila</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> nova sporočila</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> nova sporočila</item>
+    </plurals>
   <string name="MessageNotifier_encrypted_message">Šifrirano sporočilo</string>
   <string name="MessageNotifier_error_delivering_message">Napaka pri dostavi sporočila.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Prispevanje sporočila ni uspelo.</string>
