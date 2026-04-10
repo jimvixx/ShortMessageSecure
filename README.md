@@ -67,8 +67,12 @@ SMSecure provides strong privacy guarantees:
 
 - End-to-end encryption for SMS messages  
 - No servers involved — communication happens directly via SMS  
-- No internet connection required  
 - All messages are encrypted locally  
+- No tracking
+- No analytics
+- No ads
+- Local-only data processing
+- No internet connection required (except when explicitly initiated by the user to send non-personal debugging information)
 
 Even if your device is lost or stolen, your messages remain protected.
 
@@ -78,6 +82,8 @@ Security features include:
 - Protection against man-in-the-middle (MITM) attacks  
 
 SMSecure does **not** collect or transmit any user data.
+
+See [Privacy Policy](./PRIVACY_POLICY.md)
 
 ---
 

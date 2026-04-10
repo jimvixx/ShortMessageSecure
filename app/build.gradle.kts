@@ -41,12 +41,12 @@ android {
         buildConfigField(
             "String",
             "MORE_DETAILS_URL",
-            "\"https://github.com/jimvixx/ShortMessageSecure\""
+            "\"https://github.com/jimvixx/ShortMessageSecure/README.md\""
         )
         buildConfigField(
             "String",
             "PRIVACY_POLICY_URL",
-            "\"https://github.com/jimvixx/ShortMessageSecure\""
+            "\"https://github.com/jimvixx/ShortMessageSecure/PRIVACY_POLICY.md\""
         )
         buildConfigField(
             "String",
