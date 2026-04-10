@@ -1,3 +1,19 @@
+
+[![GitHub Release](https://img.shields.io/github/release/jimvixx/ShortMessageSecure.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
+[![GitHub Downloads](https://img.shields.io/github/downloads/jimvixx/ShortMessageSecure/total.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
+[![CI](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/build.yml/badge.svg)](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/jimvixx/ShortMessageSecure.svg)](LICENSE)
+
+[![Android](https://img.shields.io/badge/platform-Android-brightgreen.svg?logo=android)](#)
+[![Min SDK](https://img.shields.io/badge/minSdk-24-blue.svg)](#)
+[![Target SDK](https://img.shields.io/badge/targetSdk-36-blue.svg)](#)
+[![Java](https://img.shields.io/badge/Java-17-orange.svg?logo=openjdk)](#)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple.svg?logo=kotlin)](#)
+
+[//]: # ([![F-Droid]&#40;https://img.shields.io/badge/F--Droid-coming%20soon-informational?logo=f-droid&#41;]&#40;#&#41;)
+
+[//]: # ([![IzzyOnDroid]&#40;https://img.shields.io/badge/IzzyOnDroid-available-blueviolet&#41;]&#40;https://android.izzysoft.de/&#41;)
+
 <h1 align="center">Short Message Secure (SMSecure)</h1>
 
 <p align="center"><img src="graphics/icon.webp" width="120"/></p>
