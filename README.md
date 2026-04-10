@@ -1,7 +1,7 @@
 
 [![GitHub Release](https://img.shields.io/github/release/jimvixx/ShortMessageSecure.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/jimvixx/ShortMessageSecure/total.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
-[![CI](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/build.yml/badge.svg)](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml)
+[![CI](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml/badge.svg)](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/jimvixx/ShortMessageSecure.svg)](LICENSE)
 
 [![Android](https://img.shields.io/badge/platform-Android-brightgreen.svg?logo=android)](#)
