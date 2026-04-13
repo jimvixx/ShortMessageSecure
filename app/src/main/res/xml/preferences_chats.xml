@@ -21,7 +21,7 @@
             android:inputType="number"
             android:key="pref_trim_length"
             android:title="@string/preferences__conversation_length_limit"
-            app:rightSummaryMaxLines="1" />
+            app:rightSummaryMaxLines="2" />
 
         <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
             android:dependency="pref_trim_threads"

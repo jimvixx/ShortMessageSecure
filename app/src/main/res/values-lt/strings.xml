@@ -498,7 +498,7 @@
 <string name="preferences__display_in_notifications_which_elements_show">Pasirinkite, kokie elementai bus rodomi pranešime</string>
 <string name="preferences__enable_local_encryption_of_messages_and_keys">Įjunkite vietinį pranešimų ir raktų šifravimą</string>
 <string name="preferences__enable_message_notifications">Įjunkite pranešimų įspėjimus</string>
-<string name="preferences__enable_panic_on_device_lock_button">Automatinis užrakinimas, kai ekranas užrakintas</string>
+<string name="preferences__enable_panic_on_device_lock_button">Automatinis užrakinimas</string>
 <string name="preferences__enable_passphrase">Įjungti slaptažodį</string>
 <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Įjunkite šią parinktį, jei jūsų klaviatūra palaiko emodžius.</string>
 <string name="preferences__enter_key_summary">Pasirinkite, ar klavišas „Enter“ siųs pranešimą, ar įterps naują eilutę</string>
@@ -552,7 +552,7 @@
 <string name="preferences__theme_summary">Pasirinkite programos išvaizdą</string>
 <string name="preferences__theme_systemic">Systemic</string>
 <string name="preferences__three_times">Tris kartus</string>
-<string name="preferences__timeout_passphrase">Laiko limito slaptažodis</string>
+<string name="preferences__timeout_passphrase">Slaptažodžio galiojimo laikas</string>
 <string name="preferences__trim_all_conversations_now">Išvalyti visus pokalbius dabar</string>
 <string name="preferences__two_times">Du kartus</string>
 <string name="preferences__use_system_emoji">Naudoti sistemos emodžius</string>

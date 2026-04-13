@@ -28,7 +28,7 @@
   <string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">O SMSecure é atualmente a sua aplicação de SMS predefinida</string>
   <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Toque para definir o SMSecure como a sua aplicação de SMS predefinida</string>
   <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
-        <item quantity="one">Isto irá reduzir imediatamente todas as conversas para a  <xliff:g id="arg1">%1$d</xliff:g> mensagem mais recente.</item>
+        <item quantity="one">Isto irá reduzir imediatamente todas as conversas para a <xliff:g id="arg1">%1$d</xliff:g> mensagem mais recente.</item>
         <item quantity="many">Isto irá reduzir imediatamente todas as conversas às <xliff:g id="arg1">%1$d</xliff:g> mensagens mais recentes.</item>
         <item quantity="other">Isto irá reduzir imediatamente todas as conversas às <xliff:g id="arg1">%1$d</xliff:g> mensagens mais recentes.</item>
     </plurals>
@@ -486,7 +486,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Selecione quais os elementos a mostrar na notificação</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Ativar a encriptação local de mensagens e chaves</string>
   <string name="preferences__enable_message_notifications">Ativar notificações de mensagens</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Bloqueio automático ao bloquear o ecrã</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Bloqueio automático</string>
   <string name="preferences__enable_passphrase">Ativar frase secreta</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Ative esta opção se o seu teclado suportar emojis.</string>
   <string name="preferences__enter_key_summary">Escolha se a tecla Enter envia a mensagem ou insere uma nova linha</string>
@@ -539,7 +539,7 @@
   <string name="preferences__theme_summary">Escolher a aparência da aplicação</string>
   <string name="preferences__theme_systemic">Sistémico</string>
   <string name="preferences__three_times">Três vezes</string>
-  <string name="preferences__timeout_passphrase">Senha de expiração</string>
+  <string name="preferences__timeout_passphrase">Tempo limite da frase secreta</string>
   <string name="preferences__trim_all_conversations_now">Limpar todas as conversas agora</string>
   <string name="preferences__two_times">Duas vezes</string>
   <string name="preferences__use_system_emoji">Usar emoji do sistema</string>

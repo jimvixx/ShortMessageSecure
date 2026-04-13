@@ -498,7 +498,7 @@
     <string name="preferences__display_in_notifications_which_elements_show">Виберіть, які елементи відображати у сповіщенні</string>
     <string name="preferences__enable_local_encryption_of_messages_and_keys">Увімкнути локальне шифрування повідомлень та ключів</string>
     <string name="preferences__enable_message_notifications">Увімкнути сповіщення про повідомлення</string>
-    <string name="preferences__enable_panic_on_device_lock_button">Автоматичне блокування при блокуванні екрана</string>
+    <string name="preferences__enable_panic_on_device_lock_button">Автоматичне блокування</string>
     <string name="preferences__enable_passphrase">Увімкнути пароль</string>
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Увімкніть цю опцію, якщо ваша клавіатура підтримує емодзі.</string>
     <string name="preferences__enter_key_summary">Виберіть, чи клавіша Enter надсилає повідомлення, чи вставляє новий рядок</string>
@@ -552,7 +552,7 @@
     <string name="preferences__theme_summary">Виберіть зовнішній вигляд програми</string>
     <string name="preferences__theme_systemic">Системний</string>
     <string name="preferences__three_times">Три рази</string>
-    <string name="preferences__timeout_passphrase">Пароль тайм-ауту</string>
+    <string name="preferences__timeout_passphrase">Тайм-аут пароля</string>
     <string name="preferences__trim_all_conversations_now">Видалити всі розмови зараз</string>
     <string name="preferences__two_times">Двічі</string>
     <string name="preferences__use_system_emoji">Використовувати системні емодзі</string>

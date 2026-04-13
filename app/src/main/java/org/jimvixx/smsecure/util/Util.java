@@ -341,8 +341,7 @@ public class Util {
 
   public static boolean missingContactsPermissions(Context context) {
     return !Permissions.hasAny(context,
-            Manifest.permission.READ_CONTACTS,
-            Manifest.permission.WRITE_CONTACTS);
+            Manifest.permission.READ_CONTACTS);
   }
 
   @NonNull

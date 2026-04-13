@@ -462,7 +462,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">通知に表示する要素を選択してください</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">メッセージと鍵のローカル暗号化を有効にする</string>
   <string name="preferences__enable_message_notifications">メッセージ通知を有効にする</string>
-  <string name="preferences__enable_panic_on_device_lock_button">画面ロック時の自動ロック</string>
+  <string name="preferences__enable_panic_on_device_lock_button">自動ロック</string>
   <string name="preferences__enable_passphrase">パスフレーズの有効化</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">キーボードが絵文字に対応している場合は、このオプションを有効にしてください。</string>
   <string name="preferences__enter_key_summary">Enterキーを押した際にメッセージを送信するか、改行を挿入するかを選択してください</string>
@@ -513,7 +513,7 @@
   <string name="preferences__theme_summary">アプリの見た目を設定する</string>
   <string name="preferences__theme_systemic">Systemic</string>
   <string name="preferences__three_times">3回</string>
-  <string name="preferences__timeout_passphrase">パスワードの タイムアウト</string>
+  <string name="preferences__timeout_passphrase">パスフレーズのタイムアウト</string>
   <string name="preferences__trim_all_conversations_now">すべての会話を今すぐ整理</string>
   <string name="preferences__two_times">2回</string>
   <string name="preferences__use_system_emoji">システム絵文字を使用する</string>

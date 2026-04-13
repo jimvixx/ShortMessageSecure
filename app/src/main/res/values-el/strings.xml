@@ -474,7 +474,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Επιλέξτε ποια στοιχεία θα εμφανίζονται στην ειδοποίηση</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Ενεργοποίηση τοπικής κρυπτογράφησης μηνυμάτων και κλειδιών</string>
   <string name="preferences__enable_message_notifications">Ενεργοποίηση ειδοποιήσεων μηνυμάτων</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Αυτόματο κλείδωμα στην οθόνη κλειδώματος</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Αυτόματο κλείδωμα</string>
   <string name="preferences__enable_passphrase">Ενεργοποίηση φράσης πρόσβασης</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Ενεργοποιήστε αυτήν την επιλογή εάν το πληκτρολόγιό σας υποστηρίζει emoji.</string>
   <string name="preferences__enter_key_summary">Επιλέξτε αν το πλήκτρο Enter θα στέλνει το μήνυμα ή θα εισάγει μια νέα γραμμή</string>
@@ -526,7 +526,7 @@
   <string name="preferences__theme_summary">Επιλογή εμφάνισης εφαρμογής</string>
   <string name="preferences__theme_systemic">Συστημικό</string>
   <string name="preferences__three_times">Τρεις φορές</string>
-  <string name="preferences__timeout_passphrase">Φράση πρόσβασης χρονικού ορίου</string>
+  <string name="preferences__timeout_passphrase">Χρονικό όριο φράσης πρόσβασης</string>
   <string name="preferences__trim_all_conversations_now">Περικοπή όλων των συνομιλιών τώρα</string>
   <string name="preferences__two_times">Δύο φορές</string>
   <string name="preferences__use_system_emoji">Χρήση emoji συστήματος</string>

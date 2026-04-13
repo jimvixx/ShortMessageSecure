@@ -474,7 +474,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Välj vilka element som ska visas i meddelandet</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Aktivera lokal kryptering av meddelanden och nycklar</string>
   <string name="preferences__enable_message_notifications">Aktivera meddelanden</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Automatisk låsning vid skärmlåsning</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Automatisk låsning</string>
   <string name="preferences__enable_passphrase">Aktivera lösenordsfras</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Aktivera detta alternativ om ditt tangentbord stöder emojis.</string>
   <string name="preferences__enter_key_summary">Välj om Enter-tangenten ska skicka meddelandet eller infoga en ny rad</string>
@@ -526,7 +526,7 @@
   <string name="preferences__theme_summary">Välj appens utseende</string>
   <string name="preferences__theme_systemic">Systemisk</string>
   <string name="preferences__three_times">Tre gånger</string>
-  <string name="preferences__timeout_passphrase">Tidsgräns för lösenord</string>
+  <string name="preferences__timeout_passphrase">Lösenordsfrasens timeout</string>
   <string name="preferences__trim_all_conversations_now">Trimma alla konversationer nu</string>
   <string name="preferences__two_times">Två gånger</string>
   <string name="preferences__use_system_emoji">Använd systemets emoji</string>

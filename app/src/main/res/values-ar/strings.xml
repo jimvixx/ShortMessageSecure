@@ -522,7 +522,7 @@
 <string name="preferences__display_in_notifications_which_elements_show">حدد العناصر التي تريد عرضها في الإشعار</string>
 <string name="preferences__enable_local_encryption_of_messages_and_keys">تمكين التشفير المحلي للرسائل والمفاتيح</string>
 <string name="preferences__enable_message_notifications">تمكين إشعارات الرسائل</string>
-<string name="preferences__enable_panic_on_device_lock_button">القفل التلقائي عند قفل الشاشة</string>
+<string name="preferences__enable_panic_on_device_lock_button">القفل التلقائي</string>
 <string name="preferences__enable_passphrase">تمكين عبارة المرور</string>
 <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">قم بتمكين هذا الخيار إذا كانت لوحة المفاتيح الخاصة بك تدعم الرموز التعبيرية.</string>
 <string name="preferences__enter_key_summary">اختر ما إذا كان مفتاح Enter سيرسل الرسالة أم سيضيف سطرًا جديدًا</string>
@@ -578,7 +578,7 @@
 <string name="preferences__theme_summary">اختر مظهر التطبيق</string>
 <string name="preferences__theme_systemic">نظامي</string>
 <string name="preferences__three_times">ثلاث مرات</string>
-<string name="preferences__timeout_passphrase">عبارة مرور انتهاء المهلة</string>
+<string name="preferences__timeout_passphrase">انتهاء صلاحية عبارة المرور</string>
 <string name="preferences__trim_all_conversations_now">اقطع جميع المحادثات الآن</string>
 <string name="preferences__two_times">مرتين</string>
 <string name="preferences__use_system_emoji">استخدام رموز تعبيرية النظام</string>

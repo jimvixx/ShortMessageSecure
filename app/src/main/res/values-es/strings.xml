@@ -486,7 +486,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Selecciona qué elementos se mostrarán en la notificación</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Habilitar el cifrado local de mensajes y claves</string>
   <string name="preferences__enable_message_notifications">Habilitar notificaciones de mensajes</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Bloqueo automático al bloquear la pantalla</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Bloqueo automático</string>
   <string name="preferences__enable_passphrase">Habilitar contraseña</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Activa esta opción si tu teclado admite emojis.</string>
   <string name="preferences__enter_key_summary">Elige si la tecla Intro envía el mensaje o inserta una nueva línea</string>
@@ -539,7 +539,7 @@
   <string name="preferences__theme_summary">Elegir el aspecto de la aplicación</string>
   <string name="preferences__theme_systemic">Sistémico</string>
   <string name="preferences__three_times">Tres veces</string>
-  <string name="preferences__timeout_passphrase">Contraseña de tiempo de espera</string>
+  <string name="preferences__timeout_passphrase">Tiempo de espera de la contraseña</string>
   <string name="preferences__trim_all_conversations_now">Recortar todas las conversaciones ahora</string>
   <string name="preferences__two_times">Dos veces</string>
   <string name="preferences__use_system_emoji">Usar emojis del sistema</string>

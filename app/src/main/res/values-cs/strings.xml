@@ -498,7 +498,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Vyberte, které prvky se mají zobrazit v oznámení</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Povolit lokální šifrování zpráv a klíčů</string>
   <string name="preferences__enable_message_notifications">Povolit oznámení o zprávách</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Automatické zamykání při uzamčení obrazovky</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Automatické zamykání</string>
   <string name="preferences__enable_passphrase">Povolit heslo</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Tuto možnost zapněte, pokud vaše klávesnice podporuje emodži.</string>
   <string name="preferences__enter_key_summary">Zvolte, zda klávesa Enter odešle zprávu nebo vloží nový řádek</string>
@@ -552,7 +552,7 @@
   <string name="preferences__theme_summary">Vyberte vzhled aplikace</string>
   <string name="preferences__theme_systemic">Systemic</string>
   <string name="preferences__three_times">Třikrát</string>
-  <string name="preferences__timeout_passphrase">Heslo pro časový limit</string>
+  <string name="preferences__timeout_passphrase">Časový limit hesla</string>
   <string name="preferences__trim_all_conversations_now">Oříznout všechny konverzace nyní</string>
   <string name="preferences__two_times">Dvakrát</string>
   <string name="preferences__use_system_emoji">Použít systémové emodži</string>

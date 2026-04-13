@@ -131,7 +131,6 @@ public class WelcomeActivity extends BaseActionBarActivity {
     Permissions.with(this)
             .request(
                     Manifest.permission.READ_CONTACTS,
-                    Manifest.permission.WRITE_CONTACTS,
 
                     Manifest.permission.READ_PHONE_STATE,
 

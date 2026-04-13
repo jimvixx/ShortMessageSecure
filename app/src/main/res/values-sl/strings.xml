@@ -498,7 +498,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Izberite, kateri elementi naj se prikažejo v obvestilu</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Omogoči lokalno šifriranje sporočil in ključev</string>
   <string name="preferences__enable_message_notifications">Omogoči obvestila o sporočilih</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Samodejna zaklepanje pri zaklepanju zaslona</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Samodejno zaklepanje</string>
   <string name="preferences__enable_passphrase">Omogoči geslo</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Omogočite to možnost, če vaša tipkovnica podpira emojije.</string>
   <string name="preferences__enter_key_summary">Izberite, ali tipka Enter pošlje sporočilo ali vstavi novo vrstico</string>
@@ -552,7 +552,7 @@
   <string name="preferences__theme_summary">Izberite videz aplikacije</string>
   <string name="preferences__theme_systemic">Systemic</string>
   <string name="preferences__three_times">Trikrat</string>
-  <string name="preferences__timeout_passphrase">Geslo za časovno omejitev</string>
+  <string name="preferences__timeout_passphrase">Časovna omejitev gesla</string>
   <string name="preferences__trim_all_conversations_now">Zmanjšaj vse pogovore zdaj</string>
   <string name="preferences__two_times">Dvakrat</string>
   <string name="preferences__use_system_emoji">Uporabi sistemski emoji</string>

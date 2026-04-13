@@ -474,7 +474,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Válassza ki, mely elemek jelenjenek meg az értesítésben</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Engedélyezze az üzenetek és kulcsok helyi titkosítását</string>
   <string name="preferences__enable_message_notifications">Üzenetértesítések engedélyezése</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Automatikus zárolás a képernyőzárnál</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Automatikus zárolás</string>
   <string name="preferences__enable_passphrase">Jelszó engedélyezése</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Engedélyezze ezt az opciót, ha a billentyűzete támogatja az emojikat.</string>
   <string name="preferences__enter_key_summary">Válassza ki, hogy az Enter billentyű elküldi-e az üzenetet, vagy új sort szúr be</string>
@@ -526,7 +526,7 @@
   <string name="preferences__theme_summary">Az alkalmazás megjelenésének kiválasztása</string>
   <string name="preferences__theme_systemic">Systemic</string>
   <string name="preferences__three_times">Háromszor</string>
-  <string name="preferences__timeout_passphrase">Időkorlát jelszó</string>
+  <string name="preferences__timeout_passphrase">Jelszó időtúllépés</string>
   <string name="preferences__trim_all_conversations_now">Minden beszélgetés törlése most</string>
   <string name="preferences__two_times">Kétszer</string>
   <string name="preferences__use_system_emoji">Használja a rendszer emoji-jait</string>

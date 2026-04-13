@@ -462,7 +462,7 @@
 <string name="preferences__display_in_notifications_which_elements_show">Pilih elemen mana yang akan ditampilkan dalam notifikasi</string>
 <string name="preferences__enable_local_encryption_of_messages_and_keys">Aktifkan enkripsi lokal untuk pesan dan kunci</string>
 <string name="preferences__enable_message_notifications">Aktifkan pemberitahuan pesan</string>
-<string name="preferences__enable_panic_on_device_lock_button">Kunci otomatis saat layar terkunci</string>
+<string name="preferences__enable_panic_on_device_lock_button">Penguncian otomatis</string>
 <string name="preferences__enable_passphrase">Aktifkan frasa sandi</string>
 <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Aktifkan opsi ini jika keyboard Anda mendukung emoji.</string>
 <string name="preferences__enter_key_summary">Pilih apakah tombol Enter mengirim pesan atau menyisipkan baris baru</string>
@@ -513,7 +513,7 @@
 <string name="preferences__theme_summary">Pilih tampilan aplikasi</string>
 <string name="preferences__theme_systemic">Sistemik</string>
 <string name="preferences__three_times">Tiga kali</string>
-<string name="preferences__timeout_passphrase">Kata sandi batas waktu</string>
+<string name="preferences__timeout_passphrase">Waktu tunggu frasa sandi</string>
 <string name="preferences__trim_all_conversations_now">Potong semua percakapan sekarang</string>
 <string name="preferences__two_times">Dua kali</string>
 <string name="preferences__use_system_emoji">Gunakan emoji sistem</string>

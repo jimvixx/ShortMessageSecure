@@ -486,7 +486,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Selectați elementele care vor fi afișate în notificare</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Activați criptarea locală a mesajelor și cheilor</string>
   <string name="preferences__enable_message_notifications">Activează notificările pentru mesaje</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Blocare automată la blocarea ecranului</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Blocare automată</string>
   <string name="preferences__enable_passphrase">Activați fraza de acces</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Activați această opțiune dacă tastatura dvs. acceptă emoji-uri.</string>
   <string name="preferences__enter_key_summary">Alegeți dacă tasta Enter trimite mesajul sau inserează o linie nouă</string>
@@ -539,7 +539,7 @@
   <string name="preferences__theme_summary">Alege aspectul aplicației</string>
   <string name="preferences__theme_systemic">Sistem</string>
   <string name="preferences__three_times">De trei ori</string>
-  <string name="preferences__timeout_passphrase">Parola de expirare</string>
+  <string name="preferences__timeout_passphrase">Expirarea parolei</string>
   <string name="preferences__trim_all_conversations_now">Tăiați toate conversațiile acum</string>
   <string name="preferences__two_times">De două ori</string>
   <string name="preferences__use_system_emoji">Utilizează emoji-urile sistemului</string>

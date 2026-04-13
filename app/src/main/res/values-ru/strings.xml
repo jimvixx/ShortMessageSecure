@@ -498,7 +498,7 @@
     <string name="preferences__display_in_notifications_which_elements_show">Выберите, какие элементы отображать в уведомлении</string>
     <string name="preferences__enable_local_encryption_of_messages_and_keys">Включить локальное шифрование сообщений и ключей</string>
     <string name="preferences__enable_message_notifications">Включить уведомления о сообщениях</string>
-    <string name="preferences__enable_panic_on_device_lock_button">Автоматическая блокировка при блокировке экрана</string>
+    <string name="preferences__enable_panic_on_device_lock_button">Автоматическая блокировка</string>
     <string name="preferences__enable_passphrase">Включить парольную фразу</string>
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Включите эту опцию, если ваша клавиатура поддерживает эмодзи.</string>
     <string name="preferences__enter_key_summary">Выберите, будет ли клавиша Enter отправлять сообщение или вставлять новую строку</string>
@@ -552,7 +552,7 @@
     <string name="preferences__theme_summary">Выбрать внешний вид приложения</string>
     <string name="preferences__theme_systemic">Системный</string>
     <string name="preferences__three_times">Три раза</string>
-    <string name="preferences__timeout_passphrase">Таймаут пароля</string>
+    <string name="preferences__timeout_passphrase">Таймаут парольной фразы</string>
     <string name="preferences__trim_all_conversations_now">Удалить все переписки сейчас</string>
     <string name="preferences__two_times">Два раза</string>
     <string name="preferences__use_system_emoji">Использовать системные смайлики</string>

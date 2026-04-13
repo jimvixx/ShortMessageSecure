@@ -17,6 +17,9 @@ SMSecure requests only the permissions required for its core functionality:
 * **SMS (READ, SEND, RECEIVE, WRITE)**
   Used to send, receive, and manage SMS messages.
 
+* **MMS (RECEIVE_MMS, RECEIVE_WAP_PUSH)** 
+  SMSecure declares MMS-related permissions  only to satisfy Android system requirements for default SMS applications. The app does not implement MMS functionality and does not process or store MMS content.
+
 * **Contacts (READ_CONTACTS)**
   Used to display and select recipients.
 
@@ -32,8 +35,11 @@ SMSecure requests only the permissions required for its core functionality:
 * **Phone State (READ_PHONE_STATE)**
   Used to determine network/service availability.
 
-* **Foreground Service**
+* **Foreground Service (FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC)**
   Used for short-lived internal tasks such as database migration.
+
+* **Wake Lock (WAKE_LOCK)**  
+  Used to keep the device awake during critical operations (e.g., database migration) to ensure tasks complete reliably.
 
 ---
 

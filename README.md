@@ -112,13 +112,13 @@ Key goals:
 
 ## 🤝 Contributing
 
-See CONTRIBUTING.md for guidelines on contributing code, translations, or bug reports.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on contributing code, translations, or bug reports.
 
 ---
 
 ## 🛠️ Building
 
-See BUILDING.md for instructions on how to build SMSecure locally.
+See [BUILDING.md](./BUILDING.md) for instructions on how to build SMSecure locally.
 
 ---
 

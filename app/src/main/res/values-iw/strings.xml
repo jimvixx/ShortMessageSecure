@@ -486,7 +486,7 @@
     <string name="preferences__display_in_notifications_which_elements_show">בחר אילו אלמנטים להציג בהתראה</string>
     <string name="preferences__enable_local_encryption_of_messages_and_keys">הפעל הצפנה מקומית של הודעות ומפתחות</string>
     <string name="preferences__enable_message_notifications">הפעל התראות הודעות</string>
-    <string name="preferences__enable_panic_on_device_lock_button">נעילה אוטומטית בעת נעילת המסך</string>
+    <string name="preferences__enable_panic_on_device_lock_button">נעילה אוטומטית</string>
     <string name="preferences__enable_passphrase">הפעל סיסמה</string>
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">הפעל אפשרות זו אם המקלדת שלך תומכת באמוג’ים.</string>
     <string name="preferences__enter_key_summary">בחר אם מקש ה-Enter ישלח את ההודעה או יוסיף שורה חדשה</string>
@@ -539,7 +539,7 @@
     <string name="preferences__theme_summary">בחר את מראה האפליקציה</string>
     <string name="preferences__theme_systemic">מערכתי</string>
     <string name="preferences__three_times">שלוש פעמים</string>
-    <string name="preferences__timeout_passphrase">סיסמת פקיעת תוקף</string>
+    <string name="preferences__timeout_passphrase">פסק זמן לסיסמה</string>
     <string name="preferences__trim_all_conversations_now">קצר את כל השיחות עכשיו</string>
     <string name="preferences__two_times">פעמיים</string>
     <string name="preferences__use_system_emoji">השתמש באמוג’י של המערכת</string>

@@ -486,7 +486,7 @@
 <string name="preferences__display_in_notifications_which_elements_show">Izvēlieties, kuri elementi tiks parādīti paziņojumā</string>
 <string name="preferences__enable_local_encryption_of_messages_and_keys">Iespējot ziņojumu un atslēgu vietējo šifrēšanu</string>
 <string name="preferences__enable_message_notifications">Iespējot ziņojumu paziņojumus</string>
-<string name="preferences__enable_panic_on_device_lock_button">Automātiska bloķēšana, bloķējot ekrānu</string>
+<string name="preferences__enable_panic_on_device_lock_button">Automātiska bloķēšana</string>
 <string name="preferences__enable_passphrase">Iespējot paroli</string>
 <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Ieslēdziet šo opciju, ja jūsu tastatūra atbalsta emodžus.</string>
 <string name="preferences__enter_key_summary">Izvēlieties, vai Enter taustiņš nosūta ziņojumu vai ievieto jaunu rindu</string>
@@ -539,7 +539,7 @@
 <string name="preferences__theme_summary">Izvēlieties lietotnes izskatu</string>
 <string name="preferences__theme_systemic">Systemic</string>
 <string name="preferences__three_times">Trīs reizes</string>
-<string name="preferences__timeout_passphrase">Laika ierobežojuma parole</string>
+<string name="preferences__timeout_passphrase">Paroles laika limits</string>
 <string name="preferences__trim_all_conversations_now">Apgriezt visas sarunas tagad</string>
 <string name="preferences__two_times">Divreiz</string>
 <string name="preferences__use_system_emoji">Izmanto sistēmas emodžus</string>

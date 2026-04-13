@@ -18,10 +18,6 @@ public class ServiceUtil {
     return (WindowManager) context.getSystemService(Activity.WINDOW_SERVICE);
   }
 
-  public static ConnectivityManager getConnectivityManager(Context context) {
-    return (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
-  }
-
   public static NotificationManager getNotificationManager(Context context) {
     return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
   }

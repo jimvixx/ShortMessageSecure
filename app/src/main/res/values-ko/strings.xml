@@ -462,7 +462,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">알림에 표시할 요소를 선택하세요</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">메시지 및 키의 로컬 암호화를 활성화합니다</string>
   <string name="preferences__enable_message_notifications">메시지 알림 활성화</string>
-  <string name="preferences__enable_panic_on_device_lock_button">화면 잠금 시 자동 잠금</string>
+  <string name="preferences__enable_panic_on_device_lock_button">자동 잠금</string>
   <string name="preferences__enable_passphrase">암호 활성화</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">키보드가 이모티콘을 지원하는 경우 이 옵션을 활성화하세요.</string>
   <string name="preferences__enter_key_summary">Enter 키가 메시지를 전송할지, 아니면 새 줄을 삽입할지 선택하세요</string>
@@ -513,7 +513,7 @@
   <string name="preferences__theme_summary">앱 외관 선택</string>
   <string name="preferences__theme_systemic">Systemic</string>
   <string name="preferences__three_times">세 번</string>
-  <string name="preferences__timeout_passphrase">타임아웃 암호</string>
+  <string name="preferences__timeout_passphrase">암호 시간 초과</string>
   <string name="preferences__trim_all_conversations_now">지금 모든 대화를 정리하세요</string>
   <string name="preferences__two_times">두 번</string>
   <string name="preferences__use_system_emoji">시스템 이모티콘 사용</string>

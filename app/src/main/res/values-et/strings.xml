@@ -474,7 +474,7 @@
 <string name="preferences__display_in_notifications_which_elements_show">Valige, millised elemendid teates kuvatakse</string>
 <string name="preferences__enable_local_encryption_of_messages_and_keys">Luba sõnumite ja võtmete kohalik krüpteerimine</string>
 <string name="preferences__enable_message_notifications">Luba sõnumite teavitused</string>
-<string name="preferences__enable_panic_on_device_lock_button">Ekraani lukustamise automaatne lukustamine</string>
+<string name="preferences__enable_panic_on_device_lock_button">Automaatne lukustamine</string>
 <string name="preferences__enable_passphrase">Luba salasõna</string>
 <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Lülita see valik sisse, kui su klaviatuur toetab emojisid.</string>
 <string name="preferences__enter_key_summary">Valige, kas Enter-klahv saadab sõnumi või lisab uue rea</string>
@@ -526,7 +526,7 @@
 <string name="preferences__theme_summary">Vali rakenduse välimus</string>
 <string name="preferences__theme_systemic">Systemic</string>
 <string name="preferences__three_times">Kolm korda</string>
-<string name="preferences__timeout_passphrase">Aegumise salasõna</string>
+<string name="preferences__timeout_passphrase">Parooli aegumine</string>
 <string name="preferences__trim_all_conversations_now">Kõik vestlused kohe kärpida</string>
 <string name="preferences__two_times">Kaks korda</string>
 <string name="preferences__use_system_emoji">Kasuta süsteemi emojisid</string>

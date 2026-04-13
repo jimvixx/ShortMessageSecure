@@ -474,7 +474,7 @@
     <string name="preferences__display_in_notifications_which_elements_show">Изберете кои елементи да се показват в известието</string>
     <string name="preferences__enable_local_encryption_of_messages_and_keys">Активирайте локално криптиране на съобщения и ключове</string>
     <string name="preferences__enable_message_notifications">Активиране на известия за съобщения</string>
-    <string name="preferences__enable_panic_on_device_lock_button">Автоматично заключване при заключване на екрана</string>
+    <string name="preferences__enable_panic_on_device_lock_button">Автоматично заключване</string>
     <string name="preferences__enable_passphrase">Активиране на парола</string>
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Активирайте тази опция, ако клавиатурата ви поддържа емоджита.</string>
     <string name="preferences__enter_key_summary">Изберете дали клавишът Enter да изпраща съобщението или да вмъква нов ред</string>
@@ -526,7 +526,7 @@
     <string name="preferences__theme_summary">Изберете външния вид на приложението</string>
     <string name="preferences__theme_systemic">Системен</string>
     <string name="preferences__three_times">Три пъти</string>
-    <string name="preferences__timeout_passphrase">Парола за изтичане на времето</string>
+    <string name="preferences__timeout_passphrase">Изтичане на времето за паролата</string>
     <string name="preferences__trim_all_conversations_now">Изтрий всички разговори сега</string>
     <string name="preferences__two_times">Два пъти</string>
     <string name="preferences__use_system_emoji">Използвай системни емоджи</string>

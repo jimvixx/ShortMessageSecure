@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Main -->
     <style name="SMSecure.TextAppearance.Headline" parent="TextAppearance.AppCompat.Large">
         <item name="android:textColor">?attr/appColorTextTitle</item>
@@ -11,7 +10,6 @@
     <style name="SMSecure.TextAppearance.Subtitle" parent="TextAppearance.AppCompat.Small">
         <item name="android:textColor">?attr/appColorTextSubtitle</item>
     </style>
-
 
     <!-- Toolbar -->
     <style name="SMSecure.TextAppearance.Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">

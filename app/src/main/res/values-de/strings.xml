@@ -474,7 +474,7 @@
     <string name="preferences__display_in_notifications_which_elements_show">Wählen Sie aus, welche Elemente in der Benachrichtigung angezeigt werden sollen</string>
     <string name="preferences__enable_local_encryption_of_messages_and_keys">Lokale Verschlüsselung von Nachrichten und Schlüsseln aktivieren</string>
     <string name="preferences__enable_message_notifications">Nachrichtenbenachrichtigungen aktivieren</string>
-    <string name="preferences__enable_panic_on_device_lock_button">Automatische Sperre bei Bildschirmsperre</string>
+    <string name="preferences__enable_panic_on_device_lock_button">Automatische Sperre</string>
     <string name="preferences__enable_passphrase">Passphrase aktivieren</string>
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Aktivieren Sie diese Option, wenn Ihre Tastatur Emojis unterstützt.</string>
     <string name="preferences__enter_key_summary">Wählen Sie aus, ob die Eingabetaste die Nachricht sendet oder eine neue Zeile einfügt</string>
@@ -526,7 +526,7 @@
     <string name="preferences__theme_summary">App-Darstellung auswählen</string>
     <string name="preferences__theme_systemic">Systemic</string>
     <string name="preferences__three_times">Dreimal</string>
-    <string name="preferences__timeout_passphrase">Passphrase für Zeitüberschreitung</string>
+    <string name="preferences__timeout_passphrase">Passphrase-Timeout</string>
     <string name="preferences__trim_all_conversations_now">Alle Konversationen jetzt kürzen</string>
     <string name="preferences__two_times">Zweimal</string>
     <string name="preferences__use_system_emoji">System-Emoji verwenden</string>

@@ -462,7 +462,7 @@
     <string name="preferences__display_in_notifications_which_elements_show">选择要在通知中显示的元素</string>
     <string name="preferences__enable_local_encryption_of_messages_and_keys">启用消息和密钥的本地加密</string>
     <string name="preferences__enable_message_notifications">启用消息通知</string>
-    <string name="preferences__enable_panic_on_device_lock_button">屏幕锁定时自动锁定</string>
+    <string name="preferences__enable_panic_on_device_lock_button">自动锁定</string>
     <string name="preferences__enable_passphrase">启用密码短语</string>
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">如果您的键盘支持表情符号，请启用此选项。</string>
     <string name="preferences__enter_key_summary">选择回车键是发送消息还是插入新行</string>
@@ -513,7 +513,7 @@
     <string name="preferences__theme_summary">选择应用外观</string>
     <string name="preferences__theme_systemic">Systemic</string>
     <string name="preferences__three_times">三次</string>
-    <string name="preferences__timeout_passphrase">超时密码短语</string>
+    <string name="preferences__timeout_passphrase">密码超时</string>
     <string name="preferences__trim_all_conversations_now">立即清理所有对话</string>
     <string name="preferences__two_times">两次</string>
     <string name="preferences__use_system_emoji">使用系统表情符号</string>

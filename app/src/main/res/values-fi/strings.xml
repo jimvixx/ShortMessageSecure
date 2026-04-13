@@ -474,7 +474,7 @@
   <string name="preferences__display_in_notifications_which_elements_show">Valitse, mitkä elementit näytetään ilmoituksessa</string>
   <string name="preferences__enable_local_encryption_of_messages_and_keys">Ota käyttöön viestien ja avainten paikallinen salaus</string>
   <string name="preferences__enable_message_notifications">Ota viestimuistutukset käyttöön</string>
-  <string name="preferences__enable_panic_on_device_lock_button">Automaattinen lukitus näytön lukituksen yhteydessä</string>
+  <string name="preferences__enable_panic_on_device_lock_button">Automaattinen lukitus</string>
   <string name="preferences__enable_passphrase">Ota salasana käyttöön</string>
   <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Ota tämä vaihtoehto käyttöön, jos näppäimistösi tukee emojeja.</string>
   <string name="preferences__enter_key_summary">Valitse, lähettääkö Enter-näppäin viestin vai lisääkö se uuden rivin</string>
@@ -526,7 +526,7 @@
   <string name="preferences__theme_summary">Valitse sovelluksen ulkoasu</string>
   <string name="preferences__theme_systemic">Systemic</string>
   <string name="preferences__three_times">Kolme kertaa</string>
-  <string name="preferences__timeout_passphrase">Aikakatkaisun salasana</string>
+  <string name="preferences__timeout_passphrase">Salasanan aikakatkaisu</string>
   <string name="preferences__trim_all_conversations_now">Leikkaa kaikki keskustelut nyt</string>
   <string name="preferences__two_times">Kaksi kertaa</string>
   <string name="preferences__use_system_emoji">Käytä järjestelmän emojeja</string>
