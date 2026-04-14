@@ -56,21 +56,27 @@ import java.util.concurrent.Executors;
 
 public class ApplicationMigrationService extends Service
         implements SmsMigrator.SmsMigrationProgressListener {
+
   public static final String MIGRATE_DATABASE = "org.jimvixx.smsecure.ApplicationMigration.MIGRATE_DATABSE";
   public static final String COMPLETED_ACTION = "org.jimvixx.smsecure.ApplicationMigrationService.COMPLETED";
+
   private static final String TAG = ApplicationMigrationService.class.getSimpleName();
   private static final String PREFERENCES_NAME = "SecureSMS";
   private static final String DATABASE_MIGRATED = "migrated";
   private static final int MIGRATION_NOTIFICATION_ID = 4242;
+  private static final String EXTRA_MASTER_SECRET = "master_secret";
 
   private final BroadcastReceiver completedReceiver = new CompletedReceiver();
   private final Binder binder = new ApplicationMigrationBinder();
   private final Executor executor = Executors.newSingleThreadExecutor();
   private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
+  private final Object migrationLock = new Object();
+
   private WeakReference<Handler> handler = null;
   private NotificationCompat.Builder notification = null;
   private ImportState state = new ImportState(ImportState.STATE_IDLE, null);
+  private boolean migrationRunning = false;
 
   public static boolean isDatabaseNotImported(Context context) {
     return !context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -78,7 +84,7 @@ public class ApplicationMigrationService extends Service
   }
 
   public static void setDatabaseImported(Context context) {
-    context.getSharedPreferences(PREFERENCES_NAME, 0)
+    context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
             .edit()
             .putBoolean(DATABASE_MIGRATED, true)
             .apply();
@@ -92,12 +98,34 @@ public class ApplicationMigrationService extends Service
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    if (intent == null) return START_NOT_STICKY;
-
-    if (intent.getAction() != null && intent.getAction().equals(MIGRATE_DATABASE)) {
-      executor.execute(new ImportRunnable(intent));
+    if (intent == null) {
+      Log.w(TAG, "onStartCommand() received null intent");
+      return START_NOT_STICKY;
     }
 
+    if (!MIGRATE_DATABASE.equals(intent.getAction())) {
+      Log.w(TAG, "Ignoring unsupported action: " + intent.getAction());
+      return START_NOT_STICKY;
+    }
+
+    final MasterSecret masterSecret = intent.getParcelableExtra(EXTRA_MASTER_SECRET);
+
+    if (masterSecret == null) {
+      Log.w(TAG, "Ignoring migration start because masterSecret is null");
+      stopSelfResult(startId);
+      return START_NOT_STICKY;
+    }
+
+    synchronized (migrationLock) {
+      if (migrationRunning) {
+        Log.w(TAG, "Migration already running, ignoring duplicate start");
+        return START_NOT_STICKY;
+      }
+
+      migrationRunning = true;
+    }
+
+    executor.execute(new ImportRunnable(masterSecret, startId));
     return START_NOT_STICKY;
   }
 
@@ -138,7 +166,6 @@ public class ApplicationMigrationService extends Service
   private void notifyImportComplete() {
     Intent intent = new Intent();
     intent.setAction(COMPLETED_ACTION);
-
     sendOrderedBroadcast(intent, null);
   }
 
@@ -167,20 +194,24 @@ public class ApplicationMigrationService extends Service
   }
 
   private void updateBackgroundNotification(int total, int complete) {
-    if (notification == null) return;
+    if (notification == null) {
+      return;
+    }
 
     notification.setProgress(total, complete, false);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // 33+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
       if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
               != PackageManager.PERMISSION_GRANTED) {
         return;
       }
     }
 
-    NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    if (nm != null) {
-      nm.notify(MIGRATION_NOTIFICATION_ID, notification.build());
+    NotificationManager notificationManager =
+            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+    if (notificationManager != null) {
+      notificationManager.notify(MIGRATION_NOTIFICATION_ID, notification.build());
     }
   }
 
@@ -204,13 +235,16 @@ public class ApplicationMigrationService extends Service
                             )
                     );
 
-    Notification n = builder.build();
+    Notification foregroundNotification = builder.build();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // 29+
-      startForeground(MIGRATION_NOTIFICATION_ID, n,
-              ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      startForeground(
+              MIGRATION_NOTIFICATION_ID,
+              foregroundNotification,
+              ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+      );
     } else {
-      startForeground(MIGRATION_NOTIFICATION_ID, n);
+      startForeground(MIGRATION_NOTIFICATION_ID, foregroundNotification);
     }
 
     return builder;
@@ -221,27 +255,34 @@ public class ApplicationMigrationService extends Service
       return initializeBackgroundNotification();
     }
 
-    final NotificationCompat.Builder[] out = new NotificationCompat.Builder[1];
+    final NotificationCompat.Builder[] result = new NotificationCompat.Builder[1];
     final CountDownLatch latch = new CountDownLatch(1);
 
     mainHandler.post(() -> {
-      out[0] = initializeBackgroundNotification();
+      result[0] = initializeBackgroundNotification();
       latch.countDown();
     });
 
     try {
       latch.await();
-    } catch (InterruptedException ignored) {
-      // If interrupted, proceed best-effort.
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      Log.w(TAG, "Interrupted while initializing foreground notification", e);
     }
 
-    return out[0];
+    return result[0];
+  }
+
+  private void onMigrationFinished() {
+    synchronized (migrationLock) {
+      migrationRunning = false;
+    }
   }
 
   private static class CompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // 33+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
           return;
@@ -267,9 +308,11 @@ public class ApplicationMigrationService extends Service
                       .setAutoCancel(true);
 
       Notification notification = builder.build();
-      NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-      if (nm != null) {
-        nm.notify(31337, notification);
+      NotificationManager notificationManager =
+              (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+      if (notificationManager != null) {
+        notificationManager.notify(31337, notification);
       }
     }
   }
@@ -291,16 +334,20 @@ public class ApplicationMigrationService extends Service
 
   private class ImportRunnable implements Runnable {
     private final MasterSecret masterSecret;
+    private final int startId;
 
-    public ImportRunnable(Intent intent) {
-      this.masterSecret = intent.getParcelableExtra("master_secret");
-      Log.w(TAG, "Service got mastersecret: " + masterSecret);
+    private ImportRunnable(MasterSecret masterSecret, int startId) {
+      this.masterSecret = masterSecret;
+      this.startId = startId;
+      Log.w(TAG, "Starting migration with non-null masterSecret");
     }
 
     @Override
     public void run() {
       notification = initializeBackgroundNotificationOnMainThread();
-      PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
+      PowerManager powerManager =
+              (PowerManager) getSystemService(Context.POWER_SERVICE);
 
       if (powerManager == null) {
         Log.w(TAG, "PowerManager was null; cannot acquire wake lock");
@@ -314,38 +361,49 @@ public class ApplicationMigrationService extends Service
       );
 
       try {
-        wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+        wakeLock.acquire(10 * 60 * 1000L);
         doMigration();
       } finally {
         try {
-          if (wakeLock.isHeld()) wakeLock.release();
+          if (wakeLock.isHeld()) {
+            wakeLock.release();
+          }
         } catch (RuntimeException ignored) {
-          // Defensive: wakelock edge cases
         }
       }
     }
 
     private void doMigration() {
+      boolean success = false;
+
       try {
         setState(new ImportState(ImportState.STATE_MIGRATING_BEGIN, null));
 
-        SmsMigrator.migrateDatabase(ApplicationMigrationService.this,
+        SmsMigrator.migrateDatabase(
+                ApplicationMigrationService.this,
                 masterSecret,
-                ApplicationMigrationService.this);
+                ApplicationMigrationService.this
+        );
 
         setState(new ImportState(ImportState.STATE_MIGRATING_COMPLETE, null));
-
         setDatabaseImported(ApplicationMigrationService.this);
+        success = true;
 
+      } catch (Throwable t) {
+        Log.w(TAG, "Migration failed", t);
       } finally {
-        // Always stop foreground & finish the service
+        onMigrationFinished();
+
         try {
           stopForeground(true);
         } catch (Throwable ignored) {
         }
 
-        notifyImportComplete();
-        stopSelf();
+        if (success) {
+          notifyImportComplete();
+        }
+
+        stopSelfResult(startId);
       }
     }
   }

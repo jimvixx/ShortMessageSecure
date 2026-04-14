@@ -38,8 +38,10 @@ public class SmsMigrator {
   private static final String TAG = SmsMigrator.class.getSimpleName();
 
   private static void addEncryptedStringToStatement(SQLiteStatement statement,
-                                                    Cursor cursor, MasterSecret masterSecret,
-                                                    int index, String key) {
+                                                    Cursor cursor,
+                                                    MasterSecret masterSecret,
+                                                    int index,
+                                                    String key) {
     int columnIndex = cursor.getColumnIndexOrThrow(key);
 
     if (cursor.isNull(columnIndex)) {
@@ -49,8 +51,10 @@ public class SmsMigrator {
     }
   }
 
-  private static void addStringToStatement(SQLiteStatement statement, Cursor cursor,
-                                           int index, String key) {
+  private static void addStringToStatement(SQLiteStatement statement,
+                                           Cursor cursor,
+                                           int index,
+                                           String key) {
     int columnIndex = cursor.getColumnIndexOrThrow(key);
 
     if (cursor.isNull(columnIndex)) {
@@ -60,8 +64,10 @@ public class SmsMigrator {
     }
   }
 
-  private static void addIntToStatement(SQLiteStatement statement, Cursor cursor,
-                                        int index, String key) {
+  private static void addIntToStatement(SQLiteStatement statement,
+                                        Cursor cursor,
+                                        int index,
+                                        String key) {
     int columnIndex = cursor.getColumnIndexOrThrow(key);
 
     if (cursor.isNull(columnIndex)) {
@@ -71,15 +77,20 @@ public class SmsMigrator {
     }
   }
 
-  private static void addTranslatedTypeToStatement(SQLiteStatement statement, Cursor cursor,
-                                                   int index, String key) {
+  private static void addTranslatedTypeToStatement(SQLiteStatement statement,
+                                                   Cursor cursor,
+                                                   int index,
+                                                   String key) {
     int columnIndex = cursor.getColumnIndexOrThrow(key);
 
     if (cursor.isNull(columnIndex)) {
-      statement.bindLong(index, SmsDatabase.Types.BASE_INBOX_TYPE | SmsDatabase.Types.ENCRYPTION_SYMMETRIC_BIT);
+      statement.bindLong(index,
+              SmsDatabase.Types.BASE_INBOX_TYPE | SmsDatabase.Types.ENCRYPTION_SYMMETRIC_BIT);
     } else {
       long theirType = cursor.getLong(columnIndex);
-      statement.bindLong(index, SmsDatabase.Types.translateFromSystemBaseType(theirType) | SmsDatabase.Types.ENCRYPTION_SYMMETRIC_BIT);
+      statement.bindLong(index,
+              SmsDatabase.Types.translateFromSystemBaseType(theirType)
+                      | SmsDatabase.Types.ENCRYPTION_SYMMETRIC_BIT);
     }
   }
 
@@ -87,13 +98,14 @@ public class SmsMigrator {
     long systemType = cursor.getLong(columnIndex);
     long ourType = SmsDatabase.Types.translateFromSystemBaseType(systemType);
 
-    return ourType == MessageColumns.Types.BASE_INBOX_TYPE ||
-            ourType == MessageColumns.Types.BASE_SENT_TYPE ||
-            ourType == MessageColumns.Types.BASE_SENT_FAILED_TYPE;
+    return ourType == MessageColumns.Types.BASE_INBOX_TYPE
+            || ourType == MessageColumns.Types.BASE_SENT_TYPE
+            || ourType == MessageColumns.Types.BASE_SENT_FAILED_TYPE;
   }
 
   private static void getContentValuesForRow(MasterSecret masterSecret,
-                                             Cursor cursor, long threadId,
+                                             Cursor cursor,
+                                             long threadId,
                                              SQLiteStatement statement) {
     addStringToStatement(statement, cursor, 1, SmsDatabase.ADDRESS);
     addIntToStatement(statement, cursor, 2, SmsDatabase.PERSON);
@@ -115,14 +127,13 @@ public class SmsMigrator {
     Uri uri = Uri.parse("content://mms-sms/canonical-address/" + theirRecipientId);
 
     try (Cursor cursor = context.getContentResolver().query(uri, null, null, null, null)) {
-
       if (cursor != null && cursor.moveToFirst()) {
         return cursor.getString(0);
       } else {
         return null;
       }
     } catch (IllegalStateException iae) {
-      Log.w("SmsMigrator", iae);
+      Log.w(TAG, iae);
       return null;
     }
   }
@@ -135,28 +146,39 @@ public class SmsMigrator {
       String theirRecipientId = tokenizer.nextToken();
       String address = getTheirCanonicalAddress(context, theirRecipientId);
 
-      if (address == null)
+      if (address == null) {
         continue;
+      }
 
-      if (sb.length() != 0)
+      if (sb.length() != 0) {
         sb.append(',');
+      }
 
       sb.append(address);
     }
 
-    if (sb.length() == 0) return null;
-    else return RecipientFactory.getRecipientsFromString(context, sb.toString(), true);
+    if (sb.length() == 0) {
+      return null;
+    } else {
+      return RecipientFactory.getRecipientsFromString(context, sb.toString(), true);
+    }
   }
 
   private static String encrypt(MasterSecret masterSecret, String body) {
+    if (masterSecret == null) {
+      throw new IllegalStateException("Sms migration requires non-null masterSecret");
+    }
+
     MasterCipher masterCipher = new MasterCipher(masterSecret);
     return masterCipher.encryptBody(body);
   }
 
-  private static void migrateConversation(Context context, MasterSecret masterSecret,
+  private static void migrateConversation(Context context,
+                                          MasterSecret masterSecret,
                                           SmsMigrationProgressListener listener,
                                           ProgressDescription progress,
-                                          long theirThreadId, long ourThreadId) {
+                                          long theirThreadId,
+                                          long ourThreadId) {
     SmsDatabase ourSmsDatabase = DatabaseFactory.getSmsDatabase(context);
     Cursor cursor = null;
 
@@ -166,7 +188,7 @@ public class SmsMigrator {
       try {
         cursor = context.getContentResolver().query(uri, null, null, null, null);
       } catch (SQLiteException e) {
-        /// Work around for weird sony-specific (?) bug: #4309
+        // Work around for device-specific provider bugs.
         Log.w(TAG, e);
         return;
       }
@@ -182,7 +204,9 @@ public class SmsMigrator {
           statement.execute();
         }
 
-        listener.progressUpdate(new ProgressDescription(progress, cursor.getCount(), cursor.getPosition()));
+        listener.progressUpdate(
+                new ProgressDescription(progress, cursor.getCount(), cursor.getPosition())
+        );
       }
 
       ourSmsDatabase.endTransaction(transaction);
@@ -190,14 +214,18 @@ public class SmsMigrator {
       DatabaseFactory.getThreadDatabase(context).notifyConversationListeners(ourThreadId);
 
     } finally {
-      if (cursor != null)
+      if (cursor != null) {
         cursor.close();
+      }
     }
   }
 
   public static void migrateDatabase(Context context,
                                      MasterSecret masterSecret,
                                      SmsMigrationProgressListener listener) {
+    if (masterSecret == null) {
+      throw new IllegalArgumentException("masterSecret == null");
+    }
 
     ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(context);
     Cursor cursor = null;
@@ -210,25 +238,34 @@ public class SmsMigrator {
         long theirThreadId = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
         String theirRecipients = cursor.getString(cursor.getColumnIndexOrThrow("recipient_ids"));
         Recipients ourRecipients = getOurRecipients(context, theirRecipients);
-        ProgressDescription progress = new ProgressDescription(cursor.getCount(), cursor.getPosition(), 100, 0);
+        ProgressDescription progress =
+                new ProgressDescription(cursor.getCount(), cursor.getPosition(), 100, 0);
 
         if (ourRecipients != null) {
           long ourThreadId = threadDatabase.getThreadIdFor(ourRecipients);
-          migrateConversation(context, masterSecret,
-                  listener, progress,
-                  theirThreadId, ourThreadId);
+          migrateConversation(
+                  context,
+                  masterSecret,
+                  listener,
+                  progress,
+                  theirThreadId,
+                  ourThreadId
+          );
         }
 
         progress.incrementPrimaryComplete();
         listener.progressUpdate(progress);
       }
     } finally {
-      if (cursor != null)
+      if (cursor != null) {
         cursor.close();
+      }
     }
 
-    context.getSharedPreferences("SecureSMS", Context.MODE_PRIVATE).edit()
-            .putBoolean("migrated", true).apply();
+    context.getSharedPreferences("SecureSMS", Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean("migrated", true)
+            .apply();
   }
 
   public interface SmsMigrationProgressListener {
@@ -241,15 +278,19 @@ public class SmsMigrator {
     public final int secondaryComplete;
     public int primaryComplete;
 
-    public ProgressDescription(int primaryTotal, int primaryComplete,
-                               int secondaryTotal, int secondaryComplete) {
+    public ProgressDescription(int primaryTotal,
+                               int primaryComplete,
+                               int secondaryTotal,
+                               int secondaryComplete) {
       this.primaryTotal = primaryTotal;
       this.primaryComplete = primaryComplete;
       this.secondaryTotal = secondaryTotal;
       this.secondaryComplete = secondaryComplete;
     }
 
-    public ProgressDescription(ProgressDescription that, int secondaryTotal, int secondaryComplete) {
+    public ProgressDescription(ProgressDescription that,
+                               int secondaryTotal,
+                               int secondaryComplete) {
       this.primaryComplete = that.primaryComplete;
       this.primaryTotal = that.primaryTotal;
       this.secondaryComplete = secondaryComplete;
@@ -260,5 +301,4 @@ public class SmsMigrator {
       primaryComplete += 1;
     }
   }
-
 }
