@@ -62,3 +62,6 @@
 -dontwarn javax.naming.**
 -dontwarn java.nio.file.**
 -dontwarn uk.co.senab.photoview.**
+
+# Curve25519 uses reflection to load provider implementations by class name.
+-keep class org.whispersystems.curve25519.** { *; }
