@@ -22,6 +22,21 @@ SMSecure is a privacy-focused SMS application that lets you communicate securely
 
 ---
 
+## 🎯 Project Goals
+
+SMSecure is a fork of:
+- Silence: https://github.com/SilenceIM/Silence
+- TextSecure (now Signal): https://github.com/WhisperSystems/TextSecure
+
+The project aims to preserve encrypted SMS functionality that was removed from TextSecure.
+
+Key goals:
+- Maintain SMS encryption support
+- Keep the codebase modern and up to date
+- Integrate relevant bug fixes and improvements from upstream projects
+
+---
+
 ## 📱 Simple & Familiar
 
 SMSecure works like any standard SMS app:
@@ -95,18 +110,54 @@ Anyone can audit the code to verify its security and privacy guarantees.
 
 ---
 
-## 🎯 Project Goals
+## 📦 Installation & Google Play Protect
 
-SMSecure is a fork of:
-- Silence: https://github.com/SilenceIM/Silence  
-- TextSecure (now Signal): https://github.com/WhisperSystems/TextSecure  
+SMSecure is distributed outside of Google Play.
 
-The project aims to preserve encrypted SMS functionality that was removed from TextSecure.
+Because of this, **Google Play Protect may show a warning, request additional scanning, or in some cases block installation**. This can happen even if the application is safe, simply because it was not installed from Google Play.
 
-Key goals:
-- Maintain SMS encryption support  
-- Keep the codebase modern and up to date  
-- Integrate relevant bug fixes and improvements from upstream projects  
+### What to do
+
+- Make sure you downloaded the APK from the official source:
+    - https://github.com/jimvixx/ShortMessageSecure/releases
+- Review the Play Protect warning carefully
+- If installation is blocked, you may need to:
+    - temporarily disable **"Scan apps with Play Protect"**
+    - install the app
+    - re-enable Play Protect afterwards
+
+### Why this happens
+
+Play Protect applies stricter checks to apps installed from outside Google Play.  
+SMSecure does **not** use Google Play distribution, so it may be treated as an unknown application by the system.
+
+---
+
+## 🔐 Security Verification
+
+### 🔑 Official signing certificate (SHA-256)
+
+```text
+FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01
+```
+
+You can verify it with:
+
+```bash
+apksigner verify --print-certs SMSecure.apk
+```
+
+### 🧾 Verify APK checksum
+
+```bash
+sha256sum SMSecure.apk
+```
+
+Compare the output with the checksum provided in the release page.
+
+### ✍️ Verify checksum signature (optional)
+
+If the release also includes `SHA256SUMS.txt.asc`, you can verify that checksum file with GPG before checking the APK itself.
 
 ---
 
@@ -126,8 +177,10 @@ See [BUILDING.md](./BUILDING.md) for instructions on how to build SMSecure local
 
 If you'd like to support development and help keep SMSecure maintained and improved, consider donating:
 
+```text
 Bitcoin:
 bc1q06ehu3094ykm9a3xeddeucp4a3culka7gladar
+```
 
 ---
 
