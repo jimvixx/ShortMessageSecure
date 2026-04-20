@@ -1,6 +1,8 @@
 default_platform(:android)
 
 require "shellwords"
+require "base64"
+require "digest"
 
 def decode_keystore!
   keystore_base64 = ENV["ANDROID_KEYSTORE_BASE64"]
@@ -90,6 +92,80 @@ def sign_apk!(unsigned_apk_path)
   signed_apk_path
 end
 
+def detect_release_tag!
+  if !ENV["MANUAL_TAG_NAME"].to_s.empty?
+    ENV["MANUAL_TAG_NAME"]
+  elsif ENV["GITHUB_REF_TYPE"] == "tag" && !ENV["GITHUB_REF_NAME"].to_s.empty?
+    ENV["GITHUB_REF_NAME"]
+  else
+    last_git_tag
+  end
+end
+
+def normalize_apk_name!(signed_apk_path, tag_name)
+  final_apk_name = "SMSecure-#{tag_name}.apk"
+  final_apk_path = File.join(File.dirname(signed_apk_path), final_apk_name)
+
+  File.delete(final_apk_path) if File.exist?(final_apk_path)
+  sh("mv #{signed_apk_path.shellescape} #{final_apk_path.shellescape}")
+
+  final_apk_path
+end
+
+def write_sha256_sums!(apk_path)
+  apk_dir = File.dirname(apk_path)
+  apk_name = File.basename(apk_path)
+  sha256 = Digest::SHA256.file(apk_path).hexdigest
+  checksums_path = File.join(apk_dir, "SHA256SUMS.txt")
+
+  File.write(checksums_path, "#{sha256}  #{apk_name}\n")
+
+  checksums_path
+end
+
+def signing_certificate_sha256
+  "FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01"
+end
+
+def build_release_notes(tag_name, checksums_path)
+  sha_text = File.read(checksums_path).strip
+
+  <<~NOTES
+    ## Downloads
+
+    - `#{File.basename(checksums_path.sub(/SHA256SUMS\.txt\z/, "#{tag_name}.apk"))}`  
+    - `SHA256SUMS.txt`
+
+    ## SHA-256
+
+    ```text
+    #{sha_text}
+    ```
+
+    ## Verification
+
+    Verify APK checksum:
+
+    ```bash
+    sha256sum -c SHA256SUMS.txt
+    ```
+
+    Verify signing certificate fingerprint:
+
+    ```bash
+    apksigner verify --print-certs SMSecure-#{tag_name}.apk
+    ```
+
+    Official signing certificate SHA-256:
+
+    ```text
+    #{signing_certificate_sha256}
+    ```
+
+    Google Play Protect may warn because SMSecure is distributed outside Google Play.
+  NOTES
+end
+
 platform :android do
   desc "CI verification: build debug APK and run lint"
   lane :ci do
@@ -97,7 +173,7 @@ platform :android do
     gradle(task: "lintDebug")
   end
 
-  desc "Build signed release APK and publish a GitHub release"
+  desc "Build signed release APK, generate SHA256SUMS.txt and publish a GitHub release"
   lane :release do
     UI.message("STORE_PASSWORD set? #{!ENV['SIGNING_STORE_PASSWORD'].to_s.empty?}")
     UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
@@ -112,43 +188,34 @@ platform :android do
     unsigned_apk_path = find_unsigned_apk!
     signed_apk_path = sign_apk!(unsigned_apk_path)
 
-    version_name = sh("grep versionName app/build.gradle.kts | head -1").strip rescue "unknown"
-    version_name = version_name.gsub(/.*versionName\s*=\s*"?([^"\n]+)"?.*/, '\1')
-
-    tag = ENV["GITHUB_REF_NAME"].to_s.empty? ? version_name : ENV["GITHUB_REF_NAME"]
-
-    final_apk_name = "SMSecure-#{tag}.apk"
-    final_apk_path = File.join(File.dirname(signed_apk_path), final_apk_name)
-
-    sh("mv #{signed_apk_path.shellescape} #{final_apk_path.shellescape}")
-
-    signed_apk_path = final_apk_path
-
     sh("git fetch --tags --force")
 
-    tag_name =
-      if !ENV["MANUAL_TAG_NAME"].to_s.empty?
-        ENV["MANUAL_TAG_NAME"]
-      elsif ENV["GITHUB_REF_TYPE"] == "tag" && !ENV["GITHUB_REF_NAME"].to_s.empty?
-        ENV["GITHUB_REF_NAME"]
-      else
-        last_git_tag
-      end
+    tag_name = detect_release_tag!
+    signed_apk_path = normalize_apk_name!(signed_apk_path, tag_name)
+    checksums_path = write_sha256_sums!(signed_apk_path)
 
     changelog = changelog_from_git_commits(
       merge_commit_filtering: "exclude_merges"
-    )
+    ).to_s.strip
+
+    release_notes = build_release_notes(tag_name, checksums_path)
+    full_description =
+      if changelog.empty?
+        release_notes
+      else
+        "#{changelog}\n\n---\n\n#{release_notes}"
+      end
 
     set_github_release(
       repository_name: ENV["GITHUB_REPOSITORY"],
       api_token: ENV["GITHUB_API_TOKEN"],
       name: tag_name,
       tag_name: tag_name,
-      description: changelog.to_s.strip.empty? ? "Release #{tag_name}" : changelog,
+      description: full_description,
       commitish: ENV["GITHUB_SHA"],
       is_draft: ENV["FASTLANE_DRAFT_RELEASE"] == "true",
       is_prerelease: ENV["FASTLANE_PRERELEASE"] == "true",
-      upload_assets: [signed_apk_path]
+      upload_assets: [signed_apk_path, checksums_path]
     )
   end
 end

@@ -71,3 +71,12 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           GITHUB_API_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
         run: bundle exec fastlane android release
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets
+          path: |
+            app/build/outputs/apk/release/SMSecure-*.apk
+            app/build/outputs/apk/release/SHA256SUMS.txt
+          if-no-files-found: error
