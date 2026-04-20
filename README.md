@@ -144,20 +144,21 @@ FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14
 You can verify it with:
 
 ```bash
-apksigner verify --print-certs SMSecure.apk
+apksigner verify --print-certs SMSecure-<version>.apk
 ```
 
 ### 🧾 Verify APK checksum
 
+Download both the APK and `SHA256SUMS.txt` from the release page, then run:
+
 ```bash
-sha256sum SMSecure.apk
+sha256sum -c SHA256SUMS.txt
 ```
+Expected result:
 
-Compare the output with the checksum provided in the release page.
-
-### ✍️ Verify checksum signature (optional)
-
-If the release also includes `SHA256SUMS.txt.asc`, you can verify that checksum file with GPG before checking the APK itself.
+```bash
+SMSecure-<version>.apk: OK
+```
 
 ---
 
