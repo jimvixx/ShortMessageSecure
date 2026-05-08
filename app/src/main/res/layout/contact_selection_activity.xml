@@ -24,8 +24,6 @@
                 android:id="@+id/toggle_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -48,8 +46,7 @@
                         android:contentDescription="@string/Dialpad"
                         android:focusable="true"
                         android:importantForAccessibility="yes"
-                        android:minHeight="48dp"
-                        android:padding="8dp"
+                        android:minHeight="32dp"
                         android:src="@drawable/ic_dialpad"
                         app:tint="?attr/appColorToolbarControl" />
 
@@ -62,8 +59,7 @@
                         android:contentDescription="@string/Keyboard"
                         android:focusable="true"
                         android:importantForAccessibility="yes"
-                        android:minHeight="48dp"
-                        android:padding="8dp"
+                        android:minHeight="32dp"
                         android:src="@drawable/ic_keyboard"
                         android:visibility="gone"
                         app:tint="?attr/appColorToolbarControl" />
@@ -77,14 +73,12 @@
                         android:contentDescription="@string/Clear"
                         android:focusable="true"
                         android:importantForAccessibility="yes"
-                        android:minHeight="48dp"
-                        android:padding="8dp"
+                        android:minHeight="32dp"
                         android:src="@drawable/ic_close"
                         android:visibility="gone"
                         app:tint="?attr/appColorToolbarControl" />
 
                 </org.jimvixx.smsecure.components.AnimatingToggle>
-
             </LinearLayout>
 
             <!-- Search field -->
@@ -130,9 +124,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="?attr/appColorToolbarControl" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Contact list fragment -->
