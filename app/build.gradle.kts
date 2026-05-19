@@ -171,7 +171,7 @@ dependencies {
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
-    implementation("com.google.android.material:material:1.13.0")
+    implementation("com.google.android.material:material:1.14.0")
     implementation("com.google.protobuf:protobuf-java:4.34.1")
     implementation("com.google.zxing:core:3.5.4")
 
