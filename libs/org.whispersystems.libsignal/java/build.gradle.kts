@@ -19,7 +19,7 @@ java {
 
 dependencies {
     implementation("org.whispersystems:curve25519-java:0.5.0")
-    api("com.google.protobuf:protobuf-java:4.34.1")
+    api("com.google.protobuf:protobuf-java:4.35.0")
 
     testImplementation("junit:junit:4.13.2")
 }
