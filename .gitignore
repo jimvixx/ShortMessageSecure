@@ -11,6 +11,7 @@
 .gradle
 .idea
 .project
+.ragsage
 .settings
 .smsecure-l10n
 .venv

@@ -149,7 +149,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-    implementation("androidx.core:core-ktx:1.18.0")
+    implementation("androidx.core:core-ktx:1.19.0")
     implementation("androidx.fragment:fragment:1.8.9")
     implementation("androidx.gridlayout:gridlayout:1.1.0")
     implementation("androidx.legacy:legacy-support-v13:1.0.0")
@@ -162,20 +162,20 @@ dependencies {
 
     implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
 
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.21")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.21.3")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.21.3")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.0")
 
     implementation("com.github.bumptech.glide:glide:5.0.7")
     implementation("com.github.bumptech.glide:okhttp3-integration:5.0.7@aar")
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
-    implementation("com.google.android.material:material:1.13.0")
-    implementation("com.google.protobuf:protobuf-java:4.34.1")
+    implementation("com.google.android.material:material:1.14.0")
+    implementation("com.google.protobuf:protobuf-java:4.35.0")
     implementation("com.google.zxing:core:3.5.4")
 
-    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.30")
+    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.32")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
@@ -190,7 +190,7 @@ dependencies {
     implementation("com.pnikosis:materialish-progress:1.7")
 
     implementation("com.squareup.dagger:dagger:1.2.5")
-    implementation("com.squareup.okhttp3:okhttp:5.3.2")
+    implementation("com.squareup.okhttp3:okhttp:5.4.0")
 
     implementation("com.takisoft.preferencex:preferencex-colorpicker:1.1.0")
     implementation("com.takisoft.preferencex:preferencex:1.1.0")
