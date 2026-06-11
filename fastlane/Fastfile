@@ -4,7 +4,8 @@ require "shellwords"
 require "base64"
 require "digest"
 
-ADI_REGISTRATION_FILE = "app/src/main/assets/adi-registration.properties"
+PROJECT_ROOT = File.expand_path("..", __dir__)
+ADI_REGISTRATION_FILE = File.join(PROJECT_ROOT, "app/src/main/assets/adi-registration.properties")
 EXPECTED_PACKAGE_NAME = "org.jimvixx.smsecure"
 EXPECTED_SIGNING_CERT_SHA256 = "FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01"
 EXPECTED_SIGNING_CERT_SHA256_COMPACT = EXPECTED_SIGNING_CERT_SHA256.delete(":").downcase
