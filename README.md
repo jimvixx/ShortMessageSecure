@@ -9,6 +9,7 @@
 [![Target SDK](https://img.shields.io/badge/targetSdk-36-blue.svg)](#)
 [![Java](https://img.shields.io/badge/Java-17-orange.svg?logo=openjdk)](#)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple.svg?logo=kotlin)](#)
+[![Android Developer Verification](https://img.shields.io/badge/Android_Developer_Verification-Verified-success?logo=android)](#android-developer-verification)
 
 [//]: # ([![F-Droid]&#40;https://img.shields.io/badge/F--Droid-coming%20soon-informational?logo=f-droid&#41;]&#40;#&#41;)
 
@@ -134,6 +135,16 @@ SMSecure does **not** use Google Play distribution, so it may be treated as an u
 ---
 
 ## 🔐 Security Verification
+
+### ✅ Android Developer Verification
+
+Package name:
+
+org.jimvixx.smsecure
+
+Status:
+
+Verified
 
 ### 🔑 Official signing certificate (SHA-256)
 
