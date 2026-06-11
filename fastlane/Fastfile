@@ -3,6 +3,12 @@ default_platform(:android)
 require "shellwords"
 require "base64"
 require "digest"
+require "fileutils"
+
+EXPECTED_SIGNING_CERT_SHA256 = "FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01"
+EXPECTED_SIGNING_CERT_SHA256_COMPACT = EXPECTED_SIGNING_CERT_SHA256.delete(":").downcase
+ADI_REGISTRATION_FILE = "app/src/main/assets/adi-registration.properties"
+
 
 def decode_keystore!
   keystore_base64 = ENV["ANDROID_KEYSTORE_BASE64"]
@@ -10,6 +16,7 @@ def decode_keystore!
 
   File.binwrite("smsecure-release.keystore", Base64.decode64(keystore_base64))
 end
+
 
 def write_keystore_properties!
   store_password = ENV["SIGNING_STORE_PASSWORD"]
@@ -28,6 +35,18 @@ def write_keystore_properties!
   PROPS
 end
 
+
+def write_adi_registration_properties!
+  snippet = ENV["ADI_REGISTRATION_SNIPPET"].to_s.strip
+  UI.user_error!("Missing ADI_REGISTRATION_SNIPPET") if snippet.empty?
+
+  FileUtils.mkdir_p(File.dirname(ADI_REGISTRATION_FILE))
+  File.write(ADI_REGISTRATION_FILE, "#{snippet}\n")
+
+  UI.message("Wrote #{ADI_REGISTRATION_FILE}")
+end
+
+
 def find_unsigned_apk!
   apk_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 
@@ -39,25 +58,43 @@ def find_unsigned_apk!
   apk_path
 end
 
+
 def find_latest_build_tools_dir!
   android_home = ENV["ANDROID_HOME"]
   android_sdk_root = ENV["ANDROID_SDK_ROOT"]
 
   candidates = []
-
-  if !android_home.to_s.empty?
-    candidates.concat(Dir.glob(File.join(android_home, "build-tools", "*")))
-  end
-
-  if !android_sdk_root.to_s.empty?
-    candidates.concat(Dir.glob(File.join(android_sdk_root, "build-tools", "*")))
-  end
+  candidates.concat(Dir.glob(File.join(android_home, "build-tools", "*"))) unless android_home.to_s.empty?
+  candidates.concat(Dir.glob(File.join(android_sdk_root, "build-tools", "*"))) unless android_sdk_root.to_s.empty?
 
   build_tools_dir = candidates.uniq.sort.last
   UI.user_error!("Android build-tools not found") if build_tools_dir.to_s.empty?
 
   build_tools_dir
 end
+
+
+def apksigner_path!
+  apksigner = File.join(find_latest_build_tools_dir!, "apksigner")
+  UI.user_error!("apksigner not found at #{apksigner}") unless File.exist?(apksigner)
+  apksigner
+end
+
+
+def verify_signing_certificate!(apk_path)
+  apksigner = apksigner_path!
+  output = sh("#{apksigner.shellescape} verify --print-certs #{apk_path.shellescape}")
+  compact_output = output.delete(":").downcase
+
+  unless compact_output.include?(EXPECTED_SIGNING_CERT_SHA256_COMPACT)
+    UI.user_error!(
+      "Unexpected APK signing certificate. Expected SHA-256 #{EXPECTED_SIGNING_CERT_SHA256}"
+    )
+  end
+
+  UI.success("APK signing certificate matches expected SHA-256: #{EXPECTED_SIGNING_CERT_SHA256}")
+end
+
 
 def sign_apk!(unsigned_apk_path)
   build_tools_dir = find_latest_build_tools_dir!
@@ -88,9 +125,11 @@ def sign_apk!(unsigned_apk_path)
   )
 
   sh("#{apksigner.shellescape} verify --verbose #{signed_apk_path.shellescape}")
+  verify_signing_certificate!(signed_apk_path)
 
   signed_apk_path
 end
+
 
 def detect_release_tag!
   if !ENV["MANUAL_TAG_NAME"].to_s.empty?
@@ -102,6 +141,7 @@ def detect_release_tag!
   end
 end
 
+
 def normalize_apk_name!(signed_apk_path, tag_name)
   final_apk_name = "SMSecure-#{tag_name}.apk"
   final_apk_path = File.join(File.dirname(signed_apk_path), final_apk_name)
@@ -111,6 +151,7 @@ def normalize_apk_name!(signed_apk_path, tag_name)
 
   final_apk_path
 end
+
 
 def write_sha256_sums!(apk_path)
   apk_dir = File.dirname(apk_path)
@@ -123,9 +164,11 @@ def write_sha256_sums!(apk_path)
   checksums_path
 end
 
+
 def signing_certificate_sha256
-  "FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01"
+  EXPECTED_SIGNING_CERT_SHA256
 end
+
 
 def build_release_notes(tag_name, checksums_path)
   sha_text = File.read(checksums_path).strip
@@ -133,7 +176,7 @@ def build_release_notes(tag_name, checksums_path)
   <<~NOTES
     ## Downloads
 
-    - `#{File.basename(checksums_path.sub(/SHA256SUMS\.txt\z/, "#{tag_name}.apk"))}`  
+    - `SMSecure-#{tag_name}.apk`
     - `SHA256SUMS.txt`
 
     ## SHA-256
@@ -166,6 +209,7 @@ def build_release_notes(tag_name, checksums_path)
   NOTES
 end
 
+
 platform :android do
   desc "CI verification: build debug APK and run lint"
   lane :ci do
@@ -179,9 +223,11 @@ platform :android do
     UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
     UI.message("KEY_PASSWORD set? #{!ENV['SIGNING_KEY_PASSWORD'].to_s.empty?}")
     UI.message("KEYSTORE base64 size: #{ENV['ANDROID_KEYSTORE_BASE64']&.length}")
+    UI.message("ADI_REGISTRATION_SNIPPET set? #{!ENV['ADI_REGISTRATION_SNIPPET'].to_s.empty?}")
 
     decode_keystore!
     write_keystore_properties!
+    write_adi_registration_properties!
 
     gradle(task: "assembleRelease")
 
@@ -192,6 +238,7 @@ platform :android do
 
     tag_name = detect_release_tag!
     signed_apk_path = normalize_apk_name!(signed_apk_path, tag_name)
+    verify_signing_certificate!(signed_apk_path)
     checksums_path = write_sha256_sums!(signed_apk_path)
 
     changelog = changelog_from_git_commits(

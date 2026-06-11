@@ -65,6 +65,7 @@ jobs:
           MANUAL_TAG_NAME: ${{ inputs.tag_name }}
           FASTLANE_DRAFT_RELEASE: ${{ inputs.draft }}
           FASTLANE_PRERELEASE: ${{ inputs.prerelease }}
+          ADI_REGISTRATION_SNIPPET: ${{ secrets.ADI_REGISTRATION_SNIPPET }}
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
