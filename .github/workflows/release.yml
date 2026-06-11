@@ -60,12 +60,14 @@ jobs:
       - name: Ensure Gradle wrapper is executable
         run: chmod +x ./gradlew
 
+      - name: Check Android Developer Verification registration file
+        run: test -s app/src/main/assets/adi-registration.properties
+
       - name: Build and publish with fastlane
         env:
           MANUAL_TAG_NAME: ${{ inputs.tag_name }}
           FASTLANE_DRAFT_RELEASE: ${{ inputs.draft }}
           FASTLANE_PRERELEASE: ${{ inputs.prerelease }}
-          ADI_REGISTRATION_SNIPPET: ${{ secrets.ADI_REGISTRATION_SNIPPET }}
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
