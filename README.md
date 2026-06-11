@@ -1,15 +1,16 @@
 
-[![GitHub Release](https://img.shields.io/github/release/jimvixx/ShortMessageSecure.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
-[![GitHub Downloads](https://img.shields.io/github/downloads/jimvixx/ShortMessageSecure/total.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
-[![CI](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml/badge.svg)](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/jimvixx/ShortMessageSecure.svg)](LICENSE)
-
+[![Android Developer Verification](https://img.shields.io/badge/Android_Developer_Verification-Verified-success?logo=android)](#android-developer-verification)
 [![Android](https://img.shields.io/badge/platform-Android-brightgreen.svg?logo=android)](#)
 [![Min SDK](https://img.shields.io/badge/minSdk-24-blue.svg)](#)
 [![Target SDK](https://img.shields.io/badge/targetSdk-36-blue.svg)](#)
+
+[![GitHub Release](https://img.shields.io/github/release/jimvixx/ShortMessageSecure.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
+[![CI](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml/badge.svg)](https://github.com/jimvixx/ShortMessageSecure/actions/workflows/ci.yml)
+[![GitHub Downloads](https://img.shields.io/github/downloads/jimvixx/ShortMessageSecure/total.svg?logo=github)](https://github.com/jimvixx/ShortMessageSecure/releases)
+[![License](https://img.shields.io/github/license/jimvixx/ShortMessageSecure.svg)](LICENSE)
+
 [![Java](https://img.shields.io/badge/Java-17-orange.svg?logo=openjdk)](#)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple.svg?logo=kotlin)](#)
-[![Android Developer Verification](https://img.shields.io/badge/Android_Developer_Verification-Verified-success?logo=android)](#android-developer-verification)
 
 [//]: # ([![F-Droid]&#40;https://img.shields.io/badge/F--Droid-coming%20soon-informational?logo=f-droid&#41;]&#40;#&#41;)
 
