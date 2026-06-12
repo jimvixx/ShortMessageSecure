@@ -127,6 +127,7 @@
     <string name="conversation_context__menu_forward_message">העבר הודעה</string>
     <string name="conversation_context__menu_message_details">פרטי ההודעה</string>
     <string name="conversation_context__menu_resend_message">שלח הודעה מחדש</string>
+    <string name="conversation_context__menu_share_message">שתף הודעה</string>
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">גלול לתחתית</string>
     <!--conversation_fragment_cab-->
@@ -220,6 +221,7 @@
     <string name="ConversationFragment_delete_selected_message">למחוק את ההודעה שנבחרה?</string>
     <string name="ConversationFragment_delete_selected_messages">למחוק הודעות שנבחרו?</string>
     <string name="ConversationFragment_deleting_messages">מחיקת הודעות…</string>
+    <string name="ConversationFragment_empty_message">ההודעה ריקה</string>
     <string name="ConversationFragment_pending">ממתין…</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">פעולה זו תמחק לצמיתות הודעה אחת שנבחרה.</item>

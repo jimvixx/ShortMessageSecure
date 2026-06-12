@@ -133,6 +133,7 @@
 <string name="conversation_context__menu_forward_message">إعادة توجيه الرسالة</string>
 <string name="conversation_context__menu_message_details">تفاصيل الرسالة</string>
 <string name="conversation_context__menu_resend_message">إعادة إرسال الرسالة</string>
+<string name="conversation_context__menu_share_message">مشاركة الرسالة</string>
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">التمرير إلى الأسفل</string>
 <!--conversation_fragment_cab-->
@@ -235,6 +236,7 @@
 <string name="ConversationFragment_delete_selected_message">هل تريد حذف الرسالة المحددة؟</string>
 <string name="ConversationFragment_delete_selected_messages">هل تريد حذف الرسائل المحددة؟</string>
 <string name="ConversationFragment_deleting_messages">حذف الرسائل…</string>
+<string name="ConversationFragment_empty_message">الرسالة فارغة</string>
 <string name="ConversationFragment_pending">قيد الانتظار…</string>
 <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="zero">سيؤدي هذا إلى حذف جميع الرسائل المحددة البالغ عددها <xliff:g id="arg1">%1$d</xliff:g> بشكل نهائي.</item>

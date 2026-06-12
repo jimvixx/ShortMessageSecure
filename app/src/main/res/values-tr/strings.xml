@@ -125,6 +125,7 @@
   <string name="conversation_context__menu_forward_message">Mesajı ilet</string>
   <string name="conversation_context__menu_message_details">Mesaj ayrıntıları</string>
   <string name="conversation_context__menu_resend_message">Mesajı yeniden gönder</string>
+  <string name="conversation_context__menu_share_message">Mesajı paylaş</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">En alta kaydır</string>
   <!--conversation_fragment_cab-->
@@ -215,6 +216,7 @@
   <string name="ConversationFragment_delete_selected_message">Seçilen mesajı silmek istiyor musunuz?</string>
   <string name="ConversationFragment_delete_selected_messages">Seçilen mesajları silmek istiyor musunuz?</string>
   <string name="ConversationFragment_deleting_messages">Mesajlar siliniyor…</string>
+  <string name="ConversationFragment_empty_message">Mesaj boş</string>
   <string name="ConversationFragment_pending">Beklemede…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Bu, seçilen <xliff:g id="count">%1$d</xliff:g> mesajı kalıcı olarak siler.</item>

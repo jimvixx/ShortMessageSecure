@@ -123,6 +123,7 @@
     <string name="conversation_context__menu_forward_message">转发消息</string>
     <string name="conversation_context__menu_message_details">消息详情</string>
     <string name="conversation_context__menu_resend_message">重新发送消息</string>
+    <string name="conversation_context__menu_share_message">分享消息</string>
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">滚动至底部</string>
     <!--conversation_fragment_cab-->
@@ -210,6 +211,7 @@
     <string name="ConversationFragment_delete_selected_message">删除选中的消息？</string>
     <string name="ConversationFragment_delete_selected_messages">删除选中的消息？</string>
     <string name="ConversationFragment_deleting_messages">正在删除消息……</string>
+    <string name="ConversationFragment_empty_message">消息为空</string>
     <string name="ConversationFragment_pending">待处理……</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="other">这将永久删除所有 <xliff:g id="arg1">%1$d</xliff:g> 条已选消息。</item>

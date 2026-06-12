@@ -125,6 +125,7 @@
   <string name="conversation_context__menu_forward_message">Üzenet továbbítása</string>
   <string name="conversation_context__menu_message_details">Üzenet részletei</string>
   <string name="conversation_context__menu_resend_message">Üzenet újraküldése</string>
+  <string name="conversation_context__menu_share_message">Üzenet megosztása</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Görgessen az aljára</string>
   <!--conversation_fragment_cab-->
@@ -215,6 +216,7 @@
   <string name="ConversationFragment_delete_selected_message">Törölje a kijelölt üzenetet?</string>
   <string name="ConversationFragment_delete_selected_messages">Törölje a kijelölt üzeneteket?</string>
   <string name="ConversationFragment_deleting_messages">Üzenetek törlése…</string>
+  <string name="ConversationFragment_empty_message">Az üzenet üres</string>
   <string name="ConversationFragment_pending">Függőben…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Ezzel véglegesen töröl <xliff:g id="count">%1$d</xliff:g> kiválasztott üzenetet.</item>

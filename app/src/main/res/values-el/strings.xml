@@ -125,6 +125,7 @@
   <string name="conversation_context__menu_forward_message">Προώθηση μηνύματος</string>
   <string name="conversation_context__menu_message_details">Λεπτομέρειες μηνύματος</string>
   <string name="conversation_context__menu_resend_message">Επανάληψη αποστολής μηνύματος</string>
+  <string name="conversation_context__menu_share_message">Κοινή χρήση μηνύματος</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Μεταβείτε στο κάτω μέρος</string>
   <!--conversation_fragment_cab-->
@@ -215,6 +216,7 @@
   <string name="ConversationFragment_delete_selected_message">Διαγραφή επιλεγμένου μηνύματος;</string>
   <string name="ConversationFragment_delete_selected_messages">Διαγραφή επιλεγμένων μηνυμάτων;</string>
   <string name="ConversationFragment_deleting_messages">Διαγραφή μηνυμάτων…</string>
+  <string name="ConversationFragment_empty_message">Το μήνυμα είναι κενό</string>
   <string name="ConversationFragment_pending">Σε αναμονή…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Αυτό θα διαγράψει οριστικά <xliff:g id="count">%1$d</xliff:g> επιλεγμένο μήνυμα.</item>

@@ -125,6 +125,7 @@
     <string name="conversation_context__menu_forward_message">Препращане на съобщение</string>
     <string name="conversation_context__menu_message_details">Подробности за съобщението</string>
     <string name="conversation_context__menu_resend_message">Изпрати съобщение отново</string>
+    <string name="conversation_context__menu_share_message">Споделяне на съобщение</string>
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Превъртете до края</string>
     <!--conversation_fragment_cab-->
@@ -215,6 +216,7 @@
     <string name="ConversationFragment_delete_selected_message">Да изтриете избраното съобщение?</string>
     <string name="ConversationFragment_delete_selected_messages">Да изтриете избраните съобщения?</string>
     <string name="ConversationFragment_deleting_messages">Изтриване на съобщения…</string>
+    <string name="ConversationFragment_empty_message">Съобщението е празно</string>
     <string name="ConversationFragment_pending">В очакване…</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Това ще изтрие окончателно <xliff:g id="count">%1$d</xliff:g> избрано съобщение.</item>

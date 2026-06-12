@@ -125,6 +125,7 @@
   <string name="conversation_context__menu_forward_message">Videresend besked</string>
   <string name="conversation_context__menu_message_details">Meddelelsesdetaljer</string>
   <string name="conversation_context__menu_resend_message">Send besked igen</string>
+  <string name="conversation_context__menu_share_message">Del besked</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Rul ned til bunden</string>
   <!--conversation_fragment_cab-->
@@ -215,6 +216,7 @@
   <string name="ConversationFragment_delete_selected_message">Slette valgt besked?</string>
   <string name="ConversationFragment_delete_selected_messages">Skal de valgte beskeder slettes?</string>
   <string name="ConversationFragment_deleting_messages">Sletter beskeder…</string>
+  <string name="ConversationFragment_empty_message">Meddelelsen er tom</string>
   <string name="ConversationFragment_pending">Afventer…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Dette vil permanent slette <xliff:g id="count">%1$d</xliff:g> valgt besked.</item>

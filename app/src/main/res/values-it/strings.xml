@@ -127,6 +127,7 @@
     <string name="conversation_context__menu_forward_message">Inoltra messaggio</string>
     <string name="conversation_context__menu_message_details">Dettagli del messaggio</string>
     <string name="conversation_context__menu_resend_message">Invia nuovamente il messaggio</string>
+    <string name="conversation_context__menu_share_message">Condividi messaggio</string>
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scorri fino in fondo</string>
     <!--conversation_fragment_cab-->
@@ -220,6 +221,7 @@
     <string name="ConversationFragment_delete_selected_message">Eliminare il messaggio selezionato?</string>
     <string name="ConversationFragment_delete_selected_messages">Eliminare i messaggi selezionati?</string>
     <string name="ConversationFragment_deleting_messages">Eliminazione dei messaggi…</string>
+    <string name="ConversationFragment_empty_message">Il messaggio è vuoto</string>
     <string name="ConversationFragment_pending">In attesa…</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Questo eliminerà definitivamente <xliff:g id="count">%1$d</xliff:g> messaggio selezionato.</item>

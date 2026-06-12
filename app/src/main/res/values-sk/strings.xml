@@ -129,6 +129,7 @@
   <string name="conversation_context__menu_forward_message">Preposlať správu</string>
   <string name="conversation_context__menu_message_details">Podrobnosti správy</string>
   <string name="conversation_context__menu_resend_message">Znovu odoslať správu</string>
+  <string name="conversation_context__menu_share_message">Zdieľať správu</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Prejdite na koniec</string>
   <!--conversation_fragment_cab-->
@@ -225,6 +226,7 @@
   <string name="ConversationFragment_delete_selected_message">Odstrániť vybranú správu?</string>
   <string name="ConversationFragment_delete_selected_messages">Odstrániť vybrané správy?</string>
   <string name="ConversationFragment_deleting_messages">Mazanie správ…</string>
+  <string name="ConversationFragment_empty_message">Správa je prázdna</string>
   <string name="ConversationFragment_pending">Čaká na schválenie…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Týmto sa trvalo vymaže <xliff:g id="count">%1$d</xliff:g> vybraná správa.</item>

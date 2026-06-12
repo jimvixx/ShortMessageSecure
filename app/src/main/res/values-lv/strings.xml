@@ -127,6 +127,7 @@
 <string name="conversation_context__menu_forward_message">Pārsūtīt ziņojumu</string>
 <string name="conversation_context__menu_message_details">Ziņojuma informācija</string>
 <string name="conversation_context__menu_resend_message">Nosūtīt ziņojumu atkārtoti</string>
+<string name="conversation_context__menu_share_message">Dalīties ar ziņu</string>
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pārvietojieties uz apakšu</string>
 <!--conversation_fragment_cab-->
@@ -220,6 +221,7 @@
 <string name="ConversationFragment_delete_selected_message">Dzēst izvēlēto ziņojumu?</string>
 <string name="ConversationFragment_delete_selected_messages">Dzēst atlasītos ziņojumus?</string>
 <string name="ConversationFragment_deleting_messages">Dzēš ziņojumus…</string>
+<string name="ConversationFragment_empty_message">Ziņojums ir tukšs</string>
 <string name="ConversationFragment_pending">Pending…</string>
 <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="zero">Tas neatgriezeniski izdzēsīs visus <xliff:g id="arg1">%1$d</xliff:g> atlasītos ziņojumus.</item>

@@ -123,6 +123,7 @@
   <string name="conversation_context__menu_forward_message">메시지 전달</string>
   <string name="conversation_context__menu_message_details">메시지 세부 정보</string>
   <string name="conversation_context__menu_resend_message">메시지 다시 보내기</string>
+  <string name="conversation_context__menu_share_message">메시지 공유</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">하단으로 스크롤</string>
   <!--conversation_fragment_cab-->
@@ -210,6 +211,7 @@
   <string name="ConversationFragment_delete_selected_message">선택한 메시지를 삭제하시겠습니까?</string>
   <string name="ConversationFragment_delete_selected_messages">선택한 메시지를 삭제하시겠습니까?</string>
   <string name="ConversationFragment_deleting_messages">메시지 삭제 중…</string>
+  <string name="ConversationFragment_empty_message">메시지가 비어 있습니다</string>
   <string name="ConversationFragment_pending">대기 중…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="other">이렇게 하면 선택된 <xliff:g id="arg1">%1$d</xliff:g>개의 메시지를 모두 영구적으로 삭제합니다.</item>

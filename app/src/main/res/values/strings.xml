@@ -135,6 +135,7 @@
     <string name="conversation_context__menu_forward_message">Forward message</string>
     <string name="conversation_context__menu_message_details">Message details</string>
     <string name="conversation_context__menu_resend_message">Resend message</string>
+    <string name="conversation_context__menu_share_message">Share message</string>
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scroll to the bottom</string>
     <!--conversation_fragment_cab-->
@@ -237,6 +238,7 @@
     <string name="ConversationFragment_delete_selected_message">Delete selected message?</string>
     <string name="ConversationFragment_delete_selected_messages">Delete selected messages?</string>
     <string name="ConversationFragment_deleting_messages">Deleting messages…</string>
+    <string name="ConversationFragment_empty_message">Message is empty</string>
     <string name="ConversationFragment_pending">Pending…</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="zero">This will permanently delete all <xliff:g id="arg1">%1$d</xliff:g> selected messages.</item>

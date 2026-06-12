@@ -129,6 +129,7 @@
 <string name="conversation_context__menu_forward_message">Persiųsti pranešimą</string>
 <string name="conversation_context__menu_message_details">Pranešimo detalės</string>
 <string name="conversation_context__menu_resend_message">Siųsti žinutę dar kartą</string>
+<string name="conversation_context__menu_share_message">Dalintis pranešimu</string>
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pereikite į apačią</string>
 <!--conversation_fragment_cab-->
@@ -225,6 +226,7 @@
 <string name="ConversationFragment_delete_selected_message">Ištrinti pasirinktą žinutę?</string>
 <string name="ConversationFragment_delete_selected_messages">Ištrinti pasirinktas žinutes?</string>
 <string name="ConversationFragment_deleting_messages">Trinamos žinutės…</string>
+<string name="ConversationFragment_empty_message">Pranešimas tuščias</string>
 <string name="ConversationFragment_pending">Laukiama…</string>
 <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Tai visam laikui ištrins <xliff:g id="count">%1$d</xliff:g> pasirinktą pranešimą.</item>

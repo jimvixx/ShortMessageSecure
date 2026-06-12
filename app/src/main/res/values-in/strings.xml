@@ -123,6 +123,7 @@
 <string name="conversation_context__menu_forward_message">Teruskan pesan</string>
 <string name="conversation_context__menu_message_details">Rincian pesan</string>
 <string name="conversation_context__menu_resend_message">Kirim ulang pesan</string>
+<string name="conversation_context__menu_share_message">Bagikan pesan</string>
 <!--conversation_fragment-->
 <string name="conversation_fragment__scroll_to_the_bottom_content_description">Gulir ke bagian bawah</string>
 <!--conversation_fragment_cab-->
@@ -210,6 +211,7 @@
 <string name="ConversationFragment_delete_selected_message">Hapus pesan yang dipilih?</string>
 <string name="ConversationFragment_delete_selected_messages">Hapus pesan yang dipilih?</string>
 <string name="ConversationFragment_deleting_messages">Menghapus pesan…</string>
+<string name="ConversationFragment_empty_message">Pesan kosong</string>
 <string name="ConversationFragment_pending">Menunggu…</string>
 <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="other">Ini akan menghapus secara permanen semua <xliff:g id="arg1">%1$d</xliff:g> pesan yang dipilih.</item>

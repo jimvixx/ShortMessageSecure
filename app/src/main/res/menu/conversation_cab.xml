@@ -27,8 +27,14 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/menu_context_share_message"
+        android:icon="@drawable/ic_share_variant_outline"
+        android:title="@string/conversation_context__menu_share_message"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_context_resend"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_refresh"
         android:title="@string/conversation_context__menu_resend_message"
         android:visible="false"
         app:showAsAction="never"

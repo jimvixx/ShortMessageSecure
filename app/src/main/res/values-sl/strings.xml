@@ -129,6 +129,7 @@
   <string name="conversation_context__menu_forward_message">Posreduj sporočilo</string>
   <string name="conversation_context__menu_message_details">Podrobnosti sporočila</string>
   <string name="conversation_context__menu_resend_message">Ponovno pošiljanje sporočila</string>
+  <string name="conversation_context__menu_share_message">Deljenje sporočila</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pomaknite se na dno</string>
   <!--conversation_fragment_cab-->
@@ -225,6 +226,7 @@
   <string name="ConversationFragment_delete_selected_message">Izbrisati izbrano sporočilo?</string>
   <string name="ConversationFragment_delete_selected_messages">Izbrisati izbrana sporočila?</string>
   <string name="ConversationFragment_deleting_messages">Brisanje sporočil…</string>
+  <string name="ConversationFragment_empty_message">Sporočilo je prazno</string>
   <string name="ConversationFragment_pending">V čakanju…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">S tem boste trajno izbrisali <xliff:g id="count">%1$d</xliff:g> izbrano sporočilo.</item>

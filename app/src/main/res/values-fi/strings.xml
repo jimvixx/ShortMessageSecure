@@ -125,6 +125,7 @@
   <string name="conversation_context__menu_forward_message">Välitä viesti</string>
   <string name="conversation_context__menu_message_details">Viestin tiedot</string>
   <string name="conversation_context__menu_resend_message">Lähetä viesti uudelleen</string>
+  <string name="conversation_context__menu_share_message">Jaa viesti</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Vieritä alareunaan</string>
   <!--conversation_fragment_cab-->
@@ -215,6 +216,7 @@
   <string name="ConversationFragment_delete_selected_message">Poista valittu viesti?</string>
   <string name="ConversationFragment_delete_selected_messages">Poistetaanko valitut viestit?</string>
   <string name="ConversationFragment_deleting_messages">Viestien poistaminen…</string>
+  <string name="ConversationFragment_empty_message">Viesti on tyhjä</string>
   <string name="ConversationFragment_pending">Odottaa…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Tämä poistaa pysyvästi <xliff:g id="count">%1$d</xliff:g> valitun viestin.</item>

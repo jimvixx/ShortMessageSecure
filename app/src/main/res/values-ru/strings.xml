@@ -129,6 +129,7 @@
     <string name="conversation_context__menu_forward_message">Переслать сообщение</string>
     <string name="conversation_context__menu_message_details">Сведения о сообщении</string>
     <string name="conversation_context__menu_resend_message">Повторно отправить сообщение</string>
+    <string name="conversation_context__menu_share_message">Поделиться сообщением</string>
     <!--conversation_fragment-->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Прокрутите вниз</string>
     <!--conversation_fragment_cab-->
@@ -225,6 +226,7 @@
     <string name="ConversationFragment_delete_selected_message">Удалить выбранное сообщение?</string>
     <string name="ConversationFragment_delete_selected_messages">Удалить выбранные сообщения?</string>
     <string name="ConversationFragment_deleting_messages">Удаление сообщений…</string>
+    <string name="ConversationFragment_empty_message">Сообщение пустое</string>
     <string name="ConversationFragment_pending">Ожидается…</string>
     <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Это приведет к окончательному удалению <xliff:g id="count">%1$d</xliff:g> выбранного сообщения.</item>

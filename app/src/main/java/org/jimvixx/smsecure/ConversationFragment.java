@@ -222,6 +222,7 @@ public class ConversationFragment extends Fragment
 
     if (messageRecords.size() > 1) {
       menu.findItem(R.id.menu_context_forward).setVisible(false);
+      menu.findItem(R.id.menu_context_share_message).setVisible(false);
       menu.findItem(R.id.menu_context_details).setVisible(false);
       menu.findItem(R.id.menu_context_resend).setVisible(false);
     } else if (messageRecords.size() == 1) {
@@ -230,6 +231,7 @@ public class ConversationFragment extends Fragment
       menu.findItem(R.id.menu_context_resend).setVisible(messageRecord.isFailed());
 
       menu.findItem(R.id.menu_context_forward).setVisible(true);
+      menu.findItem(R.id.menu_context_share_message).setVisible(true);
       menu.findItem(R.id.menu_context_details).setVisible(true);
       menu.findItem(R.id.menu_context_copy).setVisible(true);
     }
@@ -376,6 +378,25 @@ public class ConversationFragment extends Fragment
     if (bodyCs != null) composeIntent.putExtra(Intent.EXTRA_TEXT, bodyCs.toString());
 
     startActivity(composeIntent);
+  }
+
+  private void handleShareMessage(@NonNull MessageRecord message) {
+    CharSequence bodyCs = message.getDisplayBody();
+    String body = bodyCs != null ? bodyCs.toString() : "";
+
+    if (body.isEmpty()) {
+      Toast.makeText(requireContext(), R.string.ConversationFragment_empty_message, Toast.LENGTH_SHORT).show();
+      return;
+    }
+
+    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+    shareIntent.setType("text/plain");
+    shareIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+    startActivity(Intent.createChooser(
+            shareIntent,
+            getString(R.string.conversation_context__menu_share_message)
+    ));
   }
 
   private void handleResendMessage(@NonNull MessageRecord message) {
@@ -691,6 +712,12 @@ public class ConversationFragment extends Fragment
 
       if (id == R.id.menu_context_forward) {
         handleForwardMessage(getSelectedMessageRecordOrThrow());
+        mode.finish();
+        return true;
+      }
+
+      if (id == R.id.menu_context_share_message) {
+        handleShareMessage(getSelectedMessageRecordOrThrow());
         mode.finish();
         return true;
       }

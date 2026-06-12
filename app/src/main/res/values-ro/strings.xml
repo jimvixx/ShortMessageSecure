@@ -127,6 +127,7 @@
   <string name="conversation_context__menu_forward_message">Redirecționează mesajul</string>
   <string name="conversation_context__menu_message_details">Detalii mesaj</string>
   <string name="conversation_context__menu_resend_message">Retrimite mesajul</string>
+  <string name="conversation_context__menu_share_message">Partajare mesaj</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Derulați până la capăt</string>
   <!--conversation_fragment_cab-->
@@ -220,6 +221,7 @@
   <string name="ConversationFragment_delete_selected_message">Ștergeți mesajul selectat?</string>
   <string name="ConversationFragment_delete_selected_messages">Ștergeți mesajele selectate?</string>
   <string name="ConversationFragment_deleting_messages">Ștergerea mesajelor…</string>
+  <string name="ConversationFragment_empty_message">Mesajul este gol</string>
   <string name="ConversationFragment_pending">În așteptare…</string>
   <plurals name="ConversationFragment_this_will_permanently_delete_all_n_selected_messages">
         <item quantity="one">Aceasta va șterge definitiv <xliff:g id="count">%1$d</xliff:g> mesaj selectat.</item>
