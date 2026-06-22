@@ -57,6 +57,14 @@ jobs:
           }
           EOF_CONFIG
 
+      - name: Upload Worker secret
+        working-directory: cloudflare-r2-log-upload/worker
+        run: echo "$LOG_UPLOAD_TOKEN" | npx wrangler secret put LOG_UPLOAD_TOKEN
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          LOG_UPLOAD_TOKEN: ${{ secrets.LOG_UPLOAD_TOKEN }}
+
       - name: Deploy Worker
         working-directory: cloudflare-r2-log-upload/worker
         run: npx wrangler deploy
