@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: jimvixx/cloudflare-r2-log-upload
-          ref: v0.2.0
+          ref: v0.3.0
           path: cloudflare-r2-log-upload
 
       - name: Setup Node.js

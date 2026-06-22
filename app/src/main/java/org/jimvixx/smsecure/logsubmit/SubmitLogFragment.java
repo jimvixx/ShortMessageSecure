@@ -50,16 +50,19 @@ import java.util.concurrent.Executors;
 public class SubmitLogFragment extends Fragment {
 
   private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
   private ProgressBar progress;
   private TextView status;
   private TextView preview;
   private Button copyButton;
   private Button shareLogsButton;
-  private Button shareLinkButton;
+  private Button shareResultButton;
+
   @Nullable
   private String collectedLogs;
+
   @Nullable
-  private String uploadedUrl;
+  private String uploadResultText;
 
   public static SubmitLogFragment newInstance() {
     return new SubmitLogFragment();
@@ -82,7 +85,7 @@ public class SubmitLogFragment extends Fragment {
     preview = view.findViewById(R.id.log_submit_preview);
     copyButton = view.findViewById(R.id.log_submit_copy_button);
     shareLogsButton = view.findViewById(R.id.log_submit_share_logs_button);
-    shareLinkButton = view.findViewById(R.id.log_submit_share_link_button);
+    shareResultButton = view.findViewById(R.id.log_submit_share_link_button);
 
     copyButton.setOnClickListener(v -> {
       if (collectedLogs != null && !collectedLogs.isEmpty()) {
@@ -101,9 +104,9 @@ public class SubmitLogFragment extends Fragment {
       }
     });
 
-    shareLinkButton.setOnClickListener(v -> {
-      if (uploadedUrl != null && !uploadedUrl.trim().isEmpty()) {
-        shareText("SMSecure log URL", uploadedUrl.trim());
+    shareResultButton.setOnClickListener(v -> {
+      if (uploadResultText != null && !uploadResultText.trim().isEmpty()) {
+        shareText("SMSecure log upload result", uploadResultText.trim());
       } else {
         notifyFailure();
       }
@@ -142,7 +145,7 @@ public class SubmitLogFragment extends Fragment {
         shareLogsButton.setEnabled(true);
       });
 
-      PasteResult result = PasteService.upload(logs);
+      LogUploadResult result = LogUploadService.upload(logs);
 
       if (!isAdded()) return;
 
@@ -152,13 +155,13 @@ public class SubmitLogFragment extends Fragment {
       activity2.runOnUiThread(() -> {
         progress.setVisibility(View.GONE);
 
-        if (result.success && result.url != null) {
-          uploadedUrl = result.url;
-          copyToClipboard("log url", result.url);
-          showUrl(result.url);
+        if (result.success) {
+          uploadResultText = result.message;
+          copyToClipboard("SMSecure log upload result", result.message);
+          showUploadResult(result.message);
           notifySuccess();
         } else {
-          String message = (result.error != null) ? result.error : "Paste upload failed";
+          String message = (result.error != null) ? result.error : "Log upload failed";
           showUploadFailure(message);
           notifyFailure();
         }
@@ -173,7 +176,7 @@ public class SubmitLogFragment extends Fragment {
 
     copyButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
     shareLogsButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareLinkButton.setEnabled(false);
+    shareResultButton.setEnabled(false);
   }
 
   private void showUploadFailure(@NonNull String message) {
@@ -183,16 +186,16 @@ public class SubmitLogFragment extends Fragment {
 
     copyButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
     shareLogsButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareLinkButton.setEnabled(false);
+    shareResultButton.setEnabled(false);
   }
 
-  private void showUrl(@NonNull String url) {
+  private void showUploadResult(@NonNull String message) {
     status.setText(R.string.log_submit_activity__log_uploaded);
-    preview.setText(url);
+    preview.setText(message);
 
     copyButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
     shareLogsButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareLinkButton.setEnabled(true);
+    shareResultButton.setEnabled(true);
   }
 
   private void copyToClipboard(@NonNull String label, @NonNull String text) {
@@ -282,7 +285,7 @@ public class SubmitLogFragment extends Fragment {
     preview = null;
     copyButton = null;
     shareLogsButton = null;
-    shareLinkButton = null;
+    shareResultButton = null;
   }
 
   @Override
