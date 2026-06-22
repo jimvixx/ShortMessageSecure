@@ -143,7 +143,6 @@
 <string name="conversation_insecure__security">Turvalisus</string>
 <!--conversation_item-->
 <string name="conversation_item__secure_message_description">Turvaline sõnum</string>
-<string name="conversation_item_pending__indicator">…</string>
 <string name="conversation_item_received__contact_photo_description">Kontakti foto</string>
 <string name="conversation_item_sent__delivered_description">Kohale toimetatud</string>
 <string name="conversation_item_sent__pending_approval_description">Ootab kinnitust</string>

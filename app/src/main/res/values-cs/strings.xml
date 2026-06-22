@@ -149,7 +149,6 @@
   <string name="conversation_insecure__security">Zabezpečení</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Zabezpečená zpráva</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie kontaktu</string>
   <string name="conversation_item_sent__delivered_description">Doručeno</string>
   <string name="conversation_item_sent__pending_approval_description">Čeká na schválení</string>

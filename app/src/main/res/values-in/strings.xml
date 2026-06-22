@@ -140,7 +140,6 @@
 <string name="conversation_insecure__security">Keamanan</string>
 <!--conversation_item-->
 <string name="conversation_item__secure_message_description">Pesan aman</string>
-<string name="conversation_item_pending__indicator">…</string>
 <string name="conversation_item_received__contact_photo_description">Foto kontak</string>
 <string name="conversation_item_sent__delivered_description">Terkirim</string>
 <string name="conversation_item_sent__pending_approval_description">Menunggu Persetujuan</string>

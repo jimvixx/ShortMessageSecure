@@ -146,7 +146,6 @@
 <string name="conversation_insecure__security">Drošība</string>
 <!--conversation_item-->
 <string name="conversation_item__secure_message_description">Droša ziņa</string>
-<string name="conversation_item_pending__indicator">…</string>
 <string name="conversation_item_received__contact_photo_description">Kontakta foto</string>
 <string name="conversation_item_sent__delivered_description">Piegādāts</string>
 <string name="conversation_item_sent__pending_approval_description">Gaida apstiprinājumu</string>

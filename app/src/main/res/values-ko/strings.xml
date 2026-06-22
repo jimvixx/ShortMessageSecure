@@ -140,7 +140,6 @@
   <string name="conversation_insecure__security">보안</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">보안 메시지</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">연락처 사진</string>
   <string name="conversation_item_sent__delivered_description">전달됨</string>
   <string name="conversation_item_sent__pending_approval_description">승인 대기 중</string>

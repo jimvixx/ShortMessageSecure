@@ -143,7 +143,6 @@
   <string name="conversation_insecure__security">Sikkerhed</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Sikker besked</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
   <string name="conversation_item_sent__delivered_description">Leveret</string>
   <string name="conversation_item_sent__pending_approval_description">Afventer godkendelse</string>

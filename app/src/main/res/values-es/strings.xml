@@ -146,7 +146,6 @@
   <string name="conversation_insecure__security">Seguridad</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Mensaje seguro</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Foto de contacto</string>
   <string name="conversation_item_sent__delivered_description">Entregado</string>
   <string name="conversation_item_sent__pending_approval_description">Pendiente de aprobación</string>

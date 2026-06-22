@@ -143,7 +143,6 @@
   <string name="conversation_insecure__security">Turvallisuus</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Suojattu viesti</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Yhteystiedon valokuva</string>
   <string name="conversation_item_sent__delivered_description">Toimitettu</string>
   <string name="conversation_item_sent__pending_approval_description">Odottaa hyväksyntää</string>

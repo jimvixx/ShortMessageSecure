@@ -143,7 +143,6 @@
   <string name="conversation_insecure__security">Beveiliging</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">Beveiligd bericht</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">Contactfoto</string>
   <string name="conversation_item_sent__delivered_description">Bezorgd</string>
   <string name="conversation_item_sent__pending_approval_description">In afwachting van goedkeuring</string>

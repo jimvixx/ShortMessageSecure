@@ -3,9 +3,10 @@
 
 from __future__ import annotations
 
+import re
 import time
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from ..constants import STATE_DIR, STATE_FILE
 from ..plural_rules import (
@@ -23,6 +24,8 @@ from ..utils import (
     normalize_lang_to_folder,
     resolve_langs,
     save_json,
+    sha1_text,
+    read_text_file,
 )
 from ..xml_backend import (
     XmlBackend,
@@ -57,6 +60,10 @@ PLURAL_QUANTITY_ORDER: Dict[str, int] = {
     "many": 4,
     "other": 5,
 }
+
+
+GLOSSARY_SECTION_RE = re.compile(r"^\[(?P<name>[^\]]+)\]$")
+WORD_RE_TEMPLATE = r"(?<![0-9A-Za-z_]){term}(?![0-9A-Za-z_])"
 
 
 def _has_non_empty_plural_values(items: Dict[str, str]) -> bool:
@@ -189,15 +196,20 @@ def _compute_status(
         and prev_source_hash != current_source_hash
     )
 
-    translation_changed = prev_translation_hash != current_translation_hash
-
     if source_changed:
         return "stale"
+
+    # sync may make an entry stale, but it must not make it OK again.
+    # Only translate_command(), or an explicit --mark-all-ok, should clear stale.
+    if prev_status == "stale":
+        return "stale"
+
+    translation_changed = prev_translation_hash != current_translation_hash
 
     if translation_changed:
         return "ok"
 
-    if prev_status in ("missing", "ok", "stale", "skipped"):
+    if prev_status in ("missing", "ok", "skipped"):
         return prev_status
 
     return "ok"
@@ -528,6 +540,390 @@ def _prepare_base_for_sync(
     return normalized_entries, None
 
 
+def _normalize_glossary_section_name(name: str) -> str:
+    return name.strip().lower().replace("_", "-")
+
+
+def _parse_glossary_line(raw_line: str) -> Optional[Tuple[str, str]]:
+    line = raw_line.strip()
+    if not line or line.startswith("#"):
+        return None
+
+    if "#" in line:
+        line = line.split("#", 1)[0].strip()
+        if not line:
+            return None
+
+    if "\t" in line:
+        src, tgt = line.split("\t", 1)
+    elif "=>" in line:
+        src, tgt = line.split("=>", 1)
+    elif "=" in line:
+        src, tgt = line.split("=", 1)
+    elif "," in line:
+        src, tgt = line.split(",", 1)
+    else:
+        src = line
+        tgt = line
+
+    src = src.strip()
+    tgt = tgt.strip()
+
+    if not src or not tgt:
+        return None
+
+    if any(ch in src for ch in ("\t", "\n", "\r")):
+        return None
+    if any(ch in tgt for ch in ("\t", "\n", "\r")):
+        return None
+
+    return src, tgt
+
+
+def _parse_sectioned_glossary_file(path: Path) -> Dict[str, Any]:
+    raw = read_text_file(str(path))
+
+    common: Dict[str, str] = {}
+    per_lang: Dict[str, Dict[str, str]] = {}
+    current_section = "common"
+
+    for line_no, raw_line in enumerate(raw.splitlines(), start=1):
+        stripped = raw_line.strip()
+
+        if not stripped or stripped.startswith("#"):
+            continue
+
+        sec_match = GLOSSARY_SECTION_RE.match(stripped)
+        if sec_match:
+            section_name = _normalize_glossary_section_name(sec_match.group("name"))
+
+            if section_name == "common":
+                current_section = "common"
+                continue
+
+            if section_name.startswith("lang:"):
+                lang_key = _normalize_glossary_section_name(section_name.split(":", 1)[1])
+                if not lang_key:
+                    raise SystemExit(f"Invalid empty glossary section at line {line_no}: {raw_line}")
+                current_section = f"lang:{lang_key}"
+                per_lang.setdefault(lang_key, {})
+                continue
+
+            raise SystemExit(
+                f"Unknown glossary section at line {line_no}: {raw_line}\n"
+                "Supported sections: [common], [lang:ru], [lang:cs], ..."
+            )
+
+        parsed = _parse_glossary_line(raw_line)
+        if parsed is None:
+            continue
+
+        src, tgt = parsed
+
+        if current_section == "common":
+            if src not in common:
+                common[src] = tgt
+        else:
+            lang_key = current_section.split(":", 1)[1]
+            bucket = per_lang.setdefault(lang_key, {})
+            if src not in bucket:
+                bucket[src] = tgt
+
+    canonical = ["[common]"]
+    for src, tgt in common.items():
+        canonical.append(f"{src}\t{tgt}")
+
+    for lang_key in sorted(per_lang.keys()):
+        canonical.append("")
+        canonical.append(f"[lang:{lang_key}]")
+        for src, tgt in per_lang[lang_key].items():
+            canonical.append(f"{src}\t{tgt}")
+
+    canonical_text = "\n".join(canonical).strip() + "\n"
+
+    return {
+        "common": common,
+        "langs": per_lang,
+        "file_hash": sha1_text(canonical_text),
+        "canonical_text": canonical_text,
+    }
+
+
+def _merge_glossary_entries_for_lang(glossary_data: Dict[str, Any], lang: str) -> Dict[str, str]:
+    merged: Dict[str, str] = dict(glossary_data.get("common", {}) or {})
+    per_lang = glossary_data.get("langs", {}) or {}
+
+    raw_lang = lang.strip()
+    candidates: List[str] = []
+    for item in (raw_lang, normalize_lang_to_folder(raw_lang).removeprefix("values-")):
+        normalized = _normalize_glossary_section_name(item)
+        if normalized and normalized not in candidates:
+            candidates.append(normalized)
+
+    for candidate in candidates:
+        section = per_lang.get(candidate)
+        if section:
+            merged.update(section)
+
+    return _stringify_glossary_map(merged)
+
+
+def _stringify_glossary_map(entries: Dict[str, str]) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for src, tgt in (entries or {}).items():
+        s = str(src).strip()
+        t = str(tgt).strip()
+        if s and t:
+            out[s] = t
+    return out
+
+
+def _compute_glossary_term_changes(
+    old_map: Dict[str, str],
+    new_map: Dict[str, str],
+) -> Tuple[Set[str], List[str], List[str], List[str]]:
+    old_keys = set(old_map.keys())
+    new_keys = set(new_map.keys())
+
+    added = sorted(new_keys - old_keys)
+    removed = sorted(old_keys - new_keys)
+
+    changed: List[str] = []
+    for key in sorted(old_keys & new_keys):
+        if old_map[key] != new_map[key]:
+            changed.append(key)
+
+    affected_terms = set(added) | set(removed) | set(changed)
+    return affected_terms, added, removed, changed
+
+
+def _entry_source_texts(entry) -> List[str]:
+    if isinstance(entry, StringEntry):
+        return [entry.text or ""]
+
+    if isinstance(entry, PluralsEntry):
+        return [entry.items.get(q, "") or "" for q in sorted(entry.items.keys())]
+
+    if isinstance(entry, StringArrayEntry):
+        return [x or "" for x in entry.items]
+
+    return []
+
+
+def _text_contains_term(text: str, term: str) -> bool:
+    if not text or not term:
+        return False
+
+    haystack = text.casefold()
+    needle = term.casefold()
+
+    if not re.search(r"[0-9A-Za-z]", term):
+        return needle in haystack
+
+    starts_wordy = bool(re.match(r"^[0-9A-Za-z_]", term))
+    ends_wordy = bool(re.search(r"[0-9A-Za-z_]$", term))
+
+    if starts_wordy and ends_wordy:
+        pattern = WORD_RE_TEMPLATE.format(term=re.escape(term))
+        return re.search(pattern, text, flags=re.IGNORECASE) is not None
+
+    return needle in haystack
+
+
+def _entry_uses_any_glossary_term(entry, terms: Set[str]) -> bool:
+    if not terms:
+        return False
+
+    for text in _entry_source_texts(entry):
+        for term in terms:
+            if _text_contains_term(text, term):
+                return True
+
+    return False
+
+
+def _glossary_entries_hash(entries: Dict[str, str]) -> str:
+    return sha1_text("\n".join(f"{src}\t{tgt}" for src, tgt in entries.items())) if entries else ""
+
+
+def _resolve_glossary_file(res_dir: Path, state_dir_arg: str, glossary_file_arg: str) -> Optional[Path]:
+    if glossary_file_arg:
+        glossary_path = Path(glossary_file_arg).expanduser().resolve()
+        if not glossary_path.exists() or not glossary_path.is_file():
+            raise SystemExit(f"Glossary file not found: {glossary_path}")
+        return glossary_path
+
+    # Keep sync backward-compatible: if a repository-level glossary.txt exists,
+    # track it automatically; otherwise do nothing.
+    project_root = Path(state_dir_arg).expanduser().resolve() if state_dir_arg else _find_project_root_by_git(res_dir)
+    glossary_path = project_root / "glossary.txt"
+    if glossary_path.exists() and glossary_path.is_file():
+        return glossary_path
+
+    return None
+
+
+
+def _prepare_glossary_tracking_for_sync(
+    *,
+    state: Dict[str, Any],
+    langs: List[str],
+    base_map: Dict[Tuple[str, str], Any],
+    glossary_path: Optional[Path],
+) -> Tuple[Dict[str, Set[str]], Dict[str, Dict[str, Any]]]:
+    """
+    Detect glossary changes before the normal sync loop.
+
+    Returns:
+      - keys_by_lang: resource keys that must stay/become stale in this sync run
+      - reports_by_lang: metadata and counters printed/saved after the sync loop
+
+    Important: this function only decides what is affected.  The actual status
+    assignment is done inside the main sync loop, so the normal sync pass cannot
+    overwrite glossary-triggered stale back to ok in the same run.
+    """
+    if glossary_path is None:
+        return {}, {}
+
+    glossary_data = _parse_sectioned_glossary_file(glossary_path)
+    tracking_root = state.setdefault("glossary_tracking", {})
+    if not isinstance(tracking_root, dict):
+        tracking_root = {}
+        state["glossary_tracking"] = tracking_root
+
+    tracking_root["version"] = 2
+    tracking_root["glossary_file"] = str(glossary_path)
+    tracking_root["glossary_file_hash"] = glossary_data["file_hash"]
+
+    langs_meta: Dict[str, Any] = tracking_root.setdefault("langs", {})
+    keys_by_lang: Dict[str, Set[str]] = {}
+    reports_by_lang: Dict[str, Dict[str, Any]] = {}
+
+    print(f"[GLOSSARY] Tracking file: {glossary_path}")
+
+    for lang in langs:
+        merged_entries = _merge_glossary_entries_for_lang(glossary_data, lang)
+        entries_hash = _glossary_entries_hash(merged_entries)
+
+        prev_meta = langs_meta.get(lang, {}) or {}
+        prev_map = _stringify_glossary_map(prev_meta.get("entries_map", {}) or {})
+        prev_hash = str(prev_meta.get("entries_hash") or "")
+
+        affected_terms, added, removed, changed = _compute_glossary_term_changes(prev_map, merged_entries)
+
+        affected_keys: Set[str] = set()
+        if prev_hash and affected_terms:
+            for (kind, name), base_entry in base_map.items():
+                if not getattr(base_entry, "translatable", True):
+                    continue
+                if _entry_uses_any_glossary_term(base_entry, affected_terms):
+                    affected_keys.add(f"{kind}:{name}")
+
+        if affected_keys:
+            keys_by_lang[lang] = affected_keys
+
+        reports_by_lang[lang] = {
+            "prev_hash": prev_hash,
+            "entries_hash": entries_hash,
+            "entries_count": len(merged_entries),
+            "entries_map": merged_entries,
+            "affected_terms": sorted(affected_terms),
+            "added": added,
+            "removed": removed,
+            "changed": changed,
+            "matched": len(affected_keys),
+            "marked_stale": 0,
+            "already_stale": 0,
+            "missing": 0,
+            "skipped": 0,
+            "missing_state": 0,
+            "updated_at": int(time.time()),
+        }
+
+    return keys_by_lang, reports_by_lang
+
+
+def _apply_glossary_stale_override(
+    *,
+    lang: str,
+    key: str,
+    status: str,
+    current_translation_hash: Optional[str],
+    glossary_keys_by_lang: Dict[str, Set[str]],
+    glossary_reports_by_lang: Dict[str, Dict[str, Any]],
+) -> str:
+    affected_keys = glossary_keys_by_lang.get(lang)
+    if not affected_keys or key not in affected_keys:
+        return status
+
+    report = glossary_reports_by_lang.get(lang)
+    if report is None:
+        return status
+
+    if status == "skipped":
+        report["skipped"] = int(report.get("skipped", 0)) + 1
+        return status
+
+    if status == "missing" or current_translation_hash is None:
+        report["missing"] = int(report.get("missing", 0)) + 1
+        return status
+
+    if status == "stale":
+        report["already_stale"] = int(report.get("already_stale", 0)) + 1
+        return status
+
+    report["marked_stale"] = int(report.get("marked_stale", 0)) + 1
+    return "stale"
+
+
+def _finish_glossary_tracking_after_sync(
+    *,
+    state: Dict[str, Any],
+    glossary_reports_by_lang: Dict[str, Dict[str, Any]],
+) -> int:
+    if not glossary_reports_by_lang:
+        return 0
+
+    tracking_root = state.setdefault("glossary_tracking", {})
+    langs_meta: Dict[str, Any] = tracking_root.setdefault("langs", {})
+    total_marked_stale = 0
+
+    for lang, report in glossary_reports_by_lang.items():
+        marked_stale = int(report.get("marked_stale", 0))
+        total_marked_stale += marked_stale
+
+        langs_meta[lang] = {
+            "entries_hash": report.get("entries_hash", ""),
+            "entries_count": int(report.get("entries_count", 0)),
+            "entries_map": report.get("entries_map", {}) or {},
+            "updated_at": int(report.get("updated_at", int(time.time()))),
+        }
+
+        prev_hash = str(report.get("prev_hash") or "")
+        affected_terms = report.get("affected_terms", []) or []
+
+        if not prev_hash:
+            print(f"[GLOSSARY] {lang}: tracking initialized ({int(report.get('entries_count', 0))} entries).")
+        elif affected_terms:
+            print(
+                f"[GLOSSARY] {lang}: added={len(report.get('added', []) or [])}, "
+                f"changed={len(report.get('changed', []) or [])}, "
+                f"removed={len(report.get('removed', []) or [])}, "
+                f"matched={int(report.get('matched', 0))}, "
+                f"marked stale={marked_stale}, "
+                f"already stale={int(report.get('already_stale', 0))}, "
+                f"missing={int(report.get('missing', 0))}, "
+                f"skipped={int(report.get('skipped', 0))}."
+            )
+        else:
+            print(f"[GLOSSARY] {lang}: unchanged.")
+
+    if total_marked_stale:
+        print(f"[GLOSSARY] Total marked stale: {total_marked_stale}")
+
+    return total_marked_stale
+
+
 def sync_command(args) -> int:
     mark_all_stale = bool(getattr(args, "mark_all_stale", False))
     mark_all_ok = bool(getattr(args, "mark_all_ok", False))
@@ -557,8 +953,20 @@ def sync_command(args) -> int:
 
     state_path = _resolve_state_path(res_dir, args.state_dir)
     state = load_json(state_path, default={"base": {}, "langs": {}, "glossaries": {}})
+    glossary_path = _resolve_glossary_file(
+        res_dir,
+        args.state_dir,
+        str(getattr(args, "glossary_file", "") or ""),
+    )
 
     prev_base_hashes: Dict[str, str] = state.get("base", {}) or {}
+
+    glossary_keys_by_lang, glossary_reports_by_lang = _prepare_glossary_tracking_for_sync(
+        state=state,
+        langs=langs,
+        base_map=base_map,
+        glossary_path=glossary_path,
+    )
 
     base_hashes: Dict[str, str] = {}
     for (kind, name), entry in base_map.items():
@@ -768,6 +1176,15 @@ def sync_command(args) -> int:
             else:
                 raise AssertionError("Unknown base entry type")
 
+            status = _apply_glossary_stale_override(
+                lang=lang,
+                key=key,
+                status=status,
+                current_translation_hash=current_translation_hash,
+                glossary_keys_by_lang=glossary_keys_by_lang,
+                glossary_reports_by_lang=glossary_reports_by_lang,
+            )
+
             lang_state[key] = {
                 "source_hash": current_source_hash,
                 "translation_hash": current_translation_hash,
@@ -779,6 +1196,11 @@ def sync_command(args) -> int:
             lxml_reorder_entries(locale_tree, list(base_map.keys()))
 
         lang_file.write_text(xml_backend.tostring(locale_tree), encoding="utf-8")
+
+    _finish_glossary_tracking_after_sync(
+        state=state,
+        glossary_reports_by_lang=glossary_reports_by_lang,
+    )
 
     save_json(state_path, state)
     print(f"Sync done. State: {state_path}")
@@ -798,6 +1220,11 @@ def register(subparsers) -> None:
         "--state-dir",
         default="",
         help="Override directory where .smsecure-l10n/state.json is stored",
+    )
+    sp.add_argument(
+        "--glossary-file",
+        default="",
+        help="Path to a sectioned glossary file. If omitted, repository-level glossary.txt is used when present.",
     )
     sp.add_argument(
         "--mark-all-stale",

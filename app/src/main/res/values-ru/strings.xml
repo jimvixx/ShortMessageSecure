@@ -110,10 +110,10 @@
     <!--ContactSelectionListFragment-->
     <string name="ContactSelectionListFragment_smsecure_requires_the_contacts_permission_in_order_to_display_your_contacts">SMSecure требует разрешения на доступ к контактам для отображения ваших контактов, но оно было окончательно отказано. Перейдите в меню настроек приложения, выберите «Разрешения» и включите «Контакты».</string>
     <!--conversation-->
-    <string name="conversation_menu__archive_conversation">Архивировать переписку</string>
-    <string name="conversation_menu__conversation_settings">Настройки беседы</string>
-    <string name="conversation_menu__delete_conversation">Удалить переписку</string>
-    <string name="conversation_menu__unarchive_conversation">Разархивировать переписку</string>
+    <string name="conversation_menu__archive_conversation">Архивировать чат</string>
+    <string name="conversation_menu__conversation_settings">Настройки чата</string>
+    <string name="conversation_menu__delete_conversation">Удалить чат</string>
+    <string name="conversation_menu__unarchive_conversation">Разархивировать чат</string>
     <!--conversation_activity-->
     <string name="conversation_activity__emoji_toggle_description">Переключить клавиатуру с эмодзи</string>
     <string name="conversation_activity__type_message_sms_insecure">Отправить незащищенное SMS</string>
@@ -149,7 +149,6 @@
     <string name="conversation_insecure__security">Безопасность</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">Защищенное сообщение</string>
-    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">Фотография контакта</string>
     <string name="conversation_item_sent__delivered_description">Доставлено</string>
     <string name="conversation_item_sent__pending_approval_description">Ожидает утверждения</string>
@@ -159,10 +158,10 @@
     <string name="conversation_list_batch__menu_delete_selected">Удалить выбранное</string>
     <string name="conversation_list_batch__menu_select_all">Выбрать все</string>
     <string name="conversation_list_batch__menu_send_drafts">Отправить выбранные черновики</string>
-    <string name="conversation_list_batch_archive__menu_archive_selected">Архив выбран</string>
+    <string name="conversation_list_batch_archive__menu_archive_selected">Архивировать выбраное</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Разархивировать выбранное</string>
     <!--conversation_list_fragment-->
-    <string name="conversation_list_fragment__fab_content_description">Новый разговор</string>
+    <string name="conversation_list_fragment__fab_content_description">Новый чат</string>
     <!--conversation_list_item_view-->
     <string name="conversation_list_item_view__archive">Архив</string>
     <string name="conversation_list_item_view__archived">Архивировано</string>
@@ -198,7 +197,7 @@
         <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> участников</item>
         <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> участника</item>
     </plurals>
-    <string name="ConversationActivity_delete_thread_question">Удалить разговор?</string>
+    <string name="ConversationActivity_delete_thread_question">Удалить чат?</string>
     <string name="ConversationActivity_detected_smsecure_initiate_session_question">Получено сообщение от человека, у которого также установлен SMSecure. Инициировать безопасную зашифрованную сессию?</string>
     <string name="ConversationActivity_group_members">Участники группы</string>
     <string name="ConversationActivity_initiate_secure_session_question">Инициировать безопасный сеанс?</string>
@@ -211,7 +210,7 @@
     <string name="ConversationActivity_smsecure_needs_sms_permission_in_order_to_send_an_sms">SMSecure требует разрешения на отправку SMS, но оно было окончательно отказано. Перейдите в настройки приложения, выберите «Разрешения» и включите «SMS».</string>
     <string name="ConversationActivity_specify_recipient">Выберите контакт</string>
     <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">Похоже, это устройство не поддерживает действия набора номера.</string>
-    <string name="ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation">Это приведет к окончательному удалению всех сообщений в этом чате.</string>
+    <string name="ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation">Это приведёт к окончательному удалению всех сообщений в этом чате.</string>
     <string name="ConversationActivity_transport_insecure_sms">Небезопасные SMS</string>
     <string name="ConversationActivity_transport_secure_sms">Безопасные SMS</string>
     <string name="ConversationActivity_unnamed_group">Группа без названия</string>
@@ -244,28 +243,28 @@
     <string name="ConversationItem_xmpp_address_update_smsecure">Адрес XMPP. Обновите SMSecure, чтобы включить эту функцию.</string>
     <!--ConversationListFragment-->
     <plurals name="ConversationListFragment_conversations_archived">
-        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> разговор заархивирован</item>
-        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> сохраненных разговора</item>
-        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> сохраненных разговоров</item>
-        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> беседы в архиве</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> чат заархивирован</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> сохраненных чатов</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> сохраненных чатов</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> чаты заархивированы</item>
     </plurals>
-    <string name="ConversationListFragment_delete_selected_conversation">Удалить выбранный разговор?</string>
+    <string name="ConversationListFragment_delete_selected_conversation">Удалить выбранный чат?</string>
     <string name="ConversationListFragment_delete_selected_conversations">Удалить выбранные беседы?</string>
     <string name="ConversationListFragment_deleting_selected_conversations">Удаление выбранных бесед…</string>
     <plurals name="ConversationListFragment_moved_conversations_to_inbox">
-        <item quantity="one">Перемещено <xliff:g id="arg1">%1$d</xliff:g> разговор в папку «Входящие»</item>
-        <item quantity="few">Переместил <xliff:g id="arg1">%1$d</xliff:g> разговора в папку «Входящие»</item>
-        <item quantity="many">Перемещено <xliff:g id="arg1">%1$d</xliff:g> разговоров в папку «Входящие»</item>
-        <item quantity="other">Перемещено <xliff:g id="arg1">%1$d</xliff:g> разговора в папку «Входящие»</item>
+        <item quantity="one">Перемещено <xliff:g id="arg1">%1$d</xliff:g> чат в папку «Входящие»</item>
+        <item quantity="few">Переместил <xliff:g id="arg1">%1$d</xliff:g> чата в папку «Входящие»</item>
+        <item quantity="many">Перемещено <xliff:g id="arg1">%1$d</xliff:g> чатов в папку «Входящие»</item>
+        <item quantity="other">Перемещено <xliff:g id="arg1">%1$d</xliff:g> чата в папку «Входящие»</item>
     </plurals>
     <string name="ConversationListFragment_send_drafts">Отправить черновики</string>
     <string name="ConversationListFragment_sending">Отправка</string>
     <string name="ConversationListFragment_sending_selected_drafts">Отправка выбранных черновиков…</string>
     <plurals name="ConversationListFragment_this_will_permanently_delete_all_n_selected_conversations">
-        <item quantity="one">Это приведет к окончательному удалению <xliff:g id="arg1">%1$d</xliff:g> выбранного разговора.</item>
-        <item quantity="few">Это приведет к окончательному удалению всех <xliff:g id="arg1">%1$d</xliff:g> выбранных бесед.</item>
-        <item quantity="many">Это приведет к окончательному удалению всех <xliff:g id="arg1">%1$d</xliff:g> выбранных бесед.</item>
-        <item quantity="other">Это приведет к окончательному удалению всех <xliff:g id="arg1">%1$d</xliff:g> выбранных бесед.</item>
+        <item quantity="one">Это приведёт к окончательному удалению <xliff:g id="arg1">%1$d</xliff:g> выбранного чата.</item>
+        <item quantity="few">Это приведёт к окончательному удалению всех <xliff:g id="arg1">%1$d</xliff:g> выбранных чатов.</item>
+        <item quantity="many">Это приведёт к окончательному удалению всех <xliff:g id="arg1">%1$d</xliff:g> выбранных чатов.</item>
+        <item quantity="other">Это приведёт к окончательному удалению всех <xliff:g id="arg1">%1$d</xliff:g> выбранных чатов.</item>
     </plurals>
     <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Это приведет к отправке черновиков выбранных бесед.</string>
     <string name="ConversationListFragment_undo">ОТМЕНА</string>
@@ -363,7 +362,7 @@
     <string name="IdentityActivity__warning_the_entered_key_does_not_match">Введенный ключ не совпадает. Пожалуйста, проверьте внимательно.</string>
     <string name="IdentityActivity__warning_the_scanned_key_does_not_match_please_check_the_fingerprint_text_carefully">ПРЕДУПРЕЖДЕНИЕ: отсканированный ключ НЕ СОВПАДАЕТ! Пожалуйста, внимательно проверьте текст отпечатка.</string>
     <string name="IdentityActivity__you_do_not_have_an_identity_key">У вас нет ключа идентификации.</string>
-    <string name="IdentityActivity__your_fingerprint">Ваш отпечаток пальца</string>
+    <string name="IdentityActivity__your_fingerprint">Ваш отпечаток</string>
     <!--import_export_fragment-->
     <string name="import_export_fragment__backup_restored">«Резервная копия восстановлена. SMSecure сейчас закроется — запустите его заново, чтобы завершить восстановление».</string>
     <!--ImportFragment-->
@@ -385,7 +384,7 @@
     <string name="KeyExchangeInitiator_initiate_despite_existing_request_question">Инициировать, несмотря на существующий запрос?</string>
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Вы уже отправили запрос на начало сеанса этому получателю. Вы уверены, что хотите отправить еще один? Это приведет к аннулированию первого запроса.</string>
     <!--load_more_header-->
-    <string name="load_more_header__see_full_conversation">Посмотреть полную переписку</string>
+    <string name="load_more_header__see_full_conversation">Посмотреть полный чат</string>
     <!--log_submit_activity-->
     <string name="log_submit__button_copy">Копировать журнал</string>
     <string name="log_submit__button_share_link">Поделиться ссылкой</string>
@@ -418,10 +417,10 @@
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Сообщение зашифровано для несуществующей сессии</string>
     <!--MessageNotifier-->
     <plurals name="MessageNotifier__in_conversations">
-        <item quantity="one">в <xliff:g id="arg1">%1$d</xliff:g> разговоре</item>
-        <item quantity="few">в <xliff:g id="arg1">%1$d</xliff:g> диалогах</item>
-        <item quantity="many">в <xliff:g id="arg1">%1$d</xliff:g> диалогах</item>
-        <item quantity="other">в <xliff:g id="arg1">%1$d</xliff:g> разговорах</item>
+        <item quantity="one">в <xliff:g id="arg1">%1$d</xliff:g> чате</item>
+        <item quantity="few">в <xliff:g id="arg1">%1$d</xliff:g> чатах</item>
+        <item quantity="many">в <xliff:g id="arg1">%1$d</xliff:g> чатах</item>
+        <item quantity="other">в <xliff:g id="arg1">%1$d</xliff:g> чатах</item>
     </plurals>
     <string name="MessageNotifier__messages_in_conversations">%1$s %2$s</string>
     <plurals name="MessageNotifier__new_messages">
@@ -480,14 +479,14 @@
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Всегда спрашивать, какую SIM-карту использовать при отправке сообщений</string>
     <string name="preferences__appearance">Внешний вид</string>
     <string name="preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key">Автоматически завершать обмен ключами для новых сеансов или для существующих сеансов с тем же ключом идентификации</string>
-    <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Автоматически удалять старые сообщения, когда беседа превышает заданную длину</string>
+    <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Автоматически удалять старые сообщения, как только длина чата превысит заданный предел</string>
     <string name="preferences__blocked_contacts">Заблокированные контакты</string>
     <string name="preferences__change_notification_sound">Изменить звук уведомления</string>
     <string name="preferences__change_passphrase">Изменить пароль</string>
     <string name="preferences__change_your_passphrase">Измените свой пароль</string>
     <string name="preferences__chats">Чаты и мультимедиа</string>
     <string name="preferences__complete_key_exchanges">Завершить обмен ключами</string>
-    <string name="preferences__conversation_length_limit">Ограничение длины разговора</string>
+    <string name="preferences__conversation_length_limit">Ограничение длины чата</string>
     <string name="preferences__dark_theme">Темный</string>
     <string name="preferences__delete_old_messages">Удалить старые сообщения</string>
     <string name="preferences__diagnostic_logging_level">Уровень диагностического ведения журнала</string>
@@ -529,7 +528,7 @@
     <string name="preferences__notifications">Уведомления</string>
     <string name="preferences__one_time">Один раз</string>
     <string name="preferences__panic_button">Кнопка паники</string>
-    <string name="preferences__play_inthread_notifications">Воспроизведение звукового уведомления при просмотре активного разговора.</string>
+    <string name="preferences__play_inthread_notifications">Воспроизведение звукового уведомления при просмотре активного чата.</string>
     <string name="preferences__pref_timeout_interval_title">Интервал таймаута</string>
     <string name="preferences__privacy">Конфиденциальность</string>
     <string name="preferences__privacy_policy">Политика конфиденциальности</string>
@@ -537,7 +536,7 @@
     <string name="preferences__repeat_notification_number_times_select">Выберите количество повторений уведомления</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Запрашивать отчет о доставке для каждого отправленного SMS-сообщения</string>
     <string name="preferences__request_keyboard_to_disable_personalized_learning">Если включен режим инкогнито, клавиатура не будет запоминать, изучать или сохранять введенные вами слова</string>
-    <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Просканировать все беседы и обеспечить соблюдение ограничений на длину бесед</string>
+    <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Просканировать все чаты и обеспечить соблюдение ограничений на длину чата</string>
     <string name="preferences__screen_security">Безопасность экрана</string>
     <string name="preferences__show_sent_time">Показать время отправки</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Показывать время отправки вместо времени получения для входящих сообщений</string>
@@ -577,8 +576,8 @@
     <string name="recipient_preferences__block">Блок</string>
     <string name="recipient_preferences__color">Цвет</string>
     <string name="recipient_preferences__color_for_this_contact">Цвет для этого контакта</string>
-    <string name="recipient_preferences__disable_notifications_for_this_conversation">Отключить уведомления для этого разговора</string>
-    <string name="recipient_preferences__mute_conversation">Отключить звук в чате</string>
+    <string name="recipient_preferences__disable_notifications_for_this_conversation">Отключить уведомления для этого чата</string>
+    <string name="recipient_preferences__mute_conversation">Отключить уведомления о чате</string>
     <string name="recipient_preferences__notification_sound">Звук уведомления</string>
     <!--recipient_preferences_activity-->
     <string name="recipient_preference_activity__blocked">Заблокировано</string>

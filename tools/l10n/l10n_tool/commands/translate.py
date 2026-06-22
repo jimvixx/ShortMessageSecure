@@ -486,6 +486,7 @@ def _build_sync_args_from_translate_args(args) -> Namespace:
         mark_all_stale=False,
         mark_all_ok=False,
         mark_all_plurals_stale=False,
+        glossary_file=getattr(args, "glossary_file", ""),
     )
 
 

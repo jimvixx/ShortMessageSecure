@@ -140,7 +140,6 @@
     <string name="conversation_insecure__security">安全</string>
     <!--conversation_item-->
     <string name="conversation_item__secure_message_description">安全消息</string>
-    <string name="conversation_item_pending__indicator">…</string>
     <string name="conversation_item_received__contact_photo_description">联系人照片</string>
     <string name="conversation_item_sent__delivered_description">已送达</string>
     <string name="conversation_item_sent__pending_approval_description">待审批</string>

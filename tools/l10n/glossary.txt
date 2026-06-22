@@ -6,3 +6,5 @@ SIM
 Base64
 XMPP
 QR
+[lang:ru]
+conversation = чат

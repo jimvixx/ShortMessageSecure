@@ -140,7 +140,6 @@
   <string name="conversation_insecure__security">セキュリティ</string>
   <!--conversation_item-->
   <string name="conversation_item__secure_message_description">セキュアメッセージ</string>
-  <string name="conversation_item_pending__indicator">…</string>
   <string name="conversation_item_received__contact_photo_description">連絡先の写真</string>
   <string name="conversation_item_sent__delivered_description">配信済み</string>
   <string name="conversation_item_sent__pending_approval_description">承認待ち</string>
