@@ -228,11 +228,11 @@ http://www.gnu.org/licenses/gpl-3.0.html
 ---
 
 <div align="center">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.png" width="20%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2_en-US.png" width="20%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3_en-US.png" width="20%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4_en-US.png" width="20%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5_en-US.png" width="20%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6_en-US.png" width="20%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/7_en-US.png" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.jpg" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2_en-US.jpg" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3_en-US.jpg" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4_en-US.jpg" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5_en-US.jpg" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6_en-US.jpg" width="20%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/7_en-US.jpg" width="20%">
 </div>
