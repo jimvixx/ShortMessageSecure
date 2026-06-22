@@ -164,7 +164,7 @@
     <string name="conversation_list_fragment__fab_content_description">Нова розмова</string>
     <!--conversation_list_item_view-->
     <string name="conversation_list_item_view__archive">Архів</string>
-    <string name="conversation_list_item_view__archived">Архів</string>
+    <string name="conversation_list_item_view__archived">Архівовано</string>
     <string name="conversation_list_item_view__contact_photo_image">Аватар контакту</string>
     <string name="conversation_list_item_view__unarchive">Розпакувати</string>
     <!--conversation_list_menu-->

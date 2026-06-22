@@ -28,10 +28,10 @@
     <string name="ApplicationPreferencesActivity_smsecure_is_currently_your_default_sms_app">SMSecure в настоящее время является вашим приложением для SMS по умолчанию</string>
     <string name="ApplicationPreferencesActivity_tap_to_make_smsecure_your_default_sms_app">Нажмите, чтобы сделать SMSecure приложением для SMS по умолчанию</string>
     <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
-        <item quantity="one">Это сразу сократит все разговоры до <xliff:g id="arg1">%1$d</xliff:g> самого последнего сообщения.</item>
-        <item quantity="few">Это сразу сократит все разговоры до <xliff:g id="arg1">%1$d</xliff:g> самых последних сообщений.</item>
-        <item quantity="many">Это сразу же сократит все разговоры до <xliff:g id="arg1">%1$d</xliff:g> самых последних сообщений.</item>
-        <item quantity="other">Это сразу же сократит все разговоры до <xliff:g id="arg1">%1$d</xliff:g> последних сообщений.</item>
+        <item quantity="one">Это сразу же сократит все чаты до <xliff:g id="arg1">%1$d</xliff:g> самого последнего сообщения.</item>
+        <item quantity="few">Это сразу же сократит все чаты до <xliff:g id="arg1">%1$d</xliff:g> самых последних сообщений.</item>
+        <item quantity="many">Это сразу же сократит все чаты до <xliff:g id="arg1">%1$d</xliff:g> самых последних сообщений.</item>
+        <item quantity="other">Это сразу же сократит все чаты до <xliff:g id="arg1">%1$d</xliff:g> последних сообщений.</item>
     </plurals>
     <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">«Предупреждение: это отключит шифрование хранилища для всех сообщений и ключей. Ваши зашифрованные сессии будут продолжать функционировать, но любой, кто получит физический доступ к вашему устройству, сможет их прочитать».</string>
     <!--AppProtectionPreferenceFragment-->
@@ -269,7 +269,7 @@
     <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">Это приведет к отправке черновиков выбранных бесед.</string>
     <string name="ConversationListFragment_undo">ОТМЕНА</string>
     <!--ConversationListItemArchived-->
-    <string name="ConversationListItemAction_archived_conversations_d">Архивные разговоры (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <string name="ConversationListItemAction_archived_conversations_d">Архивные чаты (<xliff:g id="arg1">%d</xliff:g>)</string>
     <!--custom_default_preference_dialog-->
     <string name="custom_default_preference_dialog__custom_value">Пользовательское значение</string>
     <!--CustomDefaultPreference-->
