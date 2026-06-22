@@ -233,4 +233,5 @@ http://www.gnu.org/licenses/gpl-3.0.html
 <img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3_en-US.jpg" width="25%">
 <img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4_en-US.jpg" width="25%">
 <img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5_en-US.jpg" width="25%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/6_en-US.jpg" width="25%">
 </div>
