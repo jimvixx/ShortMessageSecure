@@ -1,0 +1,65 @@
+name: Deploy log upload backend
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout app repository
+        uses: actions/checkout@v4
+        with:
+          path: app
+
+      - name: Checkout generic Cloudflare backend
+        uses: actions/checkout@v4
+        with:
+          repository: jimvixx/cloudflare-r2-log-upload
+          ref: v0.1.0
+          path: cloudflare-r2-log-upload
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: cloudflare-r2-log-upload/.nvmrc
+          cache: npm
+          cache-dependency-path: cloudflare-r2-log-upload/worker/package-lock.json
+
+      - name: Install dependencies
+        working-directory: cloudflare-r2-log-upload/worker
+        run: npm ci
+
+      - name: TypeScript check
+        working-directory: cloudflare-r2-log-upload/worker
+        run: npm run check
+
+      - name: Create Wrangler config
+        working-directory: cloudflare-r2-log-upload/worker
+        run: |
+          cat > wrangler.jsonc <<EOF_CONFIG
+          {
+            "name": "${{ vars.CF_WORKER_NAME }}",
+            "main": "src/index.ts",
+            "compatibility_date": "2026-06-22",
+            "workers_dev": true,
+            "preview_urls": false,
+            "r2_buckets": [
+              {
+                "binding": "LOGS_BUCKET",
+                "bucket_name": "${{ vars.CF_R2_BUCKET_NAME }}"
+              }
+            ],
+            "vars": {
+              "MAX_UPLOAD_BYTES": "${{ vars.MAX_UPLOAD_BYTES }}"
+            }
+          }
+          EOF_CONFIG
+
+      - name: Deploy Worker
+        working-directory: cloudflare-r2-log-upload/worker
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
