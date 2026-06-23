@@ -21,7 +21,7 @@ jobs:
           path: cloudflare-r2-log-upload
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: cloudflare-r2-log-upload/.nvmrc
           cache: npm
