@@ -9,12 +9,12 @@ jobs:
 
     steps:
       - name: Checkout app repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: app
 
       - name: Checkout generic Cloudflare backend
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: jimvixx/cloudflare-r2-log-upload
           ref: v0.3.0
