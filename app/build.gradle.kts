@@ -165,8 +165,8 @@ dependencies {
     implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
 
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.22.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
 
     implementation("com.github.bumptech.glide:glide:5.0.7")
     implementation("com.github.bumptech.glide:okhttp3-integration:5.0.7@aar")
@@ -177,7 +177,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:4.35.1")
     implementation("com.google.zxing:core:3.5.4")
 
-    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.33")
+    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.34")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
