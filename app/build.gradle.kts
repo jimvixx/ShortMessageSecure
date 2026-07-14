@@ -145,7 +145,7 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.27.7")
     testImplementation("org.mockito:mockito-core:5.23.0")
 
-    annotationProcessor("com.github.bumptech.glide:compiler:5.0.7")
+    annotationProcessor("com.github.bumptech.glide:compiler:5.0.9")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
 
     implementation("androidx.appcompat:appcompat:1.7.1")
@@ -168,8 +168,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
 
-    implementation("com.github.bumptech.glide:glide:5.0.7")
-    implementation("com.github.bumptech.glide:okhttp3-integration:5.0.7@aar")
+    implementation("com.github.bumptech.glide:glide:5.0.9")
+    implementation("com.github.bumptech.glide:okhttp3-integration:5.0.9@aar")
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
