@@ -1,0 +1,109 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "PRIVACY_POLICY.md"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Markdown converter
+        run: pip install markdown
+
+      - name: Build site
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+
+          cat > _site/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>SMSecure</title>
+            <meta name="description" content="Open-source secure SMS messaging application">
+          </head>
+          <body>
+            <main>
+              <h1>SMSecure</h1>
+              <p>Open-source SMS messaging application with encrypted communication between compatible users.</p>
+              <ul>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="https://github.com/jimvixx/ShortMessageSecure">Source code</a></li>
+                <li><a href="https://github.com/jimvixx/ShortMessageSecure/issues">Report an issue</a></li>
+              </ul>
+            </main>
+          </body>
+          </html>
+          HTML
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import markdown
+
+          source = Path("PRIVACY_POLICY.md").read_text(encoding="utf-8")
+          body = markdown.markdown(
+              source,
+              extensions=["extra", "sane_lists"],
+          )
+
+          page = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>SMSecure Privacy Policy</title>
+            <meta name="description" content="Privacy Policy for SMSecure">
+          </head>
+          <body>
+            <main>
+              {body}
+            </main>
+          </body>
+          </html>
+          """
+
+          Path("_site/privacy-policy.html").write_text(page, encoding="utf-8")
+          PY
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
