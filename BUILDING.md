@@ -10,10 +10,10 @@ SMSecure is a modernized fork of Silence/TextSecure, updated to use a current An
 
 Before building, make sure you have:
 
-- Android Studio (recommended)  
-- Android SDK installed  
-- Java 17 (required by the project)  
-- Git  
+- Android Studio (recommended)
+- Android SDK installed
+- Java 17 (required by the project)
+- Git
 
 ---
 
@@ -32,24 +32,42 @@ git clone https://github.com/jimvixx/ShortMessageSecure.git
 4. Wait for Gradle sync to complete
 
 5. Build and run:
-   - Select a device or emulator  
+   - Select a device or emulator
    - Click **Run**
 
 ---
 
 ## ⚙️ Command Line Build
 
-You can also build SMSecure using Gradle:
+You can also build SMSecure using Gradle.
+
+### Debug build
 
 ```bash
 ./gradlew assembleDebug
 ```
 
-APK will be located at:
+Debug APK will be located at:
 
-```
+```text
 app/build/outputs/apk/debug/
 ```
+
+### Release build
+
+```bash
+./gradlew clean assembleRelease
+```
+
+Release APK will be located at:
+
+```text
+app/build/outputs/apk/release/
+```
+
+Release signing credentials are not required to build the project from source.
+
+If no signing configuration is provided, Gradle produces an unsigned release APK.
 
 ---
 
@@ -59,20 +77,20 @@ Normally, no manual configuration is required.
 
 If needed, you can create a `local.properties` file:
 
-```
+```text
 sdk.dir=/path/to/your/android/sdk
 ```
 
-(Android Studio usually generates this automatically.)
+Android Studio usually generates this file automatically.
 
 ---
 
 ## 🧱 Project Details
 
-- Minimum SDK: 24  
-- Target SDK: latest (modern Android)  
-- Build system: Gradle  
-- Language: Java (modernized)  
+- Minimum SDK: 24
+- Target SDK: 36
+- Build system: Gradle
+- Language: Java (modernized)
 
 ---
 
@@ -82,8 +100,8 @@ SMSecure includes a custom localization system based on DeepL.
 
 To work with translations:
 
-- Use the provided `l10n_sync` tool  
-- Maintain `strings.xml` as the source of truth  
+- Use the provided `l10n_sync` tool
+- Maintain `strings.xml` as the source of truth
 
 ---
 
@@ -93,8 +111,8 @@ Vector assets are preferred.
 
 If needed, you can generate raster assets (PNG/WebP) from vector sources using standard tools like:
 
-- Android Studio Vector Asset tool  
-- ImageMagick / GIMP  
+- Android Studio Vector Asset tool
+- ImageMagick / GIMP
 
 ---
 
@@ -104,18 +122,18 @@ Contributions are welcome.
 
 Typical workflow:
 
-1. Fork the repository  
-2. Create a feature branch  
-3. Make your changes  
-4. Submit a Pull Request  
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a Pull Request
 
 ---
 
 ## 💡 Notes
 
-- MMS support has been removed in SMSecure  
-- Focus is on secure SMS and future extensibility (e.g. P2P transport)  
-- Project is actively modernized (Gradle, SDK, dependencies)  
+- MMS support has been removed in SMSecure
+- Focus is on secure SMS and future extensibility (e.g. P2P transport)
+- Project is actively modernized (Gradle, SDK, dependencies)
 
 ---
 
