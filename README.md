@@ -98,7 +98,8 @@ Security features include:
 - Identity verification (QR code, hex fingerprint, Base64 fingerprint)  
 - Protection against man-in-the-middle (MITM) attacks  
 
-SMSecure does **not** collect or transmit any user data.
+SMSecure does **not automatically collect or transmit user data**.
+Diagnostic information is sent only when explicitly submitted by the user for troubleshooting.
 
 See [Privacy Policy](./PRIVACY_POLICY.md)
 

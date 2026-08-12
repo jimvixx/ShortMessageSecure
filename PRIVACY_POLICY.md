@@ -4,9 +4,11 @@ Short Message Secure (SMSecure) is designed with privacy as a core principle.
 
 ## Data Collection
 
-SMSecure does **not collect, store, or transmit user data to external servers**.
+SMSecure does **not automatically collect or transmit user data to external servers**.
 
-All data (messages, contacts, and related metadata) is processed and stored **locally on the device only**.
+Messages, contacts, and related metadata are processed and stored **locally on the device only**.
+
+Diagnostic logs may be uploaded only when explicitly initiated by the user, as described below.
 
 ---
 
@@ -62,7 +64,9 @@ SMSecure:
 
 ## Data Sharing
 
-SMSecure does **not share any user data with third parties**.
+SMSecure does **not sell or share user data with third parties for advertising, analytics, or tracking**.
+
+Diagnostic logs submitted explicitly by the user are transmitted only for troubleshooting purposes, as described above.
 
 ---
 
@@ -78,7 +82,8 @@ The source code is publicly available and can be audited by anyone.
 * ✔ No tracking
 * ✔ No analytics
 * ✔ No ads
-* ✔ No data collection
-* ✔ All data stays on device
+* ✔ No automatic data collection
+* ✔ Messages and contacts stay on device
+* ✔ Diagnostic logs are uploaded only when explicitly submitted by the user
 
 ---
