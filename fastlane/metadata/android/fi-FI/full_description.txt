@@ -1,0 +1,31 @@
+💬 SMSecure on yksityisyyttä korostava SMS-viestisovellus Androidille.
+
+SMSecure on Silence/TextSecure-sovelluksen haara, joka on luotu säilyttämään salattujen tekstiviestien toiminnallisuus nykyaikaisissa Android-laitteissa. Se säilyttää klassisen tekstiviestisovelluksen tutun tuntuman ja lisää samalla työkaluja yksityisiin, todennettuihin keskusteluihin.
+
+🔐 Salatut tekstiviestikeskustelut
+Käytä päästä päähän salattuja tekstiviestejä yhteensopivien yhteyshenkilöiden kanssa. SMSecure käyttää Signal-salausprotokollaa turvallisiin keskusteluihin, kun molemmat osapuolet tukevat sitä.
+
+🛡️ Identiteetin vahvistus
+Vahvista yhteyshenkilöt QR-koodien tai turvanumeroiden avulla suojautuaksesi välimieshyökkäyksiltä.
+
+📱 Toimii kuin tavallinen SMS-sovellus
+Lähetä ja vastaanota tavallisia SMS-viestejä ilman tilin luomista, kirjautumista tai riippuvuutta keskitetystä viestipalvelusta.
+
+🚫 Estä ei-toivotut viestit
+Estä ei-toivotut lähettäjät, mukaan lukien tuntemattomat tai aakkosnumeeriset SMS-lähettäjät, ja pidä saapuneet-kansiosi siistimpänä.
+
+🔎 Etsi keskusteluistasi
+Löydä viestit nopeasti kaikista keskusteluista globaalin haun avulla.
+
+💾 Varmuuskopiot ja palautus
+Luo ja palauta viestien varmuuskopioita, jotta voit pitää SMS-historiasi hallinnassasi.
+
+🌍 Paikallisuus ensisijaisena tietosuojaperiaatteena
+Viestit käsitellään laitteellasi. SMSecure ei vaadi rekisteröitymistä, ei käytä mainoksia eikä kerää käyttäjätietoja.
+
+⚠️ Tärkeä huomautus
+Päästä päähän -salaus toimii vain, kun molemmat osapuolet käyttävät yhteensopivaa ohjelmistoa. Tavalliset tekstiviestit ovat edelleen tavallisia tekstiviestejä, ja niitä käsittelee matkapuhelinverkko.
+
+🧩 Ilmainen ja avoimen lähdekoodin ohjelmisto
+SMSecure on ilmainen ja avoimen lähdekoodin ohjelmisto, joka on lisensoitu GPLv3-lisenssillä. Lähdekoodi on saatavilla tarkastelua, auditointia ja kehittämistä varten.
+Avoimen lähdekoodin koodi: https://github.com/jimvixx/ShortMessageSecure

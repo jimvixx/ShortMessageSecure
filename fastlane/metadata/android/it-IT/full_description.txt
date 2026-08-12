@@ -1,0 +1,31 @@
+💬 SMSecure è un'app di messaggistica SMS per Android incentrata sulla privacy.
+
+SMSecure è un fork di Silence/TextSecure, creato per preservare la funzionalità degli SMS crittografati sui moderni dispositivi Android. Mantiene l'aspetto familiare di una classica app SMS aggiungendo al contempo strumenti per conversazioni private e verificate.
+
+🔐 Conversazioni SMS crittografate
+Utilizza SMS crittografati end-to-end con i contatti compatibili. SMSecure utilizza il protocollo di crittografia Signal per conversazioni sicure quando entrambe le parti lo supportano.
+
+🛡️ Verifica dell’identità
+Verifica i contatti utilizzando codici QR o numeri di sicurezza per proteggerti dagli attacchi man-in-the-middle.
+
+📱 Funziona come una normale app SMS
+Invia e ricevi messaggi SMS normali senza creare un account, effettuare l’accesso o dipendere da un servizio di messaggistica centralizzato.
+
+🚫 Blocca i messaggi indesiderati
+Blocca i mittenti indesiderati, inclusi quelli sconosciuti o alfanumerici, e mantieni la tua casella di posta più pulita.
+
+🔎 Cerca nelle tue conversazioni
+Trova rapidamente i messaggi in tutte le conversazioni grazie alla ricerca globale.
+
+💾 Backup e ripristino
+Crea e ripristina i backup dei messaggi in modo da mantenere il controllo sulla cronologia dei tuoi SMS.
+
+🌍 Privacy “local-first”
+I messaggi vengono elaborati sul tuo dispositivo. SMSecure non richiede registrazione, non utilizza pubblicità e non raccoglie dati degli utenti.
+
+⚠️ Nota importante
+La crittografia end-to-end funziona solo quando entrambe le parti utilizzano un software compatibile. I normali messaggi SMS rimangono tali e vengono gestiti dalla rete mobile.
+
+🧩 Gratuito e open source
+SMSecure è un software gratuito e open source con licenza GPLv3. Il codice sorgente è disponibile per la revisione, la verifica e il contributo.
+Codice sorgente: https://github.com/jimvixx/ShortMessageSecure

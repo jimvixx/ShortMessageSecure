@@ -1,0 +1,31 @@
+💬 SMSecure adalah aplikasi pesan SMS yang berfokus pada privasi untuk Android.
+
+SMSecure merupakan cabang (fork) dari Silence/TextSecure, yang dibuat untuk mempertahankan fungsi SMS terenkripsi pada perangkat Android modern. Aplikasi ini mempertahankan nuansa aplikasi SMS klasik yang sudah dikenal sambil menambahkan alat untuk percakapan pribadi dan terverifikasi.
+
+🔐 Percakapan SMS terenkripsi
+Gunakan SMS terenkripsi ujung-ke-ujung dengan kontak yang kompatibel. SMSecure menggunakan protokol enkripsi Signal untuk percakapan yang aman jika kedua belah pihak mendukungnya.
+
+🛡️ Verifikasi identitas
+Verifikasi kontak menggunakan kode QR atau nomor keamanan untuk membantu melindungi dari serangan man-in-the-middle.
+
+📱 Berfungsi seperti aplikasi SMS biasa
+Kirim dan terima pesan SMS biasa tanpa perlu membuat akun, masuk, atau bergantung pada layanan pesan terpusat.
+
+🚫 Blokir pesan yang tidak diinginkan
+Blokir pengirim yang tidak diinginkan, termasuk pengirim SMS yang tidak dikenal atau alfanumerik, dan jaga kotak masuk Anda tetap rapi.
+
+🔎 Cari percakapan Anda
+Temukan pesan dengan cepat di seluruh percakapan menggunakan fitur pencarian global.
+
+💾 Cadangan dan pemulihan
+Buat dan pulihkan cadangan pesan agar riwayat SMS Anda tetap berada di bawah kendali Anda.
+
+🌍 Privasi berbasis lokal
+Pesan diproses di perangkat Anda. SMSecure tidak memerlukan pendaftaran, tidak menampilkan iklan, dan tidak mengumpulkan data pengguna.
+
+⚠️ Catatan penting
+Enkripsi ujung-ke-ujung hanya berfungsi jika kedua belah pihak menggunakan perangkat lunak yang kompatibel. Pesan SMS biasa tetap merupakan SMS biasa dan ditangani oleh jaringan seluler.
+
+🧩 Gratis dan Sumber Terbuka
+SMSecure adalah Perangkat Lunak Gratis dan Sumber Terbuka yang dilisensikan di bawah GPLv3. Kode sumbernya tersedia untuk ditinjau, diaudit, dan dikontribusikan.
+Kode Sumber Terbuka: https://github.com/jimvixx/ShortMessageSecure

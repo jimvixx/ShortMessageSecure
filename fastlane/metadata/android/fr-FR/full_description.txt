@@ -1,0 +1,31 @@
+💬 SMSecure est une application de messagerie SMS pour Android axée sur la confidentialité.
+
+SMSecure est un fork de Silence/TextSecure, créé pour préserver la fonctionnalité des SMS chiffrés sur les appareils Android modernes. Elle conserve l’aspect familier d’une application SMS classique tout en ajoutant des outils pour des conversations privées et vérifiées.
+
+🔐 Conversations SMS chiffrées
+Utilisez des SMS chiffrés de bout en bout avec vos contacts compatibles. SMSecure utilise le protocole de chiffrement Signal pour des conversations sécurisées lorsque les deux parties le prennent en charge.
+
+🛡️ Vérification d’identité
+Vérifiez vos contacts à l’aide de codes QR ou de numéros de sécurité pour vous protéger contre les attaques de type « man-in-the-middle ».
+
+📱 Fonctionne comme une application SMS classique
+Envoyez et recevez des SMS classiques sans créer de compte, sans vous connecter et sans dépendre d’un service de messagerie centralisé.
+
+🚫 Bloquez les messages indésirables
+Bloquez les expéditeurs indésirables, y compris les expéditeurs inconnus ou alphanumériques, et gardez votre boîte de réception bien rangée.
+
+🔎 Recherchez dans vos conversations
+Retrouvez rapidement des messages dans toutes vos conversations grâce à la recherche globale.
+
+💾 Sauvegardes et restauration
+Créez et restaurez des sauvegardes de messages afin de garder le contrôle de votre historique SMS.
+
+🌍 Confidentialité « local-first »
+Les messages sont traités sur votre appareil. SMSecure ne nécessite aucune inscription, n’affiche pas de publicités et ne collecte pas de données utilisateur.
+
+⚠️ Remarque importante
+Le chiffrement de bout en bout ne fonctionne que lorsque les deux interlocuteurs utilisent un logiciel compatible. Les SMS classiques restent des SMS classiques et sont gérés par le réseau mobile.
+
+🧩 Gratuit et open source
+SMSecure est un logiciel libre et open source sous licence GPLv3. Le code source est disponible pour consultation, audit et contribution.
+Code source : https://github.com/jimvixx/ShortMessageSecure

@@ -1,0 +1,31 @@
+💬 „SMSecure“ ir uz privātumu orientēta SMS sūtīšanas lietotne Android ierīcēm.
+
+„SMSecure“ ir „Silence/TextSecure“ atzars, kas izveidots, lai saglabātu šifrētu SMS funkcionalitāti mūsdienīgās Android ierīcēs. Tā saglabā klasiskās SMS lietotnes pazīstamo izskatu, vienlaikus pievienojot rīkus privātām, verificētām sarunām.
+
+🔐 Šifrētas SMS sarunas
+Izmantojiet no gala līdz galam šifrētas SMS ar saderīgiem kontaktiem. SMSecure izmanto Signal šifrēšanas protokolu drošām sarunām, ja abas puses to atbalsta.
+
+🛡️ Identitātes pārbaude
+Pārbaudiet kontaktus, izmantojot QR kodus vai drošības numurus, lai pasargātos no „man-in-the-middle” uzbrukumiem.
+
+📱 Darbojas kā parasta SMS lietotne
+Sūtiet un saņemiet parastās SMS ziņas, neizveidojot kontu, nepiesakoties un neizmantojot centrālo ziņojumapmaiņas pakalpojumu.
+
+🚫 Nevēlamo ziņu bloķēšana
+Bloķējiet nevēlamus sūtītājus, tostarp nezināmus vai burtciparu SMS sūtītājus, un saglabājiet savu iesūtņu kastīti tīrāku.
+
+🔎 Meklējiet savās sarunās
+Ātri atrodiet ziņojumus visās sarunās, izmantojot vispārējo meklēšanu.
+
+💾 Datu dublējumi un atjaunošana
+Izveidojiet un atjaunojiet ziņojumu dublējumus, lai jūs varētu kontrolēt savu SMS vēsturē.
+
+🌍 Privātums, kas balstās uz vietējo datu apstrādi
+Ziņojumi tiek apstrādāti jūsu ierīcē. „SMSecure“ neprasa reģistrāciju, neizmanto reklāmas un neievāc lietotāju datus.
+
+⚠️ Svarīga piezīme
+No gala līdz galam šifrēšana darbojas tikai tad, ja abas puses izmanto savietojamu programmatūru. Parastās SMS ziņas joprojām ir parastās SMS ziņas, un tās apstrādā mobilo sakaru tīkls.
+
+🧩 Bezmaksas un atvērtā koda programmatūra
+SMSecure ir bezmaksas un atvērtā koda programmatūra, kas licencēta saskaņā ar GPLv3. Avota kods ir pieejams pārskatīšanai, pārbaudei un līdzdalībai.
+Atvērtā koda kods: https://github.com/jimvixx/ShortMessageSecure

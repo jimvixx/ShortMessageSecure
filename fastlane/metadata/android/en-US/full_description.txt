@@ -1,0 +1,31 @@
+💬 SMSecure is a privacy-focused SMS messenger for Android.
+
+SMSecure is a fork of Silence/TextSecure, created to preserve encrypted SMS functionality on modern Android devices. It keeps the familiar feel of a classic SMS app while adding tools for private, verified conversations.
+
+🔐 Encrypted SMS conversations
+Use end-to-end encrypted SMS with compatible contacts. SMSecure uses the Signal encryption protocol for secure conversations when both sides support it.
+
+🛡️ Identity verification
+Verify contacts using QR codes or safety numbers to help protect against man-in-the-middle attacks.
+
+📱 Works as a normal SMS app
+Send and receive regular SMS messages without creating an account, signing in, or depending on a central messaging service.
+
+🚫 Block unwanted messages
+Block unwanted senders, including unknown or alphanumeric SMS senders, and keep your inbox cleaner.
+
+🔎 Search your conversations
+Quickly find messages across all conversations with global search.
+
+💾 Backups and restore
+Create and restore message backups so you can keep your SMS history under your control.
+
+🌍 Local-first privacy
+Messages are processed on your device. SMSecure does not require registration, does not use ads, and does not collect user data.
+
+⚠️ Important note
+End-to-end encryption works only when both sides use compatible software. Regular SMS messages are still regular SMS and are handled by the mobile network.
+
+🧩 Free and Open Source
+SMSecure is Free and Open Source Software licensed under GPLv3. The source code is available for review, auditing, and contribution.
+Open-Source Code: https://github.com/jimvixx/ShortMessageSecure

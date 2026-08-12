@@ -1,0 +1,31 @@
+💬 SMSecure to komunikator SMS dla systemu Android, w którym priorytetem jest prywatność.
+
+SMSecure jest rozwidleniem projektów Silence/TextSecure, stworzonym w celu zachowania funkcji szyfrowanych wiadomości SMS na nowoczesnych urządzeniach z systemem Android. Zachowuje znany wygląd klasycznej aplikacji do wysyłania SMS-ów, dodając jednocześnie narzędzia do prowadzenia prywatnych, zweryfikowanych rozmów.
+
+🔐 Szyfrowane rozmowy SMS
+Korzystaj z SMS-ów szyfrowanych od końca do końca z kompatybilnymi kontaktami. SMSecure wykorzystuje protokół szyfrowania Signal do bezpiecznych rozmów, gdy obie strony go obsługują.
+
+🛡️ Weryfikacja tożsamości
+Weryfikuj kontakty za pomocą kodów QR lub numerów bezpieczeństwa, aby chronić się przed atakami typu „man-in-the-middle”.
+
+📱 Działa jak zwykła aplikacja do SMS-ów
+Wysyłaj i odbieraj zwykłe wiadomości SMS bez konieczności zakładania konta, logowania się ani korzystania z centralnej usługi przesyłania wiadomości.
+
+🚫 Blokuj niechciane wiadomości
+Blokuj niechcianych nadawców, w tym nieznanych lub alfanumerycznych nadawców SMS-ów, i utrzymuj porządek w skrzynce odbiorczej.
+
+🔎 Wyszukiwanie w rozmowach
+Szybko znajdź wiadomości we wszystkich rozmowach dzięki globalnej wyszukiwarce.
+
+💾 Kopie zapasowe i przywracanie
+Twórz i przywracaj kopie zapasowe wiadomości, aby zachować kontrolę nad historią SMS-ów.
+
+🌍 Prywatność oparta na lokalności
+Wiadomości są przetwarzane na Twoim urządzeniu. SMSecure nie wymaga rejestracji, nie wyświetla reklam i nie gromadzi danych użytkowników.
+
+⚠️ Ważna uwaga
+Szyfrowanie typu „end-to-end” działa tylko wtedy, gdy obie strony korzystają z kompatybilnego oprogramowania. Zwykłe wiadomości SMS pozostają zwykłymi wiadomościami SMS i są obsługiwane przez sieć komórkową.
+
+🧩 Bezpłatne i otwarte oprogramowanie
+SMSecure to bezpłatne oprogramowanie typu open source na licencji GPLv3. Kod źródłowy jest dostępny do wglądu, audytu i współtworzenia.
+Kod źródłowy: https://github.com/jimvixx/ShortMessageSecure

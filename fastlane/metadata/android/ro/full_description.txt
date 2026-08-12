@@ -1,0 +1,31 @@
+💬 SMSecure este o aplicație de mesagerie SMS pentru Android axată pe confidențialitate.
+
+SMSecure este o ramificație a aplicației Silence/TextSecure, creată pentru a menține funcționalitatea SMS-urilor criptate pe dispozitivele Android moderne. Păstrează aspectul familiar al unei aplicații clasice de SMS, adăugând în același timp instrumente pentru conversații private și verificate.
+
+🔐 Conversații SMS criptate
+Utilizați SMS-uri criptate end-to-end cu contactele compatibile. SMSecure folosește protocolul de criptare Signal pentru conversații sigure atunci când ambele părți îl acceptă.
+
+🛡️ Verificarea identității
+Verificați contactele folosind coduri QR sau numere de siguranță pentru a vă proteja împotriva atacurilor de tip „man-in-the-middle”.
+
+📱 Funcționează ca o aplicație SMS obișnuită
+Trimiteți și primiți mesaje SMS obișnuite fără a crea un cont, fără a vă autentifica și fără a depinde de un serviciu central de mesagerie.
+
+🚫 Blocați mesajele nedorite
+Blocați expeditorii nedoriti, inclusiv cei necunoscuți sau cei care trimit SMS-uri alfanumerice, și mențineți-vă căsuța de primire mai curată.
+
+🔎 Căutați în conversațiile dvs.
+Găsiți rapid mesaje în toate conversațiile cu ajutorul căutării globale.
+
+💾 Copii de rezervă și restaurare
+Creați și restaurați copii de rezervă ale mesajelor, astfel încât să puteți păstra istoricul SMS-urilor sub controlul dvs.
+
+🌍 Confidențialitate locală
+Mesajele sunt procesate pe dispozitivul tău. SMSecure nu necesită înregistrare, nu afișează reclame și nu colectează date despre utilizatori.
+
+⚠️ Notă importantă
+Criptarea end-to-end funcționează numai atunci când ambele părți utilizează software compatibil. Mesajele SMS obișnuite rămân mesaje SMS obișnuite și sunt gestionate de rețeaua de telefonie mobilă.
+
+🧩 Gratuit și cu sursă deschisă
+SMSecure este un software gratuit și cu sursă deschisă, licențiat sub GPLv3. Codul sursă este disponibil pentru revizuire, audit și contribuții.
+Cod sursă deschis: https://github.com/jimvixx/ShortMessageSecure

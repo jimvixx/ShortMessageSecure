@@ -1,0 +1,1 @@
+Aplicație SMS axată pe confidențialitate, cu conversații criptate

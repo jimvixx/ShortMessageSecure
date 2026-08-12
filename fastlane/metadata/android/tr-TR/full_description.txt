@@ -1,0 +1,31 @@
+💬 SMSecure, Android için gizlilik odaklı bir SMS mesajlaşma uygulamasıdır.
+
+SMSecure, modern Android cihazlarda şifreli SMS işlevselliğini korumak amacıyla oluşturulan Silence/TextSecure'un bir çatalıdır. Klasik bir SMS uygulamasının tanıdık hissini korurken, gizli ve doğrulanmış sohbetler için araçlar ekler.
+
+🔐 Şifreli SMS sohbetleri
+Uyumlu kişilerle uçtan uca şifreli SMS kullanın. SMSecure, her iki taraf da desteklediğinde güvenli sohbetler için Signal şifreleme protokolünü kullanır.
+
+🛡️ Kimlik doğrulama
+Ortadaki adam saldırılarına karşı koruma sağlamak için QR kodları veya güvenlik numaralarını kullanarak kişileri doğrulayın.
+
+📱 Normal bir SMS uygulaması gibi çalışır
+Hesap oluşturmadan, oturum açmadan veya merkezi bir mesajlaşma hizmetine bağlı kalmadan normal SMS mesajları gönderin ve alın.
+
+🚫 İstenmeyen mesajları engelleyin
+Bilinmeyen veya alfasayısal SMS gönderenler dahil olmak üzere istenmeyen gönderenleri engelleyin ve gelen kutunuzu daha temiz tutun.
+
+🔎 Sohbetlerinizi arayın
+Kapsamlı arama özelliği ile tüm sohbetlerinizdeki mesajları hızla bulun.
+
+💾 Yedekleme ve geri yükleme
+SMS geçmişinizi kontrolünüz altında tutabilmek için mesaj yedeklemeleri oluşturun ve geri yükleyin.
+
+🌍 Yerel öncelikli gizlilik
+Mesajlar cihazınızda işlenir. SMSecure kayıt gerektirmez, reklam kullanmaz ve kullanıcı verilerini toplamaz.
+
+⚠️ Önemli not
+Uçtan uca şifreleme, yalnızca her iki taraf da uyumlu yazılım kullandığında çalışır. Normal SMS mesajları hâlâ normal SMS'lerdir ve mobil ağ tarafından işlenir.
+
+🧩 Ücretsiz ve Açık Kaynak
+SMSecure, GPLv3 lisansı altında dağıtılan Ücretsiz ve Açık Kaynak Yazılımdır. Kaynak kodu inceleme, denetim ve katkı amaçlı olarak erişime açıktır.
+Açık Kaynak Kodu: https://github.com/jimvixx/ShortMessageSecure

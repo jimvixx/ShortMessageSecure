@@ -1,0 +1,31 @@
+💬 SMSecure je aplikacija za pošiljanje SMS-sporočil za Android, ki daje poudarek zasebnosti.
+
+SMSecure je razvejanka aplikacij Silence/TextSecure, ustvarjena z namenom ohranitve funkcionalnosti šifriranih SMS-sporočil na sodobnih napravah z operacijskim sistemom Android. Ohranja znani videz klasične aplikacije za SMS-sporočila, hkrati pa dodaja orodja za zasebne, preverjene pogovore.
+
+🔐 Šifrirani pogovori prek SMS-ov
+Uporabljajte SMS-e s šifriranjem od konca do konca z združljivimi stiki. SMSecure uporablja šifrirni protokol Signal za varne pogovore, kadar ga obe strani podpirata.
+
+🛡️ Preverjanje identitete
+Preverite stike z uporabo QR-kod ali varnostnih številk, da se zaščitite pred napadi »man-in-the-middle«.
+
+📱 Deluje kot običajna aplikacija za SMS
+Pošiljajte in prejemajte običajna SMS-sporočila brez ustvarjanja računa, prijave ali odvisnosti od centralne storitve za pošiljanje sporočil.
+
+🚫 Blokirajte neželena sporočila
+Blokirajte neželene pošiljatelje, vključno z neznanimi ali alfanumeričnimi pošiljatelji SMS-sporočil, in poskrbite za čistejši predal za prejeta sporočila.
+
+🔎 Iskanje po pogovorih
+S pomočjo globalnega iskanja hitro poiščite sporočila v vseh pogovorih.
+
+💾 Varnostne kopije in obnovitev
+Ustvarjajte in obnovite varnostne kopije sporočil, da boste imeli zgodovino SMS-sporočil pod nadzorom.
+
+🌍 Zasebnost z lokalnim prednostnim obravnavanjem
+Sporočila se obdelujejo na vaši napravi. SMSecure ne zahteva registracije, ne uporablja oglasov in ne zbira podatkov o uporabnikih.
+
+⚠️ Pomembno opozorilo
+Šifriranje od konca do konca deluje le, če obe strani uporabljata združljivo programsko opremo. Običajna SMS-sporočila ostajajo običajna SMS-sporočila in jih obdeluje mobilno omrežje.
+
+🧩 Brezplačna in odprtokodna programska oprema
+SMSecure je brezplačna in odprtokodna programska oprema, licencirana pod licenco GPLv3. Izvorna koda je na voljo za pregled, revizijo in prispevanje.
+Odprtokodna koda: https://github.com/jimvixx/ShortMessageSecure

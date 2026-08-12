@@ -1,0 +1,31 @@
+💬 SMSecure es una aplicación de mensajería SMS para Android centrada en la privacidad.
+
+SMSecure es una bifurcación de Silence/TextSecure, creada para mantener la funcionalidad de los SMS cifrados en los dispositivos Android modernos. Conserva la sensación familiar de una aplicación de SMS clásica, al tiempo que añade herramientas para mantener conversaciones privadas y verificadas.
+
+🔐 Conversaciones SMS cifradas
+Utiliza SMS con cifrado de extremo a extremo con contactos compatibles. SMSecure utiliza el protocolo de cifrado de Signal para garantizar la seguridad de las conversaciones cuando ambas partes lo admiten.
+
+🛡️ Verificación de identidad
+Verifica a tus contactos mediante códigos QR o números de seguridad para protegerte contra ataques de «hombre en el medio».
+
+📱 Funciona como una aplicación de SMS normal
+Envía y recibe mensajes SMS normales sin necesidad de crear una cuenta, iniciar sesión ni depender de un servicio central de mensajería.
+
+🚫 Bloquea mensajes no deseados
+Bloquea a los remitentes no deseados, incluidos los desconocidos o los que envían SMS alfanuméricos, y mantén tu bandeja de entrada más limpia.
+
+🔎 Busca en tus conversaciones
+Encuentra rápidamente mensajes en todas tus conversaciones con la búsqueda global.
+
+💾 Copias de seguridad y restauración
+Crea y restaura copias de seguridad de los mensajes para que puedas mantener tu historial de SMS bajo tu control.
+
+🌍 Privacidad «local primero»
+Los mensajes se procesan en tu dispositivo. SMSecure no requiere registro, no utiliza anuncios y no recopila datos de los usuarios.
+
+⚠️ Nota importante
+El cifrado de extremo a extremo solo funciona cuando ambas partes utilizan software compatible. Los mensajes SMS normales siguen siendo SMS normales y son gestionados por la red móvil.
+
+🧩 Gratuito y de código abierto
+SMSecure es un software gratuito y de código abierto con licencia GPLv3. El código fuente está disponible para su revisión, auditoría y contribución.
+Código abierto: https://github.com/jimvixx/ShortMessageSecure

@@ -1,0 +1,1 @@
+Aplikacija za SMS, usmerjena v zasebnost, s šifriranimi pogovori

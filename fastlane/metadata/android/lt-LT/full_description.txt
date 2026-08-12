@@ -1,0 +1,31 @@
+💬 „SMSecure“ – tai privatumui skirtas SMS žinučių siuntimo įrankis, skirtas „Android“ sistemai.
+
+„SMSecure“ yra „Silence“/„TextSecure“ atšaka, sukurta siekiant išsaugoti šifruotų SMS funkcionalumą šiuolaikiniuose „Android“ įrenginiuose. Ji išlaiko įprastą klasikinės SMS programėlės pojūtį, tuo pačiu pridedant įrankius, skirtus privačioms, patvirtintoms pokalbiams.
+
+🔐 Šifruoti SMS pokalbiai
+Naudokite „end-to-end“ šifruotas SMS žinutes su suderinamais kontaktais. „SMSecure“ naudoja „Signal“ šifravimo protokolą saugiems pokalbiams, kai abi pusės jį palaiko.
+
+🛡️ Tapatybės patvirtinimas
+Patvirtinkite kontaktus naudodami QR kodus arba saugumo numerius, kad apsisaugotumėte nuo „man-in-the-middle“ tipo atakų.
+
+📱 Veikia kaip įprasta SMS programa
+Siųskite ir gaukite įprastas SMS žinutes be paskyros kūrimo, prisijungimo ar priklausomybės nuo centrinės žinučių paslaugos.
+
+🚫 Blokuokite nepageidaujamas žinutes
+Blokuokite nepageidaujamus siuntėjus, įskaitant nežinomus arba raidiniai-skaitmeninius SMS siuntėjus, ir išlaikykite savo pašto dėžutę tvarkingesnę.
+
+🔎 Paieška pokalbiuose
+Greitai raskite žinutes visuose pokalbiuose naudodami visuotinę paiešką.
+
+💾 Atsarginės kopijos ir atkūrimas
+Sukurkite ir atkurkite žinučių atsargines kopijas, kad galėtumėte kontroliuoti savo SMS istoriją.
+
+🌍 Privatumas, orientuotas į vietinį lygmenį
+Žinutės apdorojamos jūsų įrenginyje. „SMSecure“ nereikalauja registracijos, nenaudoja reklamų ir nerenka vartotojų duomenų.
+
+⚠️ Svarbi pastaba
+„End-to-end“ šifravimas veikia tik tada, kai abi pusės naudoja suderinamą programinę įrangą. Įprastos SMS žinutės tebėra įprastos SMS ir jas tvarko mobiliojo ryšio tinklas.
+
+🧩 Nemokama ir atviro kodo programinė įranga
+„SMSecure“ yra nemokama ir atviro kodo programinė įranga, licencijuota pagal GPLv3. Šaltinio kodą galima peržiūrėti, tikrinti ir prisidėti prie jo kūrimo.
+Atviro kodo kodas: https://github.com/jimvixx/ShortMessageSecure

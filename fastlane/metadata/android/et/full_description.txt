@@ -1,0 +1,31 @@
+💬 SMSecure on privaatsusele keskenduv SMS-rakendus Androidile.
+
+SMSecure on Silence/TextSecure'i haru, mis loodi krüpteeritud SMS-funktsionaalsuse säilitamiseks kaasaegsetel Android-seadmetel. See säilitab klassikalise SMS-rakenduse tuttava kasutuskogemuse, lisades samal ajal vahendeid privaatsete ja kinnitatud vestluste jaoks.
+
+🔐 Krüpteeritud SMS-vestlused
+Kasuta otsast-otse krüpteeritud SMS-i ühilduvate kontaktidega. SMSecure kasutab turvaliste vestluste jaoks Signal-krüpteerimisprotokolli, kui mõlemad pooled seda toetavad.
+
+🛡️ Identiteedi kinnitamine
+Kinnita kontaktid QR-koodide või turvanumbrite abil, et kaitsta end vahepealse ründaja (man-in-the-middle) rünnakute eest.
+
+📱 Töötab nagu tavaline SMS-rakendus
+Saada ja vastu võta tavalisi SMS-sõnumeid ilma kontot loomata, sisse logimata või kesksest sõnumiteenusest sõltumata.
+
+🚫 Blokeeri soovimatud sõnumid
+Blokeeri soovimatud saatjad, sealhulgas tundmatud või tähtnumbrilised SMS-saatjad, ning hoia oma postkast puhtamana.
+
+🔎 Vestluste otsimine
+Leia kiiresti sõnumeid kõigist vestlustest globaalse otsingu abil.
+
+💾 Varundamine ja taastamine
+Loo ja taasta sõnumite varukoopiaid, et saaksid oma SMS-ajalugu enda kontrolli all hoida.
+
+🌍 Kohalik privaatsus
+Sõnumeid töödeldakse sinu seadmes. SMSecure ei nõua registreerimist, ei kasuta reklaame ega kogu kasutajaandmeid.
+
+⚠️ Oluline märkus
+Lõpp-lõpuni krüpteerimine toimib ainult siis, kui mõlemad pooled kasutavad ühilduvat tarkvara. Tavalised SMS-sõnumid on endiselt tavalised SMS-id ja neid haldab mobiilsidevõrk.
+
+🧩 Tasuta ja avatud lähtekoodiga
+SMSecure on tasuta ja avatud lähtekoodiga tarkvara, mis on litsentseeritud GPLv3 alusel. Lähtekood on kättesaadav läbivaatamiseks, auditeerimiseks ja kaasaaitamiseks.
+Avatud lähtekood: https://github.com/jimvixx/ShortMessageSecure

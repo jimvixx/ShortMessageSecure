@@ -1,0 +1,1 @@
+Aplikacja do wysyłania SMS-ów z naciskiem na prywatność, oferująca szyfrowane rozmowy

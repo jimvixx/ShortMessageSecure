@@ -1,0 +1,31 @@
+💬 Az SMSecure egy adatvédelemre fókuszáló SMS-üzenetküldő alkalmazás Androidra.
+
+Az SMSecure a Silence/TextSecure egy forkja, amelyet azért hoztak létre, hogy megőrizze a titkosított SMS-funkciókat a modern Android-eszközökön. Megtartja a klasszikus SMS-alkalmazások ismerős kezelhetőségét, miközben eszközöket biztosít a magánjellegű, hitelesített beszélgetésekhez.
+
+🔐 Titkosított SMS-beszélgetések
+Használj végpontok közötti titkosítású SMS-t a kompatibilis névjegyekkel. Az SMSecure a Signal titkosítási protokollt használja a biztonságos beszélgetésekhez, ha mindkét fél támogatja azt.
+
+🛡️ Személyazonosság-ellenőrzés
+Ellenőrizd a névjegyeket QR-kódok vagy biztonsági számok segítségével, hogy megvédd magad a „man-in-the-middle” támadásoktól.
+
+📱 Úgy működik, mint egy hagyományos SMS-alkalmazás
+Küldj és fogadj hagyományos SMS-üzeneteket fiók létrehozása, bejelentkezés vagy központi üzenetküldő szolgáltatás igénybevétele nélkül.
+
+🚫 Blokkolj nem kívánt üzeneteket
+Blokkolj nem kívánt feladókat, beleértve az ismeretlen vagy alfanumerikus SMS-feladókat is, és tartsd rendben a beérkező üzeneteidet.
+
+🔎 Beszélgetések keresése
+A globális kereső segítségével gyorsan megtalálhatja az üzeneteket az összes beszélgetés között.
+
+💾 Biztonsági mentések és visszaállítás
+Készítsen és állítson vissza üzenetmentéseket, hogy az SMS-előzményeit saját kezében tarthassa.
+
+🌍 Helyi adatkezelés
+Az üzenetek feldolgozása a készülékén történik. Az SMSecure nem igényel regisztrációt, nem használ hirdetéseket, és nem gyűjt felhasználói adatokat.
+
+⚠️ Fontos megjegyzés
+A végpontok közötti titkosítás csak akkor működik, ha mindkét fél kompatibilis szoftvert használ. A hagyományos SMS-üzenetek továbbra is hagyományos SMS-ek maradnak, és kezelésüket a mobilhálózat végzi.
+
+🧩 Ingyenes és nyílt forráskódú
+Az SMSecure egy ingyenes, nyílt forráskódú szoftver, amely a GPLv3 licenc alapján működik. A forráskód megtekintésre, ellenőrzésre és közreműködésre rendelkezésre áll.
+Nyílt forráskód: https://github.com/jimvixx/ShortMessageSecure

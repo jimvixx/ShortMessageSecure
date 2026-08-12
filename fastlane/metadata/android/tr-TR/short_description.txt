@@ -1,0 +1,1 @@
+Şifrelenmiş sohbetler sunan, gizlilik odaklı bir SMS uygulaması

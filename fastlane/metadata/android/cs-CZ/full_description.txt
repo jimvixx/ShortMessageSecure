@@ -1,0 +1,31 @@
+💬 SMSecure je aplikace pro odesílání SMS pro Android zaměřená na ochranu soukromí.
+
+SMSecure je odnož aplikací Silence/TextSecure, vytvořená za účelem zachování funkčnosti šifrovaných SMS na moderních zařízeních s Androidem. Zachovává známé prostředí klasické aplikace pro SMS a zároveň přidává nástroje pro soukromé a ověřené konverzace.
+
+🔐 Šifrované SMS konverzace
+Používejte SMS s end-to-end šifrováním s kompatibilními kontakty. SMSecure využívá šifrovací protokol Signal pro bezpečné konverzace, pokud jej podporují obě strany.
+
+🛡️ Ověření identity
+Ověřujte kontakty pomocí QR kódů nebo bezpečnostních čísel, abyste se chránili před útoky typu „man-in-the-middle“.
+
+📱 Funguje jako běžná aplikace pro SMS
+Odesílejte a přijímejte běžné SMS zprávy bez nutnosti vytváření účtu, přihlašování nebo závislosti na centrální službě pro zasílání zpráv.
+
+🚫 Blokujte nežádoucí zprávy
+Blokujte nežádoucí odesílatele, včetně neznámých nebo alfanumerických odesílatelů SMS, a udržujte svou doručenou poštu přehlednější.
+
+🔎 Prohledávejte své konverzace
+Rychle vyhledávejte zprávy ve všech konverzacích pomocí globálního vyhledávání.
+
+💾 Zálohování a obnovení
+Vytvářejte a obnovujte zálohy zpráv, abyste měli historii SMS pod kontrolou.
+
+🌍 Ochrana soukromí s prioritou lokálního zpracování
+Zprávy jsou zpracovávány na vašem zařízení. SMSecure nevyžaduje registraci, nepoužívá reklamy a neshromažďuje uživatelská data.
+
+⚠️ Důležitá poznámka
+Šifrování typu end-to-end funguje pouze tehdy, když obě strany používají kompatibilní software. Běžné SMS zprávy zůstávají běžnými SMS a jsou zpracovávány mobilní sítí.
+
+🧩 Bezplatný a otevřený zdrojový kód
+SMSecure je bezplatný software s otevřeným zdrojovým kódem licencovaný pod licencí GPLv3. Zdrojový kód je k dispozici k nahlédnutí, auditu a přispívání.
+Otevřený zdrojový kód: https://github.com/jimvixx/ShortMessageSecure
