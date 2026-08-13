@@ -356,7 +356,11 @@ public class MessageNotifier {
 
     while (iterator.hasPrevious()) {
       NotificationItem item = iterator.previous();
-      builder.addMessageBody(item.getRecipients(), item.getIndividualRecipient(), item.getText());
+      builder.addMessageBody(
+              item.getRecipients(),
+              item.getIndividualRecipient(),
+              item.getText(),
+              item.getTimestamp());
     }
 
     if (notificationsRequested(flags)) {

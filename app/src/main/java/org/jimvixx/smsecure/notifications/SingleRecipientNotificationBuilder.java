@@ -51,6 +51,8 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
   private final List<CharSequence> messageBodies = new LinkedList<>();
   private CharSequence contentTitle;
   private CharSequence contentText;
+  @Nullable
+  private NotificationCompat.MessagingStyle messagingStyle;
 
   public SingleRecipientNotificationBuilder(@NonNull Context context,
                                             @NonNull NotificationPrivacyPreference privacy) {
@@ -132,24 +134,23 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
     }
 
     Person user = new Person.Builder()
-            .setName(contentTitle.toString())
+            .setName(context.getString(R.string.app_name))
             .build();
 
-    NotificationCompat.MessagingStyle style =
-            new NotificationCompat.MessagingStyle(user)
-                    .addMessage(contentText.toString(), timestamp, user);
-
-    setStyle(style);
+    messagingStyle = new NotificationCompat.MessagingStyle(user);
   }
 
   public void addActions(@Nullable MasterSecret masterSecret,
                          @NonNull PendingIntent markReadIntent,
                          @NonNull PendingIntent wearableReplyIntent) {
-    Action markAsReadAction = new Action(
+    Action markAsReadAction = new Action.Builder(
             R.drawable.ic_check,
             context.getString(R.string.MessageNotifier_mark_read),
             markReadIntent
-    );
+    )
+            .setSemanticAction(Action.SEMANTIC_ACTION_MARK_AS_READ)
+            .setShowsUserInterface(false)
+            .build();
 
     if (masterSecret != null) {
       Action replyAction = new Action.Builder(
@@ -160,6 +161,8 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
               .addRemoteInput(new RemoteInput.Builder(MessageNotifier.EXTRA_REMOTE_REPLY)
                       .setLabel(context.getString(R.string.MessageNotifier_reply))
                       .build())
+              .setSemanticAction(Action.SEMANTIC_ACTION_REPLY)
+              .setShowsUserInterface(false)
               .build();
 
       Action wearableReplyAction = new Action.Builder(
@@ -170,6 +173,8 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
               .addRemoteInput(new RemoteInput.Builder(MessageNotifier.EXTRA_REMOTE_REPLY)
                       .setLabel(context.getString(R.string.MessageNotifier_reply))
                       .build())
+              .setSemanticAction(Action.SEMANTIC_ACTION_REPLY)
+              .setShowsUserInterface(false)
               .build();
 
       addAction(markAsReadAction);
@@ -186,7 +191,8 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
 
   public void addMessageBody(@NonNull Recipients threadRecipients,
                              @NonNull Recipient individualRecipient,
-                             @Nullable CharSequence messageBody) {
+                             @Nullable CharSequence messageBody,
+                             long timestamp) {
     SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
 
     if (privacy.isDisplayContact() &&
@@ -194,25 +200,51 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
       stringBuilder.append(Util.getBoldedString(individualRecipient.toShortString() + ": "));
     }
 
+    CharSequence displayMessage;
+
     if (privacy.isDisplayMessage()) {
-      messageBodies.add(stringBuilder.append(messageBody == null ? "" : messageBody));
+      displayMessage = messageBody == null ? "" : messageBody;
+      messageBodies.add(stringBuilder.append(displayMessage));
     } else {
-      messageBodies.add(stringBuilder.append(
-              context.getString(R.string.SingleRecipientNotificationBuilder_new_message)
-      ));
+      displayMessage =
+              context.getString(R.string.SingleRecipientNotificationBuilder_new_message);
+      messageBodies.add(stringBuilder.append(displayMessage));
+    }
+
+    if (messagingStyle != null) {
+      Person.Builder senderBuilder = new Person.Builder();
+
+      if (privacy.isDisplayContact()) {
+        senderBuilder.setName(individualRecipient.toShortString());
+
+        if (individualRecipient.getContactUri() != null) {
+          senderBuilder.setUri(individualRecipient.getContactUri().toString());
+        }
+      } else {
+        senderBuilder.setName(
+                context.getString(R.string.SingleRecipientNotificationBuilder_smsecure)
+        );
+      }
+
+      messagingStyle.addMessage(
+              displayMessage,
+              timestamp,
+              senderBuilder.build()
+      );
     }
   }
 
   @Override
   @NonNull
   public Notification build() {
-    if (privacy.isDisplayMessage()) {
+    if (messagingStyle != null) {
+      setStyle(messagingStyle);
+    } else if (privacy.isDisplayMessage()) {
       setStyle(new NotificationCompat.BigTextStyle().bigText(getBigText(messageBodies)));
     }
 
     return super.build();
   }
-
   private void setLargeIcon(@Nullable Drawable drawable) {
     if (drawable != null) {
       int largeIconTargetSize =
