@@ -28,3 +28,6 @@ local.properties
 out
 project.properties
 signing.properties
+
+# Generated GitHub Pages site
+_site/
