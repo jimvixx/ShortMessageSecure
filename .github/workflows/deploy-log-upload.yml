@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: jimvixx/cloudflare-r2-log-upload
-          ref: v0.3.0
+          ref: v0.4.0
           path: cloudflare-r2-log-upload
 
       - name: Setup Node.js
@@ -49,6 +49,24 @@ jobs:
               {
                 "binding": "LOGS_BUCKET",
                 "bucket_name": "${{ vars.CF_R2_BUCKET_NAME }}"
+              }
+            ],
+            "ratelimits": [
+              {
+                "name": "UPLOAD_IP_RATE_LIMITER",
+                "namespace_id": "${{ vars.CF_RATE_NAMESPACE_IP }}",
+                "simple": {
+                  "limit": ${{ vars.CF_RATE_LIMIT_IP }},
+                  "period": ${{ vars.CF_RATE_LIMIT_PERIOD }}
+                }
+              },
+              {
+                "name": "UPLOAD_GLOBAL_RATE_LIMITER",
+                "namespace_id": "${{ vars.CF_RATE_NAMESPACE_GLOBAL }}",
+                "simple": {
+                  "limit": ${{ vars.CF_RATE_LIMIT_GLOBAL }},
+                  "period": ${{ vars.CF_RATE_LIMIT_PERIOD }}
+                }
               }
             ],
             "vars": {
