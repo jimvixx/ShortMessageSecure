@@ -47,7 +47,11 @@ SMSecure requests only the permissions required for its core functionality:
 
 ## Diagnostic logs
 
-If a user explicitly chooses to submit a diagnostic log for troubleshooting, the log is sanitized before upload to remove known personal identifiers. Submitted logs are encrypted during transmission, used solely for diagnosing application issues, are not shared with third parties, and are automatically deleted within 14 days.
+SMSecure does not automatically collect or transmit diagnostic logs.
+
+If a user explicitly chooses to submit a diagnostic log for troubleshooting, the log is sanitized before upload to remove known personal identifiers. Submitted logs are encrypted during transmission, used solely for diagnosing and resolving application issues, are not shared with third parties, and are automatically deleted within 14 days.
+
+Submitting diagnostic logs is optional. SMSecure can be used normally without submitting any diagnostic information.
 
 ---
 
