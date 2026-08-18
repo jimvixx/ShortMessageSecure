@@ -40,7 +40,6 @@ public class PublicKey {
   public PublicKey(PublicKey publicKey) {
     this.id = publicKey.id;
 
-    // FIXME :: This not strictly an accurate copy constructor.
     this.publicKey = publicKey.publicKey;
   }
 

@@ -140,7 +140,7 @@ public class SmsDecryptJob extends MasterSecretJob {
 
   @Override
   public void onCanceled() {
-    // TODO
+
   }
 
   private void handleSecureMessage(MasterSecret masterSecret, long messageId, long threadId,
