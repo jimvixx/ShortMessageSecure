@@ -12,7 +12,7 @@
 [![Java](https://img.shields.io/badge/Java-17-orange.svg?logo=openjdk)](#)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple.svg?logo=kotlin)](#)
 
-[//]: # ([![F-Droid]&#40;https://img.shields.io/badge/F--Droid-coming%20soon-informational?logo=f-droid&#41;]&#40;#&#41;)
+[![F-Droid](https://img.shields.io/f-droid/v/org.jimvixx.smsecure?logo=f-droid&label=F-Droid)](https://f-droid.org/packages/org.jimvixx.smsecure/)
 
 [//]: # ([![IzzyOnDroid]&#40;https://img.shields.io/badge/IzzyOnDroid-available-blueviolet&#41;]&#40;https://android.izzysoft.de/&#41;)
 
@@ -21,6 +21,14 @@
 <p align="center"><img src="graphics/icon.webp" width="120"/></p>
 
 SMSecure is a privacy-focused SMS application that lets you communicate securely with your contacts using encrypted text messages.
+
+<p>
+  <a href="https://f-droid.org/packages/org.jimvixx.smsecure/">
+    <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+         alt="Get it on F-Droid"
+         height="80">
+  </a>
+</p>
 
 ---
 
@@ -115,19 +123,37 @@ Anyone can audit the code to verify its security and privacy guarantees.
 
 ## 📦 Installation & Google Play Protect
 
-SMSecure is distributed outside of Google Play.
+SMSecure is distributed through **F-Droid** and **GitHub Releases**.
 
-Because of this, **Google Play Protect may show a warning, request additional scanning, or in some cases block installation**. This can happen even if the application is safe, simply because it was not installed from Google Play.
+### Recommended installation
+
+For most users, the recommended way to install SMSecure is through F-Droid:
+
+- https://f-droid.org/packages/org.jimvixx.smsecure/
+
+Official APK releases are also available on GitHub:
+
+- https://github.com/jimvixx/ShortMessageSecure/releases
+
+The APK distributed by F-Droid is reproducibly built and signed with the same official developer signing key as the GitHub release.
+
+Because SMSecure is not distributed through Google Play, **Google Play Protect may show a warning, request additional scanning, or in some cases block installation**. This can happen even if the application is safe, simply because it was not installed from Google Play.
 
 ### What to do
 
-- Make sure you downloaded the APK from the official source:
-    - https://github.com/jimvixx/ShortMessageSecure/releases
+- Make sure you downloaded SMSecure from one of the official sources listed above
 - Review the Play Protect warning carefully
 - If installation is blocked, you may need to:
     - temporarily disable **"Scan apps with Play Protect"**
     - install the app
     - re-enable Play Protect afterwards
+- On some Android 13+ devices, especially after installing an APK outside an app store, Android may restrict access to sensitive settings. If SMSecure cannot be selected as the default SMS app or a required setting is blocked:
+    1. Open **Settings → Apps → SMSecure**
+    2. Tap the **three-dot menu (⋮)** in the top-right corner
+    3. Select **Allow restricted settings**
+    4. Return to SMSecure and try setting it as the default SMS app again
+
+  This option is not shown on every device or for every installation method. If **Allow restricted settings** is not present, no action is required.
 
 ### Why this happens
 
