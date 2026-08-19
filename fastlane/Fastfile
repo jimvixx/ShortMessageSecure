@@ -110,7 +110,9 @@ def sign_apk!(unsigned_apk_path)
   signed_apk_path
 end
 
-def verify_apk_contents!(apk_path)
+def verify_apk_contents!(apk_path, expected_version_name:, expected_version_code:)
+  UI.user_error!("APK not found: #{apk_path}") unless File.file?(apk_path)
+
   build_tools_dir = find_latest_build_tools_dir!
   apksigner = File.join(build_tools_dir, "apksigner")
   aapt = File.join(build_tools_dir, "aapt")
@@ -118,22 +120,70 @@ def verify_apk_contents!(apk_path)
   UI.user_error!("apksigner not found at #{apksigner}") unless File.exist?(apksigner)
   UI.user_error!("aapt not found at #{aapt}") unless File.exist?(aapt)
 
-  sh("unzip -l #{apk_path.shellescape} | grep 'assets/adi-registration.properties'")
+  sh(
+    "unzip -Z1 #{apk_path.shellescape} | " \
+    "grep -Fx 'assets/adi-registration.properties'"
+  )
 
-  package_output = sh("#{aapt.shellescape} dump badging #{apk_path.shellescape} | grep '^package:'", log: true)
-  unless package_output.include?("name='#{EXPECTED_PACKAGE_NAME}'")
-    UI.user_error!("APK package name mismatch. Expected #{EXPECTED_PACKAGE_NAME}. Got: #{package_output}")
+  badging_output = sh(
+    "#{aapt.shellescape} dump badging #{apk_path.shellescape}",
+    log: true
+  )
+
+  package_line = badging_output.lines.find { |line| line.start_with?("package:") }
+  UI.user_error!("Unable to read APK package metadata") if package_line.to_s.empty?
+
+  actual_package_name = package_line[/\bname='([^']+)'/, 1]
+  actual_version_code = package_line[/\bversionCode='([^']+)'/, 1]
+  actual_version_name = package_line[/\bversionName='([^']+)'/, 1]
+
+  if actual_package_name != EXPECTED_PACKAGE_NAME
+    UI.user_error!(
+      "APK package name mismatch. " \
+      "Expected #{EXPECTED_PACKAGE_NAME}, got #{actual_package_name || 'unknown'}"
+    )
   end
 
-  cert_output = sh("#{apksigner.shellescape} verify --print-certs #{apk_path.shellescape}", log: true)
-  cert_output_compact = cert_output.downcase.gsub(/[^0-9a-f]/, "")
+  if actual_version_name != expected_version_name.to_s
+    UI.user_error!(
+      "APK versionName mismatch. " \
+      "Expected #{expected_version_name}, got #{actual_version_name || 'unknown'}"
+    )
+  end
 
-  unless cert_output_compact.include?(EXPECTED_SIGNING_CERT_SHA256_COMPACT)
-    UI.user_error!("APK signing certificate mismatch. Expected SHA-256 #{EXPECTED_SIGNING_CERT_SHA256}")
+  if actual_version_code != expected_version_code.to_s
+    UI.user_error!(
+      "APK versionCode mismatch. " \
+      "Expected #{expected_version_code}, got #{actual_version_code || 'unknown'}"
+    )
+  end
+
+  cert_output = sh(
+    "#{apksigner.shellescape} verify --print-certs #{apk_path.shellescape}",
+    log: true
+  )
+
+  actual_cert_sha256 = cert_output[
+    /certificate SHA-256 digest:\s*([0-9a-f:]+)/i,
+    1
+  ]
+
+  UI.user_error!("Unable to determine APK signing certificate SHA-256") if actual_cert_sha256.to_s.empty?
+
+  actual_cert_sha256_compact = actual_cert_sha256.delete(":").downcase
+
+  unless actual_cert_sha256_compact == EXPECTED_SIGNING_CERT_SHA256_COMPACT
+    UI.user_error!(
+      "APK signing certificate mismatch. " \
+      "Expected SHA-256 #{EXPECTED_SIGNING_CERT_SHA256}, " \
+      "got #{actual_cert_sha256}"
+    )
   end
 
   UI.success("APK contains Android Developer Verification file")
   UI.success("APK package name verified: #{EXPECTED_PACKAGE_NAME}")
+  UI.success("APK versionName verified: #{actual_version_name}")
+  UI.success("APK versionCode verified: #{actual_version_code}")
   UI.success("APK signing certificate verified: #{EXPECTED_SIGNING_CERT_SHA256}")
 end
 
@@ -211,6 +261,62 @@ def build_release_notes(tag_name, checksums_path)
   NOTES
 end
 
+def validate_release_metadata!(tag_name)
+  build_gradle = File.join(PROJECT_ROOT, "app/build.gradle.kts")
+  contents = File.read(build_gradle)
+
+  version_name_match = contents.match(/versionName\s*=\s*"([^"]+)"/)
+  version_code_match = contents.match(/versionCode\s*=\s*(\d+)/)
+
+  UI.user_error!("Unable to determine versionName") unless version_name_match
+  UI.user_error!("Unable to determine versionCode") unless version_code_match
+
+  version_name = version_name_match[1]
+  version_code = version_code_match[1]
+
+  unless tag_name.match?(/\Av\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?\z/)
+    UI.user_error!("Invalid release tag format: #{tag_name}")
+  end
+
+  expected_tag = "v#{version_name}"
+
+  if tag_name != expected_tag
+    UI.user_error!(
+      "Release tag does not match versionName: " \
+      "tag=#{tag_name}, versionName=#{version_name}"
+    )
+  end
+
+  changelog_path = File.join(
+    PROJECT_ROOT,
+    "fastlane/metadata/android/en-US/changelogs",
+    "#{version_code}.txt"
+  )
+
+  unless File.file?(changelog_path)
+    UI.user_error!(
+      "Missing changelog for versionCode #{version_code}: #{changelog_path}"
+    )
+  end
+
+  if File.read(changelog_path).strip.empty?
+    UI.user_error!(
+      "Changelog for versionCode #{version_code} is empty: #{changelog_path}"
+    )
+  end
+
+  UI.success(
+    "Release metadata validated: " \
+    "#{tag_name}, versionName=#{version_name}, versionCode=#{version_code}"
+  )
+
+  {
+    version_name: version_name,
+    version_code: version_code,
+    changelog_path: changelog_path
+  }
+end
+
 platform :android do
   desc "CI verification: build debug APK, run unit tests and lint"
   lane :ci do
@@ -221,10 +327,19 @@ platform :android do
 
   desc "Build signed release APK, generate SHA256SUMS.txt and publish a GitHub release"
   lane :release do
-    UI.message("STORE_PASSWORD set? #{!ENV['SIGNING_STORE_PASSWORD'].to_s.empty?}")
-    UI.message("KEY_ALIAS: #{ENV['SIGNING_KEY_ALIAS']}")
-    UI.message("KEY_PASSWORD set? #{!ENV['SIGNING_KEY_PASSWORD'].to_s.empty?}")
-    UI.message("KEYSTORE base64 size: #{ENV['ANDROID_KEYSTORE_BASE64']&.length}")
+    sh("git fetch --tags --force")
+
+    tag_name = detect_release_tag!
+    release_metadata = validate_release_metadata!(tag_name)
+
+    UI.message(
+      "Preparing release #{tag_name}: " \
+      "versionName=#{release_metadata[:version_name]}, " \
+      "versionCode=#{release_metadata[:version_code]}"
+    )
+
+    gradle(task: "testDebugUnitTest")
+    gradle(task: "lintDebug")
 
     ensure_adi_registration_file!
     decode_keystore!
@@ -234,11 +349,12 @@ platform :android do
 
     unsigned_apk_path = find_unsigned_apk!
     signed_apk_path = sign_apk!(unsigned_apk_path)
-    verify_apk_contents!(signed_apk_path)
+    verify_apk_contents!(
+      signed_apk_path,
+      expected_version_name: release_metadata[:version_name],
+      expected_version_code: release_metadata[:version_code]
+    )
 
-    sh("git fetch --tags --force")
-
-    tag_name = detect_release_tag!
     signed_apk_path = normalize_apk_name!(signed_apk_path, tag_name)
     checksums_path = write_sha256_sums!(signed_apk_path)
 
@@ -264,6 +380,12 @@ platform :android do
       is_draft: ENV["FASTLANE_DRAFT_RELEASE"] == "true",
       is_prerelease: ENV["FASTLANE_PRERELEASE"] == "true",
       upload_assets: [signed_apk_path, checksums_path]
+    )
+
+    UI.success(
+      "Release #{tag_name} published successfully: " \
+      "versionName=#{release_metadata[:version_name]}, " \
+      "versionCode=#{release_metadata[:version_code]}"
     )
   end
 end
