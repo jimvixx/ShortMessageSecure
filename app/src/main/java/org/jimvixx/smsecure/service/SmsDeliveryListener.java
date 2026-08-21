@@ -22,6 +22,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.jobs.SmsSentJob;
@@ -65,6 +66,20 @@ public class SmsDeliveryListener extends BroadcastReceiver {
 
     switch (action) {
       case SENT_SMS_ACTION:
+        String sendAttemptId = intent.getStringExtra("send_attempt_id");
+        int partIndex = intent.getIntExtra("part_index", 0);
+        int partsTotal = intent.getIntExtra("parts_total", 1);
+        boolean connectivityFailure = resultCode == SmsManager.RESULT_ERROR_NO_SERVICE ||
+                                      resultCode == SmsManager.RESULT_ERROR_RADIO_OFF;
+
+        if (sendAttemptId != null &&
+            !SmsSendAttemptTracker.shouldProcessCallback(context, messageId, sendAttemptId,
+                                                         partIndex, partsTotal, connectivityFailure)) {
+          Log.w(TAG, "Ignoring duplicate or stale sent callback for message=" + messageId +
+                  " attempt=" + sendAttemptId + " part=" + partIndex);
+          break;
+        }
+
         jobManager.add(new SmsSentJob(context, messageId, SENT_SMS_ACTION, resultCode));
         break;
 

@@ -59,19 +59,8 @@ public class MessageSender {
 
   public static void resend(Context context, MasterSecret masterSecret, MessageRecord messageRecord) {
     long messageId = messageRecord.getId();
-    boolean isSecure = messageRecord.isSecure();
     long threadId = messageRecord.getThreadId();
-    String body = messageRecord.getBody().getBody();
-    int subscriptionId = messageRecord.getSubscriptionId();
-
-    Recipients recipients = messageRecord.getRecipients();
-    OutgoingTextMessage newMessage;
-
-    if (isSecure) {
-      newMessage = new OutgoingEncryptedMessage(recipients, body, subscriptionId);
-    } else {
-      newMessage = new OutgoingTextMessage(recipients, body, subscriptionId);
-    }
+    OutgoingTextMessage newMessage = OutgoingTextMessage.from(messageRecord);
 
     send(context, masterSecret, newMessage, threadId, true);
     DatabaseFactory.getSmsDatabase(context).deleteMessage(messageId);

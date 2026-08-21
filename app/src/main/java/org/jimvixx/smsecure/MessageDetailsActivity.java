@@ -290,16 +290,14 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity
     itemParent.addView(conversationItem);
   }
 
-  @NonNull
+  @Nullable
   private MessageRecord getMessageRecord(@NonNull Context context,
                                          @NonNull Cursor cursor,
                                          @NonNull String type) {
     if (type.equals(MessageDatabase.SMS_TRANSPORT)) {
       EncryptingSmsDatabase smsDatabase = DatabaseFactory.getEncryptingSmsDatabase(context);
       SmsDatabase.Reader reader = smsDatabase.readerFor(masterSecret, cursor);
-      MessageRecord r = reader.getNext();
-      if (r == null) throw new IllegalStateException("SMS reader returned null record");
-      return r;
+      return reader.getNext();
     }
     throw new AssertionError("No valid message type specified");
   }
@@ -330,6 +328,12 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity
     }
 
     final MessageRecord messageRecord = getMessageRecord(this, cursor, type);
+    if (messageRecord == null) {
+      Log.w(TAG, "Message no longer exists; finishing activity.");
+      finish();
+      return;
+    }
+
     loadRecipientsAsync(messageRecord);
   }
 

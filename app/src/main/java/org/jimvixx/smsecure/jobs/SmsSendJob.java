@@ -33,10 +33,12 @@ import org.jimvixx.smsecure.database.EncryptingSmsDatabase;
 import org.jimvixx.smsecure.database.NoSuchMessageException;
 import org.jimvixx.smsecure.database.model.SmsMessageRecord;
 import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
+import org.jimvixx.smsecure.jobs.requirements.ServiceRequirement;
 import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
+import org.jimvixx.smsecure.service.SmsSendAttemptTracker;
 import org.jimvixx.smsecure.sms.MultipartSmsMessageHandler;
 import org.jimvixx.smsecure.sms.OutgoingTextMessage;
 import org.jimvixx.smsecure.transport.UndeliverableMessageException;
@@ -48,16 +50,19 @@ import org.whispersystems.libsignal.NoSessionException;
 import org.whispersystems.libsignal.UntrustedIdentityException;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class SmsSendJob extends SendJob {
 
   private static final String TAG = SmsSendJob.class.getSimpleName();
 
   private final long messageId;
+  private final String sendAttemptId;
 
   public SmsSendJob(Context context, long messageId, String name) {
     super(context, constructParameters(context, name));
     this.messageId = messageId;
+    this.sendAttemptId = UUID.randomUUID().toString();
   }
 
   /**
@@ -79,6 +84,7 @@ public class SmsSendJob extends SendJob {
     JobParameters.Builder builder = JobParameters.newBuilder()
             .withPersistence()
             .withRequirement(new MasterSecretRequirement(context))
+            .withRequirement(new ServiceRequirement(context))
             .withRetryCount(15)
             .withGroupId(name);
 
@@ -165,14 +171,18 @@ public class SmsSendJob extends SendJob {
     // and messages, this will throw an NPE.  We have no idea why, so we're just
     // catching it and marking the message as a failure.  That way at least it doesn't
     // repeatedly crash every time you start the app.
+    SmsSendAttemptTracker.startAttempt(context, message.getId(), sendAttemptId, messages.size());
+
     try {
       getSmsManagerFor(deviceSubscriptionId).sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
     } catch (NullPointerException npe) {
+      SmsSendAttemptTracker.cancelAttempt(context, message.getId(), sendAttemptId);
       Log.w(TAG, npe);
       Log.w(TAG, "Recipient: " + recipient);
       Log.w(TAG, "Message Parts: " + messages.size());
       throw new UndeliverableMessageException(npe);
     } catch (IllegalArgumentException | SecurityException iae) {
+      SmsSendAttemptTracker.cancelAttempt(context, message.getId(), sendAttemptId);
       Log.w(TAG, iae);
       throw new UndeliverableMessageException(iae);
     }
@@ -197,6 +207,7 @@ public class SmsSendJob extends SendJob {
       Intent intent = constructSentIntent(context, messageId, type, secure);
       intent.putExtra("part_index", i);
       intent.putExtra("parts_total", messages.size());
+      intent.putExtra("send_attempt_id", sendAttemptId);
 
       sentIntents.add(PendingIntent.getBroadcast(
               context,
@@ -235,7 +246,7 @@ public class SmsSendJob extends SendJob {
 
   private Intent constructSentIntent(Context context, long messageId, long type, boolean secure) {
     Intent pending = new Intent(SmsDeliveryListener.SENT_SMS_ACTION,
-            Uri.parse("custom://" + messageId + System.currentTimeMillis()),
+            Uri.parse("custom://sent/" + messageId + "/" + sendAttemptId),
             context, SmsDeliveryListener.class);
 
     pending.putExtra("type", type);
@@ -247,7 +258,7 @@ public class SmsSendJob extends SendJob {
 
   private Intent constructDeliveredIntent(Context context, long messageId, long type) {
     Intent pending = new Intent(SmsDeliveryListener.DELIVERED_SMS_ACTION,
-            Uri.parse("custom://" + messageId + System.currentTimeMillis()),
+            Uri.parse("custom://delivered/" + messageId + "/" + sendAttemptId),
             context, SmsDeliveryListener.class);
     pending.putExtra("type", type);
     pending.putExtra("message_id", messageId);

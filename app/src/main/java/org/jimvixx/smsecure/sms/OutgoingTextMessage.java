@@ -18,7 +18,7 @@
 
 package org.jimvixx.smsecure.sms;
 
-import org.jimvixx.smsecure.database.model.SmsMessageRecord;
+import org.jimvixx.smsecure.database.model.MessageRecord;
 import org.jimvixx.smsecure.recipients.Recipients;
 
 public class OutgoingTextMessage {
@@ -39,7 +39,7 @@ public class OutgoingTextMessage {
     this.message = body;
   }
 
-  public static OutgoingTextMessage from(SmsMessageRecord record) {
+  public static OutgoingTextMessage from(MessageRecord record) {
     if (record.isSecure()) {
       return new OutgoingEncryptedMessage(record.getRecipients(), record.getBody().getBody(), record.getSubscriptionId());
     } else if (record.isKeyExchange()) {
