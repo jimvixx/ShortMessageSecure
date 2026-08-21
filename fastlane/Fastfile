@@ -9,6 +9,27 @@ ADI_REGISTRATION_FILE = File.join(PROJECT_ROOT, "app/src/main/assets/adi-registr
 EXPECTED_PACKAGE_NAME = "org.jimvixx.smsecure"
 EXPECTED_SIGNING_CERT_SHA256 = "FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01"
 EXPECTED_SIGNING_CERT_SHA256_COMPACT = EXPECTED_SIGNING_CERT_SHA256.delete(":").downcase
+CHANGELOG_FILE = File.join(PROJECT_ROOT, "CHANGELOG.md")
+
+def changelog_section_for!(tag_name)
+  UI.user_error!("Missing #{CHANGELOG_FILE}") unless File.file?(CHANGELOG_FILE)
+
+  lines = File.readlines(CHANGELOG_FILE)
+  heading = /^##\s+#{Regexp.escape(tag_name)}(?:\s|$)/
+
+  start_index = lines.index { |line| line.match?(heading) }
+  UI.user_error!("Missing CHANGELOG.md section for #{tag_name}") unless start_index
+
+  end_index =
+    ((start_index + 1)...lines.length).find do |index|
+      lines[index].start_with?("## ")
+    end || lines.length
+
+  notes = lines[(start_index + 1)...end_index].join.strip
+  UI.user_error!("Empty CHANGELOG.md section for #{tag_name}") if notes.empty?
+
+  notes
+end
 
 def decode_keystore!
   keystore_base64 = ENV["ANDROID_KEYSTORE_BASE64"]
@@ -358,9 +379,7 @@ platform :android do
     signed_apk_path = normalize_apk_name!(signed_apk_path, tag_name)
     checksums_path = write_sha256_sums!(signed_apk_path)
 
-    changelog = changelog_from_git_commits(
-      merge_commit_filtering: "exclude_merges"
-    ).to_s.strip
+    changelog = changelog_section_for!(tag_name)
 
     release_notes = build_release_notes(tag_name, checksums_path)
     full_description =
