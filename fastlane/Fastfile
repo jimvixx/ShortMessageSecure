@@ -282,18 +282,40 @@ def build_release_notes(tag_name, checksums_path)
   NOTES
 end
 
+def version_code_from_version_name!(version_name)
+  match = version_name.match(
+    /\A(\d+)\.(\d+)\.(\d+)(?:[-+][0-9A-Za-z.-]+)?\z/
+  )
+  UI.user_error!("Invalid versionName: #{version_name}") unless match
+
+  major = match[1].to_i
+  minor = match[2].to_i
+  patch = match[3].to_i
+
+  UI.user_error!("Minor version must be between 0 and 99") if minor > 99
+  UI.user_error!("Patch version must be between 0 and 99") if patch > 99
+
+  version_code = (major * 10_000) + (minor * 100) + patch
+
+  unless version_code.between?(1, 2_100_000_000)
+    UI.user_error!(
+      "versionCode is outside the supported range: #{version_code}"
+    )
+  end
+
+  version_code
+end
+
 def validate_release_metadata!(tag_name)
   build_gradle = File.join(PROJECT_ROOT, "app/build.gradle.kts")
   contents = File.read(build_gradle)
 
-  version_name_match = contents.match(/versionName\s*=\s*"([^"]+)"/)
-  version_code_match = contents.match(/versionCode\s*=\s*(\d+)/)
+  version_name_match = contents.match(/val\s+appVersionName\s*=\s*"([^"]+)"/)
 
   UI.user_error!("Unable to determine versionName") unless version_name_match
-  UI.user_error!("Unable to determine versionCode") unless version_code_match
 
   version_name = version_name_match[1]
-  version_code = version_code_match[1]
+  version_code = version_code_from_version_name!(version_name)
 
   unless tag_name.match?(/\Av\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?\z/)
     UI.user_error!("Invalid release tag format: #{tag_name}")
