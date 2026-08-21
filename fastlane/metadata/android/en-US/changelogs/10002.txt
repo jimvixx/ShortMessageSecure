@@ -1,0 +1,2 @@
+Fixed identity key generation on first run.
+Fixed duplicate key-exchange messages after cellular service was restored.

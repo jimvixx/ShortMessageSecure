@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.2
+
+### Changed
+
+- Updated project dependencies and release infrastructure.
+- Updated the README with F-Droid installation instructions.
+
+### Fixed
+
+- Fixed identity key generation on first run.
+- Fixed a multipart SMS retry storm that could send duplicate key-exchange messages after cellular service was restored.
+
 ## v1.0.1
 
 ### Added

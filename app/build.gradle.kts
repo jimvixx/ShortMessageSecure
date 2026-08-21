@@ -25,8 +25,8 @@ android {
 
     defaultConfig {
         applicationId = "org.jimvixx.smsecure"
-        versionCode = 10001
-        versionName = "1.0.1"
+        versionCode = 10002
+        versionName = "1.0.2"
 
         buildConfigField(
             "String",
