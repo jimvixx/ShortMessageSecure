@@ -59,16 +59,21 @@ public class SubscriptionInfoCompat {
     this.mnc = mnc;
     this.duplicateDisplayName = duplicateDisplayName;
 
-    this.subscriptionId = findAppId(this.context, number, iccId);
+    this.subscriptionId = findAppId(this.context, deviceSubscriptionId, number, iccId);
   }
 
   private static int findAppId(@NonNull Context context,
+                               int deviceSubscriptionId,
                                @Nullable String number,
                                @Nullable String iccId) {
     int appSubscriptionId = findAppIdFromNumber(context, number);
     if (appSubscriptionId == -1) appSubscriptionId = findAppIdFromIccId(context, iccId);
+    if (appSubscriptionId == -1) {
+      appSubscriptionId = SMSecurePreferences.getAppSubscriptionId(context, deviceSubscriptionId);
+    }
     if (appSubscriptionId == -1) appSubscriptionId = bumpAppSubscriptionId(context);
 
+    SMSecurePreferences.setAppSubscriptionId(context, deviceSubscriptionId, appSubscriptionId);
     saveInfo(context, appSubscriptionId, number, iccId);
     return appSubscriptionId;
   }

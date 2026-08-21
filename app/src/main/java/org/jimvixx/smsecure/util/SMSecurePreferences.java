@@ -310,7 +310,7 @@ public class SMSecurePreferences {
   }
 
   public static void setAppSubscriptionId(Context context, int deviceSubscriptionId, int appSubscriptionId) {
-    setIntegerPreference(context, APP_SUBSCRIPTION_ID_FOR_DEVICE_SUBSCRIPTION_ID_PREF + "_" + appSubscriptionId, deviceSubscriptionId);
+    setIntegerPreference(context, APP_SUBSCRIPTION_ID_FOR_DEVICE_SUBSCRIPTION_ID_PREF + "_" + deviceSubscriptionId, appSubscriptionId);
     if (appSubscriptionId > getLastAppSubscriptionId(context))
       setLastAppSubscriptionId(context, appSubscriptionId);
   }
