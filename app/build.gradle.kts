@@ -40,6 +40,68 @@ fun versionCodeFromVersionName(versionName: String): Int {
 val appVersionName = "1.0.2"
 val appVersionCode = versionCodeFromVersionName(appVersionName)
 
+val changelogFile = rootProject.file("CHANGELOG.md")
+val playChangelogFile = rootProject.file(
+    "fastlane/metadata/android/en-US/changelogs/$appVersionCode.txt"
+)
+
+tasks.register("generatePlayChangelog") {
+    group = "release"
+    description = "Generate Google Play and F-Droid release notes from CHANGELOG.md"
+
+    inputs.file(changelogFile)
+    outputs.file(playChangelogFile)
+    outputs.upToDateWhen { false }
+
+    doLast {
+        require(changelogFile.isFile) { "Missing $changelogFile" }
+
+        val lines = changelogFile.readLines()
+        val firstReleaseHeadingIndex = lines.indexOfFirst { line ->
+            line.startsWith("## ")
+        }
+        require(firstReleaseHeadingIndex >= 0) {
+            "No release section found in $changelogFile"
+        }
+
+        val expectedHeading = "## v$appVersionName"
+        val actualHeading = lines[firstReleaseHeadingIndex].trim()
+        require(actualHeading == expectedHeading) {
+            "Latest changelog section must be '$expectedHeading', got '$actualHeading'"
+        }
+
+        val notes = lines
+            .drop(firstReleaseHeadingIndex + 1)
+            .takeWhile { line -> !line.startsWith("## ") }
+            .mapNotNull { line ->
+                val trimmed = line.trim()
+                if (trimmed.startsWith("- ")) {
+                    "* ${trimmed.removePrefix("- ")}"
+                } else {
+                    null
+                }
+            }
+            .joinToString("\n")
+
+        require(notes.isNotEmpty()) {
+            "No list entries found under '$expectedHeading'"
+        }
+
+        val characterCount = notes.codePointCount(0, notes.length)
+        require(characterCount <= 500) {
+            "Play changelog is too long: $characterCount/500 characters"
+        }
+
+        playChangelogFile.parentFile.mkdirs()
+        playChangelogFile.writeText("$notes\n")
+
+        val relativePath = playChangelogFile
+            .relativeTo(rootProject.projectDir)
+            .invariantSeparatorsPath
+        println("GENERATED_PLAY_CHANGELOG=$relativePath")
+    }
+}
+
 android {
     namespace = "org.jimvixx.smsecure"
     compileSdk = 36

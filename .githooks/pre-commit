@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repository_root="$(git rev-parse --show-toplevel)"
+cd "$repository_root"
+
+if git diff --cached --quiet -- CHANGELOG.md; then
+  exit 0
+fi
+
+if ! git diff --quiet -- CHANGELOG.md; then
+  echo "CHANGELOG.md has unstaged changes; stage the complete file before committing." >&2
+  exit 1
+fi
+
+gradle_output="$(./gradlew --quiet :app:generatePlayChangelog)"
+printf '%s\n' "$gradle_output"
+
+generated_path="$(
+  printf '%s\n' "$gradle_output" |
+    sed -n 's/^GENERATED_PLAY_CHANGELOG=//p' |
+    tail -n 1
+)"
+
+if [[ -z "$generated_path" ]]; then
+  echo "Unable to determine the generated Play changelog path." >&2
+  exit 1
+fi
+
+git add -- "$generated_path"

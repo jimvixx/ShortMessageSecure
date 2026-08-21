@@ -37,6 +37,28 @@ git clone https://github.com/jimvixx/ShortMessageSecure.git
 
 ---
 
+## 🪝 Git hooks
+
+Enable the repository hooks once after cloning:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+When a staged `CHANGELOG.md` is committed, the pre-commit hook runs
+`:app:generatePlayChangelog`. The task reads the latest release section,
+generates `fastlane/metadata/android/en-US/changelogs/<versionCode>.txt`, and
+adds the generated file to the commit. The commit is rejected if the release
+notes exceed 500 Unicode characters or `CHANGELOG.md` is only partially staged.
+
+To run the generator manually:
+
+```bash
+./gradlew :app:generatePlayChangelog
+```
+
+---
+
 ## ⚙️ Command Line Build
 
 You can also build SMSecure using Gradle.
