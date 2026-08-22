@@ -38,6 +38,7 @@ import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.LRUCache;
 import org.jimvixx.smsecure.util.ListenableFutureTask;
 import org.jimvixx.smsecure.util.Util;
+import org.jimvixx.smsecure.util.VisibleForTesting;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Arrays;
@@ -143,25 +144,36 @@ class RecipientProvider {
   private @NonNull RecipientDetails getIndividualRecipientDetails(Context context, long recipientId, @NonNull String number) {
     Optional<RecipientsPreferences> preferences = DatabaseFactory.getRecipientPreferenceDatabase(context).getRecipientsPreferences(new long[]{recipientId});
     MaterialColor color = preferences.isPresent() ? preferences.get().getColor() : null;
-    Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
 
-    try (Cursor cursor = context.getContentResolver().query(uri, CALLER_ID_PROJECTION, null, null, null)) {
-      if (cursor != null && cursor.moveToFirst()) {
-        final String resultNumber = cursor.getString(3);
-        if (resultNumber != null) {
-          Uri contactUri = Contacts.getLookupUri(cursor.getLong(2), cursor.getString(1));
-          String name = resultNumber.equals(cursor.getString(0)) ? null : cursor.getString(0);
-          ContactPhoto contactPhoto = ContactPhotoFactory.getContactPhoto(context,
-                  Uri.withAppendedPath(Contacts.CONTENT_URI, cursor.getLong(2) + ""),
-                  name);
+    return resolveIndividualRecipientDetails(context, number, color);
+  }
 
-          return new RecipientDetails(cursor.getString(0), resultNumber, contactUri, contactPhoto, color);
-        } else {
-          Log.w(TAG, "resultNumber is null");
+  @VisibleForTesting
+  @NonNull RecipientDetails resolveIndividualRecipientDetails(Context context,
+                                                               @NonNull String number,
+                                                               @Nullable MaterialColor color) {
+
+    if (!Util.missingContactsPermissions(context)) {
+      Uri uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+
+      try (Cursor cursor = context.getContentResolver().query(uri, CALLER_ID_PROJECTION, null, null, null)) {
+        if (cursor != null && cursor.moveToFirst()) {
+          final String resultNumber = cursor.getString(3);
+          if (resultNumber != null) {
+            Uri contactUri = Contacts.getLookupUri(cursor.getLong(2), cursor.getString(1));
+            String name = resultNumber.equals(cursor.getString(0)) ? null : cursor.getString(0);
+            ContactPhoto contactPhoto = ContactPhotoFactory.getContactPhoto(context,
+                    Uri.withAppendedPath(Contacts.CONTENT_URI, cursor.getLong(2) + ""),
+                    name);
+
+            return new RecipientDetails(cursor.getString(0), resultNumber, contactUri, contactPhoto, color);
+          } else {
+            Log.w(TAG, "resultNumber is null");
+          }
         }
+      } catch (SecurityException se) {
+        Log.w(TAG, se);
       }
-    } catch (SecurityException se) {
-      Log.w(TAG, se);
     }
 
     if (STATIC_DETAILS.containsKey(number))
