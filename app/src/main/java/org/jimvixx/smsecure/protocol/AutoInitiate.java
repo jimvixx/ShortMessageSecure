@@ -37,7 +37,7 @@ import java.util.Locale;
 
 public class AutoInitiate {
 
-  public static final String WHITESPACE_TAG = " {13}";
+  public static final String WHITESPACE_TAG = "             "; // 13 spaces
   private static final String TAG = AutoInitiate.class.getSimpleName();
   private static final String PREFS_NAME = "auto_initiate_prefs";
 
