@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.0.3
+
+### Changed
+
+- Automated Play Store changelog generation and GitHub release notes from `CHANGELOG.md`.
+- Derived Android version codes from the version name.
+
+### Fixed
+
+- Restored the invisible 13-space auto-initiate tag instead of showing the `{13}` suffix.
+- Avoided contact lookups when Contacts permission is unavailable.
+- Used the Android default SMS SIM for recipients without a saved SIM selection on dual-SIM devices.
+
 ## v1.0.2
 
 ### Changed

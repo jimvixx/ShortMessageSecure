@@ -37,7 +37,7 @@ fun versionCodeFromVersionName(versionName: String): Int {
     return versionCode.toInt()
 }
 
-val appVersionName = "1.0.2"
+val appVersionName = "1.0.3"
 val appVersionCode = versionCodeFromVersionName(appVersionName)
 
 val changelogFile = rootProject.file("CHANGELOG.md")
