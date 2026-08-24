@@ -266,7 +266,7 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
   protected IdentityKey resolveLocalIdentityKey() {
     int subscriptionId = getIntent().getIntExtra(
             "subscription_id",
-            SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1)
+            SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this).or(-1)
     );
 
     IdentityKey localKey = IdentityKeyUtil.getIdentityKey(this, subscriptionId);
@@ -612,7 +612,7 @@ public class VerifyIdentityActivity extends BaseIdentityActivity {
     IdentityKeyParcelable p = getIntent().getParcelableExtra("remote_identity");
     if (p != null) return p.get();
 
-    int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1);
+    int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this).or(-1);
 
     SessionStore sessionStore = new SMSecureSessionStore(this, masterSecret, subscriptionId);
     SignalProtocolAddress address = new SignalProtocolAddress(recipient.getNumber(), 1);

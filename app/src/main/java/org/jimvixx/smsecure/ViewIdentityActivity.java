@@ -90,7 +90,7 @@ public class ViewIdentityActivity extends BaseIdentityActivity {
   protected IdentityKey resolveLocalIdentityKey() {
     int subscriptionId = getIntent().getIntExtra(
             "subscription_id",
-            SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1)
+            SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this).or(-1)
     );
     return IdentityKeyUtil.getIdentityKey(this, subscriptionId);
   }

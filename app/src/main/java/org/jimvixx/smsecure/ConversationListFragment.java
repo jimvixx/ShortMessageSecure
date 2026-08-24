@@ -493,7 +493,7 @@ public class ConversationListFragment extends Fragment
             Recipients recipients = adapter.getRecipientsFromThreadId(threadId);
 
             if (recipients != null) {
-              int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1);
+              int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(ctx).or(-1);
               boolean isSingleConversation = recipients.isSingleRecipient() && !recipients.isGroupRecipient();
               boolean isSecureDestination = isSingleConversation
                       && SessionUtil.hasSession(ctx, masterSecret, recipients.getPrimaryRecipient().getNumber(), subscriptionId);

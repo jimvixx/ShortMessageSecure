@@ -872,7 +872,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         if (result.first == recipients) {
           updateDefaultSubscriptionId(result.second != null
                   ? result.second.getDefaultSubscriptionId()
-                  : SubscriptionManagerCompat.getDefaultMessagingSubscriptionId());
+                  : SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this));
         }
       });
     });

@@ -48,11 +48,12 @@ public class TransportOptions {
   private final List<TransportOption> enabledTransports;
 
   private Type defaultTransportType = Type.INSECURE_SMS;
-  private Optional<Integer> defaultSubscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId();
+  private Optional<Integer> defaultSubscriptionId;
   private Optional<TransportOption> selectedOption = Optional.absent();
 
   public TransportOptions(Context context) {
     this.context = context;
+    this.defaultSubscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(context);
     this.enabledTransports = initializeAvailableTransports();
   }
 
@@ -66,7 +67,7 @@ public class TransportOptions {
       setSelectedTransport(null);
     } else {
       this.defaultTransportType = Type.INSECURE_SMS;
-      this.defaultSubscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId();
+      this.defaultSubscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(context);
 
       notifyTransportChangeListeners();
     }

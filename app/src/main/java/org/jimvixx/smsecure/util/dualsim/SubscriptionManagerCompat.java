@@ -85,14 +85,19 @@ public final class SubscriptionManagerCompat {
     return false;
   }
 
-  public static @NonNull Optional<Integer> getDefaultMessagingSubscriptionId() {
-    int id = SmsManager.getDefaultSmsSubscriptionId();
+  public static @NonNull Optional<Integer> getDefaultMessagingSubscriptionId(@NonNull Context context) {
+    int deviceSubscriptionId = SmsManager.getDefaultSmsSubscriptionId();
 
-    if (id < 0) {
+    if (deviceSubscriptionId < 0) {
       return Optional.absent();
     }
 
-    return Optional.of(id);
+    Optional<SubscriptionInfoCompat> subscriptionInfo =
+            from(context).getActiveSubscriptionInfoFromDeviceSubscriptionId(deviceSubscriptionId);
+
+    return subscriptionInfo.isPresent()
+            ? Optional.of(subscriptionInfo.get().getSubscriptionId())
+            : Optional.absent();
   }
 
   public @NonNull Optional<SubscriptionInfoCompat> getActiveSubscriptionInfo(int subscriptionId) {
