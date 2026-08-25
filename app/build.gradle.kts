@@ -17,33 +17,13 @@ if (hasKeystore) {
     }
 }
 
-fun versionCodeFromVersionName(versionName: String): Int {
-    val match = Regex("""^(\d+)\.(\d+)\.(\d+)(?:[-+][0-9A-Za-z.-]+)?$""")
-        .matchEntire(versionName)
-        ?: error("Invalid versionName: $versionName")
-    val (majorText, minorText, patchText) = match.destructured
-    val major = majorText.toLong()
-    val minor = minorText.toLong()
-    val patch = patchText.toLong()
-
-    require(minor in 0L..99L) { "Minor version must be between 0 and 99" }
-    require(patch in 0L..99L) { "Patch version must be between 0 and 99" }
-
-    val versionCode = major * 10_000 + minor * 100 + patch
-    require(versionCode in 1L..2_100_000_000L) {
-        "versionCode is outside the supported range: $versionCode"
-    }
-
-    return versionCode.toInt()
-}
-
-val appVersionName = "1.0.3"
-val appVersionCode = versionCodeFromVersionName(appVersionName)
-
 val changelogFile = rootProject.file("CHANGELOG.md")
-val playChangelogFile = rootProject.file(
-    "fastlane/metadata/android/en-US/changelogs/$appVersionCode.txt"
-)
+val playChangelogFile = providers.provider {
+    val versionCode = requireNotNull(android.defaultConfig.versionCode) {
+        "Missing versionCode in android.defaultConfig"
+    }
+    rootProject.file("fastlane/metadata/android/en-US/changelogs/$versionCode.txt")
+}
 
 tasks.register("generatePlayChangelog") {
     group = "release"
@@ -55,6 +35,10 @@ tasks.register("generatePlayChangelog") {
 
     doLast {
         require(changelogFile.isFile) { "Missing $changelogFile" }
+        val versionName = requireNotNull(android.defaultConfig.versionName) {
+            "Missing versionName in android.defaultConfig"
+        }
+        val outputFile = playChangelogFile.get()
 
         val lines = changelogFile.readLines()
         val firstReleaseHeadingIndex = lines.indexOfFirst { line ->
@@ -64,7 +48,7 @@ tasks.register("generatePlayChangelog") {
             "No release section found in $changelogFile"
         }
 
-        val expectedHeading = "## v$appVersionName"
+        val expectedHeading = "## v$versionName"
         val actualHeading = lines[firstReleaseHeadingIndex].trim()
         require(actualHeading == expectedHeading) {
             "Latest changelog section must be '$expectedHeading', got '$actualHeading'"
@@ -92,10 +76,10 @@ tasks.register("generatePlayChangelog") {
             "Play changelog is too long: $characterCount/500 characters"
         }
 
-        playChangelogFile.parentFile.mkdirs()
-        playChangelogFile.writeText("$notes\n")
+        outputFile.parentFile.mkdirs()
+        outputFile.writeText("$notes\n")
 
-        val relativePath = playChangelogFile
+        val relativePath = outputFile
             .relativeTo(rootProject.projectDir)
             .invariantSeparatorsPath
         println("GENERATED_PLAY_CHANGELOG=$relativePath")
@@ -110,8 +94,8 @@ android {
 
     defaultConfig {
         applicationId = "org.jimvixx.smsecure"
-        versionCode = appVersionCode
-        versionName = appVersionName
+        versionCode = 10003
+        versionName = "1.0.3"
 
         buildConfigField(
             "String",

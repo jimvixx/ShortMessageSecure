@@ -310,12 +310,23 @@ def validate_release_metadata!(tag_name)
   build_gradle = File.join(PROJECT_ROOT, "app/build.gradle.kts")
   contents = File.read(build_gradle)
 
-  version_name_match = contents.match(/val\s+appVersionName\s*=\s*"([^"]+)"/)
+  version_name_match = contents.match(/^\s*versionName\s*=\s*"([^"]+)"\s*$/)
+  version_code_match = contents.match(/^\s*versionCode\s*=\s*(\d+)\s*$/)
 
   UI.user_error!("Unable to determine versionName") unless version_name_match
+  UI.user_error!("Unable to determine versionCode") unless version_code_match
 
   version_name = version_name_match[1]
-  version_code = version_code_from_version_name!(version_name)
+  version_code = version_code_match[1].to_i
+  expected_version_code = version_code_from_version_name!(version_name)
+
+  if version_code != expected_version_code
+    UI.user_error!(
+      "versionCode does not match versionName: " \
+      "versionName=#{version_name}, versionCode=#{version_code}, " \
+      "expected=#{expected_version_code}"
+    )
+  end
 
   unless tag_name.match?(/\Av\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?\z/)
     UI.user_error!("Invalid release tag format: #{tag_name}")

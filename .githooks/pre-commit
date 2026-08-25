@@ -4,6 +4,85 @@ set -euo pipefail
 repository_root="$(git rev-parse --show-toplevel)"
 cd "$repository_root"
 
+build_gradle="app/build.gradle.kts"
+
+if ! git diff --cached --quiet -- "$build_gradle"; then
+  staged_build_gradle="$(mktemp)"
+  trap 'rm -f -- "$staged_build_gradle"' EXIT
+  git show ":$build_gradle" > "$staged_build_gradle"
+
+  mapfile -t version_names < <(
+    sed -nE 's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*"([^"]+)"[[:space:]]*$/\1/p' \
+      "$staged_build_gradle"
+  )
+
+  if [[ "${#version_names[@]}" -ne 1 ]]; then
+    echo "Unable to determine a single versionName from $build_gradle." >&2
+    exit 1
+  fi
+
+  version_name="${version_names[0]}"
+  if [[ ! "$version_name" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)([-+][0-9A-Za-z.-]+)?$ ]]; then
+    echo "Invalid versionName: $version_name" >&2
+    exit 1
+  fi
+
+  major=$((10#${BASH_REMATCH[1]}))
+  minor=$((10#${BASH_REMATCH[2]}))
+  patch=$((10#${BASH_REMATCH[3]}))
+
+  if (( minor > 99 )); then
+    echo "Minor version must be between 0 and 99." >&2
+    exit 1
+  fi
+  if (( patch > 99 )); then
+    echo "Patch version must be between 0 and 99." >&2
+    exit 1
+  fi
+
+  version_code=$((major * 10000 + minor * 100 + patch))
+  if (( version_code < 1 || version_code > 2100000000 )); then
+    echo "versionCode is outside the supported range: $version_code" >&2
+    exit 1
+  fi
+
+  mapfile -t version_codes < <(
+    sed -nE 's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+)[[:space:]]*$/\1/p' \
+      "$staged_build_gradle"
+  )
+
+  if [[ "${#version_codes[@]}" -ne 1 ]]; then
+    echo "Unable to determine a single versionCode from $build_gradle." >&2
+    exit 1
+  fi
+
+  if [[ "${version_codes[0]}" != "$version_code" ]]; then
+    sed -E -i \
+      "s/^([[:space:]]*versionCode[[:space:]]*=[[:space:]]*)[0-9]+[[:space:]]*$/\\1$version_code/" \
+      "$staged_build_gradle"
+
+    file_mode="$(git ls-files -s -- "$build_gradle" | awk 'NR == 1 { print $1 }')"
+    updated_blob="$(git hash-object -w "$staged_build_gradle")"
+    git update-index --cacheinfo "$file_mode" "$updated_blob" "$build_gradle"
+
+    mapfile -t worktree_version_names < <(
+      sed -nE 's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*"([^"]+)"[[:space:]]*$/\1/p' \
+        "$build_gradle"
+    )
+    if [[ "${#worktree_version_names[@]}" -eq 1 &&
+          "${worktree_version_names[0]}" == "$version_name" ]]; then
+      sed -E -i \
+        "s/^([[:space:]]*versionCode[[:space:]]*=[[:space:]]*)[0-9]+[[:space:]]*$/\\1$version_code/" \
+        "$build_gradle"
+    fi
+
+    echo "Updated versionCode to $version_code for versionName $version_name."
+  fi
+
+  rm -f -- "$staged_build_gradle"
+  trap - EXIT
+fi
+
 if git diff --cached --quiet -- CHANGELOG.md; then
   exit 0
 fi
