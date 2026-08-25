@@ -235,7 +235,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.core:core-ktx:1.17.0")
-    implementation("androidx.fragment:fragment:1.8.9")
+    implementation("androidx.fragment:fragment:1.9.0")
     implementation("androidx.gridlayout:gridlayout:1.1.0")
     implementation("androidx.legacy:legacy-support-v13:1.0.0")
     implementation("androidx.preference:preference-ktx:1.2.1")
