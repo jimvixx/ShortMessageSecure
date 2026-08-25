@@ -261,7 +261,7 @@
     <string name="DateUtils_today">今天</string>
     <string name="DateUtils_yesterday">昨天</string>
     <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure 是一款短信应用，可让您在与朋友沟通时保护隐私。\n使用 SMSecure，您可以完全私密地发送短信并分享媒体或附件。\n\n功能：\n* 简单易用。SMSecure 的使用方式与其他短信应用无异。无需注册，您的朋友也无需加入任何新服务。\n* 可靠。SMSecure 通过加密短信进行通信。 无需服务器或互联网连接。\n* 私密。SMSecure 采用精心设计的 Signal 加密协议，为您的消息提供端到端加密。\n* 安全。所有消息均在本地加密，因此即使手机丢失或被盗，您的消息依然受到保护。\n* 开源。SMSecure 是免费且开源的，任何人都可以通过审核代码来验证其安全性。n\n如有任何错误、问题或功能请求，请提交至：<xliff:g id="arg1">%1$s</xliff:g>\n\n源代码位于：<xliff:g id="arg2">%2$s</xliff:g>\n\n更多详情：<xliff:g id="arg3">%3$s</xliff:g>\n\n隐私政策： <xliff:g id="arg4">%4$s</xliff:g></string>
+    <string name="Distribution_long_description">SMSecure 是一款短信应用，可让您在与朋友沟通时保护隐私。\n使用 SMSecure，您可以完全私密地发送短信并分享媒体或附件。\n\n功能：\n* 简单易用。SMSecure 的使用方式与其他短信应用无异。无需注册，您的朋友也无需加入任何新服务。\n* 可靠。SMSecure 通过加密短信进行通信。 无需服务器或互联网连接。\n* 私密。SMSecure 采用精心设计的 Signal 加密协议，为您的消息提供端到端加密。\n* 安全。所有消息均在本地加密，因此即使手机丢失或被盗，您的消息依然受到保护。\n* 开源。SMSecure 是免费且开源的，任何人都可以通过审核代码来验证其安全性。\n\n如有任何错误、问题或功能请求，请提交至：<xliff:g id="arg1">%1$s</xliff:g>\n\n源代码位于：<xliff:g id="arg2">%2$s</xliff:g>\n\n更多详情：<xliff:g id="arg3">%3$s</xliff:g>\n\n隐私政策： <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">已生成一个新密钥。</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">已为该 SIM 卡生成了一个新密钥。</string>
