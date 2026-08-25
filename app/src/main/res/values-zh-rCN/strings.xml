@@ -10,7 +10,7 @@
     <string name="AndroidManifest__public_identity_key">公共身份密钥</string>
     <string name="AndroidManifest__select_contacts">选择联系人</string>
     <string name="AndroidManifest__verify_identity">验证身份</string>
-    <string name="AndroidManifest_archived_conversations">已存档的对话</string>
+    <string name="AndroidManifest_archived_conversations">已归档的对话</string>
     <!--ApplicationMigrationService-->
     <string name="ApplicationMigrationService_import_complete">导入完成</string>
     <string name="ApplicationMigrationService_import_in_progress">正在导入</string>
@@ -36,7 +36,7 @@
         <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> 分钟</item>
     </plurals>
     <!--arrays.xml-->
-    <string name="arrays__basic">Basic</string>
+    <string name="arrays__basic">基本</string>
     <string name="arrays__errors">仅显示错误</string>
     <string name="arrays__mute_for_one_day">静音 1 天</string>
     <string name="arrays__mute_for_one_hour">静音 1 小时</string>
@@ -66,8 +66,8 @@
     <string name="Continue">继续</string>
     <string name="Copied_to_clipboard">已复制到剪贴板</string>
     <string name="Copy">复制</string>
-    <string name="Custom">Custom</string>
-    <string name="Default">Default</string>
+    <string name="Custom">自定义</string>
+    <string name="Default">默认</string>
     <string name="Delete">删除</string>
     <string name="Deleting">正在删除……</string>
     <string name="Dialpad">拨号盘</string>
@@ -83,12 +83,12 @@
     <string name="No">否</string>
     <string name="None">无</string>
     <string name="Off">关闭</string>
-    <string name="On">On</string>
-    <string name="QR_code">QR code</string>
+    <string name="On">开启</string>
+    <string name="QR_code">QR码</string>
     <string name="Search">搜索</string>
     <string name="Send">发送</string>
     <string name="Share">分享</string>
-    <string name="Silent">Silent</string>
+    <string name="Silent">静音</string>
     <string name="SMS">SMS</string>
     <string name="Yes">是</string>
     <!--contact_selection_activity-->
@@ -149,12 +149,12 @@
     <string name="conversation_list_batch__menu_delete_selected">删除选中的</string>
     <string name="conversation_list_batch__menu_select_all">全选</string>
     <string name="conversation_list_batch__menu_send_drafts">发送选中的草稿</string>
-    <string name="conversation_list_batch_archive__menu_archive_selected">已存档所选内容</string>
+    <string name="conversation_list_batch_archive__menu_archive_selected">已归档所选内容</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">取消归档所选项</string>
     <!--conversation_list_fragment-->
     <string name="conversation_list_fragment__fab_content_description">新对话</string>
     <!--conversation_list_item_view-->
-    <string name="conversation_list_item_view__archive">存档</string>
+    <string name="conversation_list_item_view__archive">归档</string>
     <string name="conversation_list_item_view__archived">已归档</string>
     <string name="conversation_list_item_view__contact_photo_image">联系人头像</string>
     <string name="conversation_list_item_view__unarchive">取消归档</string>
@@ -176,7 +176,7 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">静音通知</string>
     <!--ConversationActivity-->
-    <string name="ConversationActivity__group">组</string>
+    <string name="ConversationActivity__group">群组</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">结束安全会话？</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">您确定要结束此安全会话吗？</string>
     <string name="ConversationActivity_calls_not_supported">不支持通话</string>
@@ -242,11 +242,11 @@
     <string name="ConversationListFragment_this_will_send_drafts_of_selected_conversations">这将发送所选对话的草稿。</string>
     <string name="ConversationListFragment_undo">撤销</string>
     <!--ConversationListItemArchived-->
-    <string name="ConversationListItemAction_archived_conversations_d">已存档的对话 (<xliff:g id="arg1">%d</xliff:g>)</string>
+    <string name="ConversationListItemAction_archived_conversations_d">已归档的对话 (<xliff:g id="arg1">%d</xliff:g>)</string>
     <!--custom_default_preference_dialog-->
     <string name="custom_default_preference_dialog__custom_value">自定义值</string>
     <!--CustomDefaultPreference-->
-    <string name="CustomDefaultPreference_using_custom">使用 custom：<xliff:g id="arg1">%s</xliff:g></string>
+    <string name="CustomDefaultPreference_using_custom">使用自定义：<xliff:g id="arg1">%s</xliff:g></string>
     <string name="CustomDefaultPreference_using_default">使用默认值：<xliff:g id="arg1">%s</xliff:g></string>
     <!--database_migration_activity-->
     <string name="database_migration_activity__import_database_image_description">数据库导入示意图</string>
@@ -264,7 +264,7 @@
     <string name="Distribution_long_description">SMSecure 是一款短信应用，可让您在与朋友沟通时保护隐私。\n使用 SMSecure，您可以完全私密地发送短信并分享媒体或附件。\n\n功能：\n* 简单易用。SMSecure 的使用方式与其他短信应用无异。无需注册，您的朋友也无需加入任何新服务。\n* 可靠。SMSecure 通过加密短信进行通信。 无需服务器或互联网连接。\n* 私密。SMSecure 采用精心设计的 Signal 加密协议，为您的消息提供端到端加密。\n* 安全。所有消息均在本地加密，因此即使手机丢失或被盗，您的消息依然受到保护。\n* 开源。SMSecure 是免费且开源的，任何人都可以通过审核代码来验证其安全性。n\n如有任何错误、问题或功能请求，请提交至：<xliff:g id="arg1">%1$s</xliff:g>\n\n源代码位于：<xliff:g id="arg2">%2$s</xliff:g>\n\n更多详情：<xliff:g id="arg3">%3$s</xliff:g>\n\n隐私政策： <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">已生成一个新密钥。</string>
-    <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">已为该 SIM 卡生成了一把新密钥。</string>
+    <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">已为该 SIM 卡生成了一个新密钥。</string>
     <string name="DualSimUtil__new_sim_card_detected">检测到新 SIM 卡</string>
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">解密消息时出错。</string>
@@ -471,7 +471,7 @@
     <string name="preferences__forget_passphrase_from_memory_after_some_interval">在指定时间后，访问消息时需要输入密码短语</string>
     <string name="preferences__hide_divider_between_read_and_unread_messages">隐藏已读和未读消息之间的分隔线</string>
     <string name="preferences__hide_unread_message_divider">隐藏未读消息分隔线</string>
-    <string name="preferences__hours">hours</string>
+    <string name="preferences__hours">小时</string>
     <string name="preferences__in_conversation_notifications">对话内通知</string>
     <string name="preferences__incognito_keyboard">隐身键盘</string>
     <string name="preferences__keyboard_settings">键盘选项</string>
@@ -481,7 +481,7 @@
     <string name="preferences__make_smsecure_the_default_sms_app">将 SMSecure 设为系统的默认短信应用。</string>
     <string name="preferences__message_trimming">消息截断</string>
     <string name="preferences__messages">消息</string>
-    <string name="preferences__minutes">minutes</string>
+    <string name="preferences__minutes">分钟</string>
     <plurals name="preferences__msgs_short">
         <item quantity="other"><xliff:g id="arg1">%d</xliff:g> 条消息</item>
     </plurals>
@@ -512,7 +512,7 @@
     <string name="preferences__theme">主题</string>
     <string name="preferences__theme_light">明亮</string>
     <string name="preferences__theme_summary">选择应用外观</string>
-    <string name="preferences__theme_systemic">Systemic</string>
+    <string name="preferences__theme_systemic">系统</string>
     <string name="preferences__three_times">三次</string>
     <string name="preferences__timeout_passphrase">密码超时</string>
     <string name="preferences__trim_all_conversations_now">立即清理所有对话</string>
@@ -532,19 +532,19 @@
     <!--ReceiveKeyActivity-->
     <string name="ConfirmIdentityDialog_you_may_wish_to_verify_this_contact">您应验证此联系人的身份。</string>
     <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_different">此次密钥交换的签名与您此前从该联系人处收到的签名不同。这可能意味着有人试图拦截您的通信，也可能是该联系人重新安装了 SMSecure 并获得了新的身份密钥。</string>
-    <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but">此 密钥交换的签名是可信的，但您已禁用了“自动完成密钥 交换”设置。</string>
+    <string name="ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but">此 密钥交换的签名是可信的，但您已禁用了“自动完成密钥交换”设置。</string>
     <!--recipient_preferences-->
-    <string name="recipient_preferences__block">块</string>
+    <string name="recipient_preferences__block">屏蔽</string>
     <string name="recipient_preferences__color">颜色</string>
     <string name="recipient_preferences__color_for_this_contact">此联系人的颜色</string>
     <string name="recipient_preferences__disable_notifications_for_this_conversation">禁用此对话的通知</string>
     <string name="recipient_preferences__mute_conversation">静音对话</string>
     <string name="recipient_preferences__notification_sound">通知声音</string>
     <!--recipient_preferences_activity-->
-    <string name="recipient_preference_activity__blocked">被屏蔽</string>
+    <string name="recipient_preference_activity__blocked">已屏蔽</string>
     <!--RecipientPreferencesActivity-->
     <string name="RecipientPreferenceActivity_are_you_sure_you_want_to_unblock_this_contact">您确定要解除此联系人的屏蔽吗？</string>
-    <string name="RecipientPreferenceActivity_block">块</string>
+    <string name="RecipientPreferenceActivity_block">屏蔽</string>
     <string name="RecipientPreferenceActivity_block_this_contact_question">屏蔽此联系人？</string>
     <string name="RecipientPreferenceActivity_unblock">解除屏蔽</string>
     <string name="RecipientPreferenceActivity_unblock_this_contact_question">解除此联系人的屏蔽？</string>
@@ -576,7 +576,7 @@
     <string name="SingleRecipientNotificationBuilder_new_message">新消息</string>
     <!--SmsMessageRecord-->
     <string name="SmsMessageRecord_duplicate_message">重复消息。</string>
-    <string name="SmsMessageRecord_received_corrupted_key_exchange_message">收到损坏的密钥 交换消息！</string>
+    <string name="SmsMessageRecord_received_corrupted_key_exchange_message">收到损坏的密钥交换消息！</string>
     <string name="SmsMessageRecord_received_key_exchange_message_for_invalid_protocol_version">收到协议版本无效的密钥交换消息。</string>
     <string name="SmsMessageRecord_received_message_with_unknown_identity_key_tap_to_process">收到一条身份键未知的消息。点击以处理并显示。</string>
     <string name="SmsMessageRecord_received_updated_but_unknown_identity_information">收到已更新但身份不明的信息。点击以验证身份。</string>
