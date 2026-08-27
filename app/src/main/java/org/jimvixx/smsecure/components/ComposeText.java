@@ -20,9 +20,6 @@ package org.jimvixx.smsecure.components;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -35,14 +32,10 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.inputmethod.EditorInfoCompat;
-import androidx.core.view.inputmethod.InputConnectionCompat;
-import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.TransportOption;
 import org.jimvixx.smsecure.components.emoji.EmojiEditText;
-import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
 /**
@@ -51,7 +44,6 @@ import org.jimvixx.smsecure.util.SMSecurePreferences;
  * Features:
  * - Transport-specific hint + optional sub-hint (e.g. "via SIM 1")
  * - Hint is ellipsized to the current view width
- * - Supports committing images from IMEs via InputConnectionCompat (GIF/PNG/JPEG)
  */
 public class ComposeText extends EmojiEditText {
 
@@ -71,8 +63,6 @@ public class ComposeText extends EmojiEditText {
   private SpannableString subHint;
 
   // ---- Hint composition cache (to avoid allocations during layout) ----
-  @Nullable
-  private MediaListener mediaListener;
   /**
    * Last width used for hint ellipsizing.
    */
@@ -194,27 +184,7 @@ public class ComposeText extends EmojiEditText {
       editorInfo.imeOptions &= ~EditorInfo.IME_FLAG_NO_ENTER_ACTION;
     }
 
-    if (mediaListener == null) return inputConnection;
-
-    // Advertise supported incoming media types to the IME.
-    EditorInfoCompat.setContentMimeTypes(editorInfo,
-            new String[]{"image/jpeg", "image/png", "image/gif"});
-
-    // Newer androidx.core marks createWrapper as deprecated, but it remains the most reliable
-    // compatibility path (especially for API < 25 private-command based IMEs). Keep it and
-    // suppress the warning intentionally.
-    @SuppressWarnings("deprecation")
-    InputConnection wrapped = InputConnectionCompat.createWrapper(
-            inputConnection,
-            editorInfo,
-            new CommitContentListener(mediaListener)
-    );
-
-    return wrapped;
-  }
-
-  public void setMediaListener(@Nullable MediaListener mediaListener) {
-    this.mediaListener = mediaListener;
+    return inputConnection;
   }
 
   private void initialize() {
@@ -264,45 +234,4 @@ public class ComposeText extends EmojiEditText {
     }
   }
 
-  public interface MediaListener {
-    void onMediaSelected(@NonNull Uri uri, @Nullable String contentType);
-  }
-
-  /**
-   * Handles rich content (images) committed by IMEs.
-   */
-  private static class CommitContentListener implements InputConnectionCompat.OnCommitContentListener {
-
-    private static final String TAG = CommitContentListener.class.getName();
-
-    private final MediaListener mediaListener;
-
-    private CommitContentListener(@NonNull MediaListener mediaListener) {
-      this.mediaListener = mediaListener;
-    }
-
-    @Override
-    public boolean onCommitContent(@NonNull InputContentInfoCompat inputContentInfo,
-                                   int flags,
-                                   Bundle opts) {
-      // Request temporary read access when the IME grants it (API 25+ contract).
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 &&
-              (flags & InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION) != 0) {
-        try {
-          inputContentInfo.requestPermission();
-        } catch (Exception e) {
-          Log.w(TAG, e);
-          return false;
-        }
-      }
-
-      if (inputContentInfo.getDescription().getMimeTypeCount() > 0) {
-        mediaListener.onMediaSelected(inputContentInfo.getContentUri(),
-                inputContentInfo.getDescription().getMimeType(0));
-        return true;
-      }
-
-      return false;
-    }
-  }
 }

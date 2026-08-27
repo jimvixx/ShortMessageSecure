@@ -256,8 +256,6 @@ dependencies {
 
     implementation("com.melnykov:floatingactionbutton:1.3.0")
 
-    implementation("com.pnikosis:materialish-progress:1.7")
-
     implementation("com.squareup.dagger:dagger:1.2.5")
     implementation("com.squareup.okhttp3:okhttp:5.4.0")
 

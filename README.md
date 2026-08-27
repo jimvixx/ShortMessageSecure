@@ -22,6 +22,8 @@
 
 SMSecure is a privacy-focused SMS application that lets you communicate securely with your contacts using encrypted text messages.
 
+> **SMS only:** SMSecure does not support sending, receiving, displaying, or downloading MMS messages.
+
 <p>
   <a href="https://f-droid.org/packages/org.jimvixx.smsecure/">
     <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"

@@ -125,8 +125,7 @@ import java.util.List;
 public class ConversationActivity extends PassphraseRequiredActionBarActivity
         implements ConversationFragment.ConversationFragmentListener,
         RecipientsModifiedListener,
-        OnKeyboardShownListener,
-        ComposeText.MediaListener {
+        OnKeyboardShownListener {
 
   public static final String RECIPIENTS_EXTRA = "recipients";
   public static final String THREAD_ID_EXTRA = "thread_id";
@@ -918,8 +917,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     emojiDrawerStub = ViewUtil.findStubById(this, R.id.emoji_drawer_stub, EmojiDrawer.class);
 
     if (container != null) container.addOnKeyboardShownListener(this);
-    if (composeText != null) composeText.setMediaListener(this);
-
     int[] attributes = new int[]{R.attr.conversation_item_bubble_background_color};
     try (TypedArray colors = obtainStyledAttributes(attributes)) {
       int defaultColor = colors.getColor(0, Color.WHITE);
@@ -1326,10 +1323,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     }
 
     return false;
-  }
-
-  @Override
-  public void onMediaSelected(@NonNull Uri uri, String contentType) {
   }
 
   @Override

@@ -473,6 +473,8 @@
     <string name="MuteDialog_mute_notifications">Mute notifications</string>
     <!--Notification Channels-->
     <string name="NotificationChannel_failures">Failures</string>
+    <string name="MmsListener_notification_title">MMS is not supported</string>
+    <string name="MmsListener_notification_text">SMSecure received an MMS message but cannot display or download it. Ask the sender to use SMS instead.</string>
     <string name="NotificationChannel_locked_status">Locked status</string>
     <string name="NotificationChannel_messages">Messages</string>
     <string name="NotificationChannel_other">Other</string>

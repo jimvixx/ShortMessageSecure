@@ -16,9 +16,17 @@
  */
 package org.jimvixx.smsecure.service;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.core.app.NotificationCompat;
+
+import org.jimvixx.smsecure.R;
+import org.jimvixx.smsecure.notifications.NotificationChannels;
+import org.jimvixx.smsecure.util.ServiceUtil;
 
 /**
  * WARNING: Manifest compatibility stub.
@@ -34,8 +42,10 @@ import android.content.Intent;
  */
 public class MmsListener extends BroadcastReceiver {
 
+  private static final int NOTIFICATION_ID = 5050;
   private static final String ACTION_WAP_PUSH_DELIVER =
           "android.provider.Telephony.WAP_PUSH_DELIVER";
+  private static final String MMS_MIME_TYPE = "application/vnd.wap.mms-message";
 
   @Override
   public void onReceive(Context context, Intent intent) {
@@ -48,11 +58,34 @@ public class MmsListener extends BroadcastReceiver {
       return;
     }
 
-    // Optional extra hardening:
     String type = intent.getType();
-    if (!"application/vnd.wap.mms-message".equals(type)) {
+    if (!MMS_MIME_TYPE.equals(type)) {
+      return;
     }
 
-    // no-op stub
+    Intent targetIntent = context.getPackageManager()
+            .getLaunchIntentForPackage(context.getPackageName());
+
+    NotificationCompat.Builder builder =
+            new NotificationCompat.Builder(context, NotificationChannels.OTHER)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                    .setSmallIcon(R.drawable.ic_smsecure)
+                    .setContentTitle(context.getString(R.string.MmsListener_notification_title))
+                    .setContentText(context.getString(R.string.MmsListener_notification_text))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(
+                            context.getString(R.string.MmsListener_notification_text)))
+                    .setAutoCancel(true);
+
+    if (targetIntent != null) {
+      builder.setContentIntent(PendingIntent.getActivity(
+              context,
+              0,
+              targetIntent,
+              PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+    }
+
+    Notification notification = builder.build();
+    ServiceUtil.getNotificationManager(context).notify(NOTIFICATION_ID, notification);
   }
 }
