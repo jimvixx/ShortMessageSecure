@@ -27,6 +27,8 @@ import android.graphics.drawable.Drawable;
 import android.util.Pair;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.FutureTarget;
 
 import org.jimvixx.smsecure.logging.Log;
 
@@ -67,21 +69,24 @@ public class BitmapUtil {
 
   private static <T> Pair<Integer, Integer> getDimensionsForModel(Context context, T model)
           throws BitmapDecodingException {
+    RequestManager requestManager = Glide.with(context);
+    FutureTarget<Bitmap> target = requestManager
+            .asBitmap()
+            .load(model)
+            .submit();
+
     try {
-      Bitmap bitmap = Glide.with(context)
-              .asBitmap()
-              .load(model)
-              .submit()
-              .get();
+      Bitmap bitmap = target.get();
       if (bitmap == null) {
         throw new BitmapDecodingException("Glide returned null Bitmap while reading dimensions");
       }
       int width = bitmap.getWidth();
       int height = bitmap.getHeight();
-      bitmap.recycle();
       return new Pair<>(width, height);
     } catch (InterruptedException | ExecutionException e) {
       throw new BitmapDecodingException(e);
+    } finally {
+      requestManager.clear(target);
     }
   }
 
