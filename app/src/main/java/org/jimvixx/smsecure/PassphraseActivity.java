@@ -51,9 +51,16 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
     super.onStart();
 
     if (!passphraseActivityRegistered && !isFinishing() && !isDestroyed()) {
-      KeyCachingService.registerPassphraseActivityStarted(this);
-      passphraseActivityRegistered = true;
-      Log.w(TAG, "Registered PassphraseActivity as started");
+      registerPassphraseActivityStarted();
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    if (!passphraseActivityRegistered && !isFinishing() && !isDestroyed()) {
+      registerPassphraseActivityStarted();
     }
   }
 
@@ -62,10 +69,18 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
     super.onStop();
 
     if (passphraseActivityRegistered) {
-      KeyCachingService.registerPassphraseActivityStopped(this);
+      boolean stopped = KeyCachingService.registerPassphraseActivityStopped(this);
       passphraseActivityRegistered = false;
-      Log.w(TAG, "Registered PassphraseActivity as stopped");
+      Log.w(TAG, stopped ? "Registered PassphraseActivity as stopped"
+                         : "Could not register PassphraseActivity as stopped");
     }
+  }
+
+  private void registerPassphraseActivityStarted() {
+    passphraseActivityRegistered = KeyCachingService.registerPassphraseActivityStarted(this);
+    Log.w(TAG, passphraseActivityRegistered
+            ? "Registered PassphraseActivity as started"
+            : "PassphraseActivity registration rejected; will retry");
   }
 
   protected void setMasterSecret(@NonNull MasterSecret masterSecret) {
@@ -83,7 +98,7 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
     this.masterSecret = masterSecret;
 
     Intent bindIntent = new Intent(this, KeyCachingService.class);
-    startService(bindIntent);
+    KeyCachingService.ensureServiceStarted(this);
     bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
   }
 

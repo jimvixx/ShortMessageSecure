@@ -109,9 +109,7 @@ public abstract class PassphraseRequiredActionBarActivity extends BaseActionBarA
     super.onStart();
 
     if (!isFinishing() && !isDestroyed() && !passphraseActivityRegistered) {
-      KeyCachingService.registerPassphraseActivityStarted(this);
-      passphraseActivityRegistered = true;
-      Log.w(TAG, "Registered PassphraseRequiredActionBarActivity as started");
+      registerPassphraseActivityStarted();
     }
   }
 
@@ -132,6 +130,10 @@ public abstract class PassphraseRequiredActionBarActivity extends BaseActionBarA
 
     super.onResume();
 
+    if (!passphraseActivityRegistered) {
+      registerPassphraseActivityStarted();
+    }
+
     isVisible = true;
     clearKeyHandled = false;
   }
@@ -148,9 +150,10 @@ public abstract class PassphraseRequiredActionBarActivity extends BaseActionBarA
     Log.w(TAG, "onStop()");
 
     if (passphraseActivityRegistered) {
-      KeyCachingService.registerPassphraseActivityStopped(this);
+      boolean stopped = KeyCachingService.registerPassphraseActivityStopped(this);
       passphraseActivityRegistered = false;
-      Log.w(TAG, "Registered PassphraseRequiredActionBarActivity as stopped");
+      Log.w(TAG, stopped ? "Registered PassphraseRequiredActionBarActivity as stopped"
+                         : "Could not register PassphraseRequiredActionBarActivity as stopped");
     }
 
     super.onStop();
@@ -161,6 +164,13 @@ public abstract class PassphraseRequiredActionBarActivity extends BaseActionBarA
     Log.w(TAG, "onDestroy()");
     super.onDestroy();
     removeClearKeyReceiver(this);
+  }
+
+  private void registerPassphraseActivityStarted() {
+    passphraseActivityRegistered = KeyCachingService.registerPassphraseActivityStarted(this);
+    Log.w(TAG, passphraseActivityRegistered
+            ? "Registered PassphraseRequiredActionBarActivity as started"
+            : "PassphraseRequiredActionBarActivity registration rejected; will retry");
   }
 
   @Override

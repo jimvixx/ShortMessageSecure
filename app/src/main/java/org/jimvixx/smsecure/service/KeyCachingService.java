@@ -130,8 +130,7 @@ public class KeyCachingService extends Service {
         masterSecret = ms;
 
         // Make sure service is alive so locale handling, broadcasts, and timeout scheduling are consistent.
-        Intent intent = new Intent(context, KeyCachingService.class);
-        context.startService(intent);
+        ensureServiceStarted(context);
 
         return ms;
       } catch (InvalidPassphraseException e) {
@@ -183,19 +182,33 @@ public class KeyCachingService extends Service {
     }).start();
   }
 
-  public static void registerPassphraseActivityStarted(Context activity) {
+  public static boolean ensureServiceStarted(@NonNull Context context) {
+    return startServiceSafely(context, new Intent(context, KeyCachingService.class));
+  }
+
+  public static boolean registerPassphraseActivityStarted(@NonNull Context activity) {
     // Enforce on foreground entry even if alarm never fired
     enforceTimeoutIfExpired(activity);
 
     Intent intent = new Intent(activity, KeyCachingService.class);
     intent.setAction(KeyCachingService.ACTIVITY_START_EVENT);
-    activity.startService(intent);
+    return startServiceSafely(activity, intent);
   }
 
-  public static void registerPassphraseActivityStopped(Context activity) {
+  public static boolean registerPassphraseActivityStopped(@NonNull Context activity) {
     Intent intent = new Intent(activity, KeyCachingService.class);
     intent.setAction(KeyCachingService.ACTIVITY_STOP_EVENT);
-    activity.startService(intent);
+    return startServiceSafely(activity, intent);
+  }
+
+  static boolean startServiceSafely(@NonNull Context context, @NonNull Intent intent) {
+    try {
+      context.startService(intent);
+      return true;
+    } catch (IllegalStateException e) {
+      Log.w(TAG, "Unable to start KeyCachingService for action " + intent.getAction(), e);
+      return false;
+    }
   }
 
   public void setMasterSecret(final MasterSecret newMasterSecret) {
