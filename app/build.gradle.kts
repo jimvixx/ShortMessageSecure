@@ -215,11 +215,11 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:5.0.7")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
 
-    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("androidx.appcompat:appcompat:1.8.0")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.2")
     implementation("androidx.core:core-ktx:1.17.0")
-    implementation("androidx.fragment:fragment:1.8.9")
+    implementation("androidx.fragment:fragment:1.9.0")
     implementation("androidx.gridlayout:gridlayout:1.1.0")
     implementation("androidx.legacy:legacy-support-v13:1.0.0")
     implementation("androidx.preference:preference-ktx:1.2.1")
@@ -232,8 +232,8 @@ dependencies {
     implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
 
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.2")
 
     implementation("com.github.bumptech.glide:glide:5.0.7")
     implementation("com.github.bumptech.glide:okhttp3-integration:5.0.7@aar")
