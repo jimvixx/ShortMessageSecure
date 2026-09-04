@@ -233,7 +233,7 @@ public class DatabaseFactory {
 
       db.execSQL(
               "INSERT INTO identities (_id, recipient, identity_key, name, mac) " +
-                      "SELECT _id, " + recipientExpr + ", key, " + nameExpr + ", " + macExpr + " " +
+                      "SELECT _id, " + recipientExpr + ", \"key\", " + nameExpr + ", " + macExpr + " " +
                       "FROM identities_old;"
       );
 
@@ -247,6 +247,72 @@ public class DatabaseFactory {
       if (hasColumn(db, "identities", "verified")) return;
 
       db.execSQL("ALTER TABLE identities ADD COLUMN verified INTEGER DEFAULT 0");
+    }
+
+    private static void removeIdentityVerifiedColumn(@NonNull SQLiteDatabase db) {
+      if (!tableExists(db, "identities") || !hasColumn(db, "identities", "verified")) return;
+
+      boolean hasIdentityKey = hasColumn(db, "identities", "identity_key");
+      boolean hasKey = hasColumn(db, "identities", "key");
+      boolean hasRecipient = hasColumn(db, "identities", "recipient");
+      boolean hasName = hasColumn(db, "identities", "name");
+      boolean hasMac = hasColumn(db, "identities", "mac");
+
+      String identityKeyExpr = hasIdentityKey ? "identity_key" : hasKey ? "\"key\"" : "NULL";
+      String recipientExpr = hasRecipient ? "recipient" : "NULL";
+      String nameExpr = hasName ? "name" : "NULL";
+      String macExpr = hasMac ? "mac" : "NULL";
+
+      db.execSQL("ALTER TABLE identities RENAME TO identities_old;");
+      db.execSQL(
+              "CREATE TABLE identities (" +
+                      "_id INTEGER PRIMARY KEY, " +
+                      "recipient INTEGER UNIQUE, " +
+                      "identity_key TEXT, " +
+                      "name TEXT, " +
+                      "mac TEXT" +
+                      ");"
+      );
+      db.execSQL(
+              "INSERT INTO identities (_id, recipient, identity_key, name, mac) " +
+                      "SELECT _id, " + recipientExpr + ", " + identityKeyExpr + ", " +
+                      nameExpr + ", " + macExpr + " FROM identities_old;"
+      );
+      db.execSQL("DROP TABLE identities_old;");
+    }
+
+    private static void restoreLegacyIdentityKeyColumn(@NonNull SQLiteDatabase db) {
+      if (!tableExists(db, "identities")) return;
+
+      boolean hasKey = hasColumn(db, "identities", "key");
+      boolean hasIdentityKey = hasColumn(db, "identities", "identity_key");
+
+      if (hasKey || !hasIdentityKey) return;
+
+      boolean hasRecipient = hasColumn(db, "identities", "recipient");
+      boolean hasName = hasColumn(db, "identities", "name");
+      boolean hasMac = hasColumn(db, "identities", "mac");
+
+      String recipientExpr = hasRecipient ? "recipient" : "NULL";
+      String nameExpr = hasName ? "name" : "NULL";
+      String macExpr = hasMac ? "mac" : "NULL";
+
+      db.execSQL("ALTER TABLE identities RENAME TO identities_old;");
+      db.execSQL(
+              "CREATE TABLE identities (" +
+                      "_id INTEGER PRIMARY KEY, " +
+                      "recipient INTEGER UNIQUE, " +
+                      "\"key\" TEXT, " +
+                      "name TEXT, " +
+                      "mac TEXT" +
+                      ");"
+      );
+      db.execSQL(
+              "INSERT INTO identities (_id, recipient, \"key\", name, mac) " +
+                      "SELECT _id, " + recipientExpr + ", identity_key, " + nameExpr + ", " +
+                      macExpr + " FROM identities_old;"
+      );
+      db.execSQL("DROP TABLE identities_old;");
     }
 
     private static void ensurePinnedOrderColumn(@NonNull SQLiteDatabase db) {
@@ -299,9 +365,21 @@ public class DatabaseFactory {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
       db.beginTransaction();
+      try {
+        if (oldVersion >= INTRODUCED_IDENTITY_VERIFIED_VERSION &&
+                newVersion < INTRODUCED_IDENTITY_VERIFIED_VERSION) {
+          removeIdentityVerifiedColumn(db);
+        }
 
-      db.setTransactionSuccessful();
-      db.endTransaction();
+        if (oldVersion >= RENAMED_IDENTITY_KEY_COLUMN_VERSION &&
+                newVersion < RENAMED_IDENTITY_KEY_COLUMN_VERSION) {
+          restoreLegacyIdentityKeyColumn(db);
+        }
+
+        db.setTransactionSuccessful();
+      } finally {
+        db.endTransaction();
+      }
     }
 
     @Override
