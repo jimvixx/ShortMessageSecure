@@ -92,7 +92,8 @@ public class ConversationListLoader extends AbstractCursorLoader {
                       ThreadDatabase.SNIPPET_URI,
                       ThreadDatabase.ARCHIVED,
                       ThreadDatabase.STATUS,
-                      ThreadDatabase.LAST_SEEN
+                      ThreadDatabase.LAST_SEEN,
+                      ThreadDatabase.PINNED_ORDER
               }, 1);
 
       switchToArchiveCursor.addRow(new Object[]{
@@ -107,6 +108,7 @@ public class ConversationListLoader extends AbstractCursorLoader {
               null,
               0,
               -1,
+              0,
               0
       });
 

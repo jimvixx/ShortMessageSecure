@@ -40,9 +40,11 @@ import org.jimvixx.smsecure.util.Conversions;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -184,6 +186,36 @@ public class ConversationListAdapter extends CursorRecyclerViewAdapter<Conversat
 
   public Set<Long> getBatchSelections() {
     return batchSet;
+  }
+
+  public List<Long> getBatchSelectionsInDisplayOrder() {
+    List<Long> result = new ArrayList<>();
+
+    for (int i = 0; i < getItemCount(); i++) {
+      ThreadRecord record = getThreadRecord(getCursorAtPositionOrThrow(i));
+      if (batchSet.contains(record.getThreadId())) result.add(record.getThreadId());
+    }
+
+    return result;
+  }
+
+  public boolean areAllBatchSelectionsPinned() {
+    int selectedCount = 0;
+    int pinnedCount = 0;
+
+    for (int i = 0; i < getItemCount(); i++) {
+      ThreadRecord record = getThreadRecord(getCursorAtPositionOrThrow(i));
+      if (!batchSet.contains(record.getThreadId())) continue;
+
+      selectedCount++;
+      if (record.isPinned()) pinnedCount++;
+    }
+
+    return shouldUnpinSelection(selectedCount, pinnedCount);
+  }
+
+  static boolean shouldUnpinSelection(int selectedCount, int pinnedCount) {
+    return selectedCount > 0 && selectedCount == pinnedCount;
   }
 
   public void initializeBatchMode(boolean toggle) {

@@ -106,6 +106,7 @@ public class ConversationListItem extends RelativeLayout
     this.lastSeen = thread.getLastSeen();
 
     this.recipients.addListener(this);
+    this.fromView.setPinned(thread.isPinned());
     this.fromView.setText(recipients, read);
 
     this.subjectView.setText(thread.getDisplayBody());

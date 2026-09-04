@@ -41,6 +41,7 @@ public class FromTextView extends EmojiTextView {
 
   @SuppressWarnings("unused")
   private static final String TAG = FromTextView.class.getSimpleName();
+  private boolean pinned;
 
   public FromTextView(Context context) {
     super(context);
@@ -90,25 +91,33 @@ public class FromTextView extends EmojiTextView {
 
     setText(builder);
 
-    int resId;
-    if (recipients.isBlocked()) resId = R.drawable.ic_block;
-    else if (recipients.isMuted()) resId = R.drawable.ic_volume_off;
-    else resId = 0;
+    int statusIconResId;
+    if (recipients.isBlocked()) statusIconResId = R.drawable.ic_block;
+    else if (recipients.isMuted()) statusIconResId = R.drawable.ic_volume_off;
+    else statusIconResId = 0;
 
-    if (resId != 0) {
-      Drawable d = AppCompatResources.getDrawable(getContext(), resId);
-      if (d != null) {
-        d = d.mutate();
+    setConversationIcons(statusIconResId);
+  }
 
-        int sizePx = ViewUtil.dpToPx(getResources(), 18);
-        d.setBounds(0, 0, sizePx, sizePx);
+  public void setPinned(boolean pinned) {
+    this.pinned = pinned;
+  }
 
-        setCompoundDrawables(d, null, null, null);
-      } else {
-        setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-      }
-    } else {
-      setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-    }
+  private void setConversationIcons(int statusIconResId) {
+    Drawable statusIcon = getSizedDrawable(statusIconResId);
+    Drawable pinIcon = getSizedDrawable(pinned ? R.drawable.ic_pin : 0);
+    setCompoundDrawablesRelative(statusIcon, null, pinIcon, null);
+  }
+
+  private Drawable getSizedDrawable(int resId) {
+    if (resId == 0) return null;
+
+    Drawable drawable = AppCompatResources.getDrawable(getContext(), resId);
+    if (drawable == null) return null;
+
+    drawable = drawable.mutate();
+    int sizePx = ViewUtil.dpToPx(getResources(), 18);
+    drawable.setBounds(0, 0, sizePx, sizePx);
+    return drawable;
   }
 }

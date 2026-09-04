@@ -166,6 +166,8 @@
     <string name="conversation_list_batch__menu_delete_selected">Delete selected</string>
     <string name="conversation_list_batch__menu_select_all">Select all</string>
     <string name="conversation_list_batch__menu_send_drafts">Send selected drafts</string>
+    <string name="conversation_list_batch__menu_pin_selected">Pin selected</string>
+    <string name="conversation_list_batch__menu_unpin_selected">Unpin selected</string>
     <string name="conversation_list_batch_archive__menu_archive_selected">Archive selected</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Unarchive selected</string>
     <!--conversation_list_fragment-->

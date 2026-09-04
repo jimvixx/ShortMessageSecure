@@ -73,11 +73,12 @@ public class DatabaseFactory {
   private static final int INTRODUCED_XMPP_TRANSPORT = 31;
   private static final int RENAMED_IDENTITY_KEY_COLUMN_VERSION = 33;
   private static final int INTRODUCED_IDENTITY_VERIFIED_VERSION = 34;
+  private static final int INTRODUCED_PINNED_ORDER_VERSION = 35;
 
   //removed MmsDatabase & MmsAddressDatabase & AttachmentDatabase
-  //private static final int DROPPED_MMS_LEGACY_TABLES_VERSION = 35;
+  //private static final int DROPPED_MMS_LEGACY_TABLES_VERSION = 36;
 
-  private static final int DATABASE_VERSION = 34;
+  private static final int DATABASE_VERSION = 35;
   private static final String DATABASE_NAME = "messages.db";
   private static final Object lock = new Object();
 
@@ -246,6 +247,19 @@ public class DatabaseFactory {
       if (hasColumn(db, "identities", "verified")) return;
 
       db.execSQL("ALTER TABLE identities ADD COLUMN verified INTEGER DEFAULT 0");
+    }
+
+    private static void ensurePinnedOrderColumn(@NonNull SQLiteDatabase db) {
+      if (!tableExists(db, "thread")) return;
+
+      if (!hasColumn(db, "thread", ThreadDatabase.PINNED_ORDER)) {
+        db.execSQL("ALTER TABLE thread ADD COLUMN " + ThreadDatabase.PINNED_ORDER +
+                " INTEGER DEFAULT 0");
+      }
+
+      // Older versions do not clear pin state when archiving a conversation.
+      db.execSQL("UPDATE thread SET " + ThreadDatabase.PINNED_ORDER +
+              " = 0 WHERE " + ThreadDatabase.ARCHIVED + " != 0");
     }
 
     private static boolean tableExists(@NonNull SQLiteDatabase db, @NonNull String table) {
@@ -603,6 +617,10 @@ public class DatabaseFactory {
 
       if (oldVersion < INTRODUCED_IDENTITY_VERIFIED_VERSION) {
         addIdentityVerifiedColumn(db);
+      }
+
+      if (oldVersion < INTRODUCED_PINNED_ORDER_VERSION) {
+        ensurePinnedOrderColumn(db);
       }
 
 //      if (oldVersion < DROPPED_MMS_LEGACY_TABLES_VERSION) {

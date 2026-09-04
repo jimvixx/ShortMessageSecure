@@ -393,6 +393,28 @@ public class ConversationListFragment extends Fragment
     }
   }
 
+  private void handlePinSelected() {
+    final ConversationListAdapter adapter = getListAdapter();
+    if (adapter == null) return;
+
+    final List<Long> selectedConversations = adapter.getBatchSelectionsInDisplayOrder();
+    if (selectedConversations.isEmpty()) return;
+
+    final boolean unpin = adapter.areAllBatchSelectionsPinned();
+    final Context appContext = requireAppContext();
+
+    backgroundExecutor.execute(() -> {
+      ThreadDatabase db = DatabaseFactory.getThreadDatabase(appContext);
+      if (unpin) db.unpinConversations(selectedConversations);
+      else db.pinConversations(selectedConversations);
+    });
+
+    if (actionMode != null) {
+      actionMode.finish();
+      actionMode = null;
+    }
+  }
+
   private void handleDeleteSelected() {
     final ConversationListAdapter adapter = getListAdapter();
     if (adapter == null) return;
@@ -451,7 +473,9 @@ public class ConversationListFragment extends Fragment
     actionMode.setSubtitle(getResources().getQuantityString(
             R.plurals.conversation_fragment_cab__batch_selection_amount,
             adapter.getBatchSelections().size(),
-            adapter.getBatchSelections().size()));  }
+            adapter.getBatchSelections().size()));
+    actionMode.invalidate();
+  }
 
   private void handleCreateConversation(long threadId,
                                         Recipients recipients,
@@ -572,6 +596,8 @@ public class ConversationListFragment extends Fragment
       int count = adapter.getItemCount();
       if (count > 0) adapter.notifyItemRangeChanged(0, count);
     }
+
+    if (actionMode != null) actionMode.invalidate();
   }
 
   // Called when a list row is long-clicked (starts selection mode).
@@ -596,6 +622,8 @@ public class ConversationListFragment extends Fragment
       int count = adapter.getItemCount();
       if (count > 0) adapter.notifyItemRangeChanged(0, count);
     }
+
+    if (actionMode != null) actionMode.invalidate();
   }
 
   @Override
@@ -627,7 +655,17 @@ public class ConversationListFragment extends Fragment
 
   @Override
   public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-    return false;
+    MenuItem pin = menu.findItem(R.id.menu_pin_selected);
+    ConversationListAdapter adapter = getListAdapter();
+    boolean hasSelection = adapter != null && !adapter.getBatchSelections().isEmpty();
+    boolean unpin = hasSelection && adapter.areAllBatchSelectionsPinned();
+
+    pin.setVisible(!archive && hasSelection);
+    pin.setIcon(unpin ? R.drawable.ic_pin_off : R.drawable.ic_pin);
+    pin.setTitle(unpin
+            ? R.string.conversation_list_batch__menu_unpin_selected
+            : R.string.conversation_list_batch__menu_pin_selected);
+    return true;
   }
 
   @Override
@@ -641,6 +679,9 @@ public class ConversationListFragment extends Fragment
       return true;
     } else if (id == R.id.menu_archive_selected) {
       handleArchiveSelected();
+      return true;
+    } else if (id == R.id.menu_pin_selected) {
+      handlePinSelected();
       return true;
     } else if (id == R.id.menu_send_drafts) {
       handleSendDrafts();
