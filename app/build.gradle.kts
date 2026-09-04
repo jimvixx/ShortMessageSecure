@@ -241,7 +241,7 @@ dependencies {
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
     implementation("com.google.android.material:material:1.14.0")
-    implementation("com.google.protobuf:protobuf-java:4.35.1")
+    implementation("com.google.protobuf:protobuf-java:4.36.0")
     implementation("com.google.zxing:core:3.5.4")
 
     implementation("com.googlecode.libphonenumber:libphonenumber:9.0.37")
