@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.1.0
+
+### Added
+
+- Added support for pinning conversations at the top of the chat list.
+
+### Changed
+
+- Improved Simplified Chinese translations.
+- Clarified that SMSecure supports text messages only and now reports unsupported incoming MMS messages.
+
+### Fixed
+
+- Fixed failures when Android restricts background starts of the key-caching service.
+- Fixed unsafe bitmap cleanup that could prevent images from being processed.
+- Centered the SMS character counter.
+- Improved identity database compatibility when downgrading the app.
+
 ## v1.0.3
 
 ### Changed
