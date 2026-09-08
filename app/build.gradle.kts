@@ -257,7 +257,7 @@ dependencies {
     implementation("com.melnykov:floatingactionbutton:1.3.0")
 
     implementation("com.squareup.dagger:dagger:1.2.5")
-    implementation("com.squareup.okhttp3:okhttp:5.4.0")
+    implementation("com.squareup.okhttp3:okhttp:5.5.0")
 
     implementation("com.takisoft.preferencex:preferencex-colorpicker:1.1.0")
     implementation("com.takisoft.preferencex:preferencex:1.1.0")
