@@ -60,6 +60,15 @@ Just install and start messaging.
 
 ---
 
+## 📌 Pin Important Chats
+
+Keep important conversations easy to reach by pinning them to the top of the chat list.
+
+- Pin or unpin one or multiple chats at once
+- Pinned chats keep their order, even when new messages arrive
+
+---
+
 ## 🚫 Block Unwanted Messages
 
 Stay in control of your inbox.
