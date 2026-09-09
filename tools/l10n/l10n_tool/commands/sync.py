@@ -33,6 +33,7 @@ from ..xml_backend import (
     StringArrayEntry,
     StringEntry,
     build_entry_map,
+    entry_kind,
     entry_source_hash,
     etree_remove_entry,
     etree_upsert_array,
@@ -298,6 +299,77 @@ def _clone_entry_with_comments(entry, comments: List[str]):
 
 def _entry_name_sort_key(entry) -> Tuple[str]:
     return (entry.name.casefold(),)
+
+
+def _locale_entry_has_complete_translation(base_entry, locale_entry, lang: str) -> bool:
+    if not base_entry.translatable:
+        return False
+
+    if isinstance(base_entry, StringEntry):
+        return (
+            isinstance(locale_entry, StringEntry)
+            and (locale_entry.text or "").strip() != ""
+        )
+
+    if isinstance(base_entry, PluralsEntry):
+        if not isinstance(locale_entry, PluralsEntry):
+            return False
+        items = filter_plural_items_for_lang(lang, dict(locale_entry.items))
+        items = sanitize_android_plural_items(items)
+        return _has_complete_plural_values(lang, items)
+
+    if isinstance(base_entry, StringArrayEntry):
+        return (
+            isinstance(locale_entry, StringArrayEntry)
+            and _has_non_empty_array_values(
+                sanitize_android_array_items(list(locale_entry.items))
+            )
+        )
+
+    raise AssertionError("Unknown entry type")
+
+
+def _attach_section_markers_to_first_locale_entries(
+    base_entries: List,
+    locale_map: Dict[Tuple[str, str], Any],
+    lang: str,
+) -> List:
+    """
+    Move each section marker to the first resource retained in this locale.
+
+    Comments other than the section marker remain attached to their original
+    base resource. If a section has no complete translations, its marker is
+    omitted because there is no locale resource to attach it to.
+    """
+    prepared_entries: List = []
+    pending_section_marker: Optional[str] = None
+
+    for entry in base_entries:
+        comments = list(getattr(entry, "comments", None) or [])
+        section_marker = _extract_section_marker(comments)
+        locale_entry = locale_map.get((entry_kind(entry), entry.name))
+        has_translation = _locale_entry_has_complete_translation(
+            entry,
+            locale_entry,
+            lang,
+        )
+
+        if section_marker is not None:
+            if has_translation:
+                pending_section_marker = None
+            else:
+                pending_section_marker = section_marker
+                comments = _strip_section_marker_from_comments(
+                    comments,
+                    section_marker,
+                )
+        elif pending_section_marker is not None and has_translation:
+            comments = [pending_section_marker, *comments]
+            pending_section_marker = None
+
+        prepared_entries.append(_clone_entry_with_comments(entry, comments))
+
+    return prepared_entries
 
 
 def _sort_base_entries_by_section(entries: List) -> List:
@@ -981,6 +1053,12 @@ def sync_command(args) -> int:
 
         locale_entries, locale_tree = read_entries(xml_backend, lang_file)
         locale_map = build_entry_map(locale_entries)
+        locale_base_entries = _attach_section_markers_to_first_locale_entries(
+            base_entries,
+            locale_map,
+            lang,
+        )
+        locale_base_map = build_entry_map(locale_base_entries)
 
         lang_state: Dict[str, Dict[str, Any]] = state.setdefault("langs", {}).setdefault(lang, {})
 
@@ -994,7 +1072,7 @@ def sync_command(args) -> int:
             if (kind, name) not in base_map_keys:
                 del lang_state[key]
 
-        for (kind, name), base_entry in base_map.items():
+        for (kind, name), base_entry in locale_base_map.items():
             key = f"{kind}:{name}"
             current_source_hash = base_hashes[key]
 

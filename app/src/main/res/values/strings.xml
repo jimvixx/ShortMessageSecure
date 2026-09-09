@@ -164,9 +164,9 @@
     <string name="conversation_item_sent__sent_description">Sent</string>
     <!--conversation_list_batch-->
     <string name="conversation_list_batch__menu_delete_selected">Delete selected</string>
+    <string name="conversation_list_batch__menu_pin_selected">Pin selected</string>
     <string name="conversation_list_batch__menu_select_all">Select all</string>
     <string name="conversation_list_batch__menu_send_drafts">Send selected drafts</string>
-    <string name="conversation_list_batch__menu_pin_selected">Pin selected</string>
     <string name="conversation_list_batch__menu_unpin_selected">Unpin selected</string>
     <string name="conversation_list_batch_archive__menu_archive_selected">Archive selected</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Unarchive selected</string>
@@ -474,9 +474,9 @@
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">Mute notifications</string>
     <!--Notification Channels-->
-    <string name="NotificationChannel_failures">Failures</string>
-    <string name="MmsListener_notification_title">MMS is not supported</string>
     <string name="MmsListener_notification_text">SMSecure received an MMS message but cannot display or download it. Ask the sender to use SMS instead.</string>
+    <string name="MmsListener_notification_title">MMS is not supported</string>
+    <string name="NotificationChannel_failures">Failures</string>
     <string name="NotificationChannel_locked_status">Locked status</string>
     <string name="NotificationChannel_messages">Messages</string>
     <string name="NotificationChannel_other">Other</string>
