@@ -147,8 +147,10 @@
   <string name="conversation_item_sent__sent_description">전송됨</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">선택 항목 삭제</string>
+  <string name="conversation_list_batch__menu_pin_selected">선택 항목 고정</string>
   <string name="conversation_list_batch__menu_select_all">모두 선택</string>
   <string name="conversation_list_batch__menu_send_drafts">선택한 초안 보내기</string>
+  <string name="conversation_list_batch__menu_unpin_selected">선택 항목 고정 해제</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">선택한 항목 보관</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">선택 항목 압축 해제</string>
   <!--conversation_list_fragment-->
@@ -414,6 +416,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">알림 음소거</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure에서 MMS 메시지를 수신했으나 표시하거나 다운로드할 수 없습니다. 발신자에게 SMS를 사용하도록 요청하십시오.</string>
+  <string name="MmsListener_notification_title">MMS는 지원되지 않습니다.</string>
   <string name="NotificationChannel_failures">오류</string>
   <string name="NotificationChannel_locked_status">잠금 상태</string>
   <string name="NotificationChannel_messages">메시지</string>

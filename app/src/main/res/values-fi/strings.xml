@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Lähetetty</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Poista valitut</string>
+  <string name="conversation_list_batch__menu_pin_selected">Kiinnitä valittu</string>
   <string name="conversation_list_batch__menu_select_all">Valitse kaikki</string>
   <string name="conversation_list_batch__menu_send_drafts">Lähetä valitut luonnokset</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Poista valitun kiinnitys</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arkisto valittu</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Poista valittujen arkistointi</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Mykistä ilmoitukset</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure on vastaanottanut MMS-viestin, mutta ei voi näyttää tai ladata sitä. Pyydä lähettäjää käyttämään sen sijaan SMS-viestejä.</string>
+  <string name="MmsListener_notification_title">MMS-viestejä ei tueta</string>
   <string name="NotificationChannel_failures">Virheet</string>
   <string name="NotificationChannel_locked_status">Lukittu tila</string>
   <string name="NotificationChannel_messages">Viestit</string>

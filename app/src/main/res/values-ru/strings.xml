@@ -156,8 +156,10 @@
     <string name="conversation_item_sent__sent_description">Отправлено</string>
     <!--conversation_list_batch-->
     <string name="conversation_list_batch__menu_delete_selected">Удалить выбранное</string>
+    <string name="conversation_list_batch__menu_pin_selected">Закрепить выбранное</string>
     <string name="conversation_list_batch__menu_select_all">Выбрать все</string>
     <string name="conversation_list_batch__menu_send_drafts">Отправить выбранные черновики</string>
+    <string name="conversation_list_batch__menu_unpin_selected">Открепить выбранное</string>
     <string name="conversation_list_batch_archive__menu_archive_selected">Архивировать выбраное</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Разархивировать выбранное</string>
     <!--conversation_list_fragment-->
@@ -447,6 +449,8 @@
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">Отключить уведомления</string>
     <!--Notification Channels-->
+    <string name="MmsListener_notification_text">SMSecure получило MMS-сообщение, но не может его отобразить или загрузить. Попросите отправителя использовать SMS вместо MMS.</string>
+    <string name="MmsListener_notification_title">MMS не поддерживается</string>
     <string name="NotificationChannel_failures">Сбои</string>
     <string name="NotificationChannel_locked_status">Статус «Заблокировано»</string>
     <string name="NotificationChannel_messages">Сообщения</string>

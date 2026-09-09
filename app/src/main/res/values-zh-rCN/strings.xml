@@ -147,8 +147,10 @@
     <string name="conversation_item_sent__sent_description">已发送</string>
     <!--conversation_list_batch-->
     <string name="conversation_list_batch__menu_delete_selected">删除选中的</string>
+    <string name="conversation_list_batch__menu_pin_selected">固定选中项</string>
     <string name="conversation_list_batch__menu_select_all">全选</string>
     <string name="conversation_list_batch__menu_send_drafts">发送选中的草稿</string>
+    <string name="conversation_list_batch__menu_unpin_selected">取消固定所选项目</string>
     <string name="conversation_list_batch_archive__menu_archive_selected">已归档所选内容</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">取消归档所选项</string>
     <!--conversation_list_fragment-->
@@ -414,6 +416,8 @@
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">静音通知</string>
     <!--Notification Channels-->
+    <string name="MmsListener_notification_text">SMSecure 收到了一条 MMS，但无法显示或下载该消息。请发件人改用 SMS 发送。</string>
+    <string name="MmsListener_notification_title">不支持 MMS</string>
     <string name="NotificationChannel_failures">失败</string>
     <string name="NotificationChannel_locked_status">锁定状态</string>
     <string name="NotificationChannel_messages">消息</string>

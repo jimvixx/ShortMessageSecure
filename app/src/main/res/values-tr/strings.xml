@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Gönderildi</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Seçilenleri sil</string>
+  <string name="conversation_list_batch__menu_pin_selected">Seçili sabitle</string>
   <string name="conversation_list_batch__menu_select_all">Tümünü seç</string>
   <string name="conversation_list_batch__menu_send_drafts">Seçilen taslakları gönder</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Seçileni sabitlemeden çıkar</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arşiv seçildi</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Seçilenleri arşivden çıkar</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Bildirimleri sessize al</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure bir MMS mesajı aldı ancak bunu görüntüleyemiyor veya indiremiyor. Göndericiden bunun yerine SMS kullanmasını isteyin.</string>
+  <string name="MmsListener_notification_title">MMS desteklenmemektedir</string>
   <string name="NotificationChannel_failures">Hatalar</string>
   <string name="NotificationChannel_locked_status">Kilitli durum</string>
   <string name="NotificationChannel_messages">Mesajlar</string>

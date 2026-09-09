@@ -2,6 +2,7 @@
 SMSecure
 HEX
 SMS
+MMS
 SIM
 Base64
 XMPP

@@ -162,8 +162,10 @@
 <string name="conversation_item_sent__sent_description">مرسل</string>
 <!--conversation_list_batch-->
 <string name="conversation_list_batch__menu_delete_selected">حذف المحدد</string>
+<string name="conversation_list_batch__menu_pin_selected">تم تثبيت العنصر المحدد</string>
 <string name="conversation_list_batch__menu_select_all">تحديد الكل</string>
 <string name="conversation_list_batch__menu_send_drafts">إرسال المسودات المحددة</string>
+<string name="conversation_list_batch__menu_unpin_selected">إلغاء تثبيت العناصر المحددة</string>
 <string name="conversation_list_batch_archive__menu_archive_selected">تم تحديد الأرشيف</string>
 <string name="conversation_list_batch_unarchive__menu_unarchive_selected">إلغاء أرشفة المحدد</string>
 <!--conversation_list_fragment-->
@@ -469,6 +471,8 @@
 <!--MuteDialog-->
 <string name="MuteDialog_mute_notifications">كتم الإشعارات</string>
 <!--Notification Channels-->
+<string name="MmsListener_notification_text">تلقى SMSecure رسالة MMS ولكنه لا يستطيع عرضها أو تنزيلها. اطلب من المرسل استخدام الرسائل القصيرة (SMS) بدلاً من ذلك.</string>
+<string name="MmsListener_notification_title">لا يتم دعم خدمة MMS</string>
 <string name="NotificationChannel_failures">أخطاء</string>
 <string name="NotificationChannel_locked_status">حالة القفل</string>
 <string name="NotificationChannel_messages">الرسائل</string>

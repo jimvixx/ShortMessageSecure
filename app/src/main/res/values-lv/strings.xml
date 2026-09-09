@@ -153,8 +153,10 @@
 <string name="conversation_item_sent__sent_description">Nosūtīts</string>
 <!--conversation_list_batch-->
 <string name="conversation_list_batch__menu_delete_selected">Dzēst atlasīto</string>
+<string name="conversation_list_batch__menu_pin_selected">Izvēlēts fiksēt</string>
 <string name="conversation_list_batch__menu_select_all">Izvēlēties visu</string>
 <string name="conversation_list_batch__menu_send_drafts">Nosūtīt atlasītos uzmetumus</string>
+<string name="conversation_list_batch__menu_unpin_selected">Atvienot atlasīto</string>
 <string name="conversation_list_batch_archive__menu_archive_selected">Arhīvs izvēlēts</string>
 <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Atvērt atlasītos</string>
 <!--conversation_list_fragment-->
@@ -436,6 +438,8 @@
 <!--MuteDialog-->
 <string name="MuteDialog_mute_notifications">Aizslēgt paziņojumus</string>
 <!--Notification Channels-->
+<string name="MmsListener_notification_text">SMSecure ir saņēmis MMS ziņojumu, bet nevar to parādīt vai lejupielādēt. Lūdziet sūtītājam izmantot SMS.</string>
+<string name="MmsListener_notification_title">MMS netiek atbalstīts</string>
 <string name="NotificationChannel_failures">Kļūdas</string>
 <string name="NotificationChannel_locked_status">Bloķēts statuss</string>
 <string name="NotificationChannel_messages">Ziņojumi</string>

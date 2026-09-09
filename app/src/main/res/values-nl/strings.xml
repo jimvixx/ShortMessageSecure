@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Verzonden</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Geselecteerde verwijderen</string>
+  <string name="conversation_list_batch__menu_pin_selected">Geselecteerd vastzetten</string>
   <string name="conversation_list_batch__menu_select_all">Alles selecteren</string>
   <string name="conversation_list_batch__menu_send_drafts">Geselecteerde concepten verzenden</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Geselecteerde item losmaken</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Archief geselecteerd</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Geselecteerde items uit archief halen</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Meldingen dempen</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure heeft een MMS-bericht ontvangen, maar kan dit niet weergeven of downloaden. Vraag de afzender om in plaats daarvan een SMS te sturen.</string>
+  <string name="MmsListener_notification_title">MMS wordt niet ondersteund</string>
   <string name="NotificationChannel_failures">Storingen</string>
   <string name="NotificationChannel_locked_status">Vergrendelde status</string>
   <string name="NotificationChannel_messages">Berichten</string>

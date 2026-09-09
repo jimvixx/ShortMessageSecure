@@ -150,8 +150,10 @@
 <string name="conversation_item_sent__sent_description">Saadetud</string>
 <!--conversation_list_batch-->
 <string name="conversation_list_batch__menu_delete_selected">Kustuta valitud</string>
+<string name="conversation_list_batch__menu_pin_selected">Kinnita valik</string>
 <string name="conversation_list_batch__menu_select_all">Vali kõik</string>
 <string name="conversation_list_batch__menu_send_drafts">Saada valitud kavandid</string>
+<string name="conversation_list_batch__menu_unpin_selected">Valitud eemaldamine</string>
 <string name="conversation_list_batch_archive__menu_archive_selected">Arhiiv valitud</string>
 <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Valitud arhiivist väljavõtmine</string>
 <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
 <!--MuteDialog-->
 <string name="MuteDialog_mute_notifications">Teavituste vaigistamine</string>
 <!--Notification Channels-->
+<string name="MmsListener_notification_text">SMSecure sai MMS-sõnumi, kuid ei saa seda kuvada ega alla laadida. Palu saatjal kasutada selle asemel SMS-i.</string>
+<string name="MmsListener_notification_title">MMS-i ei toetata</string>
 <string name="NotificationChannel_failures">Rikked</string>
 <string name="NotificationChannel_locked_status">Lukustatud olek</string>
 <string name="NotificationChannel_messages">Sõnumid</string>

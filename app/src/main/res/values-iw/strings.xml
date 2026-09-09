@@ -153,8 +153,10 @@
     <string name="conversation_item_sent__sent_description">נשלח</string>
     <!--conversation_list_batch-->
     <string name="conversation_list_batch__menu_delete_selected">מחק את הנבחרים</string>
+    <string name="conversation_list_batch__menu_pin_selected">הסימון נבחר</string>
     <string name="conversation_list_batch__menu_select_all">בחר הכל</string>
     <string name="conversation_list_batch__menu_send_drafts">שלח טיוטות נבחרות</string>
+    <string name="conversation_list_batch__menu_unpin_selected">הסר את הסימון מהנבחר</string>
     <string name="conversation_list_batch_archive__menu_archive_selected">ארכיון נבחר</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">בטל ארכוב הנבחרים</string>
     <!--conversation_list_fragment-->
@@ -436,6 +438,8 @@
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">השתקת התראות</string>
     <!--Notification Channels-->
+    <string name="MmsListener_notification_text">SMSecure קיבלה הודעת MMS אך אינה יכולה להציג אותה או להוריד אותה. בקש מהשולח להשתמש ב-SMS במקום.</string>
+    <string name="MmsListener_notification_title">MMS אינו נתמך</string>
     <string name="NotificationChannel_failures">כשלים</string>
     <string name="NotificationChannel_locked_status">סטטוס נעול</string>
     <string name="NotificationChannel_messages">הודעות</string>

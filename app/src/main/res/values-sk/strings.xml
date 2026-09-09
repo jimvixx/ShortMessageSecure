@@ -156,8 +156,10 @@
   <string name="conversation_item_sent__sent_description">Odoslané</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Odstrániť vybrané</string>
+  <string name="conversation_list_batch__menu_pin_selected">Pripnúť vybrané</string>
   <string name="conversation_list_batch__menu_select_all">Vybrať všetko</string>
   <string name="conversation_list_batch__menu_send_drafts">Odoslať vybrané koncepty</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Odopnúť vybrané položky</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Archív vybraný</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Rozbalené vybrané položky</string>
   <!--conversation_list_fragment-->
@@ -447,6 +449,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Stlmiť upozornenia</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">Aplikácia SMSecure prijala správu MMS, ale nemôže ju zobraziť ani stiahnuť. Požiadajte odosielateľa, aby namiesto toho použil SMS.</string>
+  <string name="MmsListener_notification_title">MMS nie je podporované</string>
   <string name="NotificationChannel_failures">Zlyhania</string>
   <string name="NotificationChannel_locked_status">Stav uzamknutia</string>
   <string name="NotificationChannel_messages">Správy</string>

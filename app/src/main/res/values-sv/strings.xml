@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Skickat</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Ta bort valda</string>
+  <string name="conversation_list_batch__menu_pin_selected">Fäst valt</string>
   <string name="conversation_list_batch__menu_select_all">Välj alla</string>
   <string name="conversation_list_batch__menu_send_drafts">Skicka valda utkast</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Ta bort markeringen</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arkiv valt</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Avarkivera valt</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Stäng av aviseringar</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure har tagit emot ett MMS-meddelande men kan inte visa eller ladda ner det. Be avsändaren att använda SMS istället.</string>
+  <string name="MmsListener_notification_title">MMS stöds inte</string>
   <string name="NotificationChannel_failures">Fel</string>
   <string name="NotificationChannel_locked_status">Låst status</string>
   <string name="NotificationChannel_messages">Meddelanden</string>

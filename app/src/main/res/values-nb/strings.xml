@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Sendt</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Slett valgt</string>
+  <string name="conversation_list_batch__menu_pin_selected">Fest valgt</string>
   <string name="conversation_list_batch__menu_select_all">Velg alt</string>
   <string name="conversation_list_batch__menu_send_drafts">Send valgte utkast</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Fjern utvalgt fra listen</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arkiv valgt</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Fjern arkivering av valgt</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Demp varsler</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure har mottatt en MMS-melding, men kan ikke vise eller laste den ned. Be avsenderen om å bruke SMS i stedet.</string>
+  <string name="MmsListener_notification_title">MMS støttes ikke</string>
   <string name="NotificationChannel_failures">Feil</string>
   <string name="NotificationChannel_locked_status">Låst status</string>
   <string name="NotificationChannel_messages">Meldinger</string>

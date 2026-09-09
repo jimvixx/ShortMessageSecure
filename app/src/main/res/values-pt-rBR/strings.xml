@@ -153,8 +153,10 @@
   <string name="conversation_item_sent__sent_description">Enviado</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Excluir selecionados</string>
+  <string name="conversation_list_batch__menu_pin_selected">Fixar selecionado</string>
   <string name="conversation_list_batch__menu_select_all">Selecionar tudo</string>
   <string name="conversation_list_batch__menu_send_drafts">Enviar rascunhos selecionados</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Desfixar o selecionado</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arquivo selecionado</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Desarquivar selecionados</string>
   <!--conversation_list_fragment-->
@@ -436,6 +438,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Silenciar notificações</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">O SMSecure recebeu uma mensagem MMS, mas não consegue exibi-la nem baixá-la. Peça ao remetente para usar SMS em vez disso.</string>
+  <string name="MmsListener_notification_title">MMS não é compatível</string>
   <string name="NotificationChannel_failures">Falhas</string>
   <string name="NotificationChannel_locked_status">Status bloqueado</string>
   <string name="NotificationChannel_messages">Mensagens</string>

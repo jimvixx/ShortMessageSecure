@@ -153,8 +153,10 @@
   <string name="conversation_item_sent__sent_description">Trimis</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Șterge selecția</string>
+  <string name="conversation_list_batch__menu_pin_selected">Fixare selectată</string>
   <string name="conversation_list_batch__menu_select_all">Selectează tot</string>
   <string name="conversation_list_batch__menu_send_drafts">Trimiteți schițele selectate</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Dezactivează elementul selectat</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arhivă selectată</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Dezarhivare selecție</string>
   <!--conversation_list_fragment-->
@@ -436,6 +438,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Dezactivare notificări</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure a primit un mesaj MMS, dar nu îl poate afișa sau descărca. Rugați expeditorul să utilizeze SMS în schimb.</string>
+  <string name="MmsListener_notification_title">MMS nu este acceptat</string>
   <string name="NotificationChannel_failures">Eșecuri</string>
   <string name="NotificationChannel_locked_status">Stare blocată</string>
   <string name="NotificationChannel_messages">Mesaje</string>

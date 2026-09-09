@@ -150,8 +150,10 @@
     <string name="conversation_item_sent__sent_description">Изпратено</string>
     <!--conversation_list_batch-->
     <string name="conversation_list_batch__menu_delete_selected">Изтриване на избраното</string>
+    <string name="conversation_list_batch__menu_pin_selected">Избрано за фиксиране</string>
     <string name="conversation_list_batch__menu_select_all">Избери всичко</string>
     <string name="conversation_list_batch__menu_send_drafts">Изпрати избраните чернови</string>
+    <string name="conversation_list_batch__menu_unpin_selected">Отместване на избраното</string>
     <string name="conversation_list_batch_archive__menu_archive_selected">Архив избран</string>
     <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Деархивиране на избраното</string>
     <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">Изключване на известията</string>
     <!--Notification Channels-->
+    <string name="MmsListener_notification_text">SMSecure е получило MMS съобщение, но не може да го покаже или изтегли. Помолете изпращача да използва SMS вместо това.</string>
+    <string name="MmsListener_notification_title">MMS не се поддържа</string>
     <string name="NotificationChannel_failures">Неуспехи</string>
     <string name="NotificationChannel_locked_status">Статус „Заключено“</string>
     <string name="NotificationChannel_messages">Съобщения</string>

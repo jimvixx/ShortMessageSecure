@@ -147,8 +147,10 @@
   <string name="conversation_item_sent__sent_description">送信済み</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">選択した項目を削除</string>
+  <string name="conversation_list_batch__menu_pin_selected">選択項目を固定</string>
   <string name="conversation_list_batch__menu_select_all">すべて選択</string>
   <string name="conversation_list_batch__menu_send_drafts">選択した下書きを送信</string>
+  <string name="conversation_list_batch__menu_unpin_selected">「選択した項目をピン留め解除」</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">選択したアーカイブ</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">選択した項目をアーカイブ解除</string>
   <!--conversation_list_fragment-->
@@ -414,6 +416,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">通知をミュート</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecureはMMSメッセージを受信しましたが、表示またはダウンロードできません。送信者にSMSの使用を依頼してください。</string>
+  <string name="MmsListener_notification_title">MMSはサポートされていません</string>
   <string name="NotificationChannel_failures">失敗</string>
   <string name="NotificationChannel_locked_status">ロック状態</string>
   <string name="NotificationChannel_messages">メッセージ</string>

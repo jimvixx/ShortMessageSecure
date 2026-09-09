@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Elküldve</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Kijelöltek törlése</string>
+  <string name="conversation_list_batch__menu_pin_selected">Kijelölt elem rögzítése</string>
   <string name="conversation_list_batch__menu_select_all">Összes kijelölése</string>
   <string name="conversation_list_batch__menu_send_drafts">Kiválasztott vázlatok elküldése</string>
+  <string name="conversation_list_batch__menu_unpin_selected">A kijelölt elem rögzítésének feloldása</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Archívum kiválasztva</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Kiválasztottak visszaállítása</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Értesítések némítása</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">SMSecure MMS-üzenetet kapott, de azt nem tudja megjeleníteni vagy letölteni. Kérje meg a feladót, hogy inkább SMS-t használjon.</string>
+  <string name="MmsListener_notification_title">Az MMS nem támogatott</string>
   <string name="NotificationChannel_failures">Hibák</string>
   <string name="NotificationChannel_locked_status">Zárt állapot</string>
   <string name="NotificationChannel_messages">Üzenetek</string>

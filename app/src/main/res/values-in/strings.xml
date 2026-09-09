@@ -147,8 +147,10 @@
 <string name="conversation_item_sent__sent_description">Dikirim</string>
 <!--conversation_list_batch-->
 <string name="conversation_list_batch__menu_delete_selected">Hapus yang dipilih</string>
+<string name="conversation_list_batch__menu_pin_selected">Sematkan yang dipilih</string>
 <string name="conversation_list_batch__menu_select_all">Pilih semua</string>
 <string name="conversation_list_batch__menu_send_drafts">Kirim draf yang dipilih</string>
+<string name="conversation_list_batch__menu_unpin_selected">Lepaskan penandaan yang dipilih</string>
 <string name="conversation_list_batch_archive__menu_archive_selected">Arsip yang dipilih</string>
 <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Batalkan arsip yang dipilih</string>
 <!--conversation_list_fragment-->
@@ -414,6 +416,8 @@
 <!--MuteDialog-->
 <string name="MuteDialog_mute_notifications">Nonaktifkan notifikasi</string>
 <!--Notification Channels-->
+<string name="MmsListener_notification_text">SMSecure menerima pesan MMS tetapi tidak dapat menampilkannya atau mengunduhnya. Minta pengirim untuk menggunakan SMS saja.</string>
+<string name="MmsListener_notification_title">MMS tidak didukung</string>
 <string name="NotificationChannel_failures">Kegagalan</string>
 <string name="NotificationChannel_locked_status">Status terkunci</string>
 <string name="NotificationChannel_messages">Pesan</string>

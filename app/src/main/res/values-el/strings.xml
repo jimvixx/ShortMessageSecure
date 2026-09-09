@@ -150,8 +150,10 @@
   <string name="conversation_item_sent__sent_description">Αποστολή</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Διαγραφή επιλεγμένων</string>
+  <string name="conversation_list_batch__menu_pin_selected">Επιλογή προσάρτησης</string>
   <string name="conversation_list_batch__menu_select_all">Επιλογή όλων</string>
   <string name="conversation_list_batch__menu_send_drafts">Αποστολή επιλεγμένων προσχεδίων</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Αποσύνδεση επιλεγμένου</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Επιλεγμένο αρχείο</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Αποσυμπίεση επιλεγμένων</string>
   <!--conversation_list_fragment-->
@@ -425,6 +427,8 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Σίγαση ειδοποιήσεων</string>
   <!--Notification Channels-->
+  <string name="MmsListener_notification_text">Το SMSecure έλαβε ένα μήνυμα MMS, αλλά δεν μπορεί να το εμφανίσει ή να το κατεβάσει. Ζητήστε από τον αποστολέα να χρησιμοποιήσει SMS αντ’ αυτού.</string>
+  <string name="MmsListener_notification_title">Το MMS δεν υποστηρίζεται</string>
   <string name="NotificationChannel_failures">Αποτυχίες</string>
   <string name="NotificationChannel_locked_status">Κατάσταση κλειδώματος</string>
   <string name="NotificationChannel_messages">Μηνύματα</string>
