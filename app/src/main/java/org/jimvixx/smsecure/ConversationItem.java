@@ -107,6 +107,7 @@ public class ConversationItem extends LinearLayout
   private @Nullable DeliveryStatusView deliveryStatusIndicator;
   private @Nullable AlertView alertView;
   private @NonNull Set<MessageRecord> batchSelected = new HashSet<>();
+  private final View.OnLongClickListener textSelectionLongClickListener = view -> false;
   private @Nullable Recipients conversationRecipients;
   // These are inflated from ViewStubs and must be nullable in Java.
   private int defaultBubbleColor;
@@ -238,12 +239,22 @@ public class ConversationItem extends LinearLayout
   private void setBodyText(@NonNull MessageRecord messageRecord) {
     if (bodyText == null) return;
 
+    bodyText.setTextIsSelectable(false);
     bodyText.setClickable(false);
     bodyText.setFocusable(false);
 
     bodyText.setText(messageRecord.getDisplayBody());
     bodyText.setVisibility(View.VISIBLE);
     linkifyBodyText();
+
+    if (batchSelected.contains(messageRecord)) {
+      bodyText.setOnClickListener(null);
+      bodyText.setOnLongClickListener(textSelectionLongClickListener);
+      bodyText.setTextIsSelectable(true);
+    } else {
+      bodyText.setOnClickListener(passthroughClickListener);
+      bodyText.setOnLongClickListener(passthroughClickListener);
+    }
   }
 
   private void linkifyBodyText() {
