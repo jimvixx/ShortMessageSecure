@@ -202,6 +202,20 @@ public class NotificationState {
     return PendingIntent.getActivity(context, 0, intent, immutableUpdateCurrentFlags());
   }
 
+  public PendingIntent getDeleteMessageIntent(Context context) {
+    if (notifications.isEmpty()) {
+      throw new AssertionError("Cannot delete a message from an empty notification state!");
+    }
+
+    long messageId = notifications.getFirst().getId();
+    Intent intent = new Intent(DeleteMessageReceiver.DELETE_MESSAGE_ACTION);
+    intent.setClass(context, DeleteMessageReceiver.class);
+    intent.setData(Uri.parse("smsecure://notification/delete/" + messageId));
+    intent.putExtra(DeleteMessageReceiver.MESSAGE_ID_EXTRA, messageId);
+
+    return PendingIntent.getBroadcast(context, 0, intent, immutableUpdateCurrentFlags());
+  }
+
   public PendingIntent getDeleteIntent(Context context) {
     int index = 0;
     long[] ids = new long[notifications.size()];

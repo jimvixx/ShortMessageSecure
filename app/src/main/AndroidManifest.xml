@@ -416,6 +416,9 @@
                 <action android:name="${applicationId}.DELETE_NOTIFICATION" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".notifications.DeleteMessageReceiver"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

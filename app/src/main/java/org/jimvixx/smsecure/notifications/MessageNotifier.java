@@ -340,6 +340,7 @@ public class MessageNotifier {
     builder.setContentIntent(notifications.get(0).getPendingIntent(context));
     builder.setGroup(NOTIFICATION_GROUP);
     builder.setDeleteIntent(notificationState.getDeleteIntent(context));
+    builder.setOnlyAlertOnce(!newNotificationRequested(flags));
 
     long timestamp = notifications.get(0).getTimestamp();
     if (timestamp != 0) {
@@ -348,7 +349,8 @@ public class MessageNotifier {
 
     builder.addActions(masterSecret,
             notificationState.getMarkAsReadIntent(context, notificationId),
-            notificationState.getRemoteReplyIntent(context, notifications.get(0).getRecipients()));
+            notificationState.getRemoteReplyIntent(context, notifications.get(0).getRecipients()),
+            notificationState.getDeleteMessageIntent(context));
 
     builder.addAndroidAutoAction(notifications.get(0).getTimestamp());
 
@@ -398,6 +400,7 @@ public class MessageNotifier {
     builder.setMostRecentSender(notifications.get(0).getIndividualRecipient());
     builder.setGroup(NOTIFICATION_GROUP);
     builder.setDeleteIntent(notificationState.getDeleteIntent(context));
+    builder.setOnlyAlertOnce(!newNotificationRequested(flags));
 
     long timestamp = notifications.get(0).getTimestamp();
     if (timestamp != 0) {

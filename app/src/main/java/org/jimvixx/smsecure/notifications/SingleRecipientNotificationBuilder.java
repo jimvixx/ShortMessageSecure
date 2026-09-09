@@ -142,7 +142,8 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
 
   public void addActions(@Nullable MasterSecret masterSecret,
                          @NonNull PendingIntent markReadIntent,
-                         @NonNull PendingIntent wearableReplyIntent) {
+                         @NonNull PendingIntent replyIntent,
+                         @NonNull PendingIntent deleteMessageIntent) {
     Action markAsReadAction = new Action.Builder(
             R.drawable.ic_check,
             context.getString(R.string.MessageNotifier_mark_read),
@@ -156,7 +157,7 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
       Action replyAction = new Action.Builder(
               R.drawable.ic_reply,
               context.getString(R.string.MessageNotifier_reply),
-              wearableReplyIntent
+              replyIntent
       )
               .addRemoteInput(new RemoteInput.Builder(MessageNotifier.EXTRA_REMOTE_REPLY)
                       .setLabel(context.getString(R.string.MessageNotifier_reply))
@@ -168,7 +169,7 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
       Action wearableReplyAction = new Action.Builder(
               R.drawable.ic_reply,
               context.getString(R.string.MessageNotifier_reply),
-              wearableReplyIntent
+              replyIntent
       )
               .addRemoteInput(new RemoteInput.Builder(MessageNotifier.EXTRA_REMOTE_REPLY)
                       .setLabel(context.getString(R.string.MessageNotifier_reply))
@@ -177,8 +178,18 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
               .setShowsUserInterface(false)
               .build();
 
+      Action deleteMessageAction = new Action.Builder(
+              R.drawable.ic_delete,
+              context.getString(R.string.Delete),
+              deleteMessageIntent
+      )
+              .setSemanticAction(Action.SEMANTIC_ACTION_DELETE)
+              .setShowsUserInterface(false)
+              .build();
+
       addAction(markAsReadAction);
       addAction(replyAction);
+      addAction(deleteMessageAction);
 
       extend(new NotificationCompat.WearableExtender()
               .addAction(markAsReadAction)

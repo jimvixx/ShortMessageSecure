@@ -172,7 +172,7 @@
     <!--conversation_list_menu-->
     <string name="conversation_list_menu__archived_conversations">Архивные беседы</string>
     <string name="conversation_list_menu__lock">Блокировка</string>
-    <string name="conversation_list_menu__mark_all_as_read">Пометить все как прочитанное</string>
+    <string name="conversation_list_menu__mark_all_as_read">Прочитано все</string>
     <string name="conversation_list_menu__new_group">Новая группа</string>
     <string name="conversation_list_menu__new_message">Новое сообщение</string>
     <string name="conversation_list_menu__settings">Настройки</string>
@@ -434,8 +434,8 @@
     <string name="MessageNotifier_encrypted_message">Зашифрованное сообщение</string>
     <string name="MessageNotifier_error_delivering_message">Ошибка при доставке сообщения.</string>
     <string name="MessageNotifier_failed_to_deliver_message">Не удалось доставить сообщение.</string>
-    <string name="MessageNotifier_mark_all_as_read">Пометить все как прочитанное</string>
-    <string name="MessageNotifier_mark_read">Пометить как прочитанное</string>
+    <string name="MessageNotifier_mark_all_as_read">Прочитано все</string>
+    <string name="MessageNotifier_mark_read">Прочитано</string>
     <string name="MessageNotifier_message_delivery_failed">Ошибка доставки сообщения.</string>
     <string name="MessageNotifier_message_received">Сообщение получено <xliff:g id="arg1">%s</xliff:g>.</string>
     <string name="MessageNotifier_most_recent_from_s">Последнее сообщение от: <xliff:g id="arg1">%1$s</xliff:g></string>
