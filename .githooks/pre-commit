@@ -83,6 +83,23 @@ if ! git diff --cached --quiet -- "$build_gradle"; then
   trap - EXIT
 fi
 
+python3 tools/l10n/l10n_sync.py sync \
+  --res app/src/main/res \
+  --langs-file tools/l10n/langs.txt \
+  --glossary-file tools/l10n/glossary.txt \
+  > /dev/null
+
+localization_report="$(
+  python3 tools/l10n/l10n_sync.py report \
+    --res app/src/main/res \
+    --status missing,stale,ok
+)"
+
+if ! grep -Fxq 'Total missing: 0' <<< "$localization_report"; then
+  echo "Localization check failed: missing translations found." >&2
+  exit 1
+fi
+
 if git diff --cached --quiet -- CHANGELOG.md; then
   exit 0
 fi
