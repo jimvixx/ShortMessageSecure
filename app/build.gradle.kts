@@ -88,7 +88,7 @@ tasks.register("generatePlayChangelog") {
 
 android {
     namespace = "org.jimvixx.smsecure"
-    compileSdk = 36
+    compileSdk = 37
 
     useLibrary("org.apache.http.legacy")
 
@@ -244,7 +244,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:4.35.1")
     implementation("com.google.zxing:core:3.5.4")
 
-    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.37")
+    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.39")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
@@ -257,7 +257,7 @@ dependencies {
     implementation("com.melnykov:floatingactionbutton:1.3.0")
 
     implementation("com.squareup.dagger:dagger:1.2.5")
-    implementation("com.squareup.okhttp3:okhttp:5.4.0")
+    implementation("com.squareup.okhttp3:okhttp:5.5.0")
 
     implementation("com.takisoft.preferencex:preferencex-colorpicker:1.1.0")
     implementation("com.takisoft.preferencex:preferencex:1.1.0")
