@@ -51,6 +51,9 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6.3.0
 
+      - name: Install pinned Android SDK components
+        run: sdkmanager "platforms;android-37.0" "build-tools;36.0.0"
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

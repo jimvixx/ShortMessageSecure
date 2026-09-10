@@ -89,6 +89,7 @@ tasks.register("generatePlayChangelog") {
 android {
     namespace = "org.jimvixx.smsecure"
     compileSdk = 37
+    buildToolsVersion = "36.0.0"
 
     useLibrary("org.apache.http.legacy")
 
@@ -185,6 +186,7 @@ android {
         }
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 file("proguard-rules.pro")
@@ -218,7 +220,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.8.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.2")
-    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.core:core:1.19.0")
     implementation("androidx.fragment:fragment:1.9.0")
     implementation("androidx.gridlayout:gridlayout:1.1.0")
     implementation("androidx.legacy:legacy-support-v13:1.0.0")

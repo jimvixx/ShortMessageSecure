@@ -10,6 +10,7 @@ EXPECTED_PACKAGE_NAME = "org.jimvixx.smsecure"
 EXPECTED_SIGNING_CERT_SHA256 = "FA:3A:00:75:00:6D:56:DD:5E:7B:F9:FA:5F:83:55:63:BF:7D:71:6A:82:19:7A:28:96:17:14:D0:6F:72:AE:01"
 EXPECTED_SIGNING_CERT_SHA256_COMPACT = EXPECTED_SIGNING_CERT_SHA256.delete(":").downcase
 CHANGELOG_FILE = File.join(PROJECT_ROOT, "CHANGELOG.md")
+ANDROID_BUILD_TOOLS_VERSION = "36.0.0"
 
 def changelog_section_for!(tag_name)
   UI.user_error!("Missing #{CHANGELOG_FILE}") unless File.file?(CHANGELOG_FILE)
@@ -78,28 +79,27 @@ def find_unsigned_apk!
   apk_path
 end
 
-def find_latest_build_tools_dir!
-  android_home = ENV["ANDROID_HOME"]
-  android_sdk_root = ENV["ANDROID_SDK_ROOT"]
+def find_build_tools_dir!
+  sdk_roots = [ENV["ANDROID_HOME"], ENV["ANDROID_SDK_ROOT"]]
+              .reject { |path| path.to_s.empty? }
+              .uniq
 
-  candidates = []
+  build_tools_dir = sdk_roots
+                    .map { |root| File.join(root, "build-tools", ANDROID_BUILD_TOOLS_VERSION) }
+                    .find { |path| File.directory?(path) }
 
-  if !android_home.to_s.empty?
-    candidates.concat(Dir.glob(File.join(android_home, "build-tools", "*")))
+  if build_tools_dir.to_s.empty?
+    UI.user_error!(
+      "Android build-tools #{ANDROID_BUILD_TOOLS_VERSION} not found under " \
+      "ANDROID_HOME or ANDROID_SDK_ROOT"
+    )
   end
-
-  if !android_sdk_root.to_s.empty?
-    candidates.concat(Dir.glob(File.join(android_sdk_root, "build-tools", "*")))
-  end
-
-  build_tools_dir = candidates.uniq.sort.last
-  UI.user_error!("Android build-tools not found") if build_tools_dir.to_s.empty?
 
   build_tools_dir
 end
 
 def sign_apk!(unsigned_apk_path)
-  build_tools_dir = find_latest_build_tools_dir!
+  build_tools_dir = find_build_tools_dir!
 
   apksigner = File.join(build_tools_dir, "apksigner")
   zipalign = File.join(build_tools_dir, "zipalign")
@@ -134,7 +134,7 @@ end
 def verify_apk_contents!(apk_path, expected_version_name:, expected_version_code:)
   UI.user_error!("APK not found: #{apk_path}") unless File.file?(apk_path)
 
-  build_tools_dir = find_latest_build_tools_dir!
+  build_tools_dir = find_build_tools_dir!
   apksigner = File.join(build_tools_dir, "apksigner")
   aapt = File.join(build_tools_dir, "aapt")
 
