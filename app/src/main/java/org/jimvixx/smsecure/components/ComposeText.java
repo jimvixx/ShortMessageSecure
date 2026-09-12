@@ -90,19 +90,17 @@ public class ComposeText extends EmojiEditText {
   }
 
   @Override
-  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-    super.onLayout(changed, left, top, right, bottom);
-    // Recompute the hint only when necessary (width changes trigger re-ellipsizing).
-    rebuildHintIfNeeded();
-  }
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    // TextView must see both hint lines before computing its wrap_content height.
+    int width = MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED
+            ? Integer.MAX_VALUE : MeasureSpec.getSize(widthMeasureSpec);
+    rebuildHintIfNeeded(width);
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-  @Override
-  protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    super.onSizeChanged(w, h, oldw, oldh);
-    if (w != oldw) {
-      // Force rebuild when width changes.
-      lastHintWidth = -1;
-      rebuildHintIfNeeded();
+    // AT_MOST can resolve to a smaller width than the supplied upper bound.
+    if (getMeasuredWidth() != width) {
+      rebuildHintIfNeeded(getMeasuredWidth());
+      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
   }
 
@@ -132,7 +130,8 @@ public class ComposeText extends EmojiEditText {
 
     // Hint content changed -> force rebuild on next pass (or immediately if we can).
     lastHintWidth = -1;
-    rebuildHintIfNeeded();
+    rebuildHintIfNeeded(getWidth());
+    requestLayout();
   }
 
   /**
@@ -202,10 +201,10 @@ public class ComposeText extends EmojiEditText {
    * <p>
    * This avoids allocations and redundant setHint() calls during frequent layout passes.
    */
-  private void rebuildHintIfNeeded() {
+  private void rebuildHintIfNeeded(int width) {
     if (TextUtils.isEmpty(hint)) return;
 
-    final int widthPx = getWidth() - getPaddingLeft() - getPaddingRight();
+    final int widthPx = width - getCompoundPaddingLeft() - getCompoundPaddingRight();
     if (widthPx <= 0) return;
 
     if (widthPx == lastHintWidth && lastComposedHint != null) {
