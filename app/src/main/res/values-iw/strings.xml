@@ -390,6 +390,16 @@
     <string name="log_submit_activity__thanks">תודה על העזרה!</string>
     <string name="log_submit_activity__uploading_logs">מעלה יומן…</string>
     <string name="log_submit_copied">יומן הועתק.</string>
+    <string name="log_submit_interrupted">תוצאת ההעלאה הקודמת אינה זמינה. פתח מחדש את ’שלח יומן’ אם ברצונך לשלוח דוח חדש.</string>
+    <string name="log_submit_no_internet">אין חיבור לאינטרנט. בדוק את החיבור שלך, ואז פתח מחדש את "שלח יומן" כדי לנסות שוב.</string>
+    <string name="log_submit_save_failed">לא ניתן לשמור את היומן.</string>
+    <string name="log_submit_save_log">שמור יומן</string>
+    <string name="log_submit_saved">היומן נשמר.</string>
+    <string name="log_submit_server_error">שרת העלאת היומנים החזיר שגיאה. פתח מחדש את ’שלח יומן’ מאוחר יותר כדי לנסות שוב.</string>
+    <string name="log_submit_share_failed">לא ניתן לשתף את פרטי היומן.</string>
+    <string name="log_submit_share_info">מידע על שיתוף</string>
+    <string name="log_submit_unreachable">לא ניתן היה ליצור קשר עם שרת העלאת היומנים. בדוק את החיבור שלך או נסה שוב מאוחר יותר על ידי פתיחה מחודשת של ’שלח יומן’.</string>
+    <string name="log_submit_uploaded_status">ההעלאה נרשמה.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">מאת</string>
     <string name="message_details_header__issues_need_your_attention">ישנן כמה בעיות הדורשות את תשומת לבך.</string>

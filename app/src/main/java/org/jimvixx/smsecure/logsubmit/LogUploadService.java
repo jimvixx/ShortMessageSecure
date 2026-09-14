@@ -64,12 +64,19 @@ public final class LogUploadService {
       );
 
       if (response.code >= 200 && response.code < 300) {
-        return parseSuccessResponse(response.body);
+        try {
+          return parseSuccessResponse(response.body);
+        } catch (Exception e) {
+          Log.w(TAG, e);
+          return LogUploadResult.error(formatException(e), true);
+        }
       }
 
-      return LogUploadResult.error(formatHttpError(response));
+      Log.w(TAG, formatHttpError(response));
+      return LogUploadResult.error(formatHttpError(response), true);
 
     } catch (Exception e) {
+      Log.w(TAG, e);
       return LogUploadResult.error(formatException(e));
     }
   }
@@ -79,7 +86,7 @@ public final class LogUploadService {
     String cleanBody = body.trim();
 
     if (cleanBody.isEmpty()) {
-      return LogUploadResult.error("Cloudflare upload succeeded but returned an empty response");
+      return LogUploadResult.error("Cloudflare upload succeeded but returned an empty response", true);
     }
 
     JSONObject json = new JSONObject(cleanBody);
@@ -89,11 +96,11 @@ public final class LogUploadService {
     long size = json.optLong("size", 0);
 
     if (id.isEmpty()) {
-      return LogUploadResult.error("Cloudflare upload response is missing report id");
+      return LogUploadResult.error("Cloudflare upload response is missing report id", true);
     }
 
     if (key.isEmpty()) {
-      return LogUploadResult.error("Cloudflare upload response is missing object key");
+      return LogUploadResult.error("Cloudflare upload response is missing object key", true);
     }
 
     return LogUploadResult.success(SERVICE_NAME, id, key, size);

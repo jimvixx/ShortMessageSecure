@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Köszönöm a segítséget!</string>
   <string name="log_submit_activity__uploading_logs">Napló feltöltése…</string>
   <string name="log_submit_copied">Napló másolva.</string>
+  <string name="log_submit_interrupted">Az előző feltöltés eredménye nem érhető el. Ha új jelentést szeretne elküldeni, nyissa meg újra a „Napló elküldése” menüpontot.</string>
+  <string name="log_submit_no_internet">Nincs internetkapcsolat. Ellenőrizze a kapcsolatot, majd nyissa meg újra a „Napló elküldése” menüpontot, és próbálja meg újra.</string>
+  <string name="log_submit_save_failed">A napló mentése nem sikerült.</string>
+  <string name="log_submit_save_log">Napló mentése</string>
+  <string name="log_submit_saved">A napló mentve.</string>
+  <string name="log_submit_server_error">A naplófeltöltő szerver hibaüzenetet adott vissza. Nyissa meg újra a „Napló elküldése” menüpontot később, és próbálja meg újra.</string>
+  <string name="log_submit_share_failed">A naplóadatok megosztása nem sikerült.</string>
+  <string name="log_submit_share_info">Megosztási információk</string>
+  <string name="log_submit_unreachable">Nem sikerült kapcsolatba lépni a naplófeltöltő szerverrel. Ellenőrizze az internetkapcsolatát, vagy próbálja meg később újra a „Napló elküldése” gombra kattintva.</string>
+  <string name="log_submit_uploaded_status">A feltöltés naplóba került.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Feladó</string>
   <string name="message_details_header__issues_need_your_attention">Néhány probléma megoldására van szükség.</string>

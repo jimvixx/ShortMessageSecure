@@ -390,6 +390,16 @@
   <string name="log_submit_activity__thanks">¡Gracias por tu ayuda!</string>
   <string name="log_submit_activity__uploading_logs">Cargando registro…</string>
   <string name="log_submit_copied">Registro copiado.</string>
+  <string name="log_submit_interrupted">El resultado de la última carga no está disponible. Vuelve a abrir «Enviar registro» si quieres enviar un nuevo informe.</string>
+  <string name="log_submit_no_internet">No hay conexión a Internet. Comprueba tu conexión y vuelve a abrir «Enviar registro» para intentarlo de nuevo.</string>
+  <string name="log_submit_save_failed">No se ha podido guardar el registro.</string>
+  <string name="log_submit_save_log">Guardar registro</string>
+  <string name="log_submit_saved">Registro guardado.</string>
+  <string name="log_submit_server_error">El servidor de envío de registros ha devuelto un error. Vuelve a abrir «Enviar registro» más tarde para intentarlo de nuevo.</string>
+  <string name="log_submit_share_failed">No se ha podido compartir la información del registro.</string>
+  <string name="log_submit_share_info">Compartir información</string>
+  <string name="log_submit_unreachable">No se ha podido conectar con el servidor de envío de registros. Comprueba tu conexión o vuelve a intentarlo más tarde volviendo a abrir «Enviar registro».</string>
+  <string name="log_submit_uploaded_status">Se ha registrado la subida.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De</string>
   <string name="message_details_header__issues_need_your_attention">Hay algunos problemas que requieren su atención.</string>

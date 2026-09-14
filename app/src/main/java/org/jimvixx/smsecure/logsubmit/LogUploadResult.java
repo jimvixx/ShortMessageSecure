@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 public final class LogUploadResult {
 
   public final boolean success;
+  public final boolean serverError;
 
   @Nullable
   public final String reportId;
@@ -41,7 +42,7 @@ public final class LogUploadResult {
   @NonNull
   public final String message;
 
-  private LogUploadResult(boolean success,
+  private LogUploadResult(boolean success, boolean serverError,
                           @Nullable String reportId,
                           @Nullable String objectKey,
                           long size,
@@ -49,6 +50,7 @@ public final class LogUploadResult {
                           @Nullable String error,
                           @NonNull String message) {
     this.success = success;
+    this.serverError = serverError;
     this.reportId = reportId;
     this.objectKey = objectKey;
     this.size = size;
@@ -71,11 +73,15 @@ public final class LogUploadResult {
             + "Object key:\n" + cleanObjectKey + "\n\n"
             + "Size:\n" + size + " bytes";
 
-    return new LogUploadResult(true, cleanReportId, cleanObjectKey, size, cleanService, null, message);
+    return new LogUploadResult(true, false, cleanReportId, cleanObjectKey, size, cleanService, null, message);
   }
 
   @NonNull
   public static LogUploadResult error(@NonNull String error) {
-    return new LogUploadResult(false, null, null, 0, null, error, error);
+    return error(error, false);
+  }
+
+  public static LogUploadResult error(@NonNull String error, boolean serverError) {
+    return new LogUploadResult(false, serverError, null, null, 0, null, error, error);
   }
 }

@@ -372,6 +372,16 @@
     <string name="log_submit_activity__thanks">感谢您的帮助！</string>
     <string name="log_submit_activity__uploading_logs">正在上传日志…</string>
     <string name="log_submit_copied">日志已复制。</string>
+    <string name="log_submit_interrupted">无法获取之前的上传结果。如需发送新报告，请重新打开“提交日志”。</string>
+    <string name="log_submit_no_internet">没有互联网连接。请检查网络连接，然后重新打开“提交日志”以重试。</string>
+    <string name="log_submit_save_failed">无法保存日志。</string>
+    <string name="log_submit_save_log">保存日志</string>
+    <string name="log_submit_saved">日志已保存。</string>
+    <string name="log_submit_server_error">日志上传服务器返回了错误。请稍后重新打开“提交日志”以重试。</string>
+    <string name="log_submit_share_failed">无法分享日志信息。</string>
+    <string name="log_submit_share_info">分享信息</string>
+    <string name="log_submit_unreachable">无法连接到日志上传服务器。请检查网络连接，或稍后重新打开“提交日志”再试一次。</string>
+    <string name="log_submit_uploaded_status">已记录上传。</string>
     <!--message_details_header-->
     <string name="message_details_header__from">发件人</string>
     <string name="message_details_header__issues_need_your_attention">有些问题需要您关注。</string>

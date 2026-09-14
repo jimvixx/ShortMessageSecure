@@ -390,6 +390,16 @@
   <string name="log_submit_activity__thanks">Vă mulțumesc pentru ajutor!</string>
   <string name="log_submit_activity__uploading_logs">Se încarcă jurnalul…</string>
   <string name="log_submit_copied">Jurnal copiat.</string>
+  <string name="log_submit_interrupted">Rezultatul încărcării anterioare nu este disponibil. Deschideți din nou „Trimite jurnal” dacă doriți să trimiteți un nou raport.</string>
+  <string name="log_submit_no_internet">Nu există conexiune la internet. Verificați conexiunea, apoi redeschideți „Trimite jurnal” pentru a încerca din nou.</string>
+  <string name="log_submit_save_failed">Nu s-a putut salva jurnalul.</string>
+  <string name="log_submit_save_log">Salvare jurnal</string>
+  <string name="log_submit_saved">Jurnalul a fost salvat.</string>
+  <string name="log_submit_server_error">Serverul de încărcare a jurnalelor a returnat o eroare. Deschideți din nou opțiunea „Trimite jurnalul” mai târziu pentru a încerca din nou.</string>
+  <string name="log_submit_share_failed">Nu s-au putut partaja informațiile din jurnal.</string>
+  <string name="log_submit_share_info">Informații despre partajare</string>
+  <string name="log_submit_unreachable">Nu s-a putut stabili conexiunea cu serverul de încărcare a jurnalelor. Verificați conexiunea sau încercați din nou mai târziu, redeschizând opțiunea „Trimite jurnal”.</string>
+  <string name="log_submit_uploaded_status">Înregistrare încărcată.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De la</string>
   <string name="message_details_header__issues_need_your_attention">Unele probleme necesită atenția dumneavoastră.</string>

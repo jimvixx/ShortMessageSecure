@@ -20,7 +20,6 @@ package org.jimvixx.smsecure;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -28,8 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import org.jimvixx.smsecure.logsubmit.SubmitLogFragment;
 
-public class LogSubmitActivity extends BaseActionBarActivity
-        implements SubmitLogFragment.OnLogSubmittedListener {
+public class LogSubmitActivity extends BaseActionBarActivity {
 
   @Override
   protected void onCreate(Bundle icicle) {
@@ -68,17 +66,4 @@ public class LogSubmitActivity extends BaseActionBarActivity
     return super.onOptionsItemSelected(item);
   }
 
-  @Override
-  public void onFailure() {
-    Toast.makeText(getApplicationContext(),
-            R.string.log_submit_activity__log_fetch_failed,
-            Toast.LENGTH_LONG).show();
-  }
-
-  @Override
-  public void onSuccess() {
-    Toast.makeText(getApplicationContext(),
-            R.string.log_submit_activity__thanks,
-            Toast.LENGTH_LONG).show();
-  }
 }

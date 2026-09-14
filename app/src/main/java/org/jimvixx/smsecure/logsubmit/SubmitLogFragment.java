@@ -19,8 +19,6 @@
 package org.jimvixx.smsecure.logsubmit;
 
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,36 +31,26 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.jimvixx.smsecure.R;
-import org.jimvixx.smsecure.logging.CrashLogCapture;
+import org.jimvixx.smsecure.logging.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SubmitLogFragment extends Fragment {
-
-  private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
-  private ProgressBar progress;
-  private TextView status;
-  private TextView preview;
-  private Button copyButton;
-  private Button shareLogsButton;
-  private Button shareResultButton;
-
-  @Nullable
-  private String collectedLogs;
-
-  @Nullable
-  private String uploadResultText;
+  private SubmitLogViewModel model;
+  private final ActivityResultLauncher<String> saveLog = registerForActivityResult(
+          new ActivityResultContracts.CreateDocument("text/plain"), this::saveLogs);
 
   public static SubmitLogFragment newInstance() {
     return new SubmitLogFragment();
@@ -70,8 +58,7 @@ public class SubmitLogFragment extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater,
-                           @Nullable ViewGroup container,
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     return inflater.inflate(R.layout.submit_log_fragment, container, false);
   }
@@ -79,224 +66,92 @@ public class SubmitLogFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
-    status = view.findViewById(R.id.log_submit_status);
-    progress = view.findViewById(R.id.log_submit_progress);
-    preview = view.findViewById(R.id.log_submit_preview);
-    copyButton = view.findViewById(R.id.log_submit_copy_button);
-    shareLogsButton = view.findViewById(R.id.log_submit_share_logs_button);
-    shareResultButton = view.findViewById(R.id.log_submit_share_link_button);
-
-    copyButton.setOnClickListener(v -> {
-      if (collectedLogs != null && !collectedLogs.isEmpty()) {
-        copyToClipboard("SMSecure logs", collectedLogs);
-        Toast.makeText(requireContext(), R.string.log_submit_copied, Toast.LENGTH_SHORT).show();
-      } else {
-        notifyFailure();
-      }
+    model = new ViewModelProvider(this).get(SubmitLogViewModel.class);
+    TextView status = view.findViewById(R.id.log_submit_status);
+    TextView preview = view.findViewById(R.id.log_submit_preview);
+    ProgressBar progress = view.findViewById(R.id.log_submit_progress);
+    Button save = view.findViewById(R.id.log_submit_save_button);
+    Button shareInfo = view.findViewById(R.id.log_submit_share_link_button);
+    Button shareLog = view.findViewById(R.id.log_submit_share_logs_button);
+    save.setOnClickListener(v -> saveLog.launch("smsecure-logcat.txt"));
+    shareInfo.setOnClickListener(v -> shareInfo());
+    shareLog.setOnClickListener(v -> shareLogs());
+    model.state.observe(getViewLifecycleOwner(), state -> {
+      status.setText(state.status);
+      preview.setText(state.info == null ? "" : state.info + "\n\n" + getString(R.string.log_submit_activity__thanks));
+      progress.setVisibility(state.busy ? View.VISIBLE : View.GONE);
+      save.setEnabled(model.logs != null);
+      shareLog.setEnabled(model.logs != null);
+      shareInfo.setEnabled(state.info != null);
     });
-
-    shareLogsButton.setOnClickListener(v -> {
-      if (collectedLogs != null && !collectedLogs.isEmpty()) {
-        shareLogsAsFile(collectedLogs);
-      } else {
-        notifyFailure();
-      }
-    });
-
-    shareResultButton.setOnClickListener(v -> {
-      if (uploadResultText != null && !uploadResultText.trim().isEmpty()) {
-        shareText("SMSecure log upload result", uploadResultText.trim());
-      } else {
-        notifyFailure();
-      }
-    });
-
-    collectLogsAsync();
+    model.start();
   }
 
-  private void collectLogsAsync() {
-    final Context appContext = requireContext().getApplicationContext();
-
-    executor.execute(() -> {
-      final String logs = LogCollector.collect(appContext);
-
-      if (!isAdded()) return;
-
-      final android.app.Activity activity = getActivity();
-      if (activity == null) return;
-
-      if (logs.isEmpty()) {
-        activity.runOnUiThread(() -> showError("LogCollector returned empty result"));
-        return;
-      }
-
-      if (logs.startsWith("LogCollector error:")) {
-        activity.runOnUiThread(() -> showError(logs));
-        return;
-      }
-
-      collectedLogs = logs;
-
-      activity.runOnUiThread(() -> {
-        status.setText(R.string.log_submit_activity__uploading_logs);
-        preview.setText(limitForPreview(logs));
-        copyButton.setEnabled(true);
-        shareLogsButton.setEnabled(true);
-      });
-
-      LogUploadResult result = LogUploadService.upload(logs);
-
-      if (!isAdded()) return;
-
-      final android.app.Activity activity2 = getActivity();
-      if (activity2 == null) return;
-
-      activity2.runOnUiThread(() -> {
-        progress.setVisibility(View.GONE);
-
-        if (result.success) {
-          uploadResultText = result.message;
-          copyToClipboard("SMSecure log upload result", result.message);
-          showUploadResult(result.message);
-          notifySuccess();
+  private void saveLogs(@Nullable Uri uri) {
+    if (uri == null) return;
+    Context context = requireContext().getApplicationContext();
+    String logs = model.logs;
+    File cachedLog = model.getCachedLog();
+    new Thread(() -> {
+      int message = R.string.log_submit_saved;
+      try (OutputStream out = context.getContentResolver().openOutputStream(uri, "wt")) {
+        if (out == null) throw new java.io.IOException("No output stream");
+        if (logs != null) {
+          out.write(logs.getBytes(StandardCharsets.UTF_8));
         } else {
-          String message = (result.error != null) ? result.error : "Log upload failed";
-          showUploadFailure(message);
-          notifyFailure();
+          try (java.io.FileInputStream input = new java.io.FileInputStream(cachedLog)) {
+            byte[] buffer = new byte[8192];
+            int count;
+            while ((count = input.read(buffer)) != -1) out.write(buffer, 0, count);
+          }
         }
-      });
-    });
+      } catch (Exception e) {
+        Log.w("SubmitLogFragment", e);
+        message = R.string.log_submit_save_failed;
+      }
+      int result = message;
+      new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
+              Toast.makeText(context, result, Toast.LENGTH_SHORT).show());
+    }, "SMSecure-LogExport").start();
   }
 
-  private void showError(@NonNull String message) {
-    progress.setVisibility(View.GONE);
-    status.setText(R.string.log_submit_activity__log_collect_failed);
-    preview.setText(message);
-
-    copyButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareLogsButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareResultButton.setEnabled(false);
+  private void shareInfo() {
+    SubmitLogViewModel.State state = model.state.getValue();
+    if (state == null || state.info == null) return;
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.putExtra(Intent.EXTRA_SUBJECT, "SMSecure log upload info");
+    intent.putExtra(Intent.EXTRA_TEXT, state.info);
+    launchShare(intent, R.string.log_submit_share_info);
   }
 
-  private void showUploadFailure(@NonNull String message) {
-    status.setText(R.string.log_submit_activity__log_upload_failed);
-    preview.setText(message);
-    preview.append("\n\n" + limitForPreview(collectedLogs != null ? collectedLogs : ""));
-
-    copyButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareLogsButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareResultButton.setEnabled(false);
-  }
-
-  private void showUploadResult(@NonNull String message) {
-    status.setText(R.string.log_submit_activity__log_uploaded);
-    preview.setText(message);
-
-    copyButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareLogsButton.setEnabled(collectedLogs != null && !collectedLogs.isEmpty());
-    shareResultButton.setEnabled(true);
-  }
-
-  private void copyToClipboard(@NonNull String label, @NonNull String text) {
-    ClipboardManager clipboard =
-            (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
-
-    if (clipboard != null) {
-      ClipData clip = ClipData.newPlainText(label, text);
-      clipboard.setPrimaryClip(clip);
-    }
-  }
-
-  private void shareText(@NonNull String subject, @NonNull String text) {
-    try {
-      Intent send = new Intent(Intent.ACTION_SEND);
-      send.setType("text/plain");
-      send.putExtra(Intent.EXTRA_SUBJECT, subject);
-      send.putExtra(Intent.EXTRA_TEXT, text);
-      startActivity(Intent.createChooser(send, getString(R.string.log_submit__button_share_link)));
-      CrashLogCapture.clearCrashReport(requireContext().getApplicationContext());
-      notifySuccess();
-    } catch (ActivityNotFoundException e) {
-      notifyFailure();
-    }
-  }
-
-  private void shareLogsAsFile(@NonNull String logs) {
+  private void shareLogs() {
+    if (model.logs == null) return;
     try {
       File dir = new File(requireContext().getCacheDir(), "shares");
-      //noinspection ResultOfMethodCallIgnored
-      dir.mkdirs();
-
+      if (!dir.isDirectory() && !dir.mkdirs()) throw new java.io.IOException("Cannot create share directory");
       File file = new File(dir, "smsecure-logcat.txt");
-      try (FileOutputStream os = new FileOutputStream(file, false)) {
-        os.write(logs.getBytes(StandardCharsets.UTF_8));
+      try (FileOutputStream out = new FileOutputStream(file)) {
+        out.write(model.logs.getBytes(StandardCharsets.UTF_8));
       }
-
-      Uri uri = FileProvider.getUriForFile(
-              requireContext(),
-              requireContext().getPackageName() + ".fileprovider",
-              file
-      );
-
-      Intent send = new Intent(Intent.ACTION_SEND);
-      send.setType("text/plain");
-      send.putExtra(Intent.EXTRA_SUBJECT, "SMSecure logs");
-      send.putExtra(Intent.EXTRA_STREAM, uri);
-      send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-      startActivity(Intent.createChooser(send, getString(R.string.log_submit__button_share_logs)));
-      CrashLogCapture.clearCrashReport(requireContext().getApplicationContext());
-      notifySuccess();
+      Uri uri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", file);
+      Intent intent = new Intent(Intent.ACTION_SEND);
+      intent.setType("text/plain");
+      intent.putExtra(Intent.EXTRA_SUBJECT, "SMSecure logs");
+      intent.putExtra(Intent.EXTRA_STREAM, uri);
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      launchShare(intent, R.string.log_submit__button_share_logs);
     } catch (Exception e) {
-      notifyFailure();
+      Log.w("SubmitLogFragment", e);
+      Toast.makeText(requireContext(), R.string.log_submit_share_failed, Toast.LENGTH_SHORT).show();
     }
   }
 
-  private String limitForPreview(@NonNull String text) {
-    final int max = 40_000;
-    if (text.length() <= max) return text;
-    return text.substring(text.length() - max);
-  }
-
-  private void notifySuccess() {
-    OnLogSubmittedListener listener = getListener();
-    if (listener != null) listener.onSuccess();
-  }
-
-  private void notifyFailure() {
-    OnLogSubmittedListener listener = getListener();
-    if (listener != null) listener.onFailure();
-  }
-
-  @Nullable
-  private OnLogSubmittedListener getListener() {
-    if (getActivity() instanceof OnLogSubmittedListener) {
-      return (OnLogSubmittedListener) getActivity();
+  private void launchShare(Intent intent, int title) {
+    try {
+      startActivity(Intent.createChooser(intent, getString(title)));
+    } catch (ActivityNotFoundException e) {
+      Toast.makeText(requireContext(), R.string.log_submit_share_failed, Toast.LENGTH_SHORT).show();
     }
-    return null;
-  }
-
-  @Override
-  public void onDestroyView() {
-    super.onDestroyView();
-    progress = null;
-    status = null;
-    preview = null;
-    copyButton = null;
-    shareLogsButton = null;
-    shareResultButton = null;
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    executor.shutdownNow();
-  }
-
-  public interface OnLogSubmittedListener {
-    void onSuccess();
-
-    void onFailure();
   }
 }

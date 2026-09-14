@@ -399,6 +399,16 @@
     <string name="log_submit_activity__thanks">Дякую за допомогу!</string>
     <string name="log_submit_activity__uploading_logs">Завантаження журналу…</string>
     <string name="log_submit_copied">Журнал скопійовано.</string>
+    <string name="log_submit_interrupted">Результат попереднього завантаження недоступний. Щоб надіслати новий звіт, повторно відкрийте надсилання логу.</string>
+    <string name="log_submit_no_internet">Немає підключення до інтернету. Перевірте підключення та повторно відкрийте надсилання логу.</string>
+    <string name="log_submit_save_failed">Не вдалося зберегти лог.</string>
+    <string name="log_submit_save_log">Зберегти лог</string>
+    <string name="log_submit_saved">Лог збережено.</string>
+    <string name="log_submit_server_error">Сервер завантаження логів повернув помилку. Повторно відкрийте надсилання логу пізніше.</string>
+    <string name="log_submit_share_failed">Не вдалося поділитися даними логу.</string>
+    <string name="log_submit_share_info">Поділитися даними</string>
+    <string name="log_submit_unreachable">Не вдалося зв’язатися із сервером завантаження логів. Перевірте підключення або повторно відкрийте надсилання логу пізніше.</string>
+    <string name="log_submit_uploaded_status">Лог надіслано.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">Від</string>
     <string name="message_details_header__issues_need_your_attention">Деякі проблеми потребують вашої уваги.</string>

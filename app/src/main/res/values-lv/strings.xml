@@ -390,6 +390,16 @@
 <string name="log_submit_activity__thanks">Paldies par palīdzību!</string>
 <string name="log_submit_activity__uploading_logs">Logu augšupielāde…</string>
 <string name="log_submit_copied">Žurnāls kopēts.</string>
+<string name="log_submit_interrupted">Iepriekšējais augšupielādes rezultāts nav pieejams. Atveriet loga nosūtīšanu no jauna, ja vēlaties nosūtīt jaunu ziņojumu.</string>
+<string name="log_submit_no_internet">Nav interneta savienojuma. Pārbaudiet savienojumu, pēc tam atveriet „Iesniegt žurnālu” vēlreiz, lai mēģinātu vēlreiz.</string>
+<string name="log_submit_save_failed">Neizdevās saglabāt žurnālu.</string>
+<string name="log_submit_save_log">Saglabāt žurnālu</string>
+<string name="log_submit_saved">Žurnāls saglabāts.</string>
+<string name="log_submit_server_error">Žurnāla augšupielādes serveris atgriezis kļūdu. Vēlāk atveriet atkārtoti „Iesniegt žurnālu”, lai mēģinātu vēlreiz.</string>
+<string name="log_submit_share_failed">Neizdevās koplietot žurnāla informāciju.</string>
+<string name="log_submit_share_info">Dalīties ar informāciju</string>
+<string name="log_submit_unreachable">Nav iespējams izveidot savienojumu ar žurnāla augšupielādes serveri. Pārbaudiet savu savienojumu vai mēģiniet vēlāk, atkārtoti atverot „Iesniegt žurnālu”.</string>
+<string name="log_submit_uploaded_status">Augšupielāde reģistrēta.</string>
 <!--message_details_header-->
 <string name="message_details_header__from">No</string>
 <string name="message_details_header__issues_need_your_attention">Dažas problēmas prasa jūsu uzmanību.</string>

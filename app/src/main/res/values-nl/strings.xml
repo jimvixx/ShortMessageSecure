@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Bedankt voor je hulp!</string>
   <string name="log_submit_activity__uploading_logs">Logboek uploaden…</string>
   <string name="log_submit_copied">Log gekopieerd.</string>
+  <string name="log_submit_interrupted">Het resultaat van de vorige upload is niet beschikbaar. Open ’Log indienen’ opnieuw als u een nieuw rapport wilt verzenden.</string>
+  <string name="log_submit_no_internet">Geen internetverbinding. Controleer uw verbinding en open vervolgens ’Log indienen’ opnieuw om het nog eens te proberen.</string>
+  <string name="log_submit_save_failed">Het logboek kon niet worden opgeslagen.</string>
+  <string name="log_submit_save_log">Log opslaan</string>
+  <string name="log_submit_saved">Logboek opgeslagen.</string>
+  <string name="log_submit_server_error">De server voor het uploaden van logbestanden heeft een foutmelding gegeven. Open ’Log indienen’ later opnieuw om het nog eens te proberen.</string>
+  <string name="log_submit_share_failed">De loggegevens konden niet worden gedeeld.</string>
+  <string name="log_submit_share_info">Informatie delen</string>
+  <string name="log_submit_unreachable">De server voor het uploaden van logbestanden is niet bereikbaar. Controleer uw verbinding of probeer het later opnieuw door ’Log indienen’ opnieuw te openen.</string>
+  <string name="log_submit_uploaded_status">Upload gelogd.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Van</string>
   <string name="message_details_header__issues_need_your_attention">Er zijn enkele problemen die uw aandacht vereisen.</string>

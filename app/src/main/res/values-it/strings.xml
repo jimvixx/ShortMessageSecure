@@ -390,6 +390,16 @@
     <string name="log_submit_activity__thanks">Grazie dell\’aiuto!</string>
     <string name="log_submit_activity__uploading_logs">Caricamento del log in corso…</string>
     <string name="log_submit_copied">Log copiato.</string>
+    <string name="log_submit_interrupted">Il risultato del caricamento precedente non è disponibile. Riapri "Invia log" se desideri inviare un nuovo rapporto.</string>
+    <string name="log_submit_no_internet">Nessuna connessione a Internet. Verifica la connessione, quindi riapri "Invia log" per riprovare.</string>
+    <string name="log_submit_save_failed">Impossibile salvare il log.</string>
+    <string name="log_submit_save_log">Salva log</string>
+    <string name="log_submit_saved">Registro salvato.</string>
+    <string name="log_submit_server_error">Il server di caricamento dei log ha restituito un errore. Riaprire "Invia log" in un secondo momento per riprovare.</string>
+    <string name="log_submit_share_failed">Impossibile condividere le informazioni di log.</string>
+    <string name="log_submit_share_info">Condividi informazioni</string>
+    <string name="log_submit_unreachable">Impossibile raggiungere il server di caricamento dei log. Verifica la connessione o riprova più tardi riaprendo "Invia log".</string>
+    <string name="log_submit_uploaded_status">Caricamento registrato.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">Da</string>
     <string name="message_details_header__issues_need_your_attention">Ci sono alcuni problemi che richiedono la tua attenzione.</string>

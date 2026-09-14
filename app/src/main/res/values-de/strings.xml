@@ -381,6 +381,16 @@
     <string name="log_submit_activity__thanks">Vielen Dank für Ihre Hilfe!</string>
     <string name="log_submit_activity__uploading_logs">Protokoll wird hochgeladen…</string>
     <string name="log_submit_copied">Protokoll kopiert.</string>
+    <string name="log_submit_interrupted">Das Ergebnis des letzten Uploads ist nicht verfügbar. Öffnen Sie „Log übermitteln“ erneut, wenn Sie einen neuen Bericht senden möchten.</string>
+    <string name="log_submit_no_internet">Keine Internetverbindung. Überprüfen Sie Ihre Verbindung und öffnen Sie „Log übermitteln“ erneut, um es noch einmal zu versuchen.</string>
+    <string name="log_submit_save_failed">Das Protokoll konnte nicht gespeichert werden.</string>
+    <string name="log_submit_save_log">Protokoll speichern</string>
+    <string name="log_submit_saved">Protokoll gespeichert.</string>
+    <string name="log_submit_server_error">Der Server zum Hochladen des Protokolls hat einen Fehler zurückgegeben. Öffnen Sie „Protokoll senden“ später erneut, um es noch einmal zu versuchen.</string>
+    <string name="log_submit_share_failed">Die Protokollinformationen konnten nicht geteilt werden.</string>
+    <string name="log_submit_share_info">Informationen teilen</string>
+    <string name="log_submit_unreachable">Der Server für das Hochladen von Protokollen konnte nicht erreicht werden. Überprüfen Sie Ihre Verbindung oder versuchen Sie es später erneut, indem Sie „Protokoll senden“ erneut öffnen.</string>
+    <string name="log_submit_uploaded_status">Upload protokolliert.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">Von</string>
     <string name="message_details_header__issues_need_your_attention">Einige Probleme erfordern Ihre Aufmerksamkeit.</string>

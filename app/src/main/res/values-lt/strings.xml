@@ -399,6 +399,16 @@
 <string name="log_submit_activity__thanks">Ačiū už pagalbą!</string>
 <string name="log_submit_activity__uploading_logs">Įkeliama žurnalo įrašas…</string>
 <string name="log_submit_copied">Žurnalas nukopijuotas.</string>
+<string name="log_submit_interrupted">Ankstesnio įkėlimo rezultatas nėra prieinamas. Jei norite išsiųsti naują ataskaitą, vėl atidarykite „Pateikti žurnalą“.</string>
+<string name="log_submit_no_internet">Nėra interneto ryšio. Patikrinkite ryšį, tada vėl atidarykite „Pateikti žurnalą“ ir pabandykite dar kartą.</string>
+<string name="log_submit_save_failed">Nepavyko išsaugoti žurnalo.</string>
+<string name="log_submit_save_log">Išsaugoti žurnalą</string>
+<string name="log_submit_saved">Žurnalas išsaugotas.</string>
+<string name="log_submit_server_error">Žurnalo įkėlimo serveris grąžino klaidą. Vėliau vėl atidarykite „Pateikti žurnalą“ ir pabandykite dar kartą.</string>
+<string name="log_submit_share_failed">Nepavyko pasidalinti žurnalo informacija.</string>
+<string name="log_submit_share_info">Dalintis informacija</string>
+<string name="log_submit_unreachable">Nepavyko prisijungti prie žurnalo įkėlimo serverio. Patikrinkite ryšį arba pabandykite vėliau, vėl atidarydami „Pateikti žurnalą“.</string>
+<string name="log_submit_uploaded_status">Įkėlimas užregistruotas.</string>
 <!--message_details_header-->
 <string name="message_details_header__from">Iš</string>
 <string name="message_details_header__issues_need_your_attention">Kai kurios problemos reikalauja jūsų dėmesio.</string>

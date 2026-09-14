@@ -417,6 +417,16 @@
 <string name="log_submit_activity__thanks">شكراً على مساعدتك!</string>
 <string name="log_submit_activity__uploading_logs">تحميل السجل…</string>
 <string name="log_submit_copied">تم نسخ السجل.</string>
+<string name="log_submit_interrupted">نتيجة التحميل السابقة غير متوفرة. أعد فتح «إرسال السجل» إذا كنت ترغب في إرسال تقرير جديد.</string>
+<string name="log_submit_no_internet">لا يوجد اتصال بالإنترنت. تحقق من اتصالك، ثم أعد فتح «إرسال السجل» لمحاولة الإرسال مرة أخرى.</string>
+<string name="log_submit_save_failed">تعذر حفظ السجل.</string>
+<string name="log_submit_save_log">حفظ السجل</string>
+<string name="log_submit_saved">تم حفظ السجل.</string>
+<string name="log_submit_server_error">أصدر خادم تحميل السجل خطأً. أعد فتح «إرسال السجل» لاحقًا لمحاولة الإرسال مرة أخرى.</string>
+<string name="log_submit_share_failed">تعذر مشاركة معلومات السجل.</string>
+<string name="log_submit_share_info">معلومات المشاركة</string>
+<string name="log_submit_unreachable">تعذر الوصول إلى خادم تحميل السجل. تحقق من اتصالك أو حاول مرة أخرى لاحقًا عن طريق إعادة فتح «إرسال السجل».</string>
+<string name="log_submit_uploaded_status">تم تسجيل التحميل.</string>
 <!--message_details_header-->
 <string name="message_details_header__from">من</string>
 <string name="message_details_header__issues_need_your_attention">هناك بعض المشكلات التي تحتاج إلى اهتمامك.</string>

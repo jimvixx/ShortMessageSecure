@@ -381,6 +381,16 @@
     <string name="log_submit_activity__thanks">Благодаря за помощта!</string>
     <string name="log_submit_activity__uploading_logs">Качване на лог…</string>
     <string name="log_submit_copied">Логът е копиран.</string>
+    <string name="log_submit_interrupted">Резултатът от предишното качване не е наличен. Отворете отново „Изпращане на лог“, ако искате да изпратите нов отчет.</string>
+    <string name="log_submit_no_internet">Няма интернет връзка. Проверете връзката си, след което отворете отново „Изпрати лог“, за да опитате отново.</string>
+    <string name="log_submit_save_failed">Не е възможно да се запише логът.</string>
+    <string name="log_submit_save_log">Запазване на лог</string>
+    <string name="log_submit_saved">Дневникът е запазен.</string>
+    <string name="log_submit_server_error">Сървърът за качване на лог файлове е върнал грешка. Отворете отново „Изпрати лог“ по-късно, за да опитате отново.</string>
+    <string name="log_submit_share_failed">Не беше възможно да се сподели информацията от лога.</string>
+    <string name="log_submit_share_info">Споделяне на информация</string>
+    <string name="log_submit_unreachable">Не може да се установи връзка със сървъра за качване на логове. Проверете връзката си или опитайте отново по-късно, като отворите отново „Изпрати лог“.</string>
+    <string name="log_submit_uploaded_status">Качването е регистрирано.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">От</string>
     <string name="message_details_header__issues_need_your_attention">Някои проблеми изискват вашето внимание.</string>

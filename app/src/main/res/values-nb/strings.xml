@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Takk for hjelpen!</string>
   <string name="log_submit_activity__uploading_logs">Laster opp logg…</string>
   <string name="log_submit_copied">Logg kopiert.</string>
+  <string name="log_submit_interrupted">Resultatet fra forrige opplasting er ikke tilgjengelig. Åpne «Send logg» på nytt hvis du vil sende en ny rapport.</string>
+  <string name="log_submit_no_internet">Ingen internettforbindelse. Sjekk tilkoblingen din, og åpne deretter «Send logg» på nytt for å prøve igjen.</string>
+  <string name="log_submit_save_failed">Kunne ikke lagre loggen.</string>
+  <string name="log_submit_save_log">Lagre logg</string>
+  <string name="log_submit_saved">Logg lagret.</string>
+  <string name="log_submit_server_error">Loggopplastingsserveren returnerte en feil. Åpne «Send inn logg» på nytt senere for å prøve igjen.</string>
+  <string name="log_submit_share_failed">Det var ikke mulig å dele logginformasjonen.</string>
+  <string name="log_submit_share_info">Del informasjon</string>
+  <string name="log_submit_unreachable">Det var ikke mulig å opprette forbindelse til loggopplastingsserveren. Sjekk tilkoblingen din, eller prøv igjen senere ved å åpne «Send logg» på nytt.</string>
+  <string name="log_submit_uploaded_status">Logg opplastet.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Fra</string>
   <string name="message_details_header__issues_need_your_attention">Noen problemer krever din oppmerksomhet.</string>

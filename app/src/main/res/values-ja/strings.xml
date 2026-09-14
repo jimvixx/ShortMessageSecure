@@ -372,6 +372,16 @@
   <string name="log_submit_activity__thanks">ご協力ありがとうございます！</string>
   <string name="log_submit_activity__uploading_logs">ログをアップロード中…</string>
   <string name="log_submit_copied">ログがコピーされました。</string>
+  <string name="log_submit_interrupted">前回のアップロード結果を確認できません。新しいレポートを送信する場合は、「ログの送信」を再度開いてください。</string>
+  <string name="log_submit_no_internet">インターネットに接続されていません。接続状態を確認してから、「ログを送信」を再度開いて、もう一度お試しください。</string>
+  <string name="log_submit_save_failed">ログを保存できませんでした。</string>
+  <string name="log_submit_save_log">ログを保存</string>
+  <string name="log_submit_saved">ログが保存されました。</string>
+  <string name="log_submit_server_error">ログアップロードサーバーでエラーが発生しました。後で「ログの送信」を再度開き、再試行してください。</string>
+  <string name="log_submit_share_failed">ログ情報を共有できませんでした。</string>
+  <string name="log_submit_share_info">情報を共有</string>
+  <string name="log_submit_unreachable">ログアップロードサーバーに接続できませんでした。接続状態を確認するか、「ログを送信」を再度開いて、後ほどもう一度お試しください。</string>
+  <string name="log_submit_uploaded_status">アップロードを記録しました。</string>
   <!--message_details_header-->
   <string name="message_details_header__from">From</string>
   <string name="message_details_header__issues_need_your_attention">いくつかの問題についてご確認をお願いします。</string>

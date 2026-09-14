@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Ευχαριστώ για τη βοήθειά σας!</string>
   <string name="log_submit_activity__uploading_logs">Ανεβάζω αρχείο καταγραφής…</string>
   <string name="log_submit_copied">Το αρχείο καταγραφής αντιγράφηκε.</string>
+  <string name="log_submit_interrupted">Το αποτέλεσμα της προηγούμενης αποστολής δεν είναι διαθέσιμο. Ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» αν θέλετε να στείλετε μια νέα αναφορά.</string>
+  <string name="log_submit_no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και, στη συνέχεια, ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» για να προσπαθήσετε ξανά.</string>
+  <string name="log_submit_save_failed">Δεν ήταν δυνατή η αποθήκευση του αρχείου καταγραφής.</string>
+  <string name="log_submit_save_log">Αποθήκευση καταγραφής</string>
+  <string name="log_submit_saved">Το αρχείο καταγραφής αποθηκεύτηκε.</string>
+  <string name="log_submit_server_error">Ο διακομιστής αποστολής αρχείου καταγραφής επέστρεψε σφάλμα. Ανοίξτε ξανά την επιλογή «Αποστολή αρχείου καταγραφής» αργότερα για να δοκιμάσετε ξανά.</string>
+  <string name="log_submit_share_failed">Δεν ήταν δυνατή η κοινή χρήση των πληροφοριών καταγραφής.</string>
+  <string name="log_submit_share_info">Πληροφορίες κοινοποίησης</string>
+  <string name="log_submit_unreachable">Δεν ήταν δυνατή η σύνδεση με τον διακομιστή αποστολής αρχείων καταγραφής. Ελέγξτε τη σύνδεσή σας ή δοκιμάστε ξανά αργότερα, ανοίγοντας εκ νέου την επιλογή «Υποβολή αρχείου καταγραφής».</string>
+  <string name="log_submit_uploaded_status">Καταχώριση μεταφόρτωσης.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Από</string>
   <string name="message_details_header__issues_need_your_attention">Υπάρχουν κάποια ζητήματα που απαιτούν την προσοχή σας.</string>

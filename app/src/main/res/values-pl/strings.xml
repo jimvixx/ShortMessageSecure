@@ -399,6 +399,16 @@
   <string name="log_submit_activity__thanks">Dziękuję za pomoc!</string>
   <string name="log_submit_activity__uploading_logs">Przesyłanie dziennika…</string>
   <string name="log_submit_copied">Dziennik skopiowany.</string>
+  <string name="log_submit_interrupted">Wynik poprzedniego przesłania jest niedostępny. Otwórz ponownie okno „Prześlij dziennik”, jeśli chcesz wysłać nowy raport.</string>
+  <string name="log_submit_no_internet">Brak połączenia z Internetem. Sprawdź połączenie, a następnie ponownie otwórz opcję „Prześlij dziennik”, aby spróbować jeszcze raz.</string>
+  <string name="log_submit_save_failed">Nie udało się zapisać dziennika.</string>
+  <string name="log_submit_save_log">Zapisz dziennik</string>
+  <string name="log_submit_saved">Dziennik zapisano.</string>
+  <string name="log_submit_server_error">Serwer przesyłania logów zwrócił błąd. Otwórz ponownie opcję „Prześlij log” później, aby spróbować ponownie.</string>
+  <string name="log_submit_share_failed">Nie udało się udostępnić informacji z dziennika.</string>
+  <string name="log_submit_share_info">Udostępnij informacje</string>
+  <string name="log_submit_unreachable">Nie udało się połączyć z serwerem przesyłania logów. Sprawdź połączenie lub spróbuj ponownie później, otwierając ponownie opcję „Prześlij log”.</string>
+  <string name="log_submit_uploaded_status">Przesłano do dziennika.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Od</string>
   <string name="message_details_header__issues_need_your_attention">Niektóre kwestie wymagają Twojej uwagi.</string>

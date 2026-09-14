@@ -381,6 +381,16 @@
 <string name="log_submit_activity__thanks">Tänan abi eest!</string>
 <string name="log_submit_activity__uploading_logs">Logi üleslaadimine…</string>
 <string name="log_submit_copied">Logi kopeeritud.</string>
+<string name="log_submit_interrupted">Eelmise üleslaadimise tulemus ei ole kättesaadav. Avage uuesti „Saada logi”, kui soovite saata uue aruande.</string>
+<string name="log_submit_no_internet">Internetiühendus puudub. Kontrolli ühendust ja ava seejärel uuesti „Saada logi”, et proovida uuesti.</string>
+<string name="log_submit_save_failed">Logi salvestamine ebaõnnestus.</string>
+<string name="log_submit_save_log">Salvesta logi</string>
+<string name="log_submit_saved">Logi salvestatud.</string>
+<string name="log_submit_server_error">Logi üleslaadimisserver andis veateate. Avage hiljem uuesti „Saada logi”, et uuesti proovida.</string>
+<string name="log_submit_share_failed">Logiandmeid ei õnnestunud jagada.</string>
+<string name="log_submit_share_info">Jaga teavet</string>
+<string name="log_submit_unreachable">Logi üleslaadimisserveriga ei õnnestunud ühendust luua. Kontrollige oma ühendust või proovige hiljem uuesti, avades uuesti valiku „Saada logi”.</string>
+<string name="log_submit_uploaded_status">Üleslaadimine on logitud.</string>
 <!--message_details_header-->
 <string name="message_details_header__from">From</string>
 <string name="message_details_header__issues_need_your_attention">Mõned probleemid vajavad teie tähelepanu.</string>

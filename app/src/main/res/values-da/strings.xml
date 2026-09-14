@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Tak for hjælpen!</string>
   <string name="log_submit_activity__uploading_logs">Uploader log…</string>
   <string name="log_submit_copied">Log kopieret.</string>
+  <string name="log_submit_interrupted">Resultatet af den forrige upload er ikke tilgængeligt. Åbn "Send log" igen, hvis du vil sende en ny rapport.</string>
+  <string name="log_submit_no_internet">Der er ingen internetforbindelse. Kontroller din forbindelse, og åbn derefter "Send log" igen for at prøve på ny.</string>
+  <string name="log_submit_save_failed">Det var ikke muligt at gemme loggen.</string>
+  <string name="log_submit_save_log">Gem log</string>
+  <string name="log_submit_saved">Log gemt.</string>
+  <string name="log_submit_server_error">Logoverførselsserveren returnerede en fejl. Åbn »Send log« igen senere for at prøve igen.</string>
+  <string name="log_submit_share_failed">Det var ikke muligt at dele logoplysningerne.</string>
+  <string name="log_submit_share_info">Del oplysninger</string>
+  <string name="log_submit_unreachable">Det var ikke muligt at oprette forbindelse til logopsendelsesserveren. Kontroller din forbindelse, eller prøv igen senere ved at åbne "Send log" igen.</string>
+  <string name="log_submit_uploaded_status">Log uploadet.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Fra</string>
   <string name="message_details_header__issues_need_your_attention">Der er nogle problemer, du skal være opmærksom på.</string>

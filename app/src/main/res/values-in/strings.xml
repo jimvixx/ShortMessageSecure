@@ -372,6 +372,16 @@
 <string name="log_submit_activity__thanks">Terima kasih atas bantuannya!</string>
 <string name="log_submit_activity__uploading_logs">Mengunggah log…</string>
 <string name="log_submit_copied">Log telah disalin.</string>
+<string name="log_submit_interrupted">Hasil pengunggahan sebelumnya tidak tersedia. Buka kembali "Kirim Log" jika Anda ingin mengirim laporan baru.</string>
+<string name="log_submit_no_internet">Tidak ada koneksi internet. Periksa koneksi Anda, lalu buka kembali "Kirim log" untuk mencoba lagi.</string>
+<string name="log_submit_save_failed">Tidak dapat menyimpan log.</string>
+<string name="log_submit_save_log">Simpan log</string>
+<string name="log_submit_saved">Log telah disimpan.</string>
+<string name="log_submit_server_error">Server pengunggahan log mengalami kesalahan. Silakan buka kembali "Kirim Log" nanti untuk mencoba lagi.</string>
+<string name="log_submit_share_failed">Tidak dapat membagikan informasi log.</string>
+<string name="log_submit_share_info">Bagikan info</string>
+<string name="log_submit_unreachable">Tidak dapat terhubung ke server unggah log. Periksa koneksi Anda atau coba lagi nanti dengan membuka kembali "Kirim log".</string>
+<string name="log_submit_uploaded_status">Log telah diunggah.</string>
 <!--message_details_header-->
 <string name="message_details_header__from">Dari</string>
 <string name="message_details_header__issues_need_your_attention">Ada beberapa masalah yang perlu Anda perhatikan.</string>

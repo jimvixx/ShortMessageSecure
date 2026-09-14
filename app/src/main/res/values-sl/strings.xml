@@ -399,6 +399,16 @@
   <string name="log_submit_activity__thanks">Hvala za pomoč!</string>
   <string name="log_submit_activity__uploading_logs">Prenos dnevnika…</string>
   <string name="log_submit_copied">Dnevnik kopiran.</string>
+  <string name="log_submit_interrupted">Rezultat prejšnjega prenosa ni na voljo. Če želite poslati novo poročilo, ponovno odprite možnost »Pošlji dnevnik«.</string>
+  <string name="log_submit_no_internet">Ni internetne povezave. Preverite povezavo in nato ponovno odprite »Pošlji dnevnik«, da poskusite znova.</string>
+  <string name="log_submit_save_failed">Dnevnika ni bilo mogoče shraniti.</string>
+  <string name="log_submit_save_log">Shrani dnevnik</string>
+  <string name="log_submit_saved">Dnevnik shranjen.</string>
+  <string name="log_submit_server_error">Strežnik za pošiljanje dnevnika je vrnil napako. Pozneje ponovno odprite možnost »Pošlji dnevnik«, da poskusite znova.</string>
+  <string name="log_submit_share_failed">Podatkov dnevnika ni bilo mogoče deliti.</string>
+  <string name="log_submit_share_info">Podatki o deljenju</string>
+  <string name="log_submit_unreachable">Strežnika za pošiljanje dnevnika ni bilo mogoče doseči. Preverite povezavo ali poskusite kasneje znova, tako da ponovno odprete možnost »Pošlji dnevnik«.</string>
+  <string name="log_submit_uploaded_status">Naloženo v dnevnik.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Od</string>
   <string name="message_details_header__issues_need_your_attention">Nekaj težav zahteva vašo pozornost.</string>

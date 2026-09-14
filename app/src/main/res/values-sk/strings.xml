@@ -399,6 +399,16 @@
   <string name="log_submit_activity__thanks">Ďakujeme za pomoc!</string>
   <string name="log_submit_activity__uploading_logs">Nahrávanie protokolu…</string>
   <string name="log_submit_copied">Protokol skopírovaný.</string>
+  <string name="log_submit_interrupted">Výsledok predchádzajúceho odoslania nie je k dispozícii. Ak chcete odoslať novú správu, znovu otvorte okno „Odoslať protokol“.</string>
+  <string name="log_submit_no_internet">Nie je k dispozícii pripojenie k internetu. Skontrolujte pripojenie a potom znovu otvorte položku „Odoslať protokol“ a skúste to znova.</string>
+  <string name="log_submit_save_failed">Protokol sa nepodarilo uložiť.</string>
+  <string name="log_submit_save_log">Uložiť protokol</string>
+  <string name="log_submit_saved">Protokol uložený.</string>
+  <string name="log_submit_server_error">Server na odosielanie protokolov vrátil chybu. Neskôr znovu otvorte okno „Odoslať protokol“ a skúste to znova.</string>
+  <string name="log_submit_share_failed">Informácie z protokolu sa nepodarilo zdieľať.</string>
+  <string name="log_submit_share_info">Zdieľať informácie</string>
+  <string name="log_submit_unreachable">Nepodarilo sa nadviazať spojenie so serverom na odosielanie protokolov. Skontrolujte pripojenie alebo to skúste neskôr opätovným otvorením položky „Odoslať protokol“.</string>
+  <string name="log_submit_uploaded_status">Nahranie bolo zaznamenané.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Od</string>
   <string name="message_details_header__issues_need_your_attention">Niektoré problémy si vyžadujú vašu pozornosť.</string>

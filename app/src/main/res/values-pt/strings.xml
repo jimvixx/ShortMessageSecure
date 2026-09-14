@@ -390,6 +390,16 @@
   <string name="log_submit_activity__thanks">Obrigado pela sua ajuda!</string>
   <string name="log_submit_activity__uploading_logs">A carregar o registo…</string>
   <string name="log_submit_copied">Registo copiado.</string>
+  <string name="log_submit_interrupted">O resultado do envio anterior não está disponível. Reabra a opção «Enviar registo» se pretender enviar um novo relatório.</string>
+  <string name="log_submit_no_internet">Não há ligação à Internet. Verifique a sua ligação e, em seguida, volte a abrir «Enviar registo» para tentar novamente.</string>
+  <string name="log_submit_save_failed">Não foi possível guardar o registo.</string>
+  <string name="log_submit_save_log">Guardar registo</string>
+  <string name="log_submit_saved">Registo guardado.</string>
+  <string name="log_submit_server_error">O servidor de envio de registos devolveu um erro. Volte a abrir «Enviar registo» mais tarde para tentar novamente.</string>
+  <string name="log_submit_share_failed">Não foi possível partilhar as informações do registo.</string>
+  <string name="log_submit_share_info">Partilhar informações</string>
+  <string name="log_submit_unreachable">Não foi possível aceder ao servidor de envio de registos. Verifique a sua ligação ou tente novamente mais tarde, reabrindo a opção «Enviar registo».</string>
+  <string name="log_submit_uploaded_status">Registo carregado.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De</string>
   <string name="message_details_header__issues_need_your_attention">Algumas questões requerem a sua atenção.</string>

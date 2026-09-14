@@ -420,6 +420,16 @@
     <string name="log_submit_activity__thanks">Thanks for your help!</string>
     <string name="log_submit_activity__uploading_logs">Uploading log…</string>
     <string name="log_submit_copied">Log copied.</string>
+    <string name="log_submit_interrupted">The previous upload result is unavailable. Reopen Submit log if you want to send a new report.</string>
+    <string name="log_submit_no_internet">No internet connection. Check your connection, then reopen Submit log to try again.</string>
+    <string name="log_submit_save_failed">Could not save the log.</string>
+    <string name="log_submit_save_log">Save log</string>
+    <string name="log_submit_saved">Log saved.</string>
+    <string name="log_submit_server_error">The log upload server returned an error. Reopen Submit log later to try again.</string>
+    <string name="log_submit_share_failed">Could not share the log information.</string>
+    <string name="log_submit_share_info">Share info</string>
+    <string name="log_submit_unreachable">Could not reach the log upload server. Check your connection or try again later by reopening Submit log.</string>
+    <string name="log_submit_uploaded_status">Log uploaded.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">From</string>
     <string name="message_details_header__issues_need_your_attention">Some issues need your attention.</string>

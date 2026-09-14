@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Yardımınız için teşekkürler!</string>
   <string name="log_submit_activity__uploading_logs">Günlük yükleniyor…</string>
   <string name="log_submit_copied">Günlük kopyalandı.</string>
+  <string name="log_submit_interrupted">Önceki yükleme sonucuna erişilemiyor. Yeni bir rapor göndermek istiyorsanız "Günlüğü Gönder" seçeneğini yeniden açın.</string>
+  <string name="log_submit_no_internet">İnternet bağlantısı yok. Bağlantınızı kontrol edin, ardından "Günlüğü gönder" seçeneğini yeniden açarak tekrar deneyin.</string>
+  <string name="log_submit_save_failed">Günlük kaydedilemedi.</string>
+  <string name="log_submit_save_log">Günlüğü kaydet</string>
+  <string name="log_submit_saved">Günlük kaydedildi.</string>
+  <string name="log_submit_server_error">Günlük yükleme sunucusu bir hata döndürdü. Daha sonra "Günlüğü Gönder" seçeneğini yeniden açarak tekrar deneyin.</string>
+  <string name="log_submit_share_failed">Günlük bilgileri paylaşılamadı.</string>
+  <string name="log_submit_share_info">Bilgileri paylaş</string>
+  <string name="log_submit_unreachable">Günlük yükleme sunucusuna ulaşılamadı. Bağlantınızı kontrol edin veya "Günlüğü Gönder" seçeneğini yeniden açarak daha sonra tekrar deneyin.</string>
+  <string name="log_submit_uploaded_status">Yükleme günlüğü.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Gönderen</string>
   <string name="message_details_header__issues_need_your_attention">Bazı sorunlara dikkat etmeniz gerekiyor.</string>

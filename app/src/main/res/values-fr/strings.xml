@@ -390,6 +390,16 @@
     <string name="log_submit_activity__thanks">Merci pour votre aide !</string>
     <string name="log_submit_activity__uploading_logs">Téléchargement du journal…</string>
     <string name="log_submit_copied">Journal copié.</string>
+    <string name="log_submit_interrupted">Le résultat du dernier envoi n’est pas disponible. Rouvrez la fenêtre « Envoyer le journal » si vous souhaitez envoyer un nouveau rapport.</string>
+    <string name="log_submit_no_internet">Pas de connexion Internet. Vérifiez votre connexion, puis rouvrez « Envoyer le journal » pour réessayer.</string>
+    <string name="log_submit_save_failed">Impossible d’enregistrer le journal.</string>
+    <string name="log_submit_save_log">Enregistrer le journal</string>
+    <string name="log_submit_saved">Journal enregistré.</string>
+    <string name="log_submit_server_error">Le serveur de téléchargement des journaux a renvoyé une erreur. Rouvrez « Envoyer le journal » plus tard pour réessayer.</string>
+    <string name="log_submit_share_failed">Impossible de partager les informations du journal.</string>
+    <string name="log_submit_share_info">Partager les informations</string>
+    <string name="log_submit_unreachable">Impossible d’accéder au serveur de téléchargement des journaux. Vérifiez votre connexion ou réessayez plus tard en rouvrant la fenêtre « Envoyer le journal ».</string>
+    <string name="log_submit_uploaded_status">Enregistrement téléchargé.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">De</string>
     <string name="message_details_header__issues_need_your_attention">Certains problèmes nécessitent votre attention.</string>

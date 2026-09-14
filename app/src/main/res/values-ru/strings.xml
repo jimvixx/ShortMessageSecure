@@ -399,6 +399,16 @@
     <string name="log_submit_activity__thanks">Спасибо за помощь!</string>
     <string name="log_submit_activity__uploading_logs">Загрузка журнала…</string>
     <string name="log_submit_copied">Журнал скопирован.</string>
+    <string name="log_submit_interrupted">Результат предыдущей загрузки недоступен. Чтобы отправить новый отчёт, повторно откройте отправку лога.</string>
+    <string name="log_submit_no_internet">Нет подключения к интернету. Проверьте подключение и повторно откройте отправку лога.</string>
+    <string name="log_submit_save_failed">Не удалось сохранить лог.</string>
+    <string name="log_submit_save_log">Сохранить лог</string>
+    <string name="log_submit_saved">Лог сохранён.</string>
+    <string name="log_submit_server_error">Сервер загрузки логов вернул ошибку. Повторно откройте отправку лога позже.</string>
+    <string name="log_submit_share_failed">Не удалось поделиться данными лога.</string>
+    <string name="log_submit_share_info">Поделиться данными</string>
+    <string name="log_submit_unreachable">Не удалось связаться с сервером загрузки логов. Проверьте подключение или повторно откройте отправку лога позже.</string>
+    <string name="log_submit_uploaded_status">Лог отправлен.</string>
     <!--message_details_header-->
     <string name="message_details_header__from">От</string>
     <string name="message_details_header__issues_need_your_attention">Некоторые проблемы требуют вашего внимания.</string>

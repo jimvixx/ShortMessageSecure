@@ -390,6 +390,16 @@
   <string name="log_submit_activity__thanks">Obrigado pela ajuda!</string>
   <string name="log_submit_activity__uploading_logs">Carregando log…</string>
   <string name="log_submit_copied">Registro copiado.</string>
+  <string name="log_submit_interrupted">O resultado do envio anterior não está disponível. Reabra “Enviar log” se quiser enviar um novo relatório.</string>
+  <string name="log_submit_no_internet">Sem conexão com a internet. Verifique sua conexão e, em seguida, reabra “Enviar log” para tentar novamente.</string>
+  <string name="log_submit_save_failed">Não foi possível salvar o log.</string>
+  <string name="log_submit_save_log">Salvar log</string>
+  <string name="log_submit_saved">Registro salvo.</string>
+  <string name="log_submit_server_error">O servidor de envio de logs retornou um erro. Reabra a opção “Enviar log” mais tarde para tentar novamente.</string>
+  <string name="log_submit_share_failed">Não foi possível compartilhar as informações do log.</string>
+  <string name="log_submit_share_info">Compartilhar informações</string>
+  <string name="log_submit_unreachable">Não foi possível acessar o servidor de envio de logs. Verifique sua conexão ou tente novamente mais tarde, reabrindo a opção “Enviar log”.</string>
+  <string name="log_submit_uploaded_status">Registro enviado.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De</string>
   <string name="message_details_header__issues_need_your_attention">Algumas questões requerem sua atenção.</string>

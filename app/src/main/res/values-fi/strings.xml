@@ -381,6 +381,16 @@
   <string name="log_submit_activity__thanks">Kiitos avusta!</string>
   <string name="log_submit_activity__uploading_logs">Lokia ladataan…</string>
   <string name="log_submit_copied">Loki kopioitu.</string>
+  <string name="log_submit_interrupted">Edellisen lähetystuloksen tietoja ei ole saatavilla. Avaa Lähetä loki uudelleen, jos haluat lähettää uuden raportin.</string>
+  <string name="log_submit_no_internet">Ei internetyhteyttä. Tarkista yhteytesi ja avaa sitten Lähetä loki uudelleen yrittääksesi uudelleen.</string>
+  <string name="log_submit_save_failed">Lokia ei voitu tallentaa.</string>
+  <string name="log_submit_save_log">Tallenna loki</string>
+  <string name="log_submit_saved">Loki tallennettu.</string>
+  <string name="log_submit_server_error">Lokien lähetyspalvelin palautti virheen. Avaa ”Lähetä loki” myöhemmin ja yritä uudelleen.</string>
+  <string name="log_submit_share_failed">Lokitietoja ei voitu jakaa.</string>
+  <string name="log_submit_share_info">Jaa tiedot</string>
+  <string name="log_submit_unreachable">Lokin lähetyspalvelimeen ei saatu yhteyttä. Tarkista yhteytesi tai yritä myöhemmin uudelleen avaamalla Lähetä loki -toiminto uudelleen.</string>
+  <string name="log_submit_uploaded_status">Lähetys on tallennettu.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Lähettäjä</string>
   <string name="message_details_header__issues_need_your_attention">Joitakin asioita vaatii huomiotasi.</string>

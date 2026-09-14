@@ -42,13 +42,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/log_submit_copy_button"
+            android:id="@+id/log_submit_save_button"
             style="@style/Widget.SMSecure.ButtonBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/log_submit__button_copy"
+            android:text="@string/log_submit_save_log"
             android:textSize="16sp" />
 
         <Button
@@ -59,7 +59,7 @@
             android:layout_margin="6dp"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/log_submit__button_share_link"
+            android:text="@string/log_submit_share_info"
             android:textSize="16sp" />
 
         <Button

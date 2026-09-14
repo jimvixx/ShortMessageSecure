@@ -372,6 +372,16 @@
   <string name="log_submit_activity__thanks">도움 주셔서 감사합니다!</string>
   <string name="log_submit_activity__uploading_logs">로그 업로드 중…</string>
   <string name="log_submit_copied">로그가 복사되었습니다.</string>
+  <string name="log_submit_interrupted">이전 업로드 결과를 확인할 수 없습니다. 새 보고서를 보내려면 ‘로그 제출’을 다시 열어 주세요.</string>
+  <string name="log_submit_no_internet">인터넷에 연결되어 있지 않습니다. 연결 상태를 확인한 후 ’로그 제출’을 다시 열어 다시 시도해 주세요.</string>
+  <string name="log_submit_save_failed">로그를 저장할 수 없습니다.</string>
+  <string name="log_submit_save_log">로그 저장</string>
+  <string name="log_submit_saved">로그가 저장되었습니다.</string>
+  <string name="log_submit_server_error">로그 업로드 서버에서 오류가 발생했습니다. 나중에 ‘로그 제출’을 다시 열어 다시 시도해 주세요.</string>
+  <string name="log_submit_share_failed">로그 정보를 공유할 수 없습니다.</string>
+  <string name="log_submit_share_info">공유 정보</string>
+  <string name="log_submit_unreachable">로그 업로드 서버에 연결할 수 없습니다. 연결 상태를 확인하거나, ’로그 제출’을 다시 열어 나중에 다시 시도해 주세요.</string>
+  <string name="log_submit_uploaded_status">업로드 완료.</string>
   <!--message_details_header-->
   <string name="message_details_header__from">From</string>
   <string name="message_details_header__issues_need_your_attention">주의가 필요한 몇 가지 문제가 있습니다.</string>
