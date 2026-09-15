@@ -25,7 +25,6 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.database.MergeCursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -70,6 +69,9 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
 
   @Nullable
   private Cursor cursor;
+
+  @Nullable
+  private Cursor ringtoneSourceCursor;
 
   @Nullable
   private RingtoneManager ringtoneManager;
@@ -377,6 +379,7 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
     ringtoneManager.setStopPreviousRingtone(true);
 
     Cursor ringtoneCursor = ringtoneManager.getCursor();
+    ringtoneSourceCursor = ringtoneCursor;
     String idColumn = ringtoneCursor.getColumnName(RingtoneManager.ID_COLUMN_INDEX);
     String titleColumn = ringtoneCursor.getColumnName(RingtoneManager.TITLE_COLUMN_INDEX);
 
@@ -406,7 +409,24 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
 
     Log.d(TAG, "Selected index = " + selectedIndex + ", uri = " + ringtoneUri);
 
-    cursor = new MergeCursor(new Cursor[]{extras, ringtoneCursor});
+    // Keep adapter observers off the framework SortCursor. Preserve source order
+    // so list positions still map to RingtoneManager playback and URI lookup.
+    int sourcePosition = ringtoneCursor.getPosition();
+    try {
+      ringtoneCursor.moveToPosition(-1);
+      while (ringtoneCursor.moveToNext()) {
+        extras.addRow(new Object[]{
+                ringtoneCursor.getLong(RingtoneManager.ID_COLUMN_INDEX),
+                ringtoneCursor.getString(RingtoneManager.TITLE_COLUMN_INDEX)
+        });
+      }
+      cursor = extras;
+    } catch (RuntimeException e) {
+      extras.close();
+      throw e;
+    } finally {
+      ringtoneCursor.moveToPosition(sourcePosition);
+    }
   }
 
   private void newRingtone() {
@@ -531,6 +551,15 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
     } catch (Exception ignore) {
     } finally {
       cursor = null;
+    }
+    try {
+      if (ringtoneSourceCursor != null) {
+        ringtoneSourceCursor.close();
+      }
+    } catch (Exception ignore) {
+    } finally {
+      ringtoneSourceCursor = null;
+      ringtoneManager = null;
     }
   }
 
