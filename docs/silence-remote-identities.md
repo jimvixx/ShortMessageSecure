@@ -1,6 +1,6 @@
 # Silence remote identity records and session comparisons
 
-The preceding session stage is committed as `3a142f8`. This next stage is uncommitted.
+The preceding session stage is committed as `3a142f8`. This stage is committed as `fbfa7e3`.
 All reads target the disposable snapshot. No core identity store is instantiated and no trust,
 verified flag, session, preference, or live database is changed. Import readiness remains false.
 
@@ -77,3 +77,5 @@ apply/rollback remain separate work. API 24 runtime and other SAF providers rema
 The next safe boundary is an explicit source-to-target subscription and preference plan,
 without applying it to live data. Missing/different peer identities must remain visible in
 any future readiness/confirmation logic; MAC validity must never promote trust automatically.
+
+The following draft-planning stage is documented in [silence-migration-plan.md](silence-migration-plan.md).

@@ -108,6 +108,13 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
             }
           }
         }
+        SilenceMigrationPlan plan = model.getResult().getMigrationPlan();
+        if (plan != null) {
+          status.append("\n\n" + getString(R.string.silence_plan_summary, plan.getSubscriptions().getSources().size(),
+              plan.getSubscriptions().getSmsWithoutSubscription(), plan.getPreferences().getCandidates().size(),
+              plan.getPreferences().getDeferredCount()));
+          if (!plan.isCryptoInventoryChecked()) status.append("\n" + getString(R.string.silence_plan_partial));
+        }
       } else status.setText(R.string.silence_preflight_description);
     });
   }

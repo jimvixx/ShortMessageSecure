@@ -41,8 +41,9 @@ public final class SilenceImportCoordinator {
     try (SilenceBackupStager.Snapshot snapshot = new SilenceBackupStager().stage(source, workspace)) {
       SilencePreflightResult result = new SilencePreflightAnalyzer().analyze(snapshot);
       try (SilenceDatabaseMigrator.PreparedDatabase prepared = new SilenceDatabaseMigrator().prepare(snapshot)) {
-        return result.withDatabaseMigration(prepared.info()).withCryptoVerification(
-            new SilenceCryptoVerifier().verify(snapshot, result.getInfo().isPassphraseDisabled(), password));
+        SilenceCryptoVerificationInfo crypto = new SilenceCryptoVerifier().verify(snapshot, result.getInfo().isPassphraseDisabled(), password);
+        return result.withDatabaseMigration(prepared.info()).withCryptoVerification(crypto)
+            .withMigrationPlan(new SilenceMigrationPlanner().plan(snapshot, crypto));
       }
     }
   }

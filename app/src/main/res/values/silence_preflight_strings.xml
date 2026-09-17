@@ -19,4 +19,6 @@
     <string name="silence_identity_rejected">Identity keys could not be verified. They may be incomplete, damaged, or mismatched. Nothing was imported.</string>
     <string name="silence_remote_identities_checked">Remote identity records authenticated: %1$d. Current session keys: %2$d match, %3$d missing, %4$d different. Archived keys: %5$d match, %6$d unmatched. Historical keys may differ after a key change. Peer trust was not changed.</string>
     <string name="silence_remote_identities_rejected">Remote identity records could not be authenticated. Session-to-record comparisons were not performed. Peer trust was not changed.</string>
+    <string name="silence_plan_summary">Draft plan: %1$d source SIM bindings need review; %2$d SMS have no SIM reference. %3$d basic settings are candidates; %4$d other settings are deferred. No target SIM has been selected and no settings were applied.</string>
+    <string name="silence_plan_partial">Source crypto bindings have not been fully checked. This draft may be incomplete.</string>
 </resources>

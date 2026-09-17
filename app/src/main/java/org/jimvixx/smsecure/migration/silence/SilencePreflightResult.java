@@ -27,7 +27,13 @@ public final class SilencePreflightResult {
   private final List<String> findings;
   private final SilenceDatabaseMigrationInfo databaseMigration;
   private final SilenceCryptoVerificationInfo cryptoVerification;
+  private final SilenceMigrationPlan migrationPlan;
   private SilencePreflightResult(SilenceBackupInfo info, List<String> findings, SilenceDatabaseMigrationInfo databaseMigration, SilenceCryptoVerificationInfo cryptoVerification) {
+    this(info, findings, databaseMigration, cryptoVerification, null);
+  }
+  private SilencePreflightResult(SilenceBackupInfo info, List<String> findings, SilenceDatabaseMigrationInfo databaseMigration,
+                                SilenceCryptoVerificationInfo cryptoVerification, SilenceMigrationPlan migrationPlan) {
+    this.migrationPlan = migrationPlan;
     this.info = info;
     this.databaseMigration = databaseMigration;
     this.cryptoVerification = cryptoVerification;
@@ -46,12 +52,17 @@ public final class SilencePreflightResult {
   }
   SilencePreflightResult withDatabaseMigration(SilenceDatabaseMigrationInfo migration) {
     if (info == null || migration == null) throw new IllegalStateException("Missing verified preview");
-    return new SilencePreflightResult(info, findings, migration, cryptoVerification);
+    return new SilencePreflightResult(info, findings, migration, cryptoVerification, migrationPlan);
   }
   SilencePreflightResult withCryptoVerification(SilenceCryptoVerificationInfo verification) {
     if (info == null || verification == null) throw new IllegalStateException("Missing crypto check");
-    return new SilencePreflightResult(info, findings, databaseMigration, verification);
+    return new SilencePreflightResult(info, findings, databaseMigration, verification, migrationPlan);
   }
+  SilencePreflightResult withMigrationPlan(SilenceMigrationPlan plan) {
+    if (info == null || plan == null) throw new IllegalStateException("Missing migration draft");
+    return new SilencePreflightResult(info, findings, databaseMigration, cryptoVerification, plan);
+  }
+  public SilenceMigrationPlan getMigrationPlan() { return migrationPlan; }
   public SilenceCryptoVerificationInfo getCryptoVerification() { return cryptoVerification; }
   public SilenceDatabaseMigrationInfo getDatabaseMigration() { return databaseMigration; }
   public Status getStatus() { return info == null ? Status.REJECTED : Status.STRUCTURALLY_VALID; }
