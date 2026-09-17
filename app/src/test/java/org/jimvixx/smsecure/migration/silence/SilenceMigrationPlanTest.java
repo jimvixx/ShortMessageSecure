@@ -79,6 +79,37 @@ public class SilenceMigrationPlanTest {
     assertThrows(UnsupportedOperationException.class, () -> assigned.getAssignments().clear());
   }
   @Test public void emptySourceInventoryNeedsNoInventedSim() { assertTrue(source().hasCompleteAssignments()); }
+  @Test public void deferredHistoricalBindingsRemainUnresolved() {
+    SilenceSubscriptionPlan plan = source(-1, 3, 4).withDecisions(
+        Collections.singletonMap(3, 7), targets(-1, 4), targets(7));
+    assertFalse(plan.hasCompleteAssignments());
+    assertEquals(targets(-1, 4), plan.getDeferredSources());
+    assertEquals(3, plan.getSources().size());
+    assertEquals(Collections.singletonMap(3, 7), plan.getAssignments());
+  }
+  @Test public void cannotAssignAndDeferTheSameSource() {
+    assertThrows(IllegalArgumentException.class, () -> source(3).withDecisions(
+        Collections.singletonMap(3, 7), targets(3), targets(7)));
+    assertThrows(IllegalArgumentException.class, () -> source(3).withDecisions(
+        Collections.emptyMap(), targets(9), targets(7)));
+  }
+  @Test public void acceptsSortedDeferredSetsAndRejectsNullSource() {
+    assertEquals(targets(3), source(3).withDecisions(Collections.emptyMap(),
+        new TreeSet<>(targets(3)), targets(7)).getDeferredSources());
+    assertThrows(IllegalArgumentException.class, () -> source(3).withDecisions(
+        Collections.emptyMap(), Collections.singleton(null), targets(7)));
+  }
+  @Test public void deferredDecisionsAreCopiedAndReplaceable() {
+    Set<Integer> deferred = targets(3);
+    SilenceSubscriptionPlan plan = source(3).withDecisions(Collections.emptyMap(), deferred, targets(7));
+    deferred.clear();
+    assertEquals(targets(3), plan.getDeferredSources());
+    assertThrows(UnsupportedOperationException.class, () -> plan.getDeferredSources().clear());
+    SilenceSubscriptionPlan revised = plan.withAssignments(Collections.singletonMap(3, 7), targets(7));
+    assertTrue(revised.getDeferredSources().isEmpty());
+    assertTrue(revised.hasCompleteAssignments());
+    assertEquals(targets(3), plan.getDeferredSources());
+  }
   private static Set<Integer> targets(Integer... values) { return new HashSet<>(Arrays.asList(values)); }
   private static SilenceSubscriptionPlan source(Integer... values) {
     Map<Integer, Set<SilenceSubscriptionPlan.Origin>> sources = new HashMap<>();
