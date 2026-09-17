@@ -49,6 +49,19 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
     setContentView(R.layout.silence_preflight);
     getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
     model = new ViewModelProvider(this).get(SilencePreflightViewModel.class);
+    Button refreshTargets = findViewById(R.id.silence_targets_refresh);
+    TextView targetStatus = findViewById(R.id.silence_targets_status);
+    refreshTargets.setOnClickListener(view -> model.refreshTargets());
+    model.getTargets().observe(this, targets -> {
+      refreshTargets.setEnabled(targets != null);
+      if (targets == null) targetStatus.setText(R.string.silence_targets_loading);
+      else if (targets.getStatus() == SilenceTargetSubscriptions.Status.PERMISSION_REQUIRED)
+        targetStatus.setText(R.string.silence_targets_permission);
+      else if (targets.getStatus() == SilenceTargetSubscriptions.Status.UNAVAILABLE)
+        targetStatus.setText(R.string.silence_targets_unavailable);
+      else targetStatus.setText(getString(R.string.silence_targets_summary,
+          targets.getCandidates().size(), targets.getUnresolvedCount()));
+    });
     Button select = findViewById(R.id.silence_select);
     TextView status = findViewById(R.id.silence_status);
     EditText password = findViewById(R.id.silence_password);
@@ -120,6 +133,7 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
   }
   @Override protected void onResume() {
     super.onResume();
+    if (model != null) model.refreshTargets();
     getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
   }
 

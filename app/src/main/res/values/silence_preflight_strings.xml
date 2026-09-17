@@ -21,4 +21,9 @@
     <string name="silence_remote_identities_rejected">Remote identity records could not be authenticated. Session-to-record comparisons were not performed. Peer trust was not changed.</string>
     <string name="silence_plan_summary">Draft plan: %1$d source SIM bindings need review; %2$d SMS have no SIM reference. %3$d basic settings are candidates; %4$d other settings are deferred. No target SIM has been selected and no settings were applied.</string>
     <string name="silence_plan_partial">Source crypto bindings have not been fully checked. This draft may be incomplete.</string>
+    <string name="silence_targets_loading">Checking SIM bindings on this device…</string>
+    <string name="silence_targets_refresh">Refresh SIM information</string>
+    <string name="silence_targets_permission">Phone permission is needed to check SIM bindings on this device. You can still check the backup. No SIM has been selected.</string>
+    <string name="silence_targets_unavailable">SIM information is currently unavailable. You can still check the backup. No SIM has been selected.</string>
+    <string name="silence_targets_summary">Current SIM bindings available for review: %1$d. Active SIMs without an unambiguous saved binding: %2$d. These saved bindings do not verify encryption keys. SIM selection is not available yet.</string>
 </resources>

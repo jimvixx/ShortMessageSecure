@@ -30,6 +30,8 @@ import java.util.concurrent.Executors;
 public final class SilencePreflightViewModel extends AndroidViewModel {
   private final ExecutorService executor = Executors.newSingleThreadExecutor();
   private final MutableLiveData<SilenceImportPhase> phase = new MutableLiveData<>(SilenceImportPhase.IDLE);
+  private final MutableLiveData<SilenceTargetSubscriptions> targets = new MutableLiveData<>();
+  private boolean refreshingTargets;
   private SilencePreflightResult result;
   private boolean running;
   private Uri selectedUri;
@@ -38,6 +40,29 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
   public SilencePreflightViewModel(@NonNull Application app) { super(app); }
   public LiveData<SilenceImportPhase> getPhase() { return phase; }
   public SilencePreflightResult getResult() { return result; }
+
+  public LiveData<SilenceTargetSubscriptions> getTargets() { return targets; }
+
+  /** Refreshes on screen entry without keeping stale candidates visible or requesting permission. */
+  public void refreshTargets() {
+    if (cleared || refreshingTargets) return;
+    refreshingTargets = true;
+    targets.setValue(null);
+    executor.execute(() -> {
+      SilenceTargetSubscriptions snapshot;
+      try {
+        snapshot = SilenceTargetSubscriptionReader.read(getApplication());
+      } catch (RuntimeException e) {
+        snapshot = SilenceTargetSubscriptions.unavailable(SilenceTargetSubscriptions.Status.UNAVAILABLE);
+      }
+      final SilenceTargetSubscriptions completed = snapshot;
+      new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+        if (cleared) return;
+        refreshingTargets = false;
+        targets.setValue(completed);
+      });
+    });
+  }
 
   public void analyze(Uri uri) { analyze(uri, null); }
 
