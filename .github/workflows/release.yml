@@ -53,6 +53,8 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
 
       - name: Install pinned Android SDK components
         run: sdkmanager "platforms;android-37.0" "build-tools;36.0.0"
