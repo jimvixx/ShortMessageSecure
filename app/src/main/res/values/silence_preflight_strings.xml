@@ -17,4 +17,6 @@
     <string name="silence_identity_verified">Identity key pairs checked: %1$d. Public and private keys match.</string>
     <string name="silence_identity_absent">No identity key pairs were found. Secure messaging state cannot be considered ready to import.</string>
     <string name="silence_identity_rejected">Identity keys could not be verified. They may be incomplete, damaged, or mismatched. Nothing was imported.</string>
+    <string name="silence_remote_identities_checked">Remote identity records authenticated: %1$d. Current session keys: %2$d match, %3$d missing, %4$d different. Archived keys: %5$d match, %6$d unmatched. Historical keys may differ after a key change. Peer trust was not changed.</string>
+    <string name="silence_remote_identities_rejected">Remote identity records could not be authenticated. Session-to-record comparisons were not performed. Peer trust was not changed.</string>
 </resources>

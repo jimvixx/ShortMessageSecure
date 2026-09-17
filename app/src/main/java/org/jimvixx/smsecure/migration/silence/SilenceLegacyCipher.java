@@ -107,6 +107,20 @@ final class SilenceLegacyCipher implements AutoCloseable {
     return cipher.doFinal(sealed, 16, authenticatedLength - 16);
   }
 
+  void verifyIdentityMac(long recipient, String encodedKey, String encodedMac)
+      throws IOException, GeneralSecurityException {
+    if (closed) throw new IllegalStateException("Closed legacy cipher");
+    byte[] expected = decode(encodedMac), actual = null;
+    byte[] content = (Long.toString(recipient) + encodedKey).getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    try {
+      if (expected.length != 20) throw new GeneralSecurityException("Invalid identity MAC length");
+      Mac mac = Mac.getInstance("HmacSHA1");
+      mac.init(new SecretKeySpec(macKey, "HmacSHA1"));
+      actual = mac.doFinal(content);
+      if (!MessageDigest.isEqual(expected, actual)) throw new GeneralSecurityException("Identity authentication failed");
+    } finally { wipe(expected); wipe(actual); wipe(content); }
+  }
+
   private static SecretKey derive(char[] password, byte[] salt, int iterations) throws GeneralSecurityException {
     PBEKeySpec spec = new PBEKeySpec(password, salt, iterations);
     try { return SecretKeyFactory.getInstance(PBE).generateSecret(spec); }

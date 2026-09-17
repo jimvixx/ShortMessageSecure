@@ -1,7 +1,6 @@
 # Silence session-state validation
 
-The preceding prekey/signature stage is committed as `5114e97`. This session stage is left
-uncommitted for review. It adds one isolated production class, `SilenceSessionVerifier`, and
+The preceding prekey/signature stage is committed as `5114e97`. This session stage is committed as `3a142f8`. It adds one isolated production class, `SilenceSessionVerifier`, and
 integrates it into the existing file verifier. No live protocol store is constructed and no
 ratchet is advanced, repaired, normalized, or written back. Import readiness remains false.
 
@@ -77,3 +76,5 @@ one-way into the existing bundled libsignal schema and key utilities; no core cl
 API 24 runtime and other SAF providers remain untested. The next boundary is authenticating
 source identities database records and comparing remote session identities without promoting
 trust or modifying live state. SIM mapping, preference migration, and apply/rollback remain later work.
+
+The following stage is documented in [silence-remote-identities.md](silence-remote-identities.md).

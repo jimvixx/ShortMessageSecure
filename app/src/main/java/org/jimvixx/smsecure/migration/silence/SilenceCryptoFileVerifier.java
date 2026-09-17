@@ -42,14 +42,15 @@ final class SilenceCryptoFileVerifier {
                               Map<String, String> preferences, SilenceIdentityInfo identities) throws IOException {
     checkCancelled();
     SilencePreKeyVerifier preKeysVerifier = new SilencePreKeyVerifier(preferences, identities);
-    SilenceSessionVerifier sessionsVerifier = new SilenceSessionVerifier(preferences, identities);
     try (SQLiteDatabase addresses = SQLiteDatabase.openDatabase(
         new File(snapshot.root(), "databases/canonical_address.db").getAbsolutePath(), null,
         SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.NO_LOCALIZED_COLLATORS, ignored -> { })) {
+      SilenceRemoteIdentityIndex remote = SilenceRemoteIdentityIndex.load(snapshot, cipher, addresses);
+      SilenceSessionVerifier sessionsVerifier = new SilenceSessionVerifier(preferences, identities, remote);
       int sessions = directory(new File(snapshot.root(), "files/sessions-v2"), 0, cipher, addresses, preKeysVerifier, sessionsVerifier);
       int preKeys = directory(new File(snapshot.root(), "files/prekeys"), 1, cipher, addresses, preKeysVerifier, sessionsVerifier);
       int signed = directory(new File(snapshot.root(), "files/signed_prekeys"), 2, cipher, addresses, preKeysVerifier, sessionsVerifier);
-      return SilenceCryptoFileInfo.readable(sessions, preKeys, signed);
+      return SilenceCryptoFileInfo.readable(sessions, preKeys, signed).withRemoteIdentities(remote.info());
     } catch (IOException | GeneralSecurityException | android.database.SQLException e) {
       checkCancelled();
       return SilenceCryptoFileInfo.rejected();

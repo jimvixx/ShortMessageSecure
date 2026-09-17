@@ -29,14 +29,21 @@ import org.whispersystems.libsignal.state.StorageProtos;
 final class SilenceSessionVerifier {
   private final Map<String, String> preferences;
   private final SilenceIdentityInfo identities;
+  private final SilenceRemoteIdentityIndex remoteIdentities;
   SilenceSessionVerifier(Map<String, String> preferences, SilenceIdentityInfo identities) {
+    this(preferences, identities, null);
+  }
+  SilenceSessionVerifier(Map<String, String> preferences, SilenceIdentityInfo identities,
+                         SilenceRemoteIdentityIndex remoteIdentities) {
     this.preferences = preferences;
     this.identities = identities;
+    this.remoteIdentities = remoteIdentities;
   }
 
   void verify(byte[] plaintext, int version, String filename) throws IOException {
     checkCancelled();
-    int subscription = SilenceSourceBinding.session(filename).subscriptionId;
+    SilenceSourceBinding binding = SilenceSourceBinding.session(filename);
+    int subscription = binding.subscriptionId;
     if (identities.getStatus() != SilenceIdentityInfo.Status.VERIFIED)
       throw new IOException("Sessions require verified source identities");
     String suffix = subscription == -1 ? "" : "_" + subscription;
@@ -47,19 +54,19 @@ final class SilenceSessionVerifier {
       ByteString expected = ByteString.copyFrom(identity);
       publicKey(expected);
       if (version == 1) {
-        if (!state(StorageProtos.SessionStructure.parseFrom(plaintext), expected)) throw new IOException("Empty session");
+        if (!state(StorageProtos.SessionStructure.parseFrom(plaintext), expected, binding.recipientId, false)) throw new IOException("Empty session");
       } else if (version == 2) {
         StorageProtos.RecordStructure record = StorageProtos.RecordStructure.parseFrom(plaintext);
         if (record.getPreviousSessionsCount() > 40) throw new IOException("Too many archived sessions");
-        boolean meaningful = record.hasCurrentSession() && state(record.getCurrentSession(), expected);
+        boolean meaningful = record.hasCurrentSession() && state(record.getCurrentSession(), expected, binding.recipientId, false);
         for (StorageProtos.SessionStructure previous : record.getPreviousSessionsList())
-          meaningful = state(previous, expected) || meaningful;
+          meaningful = state(previous, expected, binding.recipientId, true) || meaningful;
         if (!meaningful) throw new IOException("Empty session record");
       } else throw new IOException("Unsupported session envelope");
     } finally { Arrays.fill(identity, (byte) 0); }
   }
 
-  private boolean state(StorageProtos.SessionStructure state, ByteString identity) throws IOException {
+  private boolean state(StorageProtos.SessionStructure state, ByteString identity, long recipient, boolean archived) throws IOException {
     checkCancelled();
     if (state.getSerializedSize() == 0) return false;
     int version = state.hasSessionVersion() ? state.getSessionVersion() : 2;
@@ -97,6 +104,8 @@ final class SilenceSessionVerifier {
           (pending.hasPreKeyId() && pending.getPreKeyId() < 0)) throw new IOException("Invalid pending prekey");
     }
     if (!state.hasSenderChain() && !state.hasPendingKeyExchange()) throw new IOException("Incomplete session state");
+    if (remoteIdentities != null && state.hasRemoteIdentityPublic())
+      remoteIdentities.compare(recipient, state.getRemoteIdentityPublic(), archived);
     return true;
   }
 

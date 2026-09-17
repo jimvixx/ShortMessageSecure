@@ -21,11 +21,16 @@ package org.jimvixx.smsecure.migration.silence;
 public final class SilenceCryptoFileInfo {
   public enum Status { READABLE, REJECTED }
   private final Status status;
+  private final SilenceRemoteIdentityInfo remoteIdentities;
   private final int sessions;
   private final int preKeys;
   private final int signedPreKeys;
 
   private SilenceCryptoFileInfo(Status status, int sessions, int preKeys, int signedPreKeys) {
+    this(status, sessions, preKeys, signedPreKeys, null);
+  }
+  private SilenceCryptoFileInfo(Status status, int sessions, int preKeys, int signedPreKeys, SilenceRemoteIdentityInfo remoteIdentities) {
+    this.remoteIdentities = remoteIdentities;
     this.status = status;
     this.sessions = sessions;
     this.preKeys = preKeys;
@@ -35,6 +40,10 @@ public final class SilenceCryptoFileInfo {
     return new SilenceCryptoFileInfo(Status.READABLE, sessions, preKeys, signedPreKeys);
   }
   static SilenceCryptoFileInfo rejected() { return new SilenceCryptoFileInfo(Status.REJECTED, 0, 0, 0); }
+  SilenceCryptoFileInfo withRemoteIdentities(SilenceRemoteIdentityInfo info) {
+    return new SilenceCryptoFileInfo(status, sessions, preKeys, signedPreKeys, info);
+  }
+  public SilenceRemoteIdentityInfo getRemoteIdentities() { return remoteIdentities; }
   public Status getStatus() { return status; }
   public int getSessionCount() { return sessions; }
   public int getPreKeyCount() { return preKeys; }

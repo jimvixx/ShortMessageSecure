@@ -93,6 +93,11 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
                   ? getString(R.string.silence_crypto_files_readable, files.getSessionCount(),
                       files.getPreKeyCount(), files.getSignedPreKeyCount())
                   : getString(R.string.silence_crypto_files_rejected)));
+              SilenceRemoteIdentityInfo remote = files.getRemoteIdentities();
+              if (remote != null) status.append("\n\n" + (remote.getStatus() == SilenceRemoteIdentityInfo.Status.AUTHENTICATED
+                  ? getString(R.string.silence_remote_identities_checked, remote.getRecordCount(), remote.getCurrentMatches(),
+                      remote.getCurrentMissing(), remote.getCurrentDifferent(), remote.getArchivedMatches(), remote.getArchivedUnmatched())
+                  : getString(R.string.silence_remote_identities_rejected)));
             }
           } else {
             status.append("\n\n" + getString(crypto.getStatus() == SilenceCryptoVerificationInfo.Status.PASSWORD_REQUIRED
