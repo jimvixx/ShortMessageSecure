@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
+import java.util.Map;
 import org.whispersystems.libsignal.state.StorageProtos;
 
 /** Reads legacy envelopes directly, without constructing live stores or resolving live recipients. */
@@ -33,12 +34,20 @@ final class SilenceCryptoFileVerifier {
 
   SilenceCryptoFileInfo verify(SilenceBackupStager.Snapshot snapshot, SilenceLegacyCipher cipher) throws IOException {
     checkCancelled();
+    Map<String, String> preferences = SilencePreferencesReader.read(new File(snapshot.root(), SilenceBackupDetector.SECRET_PREFS));
+    return verify(snapshot, cipher, preferences, new SilenceIdentityVerifier().verify(preferences, cipher));
+  }
+
+  SilenceCryptoFileInfo verify(SilenceBackupStager.Snapshot snapshot, SilenceLegacyCipher cipher,
+                              Map<String, String> preferences, SilenceIdentityInfo identities) throws IOException {
+    checkCancelled();
+    SilencePreKeyVerifier preKeysVerifier = new SilencePreKeyVerifier(preferences, identities);
     try (SQLiteDatabase addresses = SQLiteDatabase.openDatabase(
         new File(snapshot.root(), "databases/canonical_address.db").getAbsolutePath(), null,
         SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.NO_LOCALIZED_COLLATORS, ignored -> { })) {
-      int sessions = directory(new File(snapshot.root(), "files/sessions-v2"), 0, cipher, addresses);
-      int preKeys = directory(new File(snapshot.root(), "files/prekeys"), 1, cipher, addresses);
-      int signed = directory(new File(snapshot.root(), "files/signed_prekeys"), 2, cipher, addresses);
+      int sessions = directory(new File(snapshot.root(), "files/sessions-v2"), 0, cipher, addresses, preKeysVerifier);
+      int preKeys = directory(new File(snapshot.root(), "files/prekeys"), 1, cipher, addresses, preKeysVerifier);
+      int signed = directory(new File(snapshot.root(), "files/signed_prekeys"), 2, cipher, addresses, preKeysVerifier);
       return SilenceCryptoFileInfo.readable(sessions, preKeys, signed);
     } catch (IOException | GeneralSecurityException | android.database.SQLException e) {
       checkCancelled();
@@ -46,7 +55,7 @@ final class SilenceCryptoFileVerifier {
     }
   }
 
-  private int directory(File directory, int kind, SilenceLegacyCipher cipher, SQLiteDatabase addresses)
+  private int directory(File directory, int kind, SilenceLegacyCipher cipher, SQLiteDatabase addresses, SilencePreKeyVerifier preKeysVerifier)
       throws IOException, GeneralSecurityException {
     if (!directory.exists()) return 0;
     File[] files = directory.listFiles();
@@ -65,12 +74,12 @@ final class SilenceCryptoFileVerifier {
             throw new IOException("Missing or ambiguous source recipient");
         }
       }
-      record(file, kind, cipher);
+      record(file, kind, cipher, preKeysVerifier);
     }
     return files.length;
   }
 
-  private void record(File file, int kind, SilenceLegacyCipher cipher)
+  private void record(File file, int kind, SilenceLegacyCipher cipher, SilencePreKeyVerifier preKeysVerifier)
       throws IOException, GeneralSecurityException {
     byte[] sealed = null;
     byte[] plaintext = null;
@@ -87,14 +96,14 @@ final class SilenceCryptoFileVerifier {
       checkCancelled();
       plaintext = cipher.decryptRecord(sealed);
       if (plaintext.length == 0) throw new IOException("Empty crypto record");
-      parse(plaintext, kind, version, file.getName());
+      parse(plaintext, kind, version, file.getName(), preKeysVerifier);
     } finally {
       if (sealed != null) Arrays.fill(sealed, (byte) 0);
       if (plaintext != null) Arrays.fill(plaintext, (byte) 0);
     }
   }
 
-  private void parse(byte[] plaintext, int kind, int version, String name) throws IOException {
+  private void parse(byte[] plaintext, int kind, int version, String name, SilencePreKeyVerifier preKeysVerifier) throws IOException {
     if (kind == 0) {
       if (version == 1) StorageProtos.SessionStructure.parseFrom(plaintext);
       else {
@@ -107,16 +116,19 @@ final class SilenceCryptoFileVerifier {
       if (!record.hasId() || !record.hasPublicKey() || !record.hasPrivateKey()
           || record.getPublicKey().size() != 33 || record.getPublicKey().byteAt(0) != 5
           || record.getPrivateKey().size() != 32) throw new IOException("Invalid prekey structure");
-      SilenceSourceBinding.preKeySubscription(name, record.getId());
+      int subscription = SilenceSourceBinding.preKeySubscription(name, record.getId());
+      preKeysVerifier.verify(subscription, record.getPublicKey().toByteArray(), record.getPrivateKey().toByteArray(), null);
     } else {
       StorageProtos.SignedPreKeyRecordStructure record = StorageProtos.SignedPreKeyRecordStructure.parseFrom(plaintext);
       if (!record.hasId() || !record.hasTimestamp() || !record.hasPublicKey() || !record.hasPrivateKey()
           || record.getPublicKey().size() != 33 || record.getPublicKey().byteAt(0) != 5
           || record.getPrivateKey().size() != 32 || record.getSignature().size() != 64)
         throw new IOException("Invalid signed prekey structure");
-      SilenceSourceBinding.preKeySubscription(name, record.getId());
+      int subscription = SilenceSourceBinding.preKeySubscription(name, record.getId());
+      preKeysVerifier.verify(subscription, record.getPublicKey().toByteArray(), record.getPrivateKey().toByteArray(),
+          record.getSignature().toByteArray());
     }
-    // Parsing and field shapes do not establish key-pair consistency, signatures, or session usability.
+    // Session usability and target-device mappings are separate from these prekey checks.
   }
 
   private static void checkCancelled() throws IOException {

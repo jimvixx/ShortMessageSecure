@@ -25,6 +25,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.whispersystems.libsignal.state.StorageProtos;
+import org.whispersystems.libsignal.ecc.Curve;
+import org.whispersystems.libsignal.ecc.ECKeyPair;
+import org.jimvixx.smsecure.util.Base64;
 import java.io.*;
 import java.util.Arrays;
 import javax.crypto.Cipher;
@@ -38,6 +41,7 @@ import static org.junit.Assert.*;
 public class SilenceCryptoFileVerifierTest {
   private SilenceTestBackup fixture;
   private SilenceLegacyCipher cipher;
+  private ECKeyPair signingIdentity;
 
   @Before public void setup() throws Exception {
     fixture = new SilenceTestBackup();
@@ -49,6 +53,9 @@ public class SilenceCryptoFileVerifierTest {
       int length;
       while ((length = in.read(buffer)) != -1) out.write(buffer, 0, length);
     }
+    signingIdentity = Curve.generateKeyPair();
+    addIdentity(secret, 3, Curve.generateKeyPair());
+    addIdentity(secret, 6, signingIdentity);
     cipher = SilenceLegacyCipher.unlock(SilencePreferencesReader.read(secret), "unencrypted".toCharArray());
   }
   @After public void cleanup() throws Exception {
@@ -185,6 +192,39 @@ public class SilenceCryptoFileVerifierTest {
     rejected();
   }
 
+  @Test public void rejectsMismatchedPreKeyPairInsideAuthenticatedEnvelope() throws Exception {
+    write("prekeys/123", envelope(1, StorageProtos.PreKeyRecordStructure.parseFrom(preKey()).toBuilder()
+        .setPrivateKey(ByteString.copyFrom(Curve.generateKeyPair().getPrivateKey().serialize())).build().toByteArray()));
+    rejected();
+  }
+
+  @Test public void rejectsSignedPreKeyWithValidMacButBadSignature() throws Exception {
+    write("signed_prekeys/456", envelope(1, StorageProtos.SignedPreKeyRecordStructure.parseFrom(signedPreKey()).toBuilder()
+        .setSignature(ByteString.copyFrom(new byte[64])).build().toByteArray()));
+    rejected();
+  }
+
+  @Test public void rejectsSignedPreKeyFromAnotherSourceSlot() throws Exception {
+    write("signed_prekeys/453", envelope(1, signedPreKey()));
+    rejected();
+  }
+
+  @Test public void rejectsPreKeyWithoutMatchingSourceIdentity() throws Exception {
+    write("prekeys/129", envelope(1, preKey()));
+    rejected();
+  }
+
+  @Test public void coordinatorChecksSignedPreKeyAndRemovesStaging() throws Exception {
+    fixture.mutate("UPDATE sms SET type = 20, body = 'synthetic plaintext'");
+    write("signed_prekeys/456", envelope(1, signedPreKey()));
+    SilencePreflightResult result = SilenceImportCoordinator.inspect(fixture.source(), fixture.output);
+    assertEquals(SilenceIdentityInfo.Status.VERIFIED, result.getCryptoVerification().getIdentities().getStatus());
+    assertEquals(SilenceCryptoFileInfo.Status.READABLE, result.getCryptoVerification().getFiles().getStatus());
+    assertEquals(1, result.getCryptoVerification().getFiles().getSignedPreKeyCount());
+    assertFalse(result.isReadyToImport());
+    assertEquals(0, new File(fixture.output, "silence-preflight").list().length);
+  }
+
   private SilenceCryptoFileInfo verify() throws Exception {
     try (SilenceBackupStager.Snapshot snapshot = new SilenceBackupStager().stage(fixture.source(), fixture.output)) {
       return new SilenceCryptoFileVerifier().verify(snapshot, cipher);
@@ -202,18 +242,34 @@ public class SilenceCryptoFileVerifierTest {
   private static byte[] session() {
     return StorageProtos.SessionStructure.newBuilder().setSessionVersion(3).build().toByteArray();
   }
-  private static ByteString publicKey() {
-    byte[] bytes = new byte[33]; bytes[0] = 5;
-    return ByteString.copyFrom(bytes);
-  }
   private static byte[] preKey() {
-    return StorageProtos.PreKeyRecordStructure.newBuilder().setId(12).setPublicKey(publicKey())
-        .setPrivateKey(ByteString.copyFrom(new byte[32])).build().toByteArray();
+    ECKeyPair pair = Curve.generateKeyPair();
+    return StorageProtos.PreKeyRecordStructure.newBuilder().setId(12)
+        .setPublicKey(ByteString.copyFrom(pair.getPublicKey().serialize()))
+        .setPrivateKey(ByteString.copyFrom(pair.getPrivateKey().serialize())).build().toByteArray();
   }
-  private static byte[] signedPreKey() {
+  private byte[] signedPreKey() throws Exception {
+    ECKeyPair pair = Curve.generateKeyPair();
+    byte[] publicKey = pair.getPublicKey().serialize();
     return StorageProtos.SignedPreKeyRecordStructure.newBuilder().setId(45).setTimestamp(123L)
-        .setPublicKey(publicKey()).setPrivateKey(ByteString.copyFrom(new byte[32]))
-        .setSignature(ByteString.copyFrom(new byte[64])).build().toByteArray();
+        .setPublicKey(ByteString.copyFrom(publicKey)).setPrivateKey(ByteString.copyFrom(pair.getPrivateKey().serialize()))
+        .setSignature(ByteString.copyFrom(Curve.calculateSignature(signingIdentity.getPrivateKey(), publicKey))).build().toByteArray();
+  }
+  private static void addIdentity(File secret, int subscription, ECKeyPair pair) throws Exception {
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    try (InputStream in = new FileInputStream(secret)) {
+      byte[] buffer = new byte[4096]; int length;
+      while ((length = in.read(buffer)) != -1) bytes.write(buffer, 0, length);
+    }
+    String xml = new String(bytes.toByteArray(), java.nio.charset.StandardCharsets.UTF_8);
+    byte[] sealed = envelope(1, pair.getPrivateKey().serialize());
+    String entries = "<string name='" + SilenceIdentityVerifier.PUBLIC + "_" + subscription + "'>"
+        + Base64.encodeBytes(pair.getPublicKey().serialize()) + "</string><string name='"
+        + SilenceIdentityVerifier.PRIVATE + "_" + subscription + "'>"
+        + Base64.encodeBytes(Arrays.copyOfRange(sealed, 8, sealed.length)) + "</string>";
+    try (Writer out = new OutputStreamWriter(new FileOutputStream(secret), java.nio.charset.StandardCharsets.UTF_8)) {
+      out.write(xml.replace("</map>", entries + "</map>"));
+    }
   }
   static byte[] envelope(int version, byte[] plaintext) throws Exception {
     byte[] key = new byte[16], macKey = new byte[20], iv = new byte[16];

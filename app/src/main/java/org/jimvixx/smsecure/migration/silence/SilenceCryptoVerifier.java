@@ -54,9 +54,9 @@ final class SilenceCryptoVerifier {
           cipher.verifyBody(body);
           checked++;
         }
-        return SilenceCryptoVerificationInfo.verified(checked, unchecked).withFiles(
-            new SilenceCryptoFileVerifier().verify(snapshot, cipher)).withIdentities(
-            new SilenceIdentityVerifier().verify(preferences, cipher));
+        SilenceIdentityInfo identities = new SilenceIdentityVerifier().verify(preferences, cipher);
+        return SilenceCryptoVerificationInfo.verified(checked, unchecked).withIdentities(identities).withFiles(
+            new SilenceCryptoFileVerifier().verify(snapshot, cipher, preferences, identities));
       } catch (GeneralSecurityException | IOException e) {
         checkCancelled();
         // Wrong passwords and damaged records deliberately share a non-sensitive result.

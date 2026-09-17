@@ -1,7 +1,7 @@
 # Silence identity and source-binding validation
 
-This stage continues the uncommitted crypto-file checks on `feature/silence-backup-import`.
-No commit or push was requested for this continuation. The last commit remains `7ed270f`.
+This stage and the preceding crypto-file checks are committed as `c3632ef` on
+`feature/silence-backup-import`. No push was performed.
 All work stays in the migration package; no live database, identity, preference, session,
 prekey, recipient, or device subscription is modified.
 
@@ -83,3 +83,5 @@ remain untested. Import is still unavailable and `isReadyToImport()` remains fal
 
 The final rebuild also includes a wording-only refinement to the result findings and comments
 made after the installed device-test build; the tested verification logic is unchanged.
+
+The following stage is documented in [silence-prekey-validation.md](silence-prekey-validation.md).

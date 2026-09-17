@@ -19,12 +19,10 @@ package org.jimvixx.smsecure.migration.silence;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.ecc.Curve;
 
 /** Authenticates exported private identity keys and checks their derived public keys in memory. */
@@ -50,7 +48,7 @@ final class SilenceIdentityVerifier {
       }
       for (String suffix : slots) {
         checkCancelled();
-        byte[] publicKey = null, sealed = null, privateKey = null, derived = null, expected = null;
+        byte[] publicKey = null, sealed = null, privateKey = null;
         try {
           publicKey = decode(preferences.get(PUBLIC + suffix));
           sealed = decode(preferences.get(PRIVATE + suffix));
@@ -58,17 +56,13 @@ final class SilenceIdentityVerifier {
             throw new IOException("Invalid identity public key");
           privateKey = cipher.decryptRecord(sealed);
           if (privateKey.length != 32) throw new IOException("Invalid identity private key");
-          // X25519 with the standard base point derives the public key from the private scalar.
-          byte[] basePoint = new byte[33]; basePoint[0] = Curve.DJB_TYPE; basePoint[1] = 9;
-          derived = Curve.calculateAgreement(Curve.decodePoint(basePoint, 0), Curve.decodePrivatePoint(privateKey));
-          expected = Arrays.copyOfRange(publicKey, 1, 33);
-          if (!MessageDigest.isEqual(expected, derived)) throw new IOException("Mismatched identity keys");
+          SilenceKeyPairVerifier.verify(publicKey, privateKey);
         } finally {
-          wipe(publicKey); wipe(sealed); wipe(privateKey); wipe(derived); wipe(expected);
+          wipe(publicKey); wipe(sealed); wipe(privateKey);
         }
       }
       return SilenceIdentityInfo.verified(slots.size());
-    } catch (IOException | GeneralSecurityException | InvalidKeyException e) {
+    } catch (IOException | GeneralSecurityException e) {
       checkCancelled();
       return SilenceIdentityInfo.rejected();
     }

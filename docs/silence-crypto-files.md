@@ -1,7 +1,6 @@
 # Silence crypto-file readability: fourth isolated slice
 
-The preceding master-secret/SMS slice is committed as `7ed270f`. This next slice is left
-uncommitted for review. No push was performed.
+The preceding master-secret/SMS slice is committed as `7ed270f`. This slice is committed together with identity/source-binding checks as `c3632ef`. No push was performed.
 
 ## Scope and architecture
 
@@ -87,5 +86,5 @@ API 24 runtime, other document providers, genuine historical version-1 sessions,
 consistency, signatures, identity and subscription mapping, and apply/rollback remain outside
 this slice. Synthetic compatibility tests do not replace a corpus of historical real sessions.
 
-The following uncommitted identity/source-binding stage is described in
+The following identity/source-binding stage is described in
 [silence-identity-validation.md](silence-identity-validation.md).
