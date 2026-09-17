@@ -383,7 +383,6 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
     String idColumn = ringtoneCursor.getColumnName(RingtoneManager.ID_COLUMN_INDEX);
     String titleColumn = ringtoneCursor.getColumnName(RingtoneManager.TITLE_COLUMN_INDEX);
 
-    @SuppressWarnings("resource")
     MatrixCursor extras = new MatrixCursor(new String[]{idColumn, titleColumn});
 
     boolean showDefault = preference.isShowDefault();
@@ -397,15 +396,7 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
       extras.addRow(new String[]{CURSOR_NONE_ID, getString(R.string.Silent)});
     }
 
-    selectedIndex = ringtoneManager.getRingtonePosition(ringtoneUri);
-
-    if (selectedIndex >= 0) {
-      selectedIndex += extraRowsCount(showDefault, showSilent);
-    } else if (showDefault && ringtoneUri != null && RingtoneManager.getDefaultType(ringtoneUri) != -1) {
-      selectedIndex = 0;
-    } else if (showSilent) {
-      selectedIndex = showDefault ? 1 : 0;
-    }
+    selectedIndex = resolveSelectedIndex(ringtoneManager, ringtoneUri, showDefault, showSilent);
 
     Log.d(TAG, "Selected index = " + selectedIndex + ", uri = " + ringtoneUri);
 
@@ -427,6 +418,24 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
     } finally {
       ringtoneCursor.moveToPosition(sourcePosition);
     }
+  }
+
+  static int resolveSelectedIndex(RingtoneManager manager, @Nullable Uri uri,
+                                  boolean showDefault, boolean showSilent) {
+    // Default URIs contain symbolic names that some providers parse as numeric IDs.
+    boolean isDefault = uri != null && RingtoneManager.getDefaultType(uri) != -1;
+    if (isDefault && showDefault) return 0;
+
+    int position = -1;
+    if (uri != null && !isDefault) {
+      try {
+        position = manager.getRingtonePosition(uri);
+      } catch (NumberFormatException e) {
+        Log.w(TAG, "Unable to resolve ringtone position", e);
+      }
+    }
+    if (position >= 0) return position + extraRowsCount(showDefault, showSilent);
+    return showSilent ? (showDefault ? 1 : 0) : -1;
   }
 
   private void newRingtone() {

@@ -18,6 +18,47 @@ import static org.junit.Assert.*;
 public class RingtoneDialogDeviceTest {
   private static final String TAG = "ringtone-device-test";
 
+  @Test public void defaultAndSilentUrisNeverReachProviderLookup() {
+    android.media.RingtoneManager manager = new android.media.RingtoneManager(
+            InstrumentationRegistry.getInstrumentation().getTargetContext()) {
+      @Override public int getRingtonePosition(android.net.Uri uri) {
+        throw new AssertionError("Symbolic/default URI must bypass provider lookup");
+      }
+    };
+    for (int type : new int[]{android.media.RingtoneManager.TYPE_NOTIFICATION,
+            android.media.RingtoneManager.TYPE_RINGTONE, android.media.RingtoneManager.TYPE_ALARM}) {
+      android.net.Uri uri = android.media.RingtoneManager.getDefaultUri(type);
+      assertEquals(0, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, true, true));
+      assertEquals(0, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, false, true));
+      assertEquals(-1, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, false, false));
+    }
+    assertEquals(1, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, null, true, true));
+    assertEquals(-1, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, null, true, false));
+  }
+
+  @Test public void malformedProviderIdFallsBackWithoutCrashing() {
+    android.media.RingtoneManager manager = new android.media.RingtoneManager(
+            InstrumentationRegistry.getInstrumentation().getTargetContext()) {
+      @Override public int getRingtonePosition(android.net.Uri uri) {
+        throw new NumberFormatException("Synthetic provider ID failure");
+      }
+    };
+    android.net.Uri uri = android.net.Uri.parse("content://media/external/audio/media/not-a-number");
+    assertEquals(1, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, true, true));
+    assertEquals(-1, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, true, false));
+  }
+
+  @Test public void concreteRingtoneRetainsRowOffsets() {
+    android.media.RingtoneManager manager = new android.media.RingtoneManager(
+            InstrumentationRegistry.getInstrumentation().getTargetContext()) {
+      @Override public int getRingtonePosition(android.net.Uri uri) { return 3; }
+    };
+    android.net.Uri uri = android.net.Uri.parse("content://media/external/audio/media/42");
+    assertEquals(5, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, true, true));
+    assertEquals(4, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, true, false));
+    assertEquals(3, RingtonePreferenceDialogFragmentCompat.resolveSelectedIndex(manager, uri, false, false));
+  }
+
   @Test public void snapshotSurvivesRecreationAndRepeatedOpening() throws Exception {
     Intent intent = new Intent(InstrumentationRegistry.getInstrumentation().getTargetContext(),
             ApplicationPreferencesActivity.class);
