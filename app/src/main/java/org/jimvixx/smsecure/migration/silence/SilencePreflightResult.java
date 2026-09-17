@@ -26,26 +26,33 @@ public final class SilencePreflightResult {
   private final SilenceBackupInfo info;
   private final List<String> findings;
   private final SilenceDatabaseMigrationInfo databaseMigration;
-  private SilencePreflightResult(SilenceBackupInfo info, List<String> findings, SilenceDatabaseMigrationInfo databaseMigration) {
+  private final SilenceCryptoVerificationInfo cryptoVerification;
+  private SilencePreflightResult(SilenceBackupInfo info, List<String> findings, SilenceDatabaseMigrationInfo databaseMigration, SilenceCryptoVerificationInfo cryptoVerification) {
     this.info = info;
     this.databaseMigration = databaseMigration;
+    this.cryptoVerification = cryptoVerification;
     this.findings = Collections.unmodifiableList(new ArrayList<>(findings));
   }
   public static SilencePreflightResult valid(SilenceBackupInfo info) {
     if (info == null) throw new IllegalArgumentException("Missing backup metadata");
     List<String> findings = new ArrayList<>();
-    findings.add("Crypto integrity and decryptability have not been verified.");
+    findings.add("Sessions, prekeys, and other encrypted records have not been verified.");
     findings.add("The export has no version manifest; schema 30 matches the reference format.");
     if (info.getMmsCount() > 0) findings.add("SMSecure does not support MMS or attachments.");
-    return new SilencePreflightResult(info, findings, null);
+    return new SilencePreflightResult(info, findings, null, null);
   }
   public static SilencePreflightResult rejected() {
-    return new SilencePreflightResult(null, Collections.singletonList("Backup validation failed."), null);
+    return new SilencePreflightResult(null, Collections.singletonList("Backup validation failed."), null, null);
   }
   SilencePreflightResult withDatabaseMigration(SilenceDatabaseMigrationInfo migration) {
     if (info == null || migration == null) throw new IllegalStateException("Missing verified preview");
-    return new SilencePreflightResult(info, findings, migration);
+    return new SilencePreflightResult(info, findings, migration, cryptoVerification);
   }
+  SilencePreflightResult withCryptoVerification(SilenceCryptoVerificationInfo verification) {
+    if (info == null || verification == null) throw new IllegalStateException("Missing crypto check");
+    return new SilencePreflightResult(info, findings, databaseMigration, verification);
+  }
+  public SilenceCryptoVerificationInfo getCryptoVerification() { return cryptoVerification; }
   public SilenceDatabaseMigrationInfo getDatabaseMigration() { return databaseMigration; }
   public Status getStatus() { return info == null ? Status.REJECTED : Status.STRUCTURALLY_VALID; }
   public SilenceBackupInfo getInfo() { return info; }

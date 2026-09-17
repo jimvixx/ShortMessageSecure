@@ -8,7 +8,9 @@ database preparation was checked on a temporary copy. No apply action exists; th
 returns `isReadyToImport() == false`.
 
 The first slice is committed as `0c0d3d8` (`feat: add isolated Silence backup preflight`).
-This second slice is left uncommitted for review. No push was performed.
+The second slice is committed as `d77947c` (`feat: validate Silence database migration in staging`).
+No push was performed. The following crypto verification slice is documented in
+[silence-crypto-verification.md](silence-crypto-verification.md).
 
 ## Conversion boundary
 
@@ -106,7 +108,7 @@ Tests and documentation:
 
 ## Remaining stages
 
-Master-secret authentication/decryption, preference mapping, crypto/session/prekey compatibility,
+At this checkpoint, master-secret authentication/decryption, preference mapping, crypto/session/prekey compatibility,
 thread normalization, coordinated rollback/apply, and a final confirmation UI are not implemented.
 API 24 runtime behavior, other SAF providers, and additional legacy versions still need coverage.
 The prepared database is deliberately discarded, not retained as an importable backup.

@@ -6,5 +6,10 @@
     <string name="silence_preflight_select">Choose SilenceExport folder</string>
     <string name="silence_preflight_running">Checking backup…</string>
     <string name="silence_preflight_failed">The backup could not be checked. It may be incomplete, unsupported, too large, or no longer accessible. Keep the original backup. Nothing was imported.</string>
-    <string name="silence_preflight_result">Structure checks passed. Database preparation was checked on a temporary copy.\nDatabase version: %1$d\nSMS: %2$d\nMMS: %3$d\nCrypto files present: %4$d\n\nDecryption and crypto integrity have not been verified. SMSecure does not support MMS or attachments. Import is not available yet. Nothing was imported.</string>
+    <string name="silence_preflight_result">Structure checks passed. Database preparation was checked on a temporary copy.\nDatabase version: %1$d\nSMS: %2$d\nMMS: %3$d\nCrypto files present: %4$d\n\nSMSecure does not support MMS or attachments. Import is not available yet. Nothing was imported.</string>
+    <string name="silence_crypto_password">Silence backup password</string>
+    <string name="silence_crypto_retry">Check password</string>
+    <string name="silence_crypto_password_required">Enter the password used in Silence to check decryption. It will not be saved.</string>
+    <string name="silence_crypto_rejected">Decryption could not be verified. The password may be incorrect or the backup may be damaged. Nothing was imported.</string>
+    <string name="silence_crypto_verified">Master key verified. Encrypted SMS bodies checked: %1$d. SMS bodies not checked: %2$d. Sessions, prekeys, and other encrypted records have not been verified.</string>
 </resources>

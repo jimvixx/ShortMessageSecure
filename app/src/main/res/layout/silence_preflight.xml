@@ -9,6 +9,14 @@
         <TextView android:id="@+id/silence_status" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:paddingTop="16dp"
             android:accessibilityLiveRegion="polite" android:text="@string/silence_preflight_description" />
+        <EditText android:id="@+id/silence_password" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/silence_crypto_password"
+            android:inputType="textPassword|textNoSuggestions" android:maxLength="1024"
+            android:saveEnabled="false" android:importantForAutofill="no"
+            android:visibility="gone" />
+        <Button android:id="@+id/silence_verify" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/silence_crypto_retry"
+            android:visibility="gone" />
         <Button android:id="@+id/silence_select" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:text="@string/silence_preflight_select" />
     </LinearLayout>

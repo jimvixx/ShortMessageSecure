@@ -24,6 +24,11 @@ import java.io.IOException;
 public final class SilenceImportCoordinator {
   public static synchronized SilencePreflightResult inspect(SilenceBackupSource source,
                                                             File privateCache) throws IOException {
+    return inspect(source, privateCache, null);
+  }
+
+  static synchronized SilencePreflightResult inspect(SilenceBackupSource source, File privateCache,
+                                                     char[] password) throws IOException {
     File workspace = new File(privateCache, "silence-preflight");
     if (!workspace.isDirectory() && !workspace.mkdir()) throw new IOException("Cannot create workspace");
     // Remove leftovers from an interrupted process before starting the next analysis.
@@ -36,7 +41,8 @@ public final class SilenceImportCoordinator {
     try (SilenceBackupStager.Snapshot snapshot = new SilenceBackupStager().stage(source, workspace)) {
       SilencePreflightResult result = new SilencePreflightAnalyzer().analyze(snapshot);
       try (SilenceDatabaseMigrator.PreparedDatabase prepared = new SilenceDatabaseMigrator().prepare(snapshot)) {
-        return result.withDatabaseMigration(prepared.info());
+        return result.withDatabaseMigration(prepared.info()).withCryptoVerification(
+            new SilenceCryptoVerifier().verify(snapshot, result.getInfo().isPassphraseDisabled(), password));
       }
     }
   }

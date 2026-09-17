@@ -19,6 +19,8 @@ package org.jimvixx.smsecure.migration.silence;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -49,16 +51,56 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
     model = new ViewModelProvider(this).get(SilencePreflightViewModel.class);
     Button select = findViewById(R.id.silence_select);
     TextView status = findViewById(R.id.silence_status);
-    select.setOnClickListener(view -> picker.launch(null));
+    EditText password = findViewById(R.id.silence_password);
+    Button verify = findViewById(R.id.silence_verify);
+    verify.setOnClickListener(view -> {
+      char[] value = new char[password.length()];
+      password.getText().getChars(0, value.length, value, 0);
+      password.getText().clear();
+      model.verifyPassword(value);
+    });
+    select.setOnClickListener(view -> {
+      password.getText().clear();
+      picker.launch(null);
+    });
     model.getPhase().observe(this, phase -> {
       select.setEnabled(phase != SilenceImportPhase.ANALYZING);
+      verify.setEnabled(phase != SilenceImportPhase.ANALYZING);
+      password.setEnabled(phase != SilenceImportPhase.ANALYZING);
+      password.setVisibility(View.GONE);
+      verify.setVisibility(View.GONE);
       if (phase == SilenceImportPhase.ANALYZING) status.setText(R.string.silence_preflight_running);
       else if (phase == SilenceImportPhase.FAILED) status.setText(R.string.silence_preflight_failed);
       else if (phase == SilenceImportPhase.COMPLETE) {
         SilenceBackupInfo info = model.getResult().getInfo();
         status.setText(getString(R.string.silence_preflight_result, info.getDatabaseVersion(),
             info.getSmsCount(), info.getMmsCount(), info.getCryptoFileCount()));
+        SilenceCryptoVerificationInfo crypto = model.getResult().getCryptoVerification();
+        if (crypto != null) {
+          if (crypto.getStatus() == SilenceCryptoVerificationInfo.Status.VERIFIED) {
+            status.append("\n\n" + getString(R.string.silence_crypto_verified,
+                crypto.getVerifiedSmsCount(), crypto.getUncheckedSmsCount()));
+          } else {
+            status.append("\n\n" + getString(crypto.getStatus() == SilenceCryptoVerificationInfo.Status.PASSWORD_REQUIRED
+                ? R.string.silence_crypto_password_required : R.string.silence_crypto_rejected));
+            if (!info.isPassphraseDisabled()) {
+              password.setVisibility(View.VISIBLE);
+              verify.setVisibility(View.VISIBLE);
+            }
+          }
+        }
       } else status.setText(R.string.silence_preflight_description);
     });
   }
+  @Override protected void onResume() {
+    super.onResume();
+    getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
+  }
+
+  @Override protected void onDestroy() {
+    EditText password = findViewById(R.id.silence_password);
+    if (password != null) password.getText().clear();
+    super.onDestroy();
+  }
+
 }

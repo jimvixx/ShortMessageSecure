@@ -32,12 +32,25 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
   private final MutableLiveData<SilenceImportPhase> phase = new MutableLiveData<>(SilenceImportPhase.IDLE);
   private SilencePreflightResult result;
   private boolean running;
+  private Uri selectedUri;
+  private volatile boolean cleared;
+  private volatile char[] pendingPassword;
   public SilencePreflightViewModel(@NonNull Application app) { super(app); }
   public LiveData<SilenceImportPhase> getPhase() { return phase; }
   public SilencePreflightResult getResult() { return result; }
 
-  public void analyze(Uri uri) {
-    if (running) return;
+  public void analyze(Uri uri) { analyze(uri, null); }
+
+  /** Takes ownership of the array and wipes it after use, cancellation, or rejection. */
+  public void verifyPassword(char[] password) {
+    if (selectedUri == null) { wipe(password); return; }
+    analyze(selectedUri, password);
+  }
+
+  private void analyze(Uri uri, char[] password) {
+    if (running || cleared) { wipe(password); return; }
+    selectedUri = uri;
+    pendingPassword = password;
     running = true;
     result = null;
     phase.setValue(SilenceImportPhase.ANALYZING);
@@ -46,13 +59,17 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
       try {
         outcome = SilenceImportCoordinator.inspect(
             new SilenceDirectoryBackupSource(getApplication().getContentResolver(), uri),
-            getApplication().getCacheDir());
+            getApplication().getCacheDir(), password);
       } catch (IOException | RuntimeException e) {
         // Do not expose backup paths, preference values, message content, or provider errors.
         outcome = SilencePreflightResult.rejected();
+      } finally {
+        wipe(password);
+        pendingPassword = null;
       }
       final SilencePreflightResult completed = outcome;
       new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+        if (cleared) return;
         result = completed;
         running = false;
         phase.setValue(completed.getStatus() == SilencePreflightResult.Status.STRUCTURALLY_VALID
@@ -61,5 +78,10 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
     });
   }
 
-  @Override protected void onCleared() { executor.shutdownNow(); }
+  private static void wipe(char[] value) { if (value != null) java.util.Arrays.fill(value, '\0'); }
+  @Override protected void onCleared() {
+    cleared = true;
+    wipe(pendingPassword);
+    executor.shutdownNow();
+  }
 }
