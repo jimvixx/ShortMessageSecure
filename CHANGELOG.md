@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.2.0
+
+### Added
+
+- Select and copy message text fragments.
+- Delete messages from notifications.
+
+### Changed
+
+- Clearer log upload status and save/share actions; no automatic clipboard copy.
+- Updated translations.
+- Updated AGP to 9.4.0, Gradle to 9.7.1, compile SDK to 37 and core libraries; enabled resource shrinking.
+
+### Fixed
+
+- Clipped message input hint.
+- Repeated log uploads on screen recreation.
+- Crashes when selecting or previewing notification sounds.
+- Invalid conversation message limits.
+
 ## v1.1.0
 
 ### Added
