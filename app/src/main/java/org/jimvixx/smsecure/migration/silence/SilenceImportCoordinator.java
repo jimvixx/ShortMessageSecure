@@ -34,7 +34,10 @@ public final class SilenceImportCoordinator {
       SilenceBackupStager.Snapshot.delete(leftover);
     }
     try (SilenceBackupStager.Snapshot snapshot = new SilenceBackupStager().stage(source, workspace)) {
-      return new SilencePreflightAnalyzer().analyze(snapshot);
+      SilencePreflightResult result = new SilencePreflightAnalyzer().analyze(snapshot);
+      try (SilenceDatabaseMigrator.PreparedDatabase prepared = new SilenceDatabaseMigrator().prepare(snapshot)) {
+        return result.withDatabaseMigration(prepared.info());
+      }
     }
   }
 }

@@ -25,8 +25,10 @@ public final class SilencePreflightResult {
   public enum Status { STRUCTURALLY_VALID, REJECTED }
   private final SilenceBackupInfo info;
   private final List<String> findings;
-  private SilencePreflightResult(SilenceBackupInfo info, List<String> findings) {
+  private final SilenceDatabaseMigrationInfo databaseMigration;
+  private SilencePreflightResult(SilenceBackupInfo info, List<String> findings, SilenceDatabaseMigrationInfo databaseMigration) {
     this.info = info;
+    this.databaseMigration = databaseMigration;
     this.findings = Collections.unmodifiableList(new ArrayList<>(findings));
   }
   public static SilencePreflightResult valid(SilenceBackupInfo info) {
@@ -35,11 +37,16 @@ public final class SilencePreflightResult {
     findings.add("Crypto integrity and decryptability have not been verified.");
     findings.add("The export has no version manifest; schema 30 matches the reference format.");
     if (info.getMmsCount() > 0) findings.add("SMSecure does not support MMS or attachments.");
-    return new SilencePreflightResult(info, findings);
+    return new SilencePreflightResult(info, findings, null);
   }
   public static SilencePreflightResult rejected() {
-    return new SilencePreflightResult(null, Collections.singletonList("Backup validation failed."));
+    return new SilencePreflightResult(null, Collections.singletonList("Backup validation failed."), null);
   }
+  SilencePreflightResult withDatabaseMigration(SilenceDatabaseMigrationInfo migration) {
+    if (info == null || migration == null) throw new IllegalStateException("Missing verified preview");
+    return new SilencePreflightResult(info, findings, migration);
+  }
+  public SilenceDatabaseMigrationInfo getDatabaseMigration() { return databaseMigration; }
   public Status getStatus() { return info == null ? Status.REJECTED : Status.STRUCTURALLY_VALID; }
   public SilenceBackupInfo getInfo() { return info; }
   public List<String> getFindings() { return findings; }

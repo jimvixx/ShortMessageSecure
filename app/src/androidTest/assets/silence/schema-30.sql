@@ -1,0 +1,13 @@
+CREATE TABLE sms (_id INTEGER PRIMARY KEY, thread_id INTEGER, address TEXT, address_device_id INTEGER DEFAULT 1, person INTEGER, date INTEGER, date_sent INTEGER, protocol INTEGER, read INTEGER DEFAULT 0, status INTEGER DEFAULT -1, type INTEGER, reply_path_present INTEGER, date_delivery_received INTEGER DEFAULT 0, subject TEXT, body TEXT, mismatched_identities TEXT DEFAULT NULL, service_center TEXT, subscription_id INTEGER DEFAULT -1, notified DEFAULT 0);
+CREATE TABLE thread (_id INTEGER PRIMARY KEY, date INTEGER DEFAULT 0, message_count INTEGER DEFAULT 0, recipient_ids TEXT, snippet TEXT, snippet_cs INTEGER DEFAULT 0, read INTEGER DEFAULT 1, type INTEGER DEFAULT 0, error INTEGER DEFAULT 0, snippet_type INTEGER DEFAULT 0, snippet_uri TEXT DEFAULT NULL, archived INTEGER DEFAULT 0, status INTEGER DEFAULT 0, last_seen INTEGER DEFAULT 0);
+CREATE TABLE identities (_id INTEGER PRIMARY KEY, recipient INTEGER UNIQUE, "key" TEXT, mac TEXT);
+CREATE TABLE drafts (_id INTEGER PRIMARY KEY, thread_id INTEGER, type TEXT, value TEXT);
+CREATE TABLE recipient_preferences (_id INTEGER PRIMARY KEY, recipient_ids TEXT UNIQUE, block INTEGER DEFAULT 0, notification TEXT DEFAULT NULL, vibrate INTEGER DEFAULT 0, mute_until INTEGER DEFAULT 0, color TEXT DEFAULT NULL, default_subscription_id INTEGER DEFAULT -1);
+CREATE TABLE mms (_id INTEGER PRIMARY KEY, thread_id INTEGER);
+CREATE TABLE part (_id INTEGER PRIMARY KEY, mid INTEGER, _data TEXT);
+CREATE TABLE mms_addresses (_id INTEGER PRIMARY KEY, mms_id INTEGER);
+INSERT INTO thread (_id, recipient_ids, archived, snippet) VALUES (1, '1', 1, 'synthetic-snippet');
+INSERT INTO sms (_id, thread_id, address, body, type, date, date_sent) VALUES (1, 1, 'synthetic', 'synthetic-ciphertext', 2147483668, 1000, 1001);
+INSERT INTO mms VALUES (1, 1);
+INSERT INTO identities VALUES (7, 1, 'synthetic-identity', 'synthetic-mac');
+INSERT INTO part VALUES (1, 1, 'synthetic-attachment-path');

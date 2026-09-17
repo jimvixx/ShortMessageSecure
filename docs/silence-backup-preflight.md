@@ -1,5 +1,9 @@
 # Silence backup preflight: first safe slice
 
+The first slice was committed as `0c0d3d8`. The current branch also performs a
+[disposable database preparation check](silence-database-preview.md) after structural analysis.
+The historical checks below describe the first-slice baseline.
+
 ## Scope and entry point
 
 Branch: `feature/silence-backup-import`. The debug build was installed

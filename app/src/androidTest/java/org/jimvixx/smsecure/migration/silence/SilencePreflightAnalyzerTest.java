@@ -33,47 +33,14 @@ import static org.junit.Assert.*;
 public class SilencePreflightAnalyzerTest {
   private File input;
   private File output;
+  private SilenceTestBackup fixture;
   @Before public void setup() throws Exception {
-    File cache = InstrumentationRegistry.getInstrumentation().getTargetContext().getCacheDir();
-    input = new File(cache, "silence-test-input-" + UUID.randomUUID());
-    output = new File(cache, "silence-test-output-" + UUID.randomUUID());
-    assertTrue(input.mkdirs());
-    assertTrue(output.mkdirs());
-    for (String directory : Arrays.asList("files/signed_prekeys", "databases", "shared_prefs"))
-      assertTrue(new File(input, directory).mkdirs());
-    for (String[] entry : new String[][]{{"legacy-default.xml", SilenceBackupDetector.DEFAULT_PREFS},
-        {"legacy-secret.xml", SilenceBackupDetector.SECRET_PREFS}}) {
-      try (InputStream in = InstrumentationRegistry.getInstrumentation().getContext().getAssets().open("silence/" + entry[0]);
-           OutputStream out = new FileOutputStream(new File(input, entry[1]))) {
-        byte[] buffer = new byte[4096];
-        int length;
-        while ((length = in.read(buffer)) != -1) out.write(buffer, 0, length);
-      }
-    }
-    try (SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(new File(input, "databases/messages.db"), null)) {
-      db.setVersion(30);
-      db.execSQL("CREATE TABLE sms (_id INTEGER PRIMARY KEY, thread_id INTEGER, address TEXT, body TEXT, type INTEGER, date INTEGER, date_sent INTEGER)");
-      db.execSQL("CREATE TABLE mms (_id INTEGER PRIMARY KEY, thread_id INTEGER)");
-      db.execSQL("CREATE TABLE thread (_id INTEGER PRIMARY KEY, recipient_ids TEXT)");
-      db.execSQL("CREATE TABLE identities (_id INTEGER PRIMARY KEY, recipient INTEGER, \"key\" TEXT, mac TEXT)");
-      db.execSQL("CREATE TABLE part (_id INTEGER PRIMARY KEY, mid INTEGER)");
-      db.execSQL("CREATE TABLE mms_addresses (_id INTEGER PRIMARY KEY, mms_id INTEGER)");
-      db.execSQL("CREATE TABLE drafts (_id INTEGER PRIMARY KEY, thread_id INTEGER)");
-      db.execSQL("CREATE TABLE recipient_preferences (_id INTEGER PRIMARY KEY, recipient_ids TEXT)");
-      db.execSQL("INSERT INTO thread VALUES (1, '1')");
-      db.execSQL("INSERT INTO sms VALUES (1, 1, 'synthetic', 'synthetic', 1, 0, 0)");
-      db.execSQL("INSERT INTO mms VALUES (1, 1)");
-    }
-    try (SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(new File(input, "databases/canonical_address.db"), null)) {
-      db.setVersion(1);
-      db.execSQL("CREATE TABLE canonical_addresses (_id INTEGER PRIMARY KEY, address TEXT NOT NULL)");
-      db.execSQL("INSERT INTO canonical_addresses VALUES (1, 'synthetic')");
-    }
-    try (OutputStream out = new FileOutputStream(new File(input, "files/signed_prekeys/1"))) { out.write(1); }
+    fixture = new SilenceTestBackup();
+    input = fixture.input;
+    output = fixture.output;
   }
   @After public void cleanup() throws Exception {
-    if (input != null) SilenceBackupStager.Snapshot.delete(input);
-    if (output != null) SilenceBackupStager.Snapshot.delete(output);
+    if (fixture != null) fixture.close();
   }
 
   @Test public void inspectsSnapshotAndPreservesSource() throws Exception {
@@ -85,6 +52,8 @@ public class SilencePreflightAnalyzerTest {
     assertEquals(1, result.getInfo().getMmsCount());
     assertEquals(1, result.getInfo().getCryptoFileCount());
     assertTrue(result.getInfo().isPassphraseDisabled());
+    assertNotNull(result.getDatabaseMigration());
+    assertEquals(35, result.getDatabaseMigration().getTargetVersion());
     assertFalse(result.isReadyToImport());
     assertArrayEquals(before, digest(sourceDb));
     assertEquals(0, new File(output, "silence-preflight").list().length);
