@@ -18,6 +18,28 @@ import static org.junit.Assert.*;
 public class RingtoneDialogDeviceTest {
   private static final String TAG = "ringtone-device-test";
 
+  @Test public void trimLengthHandlesWhitespaceAndInvalidValues() {
+    android.content.Context target = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    android.content.SharedPreferences isolated = target.getSharedPreferences(
+            "ringtone-test-" + java.util.UUID.randomUUID(), 0);
+    android.content.Context context = new android.content.ContextWrapper(target) {
+      @Override public android.content.SharedPreferences getSharedPreferences(String name, int mode) {
+        return isolated;
+      }
+    };
+    try {
+      String[] inputs = {" 500 ", "17", "", "invalid", "0", "-1", "999999999999999999"};
+      int[] expected = {500, 17, 500, 500, 500, 500, 500};
+      for (int i = 0; i < inputs.length; i++) {
+        isolated.edit().putString(org.jimvixx.smsecure.util.SMSecurePreferences.THREAD_TRIM_LENGTH,
+                inputs[i]).commit();
+        assertEquals(expected[i], org.jimvixx.smsecure.util.SMSecurePreferences.getThreadTrimLength(context));
+      }
+    } finally {
+      isolated.edit().clear().commit();
+    }
+  }
+
   @Test public void defaultAndSilentUrisNeverReachProviderLookup() {
     android.media.RingtoneManager manager = new android.media.RingtoneManager(
             InstrumentationRegistry.getInstrumentation().getTargetContext()) {

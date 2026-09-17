@@ -142,11 +142,16 @@ public class NotificationsPreferenceFragment extends PreferenceFragmentCompat {
       return;
     }
 
-    Ringtone tone = RingtoneManager.getRingtone(context, value);
-    if (tone != null) {
-      preference.setSummary(tone.getTitle(context));
-    } else {
-      preference.setSummary(R.string.Silent);
+    try {
+      Ringtone tone = RingtoneManager.getRingtone(context, value);
+      if (tone != null) {
+        preference.setSummary(tone.getTitle(context));
+      } else {
+        preference.setSummary(R.string.Silent);
+      }
+    } catch (RuntimeException e) {
+      org.jimvixx.smsecure.logging.Log.w("NotificationsPreference", "Unable to resolve ringtone title", e);
+      preference.setSummary(R.string.Custom);
     }
   }
 

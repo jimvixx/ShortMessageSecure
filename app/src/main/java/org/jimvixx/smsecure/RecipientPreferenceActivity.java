@@ -291,13 +291,19 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
         return;
       }
 
-      Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-      if (ringtone != null) {
-        ringtonePreference.setSummary(ringtone.getTitle(context));
+      try {
+        Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+        if (ringtone != null) {
+          ringtonePreference.setSummary(ringtone.getTitle(context));
+          ringtonePreference.setCurrentRingtone(uri);
+        } else {
+          ringtonePreference.setSummary(context.getString(R.string.RingtonePreference_application_default));
+          ringtonePreference.setCurrentRingtone(Settings.System.DEFAULT_NOTIFICATION_URI);
+        }
+      } catch (RuntimeException e) {
+        org.jimvixx.smsecure.logging.Log.w("RecipientPreference", "Unable to resolve ringtone title", e);
+        ringtonePreference.setSummary(R.string.Custom);
         ringtonePreference.setCurrentRingtone(uri);
-      } else {
-        ringtonePreference.setSummary(context.getString(R.string.RingtonePreference_application_default));
-        ringtonePreference.setCurrentRingtone(Settings.System.DEFAULT_NOTIFICATION_URI);
       }
     }
 

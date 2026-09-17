@@ -282,7 +282,13 @@ public class SMSecurePreferences {
   }
 
   public static int getThreadTrimLength(Context context) {
-    return Integer.parseInt(getStringPreference(context, THREAD_TRIM_LENGTH, "500"));
+    String value = getStringPreference(context, THREAD_TRIM_LENGTH, "500");
+    try {
+      int limit = Integer.parseInt(value.trim());
+      return limit > 0 ? limit : 500;
+    } catch (NumberFormatException e) {
+      return 500;
+    }
   }
 
   public static boolean isSystemEmojiPreferred(Context context) {

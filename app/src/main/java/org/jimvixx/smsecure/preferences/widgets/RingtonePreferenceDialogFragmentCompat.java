@@ -231,9 +231,13 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
               }
 
               int realIndex = which - extraRowsCount(showDefault, showSilent);
-              Ringtone ringtone = ringtoneManager.getRingtone(realIndex);
-              if (ringtone != null) {
-                ringtone.play();
+              try {
+                Ringtone ringtone = ringtoneManager.getRingtone(realIndex);
+                if (ringtone != null) {
+                  ringtone.play();
+                }
+              } catch (RuntimeException e) {
+                Log.w(TAG, "Unable to preview ringtone", e);
               }
             })
             .setNegativeButton(android.R.string.cancel, (dialogInterface, which) -> {
@@ -317,22 +321,26 @@ public class RingtonePreferenceDialogFragmentCompat extends DialogFragment {
   }
 
   private void playDefaultRingtone(@NonNull Context context, @Nullable Uri defaultUri) {
-    if (defaultRingtone != null) {
-      defaultRingtone.play();
-      return;
-    }
+    try {
+      if (defaultRingtone != null) {
+        defaultRingtone.play();
+        return;
+      }
 
-    Uri effectiveDefaultUri = isRecipientRingtonePreference()
-            ? getApplicationDefaultRingtoneUri(context)
-            : defaultUri;
+      Uri effectiveDefaultUri = isRecipientRingtonePreference()
+              ? getApplicationDefaultRingtoneUri(context)
+              : defaultUri;
 
-    if (effectiveDefaultUri == null) {
-      return;
-    }
+      if (effectiveDefaultUri == null) {
+        return;
+      }
 
-    defaultRingtone = RingtoneManager.getRingtone(context, effectiveDefaultUri);
-    if (defaultRingtone != null) {
-      defaultRingtone.play();
+      defaultRingtone = RingtoneManager.getRingtone(context, effectiveDefaultUri);
+      if (defaultRingtone != null) {
+        defaultRingtone.play();
+      }
+    } catch (RuntimeException e) {
+      Log.w(TAG, "Unable to preview default ringtone", e);
     }
   }
 
