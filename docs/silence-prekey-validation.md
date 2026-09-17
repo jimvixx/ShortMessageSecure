@@ -1,6 +1,6 @@
 # Silence prekey consistency and signature checks
 
-The preceding file/identity checks are committed as `c3632ef`. This next slice is uncommitted.
+The preceding file/identity checks are committed as `c3632ef`. This slice is committed as `5114e97`.
 It verifies source records in staging only. No core store or preferences class was changed;
 no live keys, sessions, database rows, or SIM mappings are modified.
 
@@ -69,3 +69,5 @@ missing source identity slots fail the prekey check rather than being repaired o
   cache. Staging was empty and SMSecure was relaunched after verification.
 - API 24 runtime and other SAF providers remain untested. The next implementation boundary
   is session local/remote identity and ratchet-state validation, still without live apply.
+
+The following stage is documented in [silence-session-validation.md](silence-session-validation.md).

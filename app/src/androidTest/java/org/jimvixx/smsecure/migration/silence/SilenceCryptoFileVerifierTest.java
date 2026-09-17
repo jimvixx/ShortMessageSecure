@@ -42,6 +42,7 @@ public class SilenceCryptoFileVerifierTest {
   private SilenceTestBackup fixture;
   private SilenceLegacyCipher cipher;
   private ECKeyPair signingIdentity;
+  private ECKeyPair sessionIdentity;
 
   @Before public void setup() throws Exception {
     fixture = new SilenceTestBackup();
@@ -54,7 +55,9 @@ public class SilenceCryptoFileVerifierTest {
       while ((length = in.read(buffer)) != -1) out.write(buffer, 0, length);
     }
     signingIdentity = Curve.generateKeyPair();
-    addIdentity(secret, 3, Curve.generateKeyPair());
+    sessionIdentity = Curve.generateKeyPair();
+    addIdentity(secret, -1, sessionIdentity);
+    addIdentity(secret, 3, sessionIdentity);
     addIdentity(secret, 6, signingIdentity);
     cipher = SilenceLegacyCipher.unlock(SilencePreferencesReader.read(secret), "unencrypted".toCharArray());
   }
@@ -225,6 +228,29 @@ public class SilenceCryptoFileVerifierTest {
     assertEquals(0, new File(fixture.output, "silence-preflight").list().length);
   }
 
+  @Test public void rejectsAuthenticatedSessionFromWrongIdentitySlot() throws Exception {
+    write("sessions-v2/1.6", envelope(1, session()));
+    rejected();
+  }
+
+  @Test public void rejectsAuthenticatedSessionWithInvalidRootKey() throws Exception {
+    write("sessions-v2/1.3", envelope(1, StorageProtos.SessionStructure.parseFrom(session()).toBuilder()
+        .setRootKey(ByteString.copyFrom(new byte[31])).build().toByteArray()));
+    rejected();
+  }
+
+  @Test public void acceptsPendingExchangeWithoutAnActiveSenderChain() throws Exception {
+    write("sessions-v2/1.3", envelope(1, SilenceSessionTestData.pending(sessionIdentity).toByteArray()));
+    assertEquals(SilenceCryptoFileInfo.Status.READABLE, verify().getStatus());
+  }
+
+  @Test public void rejectsCorruptArchivedStateEvenWhenCurrentStatePasses() throws Exception {
+    StorageProtos.SessionStructure valid = StorageProtos.SessionStructure.parseFrom(session());
+    write("sessions-v2/1.3", envelope(2, StorageProtos.RecordStructure.newBuilder().setCurrentSession(valid)
+        .addPreviousSessions(valid.toBuilder().setRootKey(ByteString.EMPTY)).build().toByteArray()));
+    rejected();
+  }
+
   private SilenceCryptoFileInfo verify() throws Exception {
     try (SilenceBackupStager.Snapshot snapshot = new SilenceBackupStager().stage(fixture.source(), fixture.output)) {
       return new SilenceCryptoFileVerifier().verify(snapshot, cipher);
@@ -239,8 +265,8 @@ public class SilenceCryptoFileVerifierTest {
     try (OutputStream out = new FileOutputStream(file)) { out.write(value); }
     return file;
   }
-  private static byte[] session() {
-    return StorageProtos.SessionStructure.newBuilder().setSessionVersion(3).build().toByteArray();
+  private byte[] session() {
+    return SilenceSessionTestData.active(sessionIdentity).toByteArray();
   }
   private static byte[] preKey() {
     ECKeyPair pair = Curve.generateKeyPair();
@@ -263,9 +289,10 @@ public class SilenceCryptoFileVerifierTest {
     }
     String xml = new String(bytes.toByteArray(), java.nio.charset.StandardCharsets.UTF_8);
     byte[] sealed = envelope(1, pair.getPrivateKey().serialize());
-    String entries = "<string name='" + SilenceIdentityVerifier.PUBLIC + "_" + subscription + "'>"
+    String suffix = subscription == -1 ? "" : "_" + subscription;
+    String entries = "<string name='" + SilenceIdentityVerifier.PUBLIC + suffix + "'>"
         + Base64.encodeBytes(pair.getPublicKey().serialize()) + "</string><string name='"
-        + SilenceIdentityVerifier.PRIVATE + "_" + subscription + "'>"
+        + SilenceIdentityVerifier.PRIVATE + suffix + "'>"
         + Base64.encodeBytes(Arrays.copyOfRange(sealed, 8, sealed.length)) + "</string>";
     try (Writer out = new OutputStreamWriter(new FileOutputStream(secret), java.nio.charset.StandardCharsets.UTF_8)) {
       out.write(xml.replace("</map>", entries + "</map>"));
