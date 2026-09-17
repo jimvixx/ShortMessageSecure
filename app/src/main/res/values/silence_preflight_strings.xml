@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="silence_preflight_title">Check Silence backup</string>
+    <string name="silence_preflight_summary">Check a Silence backup without importing data</string>
+    <string name="silence_preflight_description">Select the SilenceExport folder from Silence 0.16.12. This checks a temporary copy only. No messages, settings, or keys will be imported.</string>
+    <string name="silence_preflight_select">Choose SilenceExport folder</string>
+    <string name="silence_preflight_running">Checking backup…</string>
+    <string name="silence_preflight_failed">The backup could not be checked. It may be incomplete, unsupported, too large, or no longer accessible. Keep the original backup. Nothing was imported.</string>
+    <string name="silence_preflight_result">Structure checks passed.\nDatabase version: %1$d\nSMS: %2$d\nMMS: %3$d\nCrypto files present: %4$d\n\nDecryption and crypto integrity have not been verified. SMSecure does not support MMS or attachments. Import is not available yet. Nothing was imported.</string>
+</resources>

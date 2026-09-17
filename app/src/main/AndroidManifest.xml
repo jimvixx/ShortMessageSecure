@@ -92,6 +92,14 @@
             android:resource="@xml/automotive_app_desc" />
 
         <activity
+            android:name=".migration.silence.SilencePreflightActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="org.jimvixx.smsecure.action.CHECK_SILENCE_BACKUP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ImportExportActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false" />

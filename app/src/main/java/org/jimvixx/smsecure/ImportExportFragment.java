@@ -140,6 +140,10 @@ public class ImportExportFragment extends Fragment {
     exportEncryptedView.setOnClickListener(v -> handleExportEncryptedBackup());
     exportPlaintextView.setOnClickListener(v -> handleExportPlaintextBackup());
 
+    layout.findViewById(R.id.silence_preflight).setOnClickListener(v ->
+        startActivity(new Intent("org.jimvixx.smsecure.action.CHECK_SILENCE_BACKUP")
+            .setPackage(requireContext().getPackageName())));
+
     return layout;
   }
 
