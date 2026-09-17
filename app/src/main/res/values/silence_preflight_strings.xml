@@ -11,5 +11,10 @@
     <string name="silence_crypto_retry">Check password</string>
     <string name="silence_crypto_password_required">Enter the password used in Silence to check decryption. It will not be saved.</string>
     <string name="silence_crypto_rejected">Decryption could not be verified. The password may be incorrect or the backup may be damaged. Nothing was imported.</string>
-    <string name="silence_crypto_verified">Master key verified. Encrypted SMS bodies checked: %1$d. SMS bodies not checked: %2$d. Sessions, prekeys, and other encrypted records have not been verified.</string>
+    <string name="silence_crypto_verified">Master key verified. Encrypted SMS bodies checked: %1$d. SMS bodies not checked: %2$d.</string>
+    <string name="silence_crypto_files_readable">Encrypted files authenticated and decoded: %1$d sessions, %2$d prekeys, %3$d signed prekeys. Source recipient references and file identifiers checked. Session usability, prekey consistency, signatures, and target SIM mapping have not been verified. Import is not available yet.</string>
+    <string name="silence_crypto_files_rejected">Some session or prekey files could not be checked. They may be damaged or unsupported. Nothing was imported.</string>
+    <string name="silence_identity_verified">Identity key pairs checked: %1$d. Public and private keys match.</string>
+    <string name="silence_identity_absent">No identity key pairs were found. Secure messaging state cannot be considered ready to import.</string>
+    <string name="silence_identity_rejected">Identity keys could not be verified. They may be incomplete, damaged, or mismatched. Nothing was imported.</string>
 </resources>

@@ -80,6 +80,20 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
           if (crypto.getStatus() == SilenceCryptoVerificationInfo.Status.VERIFIED) {
             status.append("\n\n" + getString(R.string.silence_crypto_verified,
                 crypto.getVerifiedSmsCount(), crypto.getUncheckedSmsCount()));
+            SilenceIdentityInfo identities = crypto.getIdentities();
+            if (identities != null) {
+              int message = identities.getStatus() == SilenceIdentityInfo.Status.VERIFIED
+                  ? R.string.silence_identity_verified : identities.getStatus() == SilenceIdentityInfo.Status.ABSENT
+                  ? R.string.silence_identity_absent : R.string.silence_identity_rejected;
+              status.append("\n\n" + getString(message, identities.getCount()));
+            }
+            SilenceCryptoFileInfo files = crypto.getFiles();
+            if (files != null) {
+              status.append("\n\n" + (files.getStatus() == SilenceCryptoFileInfo.Status.READABLE
+                  ? getString(R.string.silence_crypto_files_readable, files.getSessionCount(),
+                      files.getPreKeyCount(), files.getSignedPreKeyCount())
+                  : getString(R.string.silence_crypto_files_rejected)));
+            }
           } else {
             status.append("\n\n" + getString(crypto.getStatus() == SilenceCryptoVerificationInfo.Status.PASSWORD_REQUIRED
                 ? R.string.silence_crypto_password_required : R.string.silence_crypto_rejected));

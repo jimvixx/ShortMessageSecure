@@ -2,7 +2,7 @@
 
 ## Boundary
 
-This uncommitted slice extends the Import → Check Silence backup entry. It authenticates and
+This slice, committed as `7ed270f` (`feat: verify Silence master secret and encrypted SMS`), extends the Import → Check Silence backup entry. It authenticates and
 unlocks the exported master secret, then authenticates and decrypts symmetric SMS bodies from
 the read-only staging snapshot. It returns counts only. Plaintext is never displayed, logged,
 written to disk, or returned to the caller. No live database, preferences, key cache, sessions,
@@ -66,4 +66,5 @@ This does not verify sessions, prekeys, asymmetric SMS, drafts, thread snippets,
 attachments. A verified count does not establish full import readiness. Preference mapping,
 full crypto-state compatibility, normalization, atomic apply/rollback, and final import
 confirmation remain separate work. API 24 runtime coverage and other document providers
-remain untested. The additional verification code is left uncommitted for review.
+remain untested. The following file-verification slice is described in
+[silence-crypto-files.md](silence-crypto-files.md).

@@ -87,18 +87,24 @@ final class SilenceLegacyCipher implements AutoCloseable {
     byte[] sealed = decode(encoded);
     byte[] plaintext = null;
     try {
-      int authenticatedLength = sealed.length - 20;
-      if (authenticatedLength < 32 || (authenticatedLength - 16) % 16 != 0)
-        throw new GeneralSecurityException("Invalid encrypted SMS record");
-      authenticate(macKey, sealed, authenticatedLength);
-      Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-      cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(encryptionKey, "AES"), new IvParameterSpec(sealed, 0, 16));
-      plaintext = cipher.doFinal(sealed, 16, authenticatedLength - 16);
+      plaintext = decryptRecord(sealed);
     } finally {
       // The caller receives only success/failure, never plaintext or a String representation.
       wipe(plaintext);
       wipe(sealed);
     }
+  }
+
+  /** Caller owns and must wipe the returned plaintext; no store or result may retain it. */
+  byte[] decryptRecord(byte[] sealed) throws GeneralSecurityException {
+    if (closed) throw new IllegalStateException("Closed legacy cipher");
+    int authenticatedLength = sealed.length - 20;
+    if (authenticatedLength < 32 || (authenticatedLength - 16) % 16 != 0)
+      throw new GeneralSecurityException("Invalid encrypted record");
+    authenticate(macKey, sealed, authenticatedLength);
+    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(encryptionKey, "AES"), new IvParameterSpec(sealed, 0, 16));
+    return cipher.doFinal(sealed, 16, authenticatedLength - 16);
   }
 
   private static SecretKey derive(char[] password, byte[] salt, int iterations) throws GeneralSecurityException {
@@ -124,7 +130,7 @@ final class SilenceLegacyCipher implements AutoCloseable {
     return decode(value.substring(7));
   }
 
-  private static byte[] decode(String encoded) throws IOException {
+  static byte[] decode(String encoded) throws IOException {
     if (encoded == null || encoded.length() > 1024 * 1024) throw new IOException("Encrypted record size limit exceeded");
     String compact = encoded.replaceAll("[ \t\r\n]", "");
     if (compact.isEmpty() || compact.length() % 4 != 0 || !compact.matches("[A-Za-z0-9+/]*={0,2}"))

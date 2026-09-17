@@ -17,14 +17,21 @@
 
 package org.jimvixx.smsecure.migration.silence;
 
-/** Reports only master-secret and symmetric SMS-body checks, never full import readiness. */
+/** Reports scoped SMS, file, and identity checks, never full import readiness. */
 public final class SilenceCryptoVerificationInfo {
   public enum Status { PASSWORD_REQUIRED, VERIFIED, REJECTED }
   private final Status status;
+  private final SilenceCryptoFileInfo files;
+  private final SilenceIdentityInfo identities;
   private final long verifiedSmsCount;
   private final long uncheckedSmsCount;
 
   private SilenceCryptoVerificationInfo(Status status, long verifiedSmsCount, long uncheckedSmsCount) {
+    this(status, verifiedSmsCount, uncheckedSmsCount, null, null);
+  }
+  private SilenceCryptoVerificationInfo(Status status, long verifiedSmsCount, long uncheckedSmsCount, SilenceCryptoFileInfo files, SilenceIdentityInfo identities) {
+    this.identities = identities;
+    this.files = files;
     this.status = status;
     this.verifiedSmsCount = verifiedSmsCount;
     this.uncheckedSmsCount = uncheckedSmsCount;
@@ -38,6 +45,14 @@ public final class SilenceCryptoVerificationInfo {
   static SilenceCryptoVerificationInfo verified(long checked, long unchecked) {
     return new SilenceCryptoVerificationInfo(Status.VERIFIED, checked, unchecked);
   }
+  SilenceCryptoVerificationInfo withFiles(SilenceCryptoFileInfo files) {
+    return new SilenceCryptoVerificationInfo(status, verifiedSmsCount, uncheckedSmsCount, files, identities);
+  }
+  SilenceCryptoVerificationInfo withIdentities(SilenceIdentityInfo identities) {
+    return new SilenceCryptoVerificationInfo(status, verifiedSmsCount, uncheckedSmsCount, files, identities);
+  }
+  public SilenceIdentityInfo getIdentities() { return identities; }
+  public SilenceCryptoFileInfo getFiles() { return files; }
   public Status getStatus() { return status; }
   public long getVerifiedSmsCount() { return verifiedSmsCount; }
   public long getUncheckedSmsCount() { return uncheckedSmsCount; }
