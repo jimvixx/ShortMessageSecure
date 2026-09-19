@@ -54,6 +54,8 @@ public class SilenceTargetSubscriptionReaderTest {
     Context context = permittedContext();
     SubscriptionManager manager = mock(SubscriptionManager.class);
     SubscriptionInfo info = mock(SubscriptionInfo.class);
+    java.io.File database = new java.io.File(storage.getRoot(), "messages.db");
+    when(context.getDatabasePath("messages.db")).thenReturn(database);
     SharedPreferences preferences = mock(SharedPreferences.class);
     when(context.getFilesDir()).thenReturn(storage.getRoot());
     SharedPreferences keys = mock(SharedPreferences.class);
@@ -62,7 +64,10 @@ public class SilenceTargetSubscriptionReaderTest {
     when(manager.getActiveSubscriptionInfoList()).thenReturn(Collections.singletonList(info));
     when(info.getSubscriptionId()).thenReturn(42);
     doReturn(Collections.singletonMap("app_subscription_id_for_device_subscription_id_42", 7)).when(preferences).getAll();
-    try (MockedStatic<PreferenceManager> factory = mockStatic(PreferenceManager.class)) {
+    try (MockedStatic<PreferenceManager> factory = mockStatic(PreferenceManager.class);
+         MockedStatic<SilenceTargetDatabaseConflicts> conflicts = mockStatic(SilenceTargetDatabaseConflicts.class)) {
+      conflicts.when(() -> SilenceTargetDatabaseConflicts.occupiedCurrent(database, Collections.singleton(7)))
+          .thenReturn(Collections.emptySet());
       factory.when(() -> PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(preferences);
       assertEquals(Collections.singletonMap(42, 7), SilenceTargetSubscriptionReader.read(context).getCandidates());
       verify(preferences).getAll(); verifyNoMoreInteractions(preferences);
@@ -75,6 +80,17 @@ public class SilenceTargetSubscriptionReaderTest {
       when(keys.contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPrivateKeyDjbPref(7))).thenReturn(false);
       when(keys.contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPublicKeyDjbPref(7))).thenReturn(true);
       assertEquals(1, SilenceTargetSubscriptionReader.read(context).getOccupiedCount());
+      when(keys.contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPublicKeyDjbPref(7))).thenReturn(false);
+      conflicts.when(() -> SilenceTargetDatabaseConflicts.occupiedCurrent(database, Collections.singleton(7)))
+          .thenReturn(Collections.singleton(7));
+      SilenceTargetSubscriptions databaseOccupied = SilenceTargetSubscriptionReader.read(context);
+      assertTrue(databaseOccupied.getCandidates().isEmpty());
+      assertEquals(1, databaseOccupied.getOccupiedCount());
+      conflicts.when(() -> SilenceTargetDatabaseConflicts.occupiedCurrent(database, Collections.singleton(7)))
+          .thenThrow(new java.io.IOException("synthetic failure"));
+      SilenceTargetSubscriptions unavailable = SilenceTargetSubscriptionReader.read(context);
+      assertEquals(SilenceTargetSubscriptions.Status.UNAVAILABLE, unavailable.getStatus());
+      assertTrue(unavailable.getCandidates().isEmpty());
       verify(info, atLeastOnce()).getSubscriptionId(); verifyNoMoreInteractions(info);
     }
   }

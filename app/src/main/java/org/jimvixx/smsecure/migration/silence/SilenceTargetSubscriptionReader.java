@@ -62,6 +62,8 @@ public final class SilenceTargetSubscriptionReader {
       }
       occupied.addAll(SilenceTargetCryptoFiles.occupied(context.getFilesDir(),
           new HashSet<>(result.getCandidates().values())));
+      occupied.addAll(SilenceTargetDatabaseConflicts.occupiedCurrent(context.getDatabasePath("messages.db"),
+          new HashSet<>(result.getCandidates().values())));
       return result.excludingIdentitySlots(occupied);
     } catch (SecurityException e) {
       return SilenceTargetSubscriptions.unavailable(SilenceTargetSubscriptions.Status.PERMISSION_REQUIRED);
