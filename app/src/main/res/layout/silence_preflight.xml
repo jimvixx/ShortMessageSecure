@@ -22,6 +22,11 @@
             android:accessibilityLiveRegion="polite" android:text="@string/silence_targets_loading" />
         <Button android:id="@+id/silence_targets_refresh" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:text="@string/silence_targets_refresh" />
+        <TextView android:id="@+id/silence_review_help" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/silence_review_help"
+            android:visibility="gone" />
+        <LinearLayout android:id="@+id/silence_review_rows" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" />
         <Button android:id="@+id/silence_select" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:text="@string/silence_preflight_select" />
     </LinearLayout>

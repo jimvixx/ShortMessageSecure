@@ -34,6 +34,7 @@ import org.jimvixx.smsecure.crypto.MasterSecret;
 /** Analysis-only UI; no apply action or reference to the normal restore pipeline. */
 public final class SilencePreflightActivity extends PassphraseRequiredActionBarActivity {
   private SilencePreflightViewModel model;
+  private androidx.appcompat.app.AlertDialog reviewDialog;
   private final ActivityResultLauncher<android.net.Uri> picker = registerForActivityResult(
       new ActivityResultContracts.OpenDocumentTree() {
         @NonNull @Override public android.content.Intent createIntent(@NonNull android.content.Context context,
@@ -62,6 +63,7 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
       else targetStatus.setText(getString(R.string.silence_targets_summary,
           targets.getCandidates().size(), targets.getUnresolvedCount()));
     });
+    model.getReviewRevision().observe(this, revision -> renderReview());
     Button select = findViewById(R.id.silence_select);
     TextView status = findViewById(R.id.silence_status);
     EditText password = findViewById(R.id.silence_password);
@@ -131,6 +133,52 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
       } else status.setText(R.string.silence_preflight_description);
     });
   }
+  private void renderReview() {
+    if (reviewDialog != null) { reviewDialog.dismiss(); reviewDialog = null; }
+    android.widget.LinearLayout rows = findViewById(R.id.silence_review_rows);
+    rows.removeAllViews();
+    SilenceSubscriptionReview review = model.getReview();
+    SilenceSubscriptionPlan plan = review.getPlan();
+    findViewById(R.id.silence_review_help).setVisibility(plan == null ? View.GONE : View.VISIBLE);
+    if (plan == null) return;
+    for (int source : plan.getSources().keySet()) {
+      Button row = new Button(this);
+      String sourceLabel = source == -1 ? getString(R.string.silence_review_unscoped)
+          : getString(R.string.silence_review_source, source);
+      Integer target = plan.getAssignments().get(source);
+      String choice = target != null ? getString(R.string.silence_review_target, target)
+          : getString(plan.getDeferredSources().contains(source)
+              ? R.string.silence_review_deferred : R.string.silence_review_unselected);
+      row.setText(getString(R.string.silence_review_row, sourceLabel, choice));
+      row.setEnabled(review.canReview());
+      row.setOnClickListener(view -> showReviewChoices(source, sourceLabel));
+      rows.addView(row);
+    }
+  }
+
+  private void showReviewChoices(int source, String label) {
+    SilenceSubscriptionReview review = model.getReview();
+    if (!review.canReview()) return;
+    long revision = review.getRevision();
+    java.util.List<Integer> targets = new java.util.ArrayList<>();
+    for (int target : review.availableTargets()) {
+      Integer current = review.getPlan().getAssignments().get(source);
+      if (!review.getPlan().getAssignments().containsValue(target) || Integer.valueOf(target).equals(current))
+        targets.add(target);
+    }
+    java.util.List<String> labels = new java.util.ArrayList<>();
+    labels.add(getString(R.string.silence_review_unselected));
+    labels.add(getString(R.string.silence_review_deferred));
+    for (int target : targets) labels.add(getString(R.string.silence_review_target, target));
+    reviewDialog = new androidx.appcompat.app.AlertDialog.Builder(this).setTitle(label)
+        .setItems(labels.toArray(new String[0]), (dialog, which) -> {
+          if (!model.decide(revision, source, which < 2 ? null : targets.get(which - 2), which == 1))
+            android.widget.Toast.makeText(this, R.string.silence_review_changed, android.widget.Toast.LENGTH_SHORT).show();
+        }).setNegativeButton(android.R.string.cancel, null).create();
+    reviewDialog.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
+    reviewDialog.show();
+  }
+
   @Override protected void onResume() {
     super.onResume();
     if (model != null) model.refreshTargets();
@@ -138,6 +186,7 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
   }
 
   @Override protected void onDestroy() {
+    if (reviewDialog != null) { reviewDialog.dismiss(); reviewDialog = null; }
     EditText password = findViewById(R.id.silence_password);
     if (password != null) password.getText().clear();
     super.onDestroy();

@@ -31,6 +31,8 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
   private final ExecutorService executor = Executors.newSingleThreadExecutor();
   private final MutableLiveData<SilenceImportPhase> phase = new MutableLiveData<>(SilenceImportPhase.IDLE);
   private final MutableLiveData<SilenceTargetSubscriptions> targets = new MutableLiveData<>();
+  private final SilenceSubscriptionReview review = new SilenceSubscriptionReview();
+  private final MutableLiveData<Long> reviewRevision = new MutableLiveData<>(0L);
   private boolean refreshingTargets;
   private SilencePreflightResult result;
   private boolean running;
@@ -43,10 +45,20 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
 
   public LiveData<SilenceTargetSubscriptions> getTargets() { return targets; }
 
+  LiveData<Long> getReviewRevision() { return reviewRevision; }
+  SilenceSubscriptionReview getReview() { return review; }
+  boolean decide(long revision, int source, Integer target, boolean defer) {
+    boolean accepted = review.decide(revision, source, target, defer);
+    if (accepted) reviewRevision.setValue(review.getRevision());
+    return accepted;
+  }
+
   /** Refreshes on screen entry without keeping stale candidates visible or requesting permission. */
   public void refreshTargets() {
     if (cleared || refreshingTargets) return;
     refreshingTargets = true;
+    review.beginRefresh();
+    reviewRevision.setValue(review.getRevision());
     targets.setValue(null);
     executor.execute(() -> {
       SilenceTargetSubscriptions snapshot;
@@ -59,6 +71,8 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
       new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
         if (cleared) return;
         refreshingTargets = false;
+        review.completeRefresh(completed);
+        reviewRevision.setValue(review.getRevision());
         targets.setValue(completed);
       });
     });
@@ -78,6 +92,8 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
     pendingPassword = password;
     running = true;
     result = null;
+    review.replaceSource(null);
+    reviewRevision.setValue(review.getRevision());
     phase.setValue(SilenceImportPhase.ANALYZING);
     executor.execute(() -> {
       SilencePreflightResult outcome;
@@ -96,6 +112,9 @@ public final class SilencePreflightViewModel extends AndroidViewModel {
       new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
         if (cleared) return;
         result = completed;
+        SilenceMigrationPlan plan = completed.getMigrationPlan();
+        review.replaceSource(plan != null && plan.isCryptoInventoryChecked() ? plan.getSubscriptions() : null);
+        reviewRevision.setValue(review.getRevision());
         running = false;
         phase.setValue(completed.getStatus() == SilencePreflightResult.Status.STRUCTURALLY_VALID
             ? SilenceImportPhase.COMPLETE : SilenceImportPhase.FAILED);

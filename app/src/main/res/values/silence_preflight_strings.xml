@@ -19,11 +19,19 @@
     <string name="silence_identity_rejected">Identity keys could not be verified. They may be incomplete, damaged, or mismatched. Nothing was imported.</string>
     <string name="silence_remote_identities_checked">Remote identity records authenticated: %1$d. Current session keys: %2$d match, %3$d missing, %4$d different. Archived keys: %5$d match, %6$d unmatched. Historical keys may differ after a key change. Peer trust was not changed.</string>
     <string name="silence_remote_identities_rejected">Remote identity records could not be authenticated. Session-to-record comparisons were not performed. Peer trust was not changed.</string>
-    <string name="silence_plan_summary">Draft plan: %1$d source SIM bindings need review; %2$d SMS have no SIM reference. %3$d basic settings are candidates; %4$d other settings are deferred. No target SIM has been selected and no settings were applied.</string>
+    <string name="silence_plan_summary">Draft plan: %1$d source SIM bindings need review; %2$d SMS have no SIM reference. %3$d basic settings are candidates; %4$d other settings are deferred. SIM decisions below are a draft only. No settings were applied.</string>
     <string name="silence_plan_partial">Source crypto bindings have not been fully checked. This draft may be incomplete.</string>
     <string name="silence_targets_loading">Checking SIM bindings on this device…</string>
     <string name="silence_targets_refresh">Refresh SIM information</string>
     <string name="silence_targets_permission">Phone permission is needed to check SIM bindings on this device. You can still check the backup. No SIM has been selected.</string>
     <string name="silence_targets_unavailable">SIM information is currently unavailable. You can still check the backup. No SIM has been selected.</string>
-    <string name="silence_targets_summary">Current SIM bindings available for review: %1$d. Active SIMs without an unambiguous saved binding: %2$d. These saved bindings do not verify encryption keys. SIM selection is not available yet.</string>
+    <string name="silence_targets_summary">Current SIM bindings available for review: %1$d. Active SIMs without an unambiguous saved binding: %2$d. These saved bindings do not verify encryption keys. Draft choices do not enable import.</string>
+    <string name="silence_review_help">Review backup bindings (draft only). Binding numbers are saved app identifiers, not SIM slot numbers. Matching numbers do not prove matching keys. If unsure, defer the binding. Deferring keeps it unresolved and does not discard its data. Choices last only while this screen remains open; changed SIM information or a new backup check clears them. Import is still unavailable.</string>
+    <string name="silence_review_source">Backup binding %1$d</string>
+    <string name="silence_review_unscoped">Backup binding without a SIM reference</string>
+    <string name="silence_review_target">SMSecure binding %1$d</string>
+    <string name="silence_review_deferred">Decide later</string>
+    <string name="silence_review_unselected">Not selected</string>
+    <string name="silence_review_row">%1$s: %2$s</string>
+    <string name="silence_review_changed">SIM information changed. Review the choices again.</string>
 </resources>
