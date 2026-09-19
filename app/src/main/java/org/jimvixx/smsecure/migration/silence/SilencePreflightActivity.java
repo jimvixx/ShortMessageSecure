@@ -61,7 +61,7 @@ public final class SilencePreflightActivity extends PassphraseRequiredActionBarA
       else if (targets.getStatus() == SilenceTargetSubscriptions.Status.UNAVAILABLE)
         targetStatus.setText(R.string.silence_targets_unavailable);
       else targetStatus.setText(getString(R.string.silence_targets_summary,
-          targets.getCandidates().size(), targets.getUnresolvedCount()));
+          targets.getCandidates().size(), targets.getUnresolvedCount(), targets.getOccupiedCount()));
     });
     model.getReviewRevision().observe(this, revision -> renderReview());
     Button select = findViewById(R.id.silence_select);

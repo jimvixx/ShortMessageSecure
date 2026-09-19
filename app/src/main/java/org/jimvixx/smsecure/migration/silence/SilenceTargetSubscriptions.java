@@ -30,8 +30,14 @@ public final class SilenceTargetSubscriptions {
   private final Status status;
   private final Map<Integer, Integer> candidates;
   private final int unresolvedCount;
+  private final int occupiedCount;
 
   private SilenceTargetSubscriptions(Status status, Map<Integer, Integer> candidates, int unresolvedCount) {
+    this(status, candidates, unresolvedCount, 0);
+  }
+
+  private SilenceTargetSubscriptions(Status status, Map<Integer, Integer> candidates, int unresolvedCount, int occupiedCount) {
+    this.occupiedCount = occupiedCount;
     this.status = status;
     this.candidates = Collections.unmodifiableMap(new TreeMap<>(candidates));
     this.unresolvedCount = unresolvedCount;
@@ -58,6 +64,15 @@ public final class SilenceTargetSubscriptions {
     return new SilenceTargetSubscriptions(Status.AVAILABLE, selected, activeDeviceIds.size() - selected.size());
   }
 
+  /** Conservatively excludes any slot with existing identity material, even a partial pair. */
+  SilenceTargetSubscriptions excludingIdentitySlots(Set<Integer> occupied) {
+    Map<Integer, Integer> remaining = new TreeMap<>(candidates);
+    remaining.values().removeAll(occupied);
+    return new SilenceTargetSubscriptions(status, remaining, unresolvedCount,
+        occupiedCount + candidates.size() - remaining.size());
+  }
+
+  public int getOccupiedCount() { return occupiedCount; }
   public Status getStatus() { return status; }
   /** Keys are Android device IDs; values are SMSecure logical IDs. Never auto-select a source. */
   public Map<Integer, Integer> getCandidates() { return candidates; }

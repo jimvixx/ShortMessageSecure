@@ -54,6 +54,8 @@ public class SilenceTargetSubscriptionReaderTest {
     SubscriptionManager manager = mock(SubscriptionManager.class);
     SubscriptionInfo info = mock(SubscriptionInfo.class);
     SharedPreferences preferences = mock(SharedPreferences.class);
+    SharedPreferences keys = mock(SharedPreferences.class);
+    when(context.getSharedPreferences(org.jimvixx.smsecure.crypto.MasterSecretUtil.PREFERENCES_NAME, Context.MODE_PRIVATE)).thenReturn(keys);
     when(context.getSystemService(SubscriptionManager.class)).thenReturn(manager);
     when(manager.getActiveSubscriptionInfoList()).thenReturn(Collections.singletonList(info));
     when(info.getSubscriptionId()).thenReturn(42);
@@ -62,6 +64,15 @@ public class SilenceTargetSubscriptionReaderTest {
       factory.when(() -> PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(preferences);
       assertEquals(Collections.singletonMap(42, 7), SilenceTargetSubscriptionReader.read(context).getCandidates());
       verify(preferences).getAll(); verifyNoMoreInteractions(preferences);
+      verify(keys).contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPublicKeyDjbPref(7));
+      verify(keys).contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPrivateKeyDjbPref(7));
+      verifyNoMoreInteractions(keys);
+      when(keys.contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPrivateKeyDjbPref(7))).thenReturn(true);
+      SilenceTargetSubscriptions occupied = SilenceTargetSubscriptionReader.read(context);
+      assertTrue(occupied.getCandidates().isEmpty()); assertEquals(1, occupied.getOccupiedCount());
+      when(keys.contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPrivateKeyDjbPref(7))).thenReturn(false);
+      when(keys.contains(org.jimvixx.smsecure.crypto.IdentityKeyUtil.getIdentityPublicKeyDjbPref(7))).thenReturn(true);
+      assertEquals(1, SilenceTargetSubscriptionReader.read(context).getOccupiedCount());
       verify(info, atLeastOnce()).getSubscriptionId(); verifyNoMoreInteractions(info);
     }
   }

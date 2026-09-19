@@ -77,6 +77,22 @@ public class SilenceSubscriptionReviewTest {
     assertTrue(review.decide(review.getRevision(), 2, 7, false));
     assertEquals(Collections.singletonMap(1, 7), before.getAssignments());
   }
+  @Test public void newlyOccupiedIdentityClearsDraftAndCannotBeAssigned() {
+    SilenceSubscriptionReview review = ready();
+    assertTrue(review.decide(review.getRevision(), 1, 7, false));
+    review.completeRefresh(targets(42, 7).excludingIdentitySlots(Collections.singleton(7)));
+    assertTrue(review.getPlan().getAssignments().isEmpty());
+    assertFalse(review.decide(review.getRevision(), 1, 7, false));
+    assertTrue(review.decide(review.getRevision(), 1, null, true));
+  }
+  @Test public void occupiedInventoryDoesNotMutateOriginalOrCountMissingMappings() {
+    SilenceTargetSubscriptions original = targets(42, 7);
+    SilenceTargetSubscriptions filtered = original.excludingIdentitySlots(Collections.singleton(7));
+    assertEquals(Collections.singletonMap(42, 7), original.getCandidates());
+    assertEquals(0, original.getOccupiedCount()); assertEquals(1, filtered.getOccupiedCount());
+    assertEquals(0, filtered.getUnresolvedCount());
+    assertEquals(1, filtered.excludingIdentitySlots(Collections.singleton(7)).getOccupiedCount());
+  }
   private static SilenceSubscriptionReview ready() {
     SilenceSubscriptionReview review = new SilenceSubscriptionReview();
     review.replaceSource(source()); review.completeRefresh(targets(42, 7)); return review;

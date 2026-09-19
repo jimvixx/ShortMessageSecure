@@ -18,6 +18,9 @@
 package org.jimvixx.smsecure.migration.silence;
 
 import android.Manifest;
+import android.content.SharedPreferences;
+import org.jimvixx.smsecure.crypto.IdentityKeyUtil;
+import org.jimvixx.smsecure.crypto.MasterSecretUtil;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
@@ -48,7 +51,16 @@ public final class SilenceTargetSubscriptionReader {
         }
         deviceIds.add(info.getSubscriptionId());
       }
-      return SilenceTargetSubscriptions.from(deviceIds, PreferenceManager.getDefaultSharedPreferences(context).getAll());
+      SilenceTargetSubscriptions result = SilenceTargetSubscriptions.from(deviceIds,
+          PreferenceManager.getDefaultSharedPreferences(context).getAll());
+      SharedPreferences keys = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, Context.MODE_PRIVATE);
+      Set<Integer> occupied = new HashSet<>();
+      for (int appId : result.getCandidates().values()) {
+        // Presence alone blocks replacement; never read, decrypt, generate, or repair target keys.
+        if (keys.contains(IdentityKeyUtil.getIdentityPublicKeyDjbPref(appId))
+            || keys.contains(IdentityKeyUtil.getIdentityPrivateKeyDjbPref(appId))) occupied.add(appId);
+      }
+      return result.excludingIdentitySlots(occupied);
     } catch (SecurityException e) {
       return SilenceTargetSubscriptions.unavailable(SilenceTargetSubscriptions.Status.PERMISSION_REQUIRED);
     } catch (IllegalStateException e) {

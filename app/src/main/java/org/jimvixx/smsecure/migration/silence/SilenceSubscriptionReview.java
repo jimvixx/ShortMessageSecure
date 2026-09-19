@@ -38,7 +38,8 @@ final class SilenceSubscriptionReview {
   void completeRefresh(SilenceTargetSubscriptions next) {
     boolean changed = targets == null || targets.getStatus() != next.getStatus()
         || !targets.getCandidates().equals(next.getCandidates())
-        || targets.getUnresolvedCount() != next.getUnresolvedCount();
+        || targets.getUnresolvedCount() != next.getUnresolvedCount()
+        || targets.getOccupiedCount() != next.getOccupiedCount();
     targets = next;
     refreshing = false;
     if (changed && plan != null) plan = plan.withAssignments(Collections.emptyMap(), Collections.emptySet());
