@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Analyzes a caller-owned, quiescent target snapshot, never the live database helper. */
+/** Reads target binding references through read-only SQLite, never the live database helper. */
 final class SilenceTargetDatabaseConflicts {
   private SilenceTargetDatabaseConflicts() {}
 
@@ -35,40 +35,49 @@ final class SilenceTargetDatabaseConflicts {
     // A plain file copy is not a consistent snapshot of a live WAL database.
     for (String suffix : new String[]{"-wal", "-shm", "-journal"})
       if (new File(snapshot.getPath() + suffix).exists()) throw new IOException("Unsettled target snapshot");
-    try (SQLiteDatabase db = SQLiteDatabase.openDatabase(snapshot.getPath(), null, SQLiteDatabase.OPEN_READONLY)) {
-      if (db.getVersion() != 35) throw new IOException("Unsupported target schema");
-      Set<Integer> occupied = new HashSet<>();
-      scan(db, "sms", "subscription_id", true, candidates, occupied);
-      scan(db, "recipient_preferences", "default_subscription_id", false, candidates, occupied);
-      return Collections.unmodifiableSet(occupied);
-    } catch (android.database.SQLException e) {
-      throw new IOException("Target snapshot could not be checked");
-    }
+    return occupiedCurrent(snapshot, candidates);
   }
 
-  private static void scan(SQLiteDatabase db, String table, String column, boolean messages,
-                           Set<Integer> candidates, Set<Integer> occupied) throws IOException {
-    try (Cursor definition = db.rawQuery("SELECT type FROM sqlite_master WHERE name = ?", new String[]{table})) {
-      if (!definition.moveToFirst() || !"table".equals(definition.getString(0)))
-        throw new IOException("Missing target table");
-    }
-    // LIMIT bounds the returned inventory; only subscription references are read.
-    try (Cursor rows = db.rawQuery("SELECT DISTINCT " + column + " FROM " + table + " LIMIT 1025", null)) {
-      int count = 0;
-      while (rows.moveToNext()) {
-        if (++count > 1024) throw new IOException("Target binding inventory too large");
-        if (rows.isNull(0)) {
-          if (messages) occupied.addAll(candidates);
-        } else if (rows.getType(0) != Cursor.FIELD_TYPE_INTEGER) {
-          throw new IOException("Invalid target binding type");
-        } else {
-          long slot = rows.getLong(0);
-          if (slot < -1 || slot > Integer.MAX_VALUE) throw new IOException("Invalid target binding");
-          if (slot == -1) {
-            if (messages) occupied.addAll(candidates);
-          } else if (candidates.contains((int) slot)) occupied.add((int) slot);
+  /** Reads a logical binding snapshot, including committed WAL rows, without checkpointing. */
+  static Set<Integer> occupiedCurrent(File database, Set<Integer> candidates) throws IOException {
+    if (database == null || !database.isFile()) throw new IOException("Missing target database");
+    for (int candidate : candidates) if (candidate < 0) throw new IllegalArgumentException("Invalid target");
+    try (SQLiteDatabase db = SQLiteDatabase.openDatabase(database.getPath(), null, SQLiteDatabase.OPEN_READONLY)) {
+      if (db.getVersion() != 35) throw new IOException("Unsupported target schema");
+      for (String table : new String[]{"sms", "recipient_preferences"}) {
+        try (Cursor definition = db.rawQuery("SELECT type FROM sqlite_master WHERE name = ?", new String[]{table})) {
+          if (!definition.moveToFirst() || !"table".equals(definition.getString(0)))
+            throw new IOException("Missing target table");
         }
       }
+      Set<Integer> occupied = new HashSet<>();
+      // One bounded statement reads both tables from the same SQLite snapshot.
+      // typeof prevents DISTINCT from hiding malformed real values equal to an integer.
+      String query = "SELECT DISTINCT subscription_id, typeof(subscription_id), 1 FROM sms "
+          + "UNION ALL SELECT DISTINCT default_subscription_id, typeof(default_subscription_id), 0 "
+          + "FROM recipient_preferences LIMIT 2049";
+      try (Cursor rows = db.rawQuery(query, null)) {
+        int[] counts = new int[2];
+        while (rows.moveToNext()) {
+          int origin = rows.getInt(2);
+          if (++counts[origin] > 1024) throw new IOException("Target binding inventory too large");
+          boolean messages = origin == 1;
+          if (rows.isNull(0)) {
+            if (messages) occupied.addAll(candidates);
+          } else if (!"integer".equals(rows.getString(1))) {
+            throw new IOException("Invalid target binding type");
+          } else {
+            long slot = rows.getLong(0);
+            if (slot < -1 || slot > Integer.MAX_VALUE) throw new IOException("Invalid target binding");
+            if (slot == -1) {
+              if (messages) occupied.addAll(candidates);
+            } else if (candidates.contains((int) slot)) occupied.add((int) slot);
+          }
+        }
+      }
+      return Collections.unmodifiableSet(occupied);
+    } catch (android.database.SQLException e) {
+      throw new IOException("Target database could not be checked");
     }
   }
 }

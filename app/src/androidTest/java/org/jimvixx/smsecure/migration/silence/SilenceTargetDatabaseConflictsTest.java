@@ -73,8 +73,43 @@ public class SilenceTargetDatabaseConflictsTest {
     File wal = new File(snapshot.getPath() + "-wal"); assertTrue(wal.createNewFile());
     try { assertThrows(IOException.class, this::check); } finally { assertTrue(wal.delete()); }
   }
-  private byte[] snapshotBytes() throws IOException {
-    try (FileInputStream in = new FileInputStream(snapshot); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+  @Test public void readsCommittedWalWithoutCheckpointOrSeeingUncommittedRows() throws Exception {
+    try (SQLiteDatabase writer = SQLiteDatabase.openOrCreateDatabase(snapshot, null)) {
+      assertTrue(writer.enableWriteAheadLogging());
+      writer.execSQL("INSERT INTO sms VALUES (7)");
+      File wal = new File(snapshot.getPath() + "-wal");
+      assertTrue(wal.isFile()); assertTrue(wal.length() > 0);
+      byte[] mainBefore = snapshotBytes();
+      byte[] walBefore = fileBytes(wal);
+      assertEquals(Collections.singleton(7), SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
+      assertArrayEquals(mainBefore, snapshotBytes()); assertArrayEquals(walBefore, fileBytes(wal));
+      writer.beginTransaction();
+      try {
+        writer.execSQL("INSERT INTO recipient_preferences VALUES (8)");
+        assertEquals(Collections.singleton(7), SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
+        writer.setTransactionSuccessful();
+      } finally { writer.endTransaction(); }
+      assertEquals(slots(), SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
+    }
+  }
+  @Test public void refusesMissingCurrentDatabaseWithoutCreatingIt() throws Exception {
+    File missing = new File(snapshot.getParentFile(), "missing-target-" + snapshot.getName());
+    assertThrows(IOException.class, () -> SilenceTargetDatabaseConflicts.occupiedCurrent(missing, slots()));
+    assertFalse(missing.exists());
+  }
+  @Test public void rejectsOversizedReferenceInventory() throws Exception {
+    try (SQLiteDatabase writer = SQLiteDatabase.openOrCreateDatabase(snapshot, null)) {
+      writer.beginTransaction();
+      try {
+        for (int i = 0; i < 1025; i++) writer.execSQL("INSERT INTO sms VALUES (?)", new Object[]{i});
+        writer.setTransactionSuccessful();
+      } finally { writer.endTransaction(); }
+    }
+    assertThrows(IOException.class, () -> SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
+  }
+  private byte[] snapshotBytes() throws IOException { return fileBytes(snapshot); }
+  private byte[] fileBytes(File file) throws IOException {
+    try (FileInputStream in = new FileInputStream(file); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
       byte[] buffer = new byte[4096]; int count;
       while ((count = in.read(buffer)) != -1) out.write(buffer, 0, count);
       return out.toByteArray();
