@@ -31,6 +31,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class SilenceTargetSubscriptionReaderTest {
+  @org.junit.Rule public org.junit.rules.TemporaryFolder storage = new org.junit.rules.TemporaryFolder();
   @Test public void missingPermissionDoesNotTouchTelephonyOrPreferences() {
     Context context = mock(Context.class);
     when(context.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)).thenReturn(PackageManager.PERMISSION_DENIED);
@@ -54,6 +55,7 @@ public class SilenceTargetSubscriptionReaderTest {
     SubscriptionManager manager = mock(SubscriptionManager.class);
     SubscriptionInfo info = mock(SubscriptionInfo.class);
     SharedPreferences preferences = mock(SharedPreferences.class);
+    when(context.getFilesDir()).thenReturn(storage.getRoot());
     SharedPreferences keys = mock(SharedPreferences.class);
     when(context.getSharedPreferences(org.jimvixx.smsecure.crypto.MasterSecretUtil.PREFERENCES_NAME, Context.MODE_PRIVATE)).thenReturn(keys);
     when(context.getSystemService(SubscriptionManager.class)).thenReturn(manager);

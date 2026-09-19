@@ -60,10 +60,12 @@ public final class SilenceTargetSubscriptionReader {
         if (keys.contains(IdentityKeyUtil.getIdentityPublicKeyDjbPref(appId))
             || keys.contains(IdentityKeyUtil.getIdentityPrivateKeyDjbPref(appId))) occupied.add(appId);
       }
+      occupied.addAll(SilenceTargetCryptoFiles.occupied(context.getFilesDir(),
+          new HashSet<>(result.getCandidates().values())));
       return result.excludingIdentitySlots(occupied);
     } catch (SecurityException e) {
       return SilenceTargetSubscriptions.unavailable(SilenceTargetSubscriptions.Status.PERMISSION_REQUIRED);
-    } catch (IllegalStateException e) {
+    } catch (java.io.IOException | IllegalStateException e) {
       return SilenceTargetSubscriptions.unavailable(SilenceTargetSubscriptions.Status.UNAVAILABLE);
     }
   }

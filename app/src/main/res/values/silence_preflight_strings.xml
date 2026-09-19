@@ -25,7 +25,7 @@
     <string name="silence_targets_refresh">Refresh SIM information</string>
     <string name="silence_targets_permission">Phone permission is needed to check SIM bindings on this device. You can still check the backup. No SIM has been selected.</string>
     <string name="silence_targets_unavailable">SIM information is currently unavailable. You can still check the backup. No SIM has been selected.</string>
-    <string name="silence_targets_summary">Current SIM bindings available for review: %1$d. Active SIMs without an unambiguous saved binding: %2$d. Bindings blocked because identity keys already exist: %3$d. Existing keys will not be replaced, even if they might match the backup. Other data conflicts have not been checked. Draft choices do not enable import.</string>
+    <string name="silence_targets_summary">Current SIM bindings available for review: %1$d. Active SIMs without an unambiguous saved binding: %2$d. Bindings blocked by existing keys or crypto files: %3$d. Existing crypto data will not be replaced. Files without a clear SIM reference block all choices. Other data conflicts have not been checked. Draft choices do not enable import.</string>
     <string name="silence_review_help">Review backup bindings (draft only). Binding numbers are saved app identifiers, not SIM slot numbers. Matching numbers do not prove matching keys. If unsure, defer the binding. Deferring keeps it unresolved and does not discard its data. Choices last only while this screen remains open; changed SIM information or a new backup check clears them. Import is still unavailable.</string>
     <string name="silence_review_source">Backup binding %1$d</string>
     <string name="silence_review_unscoped">Backup binding without a SIM reference</string>

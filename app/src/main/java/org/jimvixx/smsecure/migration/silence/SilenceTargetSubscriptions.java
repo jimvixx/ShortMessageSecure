@@ -64,7 +64,7 @@ public final class SilenceTargetSubscriptions {
     return new SilenceTargetSubscriptions(Status.AVAILABLE, selected, activeDeviceIds.size() - selected.size());
   }
 
-  /** Conservatively excludes any slot with existing identity material, even a partial pair. */
+  /** Conservatively excludes any slot with existing crypto material, including partial records. */
   SilenceTargetSubscriptions excludingIdentitySlots(Set<Integer> occupied) {
     Map<Integer, Integer> remaining = new TreeMap<>(candidates);
     remaining.values().removeAll(occupied);
