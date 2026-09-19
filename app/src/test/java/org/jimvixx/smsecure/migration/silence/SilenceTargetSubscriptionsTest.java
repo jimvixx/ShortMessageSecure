@@ -75,5 +75,25 @@ public class SilenceTargetSubscriptionsTest {
     assertThrows(IllegalArgumentException.class, () -> SilenceTargetSubscriptions.from(ids(-1), Collections.emptyMap()));
     assertThrows(IllegalArgumentException.class, () -> SilenceTargetSubscriptions.from(ids((Integer) null), Collections.emptyMap()));
   }
+  @Test public void preservesOverlappingReasonsWithoutDoubleCounting() {
+    SilenceTargetSubscriptions original = SilenceTargetSubscriptions.from(ids(42), Collections.singletonMap(PREFIX + 42, 7));
+    SilenceTargetSubscriptions result = original.excluding(ids(7), SilenceTargetSubscriptions.Conflict.IDENTITY_KEYS)
+        .excluding(ids(7, 99), SilenceTargetSubscriptions.Conflict.DATABASE_REFERENCES);
+    assertEquals(1, result.getOccupiedCount()); assertEquals(2, result.getConflicts().get(7).size());
+    assertEquals(1, result.getConflictCount(SilenceTargetSubscriptions.Conflict.IDENTITY_KEYS));
+    assertEquals(1, result.getConflictCount(SilenceTargetSubscriptions.Conflict.DATABASE_REFERENCES));
+    assertEquals(0, result.getConflictCount(SilenceTargetSubscriptions.Conflict.CRYPTO_FILES));
+    assertTrue(original.getConflicts().isEmpty());
+    assertThrows(UnsupportedOperationException.class, () -> result.getConflicts().clear());
+    assertThrows(UnsupportedOperationException.class, () -> result.getConflicts().get(7).clear());
+  }
+  @Test public void conflictInputIsCopiedAndRepeatedReasonIsIdempotent() {
+    Set<Integer> occupied = ids(7);
+    SilenceTargetSubscriptions result = SilenceTargetSubscriptions.from(ids(42), Collections.singletonMap(PREFIX + 42, 7))
+        .excluding(occupied, SilenceTargetSubscriptions.Conflict.CRYPTO_FILES);
+    occupied.clear();
+    assertEquals(result.getConflicts(), result.excluding(ids(7), SilenceTargetSubscriptions.Conflict.CRYPTO_FILES).getConflicts());
+    assertEquals(1, result.getOccupiedCount());
+  }
   private static Set<Integer> ids(Integer... values) { return new HashSet<>(Arrays.asList(values)); }
 }

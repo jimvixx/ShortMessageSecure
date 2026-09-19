@@ -34,4 +34,5 @@
     <string name="silence_review_unselected">Not selected</string>
     <string name="silence_review_row">%1$s: %2$s</string>
     <string name="silence_review_changed">SIM information changed. Review the choices again.</string>
+    <string name="silence_target_conflict_reasons">Reasons for blocking bindings: existing identity keys — %1$d; session or prekey files — %2$d; messages or recipient settings — %3$d. A binding may have more than one reason. These checks do not establish whether source and target data match.</string>
 </resources>

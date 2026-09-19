@@ -93,6 +93,13 @@ public class SilenceSubscriptionReviewTest {
     assertEquals(0, filtered.getUnresolvedCount());
     assertEquals(1, filtered.excludingIdentitySlots(Collections.singleton(7)).getOccupiedCount());
   }
+  @Test public void changedReasonInvalidatesDraftEvenWhenBlockedCountIsUnchanged() {
+    SilenceSubscriptionReview review = ready();
+    review.completeRefresh(targets(42, 7).excluding(Collections.singleton(7), SilenceTargetSubscriptions.Conflict.IDENTITY_KEYS));
+    assertTrue(review.decide(review.getRevision(), 1, null, true));
+    review.completeRefresh(targets(42, 7).excluding(Collections.singleton(7), SilenceTargetSubscriptions.Conflict.DATABASE_REFERENCES));
+    assertTrue(review.getPlan().getDeferredSources().isEmpty());
+  }
   private static SilenceSubscriptionReview ready() {
     SilenceSubscriptionReview review = new SilenceSubscriptionReview();
     review.replaceSource(source()); review.completeRefresh(targets(42, 7)); return review;

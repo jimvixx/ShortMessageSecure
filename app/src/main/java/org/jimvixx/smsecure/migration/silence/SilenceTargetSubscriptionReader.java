@@ -60,11 +60,12 @@ public final class SilenceTargetSubscriptionReader {
         if (keys.contains(IdentityKeyUtil.getIdentityPublicKeyDjbPref(appId))
             || keys.contains(IdentityKeyUtil.getIdentityPrivateKeyDjbPref(appId))) occupied.add(appId);
       }
-      occupied.addAll(SilenceTargetCryptoFiles.occupied(context.getFilesDir(),
-          new HashSet<>(result.getCandidates().values())));
-      occupied.addAll(SilenceTargetDatabaseConflicts.occupiedCurrent(context.getDatabasePath("messages.db"),
-          new HashSet<>(result.getCandidates().values())));
-      return result.excludingIdentitySlots(occupied);
+      Set<Integer> candidateIds = new HashSet<>(result.getCandidates().values());
+      Set<Integer> files = SilenceTargetCryptoFiles.occupied(context.getFilesDir(), candidateIds);
+      Set<Integer> database = SilenceTargetDatabaseConflicts.occupiedCurrent(context.getDatabasePath("messages.db"), candidateIds);
+      return result.excluding(occupied, SilenceTargetSubscriptions.Conflict.IDENTITY_KEYS)
+          .excluding(files, SilenceTargetSubscriptions.Conflict.CRYPTO_FILES)
+          .excluding(database, SilenceTargetSubscriptions.Conflict.DATABASE_REFERENCES);
     } catch (SecurityException e) {
       return SilenceTargetSubscriptions.unavailable(SilenceTargetSubscriptions.Status.PERMISSION_REQUIRED);
     } catch (java.io.IOException | IllegalStateException e) {
