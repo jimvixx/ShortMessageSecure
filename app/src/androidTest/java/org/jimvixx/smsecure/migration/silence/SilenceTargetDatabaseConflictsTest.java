@@ -40,6 +40,8 @@ public class SilenceTargetDatabaseConflictsTest {
       try (android.database.Cursor mode = db.rawQuery("PRAGMA journal_mode=DELETE", null)) { assertTrue(mode.moveToFirst()); }
       db.execSQL("CREATE TABLE sms (subscription_id INTEGER)");
       db.execSQL("CREATE TABLE recipient_preferences (default_subscription_id INTEGER)");
+      db.execSQL("CREATE TABLE thread (_id INTEGER PRIMARY KEY, recipient_ids TEXT)");
+      db.execSQL("CREATE TABLE identities (_id INTEGER PRIMARY KEY, recipient INTEGER, identity_key TEXT)");
       db.setVersion(35);
     }
   }
@@ -106,6 +108,18 @@ public class SilenceTargetDatabaseConflictsTest {
       } finally { writer.endTransaction(); }
     }
     assertThrows(IOException.class, () -> SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
+  }
+  @Test public void threadWithoutMessagesStillBlocksEveryCandidate() throws Exception {
+    mutate("INSERT INTO thread VALUES (1, '42')");
+    assertEquals(slots(), check());
+  }
+  @Test public void remoteIdentityWithoutLocalIdentityOrMessagesBlocksEveryCandidate() throws Exception {
+    mutate("INSERT INTO identities VALUES (1, 42, 'synthetic-key')");
+    assertEquals(slots(), check());
+  }
+  @Test public void missingGlobalTableCannotLookLikeEmptyState() throws Exception {
+    mutate("DROP TABLE identities");
+    assertThrows(IOException.class, this::check);
   }
   private byte[] snapshotBytes() throws IOException { return fileBytes(snapshot); }
   private byte[] fileBytes(File file) throws IOException {

@@ -44,22 +44,28 @@ final class SilenceTargetDatabaseConflicts {
     for (int candidate : candidates) if (candidate < 0) throw new IllegalArgumentException("Invalid target");
     try (SQLiteDatabase db = SQLiteDatabase.openDatabase(database.getPath(), null, SQLiteDatabase.OPEN_READONLY)) {
       if (db.getVersion() != 35) throw new IOException("Unsupported target schema");
-      for (String table : new String[]{"sms", "recipient_preferences"}) {
+      for (String table : new String[]{"sms", "recipient_preferences", "thread", "identities"}) {
         try (Cursor definition = db.rawQuery("SELECT type FROM sqlite_master WHERE name = ?", new String[]{table})) {
           if (!definition.moveToFirst() || !"table".equals(definition.getString(0)))
             throw new IOException("Missing target table");
         }
       }
       Set<Integer> occupied = new HashSet<>();
-      // One bounded statement reads both tables from the same SQLite snapshot.
+      // One bounded statement reads scoped and global conflicts from the same SQLite snapshot.
       // typeof prevents DISTINCT from hiding malformed real values equal to an integer.
       String query = "SELECT DISTINCT subscription_id, typeof(subscription_id), 1 FROM sms "
           + "UNION ALL SELECT DISTINCT default_subscription_id, typeof(default_subscription_id), 0 "
-          + "FROM recipient_preferences LIMIT 2049";
+          + "FROM recipient_preferences "
+          + "UNION ALL SELECT NULL, 'null', 2 WHERE EXISTS (SELECT 1 FROM thread) "
+          + "OR EXISTS (SELECT 1 FROM identities) LIMIT 2050";
       try (Cursor rows = db.rawQuery(query, null)) {
         int[] counts = new int[2];
         while (rows.moveToNext()) {
           int origin = rows.getInt(2);
+          if (origin == 2) {
+            occupied.addAll(candidates);
+            continue;
+          }
           if (++counts[origin] > 1024) throw new IOException("Target binding inventory too large");
           boolean messages = origin == 1;
           if (rows.isNull(0)) {
