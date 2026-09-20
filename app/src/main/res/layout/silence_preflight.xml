@@ -6,6 +6,9 @@
         android:orientation="vertical" android:padding="24dp">
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="@string/silence_preflight_title" android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+        <TextView android:id="@+id/silence_replacement_notice" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:paddingTop="16dp"
+            android:text="@string/silence_replacement_notice" />
         <TextView android:id="@+id/silence_status" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:paddingTop="16dp"
             android:accessibilityLiveRegion="polite" android:text="@string/silence_preflight_description" />

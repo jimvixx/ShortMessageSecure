@@ -38,10 +38,10 @@ public class SilenceTargetDatabaseConflictsTest {
     try (SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(snapshot, null)) {
       db.disableWriteAheadLogging();
       try (android.database.Cursor mode = db.rawQuery("PRAGMA journal_mode=DELETE", null)) { assertTrue(mode.moveToFirst()); }
-      db.execSQL("CREATE TABLE sms (subscription_id INTEGER)");
-      db.execSQL("CREATE TABLE recipient_preferences (default_subscription_id INTEGER)");
-      db.execSQL("CREATE TABLE thread (_id INTEGER PRIMARY KEY, recipient_ids TEXT)");
-      db.execSQL("CREATE TABLE identities (_id INTEGER PRIMARY KEY, recipient INTEGER, identity_key TEXT)");
+      db.execSQL(org.jimvixx.smsecure.database.SmsDatabase.CREATE_TABLE);
+      db.execSQL(org.jimvixx.smsecure.database.RecipientPreferenceDatabase.CREATE_TABLE);
+      db.execSQL(org.jimvixx.smsecure.database.ThreadDatabase.CREATE_TABLE);
+      db.execSQL(org.jimvixx.smsecure.database.IdentityDatabase.CREATE_TABLE);
       db.setVersion(35);
     }
   }
@@ -51,19 +51,19 @@ public class SilenceTargetDatabaseConflictsTest {
     assertTrue(check().isEmpty()); assertArrayEquals(before, snapshotBytes());
   }
   @Test public void combinesMessagesAndRecipientDefaults() throws Exception {
-    mutate("INSERT INTO sms VALUES (7)", "INSERT INTO recipient_preferences VALUES (8)", "INSERT INTO sms VALUES (99)");
+    mutate("INSERT INTO sms (subscription_id) VALUES (7)", "INSERT INTO recipient_preferences (default_subscription_id) VALUES (8)", "INSERT INTO sms (subscription_id) VALUES (99)");
     assertEquals(slots(), check());
     assertThrows(UnsupportedOperationException.class, () -> check().clear());
   }
   @Test public void unscopedMessagesBlockAllButUnsetRecipientDefaultDoesNot() throws Exception {
-    mutate("INSERT INTO recipient_preferences VALUES (-1)", "INSERT INTO recipient_preferences VALUES (NULL)");
+    mutate("INSERT INTO recipient_preferences (default_subscription_id) VALUES (-1)", "INSERT INTO recipient_preferences (default_subscription_id) VALUES (NULL)");
     assertTrue(check().isEmpty());
-    mutate("INSERT INTO sms VALUES (-1)"); assertEquals(slots(), check());
-    mutate("DELETE FROM sms", "INSERT INTO sms VALUES (NULL)"); assertEquals(slots(), check());
+    mutate("INSERT INTO sms (subscription_id) VALUES (-1)"); assertEquals(slots(), check());
+    mutate("DELETE FROM sms", "INSERT INTO sms (subscription_id) VALUES (NULL)"); assertEquals(slots(), check());
   }
   @Test public void rejectsWrongTypesAndOutOfRangeBindings() throws Exception {
     for (String value : new String[]{"'bad'", "1.5", "-2", "2147483648"}) {
-      mutate("DELETE FROM sms", "INSERT INTO sms VALUES (" + value + ")");
+      mutate("DELETE FROM sms", "INSERT INTO sms (subscription_id) VALUES (" + value + ")");
       assertThrows(IOException.class, this::check);
     }
   }
@@ -78,7 +78,7 @@ public class SilenceTargetDatabaseConflictsTest {
   @Test public void readsCommittedWalWithoutCheckpointOrSeeingUncommittedRows() throws Exception {
     try (SQLiteDatabase writer = SQLiteDatabase.openOrCreateDatabase(snapshot, null)) {
       assertTrue(writer.enableWriteAheadLogging());
-      writer.execSQL("INSERT INTO sms VALUES (7)");
+      writer.execSQL("INSERT INTO sms (subscription_id) VALUES (7)");
       File wal = new File(snapshot.getPath() + "-wal");
       assertTrue(wal.isFile()); assertTrue(wal.length() > 0);
       byte[] mainBefore = snapshotBytes();
@@ -87,7 +87,7 @@ public class SilenceTargetDatabaseConflictsTest {
       assertArrayEquals(mainBefore, snapshotBytes()); assertArrayEquals(walBefore, fileBytes(wal));
       writer.beginTransaction();
       try {
-        writer.execSQL("INSERT INTO recipient_preferences VALUES (8)");
+        writer.execSQL("INSERT INTO recipient_preferences (default_subscription_id) VALUES (8)");
         assertEquals(Collections.singleton(7), SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
         writer.setTransactionSuccessful();
       } finally { writer.endTransaction(); }
@@ -103,23 +103,35 @@ public class SilenceTargetDatabaseConflictsTest {
     try (SQLiteDatabase writer = SQLiteDatabase.openOrCreateDatabase(snapshot, null)) {
       writer.beginTransaction();
       try {
-        for (int i = 0; i < 1025; i++) writer.execSQL("INSERT INTO sms VALUES (?)", new Object[]{i});
+        for (int i = 0; i < 1025; i++) writer.execSQL("INSERT INTO sms (subscription_id) VALUES (?)", new Object[]{i});
         writer.setTransactionSuccessful();
       } finally { writer.endTransaction(); }
     }
     assertThrows(IOException.class, () -> SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
   }
   @Test public void threadWithoutMessagesStillBlocksEveryCandidate() throws Exception {
-    mutate("INSERT INTO thread VALUES (1, '42')");
+    mutate("INSERT INTO thread (_id, recipient_ids) VALUES (1, '42')");
     assertEquals(slots(), check());
   }
   @Test public void remoteIdentityWithoutLocalIdentityOrMessagesBlocksEveryCandidate() throws Exception {
-    mutate("INSERT INTO identities VALUES (1, 42, 'synthetic-key')");
+    mutate("INSERT INTO identities (_id, recipient, identity_key) VALUES (1, 42, 'synthetic-key')");
     assertEquals(slots(), check());
   }
   @Test public void missingGlobalTableCannotLookLikeEmptyState() throws Exception {
     mutate("DROP TABLE identities");
     assertThrows(IOException.class, this::check);
+  }
+  @Test public void globalWalStateBlocksOnlyAfterCommit() throws Exception {
+    try (SQLiteDatabase writer = SQLiteDatabase.openOrCreateDatabase(snapshot, null)) {
+      assertTrue(writer.enableWriteAheadLogging());
+      writer.beginTransaction();
+      try {
+        writer.execSQL("INSERT INTO identities (recipient, identity_key) VALUES (42, 'synthetic-key')");
+        assertTrue(SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()).isEmpty());
+        writer.setTransactionSuccessful();
+      } finally { writer.endTransaction(); }
+      assertEquals(slots(), SilenceTargetDatabaseConflicts.occupiedCurrent(snapshot, slots()));
+    }
   }
   private byte[] snapshotBytes() throws IOException { return fileBytes(snapshot); }
   private byte[] fileBytes(File file) throws IOException {

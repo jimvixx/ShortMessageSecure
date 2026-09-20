@@ -66,6 +66,9 @@ public abstract class Reminder {
     this.dismissListener = dismissListener;
   }
 
+  /** Choosers may keep the reminder visible when accepting only opens another choice. */
+  public boolean hideOnAccept() { return true; }
+
   public boolean isDismissable() {
     return true;
   }

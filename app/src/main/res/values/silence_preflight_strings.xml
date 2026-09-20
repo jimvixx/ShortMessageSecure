@@ -35,4 +35,10 @@
     <string name="silence_review_row">%1$s: %2$s</string>
     <string name="silence_review_changed">SIM information changed. Review the choices again.</string>
     <string name="silence_target_conflict_reasons">Reasons for blocking bindings: existing identity keys — %1$d; session or prekey files — %2$d; messages, conversations, recipient settings or remote identities — %3$d. A binding may have more than one reason. These checks do not establish whether source and target data match.</string>
+    <string name="silence_import_sources_title">Bring your messages to SMSecure</string>
+    <string name="silence_import_sources_description">Choose system SMS or a Silence backup. Silence transfer will replace SMSecure data rather than combine histories. Only backup checking is available for Silence at present.</string>
+    <string name="silence_import_sources_choose">Choose source</string>
+    <string name="silence_import_source_system">Import system SMS</string>
+    <string name="silence_import_source_silence">Silence backup (check only)</string>
+    <string name="silence_replacement_notice">Silence transfer is being prepared as a full replacement, without combining histories. Existing SMSecure messages and encryption keys would be replaced; some settings would also change. A backup and a separate confirmation will be required before replacement. This screen only checks the backup: nothing is replaced or imported.</string>
 </resources>

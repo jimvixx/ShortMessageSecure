@@ -32,11 +32,11 @@ import org.jimvixx.smsecure.service.ApplicationMigrationService;
 public class SystemSmsImportReminder extends Reminder {
 
   public SystemSmsImportReminder(final Context context, final MasterSecret masterSecret) {
-    super(context.getString(R.string.reminder_header_sms_import_title),
-            context.getString(R.string.reminder_header_sms_import_text),
-            context.getString(R.string.Import));
+    super(context.getString(R.string.silence_import_sources_title),
+            context.getString(R.string.silence_import_sources_description),
+            context.getString(R.string.silence_import_sources_choose));
 
-    final OnClickListener okListener = v -> {
+    final Runnable importSystemSms = () -> {
       Intent serviceIntent = new Intent(context, ApplicationMigrationService.class);
       serviceIntent.setAction(ApplicationMigrationService.MIGRATE_DATABASE);
       serviceIntent.putExtra("master_secret", masterSecret);
@@ -52,9 +52,20 @@ public class SystemSmsImportReminder extends Reminder {
 
     final OnClickListener cancelListener = v -> ApplicationMigrationService.setDatabaseImported(context);
 
-    setOkListener(okListener);
+    setOkListener(v -> new androidx.appcompat.app.AlertDialog.Builder(context)
+        .setTitle(R.string.silence_import_sources_title)
+        .setItems(new CharSequence[]{context.getString(R.string.silence_import_source_system),
+            context.getString(R.string.silence_import_source_silence)}, (dialog, which) -> {
+          if (which == 0) importSystemSms.run();
+          else context.startActivity(new Intent("org.jimvixx.smsecure.action.CHECK_SILENCE_BACKUP")
+              .setPackage(context.getPackageName()));
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show());
     setDismissListener(cancelListener);
   }
+
+  @Override public boolean hideOnAccept() { return false; }
 
   public static boolean isEligible(Context context) {
     return ApplicationMigrationService.isDatabaseNotImported(context);
