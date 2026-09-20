@@ -100,6 +100,11 @@ if ! grep -Fxq 'Total missing: 0' <<< "$localization_report"; then
   exit 1
 fi
 
+if ! grep -Fxq 'Total stale  : 0' <<< "$localization_report"; then
+  echo "Localization check failed: stale translations found." >&2
+  exit 1
+fi
+
 if git diff --cached --quiet -- CHANGELOG.md; then
   exit 0
 fi
