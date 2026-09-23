@@ -19,6 +19,7 @@
 package org.jimvixx.smsecure.logsubmit;
 
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -139,6 +140,7 @@ public class SubmitLogFragment extends Fragment {
       intent.setType("text/plain");
       intent.putExtra(Intent.EXTRA_SUBJECT, "SMSecure logs");
       intent.putExtra(Intent.EXTRA_STREAM, uri);
+      intent.setClipData(ClipData.newRawUri("SMSecure logs", uri));
       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
       launchShare(intent, R.string.log_submit__button_share_logs);
     } catch (Exception e) {
