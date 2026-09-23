@@ -87,8 +87,8 @@ Security is critical for SMSecure.
 If you discover a vulnerability:
 
 - Do NOT open a public issue  
-- Contact the maintainer privately (if possible)  
-- Provide detailed reproduction steps  
+- Use GitHub's **Report a vulnerability** feature in the repository's **Security** tab to disclose vulnerabilities privately.
+- Provide a description of the issue, detailed reproduction steps, and potential impact.
 
 ---
 
