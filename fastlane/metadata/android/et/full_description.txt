@@ -24,6 +24,8 @@ Loo ja taasta sõnumite varukoopiaid, et saaksid oma SMS-ajalugu enda kontrolli 
 Sõnumeid töödeldakse sinu seadmes. SMSecure ei nõua registreerimist, ei kasuta reklaame ega kogu kasutajaandmeid.
 
 ⚠️ Oluline märkus
+Praegu ainult SMS: MMS-i tugi on plaanis lisada tulevases versioonis. Praegu ei saa SMSecure MMS-sõnumeid saata, vastu võtta, kuvada ega alla laadida.
+
 Lõpp-lõpuni krüpteerimine toimib ainult siis, kui mõlemad pooled kasutavad ühilduvat tarkvara. Tavalised SMS-sõnumid on endiselt tavalised SMS-id ja neid haldab mobiilsidevõrk.
 
 🧩 Tasuta ja avatud lähtekoodiga

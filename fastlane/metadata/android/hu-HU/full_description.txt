@@ -24,6 +24,8 @@ Készítsen és állítson vissza üzenetmentéseket, hogy az SMS-előzményeit 
 Az üzenetek feldolgozása a készülékén történik. Az SMSecure nem igényel regisztrációt, nem használ hirdetéseket, és nem gyűjt felhasználói adatokat.
 
 ⚠️ Fontos megjegyzés
+Egyelőre csak SMS: az MMS-támogatást egy későbbi verzióhoz tervezzük. A SMSecure jelenleg nem tud MMS-üzeneteket küldeni, fogadni, megjeleníteni vagy letölteni.
+
 A végpontok közötti titkosítás csak akkor működik, ha mindkét fél kompatibilis szoftvert használ. A hagyományos SMS-üzenetek továbbra is hagyományos SMS-ek maradnak, és kezelésüket a mobilhálózat végzi.
 
 🧩 Ingyenes és nyílt forráskódú

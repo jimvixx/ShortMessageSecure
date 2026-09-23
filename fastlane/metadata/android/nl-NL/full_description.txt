@@ -24,6 +24,8 @@ Maak back-ups van berichten en herstel deze, zodat je de controle over je sms-ge
 Berichten worden op je apparaat verwerkt. SMSecure vereist geen registratie, maakt geen gebruik van advertenties en verzamelt geen gebruikersgegevens.
 
 ⚠️ Belangrijke opmerking
+Voorlopig alleen sms: ondersteuning voor mms is gepland voor een toekomstige versie. Momenteel kan SMSecure geen mms-berichten verzenden, ontvangen, weergeven of downloaden.
+
 End-to-end-versleuteling werkt alleen wanneer beide partijen compatibele software gebruiken. Gewone sms-berichten blijven gewone sms-berichten en worden verwerkt door het mobiele netwerk.
 
 🧩 Gratis en open source

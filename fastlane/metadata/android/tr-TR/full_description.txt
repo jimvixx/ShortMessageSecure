@@ -24,6 +24,8 @@ SMS geçmişinizi kontrolünüz altında tutabilmek için mesaj yedeklemeleri ol
 Mesajlar cihazınızda işlenir. SMSecure kayıt gerektirmez, reklam kullanmaz ve kullanıcı verilerini toplamaz.
 
 ⚠️ Önemli not
+Şimdilik yalnızca SMS: MMS desteği gelecekteki bir sürüm için planlanmaktadır. Şu anda SMSecure, MMS mesajlarını gönderemez, alamaz, görüntüleyemez veya indiremez.
+
 Uçtan uca şifreleme, yalnızca her iki taraf da uyumlu yazılım kullandığında çalışır. Normal SMS mesajları hâlâ normal SMS'lerdir ve mobil ağ tarafından işlenir.
 
 🧩 Ücretsiz ve Açık Kaynak

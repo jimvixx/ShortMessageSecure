@@ -24,6 +24,8 @@ Creați și restaurați copii de rezervă ale mesajelor, astfel încât să pute
 Mesajele sunt procesate pe dispozitivul tău. SMSecure nu necesită înregistrare, nu afișează reclame și nu colectează date despre utilizatori.
 
 ⚠️ Notă importantă
+Deocamdată doar SMS: suportul pentru MMS este planificat pentru o versiune viitoare. În prezent, SMSecure nu poate trimite, primi, afișa sau descărca mesaje MMS.
+
 Criptarea end-to-end funcționează numai atunci când ambele părți utilizează software compatibil. Mesajele SMS obișnuite rămân mesaje SMS obișnuite și sunt gestionate de rețeaua de telefonie mobilă.
 
 🧩 Gratuit și cu sursă deschisă

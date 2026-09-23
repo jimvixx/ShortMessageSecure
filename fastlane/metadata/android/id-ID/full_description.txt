@@ -24,6 +24,8 @@ Buat dan pulihkan cadangan pesan agar riwayat SMS Anda tetap berada di bawah ken
 Pesan diproses di perangkat Anda. SMSecure tidak memerlukan pendaftaran, tidak menampilkan iklan, dan tidak mengumpulkan data pengguna.
 
 ⚠️ Catatan penting
+Untuk saat ini hanya SMS: dukungan MMS direncanakan untuk rilis mendatang. Saat ini, SMSecure tidak dapat mengirim, menerima, menampilkan, atau mengunduh pesan MMS.
+
 Enkripsi ujung-ke-ujung hanya berfungsi jika kedua belah pihak menggunakan perangkat lunak yang kompatibel. Pesan SMS biasa tetap merupakan SMS biasa dan ditangani oleh jaringan seluler.
 
 🧩 Gratis dan Sumber Terbuka

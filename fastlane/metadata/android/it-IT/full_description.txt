@@ -24,6 +24,8 @@ Crea e ripristina i backup dei messaggi in modo da mantenere il controllo sulla 
 I messaggi vengono elaborati sul tuo dispositivo. SMSecure non richiede registrazione, non utilizza pubblicità e non raccoglie dati degli utenti.
 
 ⚠️ Nota importante
+Per ora solo SMS: il supporto per gli MMS è previsto in una versione futura. Attualmente, SMSecure non può inviare, ricevere, visualizzare o scaricare messaggi MMS.
+
 La crittografia end-to-end funziona solo quando entrambe le parti utilizzano un software compatibile. I normali messaggi SMS rimangono tali e vengono gestiti dalla rete mobile.
 
 🧩 Gratuito e open source

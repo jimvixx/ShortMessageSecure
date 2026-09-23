@@ -24,6 +24,8 @@ Lag og gjenopprett sikkerhetskopier av meldinger, slik at du kan holde SMS-histo
 Meldingene behandles på enheten din. SMSecure krever ikke registrering, bruker ikke annonser og samler ikke inn brukerdata.
 
 ⚠️ Viktig merknad
+Foreløpig kun SMS: Støtte for MMS er planlagt i en fremtidig versjon. SMSecure kan for øyeblikket ikke sende, motta, vise eller laste ned MMS-meldinger.
+
 End-to-end-kryptering fungerer bare når begge parter bruker kompatibel programvare. Vanlige SMS-meldinger er fortsatt vanlige SMS-meldinger og håndteres av mobilnettet.
 
 🧩 Gratis og åpen kildekode

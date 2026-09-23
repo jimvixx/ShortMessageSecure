@@ -24,6 +24,8 @@ Vytvářejte a obnovujte zálohy zpráv, abyste měli historii SMS pod kontrolou
 Zprávy jsou zpracovávány na vašem zařízení. SMSecure nevyžaduje registraci, nepoužívá reklamy a neshromažďuje uživatelská data.
 
 ⚠️ Důležitá poznámka
+Zatím pouze SMS: podpora MMS je plánována do některé z budoucích verzí. V současnosti SMSecure nemůže odesílat, přijímat, zobrazovat ani stahovat zprávy MMS.
+
 Šifrování typu end-to-end funguje pouze tehdy, když obě strany používají kompatibilní software. Běžné SMS zprávy zůstávají běžnými SMS a jsou zpracovávány mobilní sítí.
 
 🧩 Bezplatný a otevřený zdrojový kód

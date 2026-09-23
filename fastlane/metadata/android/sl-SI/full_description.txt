@@ -24,6 +24,8 @@ Ustvarjajte in obnovite varnostne kopije sporočil, da boste imeli zgodovino SMS
 Sporočila se obdelujejo na vaši napravi. SMSecure ne zahteva registracije, ne uporablja oglasov in ne zbira podatkov o uporabnikih.
 
 ⚠️ Pomembno opozorilo
+Za zdaj samo SMS: podpora za MMS je načrtovana za prihodnjo različico. Trenutno SMSecure ne more pošiljati, prejemati, prikazovati ali prenašati sporočil MMS.
+
 Šifriranje od konca do konca deluje le, če obe strani uporabljata združljivo programsko opremo. Običajna SMS-sporočila ostajajo običajna SMS-sporočila in jih obdeluje mobilno omrežje.
 
 🧩 Brezplačna in odprtokodna programska oprema

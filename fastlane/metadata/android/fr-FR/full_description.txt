@@ -24,6 +24,8 @@ Créez et restaurez des sauvegardes de messages afin de garder le contrôle de v
 Les messages sont traités sur votre appareil. SMSecure ne nécessite aucune inscription, n’affiche pas de publicités et ne collecte pas de données utilisateur.
 
 ⚠️ Remarque importante
+Uniquement les SMS pour le moment : la prise en charge des MMS est prévue dans une future version. Actuellement, SMSecure ne peut ni envoyer, ni recevoir, ni afficher, ni télécharger de MMS.
+
 Le chiffrement de bout en bout ne fonctionne que lorsque les deux interlocuteurs utilisent un logiciel compatible. Les SMS classiques restent des SMS classiques et sont gérés par le réseau mobile.
 
 🧩 Gratuit et open source

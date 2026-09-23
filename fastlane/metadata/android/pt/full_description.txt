@@ -24,6 +24,8 @@ Crie e restaure cópias de segurança das mensagens para que possa manter o seu 
 As mensagens são processadas no seu dispositivo. O SMSecure não requer registo, não utiliza anúncios e não recolhe dados do utilizador.
 
 ⚠️ Nota importante
+Por enquanto, apenas SMS: o suporte a MMS está previsto para uma versão futura. Atualmente, o SMSecure não pode enviar, receber, apresentar ou descarregar mensagens MMS.
+
 A encriptação de ponta a ponta só funciona quando ambas as partes utilizam software compatível. As mensagens SMS normais continuam a ser SMS normais e são tratadas pela rede móvel.
 
 🧩 Gratuito e de código aberto

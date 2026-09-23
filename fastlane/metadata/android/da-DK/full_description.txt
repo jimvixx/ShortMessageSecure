@@ -24,6 +24,8 @@ Opret og gendan sikkerhedskopier af beskeder, så du kan holde styr på din SMS-
 Beskeder behandles på din enhed. SMSecure kræver ingen registrering, bruger ingen reklamer og indsamler ingen brugerdata.
 
 ⚠️ Vigtig bemærkning
+Indtil videre kun SMS: Understøttelse af MMS er planlagt til en fremtidig version. SMSecure kan i øjeblikket ikke sende, modtage, vise eller downloade MMS-beskeder.
+
 End-to-end-kryptering fungerer kun, når begge parter bruger kompatibel software. Almindelige SMS-beskeder er stadig almindelige SMS'er og håndteres af mobilnetværket.
 
 🧩 Gratis og open source

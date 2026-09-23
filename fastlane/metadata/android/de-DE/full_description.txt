@@ -24,6 +24,8 @@ Erstelle und stelle Backups deiner Nachrichten wieder her, damit du die Kontroll
 Nachrichten werden auf Ihrem Gerät verarbeitet. SMSecure erfordert keine Registrierung, verwendet keine Werbung und sammelt keine Nutzerdaten.
 
 ⚠️ Wichtiger Hinweis
+Vorerst nur SMS: MMS-Unterstützung ist für eine zukünftige Version geplant. Derzeit kann SMSecure keine MMS-Nachrichten senden, empfangen, anzeigen oder herunterladen.
+
 Die End-to-End-Verschlüsselung funktioniert nur, wenn beide Seiten kompatible Software verwenden. Normale SMS-Nachrichten sind weiterhin normale SMS und werden vom Mobilfunknetz verarbeitet.
 
 🧩 Kostenlos und Open Source

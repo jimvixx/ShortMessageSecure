@@ -24,6 +24,8 @@ Crie e restaure backups de mensagens para manter seu histórico de SMS sob seu c
 As mensagens são processadas no seu dispositivo. O SMSecure não exige cadastro, não exibe anúncios e não coleta dados do usuário.
 
 ⚠️ Observação importante
+Por enquanto, apenas SMS: o suporte a MMS está planejado para uma versão futura. Atualmente, o SMSecure não pode enviar, receber, exibir ou baixar mensagens MMS.
+
 A criptografia de ponta a ponta funciona apenas quando ambos os lados utilizam software compatível. As mensagens SMS comuns continuam sendo SMS comuns e são tratadas pela rede móvel.
 
 🧩 Gratuito e de código aberto

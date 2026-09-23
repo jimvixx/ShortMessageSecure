@@ -24,6 +24,8 @@ Izveidojiet un atjaunojiet ziņojumu dublējumus, lai jūs varētu kontrolēt sa
 Ziņojumi tiek apstrādāti jūsu ierīcē. „SMSecure“ neprasa reģistrāciju, neizmanto reklāmas un neievāc lietotāju datus.
 
 ⚠️ Svarīga piezīme
+Pagaidām tikai SMS: MMS atbalstu plānots pievienot kādā no turpmākajām versijām. Pašlaik SMSecure nevar nosūtīt, saņemt, attēlot vai lejupielādēt MMS ziņas.
+
 No gala līdz galam šifrēšana darbojas tikai tad, ja abas puses izmanto savietojamu programmatūru. Parastās SMS ziņas joprojām ir parastās SMS ziņas, un tās apstrādā mobilo sakaru tīkls.
 
 🧩 Bezmaksas un atvērtā koda programmatūra

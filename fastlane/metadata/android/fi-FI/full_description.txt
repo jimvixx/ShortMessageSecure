@@ -24,6 +24,8 @@ Luo ja palauta viestien varmuuskopioita, jotta voit pitää SMS-historiasi halli
 Viestit käsitellään laitteellasi. SMSecure ei vaadi rekisteröitymistä, ei käytä mainoksia eikä kerää käyttäjätietoja.
 
 ⚠️ Tärkeä huomautus
+Toistaiseksi vain SMS-viestit: MMS-tuki on suunnitteilla tulevaan versioon. Tällä hetkellä SMSecure ei voi lähettää, vastaanottaa, näyttää tai ladata MMS-viestejä.
+
 Päästä päähän -salaus toimii vain, kun molemmat osapuolet käyttävät yhteensopivaa ohjelmistoa. Tavalliset tekstiviestit ovat edelleen tavallisia tekstiviestejä, ja niitä käsittelee matkapuhelinverkko.
 
 🧩 Ilmainen ja avoimen lähdekoodin ohjelmisto

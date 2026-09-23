@@ -24,6 +24,8 @@ Twórz i przywracaj kopie zapasowe wiadomości, aby zachować kontrolę nad hist
 Wiadomości są przetwarzane na Twoim urządzeniu. SMSecure nie wymaga rejestracji, nie wyświetla reklam i nie gromadzi danych użytkowników.
 
 ⚠️ Ważna uwaga
+Na razie tylko SMS: obsługa MMS jest planowana w przyszłej wersji. Obecnie SMSecure nie może wysyłać, odbierać, wyświetlać ani pobierać wiadomości MMS.
+
 Szyfrowanie typu „end-to-end” działa tylko wtedy, gdy obie strony korzystają z kompatybilnego oprogramowania. Zwykłe wiadomości SMS pozostają zwykłymi wiadomościami SMS i są obsługiwane przez sieć komórkową.
 
 🧩 Bezpłatne i otwarte oprogramowanie

@@ -24,6 +24,8 @@ Create and restore message backups so you can keep your SMS history under your c
 Messages are processed on your device. SMSecure does not require registration, does not use ads, and does not collect user data.
 
 ⚠️ Important note
+SMS only for now: MMS support is planned for a future release. Currently, SMSecure cannot send, receive, display, or download MMS messages.
+
 End-to-end encryption works only when both sides use compatible software. Regular SMS messages are still regular SMS and are handled by the mobile network.
 
 🧩 Free and Open Source

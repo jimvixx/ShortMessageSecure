@@ -24,6 +24,8 @@ Crea y restaura copias de seguridad de los mensajes para que puedas mantener tu 
 Los mensajes se procesan en tu dispositivo. SMSecure no requiere registro, no utiliza anuncios y no recopila datos de los usuarios.
 
 ⚠️ Nota importante
+Por ahora, solo SMS: la compatibilidad con MMS está prevista para una futura versión. Actualmente, SMSecure no puede enviar, recibir, mostrar ni descargar mensajes MMS.
+
 El cifrado de extremo a extremo solo funciona cuando ambas partes utilizan software compatible. Los mensajes SMS normales siguen siendo SMS normales y son gestionados por la red móvil.
 
 🧩 Gratuito y de código abierto

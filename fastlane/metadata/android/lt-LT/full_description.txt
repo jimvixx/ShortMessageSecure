@@ -24,6 +24,8 @@ Sukurkite ir atkurkite žinučių atsargines kopijas, kad galėtumėte kontroliu
 Žinutės apdorojamos jūsų įrenginyje. „SMSecure“ nereikalauja registracijos, nenaudoja reklamų ir nerenka vartotojų duomenų.
 
 ⚠️ Svarbi pastaba
+Kol kas tik SMS: MMS palaikymą planuojama įtraukti į būsimą versiją. Šiuo metu „SMSecure“ negali siųsti, gauti, rodyti ar atsisiųsti MMS žinučių.
+
 „End-to-end“ šifravimas veikia tik tada, kai abi pusės naudoja suderinamą programinę įrangą. Įprastos SMS žinutės tebėra įprastos SMS ir jas tvarko mobiliojo ryšio tinklas.
 
 🧩 Nemokama ir atviro kodo programinė įranga
