@@ -134,7 +134,15 @@ public class BitmapUtil {
     Util.runOnMain(runnable);
 
     synchronized (result) {
-      while (!created.get()) Util.wait(result, 0);
+      while (!created.get()) {
+        try {
+          result.wait();
+        } catch (InterruptedException e) {
+          // The icon is optional; cancellation must not crash the notification worker.
+          Thread.currentThread().interrupt();
+          return null;
+        }
+      }
       return result[0];
     }
   }
