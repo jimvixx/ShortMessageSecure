@@ -522,7 +522,8 @@
 <string name="preferences__change_notification_sound">تغيير صوت الإشعار</string>
 <string name="preferences__change_passphrase">تغيير عبارة المرور</string>
 <string name="preferences__change_your_passphrase">قم بتغيير عبارة المرور الخاصة بك</string>
-<string name="preferences__chats">الدردشات والوسائط</string>
+<string name="preferences__chat_display">عرض الدردشة</string>
+<string name="preferences__chats">الدردشات</string>
 <string name="preferences__complete_key_exchanges">إتمام تبادل المفاتيح</string>
 <string name="preferences__conversation_length_limit">حد طول المحادثة</string>
 <string name="preferences__dark_theme">داكن</string>
@@ -544,6 +545,8 @@
 <string name="preferences__five_times">خمس مرات</string>
 <string name="preferences__forget_passphrase_from_memory_after_some_interval">اطلب كلمة المرور للوصول إلى الرسائل بعد فترة زمنية محددة</string>
 <string name="preferences__hide_divider_between_read_and_unread_messages">إخفاء الفاصل بين الرسائل المقروءة وغير المقروءة</string>
+<string name="preferences__hide_phone_number_in_chat_header">إخفاء رقم الهاتف في رأس الدردشة</string>
+<string name="preferences__hide_phone_number_in_chat_header_summary">عرض اسم جهة الاتصال فقط عند توفر جهة اتصال محفوظة</string>
 <string name="preferences__hide_unread_message_divider">إخفاء فاصل الرسائل غير المقروءة</string>
 <string name="preferences__hours">ساعات</string>
 <string name="preferences__in_conversation_notifications">إشعارات داخل المحادثة</string>

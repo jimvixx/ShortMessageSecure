@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
+        android:key="chat_display"
+        android:title="@string/preferences__chat_display">
+
+        <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/ic_account_details"
+            android:key="pref_hide_phone_number_in_chat_header"
+            android:summary="@string/preferences__hide_phone_number_in_chat_header_summary"
+            android:title="@string/preferences__hide_phone_number_in_chat_header" />
+
+    </org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory>
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
         android:key="message_trimming"
         android:title="@string/preferences__message_trimming">
 

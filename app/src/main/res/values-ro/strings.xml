@@ -486,7 +486,8 @@
   <string name="preferences__change_notification_sound">Modificare sunet notificare</string>
   <string name="preferences__change_passphrase">Schimbă parola</string>
   <string name="preferences__change_your_passphrase">Schimbați-vă parola</string>
-  <string name="preferences__chats">Chat-uri și fișiere media</string>
+  <string name="preferences__chat_display">Afișare chat</string>
+  <string name="preferences__chats">Chat-uri</string>
   <string name="preferences__complete_key_exchanges">Finalizarea schimburilor de chei</string>
   <string name="preferences__conversation_length_limit">Limita de lungime a conversației</string>
   <string name="preferences__dark_theme">Întunecat</string>
@@ -508,6 +509,8 @@
   <string name="preferences__five_times">De cinci ori</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">Solicită parola pentru a accesa mesajele după un anumit timp</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">Ascunde separatorul dintre mesajele citite și cele necitite</string>
+  <string name="preferences__hide_phone_number_in_chat_header">Ascunde numărul de telefon din antetul chatului</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">Afișează doar numele contactului atunci când este disponibil un contact salvat</string>
   <string name="preferences__hide_unread_message_divider">Ascunde separatorul mesajelor necitite</string>
   <string name="preferences__hours">ore</string>
   <string name="preferences__in_conversation_notifications">Notificări în cadrul conversației</string>

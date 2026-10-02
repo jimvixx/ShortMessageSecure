@@ -474,7 +474,8 @@
     <string name="preferences__change_notification_sound">Промяна на звука за известия</string>
     <string name="preferences__change_passphrase">Промяна на паролата</string>
     <string name="preferences__change_your_passphrase">Променете паролата си</string>
-    <string name="preferences__chats">Чат и медии</string>
+    <string name="preferences__chat_display">Показване на чата</string>
+    <string name="preferences__chats">Чатове</string>
     <string name="preferences__complete_key_exchanges">Завършете обмена на ключове</string>
     <string name="preferences__conversation_length_limit">Ограничение за дължината на разговора</string>
     <string name="preferences__dark_theme">Тъмно</string>
@@ -496,6 +497,8 @@
     <string name="preferences__five_times">Пет пъти</string>
     <string name="preferences__forget_passphrase_from_memory_after_some_interval">Изискване на паролата за достъп до съобщенията след определено време</string>
     <string name="preferences__hide_divider_between_read_and_unread_messages">Скриване на разделителя между прочетени и непрочетени съобщения</string>
+    <string name="preferences__hide_phone_number_in_chat_header">Скриване на телефонния номер в заглавната част на чата</string>
+    <string name="preferences__hide_phone_number_in_chat_header_summary">Показване само на името на контакта, когато има запазен контакт</string>
     <string name="preferences__hide_unread_message_divider">Скриване на разделителя за непрочетени съобщения</string>
     <string name="preferences__hours">часа</string>
     <string name="preferences__in_conversation_notifications">Известия в разговор</string>

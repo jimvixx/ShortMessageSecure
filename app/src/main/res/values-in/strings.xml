@@ -462,7 +462,8 @@
 <string name="preferences__change_notification_sound">Ubah suara notifikasi</string>
 <string name="preferences__change_passphrase">Ubah frasa sandi</string>
 <string name="preferences__change_your_passphrase">Ubah frasa sandi Anda</string>
-<string name="preferences__chats">Obrolan dan media</string>
+<string name="preferences__chat_display">Tampilan obrolan</string>
+<string name="preferences__chats">Obrolan</string>
 <string name="preferences__complete_key_exchanges">Selesaikan pertukaran kunci</string>
 <string name="preferences__conversation_length_limit">Batas panjang percakapan</string>
 <string name="preferences__dark_theme">Gelap</string>
@@ -484,6 +485,8 @@
 <string name="preferences__five_times">Lima kali</string>
 <string name="preferences__forget_passphrase_from_memory_after_some_interval">Mewajibkan frasa sandi untuk mengakses pesan setelah waktu tertentu</string>
 <string name="preferences__hide_divider_between_read_and_unread_messages">Sembunyikan pembatas antara pesan yang sudah dibaca dan yang belum dibaca</string>
+<string name="preferences__hide_phone_number_in_chat_header">Sembunyikan nomor telepon di header obrolan</string>
+<string name="preferences__hide_phone_number_in_chat_header_summary">Tampilkan hanya nama kontak jika ada kontak yang tersimpan</string>
 <string name="preferences__hide_unread_message_divider">Sembunyikan pembatas pesan yang belum dibaca</string>
 <string name="preferences__hours">jam</string>
 <string name="preferences__in_conversation_notifications">Pemberitahuan dalam percakapan</string>

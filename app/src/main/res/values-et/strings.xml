@@ -474,7 +474,8 @@
 <string name="preferences__change_notification_sound">Muuda teavituse heli</string>
 <string name="preferences__change_passphrase">Muuda salasõna</string>
 <string name="preferences__change_your_passphrase">Muuda oma salasõna</string>
-<string name="preferences__chats">Vestlused ja meedia</string>
+<string name="preferences__chat_display">Vestluse kuvamine</string>
+<string name="preferences__chats">Vestlused</string>
 <string name="preferences__complete_key_exchanges">Võtmevahetuse lõpetamine</string>
 <string name="preferences__conversation_length_limit">Vestluse pikkuse piirang</string>
 <string name="preferences__dark_theme">Tume</string>
@@ -496,6 +497,8 @@
 <string name="preferences__five_times">Viis korda</string>
 <string name="preferences__forget_passphrase_from_memory_after_some_interval">Nõua salasõna sõnumitele juurdepääsuks pärast kindlat aega</string>
 <string name="preferences__hide_divider_between_read_and_unread_messages">Peida eraldaja loetud ja loetamata sõnumite vahel</string>
+<string name="preferences__hide_phone_number_in_chat_header">Peida telefoninumber vestluse päises</string>
+<string name="preferences__hide_phone_number_in_chat_header_summary">Kui salvestatud kontakt on olemas, näita ainult kontakti nime</string>
 <string name="preferences__hide_unread_message_divider">Peida lugemata sõnumite eraldaja</string>
 <string name="preferences__hours">tunnid</string>
 <string name="preferences__in_conversation_notifications">Vestluse teated</string>

@@ -462,7 +462,8 @@
   <string name="preferences__change_notification_sound">通知音を変更</string>
   <string name="preferences__change_passphrase">パスフレーズの変更</string>
   <string name="preferences__change_your_passphrase">パスフレーズを変更してください</string>
-  <string name="preferences__chats">チャットとメディア</string>
+  <string name="preferences__chat_display">チャットの表示</string>
+  <string name="preferences__chats">チャット</string>
   <string name="preferences__complete_key_exchanges">鍵交換を完了する</string>
   <string name="preferences__conversation_length_limit">会話の長さの制限</string>
   <string name="preferences__dark_theme">ダーク</string>
@@ -484,6 +485,8 @@
   <string name="preferences__five_times">5回</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">指定された時間が経過すると、メッセージにアクセスするためにパスフレーズが必要になります</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">既読と未読のメッセージの間の区切り線を非表示にする</string>
+  <string name="preferences__hide_phone_number_in_chat_header">チャットヘッダーで電話番号を非表示にする</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">保存済みの連絡先がある場合は、連絡先の名前のみを表示する</string>
   <string name="preferences__hide_unread_message_divider">未読メッセージの区切り線を非表示にする</string>
   <string name="preferences__hours">hours</string>
   <string name="preferences__in_conversation_notifications">会話中の通知</string>

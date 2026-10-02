@@ -486,7 +486,8 @@
     <string name="preferences__change_notification_sound">שינוי צליל ההתראה</string>
     <string name="preferences__change_passphrase">שינוי סיסמה</string>
     <string name="preferences__change_your_passphrase">שנה את סיסמתך</string>
-    <string name="preferences__chats">צ’אטים ומדיה</string>
+    <string name="preferences__chat_display">תצוגת צ’אט</string>
+    <string name="preferences__chats">צ’אטים</string>
     <string name="preferences__complete_key_exchanges">השלמת חילופי מפתחות</string>
     <string name="preferences__conversation_length_limit">מגבלת אורך השיחה</string>
     <string name="preferences__dark_theme">כהה</string>
@@ -508,6 +509,8 @@
     <string name="preferences__five_times">חמש פעמים</string>
     <string name="preferences__forget_passphrase_from_memory_after_some_interval">דרוש סיסמה כדי לגשת להודעות לאחר פרק זמן נתון</string>
     <string name="preferences__hide_divider_between_read_and_unread_messages">הסתר את המפריד בין הודעות שקראתי להודעות שלא קראתי</string>
+    <string name="preferences__hide_phone_number_in_chat_header">הסתר את מספר הטלפון בכותרת הצ’אט</string>
+    <string name="preferences__hide_phone_number_in_chat_header_summary">הצג רק את שם איש הקשר כאשר קיים איש קשר שמור</string>
     <string name="preferences__hide_unread_message_divider">הסתר מפריד הודעות שלא נקראו</string>
     <string name="preferences__hours">hours</string>
     <string name="preferences__in_conversation_notifications">התראות בתוך שיחה</string>

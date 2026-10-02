@@ -462,7 +462,8 @@
   <string name="preferences__change_notification_sound">알림 소리 변경</string>
   <string name="preferences__change_passphrase">암호 변경</string>
   <string name="preferences__change_your_passphrase">암호를 변경하세요</string>
-  <string name="preferences__chats">채팅 및 미디어</string>
+  <string name="preferences__chat_display">채팅 화면</string>
+  <string name="preferences__chats">채팅</string>
   <string name="preferences__complete_key_exchanges">키 교환 완료</string>
   <string name="preferences__conversation_length_limit">대화 길이 제한</string>
   <string name="preferences__dark_theme">다크</string>
@@ -484,6 +485,8 @@
   <string name="preferences__five_times">5회</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">지정된 시간이 지나면 메시지에 액세스하기 위해 암호를 입력해야 함</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">읽은 메시지와 읽지 않은 메시지 사이의 구분선을 숨깁니다</string>
+  <string name="preferences__hide_phone_number_in_chat_header">채팅 헤더에서 전화번호 숨기기</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">저장된 연락처가 있는 경우 연락처 이름만 표시</string>
   <string name="preferences__hide_unread_message_divider">읽지 않은 메시지 구분선 숨기기</string>
   <string name="preferences__hours">시간</string>
   <string name="preferences__in_conversation_notifications">대화 내 알림</string>

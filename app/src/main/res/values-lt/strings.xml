@@ -498,7 +498,8 @@
 <string name="preferences__change_notification_sound">Pakeisti pranešimo garsą</string>
 <string name="preferences__change_passphrase">Pakeisti slaptažodį</string>
 <string name="preferences__change_your_passphrase">Pakeiskite savo slaptažodį</string>
-<string name="preferences__chats">Pokalbiai ir medija</string>
+<string name="preferences__chat_display">Pokalbių rodymas</string>
+<string name="preferences__chats">Pokalbiai</string>
 <string name="preferences__complete_key_exchanges">Užbaigti raktų mainus</string>
 <string name="preferences__conversation_length_limit">Pokalbio ilgio riba</string>
 <string name="preferences__dark_theme">Tamsus</string>
@@ -520,6 +521,8 @@
 <string name="preferences__five_times">Penki kartai</string>
 <string name="preferences__forget_passphrase_from_memory_after_some_interval">Reikalauti slaptažodžio, norint pasiekti pranešimus po nurodyto laiko</string>
 <string name="preferences__hide_divider_between_read_and_unread_messages">Paslėpti skyriklį tarp perskaitytų ir neperskaitytų pranešimų</string>
+<string name="preferences__hide_phone_number_in_chat_header">Paslėpti telefono numerį pokalbio antraštėje</string>
+<string name="preferences__hide_phone_number_in_chat_header_summary">Rodyti tik kontakto vardą, kai yra išsaugotas kontaktas</string>
 <string name="preferences__hide_unread_message_divider">Paslėpti neskaitytų pranešimų skyriklį</string>
 <string name="preferences__hours">valandos</string>
 <string name="preferences__in_conversation_notifications">Pranešimai pokalbiuose</string>

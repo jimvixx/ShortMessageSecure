@@ -474,7 +474,8 @@
   <string name="preferences__change_notification_sound">Meldingsgeluid wijzigen</string>
   <string name="preferences__change_passphrase">Wachtwoord wijzigen</string>
   <string name="preferences__change_your_passphrase">Wijzig uw wachtwoordzin</string>
-  <string name="preferences__chats">Chats en media</string>
+  <string name="preferences__chat_display">Chatweergave</string>
+  <string name="preferences__chats">Chats</string>
   <string name="preferences__complete_key_exchanges">Voltooi sleuteluitwisselingen</string>
   <string name="preferences__conversation_length_limit">Maximale lengte van een gesprek</string>
   <string name="preferences__dark_theme">Donker</string>
@@ -496,6 +497,8 @@
   <string name="preferences__five_times">Vijf keer</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">Vraag de wachtzin om toegang te krijgen tot berichten na een bepaalde tijd</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">Verberg de scheidingslijn tussen gelezen en ongelezen berichten</string>
+  <string name="preferences__hide_phone_number_in_chat_header">Telefoonnummer verbergen in chatkoptekst</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">Toon alleen de contactnaam wanneer er een opgeslagen contactpersoon beschikbaar is</string>
   <string name="preferences__hide_unread_message_divider">Scheiding voor ongelezen berichten verbergen</string>
   <string name="preferences__hours">uren</string>
   <string name="preferences__in_conversation_notifications">Meldingen in gesprekken</string>

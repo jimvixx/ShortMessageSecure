@@ -498,7 +498,8 @@
   <string name="preferences__change_notification_sound">Změnit zvuk oznámení</string>
   <string name="preferences__change_passphrase">Změnit heslo</string>
   <string name="preferences__change_your_passphrase">Změňte své heslo</string>
-  <string name="preferences__chats">Chaty a média</string>
+  <string name="preferences__chat_display">Zobrazení chatu</string>
+  <string name="preferences__chats">Chaty</string>
   <string name="preferences__complete_key_exchanges">Dokončit výměnu klíčů</string>
   <string name="preferences__conversation_length_limit">Limit délky konverzace</string>
   <string name="preferences__dark_theme">Tmavý</string>
@@ -520,6 +521,8 @@
   <string name="preferences__five_times">Pětkrát</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">Po uplynutí dané doby vyžadovat heslo pro přístup ke zprávám</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">Skrýt oddělovač mezi přečtenými a nepřečtenými zprávami</string>
+  <string name="preferences__hide_phone_number_in_chat_header">Skrýt telefonní číslo v záhlaví chatu</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">Zobrazit pouze jméno kontaktu, pokud je k dispozici uložený kontakt</string>
   <string name="preferences__hide_unread_message_divider">Skrýt oddělovač nepřečtených zpráv</string>
   <string name="preferences__hours">hodiny</string>
   <string name="preferences__in_conversation_notifications">Oznámení v konverzaci</string>

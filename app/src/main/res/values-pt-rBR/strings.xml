@@ -486,7 +486,8 @@
   <string name="preferences__change_notification_sound">Alterar som de notificação</string>
   <string name="preferences__change_passphrase">Alterar senha</string>
   <string name="preferences__change_your_passphrase">Altere sua senha</string>
-  <string name="preferences__chats">Bate-papos e mídia</string>
+  <string name="preferences__chat_display">Exibição do chat</string>
+  <string name="preferences__chats">Bate-papos</string>
   <string name="preferences__complete_key_exchanges">Concluir trocas de chaves</string>
   <string name="preferences__conversation_length_limit">Limite de comprimento da conversa</string>
   <string name="preferences__dark_theme">Escuro</string>
@@ -508,6 +509,8 @@
   <string name="preferences__five_times">Cinco vezes</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">Exigir a senha para acessar mensagens após um determinado tempo</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">Ocultar o divisor entre mensagens lidas e não lidas</string>
+  <string name="preferences__hide_phone_number_in_chat_header">Ocultar número de telefone no cabeçalho do chat</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">Mostrar apenas o nome do contato quando houver um contato salvo disponível</string>
   <string name="preferences__hide_unread_message_divider">Ocultar divisor de mensagens não lidas</string>
   <string name="preferences__hours">horas</string>
   <string name="preferences__in_conversation_notifications">Notificações na conversa</string>

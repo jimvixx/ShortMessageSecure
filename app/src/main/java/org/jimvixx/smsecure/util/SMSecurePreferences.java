@@ -76,8 +76,12 @@ public class SMSecurePreferences {
   private static final String ICC_ID_FOR_APP_SUBSCRIPTION_ID_PREF = "icc_id_for_app_subscription_id";
   private static final String SUBSCRIPTIONS_PREF = "pref_subscriptions";
   private static final String SYSTEM_LOG_ENABLED_PREF = "pref_system_log_enabled";
+  private static final String HIDE_PHONE_NUMBER_IN_CHAT_HEADER_PREF = "pref_hide_phone_number_in_chat_header";
 
   private SMSecurePreferences() {
+  }
+  public static boolean hidePhoneNumberInChatHeader(Context context) {
+    return getBooleanPreference(context, HIDE_PHONE_NUMBER_IN_CHAT_HEADER_PREF, false);
   }
 
   public static boolean isIncognitoKeyboardEnabled(Context context) {

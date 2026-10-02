@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.Recipients;
+import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.ViewUtil;
 
 public class ConversationTitleView extends LinearLayout {
@@ -87,8 +88,14 @@ public class ConversationTitleView extends LinearLayout {
         this.subtitle.setVisibility(View.GONE);
       } else {
         this.title.setText(recipient.getName());
-        this.subtitle.setText(recipient.getNumber());
-        this.subtitle.setVisibility(View.VISIBLE);
+
+        if (SMSecurePreferences.hidePhoneNumberInChatHeader(getContext())) {
+          this.subtitle.setText(null);
+          this.subtitle.setVisibility(View.GONE);
+        } else {
+          this.subtitle.setText(recipient.getNumber());
+          this.subtitle.setVisibility(View.VISIBLE);
+        }
       }
     } else {
       String groupName = (!TextUtils.isEmpty(recipient.getName())) ?

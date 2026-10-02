@@ -474,7 +474,8 @@
   <string name="preferences__change_notification_sound">Skift notifikationslyd</string>
   <string name="preferences__change_passphrase">Skift adgangskode</string>
   <string name="preferences__change_your_passphrase">Skift din adgangskode</string>
-  <string name="preferences__chats">Chats og medier</string>
+  <string name="preferences__chat_display">Chatvisning</string>
+  <string name="preferences__chats">Chats</string>
   <string name="preferences__complete_key_exchanges">Gennemfør nøgleudvekslinger</string>
   <string name="preferences__conversation_length_limit">Begrænsning af samtalelængde</string>
   <string name="preferences__dark_theme">Mørkt</string>
@@ -496,6 +497,8 @@
   <string name="preferences__five_times">Fem gange</string>
   <string name="preferences__forget_passphrase_from_memory_after_some_interval">Kræv adgangskoden for at få adgang til beskeder efter et bestemt tidsrum</string>
   <string name="preferences__hide_divider_between_read_and_unread_messages">Skjul skillelinjen mellem læste og ulæste beskeder</string>
+  <string name="preferences__hide_phone_number_in_chat_header">Skjul telefonnummer i chat-overskriften</string>
+  <string name="preferences__hide_phone_number_in_chat_header_summary">Vis kun kontaktnavnet, når der findes en gemt kontakt</string>
   <string name="preferences__hide_unread_message_divider">Skjul skillemærke for ulæste beskeder</string>
   <string name="preferences__hours">timer</string>
   <string name="preferences__in_conversation_notifications">Meddelelser i samtaler</string>
