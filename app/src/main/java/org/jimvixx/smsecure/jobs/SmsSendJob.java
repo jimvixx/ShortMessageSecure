@@ -56,13 +56,17 @@ public class SmsSendJob extends SendJob {
 
   private static final String TAG = SmsSendJob.class.getSimpleName();
 
-  private final long messageId;
-  private final String sendAttemptId;
+  final long messageId;
+  final String sendAttemptId;
 
   public SmsSendJob(Context context, long messageId, String name) {
+    this(context, messageId, name, UUID.randomUUID().toString());
+  }
+
+  SmsSendJob(Context context, long messageId, String name, String sendAttemptId) {
     super(context, constructParameters(context, name));
     this.messageId = messageId;
-    this.sendAttemptId = UUID.randomUUID().toString();
+    this.sendAttemptId = sendAttemptId;
   }
 
   /**

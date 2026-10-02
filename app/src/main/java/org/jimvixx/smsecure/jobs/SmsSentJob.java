@@ -56,9 +56,9 @@ public class SmsSentJob extends MasterSecretJob {
    */
   private static final long MAX_DELIVERY_DELAY_MS = 7L * 24L * 60L * 60L * 1000L; // 7 days
 
-  private final long messageId;
-  private final String action;
-  private final int result;
+  final long messageId;
+  final String action;
+  final int result;
 
   public SmsSentJob(Context context, long messageId, String action, int result) {
     super(context, JobParameters.newBuilder()

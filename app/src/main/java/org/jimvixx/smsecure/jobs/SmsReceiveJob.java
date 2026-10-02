@@ -34,20 +34,22 @@ public class SmsReceiveJob extends ContextJob {
 
   private static final MultipartSmsMessageHandler multipartMessageHandler = new MultipartSmsMessageHandler();
 
-  private final Object[] pdus;
-  private final int subscriptionId;
+  final Object[] pdus;
+  final int subscriptionId;
 
   public SmsReceiveJob(Context context, Object[] pdus, int subscriptionId) {
+    this(context, pdus, subscriptionId, false);
+  }
+
+  SmsReceiveJob(Context context, Object[] pdus, int subscriptionId, boolean restored) {
     super(context, JobParameters.newBuilder()
             .withPersistence()
             .withWakeLock(true)
             .create());
 
-    Log.w(TAG, "subscriptionId: " + subscriptionId);
-    Log.w(TAG, "Found app subscription ID: " + DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId));
-
     this.pdus = pdus;
-    this.subscriptionId = DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId);
+    this.subscriptionId = restored ? subscriptionId
+            : DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId);
   }
 
   @Override

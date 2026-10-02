@@ -61,9 +61,9 @@ public class SmsDecryptJob extends MasterSecretJob {
 
   private static final String TAG = SmsDecryptJob.class.getSimpleName();
 
-  private final long messageId;
-  private final boolean manualOverride;
-  private final Boolean isReceivedWhenLocked;
+  final long messageId;
+  final boolean manualOverride;
+  final Boolean isReceivedWhenLocked;
 
   public SmsDecryptJob(Context context, long messageId, boolean manualOverride, boolean isReceivedWhenLocked) {
     super(context, JobParameters.newBuilder()

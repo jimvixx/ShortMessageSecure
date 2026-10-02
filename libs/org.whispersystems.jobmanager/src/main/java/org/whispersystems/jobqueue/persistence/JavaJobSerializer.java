@@ -54,7 +54,11 @@ public class JavaJobSerializer implements JobSerializer {
       ByteArrayInputStream bais = new ByteArrayInputStream(Base64.decode(serialized, Base64.NO_WRAP));
       ObjectInputStream    ois  = new ObjectInputStream(bais);
 
-      return (Job)ois.readObject();
+      Object value = ois.readObject();
+      if (!(value instanceof Job)) throw new IOException("Invalid legacy job type");
+      return (Job)value;
+    } catch (IllegalArgumentException e) {
+      throw new IOException("Invalid legacy job encoding", e);
     } catch (ClassNotFoundException e) {
       StringWriter sw = new StringWriter();
       PrintWriter  pw = new PrintWriter(sw);

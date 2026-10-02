@@ -120,7 +120,7 @@ public final class ApplicationContext extends Application implements DependencyI
     jobManager = JobManager.newBuilder(this)
             .withName("SMSecureJobs")
             .withDependencyInjector(this)
-            .withJobSerializer(new EncryptingJobSerializer())
+            .withJobSerializer(new EncryptingJobSerializer(this))
             .withRequirementProviders(
                     new MasterSecretRequirementProvider(this),
                     new ServiceRequirementProvider(this),

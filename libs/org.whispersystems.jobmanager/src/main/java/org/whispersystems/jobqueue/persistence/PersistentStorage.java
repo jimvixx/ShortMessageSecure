@@ -34,25 +34,33 @@ import java.util.List;
 
 public class PersistentStorage {
 
-  private static final int DATABASE_VERSION = 1;
+  private static final int DATABASE_VERSION = 2;
 
   private static final String TABLE_NAME = "queue";
   private static final String ID = "_id";
   private static final String ITEM = "item";
   private static final String ENCRYPTED = "encrypted";
+  private static final String QUARANTINE = "queue_unreadable";
+  private static final String CREATE_QUARANTINE =
+          "CREATE TABLE IF NOT EXISTS queue_unreadable (_id INTEGER PRIMARY KEY, item TEXT NOT NULL, encrypted INTEGER DEFAULT 0);";
 
   private static final String DATABASE_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT NOT NULL, %s INTEGER DEFAULT 0);",
           TABLE_NAME, ID, ITEM, ENCRYPTED);
 
   private final Context context;
-  private final DatabaseHelper databaseHelper;
+  private final SQLiteOpenHelper databaseHelper;
   private final JobSerializer jobSerializer;
   private final AggregateDependencyInjector dependencyInjector;
 
   public PersistentStorage(Context context, String name,
                            JobSerializer serializer,
                            AggregateDependencyInjector dependencyInjector) {
-    this.databaseHelper = new DatabaseHelper(context, "_jobqueue-" + name);
+    this(context, new DatabaseHelper(context, "_jobqueue-" + name), serializer, dependencyInjector);
+  }
+
+  PersistentStorage(Context context, SQLiteOpenHelper databaseHelper,
+                    JobSerializer serializer, AggregateDependencyInjector dependencyInjector) {
+    this.databaseHelper = databaseHelper;
     this.context = context;
     this.jobSerializer = serializer;
     this.dependencyInjector = dependencyInjector;
@@ -63,7 +71,7 @@ public class PersistentStorage {
     contentValues.put(ITEM, jobSerializer.serialize(job));
     contentValues.put(ENCRYPTED, job.getEncryptionKeys() != null);
 
-    long id = databaseHelper.getWritableDatabase().insert(TABLE_NAME, null, contentValues);
+    long id = databaseHelper.getWritableDatabase().insertOrThrow(TABLE_NAME, null, contentValues);
     job.setPersistentId(id);
   }
 
@@ -77,7 +85,7 @@ public class PersistentStorage {
 
   private List<Job> getJobs(EncryptionKeys keys, String where) {
     List<Job> results = new LinkedList<>();
-    SQLiteDatabase database = databaseHelper.getReadableDatabase();
+    SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
     try (Cursor cursor = database.query(TABLE_NAME, null, where, null, null, null, ID + " ASC", null)) {
 
@@ -93,15 +101,35 @@ public class PersistentStorage {
           job.setEncryptionKeys(keys);
           dependencyInjector.injectDependencies(context, job);
 
+          // Rewrite readable legacy data in the current format before handing it to workers.
+          ContentValues migrated = new ContentValues();
+          migrated.put(ITEM, jobSerializer.serialize(job));
+          database.update(TABLE_NAME, migrated, ID + " = ?", new String[]{String.valueOf(id)});
           results.add(job);
         } catch (IOException e) {
-          Log.w("PersistentStore", e);
-          remove(id);
+          // Keep the original payload (including encryption) for recovery, without retry loops.
+          quarantine(database, id, item, encrypted);
+          Log.w("PersistentStore", "Unreadable job quarantined: " + id + " (" + e.getClass().getSimpleName() + ")");
         }
       }
     }
 
     return results;
+  }
+
+  private void quarantine(SQLiteDatabase database, long id, String item, boolean encrypted) {
+    database.beginTransaction();
+    try {
+      ContentValues values = new ContentValues();
+      // Use a fresh quarantine ID: SQLite may reuse IDs after the live queue becomes empty.
+      values.put(ITEM, item);
+      values.put(ENCRYPTED, encrypted);
+      database.insertOrThrow(QUARANTINE, null, values);
+      database.delete(TABLE_NAME, ID + " = ?", new String[]{String.valueOf(id)});
+      database.setTransactionSuccessful();
+    } finally {
+      database.endTransaction();
+    }
   }
 
   public void remove(long id) {
@@ -118,11 +146,12 @@ public class PersistentStorage {
     @Override
     public void onCreate(SQLiteDatabase db) {
       db.execSQL(DATABASE_CREATE);
+      db.execSQL(CREATE_QUARANTINE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+      if (oldVersion < 2) db.execSQL(CREATE_QUARANTINE);
     }
   }
 }
