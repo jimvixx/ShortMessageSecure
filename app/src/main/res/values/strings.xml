@@ -310,8 +310,6 @@
     <string name="DateUtils_now">Now</string>
     <string name="DateUtils_today">Today</string>
     <string name="DateUtils_yesterday">Yesterday</string>
-    <!--Distribution-->
-    <string name="Distribution_long_description">SMSecure is an SMS application that allows you to protect your privacy while communicating with friends.\nUsing SMSecure, you can send SMS messages and share media or attachments with complete privacy.\n\nFeatures:\n* Easy. SMSecure works like any other SMS application. There’s nothing to sign up for and no new service your friends need to join.\n* Reliable. SMSecure communicates using encrypted SMS messages. No servers or internet connection required.\n* Private. SMSecure provides end-to-end encryption for your messages using the painstakingly engineered Signal encryption protocol.\n* Safe. All messages are encrypted locally, so if your phone is lost or stolen, your messages are protected.\n* Open Source. SMSecure is Free and Open Source, enabling anyone to verify its security by auditing the code.\n\nPlease file any bugs, issues, or feature requests at: <xliff:g id="arg1">%1$s</xliff:g>\n\nThe source code can be found at: <xliff:g id="arg2">%2$s</xliff:g>\n\nMore details: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivacy policy: <xliff:g id="arg4">%4$s</xliff:g></string>
     <!--DualSimUtil-->
     <string name="DualSimUtil__a_new_key_has_been_generated">A new key has been generated.</string>
     <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">A new key has been generated for that SIM card.</string>

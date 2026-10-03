@@ -271,8 +271,6 @@
   <string name="DateUtils_now">Şimdi</string>
   <string name="DateUtils_today">Bugün</string>
   <string name="DateUtils_yesterday">Dün</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure, arkadaşlarınızla iletişim kurarken gizliliğinizi korumanızı sağlayan bir SMS uygulamasıdır.\nSMSecure’u kullanarak, SMS mesajları gönderebilir ve medya veya ekleri tam gizlilik içinde paylaşabilirsiniz.\n\nÖzellikler:\n* Kolay. SMSecure, diğer SMS uygulamaları gibi çalışır. Kaydolmanız gereken bir şey yoktur ve arkadaşlarınızın katılmaları gereken yeni bir hizmet yoktur.\n* Güvenilir. SMSecure, şifrelenmiş SMS mesajları kullanarak iletişim kurar. Sunucu veya internet bağlantısı gerekmez.\n* Gizli. SMSecure, özenle tasarlanmış Signal şifreleme protokolünü kullanarak mesajlarınız için uçtan uca şifreleme sağlar.\n* Güvenli. Tüm mesajlar yerel olarak şifrelenir, bu sayede telefonunuz kaybolur veya çalınırsa mesajlarınız korunur.\n* Açık Kaynak. SMSecure ücretsiz ve açık kaynaklıdır; bu sayede herkes kodu inceleyerek güvenliğini doğrulayabilir.\n\nLütfen tüm hataları, sorunları veya özellik taleplerini şu adrese bildirin: <xliff:g id="arg1">%1$s</xliff:g>\n\nKaynak kodu şu adreste bulunabilir: <xliff:g id="arg2">%2$s</xliff:g>\n\nDaha fazla ayrıntı: <xliff:g id="arg3">%3$s</xliff:g>\n\nGizlilik politikası: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Yeni bir anahtar oluşturuldu.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Bu SIM kart için yeni bir anahtar oluşturuldu.</string>

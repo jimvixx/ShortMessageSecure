@@ -271,8 +271,6 @@
 <string name="DateUtils_now">Nüüd</string>
 <string name="DateUtils_today">Täna</string>
 <string name="DateUtils_yesterday">Eile</string>
-<!--Distribution-->
-<string name="Distribution_long_description">SMSecure on SMS-rakendus, mis võimaldab sul kaitsta oma privaatsust sõpradega suheldes.\nSMSecure’i abil saad saata SMS-sõnumeid ning jagada meediat või manuseid täieliku privaatsusega.\n\nFunktsioonid:\n* Lihtne. SMSecure töötab nagu iga teine SMS-rakendus. Pole vaja kuhugi registreeruda ega sõpradel uue teenusega liituda.\n* Usaldusväärne. SMSecure suhtleb krüpteeritud SMS-sõnumite abil. Ei vaja servereid ega internetiühendust.\n* Privaatne. SMSecure pakub teie sõnumitele otspunktidevahelist krüpteerimist, kasutades hoolikalt välja töötatud Signal-krüpteerimisprotokolli.\n* Turvaline. Kõik sõnumid krüpteeritakse lokaalselt, nii et kui teie telefon kaob või varastatakse, on teie sõnumid kaitstud.\n* Avatud lähtekood. SMSecure on tasuta ja avatud lähtekoodiga, võimaldades kõigil kontrollida selle turvalisust koodi auditeerimise teel.\n\nPalun teatage kõikidest veadest, probleemidest või funktsioonisoovidest aadressil: <xliff:g id="arg1">%1$s</xliff:g>\n\nLähtekoodi leiate aadressilt: <xliff:g id="arg2">%2$s</xliff:g>\n\nRohkem üksikasju: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivaatsuspoliitika: <xliff:g id="arg4">%4$s</xliff:g></string>
 <!--DualSimUtil-->
 <string name="DualSimUtil__a_new_key_has_been_generated">Uus võti on loodud.</string>
 <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Selle SIM-kaardi jaoks on loodud uus võti.</string>

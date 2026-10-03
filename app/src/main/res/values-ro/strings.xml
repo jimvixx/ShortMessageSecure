@@ -280,8 +280,6 @@
   <string name="DateUtils_now">Acum</string>
   <string name="DateUtils_today">Astăzi</string>
   <string name="DateUtils_yesterday">Ieri</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure este o aplicație SMS care vă permite să vă protejați confidențialitatea în timp ce comunicați cu prietenii.\nFolosind SMSecure, puteți trimite mesaje SMS și partaja fișiere media sau atașamente cu confidențialitate deplină.\n\nCaracteristici:\n* Simplu. SMSecure funcționează ca orice altă aplicație SMS. Nu este nevoie să vă înregistrați și prietenii dvs. nu trebuie să se alăture niciunui serviciu nou.\n* Fiabil. SMSecure comunică folosind mesaje SMS criptate. Nu sunt necesare servere sau conexiune la internet.\n* Confidențial. SMSecure oferă criptare end-to-end pentru mesajele dvs. folosind protocolul de criptare Signal, proiectat cu mare atenție la detalii.\n* Sigur. Toate mesajele sunt criptate local, astfel încât, dacă telefonul dvs. este pierdut sau furat, mesajele dvs. sunt protejate.\n* Open Source. SMSecure este gratuit și open source, permițând oricui să îi verifice securitatea prin auditarea codului.\n\nVă rugăm să raportați orice erori, probleme sau solicitări de funcționalități la: <xliff:g id="arg1">%1$s</xliff:g>\n\nCodul sursă poate fi găsit la: <xliff:g id="arg2">%2$s</xliff:g>\n\nMai multe detalii: <xliff:g id="arg3">%3$s</xliff:g>\n\nPolitica de confidențialitate: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">A fost generată o nouă cheie.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">A fost generată o nouă cheie pentru acea cartelă SIM.</string>

@@ -280,8 +280,6 @@
   <string name="DateUtils_now">Ahora</string>
   <string name="DateUtils_today">Hoy</string>
   <string name="DateUtils_yesterday">Ayer</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure es una aplicación de SMS que te permite proteger tu privacidad mientras te comunicas con tus amigos.\nCon SMSecure, puedes enviar mensajes SMS y compartir archivos multimedia o adjuntos con total privacidad.\n\nCaracterísticas:\n* Fácil. SMSecure funciona como cualquier otra aplicación de SMS. No hay que registrarse ni tus amigos necesitan unirse a ningún servicio nuevo.\n* Fiable. SMSecure se comunica mediante mensajes SMS cifrados. No se requieren servidores ni conexión a Internet.\n* Privado. SMSecure proporciona cifrado de extremo a extremo para tus mensajes utilizando el protocolo de cifrado Signal, diseñado minuciosamente.\n* Seguro. Todos los mensajes se cifran localmente, por lo que si pierdes o te roban el teléfono, tus mensajes están protegidos.\n* Código abierto. SMSecure es gratuito y de código abierto, lo que permite a cualquiera verificar su seguridad auditando el código.\n\nPor favor, informa de cualquier error, problema o solicitud de funciones en: <xliff:g id="arg1">%1$s</xliff:g>\n\nEl código fuente se puede encontrar en: <xliff:g id="arg2">%2$s</xliff:g>\n\nMás detalles: <xliff:g id="arg3">%3$s</xliff:g>\n\nPolítica de privacidad: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Se ha generado una nueva clave.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Se ha generado una nueva clave para esa tarjeta SIM.</string>

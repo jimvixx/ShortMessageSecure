@@ -280,8 +280,6 @@
 <string name="DateUtils_now">Tagad</string>
 <string name="DateUtils_today">Šodien</string>
 <string name="DateUtils_yesterday">Vakar</string>
-<!--Distribution-->
-<string name="Distribution_long_description">SMSecure ir SMS lietotne, kas ļauj jums aizsargāt savu privātumu, sazinoties ar draugiem.\nIzmantojot SMSecure, jūs varat sūtīt SMS ziņojumus un dalīties ar multivides failiem vai pielikumiem, pilnībā saglabājot privātumu.\n\nFunkcijas:\n* Vienkārši. SMSecure darbojas tāpat kā jebkura cita SMS lietotne. Nav nekas jāreģistrē, un jūsu draugiem nav jāpievienojas nevienam jaunam pakalpojumam.\n* Uzticams. SMSecure sazinās, izmantojot šifrētus SMS ziņojumus. Nav nepieciešami serveri vai interneta savienojums.\n* Privāts. SMSecure nodrošina jūsu ziņojumu šifrēšanu no gala līdz galam, izmantojot rūpīgi izstrādāto Signal šifrēšanas protokolu.\n* Drošs. Visas ziņas tiek šifrētas lokāli, tādējādi, ja jūsu tālrunis tiek nozaudēts vai nozagts, jūsu ziņas ir aizsargātas.\n* Atvērtā koda. SMSecure ir bezmaksas un atvērtā koda, ļaujot ikvienam pārbaudīt tā drošību, pārbaudot kodu.\n\nLūdzu, ziņojiet par visām kļūdām, problēmām vai funkciju pieprasījumiem šeit: <xliff:g id="arg1">%1$s</xliff:g>\n\nAvota kods ir atrodams šeit: <xliff:g id="arg2">%2$s</xliff:g>\n\nSīkāka informācija: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivātuma politika: <xliff:g id="arg4">%4$s</xliff:g></string>
 <!--DualSimUtil-->
 <string name="DualSimUtil__a_new_key_has_been_generated">Ir ģenerēta jauna atslēga.</string>
 <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Šai SIM kartei ir ģenerēta jauna atslēga.</string>

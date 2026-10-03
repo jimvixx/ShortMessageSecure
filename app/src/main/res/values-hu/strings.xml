@@ -271,8 +271,6 @@
   <string name="DateUtils_now">Most</string>
   <string name="DateUtils_today">Ma</string>
   <string name="DateUtils_yesterday">Tegnap</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">Az SMSecure egy SMS-alkalmazás, amely lehetővé teszi, hogy megvédje magánéletét, miközben barátaival kommunikál.\nAz SMSecure használatával teljes titoktartás mellett küldhet SMS-üzeneteket, valamint oszthat meg médiafájlokat vagy mellékleteket.\n\nJellemzők:\n* Egyszerű. Az SMSecure úgy működik, mint bármely más SMS-alkalmazás. Nem kell regisztrálnia, és barátainak sem kell csatlakozniuk új szolgáltatáshoz.\n* Megbízható. Az SMSecure titkosított SMS-üzenetek segítségével kommunikál. Nincs szükség szerverre vagy internetkapcsolatra.\n* Magánjellegű. Az SMSecure a gondosan kidolgozott Signal titkosítási protokollt használva végpontok közötti titkosítást biztosít az üzeneteihez.\n* Biztonságos. Minden üzenetet helyileg titkosítanak, így ha elveszíti vagy ellopják a telefonját, az üzenetei védve vannak.\n* Nyílt forráskódú. Az SMSecure ingyenes és nyílt forráskódú, így bárki ellenőrizheti a biztonságát a kód átvizsgálásával.\n\nKérjük, hogy a hibákat, problémákat vagy funkciókérését a következő címen jelezze: <xliff:g id="arg1">%1$s</xliff:g>\n\nA forráskód a következő címen található: <xliff:g id="arg2">%2$s</xliff:g>\n\nTovábbi részletek: <xliff:g id="arg3">%3$s</xliff:g>\n\nAdatvédelmi irányelvek: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Új kulcs lett generálva.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Új kulcs lett generálva az adott SIM-kártyához.</string>

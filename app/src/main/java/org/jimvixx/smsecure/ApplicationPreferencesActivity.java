@@ -21,19 +21,19 @@ package org.jimvixx.smsecure;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -47,13 +47,15 @@ import org.jimvixx.smsecure.preferences.ChatsPreferenceFragment;
 import org.jimvixx.smsecure.preferences.CorrectedPreferenceFragment;
 import org.jimvixx.smsecure.preferences.MessagesPreferenceFragment;
 import org.jimvixx.smsecure.preferences.NotificationsPreferenceFragment;
-import org.jimvixx.smsecure.util.AboutHtml;
 import org.jimvixx.smsecure.util.DynamicTheme;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The Activity for application preference display and management.
- * <p>
+ *
  * Uses a NoActionBar theme and provides its own Toolbar in the layout.
  */
 public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarActivity
@@ -165,42 +167,27 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     }
   }
 
-  /**
-   * Shows the "About" dialog rendered as HTML in a WebView.
-   * The content is generated from Distribution_long_description and injected URLs from BuildConfig.
-   */
-  public void showAboutDialog() {
-    WebView webView = new WebView(this);
+  private void openWebPage(@NonNull String url) {
+    // Resolve a generic web URL so GitHub's app links cannot capture this launch.
+    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
+    browserIntent.addCategory(Intent.CATEGORY_BROWSABLE);
+    List<String> browsers = new ArrayList<>();
+    for (ResolveInfo info : getPackageManager().queryIntentActivities(
+            browserIntent, PackageManager.MATCH_DEFAULT_ONLY)) {
+      browsers.add(info.activityInfo.packageName);
+    }
 
-    webView.getSettings().setJavaScriptEnabled(false);
-    webView.getSettings().setAllowFileAccess(false);
-    webView.getSettings().setAllowContentAccess(false);
-    webView.getSettings().setSupportZoom(false);
-    webView.getSettings().setUseWideViewPort(false);
-    webView.getSettings().setLoadWithOverviewMode(false);
+    String browserPackage = CustomTabsClient.getPackageName(this, browsers);
+    // Older browsers can still display the page, but cannot provide Custom Tab navigation.
+    if (browserPackage == null && !browsers.isEmpty()) {
+      browserPackage = browsers.get(0);
+    }
 
-    webView.setWebViewClient(new WebViewClient() {
-      @Override
-      public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        Uri uri = request.getUrl();
-        openUrlSafely(uri.toString());
-        return true;
-      }
-    });
-
-    String html = AboutHtml.build(this);
-    webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-
-    new AlertDialog.Builder(this)
-            .setTitle(R.string.preferences__about)
-            .setView(webView)
-            .setPositiveButton(android.R.string.ok, null)
-            .show();
-  }
-
-  private void openUrlSafely(@NonNull String url) {
     try {
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+      if (browserPackage == null) throw new ActivityNotFoundException();
+      CustomTabsIntent customTab = new CustomTabsIntent.Builder().build();
+      customTab.intent.setPackage(browserPackage);
+      customTab.launchUrl(this, Uri.parse(url));
     } catch (ActivityNotFoundException e) {
       Toast.makeText(
               getApplicationContext(),
@@ -250,13 +237,16 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       setClickListenerIfPresent(PREFERENCE_ABOUT, preference -> {
         ApplicationPreferencesActivity activity = getHostActivity();
         if (activity != null) {
-          activity.showAboutDialog();
+          activity.openWebPage(BuildConfig.ABOUT_URL);
         }
         return true;
       });
 
       setClickListenerIfPresent(PREFERENCE_PRIVACY_POLICY, preference -> {
-        handlePrivacyPolicy();
+        ApplicationPreferencesActivity activity = getHostActivity();
+        if (activity != null) {
+          activity.openWebPage(BuildConfig.PRIVACY_POLICY_URL);
+        }
         return true;
       });
     }
@@ -286,21 +276,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       Preference preference = findPreference(key);
       if (preference != null) {
         preference.setOnPreferenceClickListener(listener);
-      }
-    }
-
-    private void handlePrivacyPolicy() {
-      try {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRIVACY_POLICY_URL)));
-      } catch (ActivityNotFoundException e) {
-        ApplicationPreferencesActivity activity = getHostActivity();
-        if (activity != null) {
-          Toast.makeText(
-                  activity.getApplicationContext(),
-                  R.string.ConversationActivity_cant_open_link,
-                  Toast.LENGTH_LONG
-          ).show();
-        }
       }
     }
 

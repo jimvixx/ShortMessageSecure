@@ -100,17 +100,7 @@ android {
 
         buildConfigField(
             "String",
-            "ISSUES_REQUESTS_URL",
-            "\"https://github.com/jimvixx/ShortMessageSecure/issues\""
-        )
-        buildConfigField(
-            "String",
-            "SOURCE_CODE_URL",
-            "\"https://github.com/jimvixx/ShortMessageSecure\""
-        )
-        buildConfigField(
-            "String",
-            "MORE_DETAILS_URL",
+            "ABOUT_URL",
             "\"https://github.com/jimvixx/ShortMessageSecure/blob/main/README.md\""
         )
         buildConfigField(
@@ -217,6 +207,7 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:5.0.7")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
 
+    implementation("androidx.browser:browser:1.10.0")
     implementation("androidx.appcompat:appcompat:1.8.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.2")

@@ -271,8 +271,6 @@
   <string name="DateUtils_now">Nå</string>
   <string name="DateUtils_today">I dag</string>
   <string name="DateUtils_yesterday">I går</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure er en SMS-app som lar deg beskytte personvernet ditt mens du kommuniserer med venner.\nMed SMSecure kan du sende SMS-meldinger og dele medier eller vedlegg med fullstendig personvern.\n\nFunksjoner:\n* Enkelt. SMSecure fungerer som enhver annen SMS-app. Du trenger ikke registrere deg, og vennene dine trenger ikke melde seg på noen ny tjeneste.\n* Pålitelig. SMSecure kommuniserer ved hjelp av krypterte SMS-meldinger. Ingen servere eller internettforbindelse kreves.\n* Privat. SMSecure tilbyr ende-til-ende-kryptering for meldingene dine ved hjelp av det nøye utviklede Signal-krypteringsprotokollet.\n* Trygt. Alle meldinger krypteres lokalt, så hvis telefonen din blir borte eller stjålet, er meldingene dine beskyttet.\n* Åpen kildekode. SMSecure er gratis og åpen kildekode, noe som gjør det mulig for hvem som helst å verifisere sikkerheten ved å gjennomgå koden.\n\nVennligst rapporter eventuelle feil, problemer eller funksjonsforespørsler på: <xliff:g id="arg1">%1$s</xliff:g>\n\nKildekoden finner du på: <xliff:g id="arg2">%2$s</xliff:g>\n\nMer informasjon: <xliff:g id="arg3">%3$s</xliff:g>\n\nPersonvernpolicy: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">En ny nøkkel er generert.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Det er generert en ny nøkkel for det SIM-kortet.</string>

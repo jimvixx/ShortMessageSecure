@@ -289,8 +289,6 @@
   <string name="DateUtils_now">Teraz</string>
   <string name="DateUtils_today">Dnes</string>
   <string name="DateUtils_yesterday">Včera</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure je aplikácia pre SMS, ktorá vám umožňuje chrániť vaše súkromie pri komunikácii s priateľmi.\nPomocou SMSecure môžete posielať SMS správy a zdieľať multimediálny obsah alebo prílohy s úplným súkromím.\n\nFunkcie:\n* Jednoduché. SMSecure funguje ako akákoľvek iná aplikácia pre SMS. Nie je potrebné sa nikde registrovať a vaši priatelia sa nemusia pripájať k žiadnej novej službe.\n* Spoľahlivé. SMSecure komunikuje pomocou šifrovaných SMS správ. Nie sú potrebné žiadne servery ani pripojenie k internetu.\n* Súkromné. SMSecure poskytuje end-to-end šifrovanie vašich správ pomocou starostlivo navrhnutého šifrovacieho protokolu Signal.\n* Bezpečné. Všetky správy sú šifrované lokálne, takže ak stratíte alebo vám ukradnú telefón, vaše správy sú chránené.\n* Otvorený zdroj. SMSecure je bezplatná aplikácia s otvoreným zdrojovým kódom, čo umožňuje komukoľvek overiť jej bezpečnosť auditom kódu.\n\nAkékoľvek chyby, problémy alebo požiadavky na funkcie nahlasujte na: <xliff:g id="arg1">%1$s</xliff:g>\n\nZdrojový kód nájdete na: <xliff:g id="arg2">%2$s</xliff:g>\n\nĎalšie podrobnosti: <xliff:g id="arg3">%3$s</xliff:g>\n\nZásady ochrany osobných údajov: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Bol vygenerovaný nový kľúč.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Pre túto SIM kartu bol vygenerovaný nový kľúč.</string>

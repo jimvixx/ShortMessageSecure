@@ -289,8 +289,6 @@
 <string name="DateUtils_now">Dabar</string>
 <string name="DateUtils_today">Šiandien</string>
 <string name="DateUtils_yesterday">Vakar</string>
-<!--Distribution-->
-<string name="Distribution_long_description">„SMSecure“ yra SMS programa, leidžianti apsaugoti jūsų privatumą bendraujant su draugais.\nNaudodami „SMSecure“, galite siųsti SMS žinutes ir dalytis medijos failais ar priedais visiškai saugiai.\n\nSavybės:\n* Paprasta. „SMSecure“ veikia kaip bet kuri kita SMS programa. Nereikia niekur registruotis, o jūsų draugams nereikia prisijungti prie jokios naujos paslaugos.\n* Patikima. „SMSecure“ bendrauja naudodama šifruotas SMS žinutes. Nereikia jokių serverių ar interneto ryšio.\n* Privatumas. „SMSecure“ užtikrina jūsų žinučių šifravimą nuo siuntėjo iki gavėjo, naudodama kruopščiai sukurtą „Signal“ šifravimo protokolą.\n* Saugumas. Visos žinutės šifruojamos lokaliai, todėl jei pamestumėte ar pavogtų jūsų telefoną, jūsų žinutės bus apsaugotos.\n* Atvirojo kodo. „SMSecure“ yra nemokama ir atvirojo kodo, todėl bet kas gali patikrinti jos saugumą, peržiūrėdamas kodą.\n\nPrašome pranešti apie bet kokias klaidas, problemas ar pageidavimus dėl funkcijų adresu: <xliff:g id="arg1">%1$s</xliff:g>\n\nŠaltinio kodą galite rasti adresu: <xliff:g id="arg2">%2$s</xliff:g>\n\nDaugiau informacijos: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivatumo politika: <xliff:g id="arg4">%4$s</xliff:g></string>
 <!--DualSimUtil-->
 <string name="DualSimUtil__a_new_key_has_been_generated">Sukurtas naujas raktas.</string>
 <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Šiai SIM kortelei buvo sukurtas naujas raktas.</string>

@@ -262,8 +262,6 @@
 <string name="DateUtils_now">Sekarang</string>
 <string name="DateUtils_today">Hari ini</string>
 <string name="DateUtils_yesterday">Kemarin</string>
-<!--Distribution-->
-<string name="Distribution_long_description">SMSecure adalah aplikasi SMS yang memungkinkan Anda melindungi privasi saat berkomunikasi dengan teman.\nDengan SMSecure, Anda dapat mengirim pesan SMS dan berbagi media atau lampiran dengan privasi penuh.\n\nFitur:\n* Mudah. SMSecure berfungsi seperti aplikasi SMS lainnya. Tidak perlu mendaftar dan teman Anda tidak perlu bergabung dengan layanan baru.\n* Andal. SMSecure berkomunikasi menggunakan pesan SMS terenkripsi. Tidak memerlukan server atau koneksi internet.\n* Pribadi. SMSecure menyediakan enkripsi ujung-ke-ujung untuk pesan Anda menggunakan protokol enkripsi Signal yang dirancang dengan cermat.\n* Aman. Semua pesan dienkripsi secara lokal, jadi jika ponsel Anda hilang atau dicuri, pesan Anda tetap terlindungi.\n* Sumber Terbuka. SMSecure gratis dan sumber terbuka, memungkinkan siapa pun untuk memverifikasi keamanannya dengan mengaudit kode sumbernya.\n\nSilakan laporkan bug, masalah, atau permintaan fitur di: <xliff:g id="arg1">%1$s</xliff:g>\n\nKode sumber dapat ditemukan di: <xliff:g id="arg2">%2$s</xliff:g>\n\nDetail lebih lanjut: <xliff:g id="arg3">%3$s</xliff:g>\n\nKebijakan privasi: <xliff:g id="arg4">%4$s</xliff:g></string>
 <!--DualSimUtil-->
 <string name="DualSimUtil__a_new_key_has_been_generated">Kunci baru telah dihasilkan.</string>
 <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Kunci baru telah dihasilkan untuk kartu SIM tersebut.</string>

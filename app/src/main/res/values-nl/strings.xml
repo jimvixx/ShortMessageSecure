@@ -271,8 +271,6 @@
   <string name="DateUtils_now">Nu</string>
   <string name="DateUtils_today">Vandaag</string>
   <string name="DateUtils_yesterday">Gisteren</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure is een sms-app waarmee je je privacy kunt beschermen terwijl je met vrienden communiceert.\nMet SMSecure kun je sms-berichten versturen en media of bijlagen delen met volledige privacy.\n\nFuncties:\n* Eenvoudig. SMSecure werkt net als elke andere sms-app. Je hoeft je nergens voor aan te melden en je vrienden hoeven zich niet aan te sluiten bij een nieuwe dienst.\n* Betrouwbaar. SMSecure communiceert via versleutelde sms-berichten. Geen servers of internetverbinding nodig.\n* Privé. SMSecure biedt end-to-end-versleuteling voor uw berichten met behulp van het zorgvuldig ontworpen Signal-versleutelingsprotocol.\n* Veilig. Alle berichten worden lokaal versleuteld, dus als uw telefoon zoekraakt of wordt gestolen, blijven uw berichten beschermd.\n* Open Source. SMSecure is gratis en open source, waardoor iedereen de beveiliging kan controleren door de code te auditen.\n\nMeld bugs, problemen of verzoeken om nieuwe functies op: <xliff:g id="arg1">%1$s</xliff:g>\n\nDe broncode is te vinden op: <xliff:g id="arg2">%2$s</xliff:g>\n\nMeer details: <xliff:g id="arg3">%3$s</xliff:g>\n\nPrivacybeleid: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Er is een nieuwe sleutel gegenereerd.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Er is een nieuwe sleutel gegenereerd voor die SIM-kaart.</string>

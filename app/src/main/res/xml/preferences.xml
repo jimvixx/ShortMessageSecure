@@ -32,13 +32,13 @@
         android:title="@string/preferences__advanced" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:key="preference_about"
-        android:icon="@drawable/ic_information"
-        android:title="@string/preferences__about" />
-
-    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
         android:key="preference_privacy_policy"
         android:icon="@drawable/ic_safe_square"
         android:title="@string/preferences__privacy_policy" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_about"
+        android:icon="@drawable/ic_information"
+        android:title="@string/preferences__about" />
 
 </PreferenceScreen>

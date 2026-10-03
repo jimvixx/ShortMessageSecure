@@ -262,8 +262,6 @@
   <string name="DateUtils_now">現在</string>
   <string name="DateUtils_today">今日</string>
   <string name="DateUtils_yesterday">昨日</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecureは、友人とコミュニケーションを取りながらプライバシーを保護できるSMSアプリです。\nSMSecureを使えば、完全なプライバシーを保ちながらSMSメッセージを送信したり、メディアや添付ファイルを共有したりできます。\n\n特徴:\n* 簡単。SMSecureは他のSMSアプリと同じように動作します。登録は不要で、友人が新しいサービスに参加する必要もありません。\n* 信頼性。SMSecureは暗号化されたSMSメッセージを使用して通信します。 サーバーやインターネット接続は不要です。\n* プライバシー保護。SMSecureは、入念に設計されたSignal暗号化プロトコルを使用して、メッセージにエンドツーエンドの暗号化を提供します。\n* 安全性。すべてのメッセージはローカルで暗号化されるため、スマートフォンを紛失または盗難に遭っても、メッセージは保護されます。\n* オープンソース。SMSecureは無料かつオープンソースであり、誰でもコードを監査することでそのセキュリティを検証できます。\n\nバグ、問題、機能リクエストは以下までご報告ください：<xliff:g id="arg1">%1$s</xliff:g>\n\nソースコードはこちら：<xliff:g id="arg2">%2$s</xliff:g>\n\n詳細はこちら：<xliff:g id="arg3">%3$s</xliff:g>\n\nプライバシーポリシー： <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">新しいキーが生成されました。</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">そのSIMカード用に新しいキーが生成されました。</string>

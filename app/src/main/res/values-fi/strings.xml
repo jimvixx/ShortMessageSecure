@@ -271,8 +271,6 @@
   <string name="DateUtils_now">Nyt</string>
   <string name="DateUtils_today">Tänään</string>
   <string name="DateUtils_yesterday">Eilen</string>
-  <!--Distribution-->
-  <string name="Distribution_long_description">SMSecure on tekstiviestisovellus, jonka avulla voit suojata yksityisyyttäsi viestitessäsi ystävien kanssa.\nSMSecuren avulla voit lähettää tekstiviestejä ja jakaa mediaa tai liitteitä täysin yksityisesti.\n\nOminaisuudet:\n* Helppo. SMSecure toimii kuten mikä tahansa muu tekstiviestisovellus. Sinun ei tarvitse rekisteröityä mihinkään, eikä ystäviesi tarvitse liittyä mihinkään uuteen palveluun.\n* Luotettava. SMSecure viestii salattujen tekstiviestien avulla. Palvelimia tai internetyhteyttä ei tarvita.\n* Yksityinen. SMSecure tarjoaa viesteillesi päästä päähän -salauksen käyttämällä huolellisesti suunniteltua Signal-salausprotokollaa.\n* Turvallinen. Kaikki viestit salataan paikallisesti, joten jos puhelimesi katoaa tai varastetaan, viestisi ovat suojattuja.\n* Avoin lähdekoodi. SMSecure on ilmainen ja avoimen lähdekoodin sovellus, joten kuka tahansa voi tarkistaa sen turvallisuuden tarkastamalla koodin.\n\nIlmoita virheistä, ongelmista tai ominaisuuspyyntöistä osoitteessa: <xliff:g id="arg1">%1$s</xliff:g>\n\nLähdekoodi löytyy osoitteesta: <xliff:g id="arg2">%2$s</xliff:g>\n\nLisätietoja: <xliff:g id="arg3">%3$s</xliff:g>\n\nTietosuojakäytäntö: <xliff:g id="arg4">%4$s</xliff:g></string>
   <!--DualSimUtil-->
   <string name="DualSimUtil__a_new_key_has_been_generated">Uusi avain on luotu.</string>
   <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">Tuolle SIM-kortille on luotu uusi avain.</string>
