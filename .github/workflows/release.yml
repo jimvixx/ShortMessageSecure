@@ -10,6 +10,11 @@ on:
         description: "Existing tag to release. Leave empty when running from a pushed tag."
         required: false
         type: string
+      dry_run:
+        description: "Build, sign and verify without publishing a GitHub release"
+        required: true
+        default: true
+        type: boolean
       draft:
         description: "Create draft GitHub release"
         required: true
@@ -22,7 +27,7 @@ on:
         type: boolean
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: release-${{ github.ref }}
@@ -38,6 +43,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Validate Gradle wrapper
         uses: gradle/actions/wrapper-validation@v6.3.0
@@ -71,8 +77,10 @@ jobs:
       - name: Check Android Developer Verification registration file
         run: test -s app/src/main/assets/adi-registration.properties
 
-      - name: Build and publish with fastlane
+      - name: Build, verify and optionally publish with fastlane
         env:
+          # Only a tag push or an explicit dry_run=false may publish.
+          FASTLANE_DRY_RUN: ${{ !((github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && toJSON(inputs.dry_run) == 'false')) }}
           MANUAL_TAG_NAME: ${{ inputs.tag_name }}
           FASTLANE_DRAFT_RELEASE: ${{ inputs.draft }}
           FASTLANE_PRERELEASE: ${{ inputs.prerelease }}
@@ -80,8 +88,12 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          GITHUB_API_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+          GITHUB_API_TOKEN: ${{ ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && toJSON(inputs.dry_run) == 'false')) && secrets.GH_RELEASE_TOKEN || '' }}
         run: bundle exec fastlane android release
+
+      - name: Remove temporary signing files
+        if: always()
+        run: rm -f -- fastlane/smsecure-release.keystore fastlane/keystore.properties
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v6

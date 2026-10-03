@@ -208,6 +208,14 @@ def verify_apk_contents!(apk_path, expected_version_name:, expected_version_code
   UI.success("APK signing certificate verified: #{EXPECTED_SIGNING_CERT_SHA256}")
 end
 
+def release_dry_run!
+  value = ENV.fetch("FASTLANE_DRY_RUN", "true")
+  unless %w[true false].include?(value)
+    UI.user_error!("FASTLANE_DRY_RUN must be true or false")
+  end
+  value == "true"
+end
+
 def detect_release_tag!
   if !ENV["MANUAL_TAG_NAME"].to_s.empty?
     ENV["MANUAL_TAG_NAME"]
@@ -379,8 +387,14 @@ platform :android do
     gradle(task: "lintDebug")
   end
 
-  desc "Build signed release APK, generate SHA256SUMS.txt and publish a GitHub release"
+  desc "Build and verify signed release APK; dry-run by default, publish only when explicitly enabled"
   lane :release do
+    dry_run = release_dry_run!
+    if !dry_run && ENV["GITHUB_API_TOKEN"].to_s.empty?
+      UI.user_error!("Publishing requires GITHUB_API_TOKEN")
+    end
+    UI.message("Release mode: #{dry_run ? 'dry-run (no publication)' : 'publish'}")
+
     sh("git fetch --tags --force")
 
     tag_name = detect_release_tag!
@@ -422,22 +436,26 @@ platform :android do
         "#{changelog}\n\n---\n\n#{release_notes}"
       end
 
-    set_github_release(
-      repository_name: ENV["GITHUB_REPOSITORY"],
-      api_token: ENV["GITHUB_API_TOKEN"],
-      name: tag_name,
-      tag_name: tag_name,
-      description: full_description,
-      commitish: ENV["GITHUB_SHA"],
-      is_draft: ENV["FASTLANE_DRAFT_RELEASE"] == "true",
-      is_prerelease: ENV["FASTLANE_PRERELEASE"] == "true",
-      upload_assets: [signed_apk_path, checksums_path]
-    )
+    if dry_run
+      UI.success("Release dry-run completed: #{tag_name}; signed APK and checksums are ready, nothing published")
+    else
+      set_github_release(
+        repository_name: ENV["GITHUB_REPOSITORY"],
+        api_token: ENV["GITHUB_API_TOKEN"],
+        name: tag_name,
+        tag_name: tag_name,
+        description: full_description,
+        commitish: ENV["GITHUB_SHA"],
+        is_draft: ENV["FASTLANE_DRAFT_RELEASE"] == "true",
+        is_prerelease: ENV["FASTLANE_PRERELEASE"] == "true",
+        upload_assets: [signed_apk_path, checksums_path]
+      )
 
-    UI.success(
-      "Release #{tag_name} published successfully: " \
-      "versionName=#{release_metadata[:version_name]}, " \
-      "versionCode=#{release_metadata[:version_code]}"
-    )
+      UI.success(
+        "Release #{tag_name} published successfully: " \
+        "versionName=#{release_metadata[:version_name]}, " \
+        "versionCode=#{release_metadata[:version_code]}"
+      )
+    end
   end
 end
