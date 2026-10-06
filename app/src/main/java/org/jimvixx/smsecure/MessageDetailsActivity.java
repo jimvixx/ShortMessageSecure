@@ -299,19 +299,17 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity
       SmsDatabase.Reader reader = smsDatabase.readerFor(masterSecret, cursor);
       return reader.getNext();
     }
-    throw new AssertionError("No valid message type specified");
+    return null;
   }
 
   @NonNull
   @Override
   public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
     @Nullable String type = getIntent().getStringExtra(TYPE_EXTRA);
-    if (type == null) {
-      // Fail fast with a clear log; avoid passing null into loader.
-      Log.w(TAG, "Missing TYPE_EXTRA; finishing.");
+    if (!MessageDatabase.SMS_TRANSPORT.equals(type)) {
+      Log.w(TAG, "Missing or unsupported message type; finishing.");
       finish();
-      // Return a loader that yields empty cursor in a safe way.
-      return new MessageDetailsLoader(this, MessageDatabase.SMS_TRANSPORT, -1);
+      return new MessageDetailsLoader(this, type, -1);
     }
 
     long messageId = getIntent().getLongExtra(MESSAGE_ID_EXTRA, -1);
@@ -319,10 +317,10 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity
   }
 
   @Override
-  public void onLoadFinished(@NonNull Loader<Cursor> loader, @NonNull Cursor cursor) {
+  public void onLoadFinished(@NonNull Loader<Cursor> loader, @Nullable Cursor cursor) {
     @Nullable String type = getIntent().getStringExtra(TYPE_EXTRA);
-    if (type == null) {
-      Log.w(TAG, "Missing TYPE_EXTRA in onLoadFinished; finishing.");
+    if (!MessageDatabase.SMS_TRANSPORT.equals(type) || cursor == null) {
+      Log.w(TAG, "Missing message data or unsupported type; finishing.");
       finish();
       return;
     }
