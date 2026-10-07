@@ -171,6 +171,26 @@ public class SmsSendJob extends SendJob {
 
     int deviceSubscriptionId = DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId());
 
+    // Diagnostics must never prevent sending or include the destination/body.
+    try {
+      Log.i(TAG, "SMS send: message=" + message.getId()
+              + " appSub=" + message.getSubscriptionId()
+              + " deviceSub=" + deviceSubscriptionId
+              + " defaultDeviceSub=" + SmsManager.getDefaultSmsSubscriptionId()
+              + " defaultSmsRole=" + org.jimvixx.smsecure.util.Util.isDefaultSmsProvider(context)
+              + " defaultSmsPackageMatches=" + context.getPackageName().equals(
+                      android.provider.Telephony.Sms.getDefaultSmsPackage(context))
+              + " sendPermission=" + (androidx.core.content.ContextCompat.checkSelfPermission(
+                      context, android.Manifest.permission.SEND_SMS)
+                      == android.content.pm.PackageManager.PERMISSION_GRANTED)
+              + " secure=" + message.isSecure()
+              + " keyExchange=" + message.isKeyExchange()
+              + " endSession=" + message.isEndSession()
+              + " parts=" + messages.size());
+    } catch (RuntimeException diagnosticFailure) {
+      Log.w(TAG, "SMS send diagnostics unavailable: " + diagnosticFailure.getClass().getSimpleName());
+    }
+
     // NOTE 11/04/14 -- There's apparently a bug where for some unknown recipients
     // and messages, this will throw an NPE.  We have no idea why, so we're just
     // catching it and marking the message as a failure.  That way at least it doesn't

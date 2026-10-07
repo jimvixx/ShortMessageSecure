@@ -69,6 +69,22 @@ public class SmsDeliveryListener extends BroadcastReceiver {
         String sendAttemptId = intent.getStringExtra("send_attempt_id");
         int partIndex = intent.getIntExtra("part_index", 0);
         int partsTotal = intent.getIntExtra("parts_total", 1);
+        // Allowlist diagnostic values: never dump arbitrary extras or message data.
+        try {
+          String diagnostics = "SMS sent result: message=" + messageId
+                  + " result=" + resultCode + " part=" + partIndex + "/" + partsTotal
+                  + " errorCode=" + (intent.hasExtra("errorCode")
+                          ? Integer.toString(intent.getIntExtra("errorCode", 0)) : "absent")
+                  + " noDefault=" + (intent.hasExtra("noDefault")
+                          ? Boolean.toString(intent.getBooleanExtra("noDefault", false)) : "absent");
+          if (resultCode == android.app.Activity.RESULT_OK) {
+            Log.i(TAG, diagnostics);
+          } else {
+            Log.e(TAG, diagnostics);
+          }
+        } catch (RuntimeException diagnosticFailure) {
+          Log.w(TAG, "SMS result diagnostics unavailable: " + diagnosticFailure.getClass().getSimpleName());
+        }
         boolean connectivityFailure = resultCode == SmsManager.RESULT_ERROR_NO_SERVICE ||
                                       resultCode == SmsManager.RESULT_ERROR_RADIO_OFF;
 
