@@ -41,6 +41,96 @@
                 </FrameLayout>
 
                 <LinearLayout
+                    android:id="@+id/import_encrypted_backup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_import_export_item"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/import_fragment__restore_encrypted_backup"
+                        android:src="@drawable/ic_smsecure_bw" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="start"
+                            android:text="@string/import_fragment__restore_encrypted_backup"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="start"
+                            android:text="@string/import_fragment__restore_a_previously_exported_encrypted_backup"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Subtitle" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/import_silence_backup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_import_export_item"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/ImportFragment_silence_backup"
+                        android:src="@drawable/ic_silence" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="start"
+                            android:text="@string/ImportFragment_silence_backup"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="start"
+                            android:text="@string/ImportFragment_silence_backup_description"
+                            android:textAppearance="@style/SMSecure.TextAppearance.Subtitle" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/import_sms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -82,51 +172,6 @@
                             android:text="@string/import_fragment__import_the_database_from_the_default_system"
                             android:textAppearance="@style/SMSecure.TextAppearance.Subtitle" />
 
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/import_encrypted_backup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_import_export_item"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="2dp"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@string/import_fragment__restore_encrypted_backup"
-                        android:src="@drawable/ic_lock" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:gravity="start"
-                            android:text="@string/import_fragment__restore_encrypted_backup"
-                            android:textAppearance="@style/SMSecure.TextAppearance.Title" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:gravity="start"
-                            android:text="@string/import_fragment__restore_a_previously_exported_encrypted_backup"
-                            android:textAppearance="@style/SMSecure.TextAppearance.Subtitle" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -224,7 +269,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:contentDescription="@string/export_fragment__export_encrypted_backup"
-                        android:src="@drawable/ic_lock" />
+                        android:src="@drawable/ic_smsecure_bw" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

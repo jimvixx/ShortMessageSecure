@@ -358,6 +358,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Återställa krypterad säkerhetskopia?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Om du återställer en krypterad säkerhetskopia kommer dina befintliga nycklar, inställningar och meddelanden att ersättas helt. Du kommer att förlora all information som finns i din nuvarande SMSecure-installation men som inte finns i säkerhetskopian. SMSecure kommer att stängas av efter importen.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Återställer krypterad säkerhetskopia…</string>
+  <string name="ImportFragment_silence_backup">Återställ Silence-säkerhetskopia</string>
+  <string name="ImportFragment_silence_backup_description">Återställ från en Silence-exportmapp</string>
+  <string name="ImportFragment_silence_backup_warning">Detta kommer att ersätta dina befintliga meddelanden, nycklar och inställningar. Välj mappen SilenceExport. Om säkerhetskopian är lösenordsskyddad behöver du den ursprungliga lösenfrasen. Du kommer att förlora all information som finns i din nuvarande SMSecure-installation men som inte finns i säkerhetskopian. SMSecure avslutas efter importen.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Detta importerar meddelanden från en säkerhetskopia i klartext. Om du tidigare har importerat denna säkerhetskopia kommer en ny import att resultera i dubbla meddelanden.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Detta importerar meddelanden från systemets standard-SMS-databas till SMSecure. Om du har importerat systemets SMS-databas tidigare kommer en ny import att resultera i dubbla meddelanden.</string>
   <!--key_scanning-->

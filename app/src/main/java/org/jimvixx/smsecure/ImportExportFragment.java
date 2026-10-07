@@ -44,6 +44,7 @@ import org.jimvixx.smsecure.database.EncryptedBackupExporter;
 import org.jimvixx.smsecure.database.PlaintextBackupExporter;
 import org.jimvixx.smsecure.database.PlaintextBackupImporter;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.migration.silence.SilenceBackupAdapter;
 import org.jimvixx.smsecure.permissions.Permissions;
 import org.jimvixx.smsecure.service.ApplicationMigrationService;
 
@@ -74,6 +75,7 @@ public class ImportExportFragment extends Fragment {
   private ActivityResultLauncher<String> createEncryptedZipLauncher;
   private ActivityResultLauncher<String[]> openEncryptedZipLauncher;
   private ActivityResultLauncher<String[]> openPlaintextXmlLauncher;
+  private ActivityResultLauncher<Uri> openSilenceDirectoryLauncher;
 
   @Override
   public void onCreate(@Nullable Bundle bundle) {
@@ -113,6 +115,12 @@ public class ImportExportFragment extends Fragment {
                     }
             );
 
+    openSilenceDirectoryLauncher = registerForActivityResult(
+            new ActivityResultContracts.OpenDocumentTree(),
+            uri -> {
+              if (uri != null) importEncryptedBackup(uri, true);
+            });
+
     // Pick encrypted zip for restore.
     openEncryptedZipLauncher =
             registerForActivityResult(
@@ -136,6 +144,7 @@ public class ImportExportFragment extends Fragment {
 
     importSmsView.setOnClickListener(v -> handleImportSms());
     importEncryptedView.setOnClickListener(v -> handleImportEncryptedBackup());
+    layout.findViewById(R.id.import_silence_backup).setOnClickListener(v -> handleImportSilenceBackup());
     importPlaintextView.setOnClickListener(v -> handleImportPlaintextBackup());
     exportEncryptedView.setOnClickListener(v -> handleExportEncryptedBackup());
     exportPlaintextView.setOnClickListener(v -> handleExportPlaintextBackup());
@@ -414,13 +423,31 @@ public class ImportExportFragment extends Fragment {
     builder.show();
   }
 
+  private void handleImportSilenceBackup() {
+    new AlertDialog.Builder(requireContext())
+            .setIconAttribute(R.attr.dialog_alert_icon)
+            .setTitle(R.string.ImportFragment_silence_backup)
+            .setMessage(R.string.ImportFragment_silence_backup_warning)
+            .setPositiveButton(R.string.Import, (dialog, which) -> openSilenceDirectoryLauncher.launch(null))
+            .setNegativeButton(R.string.Cancel, null)
+            .show();
+  }
+
   private void importEncryptedZipFromUri(@NonNull Uri uri) {
+    importEncryptedBackup(uri, false);
+  }
+
+  private void importEncryptedBackup(@NonNull Uri uri, boolean silenceDirectory) {
     runWithBlockingProgress(
             getString(R.string.Importing),
             getString(R.string.ImportFragment_restoring_encrypted_backup),
             appContext -> {
               try {
-                EncryptedBackupExporter.stageImportFromUri(appContext, uri);
+                if (silenceDirectory) {
+                  SilenceBackupAdapter.stageImport(appContext, uri);
+                } else {
+                  EncryptedBackupExporter.stageImportFromUri(appContext, uri);
+                }
                 return SUCCESS;
               } catch (IOException e) {
                 Log.w(TAG, e);

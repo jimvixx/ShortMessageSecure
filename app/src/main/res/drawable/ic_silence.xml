@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:scaleX="1.10"
+        android:scaleY="1.10">
+
+        <!-- Rear Silence speech bubble -->
+        <path
+            android:fillAlpha="0.55"
+            android:fillColor="?attr/appColorIconPrimary"
+            android:fillType="evenOdd"
+            android:pathData="m 8,2.5 h 11 c 1.380712,0 2.5,1.1192881 2.5,2.5 v 12.8 l -4,-2 -3.776269,2.720189 C 12.603415,19.327194 5.625349,19.412655 5.6133412,18.031995 L 5.5,5 C 5.4879922,3.6193403 6.6192881,2.5 8,2.5 Z M 9.85,10 c 1.297869,0 2.35,1.052131 2.35,2.35 0.0013,0.911772 -0.524896,1.742012 -1.35,2.13 l 0.5,3.52 h -3 l 0.5,-3.52 C 8.0248963,14.092012 7.4986879,13.261772 7.5,12.35 7.5,11.052131 8.5521308,10 9.85,10 Z" />
+
+        <!-- Front Silence speech bubble -->
+        <path
+            android:fillColor="?attr/appColorIconPrimary"
+            android:fillType="evenOdd"
+            android:pathData="m 4.5,6.2 h 10.7 a 2.5,2.5 0 0 1 2.5,2.5 V 19 a 2.5,2.5 0 0 1 -2.5,2.5 H 4.5 A 2.5,2.5 0 0 1 2,19 V 5 L 5.4,6.2 Z M 9.85,10 a 2.35,2.35 0 0 1 2.35,2.35 2.35,2.35 0 0 1 -1.35,2.13 l 0.5,3.52 h -3 l 0.5,-3.52 A 2.35,2.35 0 0 1 7.5,12.35 2.35,2.35 0 0 1 9.85,10 Z" />
+
+    </group>
+</vector>

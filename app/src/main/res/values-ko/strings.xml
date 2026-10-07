@@ -349,6 +349,9 @@
   <string name="ImportFragment_restore_encrypted_backup">암호화된 백업을 복원하시겠습니까?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">암호화된 백업을 복원하면 기존 키, 설정 및 메시지가 완전히 대체됩니다. 현재 SMSecure 설치본에 있지만 백업에는 없는 모든 정보는 손실됩니다. 가져오기가 완료되면 SMSecure가 중지됩니다.</string>
   <string name="ImportFragment_restoring_encrypted_backup">암호화된 백업 복원 중…</string>
+  <string name="ImportFragment_silence_backup">Silence 백업 복원</string>
+  <string name="ImportFragment_silence_backup_description">Silence 내보내기 폴더에서 복원</string>
+  <string name="ImportFragment_silence_backup_warning">이 작업은 기존 메시지, 키 및 설정을 대체합니다. SilenceExport 폴더를 선택하십시오. 백업이 비밀번호로 보호되어 있는 경우, 원래의 비밀번호가 필요합니다. 현재 SMSecure 설치본에 있지만 백업본에는 없는 정보는 모두 손실됩니다. 가져오기 작업이 완료되면 SMSecure가 종료됩니다.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">이 기능은 일반 텍스트 백업에서 메시지를 가져옵니다. 이전에 이 백업을 가져온 적이 있다면, 다시 가져오면 메시지가 중복됩니다.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">이 기능은 시스템의 기본 SMS 데이터베이스에서 SMSecure로 메시지를 가져옵니다. 이전에 시스템의 SMS 데이터베이스를 가져온 적이 있다면, 다시 가져올 경우 메시지가 중복되어 저장됩니다.</string>
   <!--key_scanning-->

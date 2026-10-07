@@ -1,3 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
+    <string name="ImportFragment_silence_backup">שחזור גיבוי Silence</string>
+    <string name="ImportFragment_silence_backup_description">שחזור מתיקיית ייצוא של Silence</string>
+    <string name="ImportFragment_silence_backup_warning">פעולה זו תחליף את ההודעות, המפתחות וההגדרות הקיימים. יש לגבות תחילה את SMSecure. יש לבחור בתיקייה SilenceExport המכילה את files, databases ו־shared_prefs. אם הגיבוי מוגן בסיסמה, תידרש סיסמת הגיבוי המקורית.</string>
 </resources>

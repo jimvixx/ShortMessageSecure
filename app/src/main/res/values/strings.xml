@@ -397,6 +397,9 @@
     <string name="ImportFragment_restore_encrypted_backup">Restore encrypted backup?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Restoring an encrypted backup will completely replace your existing keys, preferences, and messages. You will lose any information that is in your current SMSecure installation but not in the backup. SMSecure will stop after the import.</string>
     <string name="ImportFragment_restoring_encrypted_backup">Restoring encrypted backup…</string>
+    <string name="ImportFragment_silence_backup">Restore Silence backup</string>
+    <string name="ImportFragment_silence_backup_description">Restore from a Silence export folder</string>
+    <string name="ImportFragment_silence_backup_warning">This will replace your existing messages, keys, and settings. Select the SilenceExport folder. If the backup is password-protected, you will need its original passphrase. You will lose any information that is in your current SMSecure installation but not in the backup. SMSecure will stop after the import.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">This will import messages from a plaintext backup. If you’ve previously imported this backup, importing again will result in duplicated messages.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">This will import messages from the system’s default SMS database to SMSecure. If you’ve imported the system’s SMS database before, importing again will result in duplicated messages.</string>
     <!--key_scanning-->

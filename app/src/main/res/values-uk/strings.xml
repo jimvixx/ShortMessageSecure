@@ -376,6 +376,9 @@
     <string name="ImportFragment_restore_encrypted_backup">Відновити зашифровану резервну копію?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Відновлення зашифрованої резервної копії повністю замінить ваші існуючі ключі, налаштування та повідомлення. Ви втратите всю інформацію, яка є у вашій поточній інсталяції SMSecure, але відсутня у резервній копії. SMSecure зупиниться після імпорту.</string>
     <string name="ImportFragment_restoring_encrypted_backup">Відновлення зашифрованої резервної копії…</string>
+    <string name="ImportFragment_silence_backup">Відновити резервну копію Silence</string>
+    <string name="ImportFragment_silence_backup_description">Відновити з папки експорту Silence</string>
+    <string name="ImportFragment_silence_backup_warning">Це замінить ваші існуючі повідомлення, ключі та налаштування. Виберіть папку SilenceExport. Якщо резервна копія захищена паролем, вам знадобиться її оригінальний пароль. Ви втратите всю інформацію, яка міститься у вашій поточній інсталяції SMSecure, але відсутня у резервній копії. Після імпорту робота SMSecure буде зупинена.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Це імпортує повідомлення з резервної копії у вигляді простого тексту. Якщо ви раніше вже імпортували цю резервну копію, повторне імпортування призведе до дублювання повідомлень.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">Це імпортує повідомлення з системної бази даних SMS за замовчуванням до SMSecure. Якщо ви раніше вже імпортували системну базу даних SMS, повторне імпортування призведе до дублювання повідомлень.</string>
     <!--key_scanning-->

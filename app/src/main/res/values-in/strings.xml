@@ -349,6 +349,9 @@
 <string name="ImportFragment_restore_encrypted_backup">Memulihkan cadangan terenkripsi?</string>
 <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Memulihkan cadangan terenkripsi akan sepenuhnya menggantikan kunci, preferensi, dan pesan Anda yang ada. Anda akan kehilangan informasi apa pun yang ada di instalasi SMSecure saat ini tetapi tidak ada di cadangan. SMSecure akan berhenti setelah proses impor.</string>
 <string name="ImportFragment_restoring_encrypted_backup">Memulihkan cadangan terenkripsi…</string>
+<string name="ImportFragment_silence_backup">Pulihkan cadangan Silence</string>
+<string name="ImportFragment_silence_backup_description">Pulihkan dari folder ekspor Silence</string>
+<string name="ImportFragment_silence_backup_warning">Ini akan menggantikan pesan, kunci, dan pengaturan yang sudah ada. Pilih folder SilenceExport. Jika cadangan dilindungi kata sandi, Anda memerlukan frasa sandi aslinya. Anda akan kehilangan informasi apa pun yang ada di instalasi SMSecure saat ini tetapi tidak ada di cadangan. SMSecure akan berhenti setelah proses impor selesai.</string>
 <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Ini akan mengimpor pesan dari cadangan teks biasa. Jika Anda sebelumnya telah mengimpor cadangan ini, mengimpornya lagi akan mengakibatkan pesan ganda.</string>
 <string name="ImportFragment_this_will_import_messages_from_the_system">Ini akan mengimpor pesan dari basis data SMS default sistem ke SMSecure. Jika Anda telah mengimpor basis data SMS sistem sebelumnya, mengimpornya lagi akan mengakibatkan pesan ganda.</string>
 <!--key_scanning-->

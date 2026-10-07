@@ -358,6 +358,9 @@
 <string name="ImportFragment_restore_encrypted_backup">Taasta krüpteeritud varukoopia?</string>
 <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Krüpteeritud varukoopia taastamine asendab täielikult teie olemasolevad võtmed, eelistused ja sõnumid. Te kaotate kogu teabe, mis on teie praeguses SMSecure’i installatsioonis, kuid puudub varukoopias. SMSecure peatub pärast importimist.</string>
 <string name="ImportFragment_restoring_encrypted_backup">Krüpteeritud varukoopia taastamine…</string>
+<string name="ImportFragment_silence_backup">Taasta Silence’i varukoopia</string>
+<string name="ImportFragment_silence_backup_description">Taasta Silence’i ekspordikaustast</string>
+<string name="ImportFragment_silence_backup_warning">See asendab teie olemasolevad sõnumid, võtmed ja seaded. Valige kaust „SilenceExport“. Kui varukoopia on parooliga kaitstud, peate sisestama selle algse parooli. Kaotate kogu teabe, mis on teie praeguses SMSecure’i installatsioonis, kuid puudub varukoopias. SMSecure peatub pärast importimist.</string>
 <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">See impordib sõnumeid tavatekstina salvestatud varukoopias. Kui olete selle varukoopia varem juba importinud, tekitab uuesti importimine sõnumite dubleerimise.</string>
 <string name="ImportFragment_this_will_import_messages_from_the_system">See impordib sõnumeid süsteemi vaikimisi SMS-andmebaasist SMSecure’i. Kui olete süsteemi SMS-andmebaasi varem juba importinud, tekitab uuesti importimine sõnumite dubleerimise.</string>
 <!--key_scanning-->

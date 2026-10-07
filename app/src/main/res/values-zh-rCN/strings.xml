@@ -349,6 +349,9 @@
     <string name="ImportFragment_restore_encrypted_backup">恢复加密备份？</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">恢复加密备份将完全替换您现有的密钥、偏好设置和消息。您将丢失当前 SMSecure 安装中存在但备份中未包含的任何信息。导入完成后，SMSecure 将停止运行。</string>
     <string name="ImportFragment_restoring_encrypted_backup">正在恢复加密备份……</string>
+    <string name="ImportFragment_silence_backup">恢复 Silence 备份</string>
+    <string name="ImportFragment_silence_backup_description">从 Silence 导出文件夹恢复</string>
+    <string name="ImportFragment_silence_backup_warning">这将替换您现有的消息、密钥和设置。请选择 SilenceExport 文件夹。如果备份受密码保护，您需要输入其原始密码短语。您当前 SMSecure 安装中但未包含在备份中的任何信息都将丢失。导入完成后，SMSecure 将停止运行。</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">这将从纯文本备份中导入 消息。如果您之前已导入过此备份， 再次导入将导致消息重复。</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">此操作将把系统默认短信数据库中的消息导入到 SMSecure 中。如果您之前已导入过系统的短信数据库，再次导入将导致消息重复。</string>
     <!--key_scanning-->

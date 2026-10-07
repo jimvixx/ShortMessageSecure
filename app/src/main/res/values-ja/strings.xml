@@ -349,6 +349,9 @@
   <string name="ImportFragment_restore_encrypted_backup">暗号化されたバックアップを復元しますか？</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">暗号化されたバックアップを復元すると、既存のキー、設定、およびメッセージがすべて上書きされます。現在の SMSecure インストール環境にあるが、バックアップに含まれていない情報はすべて失われます。インポート完了後、SMSecure は停止します。</string>
   <string name="ImportFragment_restoring_encrypted_backup">暗号化されたバックアップを復元中…</string>
+  <string name="ImportFragment_silence_backup">Silence のバックアップを復元</string>
+  <string name="ImportFragment_silence_backup_description">Silence のエクスポートフォルダから復元</string>
+  <string name="ImportFragment_silence_backup_warning">これにより、既存のメッセージ、キー、および設定が上書きされます。「SilenceExport」フォルダを選択してください。バックアップがパスワードで保護されている場合は、元のパスフレーズが必要になります。現在の SMSecure インストールに含まれているが、バックアップには含まれていない情報はすべて失われます。インポートが完了すると、SMSecure は停止します。</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">これにより、プレーンテキスト形式のバックアップからメッセージがインポートされます。以前にこのバックアップをインポートしたことがある場合、再度インポートするとメッセージが重複します。</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">これにより、システムのデフォルト SMS データベースから SMSecure へメッセージがインポートされます。以前にシステムの SMS データベースをインポートしたことがある場合、再度インポートするとメッセージが重複します。</string>
   <!--key_scanning-->

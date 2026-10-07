@@ -358,6 +358,9 @@
     <string name="ImportFragment_restore_encrypted_backup">Verschlüsseltes Backup wiederherstellen?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Durch das Wiederherstellen eines verschlüsselten Backups werden Ihre vorhandenen Schlüssel, Einstellungen und Nachrichten vollständig ersetzt. Sie verlieren alle Informationen, die sich in Ihrer aktuellen SMSecure-Installation befinden, aber nicht im Backup enthalten sind. SMSecure wird nach dem Import beendet.</string>
     <string name="ImportFragment_restoring_encrypted_backup">Verschlüsselte Datensicherung wird wiederhergestellt …</string>
+    <string name="ImportFragment_silence_backup">Silence-Sicherung wiederherstellen</string>
+    <string name="ImportFragment_silence_backup_description">Aus einem Silence-Exportordner wiederherstellen</string>
+    <string name="ImportFragment_silence_backup_warning">Dadurch werden Ihre bestehenden Nachrichten, Schlüssel und Einstellungen ersetzt. Wählen Sie den Ordner „SilenceExport“ aus. Wenn die Sicherung passwortgeschützt ist, benötigen Sie das ursprüngliche Passwort. Sie verlieren alle Informationen, die sich in Ihrer aktuellen SMSecure-Installation befinden, aber nicht in der Sicherung enthalten sind. SMSecure wird nach dem Import beendet.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Dadurch werden Nachrichten aus einer Klartext-Sicherung importiert. Wenn Sie diese Sicherung bereits zuvor importiert haben, führt ein erneuter Import zu doppelten Nachrichten.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">Dadurch werden Nachrichten aus der Standard-SMS-Datenbank des Systems in SMSecure importiert. Wenn Sie die SMS-Datenbank des Systems bereits zuvor importiert haben, führt ein erneuter Import zu doppelten Nachrichten.</string>
     <!--key_scanning-->

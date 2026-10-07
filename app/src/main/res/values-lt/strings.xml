@@ -376,6 +376,9 @@
 <string name="ImportFragment_restore_encrypted_backup">Atkurti šifruotą atsarginę kopiją?</string>
 <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Atkūrus šifruotą atsarginę kopiją, jūsų esami raktai, nustatymai ir pranešimai bus visiškai pakeisti. Jūs prarasite bet kokią informaciją, kuri yra jūsų dabartinėje „SMSecure“ instaliacijoje, bet nėra atsarginėje kopijoje. „SMSecure“ sustos po importo.</string>
 <string name="ImportFragment_restoring_encrypted_backup">Atkuriama šifruota atsarginė kopija…</string>
+<string name="ImportFragment_silence_backup">Atkurti Silence atsarginę kopiją</string>
+<string name="ImportFragment_silence_backup_description">Atkurti iš Silence eksporto aplanko</string>
+<string name="ImportFragment_silence_backup_warning">Tai pakeis jūsų esamus pranešimus, raktus ir nustatymus. Pasirinkite „SilenceExport“ aplanką. Jei atsarginė kopija apsaugota slaptažodžiu, jums reikės jos originalaus slaptažodžio. Jūs prarasite bet kokią informaciją, kuri yra jūsų dabartinėje „SMSecure“ instaliacijoje, bet nėra atsarginėje kopijoje. „SMSecure“ sustos po importavimo.</string>
 <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Tai importuos pranešimus iš paprastojo teksto atsarginės kopijos. Jei šią atsarginę kopiją jau importavote anksčiau, pakartotinis importavimas sukels pranešimų dubliavimąsi.</string>
 <string name="ImportFragment_this_will_import_messages_from_the_system">Tai importuos pranešimus iš sistemos numatytosios SMS duomenų bazės į „SMSecure“. Jei anksčiau jau importavote sistemos SMS duomenų bazę, pakartotinis importavimas sukels pranešimų dubliavimąsi.</string>
 <!--key_scanning-->

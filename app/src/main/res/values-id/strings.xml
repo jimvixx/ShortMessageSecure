@@ -1,3 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
+    <string name="ImportFragment_silence_backup">Pulihkan cadangan Silence</string>
+    <string name="ImportFragment_silence_backup_description">Pulihkan dari folder ekspor Silence</string>
+    <string name="ImportFragment_silence_backup_warning">Ini akan mengganti pesan, kunci, dan pengaturan yang ada. Cadangkan SMSecure terlebih dahulu. Pilih folder SilenceExport yang berisi files, databases, dan shared_prefs. Jika cadangan dilindungi kata sandi, Anda memerlukan frasa sandi aslinya.</string>
 </resources>

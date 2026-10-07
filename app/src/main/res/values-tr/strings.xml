@@ -358,6 +358,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Şifreli yedeği geri yüklemek ister misiniz?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Şifrelenmiş bir yedeği geri yüklemek, mevcut anahtarlarınızı, tercihlerinizi ve mesajlarınızı tamamen değiştirecektir. Mevcut SMSecure kurulumunuzda bulunan ancak yedekte bulunmayan tüm bilgileri kaybedersiniz. SMSecure, içe aktarma işleminden sonra durur.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Şifrelenmiş yedeği geri yükleme…</string>
+  <string name="ImportFragment_silence_backup">Silence yedeğini geri yükle</string>
+  <string name="ImportFragment_silence_backup_description">Silence dışa aktarma klasöründen geri yükle</string>
+  <string name="ImportFragment_silence_backup_warning">Bu işlem, mevcut mesajlarınızı, anahtarlarınızı ve ayarlarınızı değiştirecektir. SilenceExport klasörünü seçin. Yedekleme parola ile korunuyorsa, orijinal parolaya ihtiyacınız olacaktır. Mevcut SMSecure kurulumunuzda bulunan ancak yedeklemede bulunmayan tüm bilgileri kaybedeceksiniz. SMSecure, içe aktarma işlemi tamamlandıktan sonra duracaktır.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Bu seçenek şifresiz bir yedekten mesajlarınızı içe aktarır. Eğer bu yedeği önceden içeri aktardıysanız, tekrar içeri aktarmak mesajlarınızı çift gösterecektir.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Bu, sistemin varsayılan SMS veritabanındaki mesajları SMSecure’a içe aktaracaktır. Daha önce sistemin SMS veritabanını içe aktardıysanız, tekrar içe aktarma işlemi mesajların yinelenmesine neden olacaktır.</string>
   <!--key_scanning-->

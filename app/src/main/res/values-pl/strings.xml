@@ -376,6 +376,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Przywrócić zaszyfrowaną kopię zapasową?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Przywrócenie zaszyfrowanej kopii zapasowej spowoduje całkowite zastąpienie istniejących kluczy, preferencji i wiadomości. Utracisz wszelkie informacje znajdujące się w bieżącej instalacji SMSecure, ale nieobecne w kopii zapasowej. Po zakończeniu importu aplikacja SMSecure zostanie zatrzymana.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Przywracanie zaszyfrowanej kopii zapasowej…</string>
+  <string name="ImportFragment_silence_backup">Przywróć kopię Silence</string>
+  <string name="ImportFragment_silence_backup_description">Przywróć z folderu eksportu Silence</string>
+  <string name="ImportFragment_silence_backup_warning">Spowoduje to zastąpienie istniejących wiadomości, kluczy i ustawień. Wybierz folder SilenceExport. Jeśli kopia zapasowa jest chroniona hasłem, konieczne będzie podanie oryginalnego hasła. Utracisz wszelkie informacje znajdujące się w bieżącej instalacji SMSecure, ale nieobecne w kopii zapasowej. Po zakończeniu importu aplikacja SMSecure zostanie zatrzymana.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Spowoduje to zaimportowanie wiadomości z kopii zapasowej w formacie zwykłego tekstu. Jeśli wcześniej zaimportowano tę kopię zapasową, ponowne zaimportowanie spowoduje powielenie wiadomości.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Spowoduje to zaimportowanie wiadomości z domyślnej bazy danych SMS systemu do aplikacji SMSecure. Jeśli wcześniej zaimportowano już bazę danych SMS systemu, ponowne zaimportowanie spowoduje powielenie wiadomości.</string>
   <!--key_scanning-->

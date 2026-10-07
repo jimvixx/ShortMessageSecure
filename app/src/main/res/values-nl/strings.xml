@@ -358,6 +358,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Versleutelde back-up herstellen?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Het herstellen van een versleutelde back-up zal uw bestaande sleutels, voorkeuren en berichten volledig vervangen. U verliest alle informatie die zich in uw huidige SMSecure-installatie bevindt, maar niet in de back-up. SMSecure wordt na het importeren gestopt.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Versleutelde back-up herstellen…</string>
+  <string name="ImportFragment_silence_backup">Silence-back-up herstellen</string>
+  <string name="ImportFragment_silence_backup_description">Herstellen vanuit een Silence-exportmap</string>
+  <string name="ImportFragment_silence_backup_warning">Hiermee worden uw bestaande berichten, sleutels en instellingen vervangen. Selecteer de map „SilenceExport“. Als de back-up met een wachtwoord is beveiligd, hebt u de oorspronkelijke wachtwoordzin nodig. U raakt alle informatie kwijt die in uw huidige SMSecure-installatie staat, maar niet in de back-up. SMSecure wordt na het importeren gestopt.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Hiermee worden berichten geïmporteerd vanuit een back-up in platte tekst. Als u deze back-up al eerder hebt geïmporteerd, leidt opnieuw importeren tot dubbele berichten.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Hiermee worden berichten uit de standaard SMS-database van het systeem geïmporteerd naar SMSecure. Als u de SMS-database van het systeem al eerder hebt geïmporteerd, leidt opnieuw importeren tot dubbele berichten.</string>
   <!--key_scanning-->

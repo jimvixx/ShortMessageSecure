@@ -394,6 +394,9 @@
 <string name="ImportFragment_restore_encrypted_backup">استعادة النسخة الاحتياطية المشفرة؟</string>
 <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">ستؤدي استعادة نسخة احتياطية مشفرة إلى استبدال مفاتيحك وتفضيلاتك ورسائلك الحالية بالكامل. ستفقد أي معلومات موجودة في تثبيت SMSecure الحالي الخاص بك ولكنها غير موجودة في النسخة الاحتياطية. سيتوقف SMSecure بعد الاستيراد.</string>
 <string name="ImportFragment_restoring_encrypted_backup">استعادة النسخة الاحتياطية المشفرة…</string>
+<string name="ImportFragment_silence_backup">استعادة نسخة Silence الاحتياطية</string>
+<string name="ImportFragment_silence_backup_description">الاستعادة من مجلد تصدير Silence</string>
+<string name="ImportFragment_silence_backup_warning">سيؤدي هذا إلى استبدال رسائلك ومفاتيحك وإعداداتك الحالية. حدد مجلد SilenceExport. إذا كانت النسخة الاحتياطية محمية بكلمة مرور، فستحتاج إلى عبارة المرور الأصلية. ستفقد أي معلومات موجودة في تثبيت SMSecure الحالي لديك ولكنها غير موجودة في النسخة الاحتياطية. سيتوقف SMSecure بعد عملية الاستيراد.</string>
 <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">سيؤدي هذا إلى استيراد الرسائل من نسخة احتياطية بنص عادي. إذا كنت قد استوردت هذه النسخة الاحتياطية سابقًا، فسيؤدي الاستيراد مرة أخرى إلى تكرار الرسائل.</string>
 <string name="ImportFragment_this_will_import_messages_from_the_system">سيؤدي هذا إلى استيراد الرسائل من قاعدة بيانات الرسائل القصيرة (SMS) الافتراضية للنظام إلى SMSecure. إذا كنت قد قمت باستيراد قاعدة بيانات الرسائل القصيرة (SMS) للنظام من قبل، فإن الاستيراد مرة أخرى سيؤدي إلى تكرار الرسائل.</string>
 <!--key_scanning-->

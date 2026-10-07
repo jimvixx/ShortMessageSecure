@@ -358,6 +358,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Gendanne krypteret sikkerhedskopi?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Gendannelse af en krypteret sikkerhedskopi vil fuldstændigt erstatte dine eksisterende nøgler, indstillinger og beskeder. Du vil miste alle oplysninger, der findes i din nuværende SMSecure-installation, men ikke i sikkerhedskopien. SMSecure vil stoppe efter importen.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Gendanner krypteret sikkerhedskopi…</string>
+  <string name="ImportFragment_silence_backup">Gendan Silence-sikkerhedskopi</string>
+  <string name="ImportFragment_silence_backup_description">Gendan fra en Silence-eksportmappe</string>
+  <string name="ImportFragment_silence_backup_warning">Dette vil erstatte dine eksisterende beskeder, nøgler og indstillinger. Vælg mappen SilenceExport. Hvis sikkerhedskopien er beskyttet med en adgangskode, skal du bruge den oprindelige adgangskode. Du vil miste alle oplysninger, der findes i din nuværende SMSecure-installation, men som ikke findes i sikkerhedskopien. SMSecure vil stoppe efter importen.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Dette importerer beskeder fra en sikkerhedskopi i almindelig tekst. Hvis du tidligere har importeret denne sikkerhedskopi, vil en ny import resultere i dublerede beskeder.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Dette importerer beskeder fra systemets standard SMS-database til SMSecure. Hvis du tidligere har importeret systemets SMS-database, vil en ny import resultere i dublerede beskeder.</string>
   <!--key_scanning-->

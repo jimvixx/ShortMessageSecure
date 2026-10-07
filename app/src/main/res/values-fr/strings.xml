@@ -367,6 +367,9 @@
     <string name="ImportFragment_restore_encrypted_backup">Restaurer une sauvegarde chiffrée ?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">La restauration d’une sauvegarde chiffrée remplacera complètement vos clés, vos préférences et vos messages existants. Vous perdrez toutes les informations présentes dans votre installation actuelle de SMSecure mais qui ne figurent pas dans la sauvegarde. SMSecure s’arrêtera après l’importation.</string>
     <string name="ImportFragment_restoring_encrypted_backup">Restauration de la sauvegarde chiffrée…</string>
+    <string name="ImportFragment_silence_backup">Restaurer une sauvegarde Silence</string>
+    <string name="ImportFragment_silence_backup_description">Restaurer depuis un dossier d’exportation Silence</string>
+    <string name="ImportFragment_silence_backup_warning">Cette opération remplacera vos messages, clés et paramètres existants. Sélectionnez le dossier SilenceExport. Si la sauvegarde est protégée par un mot de passe, vous devrez fournir le mot de passe d’origine. Vous perdrez toutes les informations présentes dans votre installation actuelle de SMSecure mais qui ne figurent pas dans la sauvegarde. SMSecure s’arrêtera une fois l’importation terminée.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Ceci importera les messages provenant d\’une sauvegarde non-chiffrée. Si vous avez déjà importé la base de données SMS du système, l\’importer à nouveau se traduira par des messages dupliqués.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">Cela importera les messages de la base de données SMS par défaut du système vers SMSecure. Si vous avez déjà importé la base de données SMS du système, une nouvelle importation entraînera la duplication des messages.</string>
     <!--key_scanning-->

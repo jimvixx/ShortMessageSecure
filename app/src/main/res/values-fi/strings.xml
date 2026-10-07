@@ -358,6 +358,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Palautetaanko salattu varmuuskopio?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Salatun varmuuskopion palauttaminen korvaa kokonaan nykyiset avaimet, asetukset ja viestit. Menetät kaikki tiedot, jotka ovat nykyisessä SMSecure-asennuksessasi mutta eivät varmuuskopiossa. SMSecure lopettaa toimintansa tuonnin jälkeen.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Palautetaan salattua varmuuskopiota…</string>
+  <string name="ImportFragment_silence_backup">Palauta Silence-varmuuskopio</string>
+  <string name="ImportFragment_silence_backup_description">Palauta Silence-vientikansiosta</string>
+  <string name="ImportFragment_silence_backup_warning">Tämä korvaa nykyiset viestisi, avaimet ja asetukset. Valitse SilenceExport-kansio. Jos varmuuskopio on salasanasuojattu, tarvitset sen alkuperäisen salasanan. Menetät kaikki tiedot, jotka ovat nykyisessä SMSecure-asennuksessasi mutta eivät varmuuskopiossa. SMSecure lopettaa toimintansa tuonnin jälkeen.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Tämä toiminto tuo viestit salaamattomasta varmuuskopiosta. Jos viestit on tuotu jo aiemmin, seuraa niiden uudelleen tuonnista viestien kaksoiskappaleita.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Tämä tuo viestit järjestelmän oletus-SMS-tietokannasta SMSecureen. Jos olet tuonut järjestelmän SMS-tietokannan aiemmin, uudelleentuonti johtaa viestien päällekkäisyyksiin.</string>
   <!--key_scanning-->
