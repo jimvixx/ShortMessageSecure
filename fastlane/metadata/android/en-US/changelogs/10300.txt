@@ -1,0 +1,3 @@
+* Import encrypted backups from Silence.
+* Option to hide phone numbers in chat headers for saved contacts.
+* Bug fixes, stability improvements, and updated translations.

@@ -46,12 +46,15 @@ git config core.hooksPath .githooks
 ```
 
 When a staged `CHANGELOG.md` is committed, the pre-commit hook runs
-`:app:generatePlayChangelog`. The task reads the latest release section,
+`:app:generatePlayChangelog` only if the current version's changelog is absent
+from both the working tree and the index. Existing notes are left untouched
+and are not automatically staged. The task reads the latest release section,
 generates `fastlane/metadata/android/en-US/changelogs/<versionCode>.txt`, and
 adds the generated file to the commit. The commit is rejected if the release
-notes exceed 500 Unicode characters or `CHANGELOG.md` is only partially staged.
+generated notes exceed 500 Unicode characters or generation is needed while
+`CHANGELOG.md` is only partially staged.
 
-To run the generator manually:
+To run the generator manually (overwrites existing notes):
 
 ```bash
 ./gradlew :app:generatePlayChangelog

@@ -109,6 +109,21 @@ if git diff --cached --quiet -- CHANGELOG.md; then
   exit 0
 fi
 
+mapfile -t changelog_version_codes < <(
+  sed -nE 's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+)[[:space:]]*$/\1/p' \
+    "$build_gradle"
+)
+if [[ "${#changelog_version_codes[@]}" -ne 1 ]]; then
+  echo "Unable to determine a single versionCode from $build_gradle." >&2
+  exit 1
+fi
+
+changelog_path="fastlane/metadata/android/en-US/changelogs/${changelog_version_codes[0]}.txt"
+if [[ -e "$changelog_path" ]] || git cat-file -e ":$changelog_path" 2>/dev/null; then
+  echo "Keeping existing Play changelog: $changelog_path"
+  exit 0
+fi
+
 if ! git diff --quiet -- CHANGELOG.md; then
   echo "CHANGELOG.md has unstaged changes; stage the complete file before committing." >&2
   exit 1

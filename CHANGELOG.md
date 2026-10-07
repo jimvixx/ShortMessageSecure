@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.3.0
+
+### Added
+
+- Import encrypted backups from a SilenceExport folder.
+- Option to hide phone numbers in conversation headers for saved contacts.
+
+### Changed
+
+- Improved privacy-safe diagnostics for SMS sending failures.
+- Updated translations and dependencies.
+
+### Fixed
+
+- Persistent job queue compatibility across app updates; preserve unreadable legacy jobs for recovery.
+- Notification failures caused by interrupted icon rendering.
+- Permissions when sharing diagnostic logs.
+- Navigation to web pages from settings.
+
 ## v1.2.0
 
 ### Added
