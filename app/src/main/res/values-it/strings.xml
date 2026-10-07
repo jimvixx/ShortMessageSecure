@@ -367,6 +367,9 @@
     <string name="ImportFragment_restore_encrypted_backup">Ripristinare il backup crittografato?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Il ripristino di un backup crittografato sostituirà completamente le chiavi, le preferenze e i messaggi esistenti. Si perderanno tutte le informazioni presenti nell’installazione corrente di SMSecure ma non presenti nel backup. SMSecure si arresterà dopo l’importazione.</string>
     <string name="ImportFragment_restoring_encrypted_backup">Ripristino del backup crittografato…</string>
+    <string name="ImportFragment_silence_backup">Ripristina backup Silence</string>
+    <string name="ImportFragment_silence_backup_description">Ripristina da una cartella esportata da Silence</string>
+    <string name="ImportFragment_silence_backup_warning">Questa operazione sostituirà i messaggi, le chiavi e le impostazioni esistenti. Seleziona la cartella SilenceExport. Se il backup è protetto da password, ti servirà la passphrase originale. Perderai tutte le informazioni presenti nell’attuale installazione di SMSecure ma non presenti nel backup. SMSecure si arresterà al termine dell’importazione.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Questo importerà messaggi da una copia. Se hai già importato questa copia, una nuova importazione creerà dei messaggi duplicati.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">Questo importerà i messaggi dal database SMS predefinito del sistema in SMSecure. Se hai già importato il database SMS del sistema in precedenza, importarlo nuovamente comporterà la duplicazione dei messaggi.</string>
     <!--key_scanning-->

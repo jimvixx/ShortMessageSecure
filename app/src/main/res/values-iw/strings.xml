@@ -367,6 +367,9 @@
     <string name="ImportFragment_restore_encrypted_backup">לשחזר גיבוי מוצפן?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">שחזור גיבוי מוצפן יחליף לחלוטין את המפתחות, ההעדפות וההודעות הקיימים שלך. תאבד כל מידע שנמצא בהתקנה הנוכחית של SMSecure אך לא בגיבוי. SMSecure יפסיק לפעול לאחר הייבוא.</string>
     <string name="ImportFragment_restoring_encrypted_backup">שחזור גיבוי מוצפן…</string>
+    <string name="ImportFragment_silence_backup">שחזור גיבוי Silence</string>
+    <string name="ImportFragment_silence_backup_description">שחזור מתיקיית ייצוא של Silence</string>
+    <string name="ImportFragment_silence_backup_warning">פעולה זו תחליף את ההודעות, המפתחות וההגדרות הקיימות שלך. בחר בתיקיית SilenceExport. אם הגיבוי מוגן בסיסמה, תצטרך את סיסמת הגישה המקורית שלו. תאבד כל מידע שנמצא בהתקנה הנוכחית של SMSecure אך אינו קיים בגיבוי. SMSecure יפסיק לפעול לאחר הייבוא.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">פעולה זו תייבא הודעות מגיבוי בטקסט רגיל. אם ייבאת גיבוי זה בעבר, ייבוא חוזר יגרום לשכפול הודעות.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">פעולה זו תייבא הודעות ממסד הנתונים המוגדר כברירת מחדל של המערכת ל-SMSecure. אם ייבאת בעבר את מסד הנתונים של ה-SMS מהמערכת, ייבוא חוזר יגרום להופעת הודעות כפולות.</string>
     <!--key_scanning-->

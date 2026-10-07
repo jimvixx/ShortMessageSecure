@@ -367,6 +367,9 @@
 <string name="ImportFragment_restore_encrypted_backup">Atjaunot šifrētu dublējumu?</string>
 <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Šifrētas rezerves kopijas atjaunošana pilnībā aizstās jūsu esošās atslēgas, iestatījumus un ziņojumus. Jūs zaudēsiet visu informāciju, kas atrodas jūsu pašreizējā SMSecure instalācijā, bet nav iekļauta rezerves kopijā. SMSecure pārtrauks darbu pēc importēšanas.</string>
 <string name="ImportFragment_restoring_encrypted_backup">Atjaunojot šifrētu dublējumu…</string>
+<string name="ImportFragment_silence_backup">Atjaunot Silence dublējumu</string>
+<string name="ImportFragment_silence_backup_description">Atjaunot no Silence eksporta mapes</string>
+<string name="ImportFragment_silence_backup_warning">Tas aizstās jūsu esošos ziņojumus, atslēgas un iestatījumus. Izvēlieties mapi „SilenceExport”. Ja dublējums ir aizsargāts ar paroli, jums būs nepieciešama tā sākotnējā parole. Jūs zaudēsiet visu informāciju, kas atrodas jūsu pašreizējā „SMSecure” instalācijā, bet nav iekļauta dublējumā. Pēc importēšanas „SMSecure” pārtrauks darbību.</string>
 <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Tas importēs ziņojumus no teksta formāta dublējuma. Ja šo dublējumu jau iepriekš esat importējis, atkārtota importēšana radīs ziņojumu dublikātus.</string>
 <string name="ImportFragment_this_will_import_messages_from_the_system">Tas importēs ziņojumus no sistēmas noklusējuma SMS datubāzes uz SMSecure. Ja iepriekš jau esat importējis sistēmas SMS datubāzi, atkārtota importēšana radīs ziņojumu dublikātus.</string>
 <!--key_scanning-->

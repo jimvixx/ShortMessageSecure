@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -157,95 +158,119 @@ public class EncryptedBackupExporter {
   public static void stageImportFromUri(@NonNull Context context, @NonNull Uri inputUri) throws IOException {
     File stagingRoot = getStagingRoot(context);
 
-    deleteRecursive(stagingRoot);
-    if (!stagingRoot.mkdirs() && !stagingRoot.exists()) {
-      throw new IOException("Failed to create staging dir: " + stagingRoot.getAbsolutePath());
-    }
+    File marker = getMarkerFile(context);
+    // An interrupted/failed attempt must never leave an applicable partial restore.
+    if (marker.exists() && !marker.delete()) throw new IOException("Cannot clear pending restore marker");
+    boolean staged = false;
+    try {
+      deleteRecursive(stagingRoot);
+      if (!stagingRoot.mkdirs() && !stagingRoot.exists()) {
+        throw new IOException("Failed to create staging dir: " + stagingRoot.getAbsolutePath());
+      }
 
-    // Extract ZIP into stagingRoot with strong validation.
-    try (InputStream is = context.getContentResolver().openInputStream(inputUri)) {
-      if (is == null) throw new IOException("openInputStream() returned null for: " + inputUri);
+      // Extract ZIP into stagingRoot with strong validation.
+      try (InputStream is = context.getContentResolver().openInputStream(inputUri)) {
+        if (is == null) throw new IOException("openInputStream() returned null for: " + inputUri);
 
-      try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
-        ZipEntry entry;
-        byte[] buffer = new byte[64 * 1024];
+        try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
+          ZipEntry entry;
+          byte[] buffer = new byte[64 * 1024];
 
-        while ((entry = zis.getNextEntry()) != null) {
-          String name = entry.getName();
-          if (name == null || name.trim().isEmpty()) {
-            zis.closeEntry();
-            continue;
-          }
-
-          name = name.replace('\\', '/');
-          while (name.startsWith("/")) name = name.substring(1);
-
-          if (!isAllowedTopLevel(name)) {
-            Log.w(TAG, "Skipping entry outside allowed roots: " + name);
-            zis.closeEntry();
-            continue;
-          }
-
-          if (isExcludedPath(name)) {
-            zis.closeEntry();
-            continue;
-          }
-
-          File outFile = new File(stagingRoot, name);
-
-          // ZipSlip protection (within stagingRoot)
-          String stagingCanonical = stagingRoot.getCanonicalPath();
-          String outCanonical = outFile.getCanonicalPath();
-          if (!outCanonical.startsWith(stagingCanonical + File.separator) && !outCanonical.equals(stagingCanonical)) {
-            Log.w(TAG, "Blocked ZipSlip entry: " + name);
-            zis.closeEntry();
-            continue;
-          }
-
-          if (entry.isDirectory() || name.endsWith("/")) {
-            if (!outFile.exists() && !outFile.mkdirs()) {
-              throw new IOException("Failed to create directory: " + outFile.getAbsolutePath());
+          while ((entry = zis.getNextEntry()) != null) {
+            checkImportCancelled();
+            String name = entry.getName();
+            if (name == null || name.trim().isEmpty()) {
+              zis.closeEntry();
+              continue;
             }
-            zis.closeEntry();
-            continue;
-          }
 
-          File p = outFile.getParentFile();
-          if (p != null && !p.exists() && !p.mkdirs()) {
-            throw new IOException("Failed to create directory: " + p.getAbsolutePath());
-          }
+            name = name.replace('\\', '/');
+            while (name.startsWith("/")) name = name.substring(1);
 
-          try (FileOutputStream fos = new FileOutputStream(outFile);
-               BufferedOutputStream bos = new BufferedOutputStream(fos)) {
-            int read;
-            while ((read = zis.read(buffer)) != -1) {
-              bos.write(buffer, 0, read);
+            if (!isAllowedTopLevel(name)) {
+              Log.w(TAG, "Skipping entry outside allowed roots: " + name);
+              zis.closeEntry();
+              continue;
             }
-            bos.flush();
-          }
 
-          zis.closeEntry();
+            if (isExcludedPath(name)) {
+              zis.closeEntry();
+              continue;
+            }
+
+            File outFile = new File(stagingRoot, name);
+
+            // ZipSlip protection (within stagingRoot)
+            String stagingCanonical = stagingRoot.getCanonicalPath();
+            String outCanonical = outFile.getCanonicalPath();
+            if (!outCanonical.startsWith(stagingCanonical + File.separator) && !outCanonical.equals(stagingCanonical)) {
+              Log.w(TAG, "Blocked ZipSlip entry: " + name);
+              zis.closeEntry();
+              continue;
+            }
+
+            if (entry.isDirectory() || name.endsWith("/")) {
+              if (!outFile.exists() && !outFile.mkdirs()) {
+                throw new IOException("Failed to create directory: " + outFile.getAbsolutePath());
+              }
+              zis.closeEntry();
+              continue;
+            }
+
+            File p = outFile.getParentFile();
+            if (p != null && !p.exists() && !p.mkdirs()) {
+              throw new IOException("Failed to create directory: " + p.getAbsolutePath());
+            }
+
+            try (FileOutputStream fos = new FileOutputStream(outFile);
+                 BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+              int read;
+              while ((read = zis.read(buffer)) != -1) {
+                checkImportCancelled();
+                bos.write(buffer, 0, read);
+              }
+              bos.flush();
+            }
+
+            zis.closeEntry();
+          }
         }
       }
-    }
 
-    // Minimal validation: must contain at least one of the core artifacts
-    File msgDb = new File(stagingRoot, "databases/messages.db");
-    File prefs = new File(stagingRoot, "shared_prefs/org.jimvixx.smsecure_preferences.xml");
-    if (!msgDb.exists() && !prefs.exists()) {
-      deleteRecursive(stagingRoot);
-      throw new IOException("Staged restore does not look like a valid SMSecure backup (missing core files).");
-    }
+      // Minimal validation: must contain at least one of the core artifacts
+      File msgDb = new File(stagingRoot, "databases/messages.db");
+      File prefs = new File(stagingRoot, "shared_prefs/org.jimvixx.smsecure_preferences.xml");
+      if (!msgDb.exists() && !prefs.exists()) {
+        deleteRecursive(stagingRoot);
+        throw new IOException("Staged restore does not look like a valid SMSecure backup (missing core files).");
+      }
 
-    // Create marker
-    File marker = getMarkerFile(context);
-    writeSmallTextFile(marker, "staged=" + stagingRoot.getAbsolutePath());
-    Log.i(TAG, "Restore staged at: " + stagingRoot.getAbsolutePath());
+      // Create marker
+      checkImportCancelled();
+      writeSmallTextFile(marker, "staged=" + stagingRoot.getAbsolutePath());
+      Log.i(TAG, "Restore staged at: " + stagingRoot.getAbsolutePath());
+      staged = true;
+    } finally {
+      if (!staged) {
+        deleteRecursive(stagingRoot);
+        //noinspection ResultOfMethodCallIgnored
+        marker.delete();
+      }
+    }
+  }
+
+  private static void checkImportCancelled() throws InterruptedIOException {
+    if (Thread.currentThread().isInterrupted()) throw new InterruptedIOException("Restore cancelled");
   }
 
   public static void applyPendingRestoreIfAny(@NonNull Context context) {
     File marker = getMarkerFile(context);
-    if (!marker.exists()) return;
+    File stagingRoot = getStagingRoot(context);
+    if (!marker.isFile()) {
+      // Process death before handoff leaves no marker: this staging is not applicable.
+      deleteRecursive(stagingRoot);
+      return;
+    }
 
     File parentDir;
     try {
@@ -255,7 +280,6 @@ public class EncryptedBackupExporter {
       return;
     }
 
-    File stagingRoot = getStagingRoot(context);
     if (!stagingRoot.exists() || !stagingRoot.isDirectory()) {
       Log.w(TAG, "applyPendingRestore: staging dir missing; deleting marker");
       // best effort cleanup

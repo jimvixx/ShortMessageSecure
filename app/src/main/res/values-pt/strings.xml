@@ -367,6 +367,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Restaurar cópia de segurança encriptada?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">A restauração de uma cópia de segurança encriptada substituirá completamente as suas chaves, preferências e mensagens existentes. Perderá todas as informações que se encontram na sua instalação atual do SMSecure, mas que não constam da cópia de segurança. O SMSecure será encerrado após a importação.</string>
   <string name="ImportFragment_restoring_encrypted_backup">A restaurar cópia de segurança encriptada…</string>
+  <string name="ImportFragment_silence_backup">Restaurar cópia do Silence</string>
+  <string name="ImportFragment_silence_backup_description">Restaurar a partir de uma pasta de exportação do Silence</string>
+  <string name="ImportFragment_silence_backup_warning">Isto irá substituir as suas mensagens, chaves e definições existentes. Selecione a pasta SilenceExport. Se o backup estiver protegido por palavra-passe, irá precisar da palavra-passe original. Irá perder qualquer informação que se encontre na sua instalação atual do SMSecure, mas que não conste do backup. O SMSecure irá encerrar após a importação.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Isto irá importar as mensagens de um backup em texto simples para o SMSSecure. Se você já importou este backup anteriormente, uma nova importação poderá originar a duplicação de mensagens.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Isto irá importar as mensagens da sua aplicação padrão de SMS para o SMSecure. Se você já importou estas mensagens, uma nova importação poderá originar a duplicação de mensagens.</string>
   <!--key_scanning-->

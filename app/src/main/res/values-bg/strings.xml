@@ -358,6 +358,9 @@
     <string name="ImportFragment_restore_encrypted_backup">Да възстановим криптирания архив?</string>
     <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Възстановяването на криптиран архив ще замени напълно съществуващите ви ключове, настройки и съобщения. Ще загубите всякаква информация, която се намира в текущата ви инсталация на SMSecure, но не е включена в архива. SMSecure ще спре да работи след импорта.</string>
     <string name="ImportFragment_restoring_encrypted_backup">Възстановяване на криптиран архив…</string>
+    <string name="ImportFragment_silence_backup">Възстановяване на архив от Silence</string>
+    <string name="ImportFragment_silence_backup_description">Възстановяване от папка, експортирана от Silence</string>
+    <string name="ImportFragment_silence_backup_warning">Това ще замени съществуващите ви съобщения, ключове и настройки. Изберете папката SilenceExport. Ако резервното копие е защитено с парола, ще ви е необходима оригиналната парола. Ще загубите всякаква информация, която се намира в текущата ви инсталация на SMSecure, но не е включена в резервното копие. SMSecure ще спре да работи след импорта.</string>
     <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Това ще импортира съобщения от резервно копие в обикновен текст. Ако вече сте импортирали това резервно копие, повторно импортиране ще доведе до дублиране на съобщенията.</string>
     <string name="ImportFragment_this_will_import_messages_from_the_system">Това ще импортира съобщения от системната база данни за SMS по подразбиране в SMSecure. Ако вече сте импортирали системната база данни за SMS, повторно импортиране ще доведе до дублиране на съобщенията.</string>
     <!--key_scanning-->

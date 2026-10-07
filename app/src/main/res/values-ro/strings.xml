@@ -367,6 +367,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Restaurați copia de rezervă criptată?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Restaurarea unei copii de rezervă criptate va înlocui complet cheile, preferințele și mesajele existente. Veți pierde orice informație care se află în instalarea curentă a SMSecure, dar nu și în copia de rezervă. SMSecure se va opri după import.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Se restabilește copia de rezervă criptată…</string>
+  <string name="ImportFragment_silence_backup">Restaurează copia Silence</string>
+  <string name="ImportFragment_silence_backup_description">Restaurează dintr-un dosar exportat de Silence</string>
+  <string name="ImportFragment_silence_backup_warning">Aceasta va înlocui mesajele, cheile și setările existente. Selectați folderul SilenceExport. Dacă copia de rezervă este protejată cu parolă, veți avea nevoie de fraza de acces originală. Veți pierde orice informație care se află în instalarea curentă a SMSecure, dar nu și în copia de rezervă. SMSecure se va opri după import.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Această acțiune va importa mesajele din o copie de rezervă necriptată. Dacă ați mai importat această copie de rezervă atunci importarea curentă va crea mesaje duplicate.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Aceasta va importa mesaje din baza de date SMS implicită a sistemului în SMSecure. Dacă ați importat deja baza de date SMS a sistemului, o nouă importare va duce la mesaje duplicate.</string>
   <!--key_scanning-->

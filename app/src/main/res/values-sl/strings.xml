@@ -376,6 +376,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Obnoviti šifrirano varnostno kopijo?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Obnova šifrirane varnostne kopije bo v celoti nadomestila vaše obstoječe ključe, nastavitve in sporočila. Izgubili boste vse podatke, ki so v vaši trenutni namestitvi SMSecure, vendar niso v varnostni kopiji. SMSecure se bo po uvozu ustavil.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Obnavljanje šifrirane varnostne kopije…</string>
+  <string name="ImportFragment_silence_backup">Obnovi varnostno kopijo Silence</string>
+  <string name="ImportFragment_silence_backup_description">Obnovi iz izvozne mape Silence</string>
+  <string name="ImportFragment_silence_backup_warning">To bo nadomestilo vaše obstoječe sporočila, ključe in nastavitve. Izberite mapo SilenceExport. Če je varnostna kopija zaščitena z geslom, boste potrebovali izvirno geslo. Izgubili boste vse podatke, ki so v vaši trenutni namestitvi SMSecure, vendar niso v varnostni kopiji. SMSecure se bo po uvozu ustavil.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">To bo uvozilo sporočila iz varnostne kopije v obliki navadnega besedila. Če ste to varnostno kopijo že uvozili, bo ponovni uvoz povzročil podvajanje sporočil.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">To bo uvozilo sporočila iz privzete baze podatkov SMS sistema v SMSecure. Če ste bazo podatkov SMS sistema že uvozili, bo ponovni uvoz povzročil podvajanje sporočil.</string>
   <!--key_scanning-->

@@ -358,6 +358,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Titkosított biztonsági másolat visszaállítása?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">A titkosított biztonsági másolat visszaállítása teljesen felülírja a meglévő kulcsokat, beállításokat és üzeneteket. Elveszíti azokat az információkat, amelyek a jelenlegi SMSecure telepítésben szerepelnek, de nincsenek a biztonsági másolatban. Az SMSecure az importálás után leáll.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Titkosított biztonsági másolat visszaállítása…</string>
+  <string name="ImportFragment_silence_backup">Silence-mentés visszaállítása</string>
+  <string name="ImportFragment_silence_backup_description">Visszaállítás a Silence exportált mappájából</string>
+  <string name="ImportFragment_silence_backup_warning">Ez felülírja a meglévő üzeneteit, kulcsait és beállításait. Válassza ki a SilenceExport mappát. Ha a biztonsági másolat jelszóval védett, szüksége lesz az eredeti jelszóra. Elveszíti mindazokat az információkat, amelyek a jelenlegi SMSecure-telepítésben szerepelnek, de nincsenek a biztonsági másolatban. Az SMSecure az importálás után leáll.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Ez importálni fogja az üzeneteket egy titkosítatlan biztonsági mentésből. Ha már korábban importáltad ezt a biztonsági mentést, akkor az újbóli importálás duplikált üzeneteket eredményez.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Ez a rendszer alapértelmezett SMS-adatbázisából importálja az üzeneteket az SMSecure alkalmazásba. Ha korábban már importálta a rendszer SMS-adatbázisát, az újbóli importálás üzenetduplikációt eredményez.</string>
   <!--key_scanning-->

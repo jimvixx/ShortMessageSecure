@@ -376,6 +376,9 @@
   <string name="ImportFragment_restore_encrypted_backup">Obnoviť šifrovanú zálohu?</string>
   <string name="ImportFragment_restoring_an_encrypted_backup_will_completely_replace_your_existing_keys">Obnovenie šifrovanej zálohy úplne nahradí vaše existujúce kľúče, nastavenia a správy. Stratíte všetky informácie, ktoré sa nachádzajú vo vašej aktuálnej inštalácii SMSecure, ale nie sú v zálohe. SMSecure sa po importe zastaví.</string>
   <string name="ImportFragment_restoring_encrypted_backup">Obnovenie šifrovanej zálohy…</string>
+  <string name="ImportFragment_silence_backup">Obnoviť zálohu Silence</string>
+  <string name="ImportFragment_silence_backup_description">Obnoviť z priečinka exportu Silence</string>
+  <string name="ImportFragment_silence_backup_warning">Týmto sa nahradia vaše existujúce správy, kľúče a nastavenia. Vyberte priečinok SilenceExport. Ak je záloha chránená heslom, budete potrebovať jej pôvodnú heslovú frázu. Stratíte všetky informácie, ktoré sa nachádzajú vo vašej aktuálnej inštalácii aplikácie SMSecure, ale nie sú v zálohe. Po dokončení importu sa aplikácia SMSecure zastaví.</string>
   <string name="ImportFragment_this_will_import_messages_from_a_plaintext_backup">Týmto sa načítajú správy zo zálohy v podobe obyčajného textu. Ak ste túto zálohu už predtým načítajú, jej opätovné načítajú spôsobí zdvojenie správ.</string>
   <string name="ImportFragment_this_will_import_messages_from_the_system">Týmto sa importujú správy z predvolenej databázy SMS systému do aplikácie SMSecure. Ak ste už predtým importovali databázu SMS systému, ďalší import bude mať za následok zdvojenie správ.</string>
   <!--key_scanning-->
