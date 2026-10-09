@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.telephony.SmsMessage;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.jobs.SmsSentJob;
@@ -100,7 +101,8 @@ public class SmsDeliveryListener extends BroadcastReceiver {
         break;
 
       case DELIVERED_SMS_ACTION:
-        // Do NOT try to validate PDU here. We accept/reject delivery in SmsSentJob using a time heuristic.
+        // Observe the network status without changing the existing delivery heuristic.
+        logDeliveryReport(intent, resultCode);
         Log.w(TAG, "DELIVERED: result=" + resultCode +
                 " extras=" + (intent.getExtras() != null ? intent.getExtras().keySet() : "null"));
 
@@ -109,6 +111,31 @@ public class SmsDeliveryListener extends BroadcastReceiver {
 
       default:
         Log.w(TAG, "Unknown action: " + action);
+    }
+  }
+
+  private static void logDeliveryReport(Intent intent, int resultCode) {
+    try {
+      byte[] pdu = intent.getByteArrayExtra("pdu");
+      String format = intent.getStringExtra("format");
+      boolean knownFormat = "3gpp".equals(format) || "3gpp2".equals(format);
+      // Never log raw PDU, arbitrary extras, addresses or parser exception messages.
+      String safeFormat = knownFormat ? format : (format == null ? "absent" : "unknown");
+      SmsMessage report = pdu != null && knownFormat
+              ? SmsMessage.createFromPdu(pdu, format) : null;
+      Log.i(TAG, "SMS delivery diagnostic: message=" + intent.getLongExtra("message_id", -1)
+              + " result=" + resultCode
+              + " part=" + intent.getIntExtra("part_index", -1)
+              + "/" + intent.getIntExtra("parts_total", -1)
+              + " format=" + safeFormat
+              + " pduPresent=" + (pdu != null)
+              + " parsed=" + (report != null)
+              + " statusReport=" + (report != null && report.isStatusReportMessage())
+              + " status=" + (report == null ? "unavailable" : Integer.toString(report.getStatus())));
+      // SmsSentJob logs deltaMs against the stored send time for this message.
+    } catch (RuntimeException diagnosticFailure) {
+      Log.w(TAG, "SMS delivery diagnostic unavailable: "
+              + diagnosticFailure.getClass().getSimpleName());
     }
   }
 }

@@ -261,7 +261,10 @@ public class SmsSendJob extends SendJob {
               context,
               buildRequestCode((int) messageId, /*sent=*/false, i),
               intent,
-              PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+              // Telephony supplies the status-report PDU through fill-in extras.
+              // The intent has an explicit receiver and a unique attempt URI.
+              PendingIntent.FLAG_UPDATE_CURRENT |
+                      (android.os.Build.VERSION.SDK_INT >= 31 ? PendingIntent.FLAG_MUTABLE : 0)
       ));
     }
 
