@@ -119,7 +119,7 @@ public class SmsDeliveryListener extends BroadcastReceiver {
     }
   }
 
-  private static Integer logDeliveryReport(Intent intent, int resultCode) {
+  static Integer logDeliveryReport(Intent intent, int resultCode) {
     try {
       byte[] pdu = intent.getByteArrayExtra("pdu");
       String format = intent.getStringExtra("format");
