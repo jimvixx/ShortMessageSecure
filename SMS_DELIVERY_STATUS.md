@@ -32,3 +32,9 @@ Device acceptance checks:
 - Missing/invalid reports and old attempts must not confirm delivery.
 
 No raw PDU, addresses or message bodies are included in new diagnostics.
+
+SENT callbacks also allow telephony fill-in extras (`errorCode`, `noDefault`).
+Both callback types use explicit receivers and attempt-specific URIs; Android
+31+ requires FLAG_MUTABLE, while older versions use the default mutable mode.
+Missing diagnostic extras remain `absent`, not a fabricated zero/success.
+This does not change send-result handling or fix carrier submission failures.

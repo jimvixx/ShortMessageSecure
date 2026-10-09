@@ -238,7 +238,8 @@ public class SmsSendJob extends SendJob {
               context,
               buildRequestCode((int) messageId, /*sent=*/true, i),
               intent,
-              PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+              // Telephony fills in errorCode/noDefault; keep the receiver explicit.
+              callbackPendingIntentFlags(android.os.Build.VERSION.SDK_INT)
       ));
     }
 
@@ -264,12 +265,16 @@ public class SmsSendJob extends SendJob {
               intent,
               // Telephony supplies the status-report PDU through fill-in extras.
               // The intent has an explicit receiver and a unique attempt URI.
-              PendingIntent.FLAG_UPDATE_CURRENT |
-                      (android.os.Build.VERSION.SDK_INT >= 31 ? PendingIntent.FLAG_MUTABLE : 0)
+              callbackPendingIntentFlags(android.os.Build.VERSION.SDK_INT)
       ));
     }
 
     return deliveredIntents;
+  }
+
+  static int callbackPendingIntentFlags(int sdkInt) {
+    return PendingIntent.FLAG_UPDATE_CURRENT |
+            (sdkInt >= 31 ? PendingIntent.FLAG_MUTABLE : 0);
   }
 
   private Intent constructSentIntent(Context context, long messageId, long type, boolean secure) {

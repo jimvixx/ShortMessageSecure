@@ -20,6 +20,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class SmsDeliveryStatusTest {
+  @Test public void telephonyCallbacksAllowSystemExtrasOnSupportedAndroidVersions() {
+    for (int sdk : new int[] {23, 30, 31, 33, 36}) {
+      int flags = SmsSendJob.callbackPendingIntentFlags(sdk);
+      assertEquals(0, flags & android.app.PendingIntent.FLAG_IMMUTABLE);
+      assertEquals(android.app.PendingIntent.FLAG_UPDATE_CURRENT,
+                   flags & android.app.PendingIntent.FLAG_UPDATE_CURRENT);
+      assertEquals(sdk >= 31 ? android.app.PendingIntent.FLAG_MUTABLE : 0,
+                   flags & android.app.PendingIntent.FLAG_MUTABLE);
+    }
+  }
   @Test public void staleAttemptsReusedIdsAndInvalidPartsAreRejected() {
     SmsDeliveryTracker.State state = new SmsDeliveryTracker.State("new", 123, 2);
     org.junit.Assert.assertTrue(state.matches("new", 123, 0, 2));
