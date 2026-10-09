@@ -46,6 +46,17 @@ final class SmsDeliveryTracker {
     return aggregate;
   }
 
+  // Call only after the terminal database status was persisted. An old callback
+  // must never delete the tracking state of a newer send attempt.
+  static synchronized void finish(Context context, long id, String attempt, long sentAt) {
+    SharedPreferences preferences = prefs(context);
+    State state = State.decode(preferences.getString("message_" + id, null));
+    if (state == null || !state.attempt.equals(attempt) || state.sentAt != sentAt) return;
+    if (!preferences.edit().remove("message_" + id).commit()) {
+      throw new IllegalStateException("Cannot remove delivery attempt");
+    }
+  }
+
   static final class State {
     final String attempt;
     final long sentAt;

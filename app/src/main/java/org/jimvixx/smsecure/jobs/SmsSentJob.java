@@ -138,6 +138,7 @@ public class SmsSentJob extends MasterSecretJob {
 
       // If it's already marked delivered, ignore duplicates (some devices fire multiple times).
       if (record.isDelivered()) {
+        SmsDeliveryTracker.finish(context, messageId, deliveryAttempt, sentAt);
         Log.w(TAG, "DELIVERED ignored: already delivered. msgId=" + messageId);
         return;
       }
@@ -151,8 +152,12 @@ public class SmsSentJob extends MasterSecretJob {
               deliveryPart, deliveryParts, deliveryStatus);
       if (deliveryStatus == SmsDeliveryTracker.IGNORE) return;
       if (deliveryStatus >= SmsDatabase.Status.STATUS_FAILED) {
-        if (record.getDeliveryStatus() == deliveryStatus) return;
+        if (record.getDeliveryStatus() == deliveryStatus) {
+          SmsDeliveryTracker.finish(context, messageId, deliveryAttempt, sentAt);
+          return;
+        }
         database.markStatus(messageId, deliveryStatus);
+        SmsDeliveryTracker.finish(context, messageId, deliveryAttempt, sentAt);
         MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipients(), record.getThreadId());
         return;
       }
@@ -186,6 +191,7 @@ public class SmsSentJob extends MasterSecretJob {
       }
 
       database.markAsDelivered(messageId);
+      SmsDeliveryTracker.finish(context, messageId, deliveryAttempt, sentAt);
 
       SmsMessageRecord after = database.getMessage(masterSecret, messageId);
       Log.w(TAG, "DELIVERED accepted: deliveredAt=" + after.getDateDeliveryReceived() +

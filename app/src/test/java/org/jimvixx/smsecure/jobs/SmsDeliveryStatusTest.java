@@ -20,6 +20,28 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class SmsDeliveryStatusTest {
+  @Test public void terminalCleanupRejectsLateReportsAndPreservesNewAttempts() {
+    android.content.Context context = org.mockito.Mockito.mock(android.content.Context.class);
+    android.content.SharedPreferences prefs = org.mockito.Mockito.mock(android.content.SharedPreferences.class);
+    android.content.SharedPreferences.Editor editor = org.mockito.Mockito.mock(android.content.SharedPreferences.Editor.class);
+    org.mockito.Mockito.when(context.getSharedPreferences("sms_delivery_attempts", 0)).thenReturn(prefs);
+    org.mockito.Mockito.when(prefs.edit()).thenReturn(editor);
+    org.mockito.Mockito.when(editor.remove("message_42")).thenReturn(editor);
+    org.mockito.Mockito.when(editor.commit()).thenReturn(true);
+    org.mockito.Mockito.when(prefs.getString("message_42", null))
+            .thenReturn(new SmsDeliveryTracker.State("new", 123, 2).encode());
+    SmsDeliveryTracker.finish(context, 42, "old", 123);
+    SmsDeliveryTracker.finish(context, 42, "new", 122);
+    org.mockito.Mockito.verifyNoInteractions(editor);
+    SmsDeliveryTracker.finish(context, 42, "new", 123);
+    org.mockito.Mockito.verify(editor).remove("message_42");
+    org.mockito.Mockito.verify(editor).commit();
+    org.mockito.Mockito.when(prefs.getString("message_42", null)).thenReturn(null);
+    assertEquals(SmsDeliveryTracker.IGNORE,
+                 SmsDeliveryTracker.record(context, 42, "new", 123, 1, 2, 0));
+    SmsDeliveryTracker.finish(context, 42, "new", 123);
+    org.mockito.Mockito.verifyNoMoreInteractions(editor);
+  }
   @Test public void telephonyCallbacksAllowSystemExtrasOnSupportedAndroidVersions() {
     for (int sdk : new int[] {23, 30, 31, 33, 36}) {
       int flags = SmsSendJob.callbackPendingIntentFlags(sdk);

@@ -196,7 +196,9 @@ public class SmsSendJob extends SendJob {
     // catching it and marking the message as a failure.  That way at least it doesn't
     // repeatedly crash every time you start the app.
     SmsSendAttemptTracker.startAttempt(context, message.getId(), sendAttemptId, messages.size());
-    SmsDeliveryTracker.start(context, message.getId(), sendAttemptId, message.getDateSent(), messages.size());
+    if (deliveredIntents != null) {
+      SmsDeliveryTracker.start(context, message.getId(), sendAttemptId, message.getDateSent(), messages.size());
+    }
 
     try {
       getSmsManagerFor(deviceSubscriptionId).sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);

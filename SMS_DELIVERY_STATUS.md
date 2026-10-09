@@ -33,6 +33,11 @@ Device acceptance checks:
 
 No raw PDU, addresses or message bodies are included in new diagnostics.
 
+Tracking starts only when delivery reports are enabled. After a terminal status
+is persisted in the message database, remove the matching attempt state. Late
+reports without state are ignored; cleanup cannot remove a newer attempt.
+Unresolved attempts are retained (there is no age-based eviction yet).
+
 SENT callbacks also allow telephony fill-in extras (`errorCode`, `noDefault`).
 Both callback types use explicit receivers and attempt-specific URIs; Android
 31+ requires FLAG_MUTABLE, while older versions use the default mutable mode.
