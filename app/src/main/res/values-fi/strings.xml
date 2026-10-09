@@ -630,6 +630,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Tervetulokuva</string>
   <string name="recipient_preferences__muted_when_blocked">Mykistetty, kun estetty</string>
+  <string name="sms_delivery_interworking_error">Toimitus epäonnistui: verkkojen välinen yhdysliikenne ei ole käytettävissä (0x45).</string>
+  <string name="sms_delivery_network_error">Toimitus epäonnistui: verkon tilakoodi %1$d.</string>
   <string name="WelcomeActivity_action_required">Toimenpide vaaditaan!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Salaa viestisi SMSecure-käyttäjien kanssa, kun käytät tavallisia SMS-viestejä muiden kanssa.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Paranna yksityisyyttäsi, keskustele kaikkien kanssa</string>

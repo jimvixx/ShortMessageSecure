@@ -688,6 +688,8 @@
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">Welcome image</string>
     <string name="recipient_preferences__muted_when_blocked">Muted when blocked</string>
+    <string name="sms_delivery_interworking_error">Delivery failed: network interworking unavailable (0x45).</string>
+    <string name="sms_delivery_network_error">Delivery failed: network status %1$d.</string>
     <string name="WelcomeActivity_action_required">Action required!</string>
     <string name="WelcomeActivity_encrypt_your_messages">Encrypt your messages with SMSecure users while using regular SMS messages with others.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Improve your privacy, talk to everyone</string>

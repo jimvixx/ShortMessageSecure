@@ -84,6 +84,16 @@ public class StableJobCodecTest {
     assertThrows(IOException.class, () -> StableJobCodec.encode(mock(Job.class)));
   }
 
+  @Test public void deliveryReportKeepsAttemptPartAndArrivalTime() throws Exception {
+    SmsSentJob sent = new SmsSentJob(context, 42, 69, "attempt", 1, 3, 123456);
+    SmsSentJob restored = (SmsSentJob)roundTrip(sent);
+    assertEquals(69, restored.result);
+    assertEquals("attempt", restored.deliveryAttempt);
+    assertEquals(1, restored.deliveryPart);
+    assertEquals(3, restored.deliveryParts);
+    assertEquals(123456, restored.deliveryReceivedAt);
+  }
+
   private Job roundTrip(Job job) throws Exception {
     Job result = StableJobCodec.decode(context, StableJobCodec.encode(job));
     assertTrue(result.isPersistent());
@@ -91,4 +101,3 @@ public class StableJobCodecTest {
     return result;
   }
 }
-

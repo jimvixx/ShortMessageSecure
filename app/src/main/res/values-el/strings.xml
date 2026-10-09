@@ -630,6 +630,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Εικόνα καλωσορίσματος</string>
   <string name="recipient_preferences__muted_when_blocked">Σίγαση κατά τον αποκλεισμό</string>
+  <string name="sms_delivery_interworking_error">Η παράδοση απέτυχε: δεν είναι διαθέσιμη η διασύνδεση δικτύων (0x45).</string>
+  <string name="sms_delivery_network_error">Η παράδοση απέτυχε: κωδικός δικτύου %1$d.</string>
   <string name="WelcomeActivity_action_required">Απαιτείται ενέργεια!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Κρυπτογραφήστε τα μηνύματά σας με χρήστες του SMSecure, ενώ χρησιμοποιείτε κανονικά μηνύματα SMS με άλλους.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Βελτιώστε την προστασία της ιδιωτικότητάς σας, μιλήστε σε όλους</string>

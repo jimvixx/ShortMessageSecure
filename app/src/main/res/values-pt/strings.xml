@@ -643,6 +643,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Imagem de boas-vindas</string>
   <string name="recipient_preferences__muted_when_blocked">Silenciado quando bloqueado</string>
+  <string name="sms_delivery_interworking_error">Falha na entrega: interligação entre redes indisponível (0x45).</string>
+  <string name="sms_delivery_network_error">Falha na entrega: código de estado da rede %1$d.</string>
   <string name="WelcomeActivity_action_required">É necessária uma ação!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Encripte as suas mensagens com utilizadores do SMSecure enquanto utiliza mensagens SMS normais com outras pessoas.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Melhore a sua privacidade, converse com todos</string>

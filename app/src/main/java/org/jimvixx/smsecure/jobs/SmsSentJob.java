@@ -28,6 +28,7 @@ import org.jimvixx.smsecure.crypto.SecurityEvent;
 import org.jimvixx.smsecure.crypto.storage.SMSecureSessionStore;
 import org.jimvixx.smsecure.database.DatabaseFactory;
 import org.jimvixx.smsecure.database.EncryptingSmsDatabase;
+import org.jimvixx.smsecure.database.SmsDatabase;
 import org.jimvixx.smsecure.database.NoSuchMessageException;
 import org.jimvixx.smsecure.database.model.SmsMessageRecord;
 import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
@@ -59,16 +60,30 @@ public class SmsSentJob extends MasterSecretJob {
   final long messageId;
   final String action;
   final int result;
+  String deliveryAttempt;
+  int deliveryPart;
+  int deliveryParts;
+  long deliveryReceivedAt;
 
   public SmsSentJob(Context context, long messageId, String action, int result) {
     super(context, JobParameters.newBuilder()
             .withPersistence()
+            .withGroupId("sms-result-" + messageId)
             .withRequirement(new MasterSecretRequirement(context))
             .create());
 
     this.messageId = messageId;
     this.action = action;
     this.result = result;
+  }
+
+  public SmsSentJob(Context context, long id, int status, String attempt, int part,
+                    int parts, long receivedAt) {
+    this(context, id, SmsDeliveryListener.DELIVERY_STATUS_ACTION, status);
+    deliveryAttempt = attempt;
+    deliveryPart = part;
+    deliveryParts = parts;
+    deliveryReceivedAt = receivedAt;
   }
 
   @Override
@@ -84,6 +99,10 @@ public class SmsSentJob extends MasterSecretJob {
         handleSentResult(masterSecret, messageId, result);
         break;
       case SmsDeliveryListener.DELIVERED_SMS_ACTION:
+        // Persisted legacy jobs contain a broadcast result, not a network status.
+        Log.w(TAG, "Ignoring legacy delivery callback without network status");
+        break;
+      case SmsDeliveryListener.DELIVERY_STATUS_ACTION:
         handleDeliveredResult(masterSecret, messageId, result);
         break;
       default:
@@ -105,7 +124,7 @@ public class SmsSentJob extends MasterSecretJob {
       EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
       SmsMessageRecord record = database.getMessage(masterSecret, messageId);
 
-      final long now = System.currentTimeMillis();
+      final long now = deliveryReceivedAt;
       final long sentAt = record.getDateSent();
       final long delta = now - sentAt;
 
@@ -123,8 +142,23 @@ public class SmsSentJob extends MasterSecretJob {
         return;
       }
 
-      if (result != Activity.RESULT_OK) {
-        Log.w(TAG, "DELIVERED ignored: result not OK. msgId=" + messageId + " result=" + result);
+      int deliveryStatus = classifyGsmDeliveryStatus(result);
+      if (deliveryStatus == 0 && (delta < MIN_DELIVERY_DELAY_MS || delta > MAX_DELIVERY_DELAY_MS)) {
+        Log.w(TAG, "DELIVERED success unconfirmed: delay outside guard, deltaMs=" + delta);
+        return;
+      }
+      deliveryStatus = SmsDeliveryTracker.record(context, messageId, deliveryAttempt, sentAt,
+              deliveryPart, deliveryParts, deliveryStatus);
+      if (deliveryStatus == SmsDeliveryTracker.IGNORE) return;
+      if (deliveryStatus >= SmsDatabase.Status.STATUS_FAILED) {
+        if (record.getDeliveryStatus() == deliveryStatus) return;
+        database.markStatus(messageId, deliveryStatus);
+        MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipients(), record.getThreadId());
+        return;
+      }
+      if (deliveryStatus != SmsDatabase.Status.STATUS_COMPLETE) {
+        // Forwarded/unconfirmed, pending and reserved statuses are not delivery proof.
+        database.markStatus(messageId, SmsDatabase.Status.STATUS_PENDING);
         return;
       }
 
@@ -142,7 +176,7 @@ public class SmsSentJob extends MasterSecretJob {
         return;
       }
 
-      // At this point we accept "delivered" without PDU, based only on the time heuristic.
+      // Every part has a successful network report and passes the time guard.
       String recipientName = (record.getIndividualRecipient().getName() == null
               ? record.getIndividualRecipient().getNumber()
               : record.getIndividualRecipient().getName());
@@ -163,6 +197,12 @@ public class SmsSentJob extends MasterSecretJob {
     } catch (Exception e) {
       Log.w(TAG, "DELIVERED: unexpected error for msgId=" + messageId, e);
     }
+  }
+
+  static int classifyGsmDeliveryStatus(int status) {
+    if (status == 0) return SmsDatabase.Status.STATUS_COMPLETE;
+    if (status >= 0x40 && status <= 0x7f) return status;
+    return SmsDatabase.Status.STATUS_PENDING;
   }
 
   private void handleSentResult(MasterSecret masterSecret, long messageId, int result) {

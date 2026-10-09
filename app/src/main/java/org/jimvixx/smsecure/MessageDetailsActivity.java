@@ -388,6 +388,13 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity
     updateRecipients(messageRecord, recipients);
 
     if (messageRecord.isFailed()) {
+      errorText.setText(R.string.message_details_header__issues_need_your_attention);
+      int status = messageRecord.getDeliveryStatus();
+      if (status >= 0x40 && status <= 0x7f) {
+        errorText.setText(status == 0x45
+                ? getString(R.string.sms_delivery_interworking_error)
+                : getString(R.string.sms_delivery_network_error, status));
+      }
       errorText.setVisibility(View.VISIBLE);
       metadataContainer.setVisibility(View.GONE);
     } else {

@@ -630,6 +630,8 @@
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">Изображение за добре дошли</string>
     <string name="recipient_preferences__muted_when_blocked">Заглушен при блокиране</string>
+    <string name="sms_delivery_interworking_error">Доставянето е неуспешно: взаимодействието между мрежите е недостъпно (0x45).</string>
+    <string name="sms_delivery_network_error">Доставянето е неуспешно: мрежов код %1$d.</string>
     <string name="WelcomeActivity_action_required">Необходимо действие!</string>
     <string name="WelcomeActivity_encrypt_your_messages">Шифровайте съобщенията си с потребители на SMSecure, докато използвате обикновени SMS съобщения с други хора.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Подобрете поверителността си, общувайте с всички</string>

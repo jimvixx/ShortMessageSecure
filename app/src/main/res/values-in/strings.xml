@@ -617,6 +617,8 @@
 <!--WelcomeActivity-->
 <string name="cd_welcome_image">Gambar selamat datang</string>
 <string name="recipient_preferences__muted_when_blocked">Dimatikan saat diblokir</string>
+<string name="sms_delivery_interworking_error">Pengiriman gagal: interkoneksi jaringan tidak tersedia (0x45).</string>
+<string name="sms_delivery_network_error">Pengiriman gagal: kode status jaringan %1$d.</string>
 <string name="WelcomeActivity_action_required">Tindakan diperlukan!</string>
 <string name="WelcomeActivity_encrypt_your_messages">Enkripsi pesan Anda saat berkomunikasi dengan pengguna SMSecure, sementara tetap menggunakan pesan SMS biasa saat berkomunikasi dengan orang lain.</string>
 <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Tingkatkan privasi Anda, berbicaralah dengan semua orang</string>

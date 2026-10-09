@@ -643,6 +643,8 @@
 <!--WelcomeActivity-->
 <string name="cd_welcome_image">Sveiciena attēls</string>
 <string name="recipient_preferences__muted_when_blocked">Aizslēgts, ja bloķēts</string>
+<string name="sms_delivery_interworking_error">Piegāde neizdevās: tīklu savienojums nav pieejams (0x45).</string>
+<string name="sms_delivery_network_error">Piegāde neizdevās: tīkla statusa kods %1$d.</string>
 <string name="WelcomeActivity_action_required">Nepieciešama darbība!</string>
 <string name="WelcomeActivity_encrypt_your_messages">Šifrējiet savus ziņojumus ar SMSecure lietotājiem, vienlaikus izmantojot parastos SMS ziņojumus ar citiem.</string>
 <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Uzlabojiet savu privātumu, sazinieties ar visiem</string>

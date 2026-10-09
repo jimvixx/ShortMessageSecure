@@ -643,6 +643,8 @@
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">תמונת ברכה</string>
     <string name="recipient_preferences__muted_when_blocked">מושתק כאשר חסום</string>
+    <string name="sms_delivery_interworking_error">המסירה נכשלה: חיבור בין רשתות אינו זמין (0x45).</string>
+    <string name="sms_delivery_network_error">המסירה נכשלה: קוד מצב רשת %1$d.</string>
     <string name="WelcomeActivity_action_required">נדרשת פעולה!</string>
     <string name="WelcomeActivity_encrypt_your_messages">הצפן את ההודעות שלך עם משתמשי SMSecure תוך שימוש בהודעות SMS רגילות עם אחרים.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">שפר את הפרטיות שלך, דבר עם כולם</string>

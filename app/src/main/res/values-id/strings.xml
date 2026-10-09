@@ -3,4 +3,6 @@
     <string name="ImportFragment_silence_backup">Pulihkan cadangan Silence</string>
     <string name="ImportFragment_silence_backup_description">Pulihkan dari folder ekspor Silence</string>
     <string name="ImportFragment_silence_backup_warning">Ini akan mengganti pesan, kunci, dan pengaturan yang ada. Cadangkan SMSecure terlebih dahulu. Pilih folder SilenceExport yang berisi files, databases, dan shared_prefs. Jika cadangan dilindungi kata sandi, Anda memerlukan frasa sandi aslinya.</string>
+    <string name="sms_delivery_interworking_error">Pengiriman gagal: interkoneksi jaringan tidak tersedia (0x45).</string>
+    <string name="sms_delivery_network_error">Pengiriman gagal: kode status jaringan %1$d.</string>
 </resources>

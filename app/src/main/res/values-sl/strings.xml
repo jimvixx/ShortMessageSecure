@@ -656,6 +656,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Sliko dobrodošlice</string>
   <string name="recipient_preferences__muted_when_blocked">Zadušeno ob blokiranju</string>
+  <string name="sms_delivery_interworking_error">Dostava ni uspela: povezovanje omrežij ni na voljo (0x45).</string>
+  <string name="sms_delivery_network_error">Dostava ni uspela: koda stanja omrežja %1$d.</string>
   <string name="WelcomeActivity_action_required">Potrebno je ukrepati!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Šifrirajte svoja sporočila z uporabniki SMSecure, medtem ko z drugimi uporabljate običajna SMS-sporočila.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Izboljšajte svojo zasebnost, pogovarjajte se z vsemi</string>

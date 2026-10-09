@@ -630,6 +630,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Velkomstbilde</string>
   <string name="recipient_preferences__muted_when_blocked">Dempet når blokkert</string>
+  <string name="sms_delivery_interworking_error">Levering mislyktes: samtrafikk mellom nettverk er utilgjengelig (0x45).</string>
+  <string name="sms_delivery_network_error">Levering mislyktes: nettverksstatus %1$d.</string>
   <string name="WelcomeActivity_action_required">Handling kreves!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Krypter meldingene dine med SMSecure-brukere mens du bruker vanlige SMS-meldinger med andre.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Forbedre personvernet ditt, snakk med alle</string>

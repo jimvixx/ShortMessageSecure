@@ -34,6 +34,7 @@ public class SmsDeliveryListener extends BroadcastReceiver {
 
   public static final String SENT_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.SENT_SMS_ACTION";
   public static final String DELIVERED_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERED_SMS_ACTION";
+  public static final String DELIVERY_STATUS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERY_STATUS_ACTION";
   private static final String TAG = SmsDeliveryListener.class.getSimpleName();
 
   @Override
@@ -101,12 +102,16 @@ public class SmsDeliveryListener extends BroadcastReceiver {
         break;
 
       case DELIVERED_SMS_ACTION:
-        // Observe the network status without changing the existing delivery heuristic.
-        logDeliveryReport(intent, resultCode);
+        // Parse network status; the successful-delivery time guard remains in SmsSentJob.
+        Integer deliveryStatus = logDeliveryReport(intent, resultCode);
         Log.w(TAG, "DELIVERED: result=" + resultCode +
                 " extras=" + (intent.getExtras() != null ? intent.getExtras().keySet() : "null"));
 
-        jobManager.add(new SmsSentJob(context, messageId, DELIVERED_SMS_ACTION, resultCode));
+        if (deliveryStatus != null) {
+          jobManager.add(new SmsSentJob(context, messageId, deliveryStatus,
+                  intent.getStringExtra("delivery_attempt"), intent.getIntExtra("part_index", -1),
+                  intent.getIntExtra("parts_total", -1), System.currentTimeMillis()));
+        }
         break;
 
       default:
@@ -114,7 +119,7 @@ public class SmsDeliveryListener extends BroadcastReceiver {
     }
   }
 
-  private static void logDeliveryReport(Intent intent, int resultCode) {
+  private static Integer logDeliveryReport(Intent intent, int resultCode) {
     try {
       byte[] pdu = intent.getByteArrayExtra("pdu");
       String format = intent.getStringExtra("format");
@@ -133,9 +138,23 @@ public class SmsDeliveryListener extends BroadcastReceiver {
               + " statusReport=" + (report != null && report.isStatusReportMessage())
               + " status=" + (report == null ? "unavailable" : Integer.toString(report.getStatus())));
       // SmsSentJob logs deltaMs against the stored send time for this message.
+      if (resultCode != android.app.Activity.RESULT_OK || report == null || !report.isStatusReportMessage()) {
+        return null;
+      }
+      // Normalize CDMA error class/status separately from GSM TP-Status.
+      int status = report.getStatus();
+      if ("3gpp2".equals(format)) {
+        int errorClass = (status >>> 24) & 3;
+        int code = (status >>> 16) & 255;
+        if (errorClass == 2) return 0x20;
+        if (errorClass == 3) return 0x40;
+        return errorClass == 0 && code == 2 ? 0 : 0x20;
+      }
+      return status >= 0 && status <= 127 ? status : null;
     } catch (RuntimeException diagnosticFailure) {
       Log.w(TAG, "SMS delivery diagnostic unavailable: "
               + diagnosticFailure.getClass().getSimpleName());
+      return null;
     }
   }
 }

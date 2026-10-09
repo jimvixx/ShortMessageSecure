@@ -58,10 +58,16 @@ public final class StableJobCodec {
       out.writeBoolean(decrypt.manualOverride);
       out.writeBoolean(decrypt.isReceivedWhenLocked);
     } else if (job instanceof SmsSentJob sent) {
-      out.writeUTF("sms_sent");
+      out.writeUTF(sent.deliveryAttempt == null ? "sms_sent" : "sms_delivery_v1");
       out.writeLong(sent.messageId);
       writeNullable(out, sent.action);
       out.writeInt(sent.result);
+      if (sent.deliveryAttempt != null) {
+        out.writeUTF(sent.deliveryAttempt);
+        out.writeInt(sent.deliveryPart);
+        out.writeInt(sent.deliveryParts);
+        out.writeLong(sent.deliveryReceivedAt);
+      }
     } else if (job instanceof GenerateKeysJob) {
       out.writeUTF("generate_keys");
     } else {
@@ -98,6 +104,15 @@ public final class StableJobCodec {
         break;
       case "sms_sent":
         job = new SmsSentJob(context, in.readLong(), readNullable(in), in.readInt());
+        break;
+      case "sms_delivery_v1":
+        long id = in.readLong();
+        String action = readNullable(in);
+        int status = in.readInt();
+        if (!org.jimvixx.smsecure.service.SmsDeliveryListener.DELIVERY_STATUS_ACTION.equals(action)) {
+          throw new IOException("Invalid delivery action");
+        }
+        job = new SmsSentJob(context, id, status, in.readUTF(), in.readInt(), in.readInt(), in.readLong());
         break;
       case "generate_keys":
         job = new GenerateKeysJob(context);

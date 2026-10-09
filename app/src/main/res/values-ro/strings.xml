@@ -643,6 +643,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Imagine de bun venit</string>
   <string name="recipient_preferences__muted_when_blocked">Silențios când este blocat</string>
+  <string name="sms_delivery_interworking_error">Livrare eșuată: interconectarea rețelelor nu este disponibilă (0x45).</string>
+  <string name="sms_delivery_network_error">Livrare eșuată: cod de stare al rețelei %1$d.</string>
   <string name="WelcomeActivity_action_required">Acțiune necesară!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Criptați-vă mesajele cu utilizatorii SMSecure în timp ce folosiți mesaje SMS obișnuite cu alții.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Îmbunătățiți-vă confidențialitatea, comunicați cu toată lumea</string>

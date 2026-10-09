@@ -630,6 +630,8 @@
   <!--WelcomeActivity-->
   <string name="cd_welcome_image">Welkomstafbeelding</string>
   <string name="recipient_preferences__muted_when_blocked">Gedempt wanneer geblokkeerd</string>
+  <string name="sms_delivery_interworking_error">Bezorging mislukt: koppeling tussen netwerken niet beschikbaar (0x45).</string>
+  <string name="sms_delivery_network_error">Bezorging mislukt: netwerkstatus %1$d.</string>
   <string name="WelcomeActivity_action_required">Actie vereist!</string>
   <string name="WelcomeActivity_encrypt_your_messages">Versleutel uw berichten met SMSecure-gebruikers terwijl u gewone sms-berichten gebruikt met anderen.</string>
   <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Verbeter je privacy, praat met iedereen</string>

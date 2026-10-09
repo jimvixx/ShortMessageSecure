@@ -656,6 +656,8 @@
     <!--WelcomeActivity-->
     <string name="cd_welcome_image">Зображення привітання</string>
     <string name="recipient_preferences__muted_when_blocked">Приглушено під час блокування</string>
+    <string name="sms_delivery_interworking_error">Помилка доставки: взаємодія мереж недоступна (0x45).</string>
+    <string name="sms_delivery_network_error">Помилка доставки: код мережі %1$d.</string>
     <string name="WelcomeActivity_action_required">Потрібна дія!</string>
     <string name="WelcomeActivity_encrypt_your_messages">Шифруйте свої повідомлення з користувачами SMSecure, використовуючи звичайні SMS-повідомлення з іншими.</string>
     <string name="WelcomeActivity_improve_your_privacy_talk_to_everyone">Покращуйте свою конфіденційність, спілкуйтеся з усіма</string>
