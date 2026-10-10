@@ -37,9 +37,9 @@ public class MessageDetailsLoader extends AbstractCursorLoader {
 
   @Override
   public Cursor getCursor() {
-    if (type.equals(MessageDatabase.SMS_TRANSPORT)) {
+    if (MessageDatabase.SMS_TRANSPORT.equals(type)) {
       return DatabaseFactory.getEncryptingSmsDatabase(context).getMessage(messageId);
     }
-    throw new AssertionError("no valid message type specified");
+    return null;
   }
 }
