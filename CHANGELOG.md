@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.1
+
+### Fixed
+
+- SMS delivery reports: distinguish network errors from successful delivery and wait for all message parts.
+- Crashes when opening details for unsupported message types.
+- Clean up completed delivery tracking records.
+
+### Changed
+
+- Improved privacy-safe diagnostics for SMS sending failures.
+
 ## v1.3.0
 
 ### Added

@@ -1,0 +1,4 @@
+* SMS delivery reports: distinguish network errors from successful delivery and wait for all message parts.
+* Crashes when opening details for unsupported message types.
+* Clean up completed delivery tracking records.
+* Improved privacy-safe diagnostics for SMS sending failures.
