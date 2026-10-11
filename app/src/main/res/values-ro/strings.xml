@@ -64,6 +64,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetați noua parolă</string>
   <!--Common-->
   <string name="Cancel">Anulare</string>
+  <string name="Chats">Chats</string>
   <string name="Clear">Clear</string>
   <string name="Close">Închidere</string>
   <string name="Confirm">Confirm</string>
@@ -84,6 +85,7 @@
   <string name="Import_Export">Import / Export</string>
   <string name="Importing">Importare</string>
   <string name="Keyboard">Tastatură</string>
+  <string name="Messages">Mesaje</string>
   <string name="No">Nu</string>
   <string name="None">Niciunul</string>
   <string name="Off">Oprit</string>
@@ -453,7 +455,6 @@
   <string name="MmsListener_notification_title">MMS nu este acceptat</string>
   <string name="NotificationChannel_failures">Eșecuri</string>
   <string name="NotificationChannel_locked_status">Stare blocată</string>
-  <string name="NotificationChannel_messages">Mesaje</string>
   <string name="NotificationChannel_other">Altele</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Modificare parolă</string>
@@ -522,7 +523,6 @@
   <string name="preferences__make_default_sms_app">Setează ca aplicație SMS implicită</string>
   <string name="preferences__make_smsecure_the_default_sms_app">Setați SMSecure ca aplicație SMS implicită pentru sistemul dvs.</string>
   <string name="preferences__message_trimming">Reducerea mesajului</string>
-  <string name="preferences__messages">Mesaje</string>
   <string name="preferences__minutes">minute</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

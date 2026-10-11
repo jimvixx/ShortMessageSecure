@@ -66,6 +66,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Повторіть новий пароль</string>
     <!--Common-->
     <string name="Cancel">Скасувати</string>
+    <string name="Chats">Chats</string>
     <string name="Clear">Очистити</string>
     <string name="Close">Закрити</string>
     <string name="Confirm">Підтвердити</string>
@@ -86,6 +87,7 @@
     <string name="Import_Export">Імпорт / Експорт</string>
     <string name="Importing">Імпорт</string>
     <string name="Keyboard">Клавіатура</string>
+    <string name="Messages">Повідомлення</string>
     <string name="No">Ні</string>
     <string name="None">Немає</string>
     <string name="Off">Вимк.</string>
@@ -464,7 +466,6 @@
     <string name="MmsListener_notification_title">MMS не підтримується</string>
     <string name="NotificationChannel_failures">Помилки</string>
     <string name="NotificationChannel_locked_status">Статус заблоковано</string>
-    <string name="NotificationChannel_messages">Повідомлення</string>
     <string name="NotificationChannel_other">Інше</string>
     <!--PassphraseChangeActivity-->
     <string name="PassphraseChangeActivity_change_passphrase">Змінити пароль</string>
@@ -534,7 +535,6 @@
     <string name="preferences__make_default_sms_app">Встановити як стандартний додаток для SMS</string>
     <string name="preferences__make_smsecure_the_default_sms_app">Зробіть SMSecure додатком для SMS за замовчуванням у вашій системі.</string>
     <string name="preferences__message_trimming">Обрізання повідомлення</string>
-    <string name="preferences__messages">Повідомлення</string>
     <string name="preferences__minutes">хвилини</string>
     <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> повідомлення</item>

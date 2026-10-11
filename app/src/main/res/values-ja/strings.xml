@@ -60,6 +60,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">新しいパスフレーズを再入力してください</string>
   <!--Common-->
   <string name="Cancel">キャンセル</string>
+  <string name="Chats">Chats</string>
   <string name="Clear">Clear</string>
   <string name="Close">閉じる</string>
   <string name="Confirm">Confirm</string>
@@ -80,6 +81,7 @@
   <string name="Import_Export">インポート / エクスポート</string>
   <string name="Importing">インポート中</string>
   <string name="Keyboard">キーボード</string>
+  <string name="Messages">メッセージ</string>
   <string name="No">いいえ</string>
   <string name="None">なし</string>
   <string name="Off">オフ</string>
@@ -431,7 +433,6 @@
   <string name="MmsListener_notification_title">MMSはサポートされていません</string>
   <string name="NotificationChannel_failures">失敗</string>
   <string name="NotificationChannel_locked_status">ロック状態</string>
-  <string name="NotificationChannel_messages">メッセージ</string>
   <string name="NotificationChannel_other">その他</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">パスフレーズの変更</string>
@@ -498,7 +499,6 @@
   <string name="preferences__make_default_sms_app">デフォルトのSMSアプリに設定</string>
   <string name="preferences__make_smsecure_the_default_sms_app">SMSecureをシステムのデフォルトのSMSアプリに設定します。</string>
   <string name="preferences__message_trimming">メッセージの省略</string>
-  <string name="preferences__messages">メッセージ</string>
   <string name="preferences__minutes">分</string>
   <plurals name="preferences__msgs_short">
         <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>

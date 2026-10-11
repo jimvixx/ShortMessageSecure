@@ -64,6 +64,7 @@
 <string name="change_passphrase_activity__repeat_new_passphrase">Atkārtojiet jauno paroli</string>
 <!--Common-->
 <string name="Cancel">Atcelt</string>
+<string name="Chats">Tērzēšanas</string>
 <string name="Clear">Clear</string>
 <string name="Close">Aizvērt</string>
 <string name="Confirm">Apstiprināt</string>
@@ -84,6 +85,7 @@
 <string name="Import_Export">Importēt / Eksportēt</string>
 <string name="Importing">Importēšana</string>
 <string name="Keyboard">Tastatūra</string>
+<string name="Messages">Ziņojumi</string>
 <string name="No">Nē</string>
 <string name="None">Nav</string>
 <string name="Off">Izslēgts</string>
@@ -453,7 +455,6 @@
 <string name="MmsListener_notification_title">MMS netiek atbalstīts</string>
 <string name="NotificationChannel_failures">Kļūdas</string>
 <string name="NotificationChannel_locked_status">Bloķēts statuss</string>
-<string name="NotificationChannel_messages">Ziņojumi</string>
 <string name="NotificationChannel_other">Cits</string>
 <!--PassphraseChangeActivity-->
 <string name="PassphraseChangeActivity_change_passphrase">Mainīt paroli</string>
@@ -522,7 +523,6 @@
 <string name="preferences__make_default_sms_app">Iestatīt kā noklusējuma SMS lietotni</string>
 <string name="preferences__make_smsecure_the_default_sms_app">Padariet SMSecure par sistēmas noklusējuma SMS lietotni.</string>
 <string name="preferences__message_trimming">Ziņojuma saīsināšana</string>
-<string name="preferences__messages">Ziņojumi</string>
 <string name="preferences__minutes">minūtes</string>
 <plurals name="preferences__msgs_short">
         <item quantity="zero"><xliff:g id="arg1">%d</xliff:g> msgs</item>

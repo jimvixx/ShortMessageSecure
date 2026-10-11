@@ -62,6 +62,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Gentag ny adgangskode</string>
   <!--Common-->
   <string name="Cancel">Annuller</string>
+  <string name="Chats">Chats</string>
   <string name="Clear">Clear</string>
   <string name="Close">Luk</string>
   <string name="Confirm">Bekræft</string>
@@ -82,6 +83,7 @@
   <string name="Import_Export">Import / Eksport</string>
   <string name="Importing">Importerer</string>
   <string name="Keyboard">Tastatur</string>
+  <string name="Messages">Beskeder</string>
   <string name="No">Nej</string>
   <string name="None">Ingen</string>
   <string name="Off">Fra</string>
@@ -442,7 +444,6 @@
   <string name="MmsListener_notification_title">MMS understøttes ikke</string>
   <string name="NotificationChannel_failures">Fejl</string>
   <string name="NotificationChannel_locked_status">Låst status</string>
-  <string name="NotificationChannel_messages">Meddelelser</string>
   <string name="NotificationChannel_other">Andet</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Skift adgangskode</string>
@@ -510,7 +511,6 @@
   <string name="preferences__make_default_sms_app">Indstil som standard SMS-app</string>
   <string name="preferences__make_smsecure_the_default_sms_app">Gør SMSecure til standard-SMS-appen på dit system.</string>
   <string name="preferences__message_trimming">Beskedbeskæring</string>
-  <string name="preferences__messages">Beskeder</string>
   <string name="preferences__minutes">minutter</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

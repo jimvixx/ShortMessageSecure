@@ -66,6 +66,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Ponovite novo geslo</string>
   <!--Common-->
   <string name="Cancel">Prekliči</string>
+  <string name="Chats">Chats</string>
   <string name="Clear">Clear</string>
   <string name="Close">Zapri</string>
   <string name="Confirm">Potrdi</string>
@@ -86,6 +87,7 @@
   <string name="Import_Export">Uvoz / Izvoz</string>
   <string name="Importing">Uvažanje</string>
   <string name="Keyboard">Tipkovnica</string>
+  <string name="Messages">Sporočila</string>
   <string name="No">Ne</string>
   <string name="None">Nič</string>
   <string name="Off">Izklopljeno</string>
@@ -464,7 +466,6 @@
   <string name="MmsListener_notification_title">MMS ni podprt</string>
   <string name="NotificationChannel_failures">Napake</string>
   <string name="NotificationChannel_locked_status">Zaklenjen status</string>
-  <string name="NotificationChannel_messages">Sporočila</string>
   <string name="NotificationChannel_other">Drugo</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Spremeni geslo</string>
@@ -534,7 +535,6 @@
   <string name="preferences__make_default_sms_app">Nastavi kot privzeto aplikacijo za SMS</string>
   <string name="preferences__make_smsecure_the_default_sms_app">Nastavite SMSecure kot privzeto aplikacijo za SMS v vašem sistemu.</string>
   <string name="preferences__message_trimming">Skrajšanje sporočila</string>
-  <string name="preferences__messages">Sporočila</string>
   <string name="preferences__minutes">minutes</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

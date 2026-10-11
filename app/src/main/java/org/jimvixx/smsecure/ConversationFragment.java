@@ -94,6 +94,8 @@ public class ConversationFragment extends Fragment
   private View composeDivider;
   private View scrollToBottomButton;
   private TextView scrollDateHeader;
+  private long searchMessageId = -1;
+  private String searchQuery = "";
 
   @Override
   public void onCreate(@Nullable Bundle icicle) {
@@ -117,7 +119,10 @@ public class ConversationFragment extends Fragment
     scrollToBottomButton = ViewUtil.findById(view, R.id.scroll_to_bottom_button);
     scrollDateHeader = ViewUtil.findById(view, R.id.scroll_date_header);
 
-    scrollToBottomButton.setOnClickListener(v -> scrollToBottom());
+    scrollToBottomButton.setOnClickListener(v -> {
+      notifyConversationInteraction();
+      scrollToBottom();
+    });
 
     final LinearLayoutManager layoutManager =
             new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true);
@@ -126,6 +131,7 @@ public class ConversationFragment extends Fragment
 
     loadMoreView = inflater.inflate(R.layout.load_more_header, container, false);
     loadMoreView.setOnClickListener(v -> {
+      notifyConversationInteraction();
       Bundle args = new Bundle();
       args.putLong("limit", 0);
       LoaderManager.getInstance(this).restartLoader(0, args, this);
@@ -180,6 +186,9 @@ public class ConversationFragment extends Fragment
 
     threadId = i.getLongExtra("thread_id", -1);
     lastSeen = i.getLongExtra(ConversationActivity.LAST_SEEN_EXTRA, -1);
+    searchMessageId = i.getLongExtra(ConversationActivity.SEARCH_MESSAGE_ID_EXTRA, -1);
+    searchQuery = i.getStringExtra(ConversationActivity.SEARCH_QUERY_EXTRA);
+    if (searchQuery == null) searchQuery = "";
     firstLoad = true;
 
     list.clearOnScrollListeners();
@@ -191,6 +200,7 @@ public class ConversationFragment extends Fragment
       ConversationAdapter<?> adapter =
               new ConversationAdapter<>(requireContext(), masterSecret, locale,
                       selectionClickListener, null, recipients);
+      adapter.setSearchHighlight(searchMessageId, searchQuery);
 
       list.setAdapter(adapter);
       list.addItemDecoration(new StickyHeaderDecoration<>(adapter, false, false));
@@ -410,7 +420,10 @@ public class ConversationFragment extends Fragment
 
   @Override
   public @NonNull Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-    long limit = (args != null) ? args.getLong("limit", PARTIAL_CONVERSATION_LIMIT) : PARTIAL_CONVERSATION_LIMIT;
+    long limit = searchMessageId > 0
+            ? 0
+            : (args != null) ? args.getLong("limit", PARTIAL_CONVERSATION_LIMIT)
+            : PARTIAL_CONVERSATION_LIMIT;
     return new ConversationLoader(requireContext(), threadId, limit, lastSeen);
   }
 
@@ -433,9 +446,21 @@ public class ConversationFragment extends Fragment
 
     adapter.changeCursor(cursor);
 
+    if (searchMessageId > 0) {
+      int searchPosition = adapter.findMessagePosition(searchMessageId);
+      if (searchPosition >= 0) {
+        list.post(() -> {
+          RecyclerView.LayoutManager manager = list.getLayoutManager();
+          if (manager instanceof LinearLayoutManager linearLayoutManager) {
+            linearLayoutManager.scrollToPositionWithOffset(searchPosition, list.getHeight() / 2);
+          }
+        });
+      }
+    }
+
     int lastSeenPosition = adapter.findLastSeenPosition(lastSeen);
 
-    if (firstLoad) {
+    if (firstLoad && searchMessageId <= 0) {
       scrollToLastSeenPosition(lastSeenPosition);
       firstLoad = false;
     }
@@ -467,6 +492,22 @@ public class ConversationFragment extends Fragment
 
   public interface ConversationFragmentListener {
     void setThreadId(long threadId);
+    void onConversationInteraction();
+  }
+
+  public void clearSearchHighlight() {
+    searchMessageId = -1;
+    searchQuery = "";
+
+    ConversationAdapter<?> adapter = getListAdapter();
+    if (adapter != null) {
+      adapter.setSearchHighlight(-1, "");
+      adapter.notifyDataSetChanged();
+    }
+  }
+
+  private void notifyConversationInteraction() {
+    if (listener != null) listener.onConversationInteraction();
   }
 
   // -------------------------
@@ -561,6 +602,7 @@ public class ConversationFragment extends Fragment
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+        notifyConversationInteraction();
         conversationDateHeader.show();
       } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
         conversationDateHeader.hide();
@@ -609,6 +651,7 @@ public class ConversationFragment extends Fragment
 
     @Override
     public void onItemClick(@NonNull ConversationItem item, int adapterPosition) {
+      notifyConversationInteraction();
       if (actionMode == null) return;
 
       final ConversationAdapter<?> adapter = getListAdapter();
@@ -625,6 +668,7 @@ public class ConversationFragment extends Fragment
 
     @Override
     public void onItemLongClick(@NonNull ConversationItem item, int adapterPosition) {
+      notifyConversationInteraction();
       final ConversationAdapter<?> adapter = getListAdapter();
       if (adapter == null) return;
 

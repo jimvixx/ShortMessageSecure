@@ -72,6 +72,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Repeat new passphrase</string>
     <!--Common-->
     <string name="Cancel">Cancel</string>
+    <string name="Chats">Chats</string>
     <string name="Clear">Clear</string>
     <string name="Close">Close</string>
     <string name="Confirm">Confirm</string>
@@ -92,6 +93,7 @@
     <string name="Import_Export">Import / Export</string>
     <string name="Importing">Importing</string>
     <string name="Keyboard">Keyboard</string>
+    <string name="Messages">Messages</string>
     <string name="No">No</string>
     <string name="None">None</string>
     <string name="Off">Off</string>
@@ -489,7 +491,6 @@
     <string name="MmsListener_notification_title">MMS is not supported</string>
     <string name="NotificationChannel_failures">Failures</string>
     <string name="NotificationChannel_locked_status">Locked status</string>
-    <string name="NotificationChannel_messages">Messages</string>
     <string name="NotificationChannel_other">Other</string>
     <!--PassphraseChangeActivity-->
     <string name="PassphraseChangeActivity_change_passphrase">Change passphrase</string>
@@ -561,7 +562,6 @@
     <string name="preferences__make_default_sms_app">Set as default SMS app</string>
     <string name="preferences__make_smsecure_the_default_sms_app">Make SMSecure the default SMS application for your system.</string>
     <string name="preferences__message_trimming">Message trimming</string>
-    <string name="preferences__messages">Messages</string>
     <string name="preferences__minutes">minutes</string>
     <plurals name="preferences__msgs_short">
         <item quantity="zero"><xliff:g id="arg1">%d</xliff:g> msgs</item>

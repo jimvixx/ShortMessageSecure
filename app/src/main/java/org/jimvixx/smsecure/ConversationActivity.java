@@ -134,6 +134,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   public static final String DISTRIBUTION_TYPE_EXTRA = "distribution_type";
   public static final String TIMING_EXTRA = "timing";
   public static final String LAST_SEEN_EXTRA = "last_seen";
+  public static final String SEARCH_MESSAGE_ID_EXTRA = "search_message_id";
+  public static final String SEARCH_QUERY_EXTRA = "search_query";
+  public static final String FROM_GLOBAL_SEARCH_EXTRA = "from_global_search";
 
   private static final String TAG = ConversationActivity.class.getSimpleName();
 
@@ -161,6 +164,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private int distributionType;
   private boolean isEncryptedConversation;
   private boolean archived;
+  private boolean launchedFromGlobalSearch;
+  private boolean searchInteractionOccurred;
   private List<SubscriptionInfoCompat> activeSubscriptions;
 
   @Override
@@ -168,6 +173,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     Log.w(TAG, "onCreate()");
     this.masterSecret = masterSecret;
     this.activeSubscriptions = SubscriptionManagerCompat.from(this).getActiveSubscriptionInfoList();
+    this.launchedFromGlobalSearch = getIntent().getBooleanExtra(FROM_GLOBAL_SEARCH_EXTRA, false);
 
     setContentView(R.layout.conversation_activity);
 
@@ -272,6 +278,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     }
 
     setIntent(intent);
+    launchedFromGlobalSearch = intent.getBooleanExtra(FROM_GLOBAL_SEARCH_EXTRA, false);
+    searchInteractionOccurred = false;
     initializeResources();
     initializeSecurity();
     updateRecipientPreferences();
@@ -346,6 +354,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void startActivity(Intent intent) {
+    if (!isConversationListReturn(intent)) markSearchInteraction();
+
     try {
       if (intent.getStringExtra(Browser.EXTRA_APPLICATION_ID) != null) {
         intent.removeExtra(Browser.EXTRA_APPLICATION_ID);
@@ -355,6 +365,16 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       Log.w(TAG, "No app found to view the link '" + intent.getDataString() + "', ignoring...");
       Toast.makeText(this, R.string.ConversationActivity_cant_open_link, Toast.LENGTH_SHORT).show();
     }
+  }
+
+  private boolean isConversationListReturn(@NonNull Intent intent) {
+    if ((intent.getFlags() & Intent.FLAG_ACTIVITY_CLEAR_TOP) == 0 || intent.getComponent() == null) {
+      return false;
+    }
+
+    String className = intent.getComponent().getClassName();
+    return ConversationListActivity.class.getName().equals(className)
+            || ConversationListArchiveActivity.class.getName().equals(className);
   }
 
   @Override
@@ -448,6 +468,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     int id = item.getItemId();
+    if (id != android.R.id.home) markSearchInteraction();
     if (id == R.id.menu_call) {
       handleDial(getRecipients() != null ? getRecipients().getPrimaryRecipient() : null);
       return true;
@@ -521,6 +542,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         final int subscriptionId = subscriptionInfo.getSubscriptionId();
         identitiesMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, subscriptionInfo.getDisplayName())
                 .setOnMenuItemClickListener(mi -> {
+                  markSearchInteraction();
                   handleVerifyIdentity(subscriptionId);
                   return true;
                 });
@@ -542,6 +564,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                 subscriptionId)) {
           subMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, subscriptionInfo.getDisplayName())
                   .setOnMenuItemClickListener(mi -> {
+                    markSearchInteraction();
                     if (startSession) {
                       handleStartSecureSession(subscriptionId);
                     } else {
@@ -557,7 +580,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleReturnToConversationList() {
-    Intent intent = new Intent(this, (archived ? ConversationListArchiveActivity.class : ConversationListActivity.class));
+    Class<?> destination = launchedFromGlobalSearch
+            ? ConversationListActivity.class
+            : (archived ? ConversationListArchiveActivity.class : ConversationListActivity.class);
+    Intent intent = new Intent(this, destination);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(intent);
     finish();
@@ -565,6 +591,13 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   private void navigateBackFromConversation() {
     handleReturnToConversationList();
+  }
+
+  private void markSearchInteraction() {
+    if (!launchedFromGlobalSearch || searchInteractionOccurred) return;
+
+    searchInteractionOccurred = true;
+    if (fragment != null) fragment.clearSearchHighlight();
   }
 
   @Override
@@ -961,6 +994,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         }
 
         if (manuallySelected) {
+          markSearchInteraction();
           recordSubscriptionIdPreference(newTransport.getSimSubscriptionId());
           sendIfSimCardNotAsked(false);
         }
@@ -969,6 +1003,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     if (titleView != null) {
       titleView.setOnClickListener(v -> {
+        markSearchInteraction();
         if (recipients == null) return;
         Intent intent = new Intent(ConversationActivity.this, RecipientPreferenceActivity.class);
         intent.putExtra(RecipientPreferenceActivity.RECIPIENTS_EXTRA, recipients.getIds());
@@ -976,7 +1011,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       });
     }
 
-    if (unblockButton != null) unblockButton.setOnClickListener(v -> handleUnblock());
+    if (unblockButton != null) unblockButton.setOnClickListener(v -> {
+      markSearchInteraction();
+      handleUnblock();
+    });
 
     if (composeText != null) {
       composeText.setOnKeyListener(composeKeyPressedListener);
@@ -1330,9 +1368,15 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     this.threadId = threadId;
   }
 
+  @Override
+  public void onConversationInteraction() {
+    markSearchInteraction();
+  }
+
   private class EmojiToggleListener implements OnClickListener {
     @Override
     public void onClick(View v) {
+      markSearchInteraction();
       if (container == null || emojiDrawerStub == null) return;
       if (container.getCurrentInput() == emojiDrawerStub.get()) {
         container.showSoftkey(composeText);
@@ -1345,6 +1389,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class SendButtonListener implements OnClickListener, TextView.OnEditorActionListener {
     @Override
     public void onClick(View v) {
+      markSearchInteraction();
       if (!sendIfSimCardNotAsked(true) && sendButtonController != null) {
         sendButtonController.displayTransports(true);
       }
@@ -1365,6 +1410,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
+      if (event.getAction() == KeyEvent.ACTION_DOWN) markSearchInteraction();
       if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
         if ("send".equals(SMSecurePreferences.getEnterKeyType(ConversationActivity.this))) {
           sendButton.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
@@ -1377,6 +1423,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     @Override
     public void onClick(View v) {
+      markSearchInteraction();
       if (container != null) container.showSoftkey(composeText);
     }
 
@@ -1393,6 +1440,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+      if (composeText != null && composeText.hasFocus() && before != count) {
+        markSearchInteraction();
+      }
     }
 
     @Override

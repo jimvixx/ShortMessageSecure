@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Patterns;
@@ -51,6 +52,7 @@ import org.jimvixx.smsecure.protocol.AutoInitiate;
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.recipients.Recipients;
+import org.jimvixx.smsecure.search.SearchHighlightUtil;
 import org.jimvixx.smsecure.util.DateUtils;
 import org.jimvixx.smsecure.util.TelephonyUtil;
 import org.jimvixx.smsecure.util.Util;
@@ -111,6 +113,8 @@ public class ConversationItem extends LinearLayout
   private @Nullable Recipients conversationRecipients;
   // These are inflated from ViewStubs and must be nullable in Java.
   private int defaultBubbleColor;
+  private long highlightedMessageId = -1;
+  private String searchQuery = "";
 
   public ConversationItem(Context context) {
     this(context, null);
@@ -243,7 +247,13 @@ public class ConversationItem extends LinearLayout
     bodyText.setClickable(false);
     bodyText.setFocusable(false);
 
-    bodyText.setText(messageRecord.getDisplayBody());
+    CharSequence displayBody = messageRecord.getDisplayBody();
+    if (messageRecord.getId() == highlightedMessageId && !TextUtils.isEmpty(searchQuery)) {
+      int accent = resolveThemeColor(getContext(), R.attr.appColorAccent);
+      bodyText.setText(SearchHighlightUtil.highlight(displayBody, searchQuery, accent));
+    } else {
+      bodyText.setText(displayBody);
+    }
     bodyText.setVisibility(View.VISIBLE);
     linkifyBodyText();
 
@@ -271,6 +281,11 @@ public class ConversationItem extends LinearLayout
     } else {
       bodyText.setAutoLinkMask(0);
     }
+  }
+
+  public void setSearchHighlight(long messageId, @NonNull String query) {
+    this.highlightedMessageId = messageId;
+    this.searchQuery = query;
   }
 
   private void setContactPhoto(@NonNull Recipient recipient) {

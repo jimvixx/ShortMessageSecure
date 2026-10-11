@@ -66,6 +66,8 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
         implements ConversationListFragment.ConversationSelectedListener {
 
   private static final String TAG = ConversationListActivity.class.getSimpleName();
+  private static final String STATE_SEARCH_VISIBLE = "search_visible";
+  private static final String STATE_SEARCH_QUERY = "search_query";
 
   private final Handler contactsHandler = new Handler(Looper.getMainLooper());
 
@@ -120,6 +122,14 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
             new ConversationListFragment(),
             masterSecret,
             getCurrentLocale());
+
+    if (icicle != null && icicle.getBoolean(STATE_SEARCH_VISIBLE, false)) {
+      showSearch();
+      if (searchEdit != null) {
+        searchEdit.setText(icicle.getString(STATE_SEARCH_QUERY, ""));
+        searchEdit.setSelection(searchEdit.length());
+      }
+    }
 
     initializeContactUpdatesReceiver();
   }
@@ -211,23 +221,17 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
     searchVisible = true;
     if (searchBackCallback != null) searchBackCallback.setEnabled(true);
+    invalidateOptionsMenu();
 
     updateActionIcon();
 
     if (titleContainer != null) {
-      titleContainer.animate()
-              .alpha(0f)
-              .setDuration(120)
-              .withEndAction(() -> titleContainer.setVisibility(View.GONE))
-              .start();
+      titleContainer.setAlpha(1f);
+      titleContainer.setVisibility(View.GONE);
     }
 
-    searchEdit.setAlpha(0f);
+    searchEdit.setAlpha(1f);
     searchEdit.setVisibility(View.VISIBLE);
-    searchEdit.animate()
-            .alpha(1f)
-            .setDuration(140)
-            .start();
 
     searchEdit.requestFocus();
     ServiceUtil.getInputMethodManager(this).showSoftInput(searchEdit, 0);
@@ -238,28 +242,20 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
     searchVisible = false;
     if (searchBackCallback != null) searchBackCallback.setEnabled(false);
+    invalidateOptionsMenu();
 
     updateActionIcon();
 
+    searchEdit.clearFocus();
     ServiceUtil.getInputMethodManager(this)
             .hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
 
-    searchEdit.animate()
-            .alpha(0f)
-            .setDuration(120)
-            .withEndAction(() -> {
-              searchEdit.setVisibility(View.GONE);
-              searchEdit.setAlpha(1f);
-            })
-            .start();
+    searchEdit.setAlpha(1f);
+    searchEdit.setVisibility(View.GONE);
 
     if (titleContainer != null) {
-      titleContainer.setAlpha(0f);
+      titleContainer.setAlpha(1f);
       titleContainer.setVisibility(View.VISIBLE);
-      titleContainer.animate()
-              .alpha(1f)
-              .setDuration(140)
-              .start();
     }
 
     if (clearText) {
@@ -267,11 +263,18 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
       if (fragment != null) fragment.resetQueryFilter();
     }
 
-    searchEdit.clearFocus();
   }
 
   private void closeSearchIfOpen() {
     if (searchVisible) hideSearch(true);
+  }
+
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(STATE_SEARCH_VISIBLE, searchVisible);
+    outState.putString(STATE_SEARCH_QUERY,
+            searchEdit == null ? "" : searchEdit.getText().toString());
   }
 
   @Override
@@ -292,6 +295,11 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   public boolean onPrepareOptionsMenu(Menu menu) {
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
+
+    if (searchVisible) {
+      super.onPrepareOptionsMenu(menu);
+      return true;
+    }
 
     inflater.inflate(R.menu.conversation_list_menu, menu);
 
@@ -382,8 +390,6 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   @Override
   public void onCreateConversation(long threadId, Recipients recipients, int distributionType, long lastSeen) {
-    closeSearchIfOpen();
-
     Intent intent = new Intent(this, ConversationActivity.class);
     intent.putExtra(ConversationActivity.RECIPIENTS_EXTRA, recipients.getIds());
     intent.putExtra(ConversationActivity.THREAD_ID_EXTRA, threadId);
@@ -393,6 +399,44 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
     startActivity(intent);
     overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+  }
+
+  @Override
+  public void onCreateConversationFromSearch(long threadId, Recipients recipients,
+                                             int distributionType, long lastSeen,
+                                             boolean archived) {
+    Intent intent = createConversationIntent(threadId, recipients, distributionType, lastSeen);
+    intent.putExtra(ConversationActivity.IS_ARCHIVED_EXTRA, archived);
+    intent.putExtra(ConversationActivity.FROM_GLOBAL_SEARCH_EXTRA, true);
+
+    startActivity(intent);
+    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+  }
+
+  @Override
+  public void onCreateConversationAtMessage(long threadId, Recipients recipients,
+                                            int distributionType, long lastSeen,
+                                            boolean archived, long messageId,
+                                            @NonNull String searchQuery) {
+    Intent intent = createConversationIntent(threadId, recipients, distributionType, lastSeen);
+    intent.putExtra(ConversationActivity.IS_ARCHIVED_EXTRA, archived);
+    intent.putExtra(ConversationActivity.SEARCH_MESSAGE_ID_EXTRA, messageId);
+    intent.putExtra(ConversationActivity.SEARCH_QUERY_EXTRA, searchQuery);
+    intent.putExtra(ConversationActivity.FROM_GLOBAL_SEARCH_EXTRA, true);
+
+    startActivity(intent);
+    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+  }
+
+  private Intent createConversationIntent(long threadId, @NonNull Recipients recipients,
+                                          int distributionType, long lastSeen) {
+    Intent intent = new Intent(this, ConversationActivity.class);
+    intent.putExtra(ConversationActivity.RECIPIENTS_EXTRA, recipients.getIds());
+    intent.putExtra(ConversationActivity.THREAD_ID_EXTRA, threadId);
+    intent.putExtra(ConversationActivity.DISTRIBUTION_TYPE_EXTRA, distributionType);
+    intent.putExtra(ConversationActivity.TIMING_EXTRA, System.currentTimeMillis());
+    intent.putExtra(ConversationActivity.LAST_SEEN_EXTRA, lastSeen);
+    return intent;
   }
 
   @Override

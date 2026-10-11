@@ -70,6 +70,7 @@
 <string name="change_passphrase_activity__repeat_new_passphrase">كرر عبارة المرور الجديدة</string>
 <!--Common-->
 <string name="Cancel">إلغاء</string>
+<string name="Chats">الدردشات</string>
 <string name="Clear">مسح</string>
 <string name="Close">إغلاق</string>
 <string name="Confirm">تأكيد</string>
@@ -90,6 +91,7 @@
 <string name="Import_Export">استيراد / تصدير</string>
 <string name="Importing">جاري الاستيراد</string>
 <string name="Keyboard">Keyboard</string>
+<string name="Messages">الرسائل</string>
 <string name="No">لا</string>
 <string name="None">لا شيء</string>
 <string name="Off">إيقاف</string>
@@ -486,7 +488,6 @@
 <string name="MmsListener_notification_title">لا يتم دعم خدمة MMS</string>
 <string name="NotificationChannel_failures">أخطاء</string>
 <string name="NotificationChannel_locked_status">حالة القفل</string>
-<string name="NotificationChannel_messages">الرسائل</string>
 <string name="NotificationChannel_other">أخرى</string>
 <!--PassphraseChangeActivity-->
 <string name="PassphraseChangeActivity_change_passphrase">تغيير عبارة المرور</string>
@@ -558,7 +559,6 @@
 <string name="preferences__make_default_sms_app">تعيين كـ تطبيق SMS الافتراضي</string>
 <string name="preferences__make_smsecure_the_default_sms_app">اجعل SMSecure التطبيق الافتراضي للرسائل القصيرة في نظامك.</string>
 <string name="preferences__message_trimming">اقتطاع الرسالة</string>
-<string name="preferences__messages">الرسائل</string>
 <string name="preferences__minutes">minutes</string>
 <plurals name="preferences__msgs_short">
         <item quantity="zero"><xliff:g id="arg1">%d</xliff:g> رسالة</item>

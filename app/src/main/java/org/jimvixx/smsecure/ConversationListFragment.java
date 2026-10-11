@@ -75,6 +75,8 @@ import org.jimvixx.smsecure.database.loaders.ConversationListLoader;
 import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.recipients.Recipients;
+import org.jimvixx.smsecure.search.GlobalSearchAdapter;
+import org.jimvixx.smsecure.search.GlobalSearchResult;
 import org.jimvixx.smsecure.sms.MessageSender;
 import org.jimvixx.smsecure.sms.OutgoingEncryptedMessage;
 import org.jimvixx.smsecure.sms.OutgoingTextMessage;
@@ -105,6 +107,8 @@ public class ConversationListFragment extends Fragment
   private ReminderView reminderView;
   private FloatingActionButton fab;
   private String queryFilter = "";
+  private int searchRequestSerial;
+  private @Nullable Runnable pendingSearchRunnable;
   private boolean archive;
   // Launcher for the "set default SMS app" flow (RoleManager / ACTION_CHANGE_DEFAULT).
   private ActivityResultLauncher<Intent> defaultSmsLauncher;
@@ -219,6 +223,8 @@ public class ConversationListFragment extends Fragment
 
   @Override
   public void onDestroyView() {
+    if (pendingSearchRunnable != null) mainHandler.removeCallbacks(pendingSearchRunnable);
+    pendingSearchRunnable = null;
     super.onDestroyView();
     // Release view-related references.
     list = null;
@@ -251,12 +257,66 @@ public class ConversationListFragment extends Fragment
   }
 
   public void setQueryFilter(String query) {
-    this.queryFilter = query;
-    LoaderManager.getInstance(this).restartLoader(0, null, this);
+    this.queryFilter = query == null ? "" : query;
+    final int requestSerial = ++searchRequestSerial;
+
+    if (TextUtils.isEmpty(this.queryFilter.trim())) {
+      showConversationList();
+      return;
+    }
+
+    if (fab != null) fab.setVisibility(View.GONE);
+    LoaderManager.getInstance(this).destroyLoader(0);
+    if (list != null && !(list.getAdapter() instanceof GlobalSearchAdapter)) {
+      list.setAdapter(new GlobalSearchAdapter(requireContext(), this::handleSearchResult));
+    }
+
+    String requestedQuery = this.queryFilter;
+    Context appContext = requireAppContext();
+    if (pendingSearchRunnable != null) mainHandler.removeCallbacks(pendingSearchRunnable);
+    pendingSearchRunnable = () -> backgroundExecutor.execute(() -> {
+      if (masterSecret == null) return;
+      List<GlobalSearchResult> results = DatabaseFactory.getThreadDatabase(appContext)
+              .getGlobalSearchResults(requestedQuery, archive, masterSecret);
+      mainHandler.post(() -> {
+        if (!isAdded() || requestSerial != searchRequestSerial || list == null) return;
+        RecyclerView.Adapter<?> adapter = list.getAdapter();
+        if (adapter instanceof GlobalSearchAdapter searchAdapter) {
+          searchAdapter.submit(requestedQuery, results);
+        }
+      });
+    });
+    mainHandler.postDelayed(pendingSearchRunnable, 250);
   }
 
   public void resetQueryFilter() {
     if (!TextUtils.isEmpty(this.queryFilter)) setQueryFilter("");
+  }
+
+  private void showConversationList() {
+    if (list == null) return;
+    if (!(list.getAdapter() instanceof ConversationListAdapter)) {
+      list.setAdapter(new ConversationListAdapter(requireContext(), masterSecret, null, this));
+    }
+    if (fab != null) fab.setVisibility(archive ? View.GONE : View.VISIBLE);
+    LoaderManager.getInstance(this).restartLoader(0, null, this);
+  }
+
+  private void handleSearchResult(@NonNull GlobalSearchResult result) {
+    if (!(getActivity() instanceof ConversationSelectedListener listener)) return;
+    if (result.getThread() == null) return;
+
+    if (result.getType() == GlobalSearchResult.Type.MESSAGE) {
+      listener.onCreateConversationAtMessage(
+              result.getThread().getThreadId(), result.getThread().getRecipients(),
+              result.getThread().getDistributionType(), result.getThread().getLastSeen(),
+              result.getThread().isArchived(), result.getMessageId(), queryFilter);
+    } else if (result.getType() == GlobalSearchResult.Type.CHAT) {
+      listener.onCreateConversationFromSearch(
+              result.getThread().getThreadId(), result.getThread().getRecipients(),
+              result.getThread().getDistributionType(), result.getThread().getLastSeen(),
+              result.getThread().isArchived());
+    }
   }
 
   @NonNull
@@ -557,6 +617,7 @@ public class ConversationListFragment extends Fragment
 
   @Override
   public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+    if (!TextUtils.isEmpty(queryFilter.trim())) return;
     ConversationListAdapter adapter = getListAdapter();
     if (adapter != null) adapter.changeCursor(cursor);
   }
@@ -709,6 +770,19 @@ public class ConversationListFragment extends Fragment
   public interface ConversationSelectedListener {
     void onCreateConversation(long threadId, Recipients recipients, int distributionType, long lastSeen);
 
+    default void onCreateConversationFromSearch(long threadId, Recipients recipients,
+                                                int distributionType, long lastSeen,
+                                                boolean archived) {
+      onCreateConversation(threadId, recipients, distributionType, lastSeen);
+    }
+
+    default void onCreateConversationAtMessage(long threadId, Recipients recipients,
+                                               int distributionType, long lastSeen,
+                                               boolean archived, long messageId,
+                                               @NonNull String searchQuery) {
+      onCreateConversation(threadId, recipients, distributionType, lastSeen);
+    }
+
     void onSwitchToArchive();
   }
 
@@ -729,6 +803,7 @@ public class ConversationListFragment extends Fragment
     @Override
     public int getSwipeDirs(@NonNull RecyclerView recyclerView,
                             @NonNull RecyclerView.ViewHolder viewHolder) {
+      if (!TextUtils.isEmpty(queryFilter.trim())) return 0;
       if (viewHolder.itemView instanceof ConversationListItemArchived) return 0;
       if (actionMode != null) return 0;
       return super.getSwipeDirs(recyclerView, viewHolder);

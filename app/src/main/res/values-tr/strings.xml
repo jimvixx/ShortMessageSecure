@@ -62,6 +62,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Yeni parolayı tekrarla</string>
   <!--Common-->
   <string name="Cancel">İptal</string>
+  <string name="Chats">Sohbetler</string>
   <string name="Clear">Temizle</string>
   <string name="Close">Kapat</string>
   <string name="Confirm">Onayla</string>
@@ -82,6 +83,7 @@
   <string name="Import_Export">İçe Aktar / Dışa Aktar</string>
   <string name="Importing">İçe aktarma</string>
   <string name="Keyboard">Klavye</string>
+  <string name="Messages">Mesajlar</string>
   <string name="No">Hayır</string>
   <string name="None">Yok</string>
   <string name="Off">Kapalı</string>
@@ -442,7 +444,6 @@
   <string name="MmsListener_notification_title">MMS desteklenmemektedir</string>
   <string name="NotificationChannel_failures">Hatalar</string>
   <string name="NotificationChannel_locked_status">Kilitli durum</string>
-  <string name="NotificationChannel_messages">Mesajlar</string>
   <string name="NotificationChannel_other">Diğer</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Şifreyi değiştir</string>
@@ -510,7 +511,6 @@
   <string name="preferences__make_default_sms_app">Varsayılan SMS uygulaması olarak ayarla</string>
   <string name="preferences__make_smsecure_the_default_sms_app">SMSecure’u sisteminiz için varsayılan SMS uygulaması yapın.</string>
   <string name="preferences__message_trimming">Mesaj kısaltma</string>
-  <string name="preferences__messages">Mesajlar</string>
   <string name="preferences__minutes">dakika</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

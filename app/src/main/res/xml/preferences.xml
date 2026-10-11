@@ -4,7 +4,7 @@
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
         android:key="preference_category_messages"
         android:icon="@drawable/ic_message_processing"
-        android:title="@string/preferences__messages" />
+        android:title="@string/Messages" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
         android:key="preference_category_notifications"

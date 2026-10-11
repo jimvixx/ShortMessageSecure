@@ -88,6 +88,8 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
   private final @NonNull LayoutInflater inflater;
   private final @NonNull Calendar calendar;
   private final @NonNull MessageDigest digest;
+  private long highlightedMessageId = -1;
+  private String searchQuery = "";
 
   @SuppressWarnings("ConstantConditions")
   @VisibleForTesting
@@ -150,7 +152,24 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
       }
     }
 
+    if (viewHolder.getView() instanceof ConversationItem conversationItem) {
+      conversationItem.setSearchHighlight(highlightedMessageId, searchQuery);
+    }
     viewHolder.getView().bind(masterSecret, messageRecord, locale, batchSelected, recipients);
+  }
+
+  public void setSearchHighlight(long messageId, @NonNull String query) {
+    this.highlightedMessageId = messageId;
+    this.searchQuery = query;
+  }
+
+  public int findMessagePosition(long messageId) {
+    if (messageId <= 0 || !isActiveCursor()) return -1;
+    for (int i = 0; i < getItemCount(); i++) {
+      Cursor cursor = getCursorAtPositionOrThrow(i);
+      if (getMessageRecord(cursor).getId() == messageId) return i;
+    }
+    return -1;
   }
 
   @Override

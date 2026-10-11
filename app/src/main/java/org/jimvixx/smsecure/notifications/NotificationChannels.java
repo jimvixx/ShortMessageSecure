@@ -173,7 +173,7 @@ public final class NotificationChannels {
     notificationManager.createNotificationChannelGroups(Arrays.asList(
             new NotificationChannelGroup(
                     GROUP_MESSAGES,
-                    context.getString(R.string.NotificationChannel_messages)
+                    context.getString(R.string.Messages)
             ),
             new NotificationChannelGroup(
                     GROUP_ERRORS,
@@ -319,7 +319,7 @@ public final class NotificationChannels {
   @NonNull
   private static CharSequence getMessagesChannelName(@NonNull Context context,
                                                      @NonNull Uri effectiveRingtone) {
-    String base = context.getString(R.string.NotificationChannel_messages);
+    String base = context.getString(R.string.Messages);
     String title = getDisplayTitleForRingtone(context, effectiveRingtone);
 
     return base + " — " + title;

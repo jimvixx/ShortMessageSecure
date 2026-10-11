@@ -62,6 +62,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">Повторете новата парола</string>
     <!--Common-->
     <string name="Cancel">Отказ</string>
+    <string name="Chats">Чат</string>
     <string name="Clear">Изчисти</string>
     <string name="Close">Затвори</string>
     <string name="Confirm">Потвърди</string>
@@ -82,6 +83,7 @@
     <string name="Import_Export">Импорт / Експорт</string>
     <string name="Importing">Импортиране</string>
     <string name="Keyboard">Клавиатура</string>
+    <string name="Messages">Съобщения</string>
     <string name="No">Не</string>
     <string name="None">Няма</string>
     <string name="Off">Изключено</string>
@@ -442,7 +444,6 @@
     <string name="MmsListener_notification_title">MMS не се поддържа</string>
     <string name="NotificationChannel_failures">Неуспехи</string>
     <string name="NotificationChannel_locked_status">Статус „Заключено“</string>
-    <string name="NotificationChannel_messages">Съобщения</string>
     <string name="NotificationChannel_other">Други</string>
     <!--PassphraseChangeActivity-->
     <string name="PassphraseChangeActivity_change_passphrase">Промяна на паролата</string>
@@ -510,7 +511,6 @@
     <string name="preferences__make_default_sms_app">Задаване като приложение за SMS по подразбиране</string>
     <string name="preferences__make_smsecure_the_default_sms_app">Направете SMSecure приложението за SMS по подразбиране за вашата система.</string>
     <string name="preferences__message_trimming">Съкращаване на съобщения</string>
-    <string name="preferences__messages">Съобщения</string>
     <string name="preferences__minutes">minutes</string>
     <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> съобщение</item>

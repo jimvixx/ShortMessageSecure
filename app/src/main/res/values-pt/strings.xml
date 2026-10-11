@@ -64,6 +64,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Repita a nova senha</string>
   <!--Common-->
   <string name="Cancel">Cancelar</string>
+  <string name="Chats">Chats</string>
   <string name="Clear">Limpar</string>
   <string name="Close">Fechar</string>
   <string name="Confirm">Confirmar</string>
@@ -84,6 +85,7 @@
   <string name="Import_Export">Importar / Exportar</string>
   <string name="Importing">A importar</string>
   <string name="Keyboard">Teclado</string>
+  <string name="Messages">Mensagens</string>
   <string name="No">Não</string>
   <string name="None">Nenhum</string>
   <string name="Off">Desligado</string>
@@ -453,7 +455,6 @@
   <string name="MmsListener_notification_title">O MMS não é suportado</string>
   <string name="NotificationChannel_failures">Falhas</string>
   <string name="NotificationChannel_locked_status">Estado bloqueado</string>
-  <string name="NotificationChannel_messages">Mensagens</string>
   <string name="NotificationChannel_other">Outros</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Alterar frase-passe</string>
@@ -522,7 +523,6 @@
   <string name="preferences__make_default_sms_app">Definir como aplicação de SMS predefinida</string>
   <string name="preferences__make_smsecure_the_default_sms_app">Defina o SMSecure como a aplicação de SMS predefinida do seu sistema.</string>
   <string name="preferences__message_trimming">Corte de mensagem</string>
-  <string name="preferences__messages">Mensagens</string>
   <string name="preferences__minutes">minutos</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

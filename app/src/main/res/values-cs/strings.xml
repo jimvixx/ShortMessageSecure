@@ -66,6 +66,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Zadejte nové heslo</string>
   <!--Common-->
   <string name="Cancel">Zrušit</string>
+  <string name="Chats">Chaty</string>
   <string name="Clear">Vymazat</string>
   <string name="Close">Zavřít</string>
   <string name="Confirm">Potvrdit</string>
@@ -86,6 +87,7 @@
   <string name="Import_Export">Import / Export</string>
   <string name="Importing">Importování</string>
   <string name="Keyboard">Klávesnice</string>
+  <string name="Messages">Zprávy</string>
   <string name="No">Ne</string>
   <string name="None">Žádný</string>
   <string name="Off">Vypnuto</string>
@@ -464,7 +466,6 @@
   <string name="MmsListener_notification_title">MMS není podporováno</string>
   <string name="NotificationChannel_failures">Selhání</string>
   <string name="NotificationChannel_locked_status">Stav uzamčení</string>
-  <string name="NotificationChannel_messages">Zprávy</string>
   <string name="NotificationChannel_other">Ostatní</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Změnit heslo</string>
@@ -534,7 +535,6 @@
   <string name="preferences__make_default_sms_app">Nastavit jako výchozí aplikaci pro SMS</string>
   <string name="preferences__make_smsecure_the_default_sms_app">Nastavte SMSecure jako výchozí aplikaci pro SMS ve vašem systému.</string>
   <string name="preferences__message_trimming">Zkrácení zprávy</string>
-  <string name="preferences__messages">Zprávy</string>
   <string name="preferences__minutes">minuty</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

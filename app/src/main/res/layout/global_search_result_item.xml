@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <org.jimvixx.smsecure.components.AvatarImageView
+        android:id="@+id/search_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/conversation_list_item_view__contact_photo_image"
+        android:foreground="@drawable/bg_contact_photo"
+        tools:src="@drawable/ic_account_outline" />
+
+    <TextView
+        android:id="@+id/search_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="11dp"
+        android:layout_toStartOf="@id/search_date"
+        android:layout_toEndOf="@id/search_avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@style/SMSecure.TextAppearance.Title"
+        tools:text="Alice" />
+
+    <TextView
+        android:id="@+id/search_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/SMSecure.TextAppearance.Subtitle"
+        tools:text="Yesterday" />
+
+    <TextView
+        android:id="@+id/search_excerpt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_title"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@id/search_archived"
+        android:layout_toEndOf="@id/search_avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@style/SMSecure.TextAppearance.Subtitle"
+        tools:text="Matching message text" />
+
+    <TextView
+        android:id="@+id/search_archived"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/search_excerpt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_rounded_rectangle"
+        android:backgroundTint="?attr/appColorTextSubtitle"
+        android:text="@string/conversation_list_item_view__archived"
+        android:textAppearance="@style/SMSecure.TextAppearance.Subtitle"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</RelativeLayout>

@@ -99,7 +99,7 @@ public class MessagesPreferenceFragment extends PreferenceFragmentCompat {
     if (activity != null) {
       ActionBar actionBar = activity.getSupportActionBar();
       if (actionBar != null) {
-        actionBar.setTitle(R.string.preferences__messages);
+        actionBar.setTitle(R.string.Messages);
       }
     }
 

@@ -66,6 +66,7 @@
 <string name="change_passphrase_activity__repeat_new_passphrase">Pakartokite naują slaptažodį</string>
 <!--Common-->
 <string name="Cancel">Atšaukti</string>
+<string name="Chats">Pokalbiai</string>
 <string name="Clear">Išvalyti</string>
 <string name="Close">Uždaryti</string>
 <string name="Confirm">Patvirtinti</string>
@@ -86,6 +87,7 @@
 <string name="Import_Export">Importas / Eksportas</string>
 <string name="Importing">Importavimas</string>
 <string name="Keyboard">Klaviatūra</string>
+<string name="Messages">Pranešimai</string>
 <string name="No">Ne</string>
 <string name="None">Nėra</string>
 <string name="Off">Išjungta</string>
@@ -464,7 +466,6 @@
 <string name="MmsListener_notification_title">MMS nepalaikoma</string>
 <string name="NotificationChannel_failures">Sutrikimai</string>
 <string name="NotificationChannel_locked_status">Užrakintas statusas</string>
-<string name="NotificationChannel_messages">Pranešimai</string>
 <string name="NotificationChannel_other">Kita</string>
 <!--PassphraseChangeActivity-->
 <string name="PassphraseChangeActivity_change_passphrase">Pakeisti slaptažodį</string>
@@ -534,7 +535,6 @@
 <string name="preferences__make_default_sms_app">Nustatyti kaip numatytąją SMS programą</string>
 <string name="preferences__make_smsecure_the_default_sms_app">Nustatykite „SMSecure“ kaip numatytąją SMS programą savo sistemoje.</string>
 <string name="preferences__message_trimming">Pranešimo sutrumpinimas</string>
-<string name="preferences__messages">Pranešimai</string>
 <string name="preferences__minutes">minutes</string>
 <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> pranešimas</item>

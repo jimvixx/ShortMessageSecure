@@ -60,6 +60,7 @@
 <string name="change_passphrase_activity__repeat_new_passphrase">Ulangi frasa sandi baru</string>
 <!--Common-->
 <string name="Cancel">Batal</string>
+<string name="Chats">Obrolan</string>
 <string name="Clear">Clear</string>
 <string name="Close">Tutup</string>
 <string name="Confirm">Konfirmasi</string>
@@ -80,6 +81,7 @@
 <string name="Import_Export">Impor / Ekspor</string>
 <string name="Importing">Sedang mengimpor</string>
 <string name="Keyboard">Keyboard</string>
+<string name="Messages">Pesan</string>
 <string name="No">Tidak</string>
 <string name="None">Tidak ada</string>
 <string name="Off">Mati</string>
@@ -431,7 +433,6 @@
 <string name="MmsListener_notification_title">MMS tidak didukung</string>
 <string name="NotificationChannel_failures">Kegagalan</string>
 <string name="NotificationChannel_locked_status">Status terkunci</string>
-<string name="NotificationChannel_messages">Pesan</string>
 <string name="NotificationChannel_other">Lainnya</string>
 <!--PassphraseChangeActivity-->
 <string name="PassphraseChangeActivity_change_passphrase">Ubah frasa sandi</string>
@@ -498,7 +499,6 @@
 <string name="preferences__make_default_sms_app">Tetapkan sebagai aplikasi SMS default</string>
 <string name="preferences__make_smsecure_the_default_sms_app">Jadikan SMSecure sebagai aplikasi SMS default untuk sistem Anda.</string>
 <string name="preferences__message_trimming">Pemotongan pesan</string>
-<string name="preferences__messages">Pesan</string>
 <string name="preferences__minutes">menit</string>
 <plurals name="preferences__msgs_short">
         <item quantity="other"><xliff:g id="arg1">%d</xliff:g> pesan</item>

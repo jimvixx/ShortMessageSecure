@@ -62,6 +62,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Ismételje meg az új jelszót</string>
   <!--Common-->
   <string name="Cancel">Mégse</string>
+  <string name="Chats">Csevegések</string>
   <string name="Clear">Clear</string>
   <string name="Close">Bezárás</string>
   <string name="Confirm">Megerősítés</string>
@@ -82,6 +83,7 @@
   <string name="Import_Export">Import / Export</string>
   <string name="Importing">Importálás</string>
   <string name="Keyboard">Billentyűzet</string>
+  <string name="Messages">Üzenetek</string>
   <string name="No">Nem</string>
   <string name="None">Nincs</string>
   <string name="Off">Ki</string>
@@ -442,7 +444,6 @@
   <string name="MmsListener_notification_title">Az MMS nem támogatott</string>
   <string name="NotificationChannel_failures">Hibák</string>
   <string name="NotificationChannel_locked_status">Zárt állapot</string>
-  <string name="NotificationChannel_messages">Üzenetek</string>
   <string name="NotificationChannel_other">Egyéb</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">Jelszó módosítása</string>
@@ -510,7 +511,6 @@
   <string name="preferences__make_default_sms_app">Állítsd be alapértelmezett SMS-alkalmazásként</string>
   <string name="preferences__make_smsecure_the_default_sms_app">Állítsa be SMSecure-t a rendszer alapértelmezett SMS-alkalmazásaként.</string>
   <string name="preferences__message_trimming">Üzenet rövidítése</string>
-  <string name="preferences__messages">Üzenetek</string>
   <string name="preferences__minutes">minutes</string>
   <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>

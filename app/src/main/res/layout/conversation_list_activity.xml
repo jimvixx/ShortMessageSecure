@@ -65,6 +65,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/search_view"
                 style="@style/SMSecure.TextAppearance.Toolbar.SearchEdit"
+                android:theme="@style/ThemeOverlay.SMSecure.Toolbar.SearchEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"

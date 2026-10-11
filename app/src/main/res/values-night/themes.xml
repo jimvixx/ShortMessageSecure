@@ -31,7 +31,6 @@
         <item name="contact_selection_push_user">@color/gray5</item>
         <item name="contact_selection_lay_user">@color/gray5_transparent31</item>
 
-
         <!-- Conversation items -->
         <item name="conversation_item_bubble_background_color">@color/gray80</item>
         <item name="conversation_item_focused_background_color">#882090ea</item>

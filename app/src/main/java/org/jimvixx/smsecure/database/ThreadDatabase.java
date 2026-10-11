@@ -43,10 +43,12 @@ import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.recipients.Recipients;
+import org.jimvixx.smsecure.search.GlobalSearchResult;
 import org.whispersystems.libsignal.InvalidMessageException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,18 +93,6 @@ public class ThreadDatabase extends Database {
 
   public ThreadDatabase(Context context, SQLiteOpenHelper databaseHelper) {
     super(context, databaseHelper);
-  }
-
-  private static void appendSearchPart(@NonNull StringBuilder sb, @Nullable String value) {
-    if (TextUtils.isEmpty(value)) {
-      return;
-    }
-
-    if (sb.length() > 0) {
-      sb.append('\n');
-    }
-
-    sb.append(value);
   }
 
   private static boolean containsNormalized(@Nullable String candidate, @NonNull String normalizedQuery) {
@@ -393,15 +383,109 @@ public class ThreadDatabase extends Database {
     return getThreadsByIds(matchingThreadIds, archivedView);
   }
 
+  public @NonNull List<GlobalSearchResult> getGlobalSearchResults(
+          @NonNull String rawQuery,
+          boolean archivedView,
+          @NonNull MasterSecret masterSecret) {
+    String normalizedQuery = normalizeSearchText(rawQuery);
+    List<GlobalSearchResult> chats = new ArrayList<>();
+    List<GlobalSearchResult> messages = new ArrayList<>();
+    if (normalizedQuery.isEmpty()) return chats;
+
+    SQLiteDatabase db = databaseHelper.getReadableDatabase();
+    MasterCipher masterCipher = new MasterCipher(masterSecret);
+
+    String selection = archivedView ? ARCHIVED + " = ?" : null;
+    String[] selectionArgs = archivedView ? new String[]{"1"} : null;
+    try (Cursor threadCursor = db.query(
+            TABLE_NAME, null, selection, selectionArgs, null, null,
+            CONVERSATION_LIST_SORT_ORDER)) {
+      Reader threadReader = readerFor(threadCursor, masterCipher);
+
+      while (threadCursor.moveToNext()) {
+        ThreadRecord thread = threadReader.getCurrent();
+        if (matchesParticipants(
+                threadCursor.getString(threadCursor.getColumnIndexOrThrow(RECIPIENT_IDS)),
+                normalizedQuery)) {
+          chats.add(GlobalSearchResult.chat(thread));
+        }
+
+        Cursor messageCursor = DatabaseFactory.getMessageDatabase(context)
+                .getConversation(thread.getThreadId());
+        MessageDatabase.Reader messageReader = null;
+        try {
+          messageReader = DatabaseFactory.getMessageDatabase(context)
+                  .readerFor(messageCursor, masterSecret);
+          MessageRecord record;
+          while ((record = messageReader.getNext()) != null) {
+            CharSequence displayBody = record.getDisplayBody();
+            String body = displayBody == null ? "" : displayBody.toString();
+            if (containsNormalized(body, normalizedQuery)) {
+              messages.add(GlobalSearchResult.message(
+                      thread, record.getId(), body, record.getDateReceived()));
+            }
+          }
+        } finally {
+          if (messageReader != null) messageReader.close();
+          else if (messageCursor != null) messageCursor.close();
+        }
+      }
+    }
+
+    messages.sort(Comparator.comparingLong(GlobalSearchResult::getMessageDate).reversed());
+
+    List<GlobalSearchResult> results = new ArrayList<>(chats.size() + messages.size() + 2);
+    if (!chats.isEmpty()) {
+      results.add(GlobalSearchResult.header(context.getString(R.string.Chats)));
+      results.addAll(chats);
+    }
+    if (!messages.isEmpty()) {
+      results.add(GlobalSearchResult.header(context.getString(R.string.Messages)));
+      results.addAll(messages);
+    }
+    return results;
+  }
+
   private boolean matchesParticipants(@Nullable String recipientIds, @NonNull String normalizedQuery) {
     if (TextUtils.isEmpty(recipientIds)) {
       return false;
     }
 
     Recipients recipients = RecipientFactory.getRecipientsForIds(context, recipientIds, true);
-    String searchableText = buildParticipantsSearchText(recipients);
+    if (recipients == null) return false;
 
-    return containsNormalized(searchableText, normalizedQuery);
+    try {
+      if (containsNormalized(recipients.toShortString(), normalizedQuery)) return true;
+    } catch (Throwable t) {
+      Log.w(TAG, "Unable to read recipients short string for search", t);
+    }
+
+    List<Recipient> recipientList = recipients.getRecipientsList();
+    if (recipientList == null) return false;
+
+    for (Recipient recipient : recipientList) {
+      if (recipient == null) continue;
+
+      try {
+        if (containsNormalized(recipient.getName(), normalizedQuery)) return true;
+      } catch (Throwable t) {
+        Log.w(TAG, "Unable to read recipient name for search", t);
+      }
+
+      try {
+        if (containsNormalized(recipient.getNumber(), normalizedQuery)) return true;
+      } catch (Throwable t) {
+        Log.w(TAG, "Unable to read recipient number for search", t);
+      }
+
+      try {
+        if (containsNormalized(recipient.toShortString(), normalizedQuery)) return true;
+      } catch (Throwable t) {
+        Log.w(TAG, "Unable to read recipient short string for search", t);
+      }
+    }
+
+    return false;
   }
 
   private boolean matchesConversationBody(long threadId,
@@ -480,56 +564,6 @@ public class ThreadDatabase extends Database {
 
     setNotifyConverationListListeners(cursor);
     return cursor;
-  }
-
-  /**
-   * Builds searchable text from app-resolved conversation participants.
-   * This method intentionally avoids Android contacts lookup.
-   */
-  private String buildParticipantsSearchText(@Nullable Recipients recipients) {
-    if (recipients == null) {
-      return "";
-    }
-
-    StringBuilder sb = new StringBuilder();
-
-    try {
-      appendSearchPart(sb, recipients.toShortString());
-    } catch (Throwable t) {
-      Log.w(TAG, "Unable to read recipients short string for search", t);
-    }
-
-    List<Recipient> recipientList = recipients.getRecipientsList();
-
-    if (recipientList == null) {
-      return sb.toString();
-    }
-
-    for (Recipient recipient : recipientList) {
-      if (recipient == null) {
-        continue;
-      }
-
-      try {
-        appendSearchPart(sb, recipient.getName());
-      } catch (Throwable t) {
-        Log.w(TAG, "Unable to read recipient name for search", t);
-      }
-
-      try {
-        appendSearchPart(sb, recipient.getNumber());
-      } catch (Throwable t) {
-        Log.w(TAG, "Unable to read recipient number for search", t);
-      }
-
-      try {
-        appendSearchPart(sb, recipient.toShortString());
-      } catch (Throwable t) {
-        Log.w(TAG, "Unable to read recipient short string for search", t);
-      }
-    }
-
-    return sb.toString();
   }
 
   public Cursor getConversationList() {

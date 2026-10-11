@@ -60,6 +60,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">새 암호를 다시 입력하세요</string>
   <!--Common-->
   <string name="Cancel">취소</string>
+  <string name="Chats">채팅</string>
   <string name="Clear">지우기</string>
   <string name="Close">닫기</string>
   <string name="Confirm">확인</string>
@@ -80,6 +81,7 @@
   <string name="Import_Export">가져오기 / 내보내기</string>
   <string name="Importing">가져오기 중</string>
   <string name="Keyboard">키보드</string>
+  <string name="Messages">메시지</string>
   <string name="No">아니요</string>
   <string name="None">없음</string>
   <string name="Off">Off</string>
@@ -431,7 +433,6 @@
   <string name="MmsListener_notification_title">MMS는 지원되지 않습니다.</string>
   <string name="NotificationChannel_failures">오류</string>
   <string name="NotificationChannel_locked_status">잠금 상태</string>
-  <string name="NotificationChannel_messages">메시지</string>
   <string name="NotificationChannel_other">기타</string>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_change_passphrase">암호 변경</string>
@@ -498,7 +499,6 @@
   <string name="preferences__make_default_sms_app">기본 SMS 앱으로 설정</string>
   <string name="preferences__make_smsecure_the_default_sms_app">SMSecure를 시스템의 기본 SMS 앱으로 설정하세요.</string>
   <string name="preferences__message_trimming">메시지 축약</string>
-  <string name="preferences__messages">메시지</string>
   <string name="preferences__minutes">분</string>
   <plurals name="preferences__msgs_short">
         <item quantity="other"><xliff:g id="arg1">%d</xliff:g> msgs</item>

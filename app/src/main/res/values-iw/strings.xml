@@ -64,6 +64,7 @@
     <string name="change_passphrase_activity__repeat_new_passphrase">חזור על סיסמת הגישה החדשה</string>
     <!--Common-->
     <string name="Cancel">ביטול</string>
+    <string name="Chats">צ’אטים</string>
     <string name="Clear">נקה</string>
     <string name="Close">סגור</string>
     <string name="Confirm">אשר</string>
@@ -84,6 +85,7 @@
     <string name="Import_Export">ייבוא / ייצוא</string>
     <string name="Importing">ייבוא</string>
     <string name="Keyboard">מקלדת</string>
+    <string name="Messages">הודעות</string>
     <string name="No">לא</string>
     <string name="None">אין</string>
     <string name="Off">כבוי</string>
@@ -453,7 +455,6 @@
     <string name="MmsListener_notification_title">MMS אינו נתמך</string>
     <string name="NotificationChannel_failures">כשלים</string>
     <string name="NotificationChannel_locked_status">סטטוס נעול</string>
-    <string name="NotificationChannel_messages">הודעות</string>
     <string name="NotificationChannel_other">אחר</string>
     <!--PassphraseChangeActivity-->
     <string name="PassphraseChangeActivity_change_passphrase">שינוי סיסמה</string>
@@ -522,7 +523,6 @@
     <string name="preferences__make_default_sms_app">הגדר כאפליקציית SMS ברירת מחדל</string>
     <string name="preferences__make_smsecure_the_default_sms_app">הגדר את SMSecure כאפליקציית ה-SMS המוגדרת כברירת מחדל במערכת שלך.</string>
     <string name="preferences__message_trimming">קיצור הודעה</string>
-    <string name="preferences__messages">הודעות</string>
     <string name="preferences__minutes">דקות</string>
     <plurals name="preferences__msgs_short">
         <item quantity="one"><xliff:g id="arg1">%d</xliff:g> msg</item>
