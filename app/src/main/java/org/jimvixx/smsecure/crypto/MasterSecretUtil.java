@@ -175,7 +175,20 @@ public class MasterSecretUtil {
     return new AsymmetricMasterSecret(keyPair.getPublicKey(), keyPair.getPrivateKey());
   }
 
-  public static MasterSecret generateMasterSecret(Context context, String passphrase) {
+  /** Returns a new key only for uninitialized storage; never replaces existing key material. */
+  public static synchronized MasterSecret generateMasterSecret(Context context, String passphrase) {
+    SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, 0);
+    // Never replace existing or partially written key material during initialization.
+    if (preferences.getBoolean("passphrase_initialized", false)
+            || preferences.contains("master_secret")
+            || preferences.contains("encryption_salt")
+            || preferences.contains("mac_salt")
+            || preferences.contains("passphrase_iterations")
+            || preferences.contains(ASYMMETRIC_LOCAL_PUBLIC_DJB)
+            || preferences.contains(ASYMMETRIC_LOCAL_PRIVATE_DJB)) {
+      return null;
+    }
+
     try {
       byte[] encryptionSecret = generateEncryptionSecret();
       byte[] macSecret = generateMacSecret();

@@ -18,6 +18,7 @@
 
 package org.jimvixx.smsecure;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.crypto.InvalidPassphraseException;
 import org.jimvixx.smsecure.crypto.MasterSecretUtil;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.VersionTracker;
@@ -92,7 +94,16 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   }
 
   private void onSecretReady(@Nullable MasterSecret masterSecret) {
-    if (masterSecret == null || isFinishing() || isDestroyed()) {
+    if (isFinishing() || isDestroyed()) {
+      return;
+    }
+
+    if (masterSecret == null) {
+      Intent prompt = new Intent(this, PassphrasePromptActivity.class);
+      Intent next = getIntent().getParcelableExtra(EXTRA_NEXT_INTENT);
+      if (next != null) prompt.putExtra(EXTRA_NEXT_INTENT, next);
+      startActivity(prompt);
+      finish();
       return;
     }
 
@@ -132,6 +143,13 @@ public class PassphraseCreateActivity extends PassphraseActivity {
 
     @Override
     public void run() {
+      // Serialize the whole initialization, including asymmetric keys and preferences.
+      synchronized (MasterSecretUtil.class) {
+        initialize();
+      }
+    }
+
+    private void initialize() {
       PassphraseCreateActivity activity = activityRef.get();
       if (activity == null) {
         return;
@@ -145,6 +163,19 @@ public class PassphraseCreateActivity extends PassphraseActivity {
       );
 
       if (masterSecret == null) {
+        MasterSecret existing = null;
+        if (SMSecurePreferences.isPasswordDisabled(activity)) {
+          try {
+            existing = MasterSecretUtil.getMasterSecret(activity, passphrase);
+          } catch (InvalidPassphraseException ignored) {
+            // Leave all stored material untouched and use the existing unlock UI.
+          }
+        }
+        MasterSecret result = existing;
+        mainThread.post(() -> {
+          PassphraseCreateActivity currentActivity = activityRef.get();
+          if (currentActivity != null) currentActivity.onSecretReady(result);
+        });
         return;
       }
 
