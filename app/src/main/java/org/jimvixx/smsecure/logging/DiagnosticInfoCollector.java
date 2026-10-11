@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import org.jimvixx.smsecure.BuildConfig;
 import org.jimvixx.smsecure.crypto.MasterSecretUtil;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
+import org.jimvixx.smsecure.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.security.MessageDigest;
@@ -151,7 +152,9 @@ public final class DiagnosticInfoCollector {
     sb.append("Locale: ").append(Locale.getDefault().toLanguageTag()).append('\n');
     sb.append("Timezone: ").append(TimeZone.getDefault().getID()).append('\n');
     sb.append("24-hour format: ").append(DateFormat.is24HourFormat(context)).append('\n');
-    sb.append("Default SMS app: ").append(isDefaultSmsApp(context)).append('\n');
+    Boolean defaultSmsApp = Util.getDefaultSmsAppStatus(context);
+    sb.append("Default SMS app: ")
+            .append(defaultSmsApp == null ? "<unavailable>" : defaultSmsApp.toString()).append('\n');
     sb.append("Battery optimization ignored: ").append(isIgnoringBatteryOptimizations(context)).append('\n');
     sb.append("Airplane mode: ").append(isAirplaneModeEnabled(context)).append('\n');
     sb.append("Low RAM device: ").append(isLowRamDevice(context)).append('\n');
@@ -217,11 +220,6 @@ public final class DiagnosticInfoCollector {
                                        @NonNull String permission) {
     boolean granted = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     sb.append(permission).append(": ").append(granted ? "granted" : "denied").append('\n');
-  }
-
-  private static boolean isDefaultSmsApp(@NonNull Context context) {
-    String packageName = android.provider.Telephony.Sms.getDefaultSmsPackage(context);
-    return context.getPackageName().equals(packageName);
   }
 
   private static boolean isIgnoringBatteryOptimizations(@NonNull Context context) {

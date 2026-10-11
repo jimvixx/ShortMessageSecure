@@ -276,15 +276,26 @@ public class Util {
   }
 
   public static boolean isDefaultSmsProvider(@NonNull Context context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // 29+
-      RoleManager rm = context.getSystemService(RoleManager.class);
-      return rm != null
-              && rm.isRoleAvailable(RoleManager.ROLE_SMS)
-              && rm.isRoleHeld(RoleManager.ROLE_SMS);
-    }
+    return Boolean.TRUE.equals(getDefaultSmsAppStatus(context));
+  }
 
-    String def = Telephony.Sms.getDefaultSmsPackage(context); // 19–28
-    return def != null && def.equals(context.getPackageName());
+  /** Returns whether this app holds the SMS role, or null when it cannot be determined. */
+  @Nullable
+  public static Boolean getDefaultSmsAppStatus(@NonNull Context context) {
+    try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        RoleManager roleManager = context.getSystemService(RoleManager.class);
+        if (roleManager == null || !roleManager.isRoleAvailable(RoleManager.ROLE_SMS)) {
+          return null;
+        }
+        return roleManager.isRoleHeld(RoleManager.ROLE_SMS);
+      }
+
+      String packageName = Telephony.Sms.getDefaultSmsPackage(context);
+      return packageName == null ? null : context.getPackageName().equals(packageName);
+    } catch (RuntimeException e) {
+      return null;
+    }
   }
 
   public static int getCurrentApkReleaseVersion(Context context) {
