@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -37,6 +38,7 @@ import org.jimvixx.smsecure.crypto.MasterSecretUtil;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
 import java.text.SimpleDateFormat;
+import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
@@ -73,13 +75,8 @@ public final class DiagnosticInfoCollector {
     sb.append("Version name: ").append(BuildConfig.VERSION_NAME).append('\n');
     sb.append("Version code: ").append(BuildConfig.VERSION_CODE).append('\n');
     sb.append("Build type: ").append(BuildConfig.BUILD_TYPE).append('\n');
-
-//    try {
-//      sb.append("Flavor: ").append(BuildConfig.FLAVOR).append('\n');
-//    } catch (Throwable ignore) {
-//      sb.append("Flavor: ").append("<unknown>").append('\n');
-//    }
-
+    sb.append("Source commit (build-reported): ").append(BuildConfig.SOURCE_COMMIT).append('\n');
+    sb.append("APK signer SHA-256 (client-reported): ").append(getSignerFingerprints(context)).append('\n');
     sb.append("Debug build: ").append(BuildConfig.DEBUG).append('\n');
     sb.append("Min SDK: ").append(Build.VERSION_CODES.M).append('\n');
     sb.append("Target SDK: ").append(getTargetSdk(context)).append('\n');
@@ -95,6 +92,43 @@ public final class DiagnosticInfoCollector {
     }
 
     sb.append('\n');
+  }
+
+  /** Current APK signers, not historical certificates from a signing-key rotation. */
+  @SuppressWarnings("deprecation")
+  @NonNull
+  private static String getSignerFingerprints(@NonNull Context context) {
+    try {
+      PackageManager pm = context.getPackageManager();
+      Signature[] signers;
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        PackageInfo info = pm.getPackageInfo(context.getPackageName(),
+                PackageManager.GET_SIGNING_CERTIFICATES);
+        signers = info.signingInfo == null ? null : info.signingInfo.getApkContentsSigners();
+      } else {
+        signers = pm.getPackageInfo(context.getPackageName(),
+                PackageManager.GET_SIGNATURES).signatures;
+      }
+
+      if (signers == null || signers.length == 0) return "<unavailable>";
+
+      String[] fingerprints = new String[signers.length];
+      MessageDigest digest = MessageDigest.getInstance("SHA-256");
+      for (int i = 0; i < signers.length; i++) {
+        byte[] hash = digest.digest(signers[i].toByteArray());
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte value : hash) {
+          hex.append(Character.forDigit((value & 0xff) >>> 4, 16));
+          hex.append(Character.forDigit(value & 0x0f, 16));
+        }
+        fingerprints[i] = hex.toString();
+      }
+      Arrays.sort(fingerprints);
+      return android.text.TextUtils.join(", ", fingerprints);
+    } catch (Exception e) {
+      // Diagnostics must remain available even if package metadata cannot be read.
+      return "<unavailable>";
+    }
   }
 
   private static void appendDeviceSection(@NonNull StringBuilder sb) {

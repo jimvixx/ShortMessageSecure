@@ -7,6 +7,18 @@ plugins {
     id("com.android.application")
 }
 
+// Diagnostic metadata only: HEAD does not attest to the APK or uncommitted changes.
+val sourceCommit = try {
+    providers.exec {
+        workingDir(rootProject.projectDir)
+        commandLine("git", "rev-parse", "--verify", "HEAD")
+        isIgnoreExitValue = true
+    }.standardOutput.asText.get().trim()
+        .takeIf { it.matches(Regex("[0-9a-fA-F]{40,64}")) } ?: "unknown"
+} catch (_: Exception) {
+    "unknown"
+}
+
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 val hasKeystore = keystorePropertiesFile.exists()
@@ -97,6 +109,7 @@ android {
         applicationId = "org.jimvixx.smsecure"
         versionCode = 10301
         versionName = "1.3.1"
+        buildConfigField("String", "SOURCE_COMMIT", "\"$sourceCommit\"")
 
         buildConfigField(
             "String",
