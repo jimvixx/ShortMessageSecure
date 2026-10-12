@@ -124,6 +124,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
             getCurrentLocale());
 
     if (icicle != null && icicle.getBoolean(STATE_SEARCH_VISIBLE, false)) {
+      getSupportFragmentManager().executePendingTransactions();
       showSearch();
       if (searchEdit != null) {
         searchEdit.setText(icicle.getString(STATE_SEARCH_QUERY, ""));
