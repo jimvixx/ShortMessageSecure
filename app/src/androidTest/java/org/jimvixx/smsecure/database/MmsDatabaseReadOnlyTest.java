@@ -28,6 +28,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.jimvixx.smsecure.database.model.MessageRecord;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -37,6 +38,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class MmsDatabaseReadOnlyTest {
@@ -89,6 +91,67 @@ public class MmsDatabaseReadOnlyTest {
     assertNull(database.getMessage(999));
     assertEquals(2, new AttachmentDatabase(context, helper).getAttachmentsForMessage(7).size());
     assertEquals(1, database.getMessageCountForThread(9));
+  }
+
+  @Test public void unifiedReadOnlyQueriesSupportMmsOnlyMixedAndCollidingIds() {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    db.execSQL("INSERT INTO sms (_id, thread_id, date, date_sent, read, status, type, body, address, address_device_id) " +
+        "VALUES (7, 9, 3000, 3000, 1, 0, 20, 'sms-7', '+15550001', 1)");
+    db.execSQL("UPDATE mms SET thread_id = 9, date = 1000, date_received = 2000, msg_box = 1, " +
+        "m_type = 132, body = 'mms-7', address = '+15550001', part_count = 1 WHERE _id = 7");
+    db.execSQL("INSERT INTO mms (_id, thread_id, date, date_received, msg_box, read, m_type, body, address, part_count) " +
+        "VALUES (8, 10, 4000, 5000, 0, 0, 130, NULL, '+15550002', 0)");
+
+    MessageDatabase messages = new MessageDatabase(context, helper);
+    assertEquals(2, messages.getUnifiedConversationCount(9));
+    assertEquals(1, messages.getUnifiedConversationCount(10));
+
+    try (android.database.Cursor cursor = messages.getUnifiedConversation(9)) {
+      assertTrue(cursor.moveToNext());
+      assertEquals(MessageDatabase.SMS_TRANSPORT,
+          cursor.getString(cursor.getColumnIndexOrThrow(MessageDatabase.TRANSPORT)));
+      assertEquals("SMS::7::3000",
+          cursor.getString(cursor.getColumnIndexOrThrow(MessageColumns.UNIQUE_ROW_ID)));
+      assertTrue(cursor.moveToNext());
+      assertEquals(MessageDatabase.MMS_TRANSPORT,
+          cursor.getString(cursor.getColumnIndexOrThrow(MessageDatabase.TRANSPORT)));
+      assertEquals("MMS::7::1000",
+          cursor.getString(cursor.getColumnIndexOrThrow(MessageColumns.UNIQUE_ROW_ID)));
+    }
+
+    MessageDatabase.Reader smsOnlyReader = messages.readerFor(messages.getConversation(9));
+    MessageRecord smsOnly = smsOnlyReader.getNext();
+    assertNotNull(smsOnly);
+    assertEquals(7, smsOnly.getId());
+    assertEquals(false, smsOnly.isMms());
+    assertNull(smsOnlyReader.getNext());
+    smsOnlyReader.close();
+
+    MessageDatabase.Reader mixedReader = messages.readerFor(messages.getUnifiedConversation(9));
+    MessageRecord first = mixedReader.getNext();
+    MessageRecord second = mixedReader.getNext();
+    mixedReader.close();
+    assertNotNull(first);
+    assertNotNull(second);
+    assertEquals(7, first.getId());
+    assertEquals(7, second.getId());
+    assertEquals(3000, first.getDateReceived());
+    assertEquals(2000, second.getDateReceived());
+    assertTrue(first.isMms() != second.isMms());
+    assertEquals(false, first.equals(second));
+
+    MessageDatabase.Reader pageReader = messages.readerFor(messages.getUnifiedConversation(9, 1));
+    assertNotNull(pageReader.getNext());
+    assertNull(pageReader.getNext());
+    pageReader.close();
+
+    MessageDatabase.Reader mmsOnlyReader = messages.readerFor(messages.getUnifiedConversation(10));
+    MessageRecord notification = mmsOnlyReader.getNext();
+    assertNotNull(notification);
+    assertTrue(notification.isMms());
+    assertTrue(notification.isMmsNotification());
+    assertNull(mmsOnlyReader.getNext());
+    mmsOnlyReader.close();
   }
 
   private SQLiteOpenHelper helper() throws Exception {

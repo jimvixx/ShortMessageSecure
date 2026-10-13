@@ -74,6 +74,21 @@ public abstract class MessageRecord extends DisplayRecord {
     return MessageColumns.Types.isSecureType(type);
   }
 
+  /** Returns true for records read from the MMS transport. */
+  public boolean isMms() {
+    return false;
+  }
+
+  /** Returns true for an MMS notification which has not been downloaded. */
+  public boolean isMmsNotification() {
+    return false;
+  }
+
+  /** Transport-qualified identity prevents an SMS and MMS with the same id colliding. */
+  protected String getTransportType() {
+    return MessageDatabaseTransport.SMS;
+  }
+
   public boolean isLegacyMessage() {
     return MessageColumns.Types.isLegacyType(type);
   }
@@ -174,11 +189,12 @@ public abstract class MessageRecord extends DisplayRecord {
 
   public boolean equals(Object other) {
     return other instanceof MessageRecord &&
+            ((MessageRecord) other).getTransportType().equals(getTransportType()) &&
             ((MessageRecord) other).getId() == getId();
   }
 
   public int hashCode() {
-    return (int) getId();
+    return 31 * getTransportType().hashCode() + Long.hashCode(getId());
   }
 
   public int getSubscriptionId() {
