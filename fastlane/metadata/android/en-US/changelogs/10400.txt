@@ -1,0 +1,2 @@
+* Search across chats and messages.
+* Improved diagnostics, reliability, and stability.

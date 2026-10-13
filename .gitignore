@@ -16,6 +16,7 @@
 .smsecure-l10n
 .venv
 __pycache__/
+AGENTS.md
 ant.properties
 bin/
 build

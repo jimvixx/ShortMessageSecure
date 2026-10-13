@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.4.0
+
+### Added
+
+- Search across chats and messages.
+
+### Changed
+
+- Added APK signing fingerprints and source commit information to privacy-safe diagnostics.
+- Report the default SMS role correctly in diagnostic logs.
+
+### Fixed
+
+- Prevented the master key from being overwritten during repeated initialization.
+- Prevented a crash when restoring search after activity recreation.
+
 ## v1.3.1
 
 ### Fixed
