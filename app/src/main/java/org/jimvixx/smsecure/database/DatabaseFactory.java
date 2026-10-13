@@ -74,11 +74,9 @@ public class DatabaseFactory {
   private static final int RENAMED_IDENTITY_KEY_COLUMN_VERSION = 33;
   private static final int INTRODUCED_IDENTITY_VERIFIED_VERSION = 34;
   private static final int INTRODUCED_PINNED_ORDER_VERSION = 35;
+  private static final int INTRODUCED_MMS_SCHEMA_VERSION = 36;
 
-  //removed MmsDatabase & MmsAddressDatabase & AttachmentDatabase
-  //private static final int DROPPED_MMS_LEGACY_TABLES_VERSION = 36;
-
-  private static final int DATABASE_VERSION = 35;
+  private static final int DATABASE_VERSION = 36;
   private static final String DATABASE_NAME = "messages.db";
   private static final Object lock = new Object();
 
@@ -349,6 +347,62 @@ public class DatabaseFactory {
       }
     }
 
+    private static void createMmsTables(@NonNull SQLiteDatabase db) {
+      db.execSQL("CREATE TABLE IF NOT EXISTS mms (_id INTEGER PRIMARY KEY, thread_id INTEGER, date INTEGER, date_received INTEGER, msg_box INTEGER, read INTEGER DEFAULT 0, m_id TEXT, sub TEXT, sub_cs INTEGER, body TEXT, part_count INTEGER, ct_t TEXT, ct_l TEXT, address TEXT, address_device_id INTEGER, exp INTEGER, m_cls TEXT, m_type INTEGER, v INTEGER, m_size INTEGER, pri INTEGER, rr INTEGER, rpt_a INTEGER, resp_st INTEGER, st INTEGER, tr_id TEXT, retr_st INTEGER, retr_txt TEXT, retr_txt_cs INTEGER, read_status INTEGER, ct_cls INTEGER, resp_txt TEXT, d_tm INTEGER, date_delivery_received INTEGER DEFAULT 0, mismatched_identities TEXT DEFAULT NULL, network_failures TEXT DEFAULT NULL, d_rpt INTEGER, subscription_id INTEGER DEFAULT -1, notified INTEGER DEFAULT 0)");
+      db.execSQL("CREATE TABLE IF NOT EXISTS mms_addresses (_id INTEGER PRIMARY KEY, mms_id INTEGER, address TEXT, type INTEGER, address_charset INTEGER)");
+      db.execSQL("CREATE TABLE IF NOT EXISTS part (_id INTEGER PRIMARY KEY, mid INTEGER, seq INTEGER DEFAULT 0, ct TEXT, name TEXT, chset INTEGER, cd TEXT, fn TEXT, cid TEXT, cl TEXT, ctt_s INTEGER, ctt_t TEXT, encrypted INTEGER, pending_push INTEGER, _data TEXT, data_size INTEGER DEFAULT 0, file_name TEXT, thumbnail TEXT, aspect_ratio REAL, unique_id INTEGER NOT NULL DEFAULT 0, digest BLOB)");
+    }
+
+    private static void createLegacyMmsTables(@NonNull SQLiteDatabase db) {
+      db.execSQL("CREATE TABLE IF NOT EXISTS mms (_id INTEGER PRIMARY KEY, thread_id INTEGER, date INTEGER, msg_box INTEGER, read INTEGER DEFAULT 0)");
+      db.execSQL("CREATE TABLE IF NOT EXISTS mms_addresses (_id INTEGER PRIMARY KEY, mms_id INTEGER, address TEXT, type INTEGER, address_charset INTEGER)");
+      db.execSQL("CREATE TABLE IF NOT EXISTS part (_id INTEGER PRIMARY KEY, mid INTEGER, seq INTEGER DEFAULT 0, ct TEXT, name TEXT, chset INTEGER, cd TEXT, fn TEXT, cid TEXT, cl TEXT, ctt_s INTEGER, ctt_t TEXT, encrypted INTEGER, _data TEXT, file_name TEXT, digest BLOB)");
+    }
+
+    private static void createMmsIndexes(@NonNull SQLiteDatabase db) {
+      executeStatements(db, new String[]{
+              "CREATE INDEX IF NOT EXISTS mms_thread_id_index ON mms (thread_id)",
+              "CREATE INDEX IF NOT EXISTS mms_read_index ON mms (read)",
+              "CREATE INDEX IF NOT EXISTS mms_read_and_notified_and_thread_id_index ON mms (read,notified,thread_id)",
+              "CREATE INDEX IF NOT EXISTS mms_message_box_index ON mms (msg_box)",
+              "CREATE INDEX IF NOT EXISTS mms_date_sent_index ON mms (date)",
+              "CREATE INDEX IF NOT EXISTS mms_thread_date_index ON mms (thread_id,date_received)",
+              "CREATE INDEX IF NOT EXISTS mms_addresses_mms_id_index ON mms_addresses (mms_id)",
+              "CREATE INDEX IF NOT EXISTS part_mms_id_index ON part (mid)",
+              "CREATE INDEX IF NOT EXISTS pending_push_index ON part (pending_push)"
+      });
+    }
+
+    private static void addColumnIfMissing(@NonNull SQLiteDatabase db, @NonNull String table,
+                                           @NonNull String column, @NonNull String definition) {
+      if (!hasColumn(db, table, column)) db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + definition);
+    }
+
+    private static void completeMmsColumns(@NonNull SQLiteDatabase db) {
+      addColumnIfMissing(db, "mms", "date", "INTEGER");
+      addColumnIfMissing(db, "mms", "msg_box", "INTEGER");
+      addColumnIfMissing(db, "mms", "read", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "mms", "date_received", "INTEGER");
+      addColumnIfMissing(db, "mms", "body", "TEXT");
+      addColumnIfMissing(db, "mms", "part_count", "INTEGER");
+      addColumnIfMissing(db, "mms", "address", "TEXT");
+      addColumnIfMissing(db, "mms", "address_device_id", "INTEGER DEFAULT 1");
+      addColumnIfMissing(db, "mms", "delivery_receipt_count", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "mms", "date_delivery_received", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "mms", "mismatched_identities", "TEXT");
+      addColumnIfMissing(db, "mms", "network_failures", "TEXT");
+      addColumnIfMissing(db, "mms", "subscription_id", "INTEGER DEFAULT -1");
+      addColumnIfMissing(db, "mms", "notified", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "part", "pending_push", "INTEGER");
+      addColumnIfMissing(db, "part", "data_size", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "part", "file_name", "TEXT");
+      addColumnIfMissing(db, "part", "thumbnail", "TEXT");
+      addColumnIfMissing(db, "part", "aspect_ratio", "REAL");
+      addColumnIfMissing(db, "part", "unique_id", "INTEGER NOT NULL DEFAULT 0");
+      addColumnIfMissing(db, "part", "digest", "BLOB");
+      addColumnIfMissing(db, "mms_addresses", "address_charset", "INTEGER");
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
       db.execSQL(SmsDatabase.CREATE_TABLE);
@@ -356,10 +410,12 @@ public class DatabaseFactory {
       db.execSQL(IdentityDatabase.CREATE_TABLE);
       db.execSQL(DraftDatabase.CREATE_TABLE);
       db.execSQL(RecipientPreferenceDatabase.CREATE_TABLE);
+      createMmsTables(db);
 
       executeStatements(db, SmsDatabase.CREATE_INDEXS);
       executeStatements(db, ThreadDatabase.CREATE_INDEXS);
       executeStatements(db, DraftDatabase.CREATE_INDEXS);
+      createMmsIndexes(db);
     }
 
     @Override
@@ -385,6 +441,11 @@ public class DatabaseFactory {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
       db.beginTransaction();
+
+      // Ensure the historical migrations have their legacy MMS tables even when
+      // a damaged/partial backup omitted one of them.
+      if (oldVersion < INTRODUCED_PINNED_ORDER_VERSION) createLegacyMmsTables(db);
+      else createMmsTables(db);
 
       if (oldVersion < INTRODUCED_IDENTITIES_VERSION) {
         db.execSQL("CREATE TABLE identities (_id INTEGER PRIMARY KEY, identity_key TEXT UNIQUE, name TEXT UNIQUE, mac TEXT);");
@@ -415,10 +476,10 @@ public class DatabaseFactory {
       }
 
       if (oldVersion < INTRODUCED_DATE_SENT_VERSION) {
-        db.execSQL("ALTER TABLE sms ADD COLUMN date_sent INTEGER;");
+        addColumnIfMissing(db, "sms", "date_sent", "INTEGER");
         db.execSQL("UPDATE sms SET date_sent = date;");
 
-        db.execSQL("ALTER TABLE mms ADD COLUMN date_received INTEGER;");
+        addColumnIfMissing(db, "mms", "date_received", "INTEGER");
         db.execSQL("UPDATE mms SET date_received = date;");
       }
 
@@ -537,12 +598,12 @@ public class DatabaseFactory {
       }
 
       if (oldVersion < INTRODUCED_MMS_BODY_VERSION) {
-        db.execSQL("ALTER TABLE mms ADD COLUMN body TEXT");
-        db.execSQL("ALTER TABLE mms ADD COLUMN part_count INTEGER");
+        addColumnIfMissing(db, "mms", "body", "TEXT");
+        addColumnIfMissing(db, "mms", "part_count", "INTEGER");
       }
 
       if (oldVersion < INTRODUCED_MMS_FROM_VERSION) {
-        db.execSQL("ALTER TABLE mms ADD COLUMN address TEXT");
+        addColumnIfMissing(db, "mms", "address", "TEXT");
 
         Cursor cursor = db.query("mms_addresses", null, "type = ?", new String[]{0x89 + ""},
                 null, null, null);
@@ -565,39 +626,39 @@ public class DatabaseFactory {
       }
 
       if (oldVersion < INTRODUCED_PUSH_DATABASE_VERSION) {
-        db.execSQL("ALTER TABLE part ADD COLUMN pending_push INTEGER;");
+        addColumnIfMissing(db, "part", "pending_push", "INTEGER");
         db.execSQL("CREATE INDEX IF NOT EXISTS pending_push_index ON part (pending_push);");
       }
 
       if (oldVersion < INTRODUCED_GROUP_DATABASE_VERSION) {
-        db.execSQL("ALTER TABLE sms ADD COLUMN address_device_id INTEGER DEFAULT 1;");
-        db.execSQL("ALTER TABLE mms ADD COLUMN address_device_id INTEGER DEFAULT 1;");
+        addColumnIfMissing(db, "sms", "address_device_id", "INTEGER DEFAULT 1");
+        addColumnIfMissing(db, "mms", "address_device_id", "INTEGER DEFAULT 1");
       }
 
       if (oldVersion < INTRODUCED_DELIVERY_RECEIPTS) {
-        db.execSQL("ALTER TABLE sms ADD COLUMN delivery_receipt_count INTEGER DEFAULT 0;");
-        db.execSQL("ALTER TABLE mms ADD COLUMN delivery_receipt_count INTEGER DEFAULT 0;");
+        addColumnIfMissing(db, "sms", "delivery_receipt_count", "INTEGER DEFAULT 0");
+        addColumnIfMissing(db, "mms", "delivery_receipt_count", "INTEGER DEFAULT 0");
         db.execSQL("CREATE INDEX IF NOT EXISTS sms_date_sent_index ON sms (date_sent);");
         db.execSQL("CREATE INDEX IF NOT EXISTS mms_date_sent_index ON mms (date);");
       }
 
       if (oldVersion < INTRODUCED_PART_DATA_SIZE_VERSION) {
-        db.execSQL("ALTER TABLE part ADD COLUMN data_size INTEGER DEFAULT 0;");
+        addColumnIfMissing(db, "part", "data_size", "INTEGER DEFAULT 0");
       }
 
       if (oldVersion < INTRODUCED_THUMBNAILS_VERSION) {
-        db.execSQL("ALTER TABLE part ADD COLUMN thumbnail TEXT;");
-        db.execSQL("ALTER TABLE part ADD COLUMN aspect_ratio REAL;");
+        addColumnIfMissing(db, "part", "thumbnail", "TEXT");
+        addColumnIfMissing(db, "part", "aspect_ratio", "REAL");
       }
 
       if (oldVersion < INTRODUCED_IDENTITY_COLUMN_VERSION) {
         db.execSQL("ALTER TABLE sms ADD COLUMN mismatched_identities TEXT");
-        db.execSQL("ALTER TABLE mms ADD COLUMN mismatched_identities TEXT");
-        db.execSQL("ALTER TABLE mms ADD COLUMN network_failures TEXT");
+        addColumnIfMissing(db, "mms", "mismatched_identities", "TEXT");
+        addColumnIfMissing(db, "mms", "network_failures", "TEXT");
       }
 
       if (oldVersion < INTRODUCED_UNIQUE_PART_IDS_VERSION) {
-        db.execSQL("ALTER TABLE part ADD COLUMN unique_id INTEGER NOT NULL DEFAULT 0");
+        addColumnIfMissing(db, "part", "unique_id", "INTEGER NOT NULL DEFAULT 0");
       }
 
       if (oldVersion < INTRODUCED_RECIPIENT_PREFS_DB) {
@@ -612,7 +673,7 @@ public class DatabaseFactory {
 
       if (oldVersion < INTRODUCED_DELIVERY_DATE) {
         db.execSQL("ALTER TABLE sms ADD COLUMN date_delivery_received INTEGER DEFAULT 0");
-        db.execSQL("ALTER TABLE mms ADD COLUMN date_delivery_received INTEGER DEFAULT 0");
+        addColumnIfMissing(db, "mms", "date_delivery_received", "INTEGER DEFAULT 0");
       }
 
       if (oldVersion < INTRODUCED_DB_OPTIMIZATIONS_VERSION) {
@@ -622,16 +683,16 @@ public class DatabaseFactory {
       }
 
       if (oldVersion < INTRODUCED_CONVERSATION_LIST_THUMBNAILS_VERSION) {
-        db.execSQL("ALTER TABLE thread ADD COLUMN snippet_uri TEXT DEFAULT NULL");
+        addColumnIfMissing(db, "thread", "snippet_uri", "TEXT DEFAULT NULL");
       }
 
       if (oldVersion < INTRODUCED_ARCHIVE_VERSION) {
-        db.execSQL("ALTER TABLE thread ADD COLUMN archived INTEGER DEFAULT 0");
+        addColumnIfMissing(db, "thread", "archived", "INTEGER DEFAULT 0");
         db.execSQL("CREATE INDEX IF NOT EXISTS archived_index ON thread (archived)");
       }
 
       if (oldVersion < INTRODUCED_CONVERSATION_LIST_STATUS_VERSION) {
-        db.execSQL("ALTER TABLE thread ADD COLUMN status INTEGER DEFAULT -1");
+        addColumnIfMissing(db, "thread", "status", "INTEGER DEFAULT -1");
       }
 
       if (oldVersion < MIGRATED_CONVERSATION_LIST_STATUS_VERSION) {
@@ -669,23 +730,23 @@ public class DatabaseFactory {
       }
 
       if (oldVersion < INTRODUCED_SUBSCRIPTION_ID_VERSION) {
-        db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN default_subscription_id INTEGER DEFAULT -1");
-        db.execSQL("ALTER TABLE sms ADD COLUMN subscription_id INTEGER DEFAULT -1");
-        db.execSQL("ALTER TABLE mms ADD COLUMN subscription_id INTEGER DEFAULT -1");
+        addColumnIfMissing(db, "recipient_preferences", "default_subscription_id", "INTEGER DEFAULT -1");
+        addColumnIfMissing(db, "sms", "subscription_id", "INTEGER DEFAULT -1");
+        addColumnIfMissing(db, "mms", "subscription_id", "INTEGER DEFAULT -1");
       }
 
       if (oldVersion < INTRODUCED_LAST_SEEN) {
-        db.execSQL("ALTER TABLE thread ADD COLUMN last_seen INTEGER DEFAULT 0");
+        addColumnIfMissing(db, "thread", "last_seen", "INTEGER DEFAULT 0");
       }
 
       if (oldVersion < INTRODUCED_NOTIFIED) {
-        db.execSQL("ALTER TABLE sms ADD COLUMN notified INTEGER DEFAULT 0");
-        db.execSQL("ALTER TABLE mms ADD COLUMN notified INTEGER DEFAULT 0");
+        addColumnIfMissing(db, "sms", "notified", "INTEGER DEFAULT 0");
+        addColumnIfMissing(db, "mms", "notified", "INTEGER DEFAULT 0");
 
-        db.execSQL("DROP INDEX sms_read_and_thread_id_index");
+        db.execSQL("DROP INDEX IF EXISTS sms_read_and_thread_id_index");
         db.execSQL("CREATE INDEX IF NOT EXISTS sms_read_and_notified_and_thread_id_index ON sms(read,notified,thread_id)");
 
-        db.execSQL("DROP INDEX mms_read_and_thread_id_index");
+        db.execSQL("DROP INDEX IF EXISTS mms_read_and_thread_id_index");
         db.execSQL("CREATE INDEX IF NOT EXISTS mms_read_and_notified_and_thread_id_index ON mms(read,notified,thread_id)");
       }
 
@@ -699,6 +760,12 @@ public class DatabaseFactory {
 
       if (oldVersion < INTRODUCED_PINNED_ORDER_VERSION) {
         ensurePinnedOrderColumn(db);
+      }
+
+      if (oldVersion < INTRODUCED_MMS_SCHEMA_VERSION) {
+        createMmsTables(db);
+        completeMmsColumns(db);
+        createMmsIndexes(db);
       }
 
 //      if (oldVersion < DROPPED_MMS_LEGACY_TABLES_VERSION) {
@@ -723,10 +790,9 @@ public class DatabaseFactory {
       db.endTransaction();
     }
 
-    private void executeStatements(SQLiteDatabase db, String[] statements) {
+    private static void executeStatements(SQLiteDatabase db, String[] statements) {
       for (String statement : statements)
         db.execSQL(statement);
     }
-
   }
 }
