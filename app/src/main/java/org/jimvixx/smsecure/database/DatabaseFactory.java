@@ -86,6 +86,9 @@ public class DatabaseFactory {
   private final ThreadDatabase thread;
   private final CanonicalAddressDatabase address;
   private final MessageDatabase messageDatabase;
+  private MmsDatabase mms;
+  private MmsAddressDatabase mmsAddress;
+  private AttachmentDatabase attachments;
   private final IdentityDatabase identityDatabase;
   private final DraftDatabase draftDatabase;
   private final RecipientPreferenceDatabase recipientPreferenceDatabase;
@@ -99,6 +102,9 @@ public class DatabaseFactory {
     this.thread = new ThreadDatabase(context, databaseHelper);
     this.address = CanonicalAddressDatabase.getInstance(context);
     this.messageDatabase = new MessageDatabase(context, databaseHelper);
+    this.mms = new MmsDatabase(context, databaseHelper);
+    this.mmsAddress = new MmsAddressDatabase(context, databaseHelper);
+    this.attachments = new AttachmentDatabase(context, databaseHelper);
     this.identityDatabase = new IdentityDatabase(context, databaseHelper);
     this.draftDatabase = new DraftDatabase(context, databaseHelper);
     this.recipientPreferenceDatabase = new RecipientPreferenceDatabase(context, databaseHelper);
@@ -116,6 +122,18 @@ public class DatabaseFactory {
 
   public static MessageDatabase getMessageDatabase(Context context) {
     return getInstance(context).messageDatabase;
+  }
+
+  public static MmsDatabase getMmsDatabase(Context context) {
+    return getInstance(context).mms;
+  }
+
+  public static MmsAddressDatabase getMmsAddressDatabase(Context context) {
+    return getInstance(context).mmsAddress;
+  }
+
+  public static AttachmentDatabase getAttachmentDatabase(Context context) {
+    return getInstance(context).attachments;
   }
 
   public static ThreadDatabase getThreadDatabase(Context context) {
@@ -158,6 +176,9 @@ public class DatabaseFactory {
     this.encryptingSms.reset(databaseHelper);
     this.thread.reset(databaseHelper);
     this.messageDatabase.reset(databaseHelper);
+    this.mms = new MmsDatabase(context, databaseHelper);
+    this.mmsAddress = new MmsAddressDatabase(context, databaseHelper);
+    this.attachments = new AttachmentDatabase(context, databaseHelper);
     this.identityDatabase.reset(databaseHelper);
     this.draftDatabase.reset(databaseHelper);
     this.recipientPreferenceDatabase.reset(databaseHelper);
