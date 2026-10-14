@@ -2,6 +2,22 @@
 
 import java.io.FileInputStream
 import java.util.Properties
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.testing.Test
+import org.gradle.process.CommandLineArgumentProvider
+
+abstract class MockitoJavaAgentArgumentProvider : CommandLineArgumentProvider {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val mockitoJar: RegularFileProperty
+
+    override fun asArguments(): Iterable<String> {
+        return listOf("-javaagent:${mockitoJar.get().asFile.absolutePath}")
+    }
+}
 
 plugins {
     id("com.android.application")
@@ -278,4 +294,21 @@ dependencies {
 
     implementation(project(":org.whispersystems.libsignal.java"))
     implementation(project(":org.whispersystems.jobmanager"))
+}
+
+// Mockito's inline mock maker needs the existing mockito-core JAR attached at JVM startup
+// on JDKs that restrict dynamic agent attachment. This affects JVM unit tests only.
+tasks.withType<Test>().configureEach {
+    val mockitoAgent = objects.newInstance<MockitoJavaAgentArgumentProvider>()
+    jvmArgumentProviders.add(mockitoAgent)
+    mockitoAgent.mockitoJar.set(layout.file(providers.provider {
+        val mockitoJars = classpath.files.filter { file ->
+            file.name.startsWith("mockito-core-") && file.extension == "jar"
+        }
+        require(mockitoJars.size == 1) {
+            "The JVM unit-test classpath must contain exactly one mockito-core JAR; " +
+                "found ${mockitoJars.size}: ${mockitoJars.map { it.name }}"
+        }
+        mockitoJars.single()
+    }))
 }
