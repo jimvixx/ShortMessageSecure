@@ -278,7 +278,8 @@ public class MasterSecretUtil {
 
   private static byte[] generateMacSecret() {
     try {
-      KeyGenerator generator = KeyGenerator.getInstance("HmacSHA1");
+      KeyGenerator generator = KeyGenerator.getInstance("HmacSHA256");
+      generator.init(160);
       return generator.generateKey().getEncoded();
     } catch (NoSuchAlgorithmException e) {
       Log.w(TAG, e);
