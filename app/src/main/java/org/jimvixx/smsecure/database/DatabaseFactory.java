@@ -400,20 +400,65 @@ public class DatabaseFactory {
     }
 
     private static void completeMmsColumns(@NonNull SQLiteDatabase db) {
+      // These columns identify the historical tables.  They cannot be added
+      // safely with ALTER TABLE when absent, so reject an incompatible table
+      // instead of reporting a successful but unusable migration.
+      requireColumn(db, "mms", "_id");
+      requireColumn(db, "mms", "thread_id");
+      requireColumn(db, "mms_addresses", "_id");
+      requireColumn(db, "mms_addresses", "mms_id");
+      requireColumn(db, "part", "_id");
+      requireColumn(db, "part", "mid");
+
       addColumnIfMissing(db, "mms", "date", "INTEGER");
       addColumnIfMissing(db, "mms", "msg_box", "INTEGER");
       addColumnIfMissing(db, "mms", "read", "INTEGER DEFAULT 0");
       addColumnIfMissing(db, "mms", "date_received", "INTEGER");
+      addColumnIfMissing(db, "mms", "m_id", "TEXT");
+      addColumnIfMissing(db, "mms", "sub", "TEXT");
+      addColumnIfMissing(db, "mms", "sub_cs", "INTEGER");
       addColumnIfMissing(db, "mms", "body", "TEXT");
       addColumnIfMissing(db, "mms", "part_count", "INTEGER");
+      addColumnIfMissing(db, "mms", "ct_t", "TEXT");
+      addColumnIfMissing(db, "mms", "ct_l", "TEXT");
       addColumnIfMissing(db, "mms", "address", "TEXT");
       addColumnIfMissing(db, "mms", "address_device_id", "INTEGER DEFAULT 1");
+      addColumnIfMissing(db, "mms", "exp", "INTEGER");
+      addColumnIfMissing(db, "mms", "m_cls", "TEXT");
+      addColumnIfMissing(db, "mms", "m_type", "INTEGER");
+      addColumnIfMissing(db, "mms", "v", "INTEGER");
+      addColumnIfMissing(db, "mms", "m_size", "INTEGER");
+      addColumnIfMissing(db, "mms", "pri", "INTEGER");
+      addColumnIfMissing(db, "mms", "rr", "INTEGER");
+      addColumnIfMissing(db, "mms", "rpt_a", "INTEGER");
+      addColumnIfMissing(db, "mms", "resp_st", "INTEGER");
+      addColumnIfMissing(db, "mms", "st", "INTEGER");
+      addColumnIfMissing(db, "mms", "tr_id", "TEXT");
+      addColumnIfMissing(db, "mms", "retr_st", "INTEGER");
+      addColumnIfMissing(db, "mms", "retr_txt", "TEXT");
+      addColumnIfMissing(db, "mms", "retr_txt_cs", "INTEGER");
+      addColumnIfMissing(db, "mms", "read_status", "INTEGER");
+      addColumnIfMissing(db, "mms", "ct_cls", "INTEGER");
+      addColumnIfMissing(db, "mms", "resp_txt", "TEXT");
+      addColumnIfMissing(db, "mms", "d_tm", "INTEGER");
       addColumnIfMissing(db, "mms", "delivery_receipt_count", "INTEGER DEFAULT 0");
       addColumnIfMissing(db, "mms", "date_delivery_received", "INTEGER DEFAULT 0");
       addColumnIfMissing(db, "mms", "mismatched_identities", "TEXT");
       addColumnIfMissing(db, "mms", "network_failures", "TEXT");
+      addColumnIfMissing(db, "mms", "d_rpt", "INTEGER");
       addColumnIfMissing(db, "mms", "subscription_id", "INTEGER DEFAULT -1");
       addColumnIfMissing(db, "mms", "notified", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "part", "seq", "INTEGER DEFAULT 0");
+      addColumnIfMissing(db, "part", "ct", "TEXT");
+      addColumnIfMissing(db, "part", "name", "TEXT");
+      addColumnIfMissing(db, "part", "chset", "INTEGER");
+      addColumnIfMissing(db, "part", "cd", "TEXT");
+      addColumnIfMissing(db, "part", "fn", "TEXT");
+      addColumnIfMissing(db, "part", "cid", "TEXT");
+      addColumnIfMissing(db, "part", "cl", "TEXT");
+      addColumnIfMissing(db, "part", "ctt_s", "INTEGER");
+      addColumnIfMissing(db, "part", "ctt_t", "TEXT");
+      addColumnIfMissing(db, "part", "encrypted", "INTEGER");
       addColumnIfMissing(db, "part", "pending_push", "INTEGER");
       addColumnIfMissing(db, "part", "data_size", "INTEGER DEFAULT 0");
       addColumnIfMissing(db, "part", "file_name", "TEXT");
@@ -421,7 +466,28 @@ public class DatabaseFactory {
       addColumnIfMissing(db, "part", "aspect_ratio", "REAL");
       addColumnIfMissing(db, "part", "unique_id", "INTEGER NOT NULL DEFAULT 0");
       addColumnIfMissing(db, "part", "digest", "BLOB");
+      addColumnIfMissing(db, "mms_addresses", "type", "INTEGER");
+      addColumnIfMissing(db, "mms_addresses", "address", "TEXT");
       addColumnIfMissing(db, "mms_addresses", "address_charset", "INTEGER");
+
+      // Older databases used `charset` for this field.  Copy only missing
+      // values so an existing address_charset value always wins.
+      if (hasColumn(db, "mms_addresses", "charset")) {
+        db.execSQL("UPDATE mms_addresses SET address_charset = charset " +
+                "WHERE address_charset IS NULL AND charset IS NOT NULL");
+      }
+    }
+
+    private static void requireColumn(@NonNull SQLiteDatabase db, @NonNull String table,
+                                      @NonNull String column) {
+      if (!tableExists(db, table) || !hasColumn(db, table, column)) {
+        // onUpgrade owns the transaction and will not reach its normal
+        // endTransaction() path after this exception.  End it without
+        // marking it successful so SQLite rolls back all migration work.
+        if (db.inTransaction()) db.endTransaction();
+        throw new IllegalStateException("Incompatible MMS table " + table +
+                ": missing required column " + column);
+      }
     }
 
     @Override

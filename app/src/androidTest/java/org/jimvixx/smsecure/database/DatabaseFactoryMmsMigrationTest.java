@@ -33,15 +33,19 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.fail;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseFactoryMmsMigrationTest {
   private Context context;
   private File databaseFile;
+  private SQLiteOpenHelper helper;
 
   @Before public void setUp() {
     context = ApplicationProvider.getApplicationContext();
@@ -49,6 +53,7 @@ public class DatabaseFactoryMmsMigrationTest {
   }
 
   @After public void tearDown() {
+    if (helper != null) helper.close();
     if (databaseFile != null) databaseFile.delete();
   }
 
@@ -95,19 +100,51 @@ public class DatabaseFactoryMmsMigrationTest {
     helper.close();
   }
 
-  @Test public void upgrade34RunsApplicableOlderPathAndPreservesMmsData() throws Exception {
-    createVersion35Database(false);
-    SQLiteDatabase seed = SQLiteDatabase.openDatabase(databaseFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
-    seed.setVersion(34);
-    seed.close();
-
-    SQLiteOpenHelper helper = helper();
+  @Test public void partialSchemaSupportsReadOnlyQueriesAndPreservesMultipleRows() throws Exception {
+    createPartialReadableDatabase();
+    helper = helper();
     SQLiteDatabase db = helper.getWritableDatabase();
-    assertEquals(1, count(db, "mms"));
-    assertEquals(1, count(db, "part"));
-    assertEquals("/existing/attachment", scalar(db, "SELECT _data FROM part"));
-    assertEquals(36, db.getVersion());
+
+    assertEquals(2, count(db, "mms"));
+    assertEquals(3, count(db, "part"));
+    assertEquals(106, scalarInt(db, "SELECT address_charset FROM mms_addresses WHERE _id = 1"));
+    assertEquals(106, scalarInt(db, "SELECT address_charset FROM mms_addresses WHERE _id = 2"));
+
+    assertEquals(2, new MmsDatabase(context, helper).getMessagesForThread(1).size());
+    assertEquals(1, new MmsAddressDatabase(context, helper).getAddressesForMessage(1).size());
+    List<AttachmentDatabase.AttachmentRecord> firstAttachments =
+        new AttachmentDatabase(context, helper).getAttachmentsForMessage(1);
+    assertEquals(1, firstAttachments.size());
+    assertEquals("/partial/one.mms", firstAttachments.get(0).path);
+    assertEquals(1, firstAttachments.get(0).encrypted);
+    assertArrayEquals(new byte[]{9, 8, 7}, firstAttachments.get(0).digest);
+
+    List<AttachmentDatabase.AttachmentRecord> secondAttachments =
+        new AttachmentDatabase(context, helper).getAttachmentsForMessage(2);
+    assertEquals(2, secondAttachments.size());
+    assertEquals("/partial/two-a.mms", secondAttachments.get(0).path);
+    assertEquals("/partial/two-b.mms", secondAttachments.get(1).path);
     helper.close();
+    helper = null;
+  }
+
+  @Test public void incompatibleMmsTableFailsMigrationSafely() throws Exception {
+    createVersion35Database(false);
+    SQLiteDatabase db = SQLiteDatabase.openDatabase(databaseFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+    db.execSQL("DROP TABLE mms");
+    db.execSQL("CREATE TABLE mms (row_key INTEGER PRIMARY KEY, thread_id INTEGER)");
+    db.setVersion(35);
+    db.close();
+
+    SQLiteOpenHelper incompatible = helper();
+    try {
+      incompatible.getWritableDatabase();
+      fail("incompatible MMS schema must not report a successful migration");
+    } catch (IllegalStateException expected) {
+      assertTrue(expected.getMessage().contains("missing required column _id"));
+    } finally {
+      incompatible.close();
+    }
   }
 
   @Test public void upgradeRealSilenceMmsSchema30To36PreservesPduAndAttachmentData() throws Exception {
@@ -159,6 +196,29 @@ public class DatabaseFactoryMmsMigrationTest {
     db.close();
   }
 
+  private void createPartialReadableDatabase() throws Exception {
+    createVersion35Database(true);
+    SQLiteDatabase db = SQLiteDatabase.openDatabase(databaseFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+    db.execSQL("ALTER TABLE mms ADD COLUMN date INTEGER");
+    db.execSQL("ALTER TABLE mms ADD COLUMN date_received INTEGER");
+    db.execSQL("ALTER TABLE mms ADD COLUMN body TEXT");
+    db.execSQL("ALTER TABLE mms ADD COLUMN address TEXT");
+    db.execSQL("ALTER TABLE mms ADD COLUMN part_count INTEGER");
+    db.execSQL("UPDATE mms SET date = 1000, date_received = 1100, body = 'one', address = '+15550001', part_count = 1 WHERE _id = 1");
+    db.execSQL("INSERT INTO mms (_id, thread_id, date, date_received, body, address, part_count) VALUES (2, 1, 2000, 2100, 'two', '+15550002', 2)");
+    db.execSQL("ALTER TABLE part ADD COLUMN seq INTEGER DEFAULT 0");
+    db.execSQL("ALTER TABLE part ADD COLUMN encrypted INTEGER");
+    db.execSQL("ALTER TABLE part ADD COLUMN digest BLOB");
+    db.execSQL("UPDATE part SET seq = 0, encrypted = 1, digest = X'090807', _data = '/partial/one.mms' WHERE _id = 1");
+    db.execSQL("INSERT INTO part (_id, mid, seq, encrypted, digest, _data) VALUES (2, 2, 0, 1, X'0102', '/partial/two-a.mms')");
+    db.execSQL("INSERT INTO part (_id, mid, seq, encrypted, digest, _data) VALUES (3, 2, 1, 0, X'0304', '/partial/two-b.mms')");
+    db.execSQL("CREATE TABLE mms_addresses (_id INTEGER PRIMARY KEY, mms_id INTEGER, address TEXT, type INTEGER, charset INTEGER)");
+    db.execSQL("INSERT INTO mms_addresses (_id, mms_id, address, type, charset) VALUES (1, 1, '+15550001', 137, 106)");
+    db.execSQL("INSERT INTO mms_addresses (_id, mms_id, address, type, charset) VALUES (2, 2, '+15550002', 137, 106)");
+    db.setVersion(35);
+    db.close();
+  }
+
   /** DDL is taken from the locally available Silence MMS database sources. */
   private void createSilenceSchema30Database() throws Exception {
     createVersion35Database(false);
@@ -201,6 +261,13 @@ public class DatabaseFactoryMmsMigrationTest {
     try (Cursor cursor = db.rawQuery(sql, null)) {
       assertTrue(cursor.moveToFirst());
       return cursor.getString(0);
+    }
+  }
+
+  private static int scalarInt(SQLiteDatabase db, String sql) {
+    try (Cursor cursor = db.rawQuery(sql, null)) {
+      assertTrue(cursor.moveToFirst());
+      return cursor.getInt(0);
     }
   }
 }
