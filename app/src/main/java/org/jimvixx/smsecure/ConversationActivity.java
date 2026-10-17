@@ -316,7 +316,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   protected void onPause() {
     super.onPause();
     MessageNotifier.setVisibleThread(-1L);
-    if (isFinishing()) overridePendingTransition(R.anim.fade_scale_in, R.anim.slide_to_right);
     if (fragment != null) fragment.setLastSeen(System.currentTimeMillis());
     markLastSeen();
   }

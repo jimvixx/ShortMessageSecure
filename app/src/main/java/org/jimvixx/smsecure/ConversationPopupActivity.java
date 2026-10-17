@@ -44,7 +44,7 @@ public class ConversationPopupActivity extends ConversationActivity {
   @Override
   protected void onPreCreate() {
     super.onPreCreate();
-    overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_top);
+    applyTransition(ACTIVITY_TRANSITION_OPEN, R.anim.slide_from_top, R.anim.slide_to_top);
   }
 
   @Override
@@ -95,7 +95,6 @@ public class ConversationPopupActivity extends ConversationActivity {
   @Override
   protected void onPause() {
     super.onPause();
-    if (isFinishing()) overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_top);
   }
 
   @Override

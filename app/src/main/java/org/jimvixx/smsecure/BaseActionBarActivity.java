@@ -19,6 +19,7 @@
 package org.jimvixx.smsecure;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -43,6 +44,8 @@ import org.jimvixx.smsecure.util.SMSecurePreferences;
 public abstract class BaseActionBarActivity extends AppCompatActivity {
 
   private static final String TRANSITION_RECIPIENT_NAME = "recipient_name";
+  public static final int ACTIVITY_TRANSITION_OPEN = 0;
+  public static final int ACTIVITY_TRANSITION_CLOSE = 1;
 
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
   private final DynamicTheme dynamicTheme = new DynamicTheme();
@@ -114,6 +117,33 @@ public abstract class BaseActionBarActivity extends AppCompatActivity {
     dynamicLanguage.onResume(this);
 
     applyScreenshotSecurity(SMSecurePreferences.isScreenSecurityEnabled(this));
+  }
+
+  protected final void applyOpenTransition() {
+    applyTransition(ACTIVITY_TRANSITION_OPEN, R.anim.slide_from_right, R.anim.fade_scale_out);
+  }
+
+  protected final void applyCloseTransition() {
+    applyTransition(ACTIVITY_TRANSITION_CLOSE, R.anim.fade_scale_in, R.anim.slide_to_right);
+  }
+
+  public final void applyTransition(int transition, int enterAnimation, int exitAnimation) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+      overrideActivityTransition(transition, enterAnimation, exitAnimation);
+    } else {
+      applyLegacyTransition(enterAnimation, exitAnimation);
+    }
+  }
+
+  @SuppressWarnings("deprecation")
+  private void applyLegacyTransition(int enterAnimation, int exitAnimation) {
+    overridePendingTransition(enterAnimation, exitAnimation);
+  }
+
+  @Override
+  protected void onPause() {
+    if (isFinishing()) applyCloseTransition();
+    super.onPause();
   }
 
   public final void applyScreenshotSecurity(boolean enabled) {

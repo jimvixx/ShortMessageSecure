@@ -200,8 +200,12 @@ public class ConversationListFragment extends Fragment
 
     setupMenu();
 
-    fab.setOnClickListener(v ->
-            startActivity(new Intent(requireActivity(), NewConversationActivity.class)));
+    fab.setOnClickListener(v -> {
+      startActivity(new Intent(requireActivity(), NewConversationActivity.class));
+      if (requireActivity() instanceof BaseActionBarActivity activity) {
+        activity.applyOpenTransition();
+      }
+    });
 
     initializeListAdapter();
 

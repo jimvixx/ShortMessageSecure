@@ -84,7 +84,13 @@ public class DynamicTheme {
 
   private static final class OverridePendingTransition {
     static void invoke(@NonNull Activity activity) {
-      activity.overridePendingTransition(0, 0);
+      if (activity instanceof org.jimvixx.smsecure.BaseActionBarActivity baseActivity) {
+        baseActivity.applyTransition(
+                org.jimvixx.smsecure.BaseActionBarActivity.ACTIVITY_TRANSITION_OPEN,
+                0,
+                0
+        );
+      }
     }
   }
 }

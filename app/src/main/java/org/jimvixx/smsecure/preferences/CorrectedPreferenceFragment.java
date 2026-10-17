@@ -27,10 +27,13 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import org.jimvixx.smsecure.components.CustomDefaultPreference;
+import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.preferences.widgets.ColorPickerPreference;
 import org.jimvixx.smsecure.preferences.widgets.ColorPickerPreferenceDialogFragmentCompat;
 import org.jimvixx.smsecure.preferences.widgets.RingtonePreference;
 import org.jimvixx.smsecure.preferences.widgets.RingtonePreferenceDialogFragmentCompat;
+
+import static org.jimvixx.smsecure.util.ThemeUtil.resolveThemeColor;
 
 public abstract class CorrectedPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -42,6 +45,8 @@ public abstract class CorrectedPreferenceFragment extends PreferenceFragmentComp
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    view.setBackgroundColor(resolveThemeColor(requireContext(), R.attr.appColorBackground));
 
     View lv = view.findViewById(android.R.id.list);
     if (lv != null) lv.setPadding(0, 0, 0, 0);

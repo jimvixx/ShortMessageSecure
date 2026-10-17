@@ -30,6 +30,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import org.jimvixx.smsecure.ApplicationPreferencesActivity;
+import org.jimvixx.smsecure.BaseActionBarActivity;
 import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
@@ -181,9 +182,9 @@ public class AppearancePreferenceFragment extends PreferenceFragmentCompat {
       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
       activity.startActivity(intent);
-      activity.overridePendingTransition(0, 0);
+      activity.applyTransition(BaseActionBarActivity.ACTIVITY_TRANSITION_CLOSE, 0, 0);
       activity.finish();
-      activity.overridePendingTransition(0, 0);
+      activity.applyTransition(BaseActionBarActivity.ACTIVITY_TRANSITION_OPEN, 0, 0);
 
       return true;
     });

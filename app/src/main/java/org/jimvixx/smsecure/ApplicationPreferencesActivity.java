@@ -25,10 +25,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -86,6 +88,13 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       actionBar.setTitle(R.string.conversation_list_menu__settings);
     }
 
+    getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        navigateBackFromPreferences();
+      }
+    });
+
     if (icicle == null) {
       String startCategory = getIntent().getStringExtra(EXTRA_START_CATEGORY);
 
@@ -121,32 +130,70 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       default -> new ApplicationPreferenceFragment();
     };
 
+    animateFragmentAfterViewCreated(fragment, true);
     getSupportFragmentManager()
             .beginTransaction()
-            .setCustomAnimations(
-                    R.anim.slide_from_right,
-                    R.anim.slide_to_left,
-                    R.anim.slide_from_left,
-                    R.anim.slide_to_right
-            )
             .replace(R.id.fragment_container, fragment)
             .commitAllowingStateLoss();
   }
 
   @Override
   public boolean onSupportNavigateUp() {
+    navigateBackFromPreferences();
+
+    return true;
+  }
+
+  private void navigateBackFromPreferences() {
     FragmentManager fragmentManager = getSupportFragmentManager();
 
     if (fragmentManager.getBackStackEntryCount() > 0) {
-      fragmentManager.popBackStack();
-    } else {
-      Intent intent = new Intent(this, ConversationListActivity.class);
-      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(intent);
-      finish();
+      if (fragmentManager.popBackStackImmediate()) {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        if (fragment != null) animateFragmentIn(fragment, false);
+      }
+      return;
     }
 
-    return true;
+    Intent intent = new Intent(this, ConversationListActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivity(intent);
+    finish();
+  }
+
+  private void animateFragmentIn(@NonNull Fragment fragment, boolean fromRight) {
+    View view = fragment.getView();
+    View container = findViewById(R.id.fragment_container);
+    if (view == null || container == null) return;
+
+    Runnable startAnimation = () -> {
+      float offset = fromRight ? container.getWidth() : -container.getWidth();
+      view.setTranslationX(offset);
+      view.animate()
+              .translationX(0f)
+              .setDuration(300L)
+              .start();
+    };
+
+    if (container.getWidth() > 0) startAnimation.run();
+    else container.post(startAnimation);
+  }
+
+  private void animateFragmentAfterViewCreated(@NonNull Fragment fragment, boolean fromRight) {
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentManager.FragmentLifecycleCallbacks callbacks =
+            new FragmentManager.FragmentLifecycleCallbacks() {
+              @Override
+              public void onFragmentViewCreated(@NonNull FragmentManager manager,
+                                                @NonNull Fragment created,
+                                                @NonNull View view,
+                                                @Nullable Bundle savedInstanceState) {
+                if (created != fragment) return;
+                manager.unregisterFragmentLifecycleCallbacks(this);
+                animateFragmentIn(created, fromRight);
+              }
+            };
+    fragmentManager.registerFragmentLifecycleCallbacks(callbacks, false);
   }
 
   @Override
@@ -161,9 +208,9 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         AppCompatDelegate.setDefaultNightMode(mode);
       }
 
-      overridePendingTransition(0, 0);
+      applyTransition(ACTIVITY_TRANSITION_CLOSE, 0, 0);
       recreate();
-      overridePendingTransition(0, 0);
+      applyTransition(ACTIVITY_TRANSITION_OPEN, 0, 0);
     }
   }
 
@@ -188,6 +235,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       CustomTabsIntent customTab = new CustomTabsIntent.Builder().build();
       customTab.intent.setPackage(browserPackage);
       customTab.launchUrl(this, Uri.parse(url));
+      applyOpenTransition();
     } catch (ActivityNotFoundException e) {
       Toast.makeText(
               getApplicationContext(),
@@ -359,14 +407,12 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
 
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.slide_from_right,
-                R.anim.slide_to_left,
-                R.anim.slide_from_left,
-                R.anim.slide_to_right
-        );
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
+        ApplicationPreferencesActivity activity = getHostActivity();
+        if (activity != null) {
+          activity.animateFragmentAfterViewCreated(fragment, true);
+        }
         transaction.commit();
 
         return true;
