@@ -231,7 +231,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.27.7")
-    testImplementation("org.mockito:mockito-core:5.23.0")
+    testImplementation("org.mockito:mockito-core:5.24.0")
 
     annotationProcessor("com.github.bumptech.glide:compiler:5.0.7")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
