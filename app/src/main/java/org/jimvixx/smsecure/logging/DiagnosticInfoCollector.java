@@ -79,7 +79,7 @@ public final class DiagnosticInfoCollector {
     sb.append("Source commit (build-reported): ").append(BuildConfig.SOURCE_COMMIT).append('\n');
     sb.append("APK signer SHA-256 (client-reported): ").append(getSignerFingerprints(context)).append('\n');
     sb.append("Debug build: ").append(BuildConfig.DEBUG).append('\n');
-    sb.append("Min SDK: ").append(Build.VERSION_CODES.M).append('\n');
+    sb.append("Min SDK: ").append(getMinSdk(context)).append('\n');
     sb.append("Target SDK: ").append(getTargetSdk(context)).append('\n');
 
     try {
@@ -280,6 +280,15 @@ public final class DiagnosticInfoCollector {
     try {
       ApplicationInfo ai = context.getApplicationInfo();
       return ai.targetSdkVersion;
+    } catch (Throwable t) {
+      return -1;
+    }
+  }
+
+  private static int getMinSdk(@NonNull Context context) {
+    try {
+      ApplicationInfo ai = context.getApplicationInfo();
+      return ai.minSdkVersion;
     } catch (Throwable t) {
       return -1;
     }
