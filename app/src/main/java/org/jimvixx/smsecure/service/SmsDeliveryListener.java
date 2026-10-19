@@ -21,13 +21,13 @@ package org.jimvixx.smsecure.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.jobs.SmsSentJob;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics;
 import org.whispersystems.jobqueue.JobManager;
 
 public class SmsDeliveryListener extends BroadcastReceiver {
@@ -47,15 +47,6 @@ public class SmsDeliveryListener extends BroadcastReceiver {
       return;
     }
 
-    // Debug extras (optional but useful during bring-up).
-    Bundle extras = intent.getExtras();
-    if (extras != null) {
-      for (String k : extras.keySet()) {
-        Object v = extras.get(k);
-        Log.w(TAG, "extra[" + k + "]=" + (v != null ? v.getClass() : "null"));
-      }
-    }
-
     JobManager jobManager = ApplicationContext.getInstance(context).getJobManager();
 
     long messageId = intent.getLongExtra("message_id", -1);
@@ -71,22 +62,7 @@ public class SmsDeliveryListener extends BroadcastReceiver {
         String sendAttemptId = intent.getStringExtra("send_attempt_id");
         int partIndex = intent.getIntExtra("part_index", 0);
         int partsTotal = intent.getIntExtra("parts_total", 1);
-        // Allowlist diagnostic values: never dump arbitrary extras or message data.
-        try {
-          String diagnostics = "SMS sent result: message=" + messageId
-                  + " result=" + resultCode + " part=" + partIndex + "/" + partsTotal
-                  + " errorCode=" + (intent.hasExtra("errorCode")
-                          ? Integer.toString(intent.getIntExtra("errorCode", 0)) : "absent")
-                  + " noDefault=" + (intent.hasExtra("noDefault")
-                          ? Boolean.toString(intent.getBooleanExtra("noDefault", false)) : "absent");
-          if (resultCode == android.app.Activity.RESULT_OK) {
-            Log.i(TAG, diagnostics);
-          } else {
-            Log.e(TAG, diagnostics);
-          }
-        } catch (RuntimeException diagnosticFailure) {
-          Log.w(TAG, "SMS result diagnostics unavailable: " + diagnosticFailure.getClass().getSimpleName());
-        }
+        SmsSendDiagnostics.logSentResult(intent, messageId, resultCode, partIndex, partsTotal);
         boolean connectivityFailure = resultCode == SmsManager.RESULT_ERROR_NO_SERVICE ||
                                       resultCode == SmsManager.RESULT_ERROR_RADIO_OFF;
 
@@ -104,8 +80,6 @@ public class SmsDeliveryListener extends BroadcastReceiver {
       case DELIVERED_SMS_ACTION:
         // Parse network status; the successful-delivery time guard remains in SmsSentJob.
         Integer deliveryStatus = logDeliveryReport(intent, resultCode);
-        Log.w(TAG, "DELIVERED: result=" + resultCode +
-                " extras=" + (intent.getExtras() != null ? intent.getExtras().keySet() : "null"));
 
         if (deliveryStatus != null) {
           jobManager.add(new SmsSentJob(context, messageId, deliveryStatus,

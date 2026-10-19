@@ -135,6 +135,11 @@ public final class SubscriptionManagerCompat {
     return updateActiveSubscriptionInfoList();
   }
 
+  /** Returns the last loaded snapshot without querying Android or updating saved SIM mappings. */
+  public @NonNull List<SubscriptionInfoCompat> getLastKnownActiveSubscriptionInfoList() {
+    return lastKnownCompatList;
+  }
+
   /**
    * Rebuilds and stores the current active subscription list snapshot.
    */

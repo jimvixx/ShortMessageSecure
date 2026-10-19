@@ -26,6 +26,8 @@ import org.jimvixx.smsecure.database.DatabaseFactory;
 import org.jimvixx.smsecure.database.EncryptingSmsDatabase;
 import org.jimvixx.smsecure.database.model.MessageRecord;
 import org.jimvixx.smsecure.jobs.SmsSendJob;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics.SelectionSource;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.whispersystems.jobqueue.JobManager;
 
@@ -39,6 +41,15 @@ public class MessageSender {
                           final OutgoingTextMessage message,
                           final long threadId,
                           final boolean forceSms) {
+    return send(context, masterSecret, message, threadId, forceSms, SelectionSource.UNKNOWN);
+  }
+
+  public static long send(final Context context,
+                          final MasterSecret masterSecret,
+                          final OutgoingTextMessage message,
+                          final long threadId,
+                          final boolean forceSms,
+                          final SelectionSource selectionSource) {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
     Recipients recipients = message.getRecipients();
 
@@ -51,6 +62,8 @@ public class MessageSender {
     }
 
     long messageId = database.insertMessageOutbox(masterSecret, allocatedThreadId, message, forceSms, System.currentTimeMillis());
+
+    SmsSendDiagnostics.logQueued(messageId, message.getSubscriptionId(), selectionSource);
 
     sendTextMessage(context, recipients, messageId);
 

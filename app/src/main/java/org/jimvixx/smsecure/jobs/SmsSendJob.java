@@ -35,6 +35,7 @@ import org.jimvixx.smsecure.database.model.SmsMessageRecord;
 import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
 import org.jimvixx.smsecure.jobs.requirements.ServiceRequirement;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
@@ -171,26 +172,6 @@ public class SmsSendJob extends SendJob {
 
     int deviceSubscriptionId = DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId());
 
-    // Diagnostics must never prevent sending or include the destination/body.
-    try {
-      Log.i(TAG, "SMS send: message=" + message.getId()
-              + " appSub=" + message.getSubscriptionId()
-              + " deviceSub=" + deviceSubscriptionId
-              + " defaultDeviceSub=" + SmsManager.getDefaultSmsSubscriptionId()
-              + " defaultSmsRole=" + org.jimvixx.smsecure.util.Util.isDefaultSmsProvider(context)
-              + " defaultSmsPackageMatches=" + context.getPackageName().equals(
-                      android.provider.Telephony.Sms.getDefaultSmsPackage(context))
-              + " sendPermission=" + (androidx.core.content.ContextCompat.checkSelfPermission(
-                      context, android.Manifest.permission.SEND_SMS)
-                      == android.content.pm.PackageManager.PERMISSION_GRANTED)
-              + " secure=" + message.isSecure()
-              + " keyExchange=" + message.isKeyExchange()
-              + " endSession=" + message.isEndSession()
-              + " parts=" + messages.size());
-    } catch (RuntimeException diagnosticFailure) {
-      Log.w(TAG, "SMS send diagnostics unavailable: " + diagnosticFailure.getClass().getSimpleName());
-    }
-
     // NOTE 11/04/14 -- There's apparently a bug where for some unknown recipients
     // and messages, this will throw an NPE.  We have no idea why, so we're just
     // catching it and marking the message as a failure.  That way at least it doesn't
@@ -201,11 +182,13 @@ public class SmsSendJob extends SendJob {
     }
 
     try {
-      getSmsManagerFor(deviceSubscriptionId).sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
+      SmsManager smsManager = getSmsManagerFor(deviceSubscriptionId);
+      SmsSendDiagnostics.logSend(context, message, deviceSubscriptionId, smsManager,
+              messages.size(), deliveredIntents != null);
+      smsManager.sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
     } catch (NullPointerException npe) {
       SmsSendAttemptTracker.cancelAttempt(context, message.getId(), sendAttemptId);
       Log.w(TAG, npe);
-      Log.w(TAG, "Recipient: " + recipient);
       Log.w(TAG, "Message Parts: " + messages.size());
       throw new UndeliverableMessageException(npe);
     } catch (IllegalArgumentException | SecurityException iae) {

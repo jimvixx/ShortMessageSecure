@@ -142,6 +142,8 @@ public final class DiagnosticInfoCollector {
     sb.append("Hardware: ").append(nullSafe(Build.HARDWARE)).append('\n');
     sb.append("Android release: ").append(nullSafe(Build.VERSION.RELEASE)).append('\n');
     sb.append("SDK_INT: ").append(Build.VERSION.SDK_INT).append('\n');
+    sb.append("Build ID: ").append(nullSafe(Build.ID)).append('\n');
+    sb.append("Build display: ").append(nullSafe(Build.DISPLAY)).append('\n');
     sb.append("Security patch: ").append(getSecurityPatch()).append('\n');
     sb.append("ABIs: ").append(Arrays.toString(Build.SUPPORTED_ABIS)).append('\n');
     sb.append('\n');

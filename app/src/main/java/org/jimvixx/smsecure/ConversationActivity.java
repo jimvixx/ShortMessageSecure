@@ -93,6 +93,7 @@ import org.jimvixx.smsecure.database.MessageColumns.Types;
 import org.jimvixx.smsecure.database.RecipientPreferenceDatabase.RecipientsPreferences;
 import org.jimvixx.smsecure.database.ThreadDatabase;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics.SelectionSource;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.permissions.Permissions;
 import org.jimvixx.smsecure.protocol.AutoInitiate;
@@ -903,15 +904,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         if (result.first == recipients) {
           updateDefaultSubscriptionId(result.second != null
                   ? result.second.getDefaultSubscriptionId()
-                  : SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this));
+                  : SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this),
+                  result.second != null);
         }
       });
     });
   }
 
-  private void updateDefaultSubscriptionId(Optional<Integer> defaultSubscriptionId) {
+  private void updateDefaultSubscriptionId(Optional<Integer> defaultSubscriptionId,
+                                            boolean fromRecipientPreference) {
     if (sendButtonController != null) {
-      sendButtonController.setDefaultSubscriptionId(defaultSubscriptionId);
+      sendButtonController.setDefaultSubscriptionId(defaultSubscriptionId, fromRecipientPreference);
     }
   }
 
@@ -1325,6 +1328,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     final Context context = getApplicationContext();
     final String messageBody = getMessage();
+    final SelectionSource selectionSource = sendButtonController.getSelectionSource();
 
     OutgoingTextMessage message =
             (isEncryptedConversation && !forcePlaintext)
@@ -1339,7 +1343,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
               if (composeText != null) composeText.setText("");
 
               backgroundExecutor.execute(() -> {
-                final long result = MessageSender.send(context, masterSecret, message, threadId, true);
+                final long result = MessageSender.send(context, masterSecret, message, threadId, true,
+                        selectionSource);
                 mainHandler.post(() -> sendComplete(result));
               });
             })

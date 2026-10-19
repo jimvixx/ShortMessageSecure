@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import org.jimvixx.smsecure.TransportOption;
 import org.jimvixx.smsecure.TransportOptions;
 import org.jimvixx.smsecure.TransportOptionsPopup;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics.SelectionSource;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.List;
@@ -73,6 +74,10 @@ public class SendButtonController
     return transportOptions.getSelectedTransport();
   }
 
+  public @NonNull SelectionSource getSelectionSource() {
+    return transportOptions.getSelectionSource();
+  }
+
   public void resetAvailableTransports() {
     transportOptions.reset();
   }
@@ -97,6 +102,11 @@ public class SendButtonController
 
   public void setDefaultSubscriptionId(@NonNull Optional<Integer> subscriptionId) {
     transportOptions.setDefaultSubscriptionId(subscriptionId);
+  }
+
+  public void setDefaultSubscriptionId(@NonNull Optional<Integer> subscriptionId,
+                                       boolean fromRecipientPreference) {
+    transportOptions.setDefaultSubscriptionId(subscriptionId, fromRecipientPreference);
   }
 
   public boolean displayTransports(boolean forceSend) {
