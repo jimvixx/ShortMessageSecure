@@ -2,20 +2,20 @@
 
 import java.io.FileInputStream
 import java.util.Properties
-import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.tasks.InputFile
+import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.testing.Test
 import org.gradle.process.CommandLineArgumentProvider
 
 abstract class MockitoJavaAgentArgumentProvider : CommandLineArgumentProvider {
-    @get:InputFile
+    @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val mockitoJar: RegularFileProperty
+    abstract val agentJar: ConfigurableFileCollection
 
     override fun asArguments(): Iterable<String> {
-        return listOf("-javaagent:${mockitoJar.get().asFile.absolutePath}")
+        return listOf("-javaagent:${agentJar.singleFile.absolutePath}")
     }
 }
 
@@ -223,6 +223,13 @@ android {
     }
 }
 
+// The Java agent must not force resolution of the entire test runtime classpath.
+val mockitoAgent = configurations.create("mockitoAgent") {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+    isTransitive = false
+}
+
 dependencies {
     androidTestImplementation("androidx.test:core:1.7.0")
     androidTestImplementation("androidx.test:runner:1.7.0")
@@ -232,6 +239,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.27.7")
     testImplementation("org.mockito:mockito-core:5.24.0")
+
+    add(mockitoAgent.name, "org.mockito:mockito-core:5.24.0")
 
     annotationProcessor("com.github.bumptech.glide:compiler:5.0.9")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
@@ -296,19 +305,10 @@ dependencies {
     implementation(project(":org.whispersystems.jobmanager"))
 }
 
-// Mockito's inline mock maker needs the existing mockito-core JAR attached at JVM startup
-// on JDKs that restrict dynamic agent attachment. This affects JVM unit tests only.
+// Mockito's inline mock maker needs the mockito-core JAR attached at JVM startup.
+// Resolve only the dedicated agent configuration, never the test task classpath.
 tasks.withType<Test>().configureEach {
-    val mockitoAgent = objects.newInstance<MockitoJavaAgentArgumentProvider>()
-    jvmArgumentProviders.add(mockitoAgent)
-    mockitoAgent.mockitoJar.set(layout.file(providers.provider {
-        val mockitoJars = classpath.files.filter { file ->
-            file.name.startsWith("mockito-core-") && file.extension == "jar"
-        }
-        require(mockitoJars.size == 1) {
-            "The JVM unit-test classpath must contain exactly one mockito-core JAR; " +
-                "found ${mockitoJars.size}: ${mockitoJars.map { it.name }}"
-        }
-        mockitoJars.single()
-    }))
+    val agentProvider = objects.newInstance<MockitoJavaAgentArgumentProvider>()
+    agentProvider.agentJar.from(mockitoAgent)
+    jvmArgumentProviders.add(agentProvider)
 }
