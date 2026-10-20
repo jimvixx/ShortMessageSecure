@@ -5,4 +5,19 @@
     <string name="ImportFragment_silence_backup_warning">Ini akan mengganti pesan, kunci, dan pengaturan yang ada. Cadangkan SMSecure terlebih dahulu. Pilih folder SilenceExport yang berisi files, databases, dan shared_prefs. Jika cadangan dilindungi kata sandi, Anda memerlukan frasa sandi aslinya.</string>
     <string name="sms_delivery_interworking_error">Pengiriman gagal: interkoneksi jaringan tidak tersedia (0x45).</string>
     <string name="sms_delivery_network_error">Pengiriman gagal: kode status jaringan %1$d.</string>
+    <string name="preferences__sim_recovery_apply">Pulihkan pengikatan</string>
+    <string name="preferences__sim_recovery_changed">Konfigurasi SIM telah berubah. Buka kembali mode pemulihan dan periksa SIM yang saat ini terpasang.</string>
+    <string name="preferences__sim_recovery_check_selection">Pengikatan SIM telah berubah. Periksa SIM yang dipilih, lalu ketuk Kirim lagi.</string>
+    <string name="preferences__sim_recovery_choose_group">Pilih SIM yang terpengaruh</string>
+    <string name="preferences__sim_recovery_choose_owner">SIM mana yang harus menyimpan percakapan aman yang sudah ada?</string>
+    <string name="preferences__sim_recovery_confirm_message">SIM yang dipilih akan mempertahankan kunci enkripsi dan sesi yang ada. SIM lain yang terpengaruh akan memerlukan pertukaran kunci baru. Riwayat pesan tetap tidak berubah.\n\nPesan yang tertunda memerlukan upaya ulang secara manual. Periksa SIM yang dipilih sebelum mencoba lagi. Pesan yang sudah diteruskan ke Android tidak dapat ditarik kembali.</string>
+    <string name="preferences__sim_recovery_confirm_title">Memulihkan pengikatan untuk %1$s?</string>
+    <string name="preferences__sim_recovery_failed">Tidak dapat memulihkan pengikatan SIM. Buka pemulihan lagi untuk memeriksa statusnya saat ini.</string>
+    <string name="preferences__sim_recovery_keys_pending">Pengikatan SIM telah dipulihkan, tetapi kunci enkripsi baru tidak dapat diinisialisasi. Mulai ulang SMSecure sebelum memulai pertukaran kunci baru.</string>
+    <string name="preferences__sim_recovery_no_active">Tidak ada informasi SIM yang aktif yang tersedia. Periksa izin ponsel dan pengaturan SIM.</string>
+    <string name="preferences__sim_recovery_no_conflicts">Tidak terdeteksi adanya pengikatan SIM yang bertentangan.</string>
+    <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+    <string name="preferences__sim_recovery_success">Pengikatan SIM telah dipulihkan. Periksa SIM sebelum mencoba mengirim ulang pesan yang tertunda secara manual. SIM lain yang terpengaruh memerlukan pertukaran kunci baru.</string>
+    <string name="preferences__sim_recovery_summary">Selesaikan konflik SIM yang menghalangi pengiriman pesan</string>
+    <string name="preferences__sim_recovery_title">Kembalikan pengikatan SIM</string>
 </resources>

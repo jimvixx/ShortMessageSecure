@@ -36,17 +36,24 @@ import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
+import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.state.SessionStore;
 
+import java.io.Serial;
+
 public class SmsSentJob extends MasterSecretJob {
+
+  // Preserve compatibility with legacy Java-serialized jobs when adding recovery state.
+  @Serial
+  private static final long serialVersionUID = -1534569068458165018L;
 
   private static final String TAG = SmsSentJob.class.getSimpleName();
 
   /**
    * If a "DELIVERED" callback arrives too quickly after send time, it is often a false positive
    * (device/vendor/modem fires it without a real delivery receipt from the network).
-   * <p>
+   *
    * Tune this value based on your field tests.
    */
   private static final long MIN_DELIVERY_DELAY_MS = 1800L;
@@ -60,12 +67,17 @@ public class SmsSentJob extends MasterSecretJob {
   final long messageId;
   final String action;
   final int result;
+  final long mappingGeneration;
   String deliveryAttempt;
   int deliveryPart;
   int deliveryParts;
   long deliveryReceivedAt;
 
   public SmsSentJob(Context context, long messageId, String action, int result) {
+    this(context, messageId, action, result, 0);
+  }
+
+  public SmsSentJob(Context context, long messageId, String action, int result, long mappingGeneration) {
     super(context, JobParameters.newBuilder()
             .withPersistence()
             .withGroupId("sms-result-" + messageId)
@@ -75,6 +87,7 @@ public class SmsSentJob extends MasterSecretJob {
     this.messageId = messageId;
     this.action = action;
     this.result = result;
+    this.mappingGeneration = mappingGeneration;
   }
 
   public SmsSentJob(Context context, long id, int status, String attempt, int part,
@@ -96,7 +109,9 @@ public class SmsSentJob extends MasterSecretJob {
 
     switch (action) {
       case SmsDeliveryListener.SENT_SMS_ACTION:
-        handleSentResult(masterSecret, messageId, result);
+        synchronized (SubscriptionManagerCompat.from(context)) {
+          handleSentResult(masterSecret, messageId, result);
+        }
         break;
       case SmsDeliveryListener.DELIVERED_SMS_ACTION:
         // Persisted legacy jobs contain a broadcast result, not a network status.
@@ -220,7 +235,7 @@ public class SmsSentJob extends MasterSecretJob {
         case Activity.RESULT_OK:
           database.markAsSent(messageId, record.isSecure());
 
-          if (record.isEndSession()) {
+          if (record.isEndSession() && mappingGeneration == SMSecurePreferences.getSubscriptionRecoveryGeneration(context)) {
             Log.w(TAG, "Ending session...");
             SessionStore sessionStore = new SMSecureSessionStore(context, masterSecret, record.getSubscriptionId());
             sessionStore.deleteAllSessions(record.getIndividualRecipient().getNumber());
@@ -233,7 +248,8 @@ public class SmsSentJob extends MasterSecretJob {
           Log.w(TAG, "Service connectivity problem, requeuing...");
           ApplicationContext.getInstance(context)
                   .getJobManager()
-                  .add(new SmsSendJob(context, messageId, record.getIndividualRecipient().getNumber()));
+                  .add(new SmsSendJob(context, messageId, record.getIndividualRecipient().getNumber(),
+                          java.util.UUID.randomUUID().toString(), mappingGeneration));
           break;
 
         default:

@@ -74,7 +74,8 @@ public class SmsDeliveryListener extends BroadcastReceiver {
           break;
         }
 
-        jobManager.add(new SmsSentJob(context, messageId, SENT_SMS_ACTION, resultCode));
+        jobManager.add(new SmsSentJob(context, messageId, SENT_SMS_ACTION, resultCode,
+                intent.getLongExtra("mapping_generation", 0)));
         break;
 
       case DELIVERED_SMS_ACTION:

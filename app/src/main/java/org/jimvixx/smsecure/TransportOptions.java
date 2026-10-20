@@ -76,6 +76,12 @@ public class TransportOptions {
     }
   }
 
+  public void resetAfterSimRecovery() {
+    selectedOption = Optional.absent();
+    defaultSubscriptionId = Optional.absent();
+    reset();
+  }
+
   public void setDefaultTransport(Type type) {
     this.defaultTransportType = type;
 

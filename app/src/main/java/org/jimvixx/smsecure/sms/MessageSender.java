@@ -29,6 +29,7 @@ import org.jimvixx.smsecure.jobs.SmsSendJob;
 import org.jimvixx.smsecure.logging.SmsSendDiagnostics;
 import org.jimvixx.smsecure.logging.SmsSendDiagnostics.SelectionSource;
 import org.jimvixx.smsecure.recipients.Recipients;
+import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.whispersystems.jobqueue.JobManager;
 
 public class MessageSender {
@@ -50,6 +51,17 @@ public class MessageSender {
                           final long threadId,
                           final boolean forceSms,
                           final SelectionSource selectionSource) {
+    return send(context, masterSecret, message, threadId, forceSms, selectionSource,
+            SMSecurePreferences.getSubscriptionRecoveryGeneration(context));
+  }
+
+  public static long send(final Context context,
+                          final MasterSecret masterSecret,
+                          final OutgoingTextMessage message,
+                          final long threadId,
+                          final boolean forceSms,
+                          final SelectionSource selectionSource,
+                          final long mappingGeneration) {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
     Recipients recipients = message.getRecipients();
 
@@ -65,7 +77,7 @@ public class MessageSender {
 
     SmsSendDiagnostics.logQueued(messageId, message.getSubscriptionId(), selectionSource);
 
-    sendTextMessage(context, recipients, messageId);
+    sendTextMessage(context, recipients, messageId, mappingGeneration);
 
     return allocatedThreadId;
   }
@@ -79,8 +91,8 @@ public class MessageSender {
     DatabaseFactory.getSmsDatabase(context).deleteMessage(messageId);
   }
 
-  private static void sendTextMessage(Context context, Recipients recipients, long messageId) {
+  private static void sendTextMessage(Context context, Recipients recipients, long messageId, long mappingGeneration) {
     JobManager jobManager = ApplicationContext.getInstance(context).getJobManager();
-    jobManager.add(new SmsSendJob(context, messageId, recipients.getPrimaryRecipient().getName()));
+    jobManager.add(new SmsSendJob(context, messageId, recipients.getPrimaryRecipient().getName(), mappingGeneration));
   }
 }

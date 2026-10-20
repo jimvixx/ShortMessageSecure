@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jimvixx.smsecure.sms;
 
 import android.content.Context;
@@ -56,14 +57,17 @@ public class MessageSenderDiagnosticsTest {
     try (MockedStatic<DatabaseFactory> databases = mockStatic(DatabaseFactory.class);
          MockedStatic<ApplicationContext> applications = mockStatic(ApplicationContext.class);
          MockedStatic<Log> logs = mockStatic(Log.class);
-         MockedConstruction<SmsSendJob> jobs = mockConstruction(SmsSendJob.class)) {
+         MockedConstruction<SmsSendJob> jobs = mockConstruction(SmsSendJob.class, (job, construction) -> {
+           assertEquals(4, construction.arguments().size());
+           assertEquals(3L, construction.arguments().get(3));
+         })) {
       databases.when(() -> DatabaseFactory.getEncryptingSmsDatabase(context)).thenReturn(database);
       applications.when(() -> ApplicationContext.getInstance(context)).thenReturn(application);
       logs.when(() -> Log.i(anyString(), anyString())).thenThrow(new IllegalStateException("synthetic"));
       logs.when(() -> Log.w(anyString(), anyString())).thenThrow(new IllegalStateException("synthetic"));
 
       assertEquals(7L, MessageSender.send(context, masterSecret, message, 7L, true,
-                                        SelectionSource.MANUAL));
+                                        SelectionSource.MANUAL, 3));
       assertEquals(1, jobs.constructed().size());
       verify(queue).add(jobs.constructed().get(0));
       verify(database).insertMessageOutbox(eq(masterSecret), eq(7L), same(message), eq(true), anyLong());

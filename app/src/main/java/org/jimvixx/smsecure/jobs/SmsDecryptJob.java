@@ -46,6 +46,9 @@ import org.jimvixx.smsecure.sms.IncomingXmppExchangeMessage;
 import org.jimvixx.smsecure.sms.MessageSender;
 import org.jimvixx.smsecure.sms.OutgoingKeyExchangeMessage;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
+import org.jimvixx.smsecure.util.dualsim.SubscriptionInfoCompat;
+import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
+import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.DuplicateMessageException;
 import org.whispersystems.libsignal.InvalidMessageException;
@@ -56,16 +59,28 @@ import org.whispersystems.libsignal.StaleKeyExchangeException;
 import org.whispersystems.libsignal.UntrustedIdentityException;
 
 import java.io.IOException;
+import java.io.Serial;
 
 public class SmsDecryptJob extends MasterSecretJob {
+
+  @Serial
+  private static final long serialVersionUID = 683540289171725736L;
 
   private static final String TAG = SmsDecryptJob.class.getSimpleName();
 
   final long messageId;
   final boolean manualOverride;
   final Boolean isReceivedWhenLocked;
+  final Integer deviceSubscriptionId;
+  final long mappingGeneration;
 
   public SmsDecryptJob(Context context, long messageId, boolean manualOverride, boolean isReceivedWhenLocked) {
+    this(context, messageId, manualOverride, isReceivedWhenLocked, null,
+            SMSecurePreferences.getSubscriptionRecoveryGeneration(context));
+  }
+
+  SmsDecryptJob(Context context, long messageId, boolean manualOverride, boolean isReceivedWhenLocked,
+                Integer deviceSubscriptionId, long mappingGeneration) {
     super(context, JobParameters.newBuilder()
             .withPersistence()
             .withRequirement(new MasterSecretRequirement(context))
@@ -74,6 +89,8 @@ public class SmsDecryptJob extends MasterSecretJob {
     this.messageId = messageId;
     this.manualOverride = manualOverride;
     this.isReceivedWhenLocked = isReceivedWhenLocked;
+    this.deviceSubscriptionId = deviceSubscriptionId;
+    this.mappingGeneration = mappingGeneration;
 
     Log.w(TAG, "manualOverride: " + manualOverride);
     Log.w(TAG, "isReceivedWhenLocked: " + isReceivedWhenLocked);
@@ -101,17 +118,19 @@ public class SmsDecryptJob extends MasterSecretJob {
       long messageId = record.getId();
       long threadId = record.getThreadId();
 
-      if (message.isSecureMessage())
-        handleSecureMessage(masterSecret, messageId, threadId, message);
-      else if (message.isPreKeyBundle())
-        handlePreKeySignalMessage(masterSecret, messageId, threadId, (IncomingPreKeyBundleMessage) message);
-      else if (message.isKeyExchange())
-        handleKeyExchangeMessage(masterSecret, messageId, threadId, (IncomingKeyExchangeMessage) message);
-      else if (message.isEndSession())
-        handleSecureMessage(masterSecret, messageId, threadId, message);
-      else if (message.isXmppExchange())
-        handleXmppExchangeMessage(masterSecret, messageId, threadId, (IncomingXmppExchangeMessage) message);
-      else database.updateMessageBody(masterSecret, messageId, message.getMessageBody());
+      if (requiresSubscriptionIdentity(message)) {
+        SubscriptionManagerCompat manager = SubscriptionManagerCompat.from(context);
+        synchronized (manager) {
+          if (!isCurrentSubscriptionIdentity(manager, record.getSubscriptionId())) {
+            Log.w(TAG, "Incoming secure SMS blocked because its SIM binding changed");
+            database.markAsNoSession(messageId);
+            return;
+          }
+          processMessage(masterSecret, messageId, threadId, message, database);
+        }
+      } else {
+        processMessage(masterSecret, messageId, threadId, message, database);
+      }
 
       if (!isReceivedWhenLocked) {
         MessageNotifier.updateNotification(context, masterSecret, threadId);
@@ -131,6 +150,38 @@ public class SmsDecryptJob extends MasterSecretJob {
       Log.w(TAG, e);
       database.markAsNoSession(messageId);
     }
+  }
+
+  private void processMessage(MasterSecret masterSecret, long messageId, long threadId,
+                              IncomingTextMessage message, EncryptingSmsDatabase database)
+          throws NoSessionException, DuplicateMessageException, InvalidMessageException,
+          LegacyMessageException, UntrustedIdentityException {
+    if (message.isSecureMessage())
+      handleSecureMessage(masterSecret, messageId, threadId, message);
+    else if (message.isPreKeyBundle())
+      handlePreKeySignalMessage(masterSecret, messageId, threadId, (IncomingPreKeyBundleMessage) message);
+    else if (message.isKeyExchange())
+      handleKeyExchangeMessage(masterSecret, messageId, threadId, (IncomingKeyExchangeMessage) message);
+    else if (message.isEndSession())
+      handleSecureMessage(masterSecret, messageId, threadId, message);
+    else if (message.isXmppExchange())
+      handleXmppExchangeMessage(masterSecret, messageId, threadId, (IncomingXmppExchangeMessage) message);
+    else database.updateMessageBody(masterSecret, messageId, message.getMessageBody());
+  }
+
+  private boolean requiresSubscriptionIdentity(IncomingTextMessage message) {
+    return message.isSecureMessage() || message.isPreKeyBundle() || message.isKeyExchange()
+            || message.isEndSession() || message.isXmppExchange();
+  }
+
+  private boolean isCurrentSubscriptionIdentity(SubscriptionManagerCompat manager, int appSubscriptionId) {
+    if (deviceSubscriptionId != null) {
+      Optional<SubscriptionInfoCompat> current =
+              manager.getActiveSubscriptionInfoFromDeviceSubscriptionId(deviceSubscriptionId);
+      return current.isPresent() && current.get().getSubscriptionId() == appSubscriptionId;
+    }
+    return mappingGeneration == SMSecurePreferences.getSubscriptionRecoveryGeneration(context)
+            && manager.getActiveSubscriptionInfo(appSubscriptionId).isPresent();
   }
 
   @Override
@@ -159,8 +210,7 @@ public class SmsDecryptJob extends MasterSecretJob {
 
   private void handlePreKeySignalMessage(MasterSecret masterSecret, long messageId, long threadId,
                                          IncomingPreKeyBundleMessage message)
-          throws NoSessionException, DuplicateMessageException,
-          InvalidMessageException, LegacyMessageException {
+          throws DuplicateMessageException, InvalidMessageException, LegacyMessageException {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
 
     try {
@@ -230,8 +280,7 @@ public class SmsDecryptJob extends MasterSecretJob {
   }
 
   private void handleXmppExchangeMessage(MasterSecret masterSecret, long messageId, long threadId,
-                                         IncomingXmppExchangeMessage message)
-          throws NoSessionException, DuplicateMessageException, InvalidMessageException, LegacyMessageException {
+                                         IncomingXmppExchangeMessage message) {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
     database.markAsXmppExchange(messageId);
   }

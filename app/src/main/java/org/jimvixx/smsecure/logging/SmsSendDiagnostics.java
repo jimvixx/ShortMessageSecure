@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jimvixx.smsecure.logging;
 
 import android.Manifest;
@@ -85,6 +86,19 @@ public final class SmsSendDiagnostics {
     }
   }
 
+  public static void logRouteBlocked(Context context, SmsMessageRecord message) {
+    try {
+      List<SubscriptionInfoCompat> subscriptions = SubscriptionManagerCompat.from(context)
+              .getLastKnownActiveSubscriptionInfoList();
+      Log.w(TAG, "SMS route blocked: message=" + message.getId()
+              + " appSub=" + message.getSubscriptionId()
+              + " reason=unresolved_subscription mappingSource=lastKnownSnapshot "
+              + describeSubscriptions(subscriptions, message.getSubscriptionId()));
+    } catch (RuntimeException failure) {
+      logUnavailable(failure);
+    }
+  }
+
   public static void logSentResult(Intent intent, long messageId, int resultCode,
                                    int partIndex, int partsTotal) {
     try {
@@ -105,9 +119,11 @@ public final class SmsSendDiagnostics {
     Set<Integer> appIds = new HashSet<>();
     boolean duplicateAppSub = false;
     int appSubMatches = 0;
+    int mappingConflicts = 0;
     StringBuilder mappings = new StringBuilder();
     for (SubscriptionInfoCompat subscription : subscriptions) {
       int id = subscription.getSubscriptionId();
+      if (subscription.hasMappingConflict()) mappingConflicts++;
       duplicateAppSub |= !appIds.add(id);
       if (id == appSub) appSubMatches++;
       if (mappings.length() != 0) mappings.append(',');
@@ -118,6 +134,7 @@ public final class SmsSendDiagnostics {
     return "activeCount=" + subscriptions.size()
             + " duplicateAppSub=" + duplicateAppSub
             + " appSubMatches=" + appSubMatches
+            + " mappingConflicts=" + mappingConflicts
             + " mappings=[" + mappings + "]";
   }
 
@@ -133,21 +150,31 @@ public final class SmsSendDiagnostics {
 
   static String callbackFields(Intent intent) {
     Bundle extras = intent.getExtras();
-    return "errorCode=" + extraValue(extras, "errorCode", Integer.class)
-            + " noDefault=" + extraValue(extras, "noDefault", Boolean.class)
-            + " format=" + extraValue(extras, "format", String.class)
+    return "errorCode=" + integerExtra(extras, "errorCode")
+            + " noDefault=" + booleanExtra(extras, "noDefault")
+            + " format=" + formatExtra(extras, "format")
             // This reports Android's callback IMS-service path, not IMS registration or capability.
-            + " ims=" + extraValue(extras, "ims", Boolean.class);
+            + " ims=" + booleanExtra(extras, "ims");
   }
 
-  private static String extraValue(Bundle extras, String key, Class<?> type) {
+  private static String integerExtra(Bundle extras, String key) {
     if (extras == null || !extras.containsKey(key)) return "absent";
-    Object value = extras.get(key);
-    if (type == String.class) {
-      return "3gpp".equals(value) ? "3gpp" : ("3gpp2".equals(value) ? "3gpp2" : "unknown");
-    }
-    if (!type.isInstance(value)) return "malformed";
-    return type == Integer.class ? Integer.toString((Integer) value) : Boolean.toString((Boolean) value);
+    int first = extras.getInt(key, 0);
+    int second = extras.getInt(key, 1);
+    return first == second ? Integer.toString(first) : "malformed";
+  }
+
+  private static String booleanExtra(Bundle extras, String key) {
+    if (extras == null || !extras.containsKey(key)) return "absent";
+    boolean first = extras.getBoolean(key, false);
+    boolean second = extras.getBoolean(key, true);
+    return first == second ? Boolean.toString(first) : "malformed";
+  }
+
+  private static String formatExtra(Bundle extras, String key) {
+    if (extras == null || !extras.containsKey(key)) return "absent";
+    String value = extras.getString(key);
+    return "3gpp".equals(value) ? "3gpp" : ("3gpp2".equals(value) ? "3gpp2" : "unknown");
   }
 
   private static String integerValue(IntSupplier supplier) {

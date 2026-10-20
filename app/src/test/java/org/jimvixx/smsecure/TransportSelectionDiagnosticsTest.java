@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jimvixx.smsecure;
 
 import android.content.Context;
@@ -108,6 +109,27 @@ public class TransportSelectionDiagnosticsTest {
       options.getEnabledTransports().add(first);
       options.getEnabledTransports().add(second);
       assertSelection(options, second, SelectionSource.RECIPIENT_PREFERENCE);
+    }
+  }
+
+  @Test public void recoveryResetDiscardsOldManualAndRecipientSelections() {
+    Context context = mock(Context.class);
+    try (MockedStatic<SubscriptionManagerCompat> subscriptions = mockStatic(SubscriptionManagerCompat.class);
+         MockedStatic<ThemeUtil> themes = mockStatic(ThemeUtil.class);
+         MockedStatic<Permissions> permissions = mockStatic(Permissions.class)) {
+      subscriptions.when(() -> SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(context))
+              .thenReturn(Optional.of(10));
+      TransportOptions options = new TransportOptions(context);
+      TransportOption old = transport(20);
+      options.getEnabledTransports().add(old);
+      options.setDefaultSubscriptionId(Optional.of(20), true);
+      options.setSelectedTransport(old);
+      options.resetAfterSimRecovery();
+      TransportOption fresh = transport(10);
+      options.getEnabledTransports().add(fresh);
+      options.getEnabledTransports().add(transport(20));
+      assertSelection(options, fresh, SelectionSource.SYSTEM_DEFAULT);
+      org.junit.Assert.assertFalse(options.isManualSelection());
     }
   }
 

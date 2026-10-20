@@ -38,30 +38,39 @@ public final class StableJobCodec {
     DataOutputStream out = new DataOutputStream(bytes);
     out.writeInt(1);
     if (job instanceof SmsSendJob send) {
-      out.writeUTF("sms_send");
+      out.writeUTF(send.mappingGeneration == 0 ? "sms_send" : "sms_send_v2");
       out.writeLong(send.messageId);
       writeNullable(out, send.getGroupId());
       writeNullable(out, send.sendAttemptId);
+      if (send.mappingGeneration != 0) out.writeLong(send.mappingGeneration);
     } else if (job instanceof SmsReceiveJob receive) {
-      out.writeUTF("sms_receive");
+      out.writeUTF(receive.format != null ? "sms_receive_v3"
+              : (receive.deviceSubscriptionId == null ? "sms_receive" : "sms_receive_v2"));
       out.writeInt(receive.subscriptionId);
-      out.writeInt(receive.pdus.length);
-      for (Object value : receive.pdus) {
-        if (!(value instanceof byte[] pdu)) throw new IOException("Invalid SMS PDU");
-        out.writeInt(pdu.length);
-        out.write(pdu);
+      if (receive.deviceSubscriptionId != null) {
+        out.writeInt(receive.deviceSubscriptionId);
+        out.writeLong(receive.mappingGeneration);
       }
+      if (receive.format != null) out.writeUTF(receive.format);
+      writePdus(out, receive.pdus);
     } else if (job instanceof SmsDecryptJob decrypt) {
       if (decrypt.isReceivedWhenLocked == null) throw new IOException("Missing receive state");
-      out.writeUTF("sms_decrypt");
+      boolean hasRoute = decrypt.deviceSubscriptionId != null || decrypt.mappingGeneration != 0;
+      out.writeUTF(hasRoute ? "sms_decrypt_v2" : "sms_decrypt");
       out.writeLong(decrypt.messageId);
       out.writeBoolean(decrypt.manualOverride);
       out.writeBoolean(decrypt.isReceivedWhenLocked);
+      if (hasRoute) {
+        writeNullableInt(out, decrypt.deviceSubscriptionId);
+        out.writeLong(decrypt.mappingGeneration);
+      }
     } else if (job instanceof SmsSentJob sent) {
-      out.writeUTF(sent.deliveryAttempt == null ? "sms_sent" : "sms_delivery_v1");
+      out.writeUTF(sent.deliveryAttempt != null ? "sms_delivery_v1"
+              : (sent.mappingGeneration == 0 ? "sms_sent" : "sms_sent_v2"));
       out.writeLong(sent.messageId);
       writeNullable(out, sent.action);
       out.writeInt(sent.result);
+      if (sent.deliveryAttempt == null && sent.mappingGeneration != 0) out.writeLong(sent.mappingGeneration);
       if (sent.deliveryAttempt != null) {
         out.writeUTF(sent.deliveryAttempt);
         out.writeInt(sent.deliveryPart);
@@ -85,25 +94,40 @@ public final class StableJobCodec {
       case "sms_send":
         job = new SmsSendJob(context, in.readLong(), readNullable(in), readNullable(in));
         break;
+      case "sms_send_v2":
+        job = new SmsSendJob(context, in.readLong(), readNullable(in), readNullable(in), in.readLong());
+        break;
       case "sms_receive":
         int subscription = in.readInt();
-        int count = in.readInt();
-        if (count < 0 || count > in.available() / 4) throw new IOException("Invalid PDU count");
-        Object[] pdus = new Object[count];
-        for (int i = 0; i < count; i++) {
-          int length = in.readInt();
-          if (length < 0 || length > in.available()) throw new IOException("Invalid PDU length");
-          byte[] pdu = new byte[length];
-          in.readFully(pdu);
-          pdus[i] = pdu;
-        }
-        job = new SmsReceiveJob(context, pdus, subscription, true);
+        job = new SmsReceiveJob(context, readPdus(in), subscription, true);
+        break;
+      case "sms_receive_v2":
+        int appSubscription = in.readInt();
+        int deviceSubscription = in.readInt();
+        long receiveGeneration = in.readLong();
+        job = new SmsReceiveJob(context, readPdus(in), appSubscription,
+                deviceSubscription, receiveGeneration);
+        break;
+      case "sms_receive_v3":
+        int formattedAppSubscription = in.readInt();
+        int formattedDeviceSubscription = in.readInt();
+        long formattedReceiveGeneration = in.readLong();
+        String format = in.readUTF();
+        job = new SmsReceiveJob(context, readPdus(in), formattedAppSubscription,
+                formattedDeviceSubscription, formattedReceiveGeneration, format);
         break;
       case "sms_decrypt":
-        job = new SmsDecryptJob(context, in.readLong(), in.readBoolean(), in.readBoolean());
+        job = new SmsDecryptJob(context, in.readLong(), in.readBoolean(), in.readBoolean(), null, 0);
+        break;
+      case "sms_decrypt_v2":
+        job = new SmsDecryptJob(context, in.readLong(), in.readBoolean(), in.readBoolean(),
+                readNullableInt(in), in.readLong());
         break;
       case "sms_sent":
         job = new SmsSentJob(context, in.readLong(), readNullable(in), in.readInt());
+        break;
+      case "sms_sent_v2":
+        job = new SmsSentJob(context, in.readLong(), readNullable(in), in.readInt(), in.readLong());
         break;
       case "sms_delivery_v1":
         long id = in.readLong();
@@ -131,5 +155,37 @@ public final class StableJobCodec {
 
   private static String readNullable(DataInputStream in) throws IOException {
     return in.readBoolean() ? in.readUTF() : null;
+  }
+
+  private static void writeNullableInt(DataOutputStream out, Integer value) throws IOException {
+    out.writeBoolean(value != null);
+    if (value != null) out.writeInt(value);
+  }
+
+  private static Integer readNullableInt(DataInputStream in) throws IOException {
+    return in.readBoolean() ? in.readInt() : null;
+  }
+
+  private static void writePdus(DataOutputStream out, Object[] pdus) throws IOException {
+    out.writeInt(pdus.length);
+    for (Object value : pdus) {
+      if (!(value instanceof byte[] pdu)) throw new IOException("Invalid SMS PDU");
+      out.writeInt(pdu.length);
+      out.write(pdu);
+    }
+  }
+
+  private static Object[] readPdus(DataInputStream in) throws IOException {
+    int count = in.readInt();
+    if (count < 0 || count > in.available() / 4) throw new IOException("Invalid PDU count");
+    Object[] pdus = new Object[count];
+    for (int i = 0; i < count; i++) {
+      int length = in.readInt();
+      if (length < 0 || length > in.available()) throw new IOException("Invalid PDU length");
+      byte[] pdu = new byte[length];
+      in.readFully(pdu);
+      pdus[i] = pdu;
+    }
+    return pdus;
   }
 }

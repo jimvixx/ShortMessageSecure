@@ -82,6 +82,11 @@ public class SendButtonController
     transportOptions.reset();
   }
 
+  public void resetAfterSimRecovery() {
+    if (transportOptionsPopup.isPresent()) transportOptionsPopup.get().dismiss();
+    transportOptions.resetAfterSimRecovery();
+  }
+
   public void disableTransport(@NonNull TransportOption.Type type) {
     transportOptions.disableTransport(type);
   }

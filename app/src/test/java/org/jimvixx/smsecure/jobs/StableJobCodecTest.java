@@ -18,7 +18,10 @@
 package org.jimvixx.smsecure.jobs;
 
 import android.content.Context;
+import android.telephony.SmsMessage;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.util.SMSecurePreferences;
+import java.io.ObjectInputStream;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.whispersystems.jobqueue.Job;
@@ -60,7 +63,8 @@ public class StableJobCodecTest {
 
   @Test public void otherPersistentJobsRoundTripWithoutRunning() throws Exception {
     try (MockedStatic<Log> ignored = mockStatic(Log.class)) {
-      SmsDecryptJob decrypted = (SmsDecryptJob)roundTrip(new SmsDecryptJob(context, 81, true, true));
+      SmsDecryptJob decrypted = (SmsDecryptJob)roundTrip(
+              new SmsDecryptJob(context, 81, true, true, null, 0));
       assertEquals(81, decrypted.messageId);
       assertTrue(decrypted.manualOverride);
       assertTrue(decrypted.isReceivedWhenLocked);
@@ -92,6 +96,94 @@ public class StableJobCodecTest {
     assertEquals(1, restored.deliveryPart);
     assertEquals(3, restored.deliveryParts);
     assertEquals(123456, restored.deliveryReceivedAt);
+  }
+
+  @Test public void recoveryGenerationSurvivesSendAndCallbackSerialization() throws Exception {
+    SmsSendJob send = (SmsSendJob) roundTrip(new SmsSendJob(context, 42, "group", "attempt", 3));
+    assertEquals(3, send.mappingGeneration);
+    SmsSentJob callback = (SmsSentJob) roundTrip(new SmsSentJob(context, 42, "sent-action", 4, 3));
+    assertEquals(3, callback.mappingGeneration);
+  }
+
+  @Test public void incomingPhysicalRouteSurvivesSerialization() throws Exception {
+    SmsReceiveJob receive = (SmsReceiveJob) roundTrip(
+            new SmsReceiveJob(context, new Object[]{new byte[]{1, 2, 3}}, 7, 11, 4));
+    assertEquals(7, receive.subscriptionId);
+    assertEquals(Integer.valueOf(11), receive.deviceSubscriptionId);
+    assertEquals(4, receive.mappingGeneration);
+    assertNull(receive.format);
+
+    SmsReceiveJob formatted = (SmsReceiveJob) roundTrip(
+            new SmsReceiveJob(context, new Object[]{new byte[]{4, 5, 6}}, 8, 12, 5, "3gpp"));
+    assertEquals(8, formatted.subscriptionId);
+    assertEquals(Integer.valueOf(12), formatted.deviceSubscriptionId);
+    assertEquals(5, formatted.mappingGeneration);
+    assertEquals("3gpp", formatted.format);
+    assertArrayEquals(new byte[]{4, 5, 6}, (byte[]) formatted.pdus[0]);
+
+    try (MockedStatic<Log> ignored = mockStatic(Log.class)) {
+      SmsDecryptJob decrypt = (SmsDecryptJob) roundTrip(
+              new SmsDecryptJob(context, 81, false, true, 11, 4));
+      assertEquals(Integer.valueOf(11), decrypt.deviceSubscriptionId);
+      assertEquals(4, decrypt.mappingGeneration);
+    }
+  }
+
+  @Test public void incomingPduFormatSurvivesPersistenceAndUsesModernParser() throws Exception {
+    SmsReceiveJob restored = (SmsReceiveJob) roundTrip(
+            new SmsReceiveJob(context, new Object[]{new byte[]{1, 2, 3}}, 7, 11, 4, "3gpp"));
+    byte[] restoredPdu = (byte[]) restored.pdus[0];
+    SmsMessage parsed = mock(SmsMessage.class);
+
+    try (MockedStatic<SmsMessage> parser = mockStatic(SmsMessage.class)) {
+      parser.when(() -> SmsMessage.createFromPdu(restoredPdu, "3gpp")).thenReturn(parsed);
+
+      assertSame(parsed, restored.createSmsMessage(restoredPdu));
+      parser.verify(() -> SmsMessage.createFromPdu(restoredPdu, "3gpp"));
+    }
+  }
+
+  @Test public void newUserSendCapturesCurrentRecoveryGeneration() throws Exception {
+    try (MockedStatic<SMSecurePreferences> preferences = mockStatic(SMSecurePreferences.class)) {
+      preferences.when(() -> SMSecurePreferences.getSubscriptionRecoveryGeneration(context)).thenReturn(5L);
+      SmsSendJob send = new SmsSendJob(context, 42, "group");
+      assertEquals(5, send.mappingGeneration);
+      assertEquals(5, ((SmsSendJob) roundTrip(send)).mappingGeneration);
+      byte[] old = HexFormat.of().parseHex(
+              "000000010008736d735f73656e64000000000000002a01000567726f7570010007617474656d7074");
+      assertEquals(0, ((SmsSendJob) StableJobCodec.decode(context, old)).mappingGeneration);
+    }
+  }
+
+  @Test public void actualPreRecoveryJavaJobsDeserializeWithGenerationZero() throws Exception {
+    try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream("/jobs/sms-send-before-recovery.ser"))) {
+      SmsSendJob send = (SmsSendJob) in.readObject();
+      assertEquals(42, send.messageId);
+      assertEquals("attempt", send.sendAttemptId);
+      assertEquals(0, send.mappingGeneration);
+    }
+    try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream("/jobs/sms-sent-before-recovery.ser"))) {
+      SmsSentJob sent = (SmsSentJob) in.readObject();
+      assertEquals(42, sent.messageId);
+      assertEquals(-1, sent.result);
+      assertEquals(0, sent.mappingGeneration);
+    }
+    try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream("/jobs/sms-decrypt-before-recovery.ser"))) {
+      SmsDecryptJob decrypt = (SmsDecryptJob) in.readObject();
+      assertEquals(81, decrypt.messageId);
+      assertTrue(decrypt.manualOverride);
+      assertTrue(decrypt.isReceivedWhenLocked);
+      assertNull(decrypt.deviceSubscriptionId);
+      assertEquals(0, decrypt.mappingGeneration);
+    }
+    try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream("/jobs/sms-receive-before-recovery.ser"))) {
+      SmsReceiveJob receive = (SmsReceiveJob) in.readObject();
+      assertEquals(123, receive.subscriptionId);
+      assertArrayEquals(new byte[]{1, 2, 3}, (byte[]) receive.pdus[0]);
+      assertNull(receive.deviceSubscriptionId);
+      assertEquals(0, receive.mappingGeneration);
+      assertNull(receive.format);
+    }
   }
 
   private Job roundTrip(Job job) throws Exception {

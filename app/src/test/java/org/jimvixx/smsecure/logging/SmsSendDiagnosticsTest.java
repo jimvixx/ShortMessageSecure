@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jimvixx.smsecure.logging;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsManager;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.jimvixx.smsecure.database.model.SmsMessageRecord;
@@ -66,6 +67,7 @@ public class SmsSendDiagnosticsTest {
     Bundle extras = mock(Bundle.class);
     when(intent.getExtras()).thenReturn(extras);
     Object privateValue = new Object() {
+      @NonNull
       @Override public String toString() { throw new AssertionError("Private value read"); }
     };
     field(extras, "errorCode", privateValue);
@@ -79,9 +81,9 @@ public class SmsSendDiagnosticsTest {
     assertEquals("errorCode=malformed noDefault=malformed format=unknown ims=malformed",
             SmsSendDiagnostics.callbackFields(intent));
     verify(extras, never()).keySet();
-    verify(extras, never()).get("body");
-    verify(extras, never()).get("address");
-    verify(extras, never()).get("pdu");
+    verify(extras, never()).containsKey("body");
+    verify(extras, never()).containsKey("address");
+    verify(extras, never()).containsKey("pdu");
   }
 
   @Test public void sentFailureIncludesAllowlistedRadioPathFields() {
@@ -114,11 +116,12 @@ public class SmsSendDiagnosticsTest {
   @Test public void mappingsDetectAmbiguityWithoutAccessingSimIdentities() {
     SubscriptionInfoCompat first = subscription(7, 11, 1);
     SubscriptionInfoCompat second = subscription(7, 22, 2);
-    assertEquals("activeCount=2 duplicateAppSub=true appSubMatches=2 "
+    assertEquals("activeCount=2 duplicateAppSub=true appSubMatches=2 mappingConflicts=0 "
                     + "mappings=[{appSub=7 deviceSub=11 slot=1},{appSub=7 deviceSub=22 slot=2}]",
             SmsSendDiagnostics.describeSubscriptions(Arrays.asList(first, second), 7));
     for (SubscriptionInfoCompat item : Arrays.asList(first, second)) {
       verify(item).getSubscriptionId();
+      verify(item).hasMappingConflict();
       verify(item).getDeviceSubscriptionId();
       verify(item).getIccSlot();
       verifyNoMoreInteractions(item);
@@ -126,7 +129,7 @@ public class SmsSendDiagnosticsTest {
   }
 
   @Test public void mappingsDistinguishEmptyMissingAndUniqueSelections() {
-    assertEquals("activeCount=0 duplicateAppSub=false appSubMatches=0 mappings=[]",
+    assertEquals("activeCount=0 duplicateAppSub=false appSubMatches=0 mappingConflicts=0 mappings=[]",
             SmsSendDiagnostics.describeSubscriptions(Collections.emptyList(), -1));
     assertTrue(SmsSendDiagnostics.describeSubscriptions(
             Arrays.asList(subscription(7, 11, 1), subscription(8, 22, 2)), 7)
@@ -238,6 +241,61 @@ public class SmsSendDiagnosticsTest {
     }
   }
 
+  @Test public void blockedRouteReportsCachedMatchCountWithoutPrivateDataOrRefresh() {
+    Context context = mock(Context.class);
+    SmsMessageRecord message = mock(SmsMessageRecord.class);
+    when(message.getId()).thenReturn(42L);
+    when(message.getSubscriptionId()).thenReturn(7);
+    SubscriptionInfoCompat first = subscription(7, 11, 1);
+    SubscriptionInfoCompat second = subscription(7, 22, 2);
+    SubscriptionManagerCompat subscriptions = mock(SubscriptionManagerCompat.class);
+    when(subscriptions.getLastKnownActiveSubscriptionInfoList()).thenReturn(Arrays.asList(first, second));
+    try (MockedStatic<Log> logs = mockStatic(Log.class);
+         MockedStatic<SubscriptionManagerCompat> mapping = mockStatic(SubscriptionManagerCompat.class)) {
+      mapping.when(() -> SubscriptionManagerCompat.from(context)).thenReturn(subscriptions);
+      SmsSendDiagnostics.logRouteBlocked(context, message);
+      logs.verify(() -> Log.w("SmsSendDiagnostics", "SMS route blocked: message=42 appSub=7 "
+              + "reason=unresolved_subscription mappingSource=lastKnownSnapshot "
+              + "activeCount=2 duplicateAppSub=true appSubMatches=2 mappingConflicts=0 "
+              + "mappings=[{appSub=7 deviceSub=11 slot=1},{appSub=7 deviceSub=22 slot=2}]"));
+      verify(subscriptions).getLastKnownActiveSubscriptionInfoList();
+      verifyNoMoreInteractions(subscriptions);
+      verify(message, never()).getBody();
+      verify(message, never()).getIndividualRecipient();
+      for (SubscriptionInfoCompat item : Arrays.asList(first, second)) {
+        verify(item).getSubscriptionId();
+        verify(item).hasMappingConflict();
+        verify(item).getDeviceSubscriptionId();
+        verify(item).getIccSlot();
+        verifyNoMoreInteractions(item);
+      }
+    }
+  }
+
+  @Test public void blockedRouteDiagnosticFailuresNeverEscape() {
+    Context context = mock(Context.class);
+    SmsMessageRecord message = mock(SmsMessageRecord.class);
+    SubscriptionManagerCompat subscriptions = mock(SubscriptionManagerCompat.class);
+    when(subscriptions.getLastKnownActiveSubscriptionInfoList()).thenReturn(Collections.emptyList());
+    try (MockedStatic<Log> logs = mockStatic(Log.class);
+         MockedStatic<SubscriptionManagerCompat> mapping = mockStatic(SubscriptionManagerCompat.class)) {
+      mapping.when(() -> SubscriptionManagerCompat.from(context)).thenReturn(subscriptions);
+      logs.when(() -> Log.w(anyString(), anyString())).thenThrow(new IllegalStateException("private sink detail"));
+      SmsSendDiagnostics.logRouteBlocked(context, message);
+      when(subscriptions.getLastKnownActiveSubscriptionInfoList())
+              .thenThrow(new SecurityException("private mapping detail"));
+      SmsSendDiagnostics.logRouteBlocked(context, message);
+      logs.verify(() -> Log.w("SmsSendDiagnostics", "SMS diagnostics unavailable: SecurityException"));
+    }
+  }
+
+  @Test public void mappingsReportPersistedConflictEvenWithOneActiveMatch() {
+    SubscriptionInfoCompat only = subscription(7, 22, 2);
+    when(only.hasMappingConflict()).thenReturn(true);
+    assertTrue(SmsSendDiagnostics.describeSubscriptions(Collections.singletonList(only), 7)
+            .contains("duplicateAppSub=false appSubMatches=1 mappingConflicts=1"));
+  }
+
   private static SubscriptionInfoCompat subscription(int app, int device, int slot) {
     SubscriptionInfoCompat result = mock(SubscriptionInfoCompat.class);
     when(result.getSubscriptionId()).thenReturn(app);
@@ -248,6 +306,14 @@ public class SmsSendDiagnosticsTest {
 
   private static void field(Bundle extras, String name, Object value) {
     when(extras.containsKey(name)).thenReturn(true);
-    when(extras.get(name)).thenReturn(value);
+    if ("errorCode".equals(name)) {
+      when(extras.getInt(eq(name), anyInt())).thenAnswer(invocation ->
+              value instanceof Integer ? value : invocation.getArgument(1));
+    } else if ("format".equals(name)) {
+      when(extras.getString(name)).thenReturn(value instanceof String ? (String) value : null);
+    } else {
+      when(extras.getBoolean(eq(name), anyBoolean())).thenAnswer(invocation ->
+              value instanceof Boolean ? value : invocation.getArgument(1));
+    }
   }
 }

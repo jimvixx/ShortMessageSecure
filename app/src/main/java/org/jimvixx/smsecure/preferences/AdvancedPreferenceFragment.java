@@ -18,6 +18,7 @@
 package org.jimvixx.smsecure.preferences;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,12 +35,20 @@ import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 
 public class AdvancedPreferenceFragment extends PreferenceFragmentCompat {
 
+  private SimRecoveryController simRecovery;
+
   private static final String SUBMIT_DEBUG_LOG_PREF = "pref_submit_debug_logs";
 
   @Override
   public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
     setPreferencesFromResource(R.xml.preferences_advanced, rootKey);
 
+    simRecovery = new SimRecoveryController(this);
+    Preference recovery = findPreference("pref_sim_recovery");
+    if (recovery != null) recovery.setOnPreferenceClickListener(preference -> {
+      simRecovery.show();
+      return true;
+    });
     initializeSubmitDebugLogsPreference();
     updateAskForSimPreferenceVisibility();
   }
@@ -55,6 +64,18 @@ public class AdvancedPreferenceFragment extends PreferenceFragmentCompat {
     if (actionBar != null) {
       actionBar.setTitle(R.string.preferences__advanced);
     }
+  }
+
+  @Override
+  public void onPause() {
+    if (simRecovery != null) simRecovery.dismiss();
+    super.onPause();
+  }
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig) {
+    if (simRecovery != null) simRecovery.dismiss();
+    super.onConfigurationChanged(newConfig);
   }
 
   private void initializeSubmitDebugLogsPreference() {

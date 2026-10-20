@@ -44,6 +44,12 @@
         android:defaultValue="true"
         app:rightSummaryMaxLines="1" />
 
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="pref_sim_recovery"
+        android:icon="@drawable/ic_sim_alert"
+        android:title="@string/preferences__sim_recovery_title"
+        android:summary="@string/preferences__sim_recovery_summary" />
+
     <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
         android:key="pref_log_level"
         android:icon="@drawable/ic_bug_check"
