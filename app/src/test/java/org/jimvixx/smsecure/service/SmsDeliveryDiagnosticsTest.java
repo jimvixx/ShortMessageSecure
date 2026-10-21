@@ -29,8 +29,18 @@ import org.whispersystems.jobqueue.JobManager;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class SmsDeliveryDiagnosticsTest {
+  @Test public void automaticRilRetryIsLimitedToSinglePartSms() {
+    assertTrue(SmsDeliveryListener.isRilRetryEligible(
+            SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY, 1));
+    assertFalse(SmsDeliveryListener.isRilRetryEligible(
+            SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY, 2));
+    assertFalse(SmsDeliveryListener.isRilRetryEligible(Activity.RESULT_OK, 1));
+    assertEquals(101, SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY);
+  }
+
   @Test public void unreadableDiagnosticExtrasStillQueueSentResult() {
     Context context = mock(Context.class);
     Intent intent = mock(Intent.class);

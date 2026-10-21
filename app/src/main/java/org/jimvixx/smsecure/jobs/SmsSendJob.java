@@ -69,13 +69,19 @@ public class SmsSendJob extends SendJob {
   final long messageId;
   final String sendAttemptId;
   final long mappingGeneration;
+  final long retryNotBeforeMillis;
 
   public SmsSendJob(Context context, long messageId, String name) {
     this(context, messageId, name, SMSecurePreferences.getSubscriptionRecoveryGeneration(context));
   }
 
   public SmsSendJob(Context context, long messageId, String name, long mappingGeneration) {
-    this(context, messageId, name, UUID.randomUUID().toString(), mappingGeneration);
+    this(context, messageId, name, UUID.randomUUID().toString(), mappingGeneration, 0);
+  }
+
+  public SmsSendJob(Context context, long messageId, String name, long mappingGeneration,
+                    long retryNotBeforeMillis) {
+    this(context, messageId, name, UUID.randomUUID().toString(), mappingGeneration, retryNotBeforeMillis);
   }
 
   SmsSendJob(Context context, long messageId, String name, String sendAttemptId) {
@@ -83,10 +89,16 @@ public class SmsSendJob extends SendJob {
   }
 
   SmsSendJob(Context context, long messageId, String name, String sendAttemptId, long mappingGeneration) {
-    super(context, constructParameters(context, name));
+    this(context, messageId, name, sendAttemptId, mappingGeneration, 0);
+  }
+
+  SmsSendJob(Context context, long messageId, String name, String sendAttemptId,
+             long mappingGeneration, long retryNotBeforeMillis) {
+    super(context, constructParameters(context, name, retryNotBeforeMillis));
     this.messageId = messageId;
     this.sendAttemptId = sendAttemptId;
     this.mappingGeneration = mappingGeneration;
+    this.retryNotBeforeMillis = retryNotBeforeMillis;
   }
 
   /**
@@ -104,11 +116,11 @@ public class SmsSendJob extends SendJob {
     return base | (id << 12) | part;
   }
 
-  private static JobParameters constructParameters(Context context, String name) {
+  private static JobParameters constructParameters(Context context, String name, long retryNotBeforeMillis) {
     JobParameters.Builder builder = JobParameters.newBuilder()
             .withPersistence()
             .withRequirement(new MasterSecretRequirement(context))
-            .withRequirement(new ServiceRequirement(context))
+            .withRequirement(new ServiceRequirement(context, retryNotBeforeMillis))
             .withRetryCount(15)
             .withGroupId(name);
 

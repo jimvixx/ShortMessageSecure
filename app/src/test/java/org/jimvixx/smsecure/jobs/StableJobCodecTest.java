@@ -101,8 +101,17 @@ public class StableJobCodecTest {
   @Test public void recoveryGenerationSurvivesSendAndCallbackSerialization() throws Exception {
     SmsSendJob send = (SmsSendJob) roundTrip(new SmsSendJob(context, 42, "group", "attempt", 3));
     assertEquals(3, send.mappingGeneration);
+    SmsSendJob delayedSend = (SmsSendJob) roundTrip(
+            new SmsSendJob(context, 43, "group", "attempt-2", 3, 123456));
+    assertEquals(3, delayedSend.mappingGeneration);
+    assertEquals(123456, delayedSend.retryNotBeforeMillis);
+    assertEquals(2, delayedSend.getRequirements().size());
     SmsSentJob callback = (SmsSentJob) roundTrip(new SmsSentJob(context, 42, "sent-action", 4, 3));
     assertEquals(3, callback.mappingGeneration);
+    SmsSentJob retryCallback = (SmsSentJob) roundTrip(
+            new SmsSentJob(context, 42, "sent-action", 101, 3, true));
+    assertEquals(3, retryCallback.mappingGeneration);
+    assertTrue(retryCallback.allowRilRetry);
   }
 
   @Test public void incomingPhysicalRouteSurvivesSerialization() throws Exception {

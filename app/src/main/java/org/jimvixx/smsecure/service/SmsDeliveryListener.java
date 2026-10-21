@@ -35,6 +35,10 @@ public class SmsDeliveryListener extends BroadcastReceiver {
   public static final String SENT_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.SENT_SMS_ACTION";
   public static final String DELIVERED_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERED_SMS_ACTION";
   public static final String DELIVERY_STATUS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERY_STATUS_ACTION";
+
+  // SmsManager.RESULT_RIL_SMS_SEND_FAIL_RETRY was added in API 30; keep API 24 support.
+  public static final int RESULT_RIL_SMS_SEND_FAIL_RETRY = 101;
+
   private static final String TAG = SmsDeliveryListener.class.getSimpleName();
 
   @Override
@@ -65,17 +69,18 @@ public class SmsDeliveryListener extends BroadcastReceiver {
         SmsSendDiagnostics.logSentResult(intent, messageId, resultCode, partIndex, partsTotal);
         boolean connectivityFailure = resultCode == SmsManager.RESULT_ERROR_NO_SERVICE ||
                                       resultCode == SmsManager.RESULT_ERROR_RADIO_OFF;
+        boolean rilRetryEligible = isRilRetryEligible(resultCode, partsTotal);
 
         if (sendAttemptId != null &&
             !SmsSendAttemptTracker.shouldProcessCallback(context, messageId, sendAttemptId,
-                                                         partIndex, partsTotal, connectivityFailure)) {
+                    partIndex, partsTotal, connectivityFailure || rilRetryEligible)) {
           Log.w(TAG, "Ignoring duplicate or stale sent callback for message=" + messageId +
                   " attempt=" + sendAttemptId + " part=" + partIndex);
           break;
         }
 
         jobManager.add(new SmsSentJob(context, messageId, SENT_SMS_ACTION, resultCode,
-                intent.getLongExtra("mapping_generation", 0)));
+                intent.getLongExtra("mapping_generation", 0), rilRetryEligible));
         break;
 
       case DELIVERED_SMS_ACTION:
@@ -92,6 +97,10 @@ public class SmsDeliveryListener extends BroadcastReceiver {
       default:
         Log.w(TAG, "Unknown action: " + action);
     }
+  }
+
+  static boolean isRilRetryEligible(int resultCode, int partsTotal) {
+    return resultCode == RESULT_RIL_SMS_SEND_FAIL_RETRY && partsTotal == 1;
   }
 
   static Integer logDeliveryReport(Intent intent, int resultCode) {

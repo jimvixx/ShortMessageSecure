@@ -23,6 +23,8 @@ public class ServiceRequirementProvider implements RequirementProvider {
   private final AtomicBoolean listeningForServiceState;
   private final Handler handler;
   private final Runnable serviceStableRunnable;
+  private final Runnable retryReadyRunnable;
+  private long retryDeadlineMillis;
 
   private RequirementListener requirementListener;
 
@@ -32,6 +34,8 @@ public class ServiceRequirementProvider implements RequirementProvider {
     this.listeningForServiceState = new AtomicBoolean(false);
     this.handler = new Handler(Looper.getMainLooper());
     this.serviceStableRunnable = this::handleStableService;
+    this.retryReadyRunnable = this::handleRetryReady;
+    this.retryDeadlineMillis = 0;
     instance = this;
   }
 
@@ -51,6 +55,37 @@ public class ServiceRequirementProvider implements RequirementProvider {
   static boolean isServiceReady() {
     ServiceRequirementProvider provider = instance;
     return provider == null || !provider.listeningForServiceState.get();
+  }
+
+  static void waitUntil(long deadlineMillis) {
+    ServiceRequirementProvider provider = instance;
+    if (provider != null) {
+      provider.scheduleRetryReady(deadlineMillis);
+    }
+  }
+
+  private synchronized void scheduleRetryReady(long deadlineMillis) {
+    if (retryDeadlineMillis == 0 || deadlineMillis < retryDeadlineMillis) {
+      retryDeadlineMillis = deadlineMillis;
+      handler.removeCallbacks(retryReadyRunnable);
+      handler.postDelayed(retryReadyRunnable,
+              Math.max(0, deadlineMillis - System.currentTimeMillis()));
+    }
+  }
+
+  private void handleRetryReady() {
+    synchronized (this) {
+      if (retryDeadlineMillis > System.currentTimeMillis()) {
+        handler.postDelayed(retryReadyRunnable,
+                retryDeadlineMillis - System.currentTimeMillis());
+        return;
+      }
+      retryDeadlineMillis = 0;
+    }
+
+    if (requirementListener != null) {
+      requirementListener.onRequirementStatusChanged();
+    }
   }
 
   private void startListening() {

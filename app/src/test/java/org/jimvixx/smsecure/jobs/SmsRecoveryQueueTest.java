@@ -30,6 +30,7 @@ import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
+import org.jimvixx.smsecure.service.SmsSendAttemptTracker;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 import org.junit.Test;
@@ -75,6 +76,49 @@ public class SmsRecoveryQueueTest {
     }
   }
 
+  @Test public void singlePartRilRetrySchedulesOneDelayedSend() {
+    try (Fixture fixture = new Fixture()) {
+      fixture.attempts.when(() -> SmsSendAttemptTracker.claimRilRetry(fixture.context, 42))
+              .thenReturn(true);
+      long now = System.currentTimeMillis();
+      SmsSentJob callback = new SmsSentJob(fixture.context, 42, SmsDeliveryListener.SENT_SMS_ACTION,
+              SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY, 7, true);
+
+      callback.onRun(null);
+
+      ArgumentCaptor<SmsSendJob> sent = ArgumentCaptor.forClass(SmsSendJob.class);
+      verify(fixture.queue).add(sent.capture());
+      assertEquals(7, sent.getValue().mappingGeneration);
+      assertTrue(sent.getValue().retryNotBeforeMillis >= now + 4_900L);
+      assertEquals(2, sent.getValue().getRequirements().size());
+      verify(fixture.smsDatabase, never()).markAsSentFailed(42);
+    }
+  }
+
+  @Test public void exhaustedRilRetryMarksMessageFailed() {
+    try (Fixture fixture = new Fixture()) {
+      fixture.attempts.when(() -> SmsSendAttemptTracker.claimRilRetry(fixture.context, 42))
+              .thenReturn(false);
+
+      new SmsSentJob(fixture.context, 42, SmsDeliveryListener.SENT_SMS_ACTION,
+              SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY, 0, true).onRun(null);
+
+      verify(fixture.database).markAsSentFailed(42);
+      verifyNoInteractions(fixture.queue);
+    }
+  }
+
+  @Test public void multipartRilFailureDoesNotRetryEntireMessage() {
+    try (Fixture fixture = new Fixture()) {
+      new SmsSentJob(fixture.context, 42, SmsDeliveryListener.SENT_SMS_ACTION,
+              SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY, 0, false).onRun(null);
+
+      verify(fixture.database).markAsSentFailed(42);
+      verifyNoInteractions(fixture.queue);
+      fixture.attempts.verify(() -> SmsSendAttemptTracker.claimRilRetry(fixture.context, 42), never());
+    }
+  }
+
   private static final class Fixture implements AutoCloseable {
     final Context context = mock(Context.class);
     final EncryptingSmsDatabase database = mock(EncryptingSmsDatabase.class);
@@ -88,6 +132,7 @@ public class SmsRecoveryQueueTest {
     final MockedStatic<Log> logs = mockStatic(Log.class);
     final MockedStatic<MessageNotifier> notifications = mockStatic(MessageNotifier.class);
     final MockedStatic<SmsManager> managers = mockStatic(SmsManager.class);
+    final MockedStatic<SmsSendAttemptTracker> attempts = mockStatic(SmsSendAttemptTracker.class);
 
     Fixture() {
       try {
@@ -111,6 +156,7 @@ public class SmsRecoveryQueueTest {
 
     @Override public void close() {
       managers.close();
+      attempts.close();
       notifications.close();
       logs.close();
       applications.close();

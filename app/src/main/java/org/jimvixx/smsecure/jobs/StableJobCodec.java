@@ -38,11 +38,17 @@ public final class StableJobCodec {
     DataOutputStream out = new DataOutputStream(bytes);
     out.writeInt(1);
     if (job instanceof SmsSendJob send) {
-      out.writeUTF(send.mappingGeneration == 0 ? "sms_send" : "sms_send_v2");
+      out.writeUTF(send.retryNotBeforeMillis != 0 ? "sms_send_v3"
+              : (send.mappingGeneration == 0 ? "sms_send" : "sms_send_v2"));
       out.writeLong(send.messageId);
       writeNullable(out, send.getGroupId());
       writeNullable(out, send.sendAttemptId);
-      if (send.mappingGeneration != 0) out.writeLong(send.mappingGeneration);
+      if (send.retryNotBeforeMillis != 0) {
+        out.writeLong(send.mappingGeneration);
+        out.writeLong(send.retryNotBeforeMillis);
+      } else if (send.mappingGeneration != 0) {
+        out.writeLong(send.mappingGeneration);
+      }
     } else if (job instanceof SmsReceiveJob receive) {
       out.writeUTF(receive.format != null ? "sms_receive_v3"
               : (receive.deviceSubscriptionId == null ? "sms_receive" : "sms_receive_v2"));
@@ -66,11 +72,16 @@ public final class StableJobCodec {
       }
     } else if (job instanceof SmsSentJob sent) {
       out.writeUTF(sent.deliveryAttempt != null ? "sms_delivery_v1"
-              : (sent.mappingGeneration == 0 ? "sms_sent" : "sms_sent_v2"));
+              : (sent.allowRilRetry ? "sms_sent_v3"
+              : (sent.mappingGeneration == 0 ? "sms_sent" : "sms_sent_v2")));
       out.writeLong(sent.messageId);
       writeNullable(out, sent.action);
       out.writeInt(sent.result);
       if (sent.deliveryAttempt == null && sent.mappingGeneration != 0) out.writeLong(sent.mappingGeneration);
+      if (sent.deliveryAttempt == null && sent.allowRilRetry) {
+        if (sent.mappingGeneration == 0) out.writeLong(0);
+        out.writeBoolean(true);
+      }
       if (sent.deliveryAttempt != null) {
         out.writeUTF(sent.deliveryAttempt);
         out.writeInt(sent.deliveryPart);
@@ -96,6 +107,10 @@ public final class StableJobCodec {
         break;
       case "sms_send_v2":
         job = new SmsSendJob(context, in.readLong(), readNullable(in), readNullable(in), in.readLong());
+        break;
+      case "sms_send_v3":
+        job = new SmsSendJob(context, in.readLong(), readNullable(in), readNullable(in),
+                in.readLong(), in.readLong());
         break;
       case "sms_receive":
         int subscription = in.readInt();
@@ -128,6 +143,9 @@ public final class StableJobCodec {
         break;
       case "sms_sent_v2":
         job = new SmsSentJob(context, in.readLong(), readNullable(in), in.readInt(), in.readLong());
+        break;
+      case "sms_sent_v3":
+        job = new SmsSentJob(context, in.readLong(), readNullable(in), in.readInt(), in.readLong(), in.readBoolean());
         break;
       case "sms_delivery_v1":
         long id = in.readLong();
