@@ -391,17 +391,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Oglej si celoten pogovor</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Kopiraj dnevnik</string>
-  <string name="log_submit__button_share_link">Povezava za deljenje</string>
   <string name="log_submit__button_share_logs">Delitev dnevnika</string>
   <string name="log_submit_activity__collecting_logs">Zbiranje dnevnika…</string>
   <string name="log_submit_activity__log_collect_failed">Zbiranje dnevnika ni uspelo.</string>
-  <string name="log_submit_activity__log_fetch_failed">Zbiranje ali nalaganje dnevnika ni uspelo.</string>
-  <string name="log_submit_activity__log_upload_failed">Prenos dnevnika ni uspel.</string>
-  <string name="log_submit_activity__log_uploaded">Dnevnik naložen. Povezava kopirana v odložišče.</string>
   <string name="log_submit_activity__thanks">Hvala za pomoč!</string>
   <string name="log_submit_activity__uploading_logs">Prenos dnevnika…</string>
-  <string name="log_submit_copied">Dnevnik kopiran.</string>
   <string name="log_submit_interrupted">Rezultat prejšnjega prenosa ni na voljo. Če želite poslati novo poročilo, ponovno odprite možnost »Pošlji dnevnik«.</string>
   <string name="log_submit_no_internet">Ni internetne povezave. Preverite povezavo in nato ponovno odprite »Pošlji dnevnik«, da poskusite znova.</string>
   <string name="log_submit_save_failed">Dnevnika ni bilo mogoče shraniti.</string>
@@ -489,8 +483,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">O SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">SHA-256 podpisovalca APK</string>
+  <string name="preferences__about_build_app_id">ID aplikacije</string>
+  <string name="preferences__about_build_information">Podatki o različici in zgradbi</string>
+  <string name="preferences__about_build_source_commit">Zaveza v izvorni kodi</string>
+  <string name="preferences__about_build_type">Vrsta zgradbe</string>
+  <string name="preferences__about_build_version_code">Koda različice</string>
+  <string name="preferences__about_build_version_name">Ime različice</string>
+  <string name="preferences__about_licenses_gpl">Splošna javna licenca GNU, različica 3.0</string>
+  <string name="preferences__about_licenses_third_party">Odvisnosti od tretjih oseb</string>
+  <string name="preferences__about_licenses_third_party_summary">Licence odvisnosti se ohranijo skupaj z njihovimi izvirnimi viri.</string>
+  <string name="preferences__about_open_source_licenses">Odprtokodne licence</string>
   <string name="preferences__about_version">Različica <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Napredno</string>
   <string name="preferences__always_ask_for_sim_card">Vedno zahtevaj SIM-kartico</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Vedno vprašaj, katero SIM-kartico naj se uporabi pri pošiljanju sporočil</string>
   <string name="preferences__appearance">Videz</string>
@@ -500,11 +504,11 @@
   <string name="preferences__change_notification_sound">Spremeni zvok obvestila</string>
   <string name="preferences__change_passphrase">Spremeni geslo</string>
   <string name="preferences__change_your_passphrase">Spremenite geslo</string>
-  <string name="preferences__chat_display">Prikaz klepeta</string>
   <string name="preferences__chats">Klepeti</string>
   <string name="preferences__complete_key_exchanges">Zaključite izmenjavo ključev</string>
   <string name="preferences__conversation_length_limit">Omejitev dolžine pogovora</string>
   <string name="preferences__dark_theme">Temna</string>
+  <string name="preferences__debug_diagnostics">Odpravljanje napak in diagnostika</string>
   <string name="preferences__delete_old_messages">Izbriši stara sporočila</string>
   <string name="preferences__diagnostic_logging_level">Raven beleženja diagnostičnih podatkov</string>
   <string name="preferences__diagnostic_logging_level_summary">Nadzira, koliko diagnostičnih podatkov SMSecure shrani v notranjem pomnilniku.</string>
@@ -546,10 +550,11 @@
   <string name="preferences__notifications">Obvestila</string>
   <string name="preferences__one_time">Enkrat</string>
   <string name="preferences__panic_button">Gumb za paniko</string>
+  <string name="preferences__passphrase">Geslo</string>
   <string name="preferences__play_inthread_notifications">Predvajaj zvok obvestila ob pregledovanju aktivnega pogovora.</string>
   <string name="preferences__pref_timeout_interval_title">Časovni interval</string>
-  <string name="preferences__privacy">Zasebnost</string>
-  <string name="preferences__privacy_policy">Politika zasebnosti</string>
+  <string name="preferences__privacy_policy">GitHub / Politika zasebnosti</string>
+  <string name="preferences__privacy_security">Zasebnost</string>
   <string name="preferences__repeat_notification">Ponovno obvestilo</string>
   <string name="preferences__repeat_notification_number_times_select">Izberite število ponovitev obvestila</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Zahtevajte poročilo o dostavi za vsako SMS-sporočilo, ki ga pošljete</string>
@@ -558,6 +563,21 @@
   <string name="preferences__screen_security">Varnost zaslona</string>
   <string name="preferences__show_sent_time">Pokaži čas pošiljanja</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Prikaži čas pošiljanja namesto časa prejema za dohodna sporočila</string>
+  <string name="preferences__sim_recovery_apply">Obnovi vezavo</string>
+  <string name="preferences__sim_recovery_changed">Konfiguracija SIM-kartice se je spremenila. Ponovno odprite obnovitev in preglejte trenutne SIM-kartice.</string>
+  <string name="preferences__sim_recovery_check_selection">Povezave SIM-kartic so se spremenile. Preverite izbrano SIM-kartico in nato ponovno tapnite »Pošlji«.</string>
+  <string name="preferences__sim_recovery_choose_group">Izberite prizadete SIM-kartice</string>
+  <string name="preferences__sim_recovery_choose_owner">Katera SIM-kartica naj ohrani obstoječe varne pogovore?</string>
+  <string name="preferences__sim_recovery_confirm_message">Izbrana SIM-kartica bo ohranila obstoječe šifrirne ključe in sej. Druge prizadete SIM-kartice bodo potrebovale novo izmenjavo ključev. Zgodovina sporočil ostane nespremenjena.\n\nZa sporočila v čakanju bo potrebno ročno ponovno pošiljanje. Pred ponovnim pošiljanjem preverite izbrano SIM-kartico. Sporočila, ki so že bila posredovana sistemu Android, ni mogoče preklicati.</string>
+  <string name="preferences__sim_recovery_confirm_title">Obnoviti vezavo za %1$s?</string>
+  <string name="preferences__sim_recovery_failed">Povezave s kartico SIM ni bilo mogoče obnoviti. Ponovno odprite obnovitev, da preverite njihovo trenutno stanje.</string>
+  <string name="preferences__sim_recovery_keys_pending">Povezave SIM-kartice so bile obnovljene, vendar novih šifrirnih ključev ni bilo mogoče inicializirati. Pred začetkom nove izmenjave ključev ponovno zaženite aplikacijo SMSecure.</string>
+  <string name="preferences__sim_recovery_no_active">Podatki o aktivni kartici SIM niso na voljo. Preverite dovoljenja telefona in nastavitve kartice SIM.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Ni bilo zaznanih nobenih navzkrižnih vezav SIM-kartic.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">Povezave s kartico SIM so bile obnovljene. Preverite kartico SIM, preden ročno ponovno poskusite poslati čakajoča sporočila. Druge prizadete kartice SIM potrebujejo novo izmenjavo ključev.</string>
+  <string name="preferences__sim_recovery_summary">Rešite konflikte s kartico SIM, ki preprečujejo pošiljanje sporočil</string>
+  <string name="preferences__sim_recovery_title">Obnovi povezave SIM-kartice</string>
   <string name="preferences__sms_delivery_reports">Poročila o dostavi SMS-ov</string>
   <string name="preferences__sms_delivery_reports_notification">Obvestilo o poročilih o dostavi SMS-ov</string>
   <string name="preferences__sound">Zvok</string>

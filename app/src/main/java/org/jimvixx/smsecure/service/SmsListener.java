@@ -27,6 +27,7 @@ import android.telephony.SmsMessage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.BundleCompat;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.jobs.SmsReceiveJob;
@@ -78,7 +79,7 @@ public class SmsListener extends BroadcastReceiver {
       return null;
     }
 
-    Object[] pdus = (Object[]) extras.get(EXTRA_PDUS);
+    Object[] pdus = BundleCompat.getSerializable(extras, EXTRA_PDUS, Object[].class);
 
     if (pdus == null || pdus.length == 0) {
       return null;
@@ -113,7 +114,8 @@ public class SmsListener extends BroadcastReceiver {
     return new ParsedSmsData(
             pdus,
             parsedMessages.toArray(new SmsMessage[0]),
-            body
+            body,
+            format
     );
   }
 
@@ -189,7 +191,7 @@ public class SmsListener extends BroadcastReceiver {
 
     ApplicationContext.getInstance(context)
             .getJobManager()
-            .add(new SmsReceiveJob(context, smsData.rawPdus, subscriptionId));
+            .add(new SmsReceiveJob(context, smsData.rawPdus, subscriptionId, smsData.format));
 
     abortBroadcast();
   }
@@ -198,13 +200,16 @@ public class SmsListener extends BroadcastReceiver {
     private final @NonNull Object[] rawPdus;
     private final @NonNull SmsMessage[] messages;
     private final @Nullable String body;
+    private final @Nullable String format;
 
     private ParsedSmsData(@NonNull Object[] rawPdus,
                           @NonNull SmsMessage[] messages,
-                          @Nullable String body) {
+                          @Nullable String body,
+                          @Nullable String format) {
       this.rawPdus = rawPdus;
       this.messages = messages;
       this.body = body;
+      this.format = format;
     }
   }
 }

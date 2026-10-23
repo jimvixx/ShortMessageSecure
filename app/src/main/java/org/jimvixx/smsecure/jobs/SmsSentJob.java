@@ -35,18 +35,26 @@ import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
 import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
+import org.jimvixx.smsecure.service.SmsSendAttemptTracker;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
+import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.state.SessionStore;
 
+import java.io.Serial;
+
 public class SmsSentJob extends MasterSecretJob {
+
+  // Preserve compatibility with legacy Java-serialized jobs when adding recovery state.
+  @Serial
+  private static final long serialVersionUID = -1534569068458165018L;
 
   private static final String TAG = SmsSentJob.class.getSimpleName();
 
   /**
    * If a "DELIVERED" callback arrives too quickly after send time, it is often a false positive
    * (device/vendor/modem fires it without a real delivery receipt from the network).
-   * <p>
+   *
    * Tune this value based on your field tests.
    */
   private static final long MIN_DELIVERY_DELAY_MS = 1800L;
@@ -60,12 +68,23 @@ public class SmsSentJob extends MasterSecretJob {
   final long messageId;
   final String action;
   final int result;
+  final long mappingGeneration;
+  final boolean allowRilRetry;
   String deliveryAttempt;
   int deliveryPart;
   int deliveryParts;
   long deliveryReceivedAt;
 
   public SmsSentJob(Context context, long messageId, String action, int result) {
+    this(context, messageId, action, result, 0, false);
+  }
+
+  public SmsSentJob(Context context, long messageId, String action, int result, long mappingGeneration) {
+    this(context, messageId, action, result, mappingGeneration, false);
+  }
+
+  public SmsSentJob(Context context, long messageId, String action, int result,
+                    long mappingGeneration, boolean allowRilRetry) {
     super(context, JobParameters.newBuilder()
             .withPersistence()
             .withGroupId("sms-result-" + messageId)
@@ -75,6 +94,8 @@ public class SmsSentJob extends MasterSecretJob {
     this.messageId = messageId;
     this.action = action;
     this.result = result;
+    this.mappingGeneration = mappingGeneration;
+    this.allowRilRetry = allowRilRetry;
   }
 
   public SmsSentJob(Context context, long id, int status, String attempt, int part,
@@ -96,7 +117,9 @@ public class SmsSentJob extends MasterSecretJob {
 
     switch (action) {
       case SmsDeliveryListener.SENT_SMS_ACTION:
-        handleSentResult(masterSecret, messageId, result);
+        synchronized (SubscriptionManagerCompat.from(context)) {
+          handleSentResult(masterSecret, messageId, result);
+        }
         break;
       case SmsDeliveryListener.DELIVERED_SMS_ACTION:
         // Persisted legacy jobs contain a broadcast result, not a network status.
@@ -218,9 +241,10 @@ public class SmsSentJob extends MasterSecretJob {
 
       switch (result) {
         case Activity.RESULT_OK:
+          SmsSendAttemptTracker.clearRilRetries(context, messageId);
           database.markAsSent(messageId, record.isSecure());
 
-          if (record.isEndSession()) {
+          if (record.isEndSession() && mappingGeneration == SMSecurePreferences.getSubscriptionRecoveryGeneration(context)) {
             Log.w(TAG, "Ending session...");
             SessionStore sessionStore = new SMSecureSessionStore(context, masterSecret, record.getSubscriptionId());
             sessionStore.deleteAllSessions(record.getIndividualRecipient().getNumber());
@@ -233,15 +257,34 @@ public class SmsSentJob extends MasterSecretJob {
           Log.w(TAG, "Service connectivity problem, requeuing...");
           ApplicationContext.getInstance(context)
                   .getJobManager()
-                  .add(new SmsSendJob(context, messageId, record.getIndividualRecipient().getNumber()));
+                  .add(new SmsSendJob(context, messageId, record.getIndividualRecipient().getNumber(),
+                          java.util.UUID.randomUUID().toString(), mappingGeneration));
+          break;
+
+        case SmsDeliveryListener.RESULT_RIL_SMS_SEND_FAIL_RETRY:
+          if (allowRilRetry && SmsSendAttemptTracker.claimRilRetry(context, messageId)) {
+            long retryNotBeforeMillis = System.currentTimeMillis() + 5_000L;
+            Log.w(TAG, "Temporary radio send failure; scheduling one delayed retry for msgId=" + messageId);
+            ApplicationContext.getInstance(context)
+                    .getJobManager()
+                    .add(new SmsSendJob(context, messageId, record.getIndividualRecipient().getNumber(),
+                            mappingGeneration, retryNotBeforeMillis));
+            break;
+          }
+          markAsSentFailed(database, record);
           break;
 
         default:
-          database.markAsSentFailed(messageId);
-          MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipients(), record.getThreadId());
+          markAsSentFailed(database, record);
       }
     } catch (NoSuchMessageException e) {
       Log.w(TAG, "SENT: no such message: " + messageId, e);
     }
+  }
+
+  private void markAsSentFailed(EncryptingSmsDatabase database, SmsMessageRecord record) {
+    SmsSendAttemptTracker.clearRilRetries(context, messageId);
+    database.markAsSentFailed(messageId);
+    MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipients(), record.getThreadId());
   }
 }

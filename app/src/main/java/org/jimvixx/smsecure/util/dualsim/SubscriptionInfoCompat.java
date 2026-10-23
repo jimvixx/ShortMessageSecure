@@ -25,7 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.R;
-import org.jimvixx.smsecure.util.SMSecurePreferences;
 
 public class SubscriptionInfoCompat {
 
@@ -38,9 +37,12 @@ public class SubscriptionInfoCompat {
   private final @Nullable String iccId;
   private final int iccSlot;
   private final boolean duplicateDisplayName;
-  private int subscriptionId;
+  private final int subscriptionId;
+  private final boolean mappingConflict;
 
-  public SubscriptionInfoCompat(@NonNull Context context,
+  SubscriptionInfoCompat(@NonNull Context context,
+                                int subscriptionId,
+                                boolean mappingConflict,
                                 int deviceSubscriptionId,
                                 @Nullable CharSequence displayName,
                                 @Nullable String number,
@@ -59,67 +61,8 @@ public class SubscriptionInfoCompat {
     this.mnc = mnc;
     this.duplicateDisplayName = duplicateDisplayName;
 
-    this.subscriptionId = findAppId(this.context, deviceSubscriptionId, number, iccId);
-  }
-
-  private static int findAppId(@NonNull Context context,
-                               int deviceSubscriptionId,
-                               @Nullable String number,
-                               @Nullable String iccId) {
-    int appSubscriptionId = findAppIdFromNumber(context, number);
-    if (appSubscriptionId == -1) appSubscriptionId = findAppIdFromIccId(context, iccId);
-    if (appSubscriptionId == -1) {
-      appSubscriptionId = SMSecurePreferences.getAppSubscriptionId(context, deviceSubscriptionId);
-    }
-    if (appSubscriptionId == -1) appSubscriptionId = bumpAppSubscriptionId(context);
-
-    SMSecurePreferences.setAppSubscriptionId(context, deviceSubscriptionId, appSubscriptionId);
-    saveInfo(context, appSubscriptionId, number, iccId);
-    return appSubscriptionId;
-  }
-
-  private static int findAppIdFromNumber(@NonNull Context context, @Nullable String number) {
-    if (TextUtils.isEmpty(number)) return -1;
-
-    int lastAppSubscriptionId = SMSecurePreferences.getLastAppSubscriptionId(context);
-    for (int i = 0; i <= lastAppSubscriptionId; i++) {
-      String eligibleNumber = SMSecurePreferences.getNumberForSubscriptionId(context, i);
-      if (number.equals(eligibleNumber)) return i;
-    }
-
-    return -1;
-  }
-
-  private static int findAppIdFromIccId(@NonNull Context context, @Nullable String iccId) {
-    if (TextUtils.isEmpty(iccId)) return -1;
-
-    int lastAppSubscriptionId = SMSecurePreferences.getLastAppSubscriptionId(context);
-    for (int i = 0; i <= lastAppSubscriptionId; i++) {
-      String eligibleIccId = SMSecurePreferences.getIccIdForSubscriptionId(context, i);
-      if (iccId.equals(eligibleIccId)) return i;
-    }
-
-    return -1;
-  }
-
-  private static int bumpAppSubscriptionId(@NonNull Context context) {
-    int lastAppSubscriptionId = SMSecurePreferences.getLastAppSubscriptionId(context);
-    int next = lastAppSubscriptionId + 1;
-    SMSecurePreferences.setLastAppSubscriptionId(context, next);
-    return next;
-  }
-
-  private static void saveInfo(@NonNull Context context,
-                               int appSubscriptionId,
-                               @Nullable String number,
-                               @Nullable String iccId) {
-    if (!TextUtils.isEmpty(number)) {
-      SMSecurePreferences.setNumberForSubscriptionId(context, appSubscriptionId, number);
-    }
-
-    if (!TextUtils.isEmpty(iccId)) {
-      SMSecurePreferences.setIccIdForSubscriptionId(context, appSubscriptionId, iccId);
-    }
+    this.subscriptionId = subscriptionId;
+    this.mappingConflict = mappingConflict;
   }
 
   public @NonNull CharSequence getDisplayName() {
@@ -147,9 +90,8 @@ public class SubscriptionInfoCompat {
     return subscriptionId;
   }
 
-  public void setSubscriptionId(int subscriptionId) {
-    SMSecurePreferences.setAppSubscriptionId(context, deviceSubscriptionId, subscriptionId);
-    this.subscriptionId = subscriptionId;
+  public boolean hasMappingConflict() {
+    return mappingConflict;
   }
 
   public int getIccSlot() {

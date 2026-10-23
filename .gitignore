@@ -17,6 +17,7 @@
 .venv
 __pycache__/
 AGENTS.md
+SMS_DELIVERY_STATUS.md
 ant.properties
 bin/
 build

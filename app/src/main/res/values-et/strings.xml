@@ -373,17 +373,11 @@
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">Vaata kogu vestlust</string>
 <!--log_submit_activity-->
-<string name="log_submit__button_copy">Kopeeri logi</string>
-<string name="log_submit__button_share_link">Jaga linki</string>
 <string name="log_submit__button_share_logs">Jaga logi</string>
 <string name="log_submit_activity__collecting_logs">Logide kogumine…</string>
 <string name="log_submit_activity__log_collect_failed">Logi kogumine ebaõnnestus.</string>
-<string name="log_submit_activity__log_fetch_failed">Logi kogumine või üleslaadimine ebaõnnestus.</string>
-<string name="log_submit_activity__log_upload_failed">Logi üleslaadimine ebaõnnestus.</string>
-<string name="log_submit_activity__log_uploaded">Logi üles laaditud. Link kopeeritud lõikelauale.</string>
 <string name="log_submit_activity__thanks">Tänan abi eest!</string>
 <string name="log_submit_activity__uploading_logs">Logi üleslaadimine…</string>
-<string name="log_submit_copied">Logi kopeeritud.</string>
 <string name="log_submit_interrupted">Eelmise üleslaadimise tulemus ei ole kättesaadav. Avage uuesti „Saada logi”, kui soovite saata uue aruande.</string>
 <string name="log_submit_no_internet">Internetiühendus puudub. Kontrolli ühendust ja ava seejärel uuesti „Saada logi”, et proovida uuesti.</string>
 <string name="log_submit_save_failed">Logi salvestamine ebaõnnestus.</string>
@@ -465,8 +459,18 @@
     </plurals>
 <!--preferences.xml-->
 <string name="preferences__about">SMSecure kohta</string>
+<string name="preferences__about_build_apk_signer_sha256">APK-allkirjastaja SHA-256</string>
+<string name="preferences__about_build_app_id">Rakenduse ID</string>
+<string name="preferences__about_build_information">Versiooni- ja koostamisandmed</string>
+<string name="preferences__about_build_source_commit">Allika kinnitus</string>
+<string name="preferences__about_build_type">Koostustüüp</string>
+<string name="preferences__about_build_version_code">Versioonikood</string>
+<string name="preferences__about_build_version_name">Versiooni nimi</string>
+<string name="preferences__about_licenses_gpl">GNU üldine avalik litsents v3.0</string>
+<string name="preferences__about_licenses_third_party">Kolmandate osapoolte sõltuvused</string>
+<string name="preferences__about_licenses_third_party_summary">Sõltuvuste litsentsid säilitatakse koos nende ülesvoolu allikatega.</string>
+<string name="preferences__about_open_source_licenses">Avatud lähtekoodiga litsentsid</string>
 <string name="preferences__about_version">Versioon <xliff:g id="arg1">%s</xliff:g></string>
-<string name="preferences__advanced">Täpsemad seaded</string>
 <string name="preferences__always_ask_for_sim_card">Küsi alati SIM-kaarti</string>
 <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Küsi alati, millist SIM-kaarti soovid sõnumite saatmisel kasutada</string>
 <string name="preferences__appearance">Välimus</string>
@@ -476,11 +480,11 @@
 <string name="preferences__change_notification_sound">Muuda teavituse heli</string>
 <string name="preferences__change_passphrase">Muuda salasõna</string>
 <string name="preferences__change_your_passphrase">Muuda oma salasõna</string>
-<string name="preferences__chat_display">Vestluse kuvamine</string>
 <string name="preferences__chats">Vestlused</string>
 <string name="preferences__complete_key_exchanges">Võtmevahetuse lõpetamine</string>
 <string name="preferences__conversation_length_limit">Vestluse pikkuse piirang</string>
 <string name="preferences__dark_theme">Tume</string>
+<string name="preferences__debug_diagnostics">Veaparandus ja diagnostika</string>
 <string name="preferences__delete_old_messages">Kustuta vanad sõnumid</string>
 <string name="preferences__diagnostic_logging_level">Diagnostilise logimise tase</string>
 <string name="preferences__diagnostic_logging_level_summary">Määrab, kui palju diagnostilist teavet SMSecure sisemiselt salvestab.</string>
@@ -520,10 +524,11 @@
 <string name="preferences__notifications">Teated</string>
 <string name="preferences__one_time">Üks kord</string>
 <string name="preferences__panic_button">Paanikanupp</string>
+<string name="preferences__passphrase">Parool</string>
 <string name="preferences__play_inthread_notifications">Mängi teavituse heli, kui vaatad aktiivset vestlust.</string>
 <string name="preferences__pref_timeout_interval_title">Ajalõpu intervall</string>
-<string name="preferences__privacy">Privaatsus</string>
-<string name="preferences__privacy_policy">Privaatsuspoliitika</string>
+<string name="preferences__privacy_policy">GitHub / Privaatsuspoliitika</string>
+<string name="preferences__privacy_security">Privaatsus</string>
 <string name="preferences__repeat_notification">Kordusteadete</string>
 <string name="preferences__repeat_notification_number_times_select">Valige, mitu korda teade korratakse</string>
 <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Nõua kättetoimetamisaruannet iga saadetud SMS-sõnumi kohta</string>
@@ -532,6 +537,21 @@
 <string name="preferences__screen_security">Ekraani turvalisus</string>
 <string name="preferences__show_sent_time">Näita saatmise aega</string>
 <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Näita sissetulevate sõnumite puhul saadetud aega vastuvõetud aja asemel</string>
+<string name="preferences__sim_recovery_apply">Taasta seos</string>
+<string name="preferences__sim_recovery_changed">SIM-kaardi konfiguratsioon on muutunud. Avage taastamisrežiim uuesti ja vaadake üle praegused SIM-kaardid.</string>
+<string name="preferences__sim_recovery_check_selection">SIM-kaardi seosed on muutunud. Kontrollige valitud SIM-kaarti ja puudutage uuesti nuppu „Saada”.</string>
+<string name="preferences__sim_recovery_choose_group">Vali asjaomased SIM-kaardid</string>
+<string name="preferences__sim_recovery_choose_owner">Millisel SIM-kaardil peaksid olema olemasolevad turvalised vestlused?</string>
+<string name="preferences__sim_recovery_confirm_message">Valitud SIM-kaart säilitab olemasolevad krüpteerimisvõtmed ja seansid. Muud asjaomased SIM-kaardid vajavad uut võtmevahetust. Sõnumiajalugu jääb muutumatuks.\n\nOotel olevate sõnumite saatmiseks on vaja käsitsi uuesti proovida. Enne uuesti proovimist kontrollige valitud SIM-kaarti. Androidile juba edastatud sõnumeid ei saa tagasi võtta.</string>
+<string name="preferences__sim_recovery_confirm_title">Kas taastada seos %1$s jaoks?</string>
+<string name="preferences__sim_recovery_failed">SIM-kaardi seoseid ei õnnestunud taastada. Avage taastamine uuesti, et kontrollida nende praegust seisundit.</string>
+<string name="preferences__sim_recovery_keys_pending">SIM-kaardi seosed taastati, kuid uusi krüpteerimisvõtmeid ei õnnestunud algseadistada. Käivita SMSecure uuesti enne uue võtmevahetuse alustamist.</string>
+<string name="preferences__sim_recovery_no_active">Aktiivse SIM-kaardi teavet pole saadaval. Kontrollige telefoni õigusi ja SIM-kaardi seadeid.</string>
+<string name="preferences__sim_recovery_no_conflicts">Konflikteeruvaid SIM-kaardi seoseid ei tuvastatud.</string>
+<string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+<string name="preferences__sim_recovery_success">SIM-kaardi seosed on taastatud. Kontrollige SIM-kaarti enne ootel olevate sõnumite käsitsi uuesti saatmist. Muud mõjutatud SIM-kaardid vajavad uut võtmevahetust.</string>
+<string name="preferences__sim_recovery_summary">Lahenda SIM-kaardi konfliktid, mis takistavad sõnumite saatmist</string>
+<string name="preferences__sim_recovery_title">SIM-kaardi seoste taastamine</string>
 <string name="preferences__sms_delivery_reports">SMS-i kättetoimetamisaruanded</string>
 <string name="preferences__sms_delivery_reports_notification">Teatis SMS-i kättetoimetamise kohta</string>
 <string name="preferences__sound">Heli</string>

@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Se hela konversationen</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Kopiera logg</string>
-  <string name="log_submit__button_share_link">Dela länk</string>
   <string name="log_submit__button_share_logs">Dela logg</string>
   <string name="log_submit_activity__collecting_logs">Samlar in logg…</string>
   <string name="log_submit_activity__log_collect_failed">Det gick inte att samla in loggen.</string>
-  <string name="log_submit_activity__log_fetch_failed">Det gick inte att samla in eller ladda upp loggen.</string>
-  <string name="log_submit_activity__log_upload_failed">Det gick inte att ladda upp loggen.</string>
-  <string name="log_submit_activity__log_uploaded">Loggen har laddats upp. Länken har kopierats till urklipp.</string>
   <string name="log_submit_activity__thanks">Tack för hjälpen!</string>
   <string name="log_submit_activity__uploading_logs">Laddar upp logg…</string>
-  <string name="log_submit_copied">Loggen har kopierats.</string>
   <string name="log_submit_interrupted">Resultatet från den senaste uppladdningen är inte tillgängligt. Öppna ”Skicka logg” igen om du vill skicka en ny rapport.</string>
   <string name="log_submit_no_internet">Ingen internetanslutning. Kontrollera din anslutning och öppna sedan Skicka logg igen för att försöka på nytt.</string>
   <string name="log_submit_save_failed">Det gick inte att spara loggen.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Om SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK-signaturens SHA-256</string>
+  <string name="preferences__about_build_app_id">App-ID</string>
+  <string name="preferences__about_build_information">Version och bygginformation</string>
+  <string name="preferences__about_build_source_commit">Källkodsändning</string>
+  <string name="preferences__about_build_type">Byggtyp</string>
+  <string name="preferences__about_build_version_code">Versionskod</string>
+  <string name="preferences__about_build_version_name">Versionsnamn</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">Beroenden av tredjepartsleverantörer</string>
+  <string name="preferences__about_licenses_third_party_summary">Licenser för beroenden behålls tillsammans med sina uppströmskällor.</string>
+  <string name="preferences__about_open_source_licenses">Öppen källkodslicenser</string>
   <string name="preferences__about_version">Version <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Avancerat</string>
   <string name="preferences__always_ask_for_sim_card">Fråga alltid efter SIM-kort</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Fråga alltid vilket SIM-kort som ska användas vid skickande av meddelanden</string>
   <string name="preferences__appearance">Utseende</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Ändra ljud för aviseringar</string>
   <string name="preferences__change_passphrase">Ändra lösenord</string>
   <string name="preferences__change_your_passphrase">Ändra ditt lösenord</string>
-  <string name="preferences__chat_display">Chattvisning</string>
   <string name="preferences__chats">Chattar</string>
   <string name="preferences__complete_key_exchanges">Slutför nyckelutbyten</string>
   <string name="preferences__conversation_length_limit">Gräns för konversationens längd</string>
   <string name="preferences__dark_theme">Mörkt</string>
+  <string name="preferences__debug_diagnostics">Felsökning och diagnostik</string>
   <string name="preferences__delete_old_messages">Ta bort gamla meddelanden</string>
   <string name="preferences__diagnostic_logging_level">Diagnostisk loggningsnivå</string>
   <string name="preferences__diagnostic_logging_level_summary">Styr hur mycket diagnostisk information SMSecure lagrar internt.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Meddelanden</string>
   <string name="preferences__one_time">En gång</string>
   <string name="preferences__panic_button">Panikknapp</string>
+  <string name="preferences__passphrase">Lösenfras</string>
   <string name="preferences__play_inthread_notifications">Spela upp ett meddelandeljud när du visar en aktiv konversation.</string>
   <string name="preferences__pref_timeout_interval_title">Timeout-intervall</string>
-  <string name="preferences__privacy">Sekretess</string>
-  <string name="preferences__privacy_policy">Sekretesspolicy</string>
+  <string name="preferences__privacy_policy">GitHub / Integritetspolicy</string>
+  <string name="preferences__privacy_security">Sekretess</string>
   <string name="preferences__repeat_notification">Upprepa avisering</string>
   <string name="preferences__repeat_notification_number_times_select">Välj hur många gånger aviseringen ska upprepas</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Begär en leveransrapport för varje SMS-meddelande du skickar</string>
@@ -532,6 +537,21 @@
   <string name="preferences__screen_security">Skärmsäkerhet</string>
   <string name="preferences__show_sent_time">Visa sändningstid</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Visa sändningstid istället för mottagningstid för inkommande meddelanden</string>
+  <string name="preferences__sim_recovery_apply">Återställ bindning</string>
+  <string name="preferences__sim_recovery_changed">SIM-konfigurationen har ändrats. Öppna återställningsläget igen och granska de aktuella SIM-korten.</string>
+  <string name="preferences__sim_recovery_check_selection">SIM-kopplingarna har ändrats. Kontrollera vilket SIM-kort som är valt och tryck sedan på Skicka igen.</string>
+  <string name="preferences__sim_recovery_choose_group">Välj de berörda SIM-korten</string>
+  <string name="preferences__sim_recovery_choose_owner">Vilket SIM-kort ska behålla de befintliga säkra konversationerna?</string>
+  <string name="preferences__sim_recovery_confirm_message">Det valda SIM-kortet behåller befintliga krypteringsnycklar och sessioner. Övriga berörda SIM-kort behöver genomgå en ny nyckelutväxling. Meddelandehistoriken förblir oförändrad.\n\nVäntande meddelanden måste skickas på nytt manuellt. Kontrollera det valda SIM-kortet innan du försöker igen. Meddelanden som redan har överförts till Android kan inte återkallas.</string>
+  <string name="preferences__sim_recovery_confirm_title">Återställa bindning för %1$s?</string>
+  <string name="preferences__sim_recovery_failed">Det gick inte att återställa SIM-bindningarna. Öppna återställningen igen för att kontrollera deras aktuella status.</string>
+  <string name="preferences__sim_recovery_keys_pending">SIM-bindningarna har återställts, men nya krypteringsnycklar kunde inte initialiseras. Starta om SMSecure innan du påbörjar ett nytt nyckelutbyte.</string>
+  <string name="preferences__sim_recovery_no_active">Det finns ingen information om aktiva SIM-kort. Kontrollera telefonens behörigheter och SIM-inställningar.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Inga konflikterande SIM-bindningar har upptäckts.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">SIM-bindningarna har återställts. Kontrollera SIM-kortet innan du manuellt försöker skicka de väntande meddelandena igen. Övriga berörda SIM-kort behöver en ny nyckelutväxling.</string>
+  <string name="preferences__sim_recovery_summary">Lös SIM-konflikter som förhindrar att meddelanden skickas</string>
+  <string name="preferences__sim_recovery_title">Återställ SIM-bindningar</string>
   <string name="preferences__sms_delivery_reports">SMS-leveransrapporter</string>
   <string name="preferences__sms_delivery_reports_notification">Meddelande om leveransrapporter för SMS</string>
   <string name="preferences__sound">Ljud</string>

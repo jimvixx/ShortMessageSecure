@@ -35,7 +35,7 @@
 
     <dimen name="smsecure_preference_category_bottom_padding">8dp</dimen>
     <dimen name="smsecure_preference_category_summary_margin_top">4dp</dimen>
-    <dimen name="smsecure_preference_category_top_padding">20dp</dimen>
+    <dimen name="smsecure_preference_category_top_padding">8dp</dimen>
     <dimen name="smsecure_preference_content_spacing">16dp</dimen>
     <dimen name="smsecure_preference_horizontal_padding">20dp</dimen>
     <dimen name="smsecure_preference_icon_margin_end">16dp</dimen>

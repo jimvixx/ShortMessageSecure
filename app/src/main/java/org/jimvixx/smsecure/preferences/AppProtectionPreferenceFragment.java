@@ -34,12 +34,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.os.BundleCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import org.jimvixx.smsecure.ApplicationPreferencesActivity;
 import org.jimvixx.smsecure.BaseActionBarActivity;
-import org.jimvixx.smsecure.BlockedContactsActivity;
 import org.jimvixx.smsecure.PassphraseChangeActivity;
 import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.crypto.MasterSecret;
@@ -53,8 +53,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class AppProtectionPreferenceFragment extends PreferenceFragmentCompat {
-
-  private static final String PREFERENCE_CATEGORY_BLOCKED = "preference_category_blocked";
 
   @Nullable
   private MasterSecret masterSecret;
@@ -87,7 +85,7 @@ public class AppProtectionPreferenceFragment extends PreferenceFragmentCompat {
     super.onCreate(savedInstanceState);
 
     Bundle args = requireArguments();
-    masterSecret = args.getParcelable("master_secret");
+    masterSecret = BundleCompat.getParcelable(args, "master_secret", MasterSecret.class);
   }
 
   @Override
@@ -98,7 +96,6 @@ public class AppProtectionPreferenceFragment extends PreferenceFragmentCompat {
 
     Preference changePass = findPreference(SMSecurePreferences.CHANGE_PASSPHRASE_PREF);
     Preference timeoutPref = findPreference(SMSecurePreferences.PASSPHRASE_TIMEOUT_INTERVAL_PREF);
-    Preference blockedPref = findPreference(PREFERENCE_CATEGORY_BLOCKED);
     Preference screenSecurityPref = findPreference(SMSecurePreferences.SCREEN_SECURITY_PREF);
 
     if (changePass != null) {
@@ -107,10 +104,6 @@ public class AppProtectionPreferenceFragment extends PreferenceFragmentCompat {
 
     if (timeoutPref != null) {
       timeoutPref.setOnPreferenceClickListener(new PassphraseIntervalClickListener());
-    }
-
-    if (blockedPref != null) {
-      blockedPref.setOnPreferenceClickListener(new BlockedContactsClickListener());
     }
 
     if (screenSecurityPref != null) {
@@ -129,7 +122,7 @@ public class AppProtectionPreferenceFragment extends PreferenceFragmentCompat {
     if (getActivity() instanceof ApplicationPreferencesActivity activity) {
       ActionBar actionBar = activity.getSupportActionBar();
       if (actionBar != null) {
-        actionBar.setTitle(R.string.preferences__privacy);
+        actionBar.setTitle(R.string.preferences__privacy_security);
       }
     }
 
@@ -173,14 +166,6 @@ public class AppProtectionPreferenceFragment extends PreferenceFragmentCompat {
         }
       }
 
-      return true;
-    }
-  }
-
-  private class BlockedContactsClickListener implements Preference.OnPreferenceClickListener {
-    @Override
-    public boolean onPreferenceClick(@NonNull Preference preference) {
-      startActivity(new Intent(requireActivity(), BlockedContactsActivity.class));
       return true;
     }
   }

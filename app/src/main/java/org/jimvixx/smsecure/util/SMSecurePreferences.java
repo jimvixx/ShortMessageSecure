@@ -19,8 +19,10 @@
 package org.jimvixx.smsecure.util;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 import android.provider.Settings;
+
+import androidx.preference.PreferenceManager;
 
 import org.jimvixx.smsecure.BuildConfig;
 import org.jimvixx.smsecure.logging.Log;
@@ -28,6 +30,9 @@ import org.jimvixx.smsecure.preferences.widgets.NotificationPrivacyPreference;
 import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
 
 @SuppressWarnings({"BooleanMethodIsAlwaysInverted"})
 public class SMSecurePreferences {
@@ -74,6 +79,8 @@ public class SMSecurePreferences {
   private static final String LAST_APP_SUBSCRIPTION_ID_PREF = "last_app_subscription_id";
   private static final String NUMBER_FOR_APP_SUBSCRIPTION_ID_PREF = "number_for_app_subscription_id";
   private static final String ICC_ID_FOR_APP_SUBSCRIPTION_ID_PREF = "icc_id_for_app_subscription_id";
+  private static final String SUBSCRIPTION_MAPPING_CONFLICT_PREF = "subscription_mapping_conflict";
+  private static final String SUBSCRIPTION_RECOVERY_GENERATION_PREF = "subscription_recovery_generation";
   private static final String SUBSCRIPTIONS_PREF = "pref_subscriptions";
   private static final String SYSTEM_LOG_ENABLED_PREF = "pref_system_log_enabled";
   private static final String HIDE_PHONE_NUMBER_IN_CHAT_HEADER_PREF = "pref_hide_phone_number_in_chat_header";
@@ -341,6 +348,89 @@ public class SMSecurePreferences {
     return getStringPreference(context, ICC_ID_FOR_APP_SUBSCRIPTION_ID_PREF + "_" + subscriptionId, null);
   }
 
+  public static Map<Integer, String> getIccIdMappings(Context context) {
+    Map<Integer, String> result = new HashMap<>();
+    String prefix = ICC_ID_FOR_APP_SUBSCRIPTION_ID_PREF + "_";
+    for (Map.Entry<String, ?> entry : PreferenceManager.getDefaultSharedPreferences(context).getAll().entrySet()) {
+      if (!entry.getKey().startsWith(prefix) || !(entry.getValue() instanceof String)) continue;
+      try {
+        result.put(Integer.parseInt(entry.getKey().substring(prefix.length())), (String) entry.getValue());
+      } catch (NumberFormatException ignored) {
+        // Ignore malformed keys without logging SIM identifiers.
+      }
+    }
+    return result;
+  }
+
+  public static boolean hasSubscriptionMappingConflict(Context context, int appSubscriptionId) {
+    return getBooleanPreference(context, SUBSCRIPTION_MAPPING_CONFLICT_PREF + "_" + appSubscriptionId, false);
+  }
+
+  /** Publishes a complete mapping update together; existing keys and sessions are not moved. */
+  public static void applySubscriptionMappings(Context context, Map<Integer, Integer> deviceMappings,
+                                                Map<Integer, String> numbers, Map<Integer, String> iccIds,
+                                                Set<Integer> conflicts, int lastAppId) {
+    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+    for (Map.Entry<Integer, Integer> entry : deviceMappings.entrySet()) {
+      editor.putInt(APP_SUBSCRIPTION_ID_FOR_DEVICE_SUBSCRIPTION_ID_PREF + "_" + entry.getKey(), entry.getValue());
+    }
+    for (Map.Entry<Integer, String> entry : numbers.entrySet()) {
+      editor.putString(NUMBER_FOR_APP_SUBSCRIPTION_ID_PREF + "_" + entry.getKey(), entry.getValue());
+    }
+    for (Map.Entry<Integer, String> entry : iccIds.entrySet()) {
+      editor.putString(ICC_ID_FOR_APP_SUBSCRIPTION_ID_PREF + "_" + entry.getKey(), entry.getValue());
+    }
+    for (Integer appId : conflicts) {
+      editor.putBoolean(SUBSCRIPTION_MAPPING_CONFLICT_PREF + "_" + appId, true);
+    }
+    editor.putInt(LAST_APP_SUBSCRIPTION_ID_PREF, lastAppId);
+    editor.apply();
+  }
+
+  public static long getSubscriptionRecoveryGeneration(Context context) {
+    return getLongPreference(context, SUBSCRIPTION_RECOVERY_GENERATION_PREF, 0);
+  }
+
+  public static Map<Integer, Integer> getDeviceSubscriptionMappings(Context context) {
+    Map<Integer, Integer> result = new HashMap<>();
+    String prefix = APP_SUBSCRIPTION_ID_FOR_DEVICE_SUBSCRIPTION_ID_PREF + "_";
+    for (Map.Entry<String, ?> entry : PreferenceManager.getDefaultSharedPreferences(context).getAll().entrySet()) {
+      if (!entry.getKey().startsWith(prefix) || !(entry.getValue() instanceof Integer)) continue;
+      try {
+        result.put(Integer.parseInt(entry.getKey().substring(prefix.length())), (Integer) entry.getValue());
+      } catch (NumberFormatException ignored) {
+        // Ignore malformed keys without logging preference contents.
+      }
+    }
+    return result;
+  }
+
+  /** The caller validates the recovery snapshot while holding the subscription manager lock. */
+  public static void applySubscriptionRecovery(Context context, Map<Integer, Integer> mappings,
+                                               Set<Integer> removedDevices, Map<Integer, String> numbers,
+                                               Map<Integer, String> iccIds, int resolvedAppId,
+                                               int lastAppId, long generation) {
+    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+    for (Integer deviceId : removedDevices) {
+      editor.remove(APP_SUBSCRIPTION_ID_FOR_DEVICE_SUBSCRIPTION_ID_PREF + "_" + deviceId);
+    }
+    for (Map.Entry<Integer, Integer> entry : mappings.entrySet()) {
+      editor.putInt(APP_SUBSCRIPTION_ID_FOR_DEVICE_SUBSCRIPTION_ID_PREF + "_" + entry.getKey(), entry.getValue());
+    }
+    for (Map.Entry<Integer, String> entry : numbers.entrySet()) {
+      editor.putString(NUMBER_FOR_APP_SUBSCRIPTION_ID_PREF + "_" + entry.getKey(), entry.getValue());
+    }
+    for (Map.Entry<Integer, String> entry : iccIds.entrySet()) {
+      editor.putString(ICC_ID_FOR_APP_SUBSCRIPTION_ID_PREF + "_" + entry.getKey(), entry.getValue());
+    }
+    editor.remove(SUBSCRIPTION_MAPPING_CONFLICT_PREF + "_" + resolvedAppId);
+    editor.putInt(LAST_APP_SUBSCRIPTION_ID_PREF, lastAppId);
+    editor.putLong(SUBSCRIPTION_RECOVERY_GENERATION_PREF, generation);
+    // Retry key initialization at the next SIM-state check if scheduling is interrupted.
+    editor.putString(SUBSCRIPTIONS_PREF, "");
+    editor.apply();
+  }
+
   public static void setDeviceSubscriptions(Context context, String subscriptions) {
     setStringPreference(context, SUBSCRIPTIONS_PREF, subscriptions);
   }
@@ -384,47 +474,38 @@ public class SMSecurePreferences {
     setBooleanPreference(context, SYSTEM_LOG_ENABLED_PREF, enabled);
   }
 
-  @SuppressWarnings("deprecation")
   public static void setBooleanPreference(Context context, String key, boolean value) {
     PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).apply();
   }
 
-  @SuppressWarnings("deprecation")
   public static boolean getBooleanPreference(Context context, String key, boolean defaultValue) {
     return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, defaultValue);
   }
 
-  @SuppressWarnings("deprecation")
   public static void setStringPreference(Context context, String key, String value) {
     PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, value).apply();
   }
 
-  @SuppressWarnings("deprecation")
   public static String getStringPreference(Context context, String key, String defaultValue) {
     return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
   }
 
-  @SuppressWarnings("deprecation")
   private static int getIntegerPreference(Context context, String key, int defaultValue) {
     return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, defaultValue);
   }
 
-  @SuppressWarnings("deprecation")
   private static void setIntegerPreference(Context context, String key, int value) {
     PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, value).apply();
   }
 
-  @SuppressWarnings("deprecation")
   private static boolean setIntegerPreferenceBlocking(Context context, String key, int value) {
     return PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, value).commit();
   }
 
-  @SuppressWarnings("deprecation")
   private static long getLongPreference(Context context, String key, long defaultValue) {
     return PreferenceManager.getDefaultSharedPreferences(context).getLong(key, defaultValue);
   }
 
-  @SuppressWarnings("deprecation")
   private static void setLongPreference(Context context, String key, long value) {
     PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(key, value).apply();
   }

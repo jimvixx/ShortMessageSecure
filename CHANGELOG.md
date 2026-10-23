@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.4.1
+
+### Changed
+
+- Improved privacy-safe SMS diagnostics, including SIM routing and send-failure details.
+- Improved dual-SIM recovery and service-state monitoring.
+- Reorganized Settings with separate diagnostics, About, build information, and license sections.
+- Updated translations and dependencies.
+
+### Fixed
+
+- Retried transient modem send failures once.
+- Recovered stale SIM bindings safely.
+
 ## v1.4.0
 
 ### Added

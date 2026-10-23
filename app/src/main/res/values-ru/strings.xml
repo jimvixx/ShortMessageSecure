@@ -391,17 +391,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Посмотреть полный чат</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">Копировать журнал</string>
-    <string name="log_submit__button_share_link">Поделиться ссылкой</string>
     <string name="log_submit__button_share_logs">Поделиться журналом</string>
     <string name="log_submit_activity__collecting_logs">Сбор журнала…</string>
     <string name="log_submit_activity__log_collect_failed">Сбор журнала не удался.</string>
-    <string name="log_submit_activity__log_fetch_failed">Не удалось собрать или загрузить журнал.</string>
-    <string name="log_submit_activity__log_upload_failed">Не удалось загрузить журнал.</string>
-    <string name="log_submit_activity__log_uploaded">Журнал загружен. Ссылка скопирована в буфер обмена.</string>
     <string name="log_submit_activity__thanks">Спасибо за помощь!</string>
     <string name="log_submit_activity__uploading_logs">Загрузка журнала…</string>
-    <string name="log_submit_copied">Журнал скопирован.</string>
     <string name="log_submit_interrupted">Результат предыдущей загрузки недоступен. Чтобы отправить новый отчёт, повторно откройте отправку лога.</string>
     <string name="log_submit_no_internet">Нет подключения к интернету. Проверьте подключение и повторно откройте отправку лога.</string>
     <string name="log_submit_save_failed">Не удалось сохранить лог.</string>
@@ -489,8 +483,18 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">О приложении SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">SHA-256 подписи APK</string>
+    <string name="preferences__about_build_app_id">Идентификатор приложения</string>
+    <string name="preferences__about_build_information">Информация о версии и сборке</string>
+    <string name="preferences__about_build_source_commit">Комит исходного кода</string>
+    <string name="preferences__about_build_type">Тип сборки</string>
+    <string name="preferences__about_build_version_code">Код версии</string>
+    <string name="preferences__about_build_version_name">Название версии</string>
+    <string name="preferences__about_licenses_gpl">Общая публичная лицензия GNU версии 3.0</string>
+    <string name="preferences__about_licenses_third_party">Зависимости от сторонних компонентов</string>
+    <string name="preferences__about_licenses_third_party_summary">Лицензии на зависимости сохраняются вместе с исходными кодами.</string>
+    <string name="preferences__about_open_source_licenses">Лицензии с открытым исходным кодом</string>
     <string name="preferences__about_version">Версия <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">Дополнительные настройки</string>
     <string name="preferences__always_ask_for_sim_card">Всегда запрашивать SIM-карту</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Всегда спрашивать, какую SIM-карту использовать при отправке сообщений</string>
     <string name="preferences__appearance">Внешний вид</string>
@@ -500,11 +504,11 @@
     <string name="preferences__change_notification_sound">Изменить звук уведомления</string>
     <string name="preferences__change_passphrase">Изменить пароль</string>
     <string name="preferences__change_your_passphrase">Измените свой пароль</string>
-    <string name="preferences__chat_display">Отображение чата</string>
     <string name="preferences__chats">Чаты</string>
     <string name="preferences__complete_key_exchanges">Завершить обмен ключами</string>
     <string name="preferences__conversation_length_limit">Ограничение длины чата</string>
     <string name="preferences__dark_theme">Темный</string>
+    <string name="preferences__debug_diagnostics">Отладка и диагностика</string>
     <string name="preferences__delete_old_messages">Удалить старые сообщения</string>
     <string name="preferences__diagnostic_logging_level">Уровень диагностического ведения журнала</string>
     <string name="preferences__diagnostic_logging_level_summary">Управляет объемом диагностической информации, хранящейся в SMSecure.</string>
@@ -546,10 +550,11 @@
     <string name="preferences__notifications">Уведомления</string>
     <string name="preferences__one_time">Один раз</string>
     <string name="preferences__panic_button">Кнопка паники</string>
+    <string name="preferences__passphrase">Парольная фраза</string>
     <string name="preferences__play_inthread_notifications">Воспроизведение звукового уведомления при просмотре активного чата.</string>
     <string name="preferences__pref_timeout_interval_title">Интервал таймаута</string>
-    <string name="preferences__privacy">Конфиденциальность</string>
-    <string name="preferences__privacy_policy">Политика конфиденциальности</string>
+    <string name="preferences__privacy_policy">GitHub / Политика конфиденциальности</string>
+    <string name="preferences__privacy_security">Конфиденциальность</string>
     <string name="preferences__repeat_notification">Повторное уведомление</string>
     <string name="preferences__repeat_notification_number_times_select">Выберите количество повторений уведомления</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Запрашивать отчет о доставке для каждого отправленного SMS-сообщения</string>
@@ -558,6 +563,21 @@
     <string name="preferences__screen_security">Безопасность экрана</string>
     <string name="preferences__show_sent_time">Показать время отправки</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Показывать время отправки вместо времени получения для входящих сообщений</string>
+    <string name="preferences__sim_recovery_apply">Восстановить привязку</string>
+    <string name="preferences__sim_recovery_changed">Конфигурация SIM изменилась. Снова откройте восстановление и проверьте текущие SIM.</string>
+    <string name="preferences__sim_recovery_check_selection">Привязки SIM изменились. Проверьте выбранную SIM и снова нажмите «Отправить».</string>
+    <string name="preferences__sim_recovery_choose_group">Выберите SIM с конфликтом</string>
+    <string name="preferences__sim_recovery_choose_owner">Какая SIM должна сохранить прежние защищённые переписки?</string>
+    <string name="preferences__sim_recovery_confirm_message">Выбранная SIM сохранит прежние ключи и сеансы шифрования. Для остальных SIM из этой группы понадобится новый обмен ключами. История сообщений останется без изменений.\n\nОжидающие сообщения потребуется отправить повторно вручную. Перед повтором проверьте выбранную SIM. Сообщения, уже переданные Android, отозвать нельзя.</string>
+    <string name="preferences__sim_recovery_confirm_title">Восстановить привязку для %1$s?</string>
+    <string name="preferences__sim_recovery_failed">Не удалось восстановить привязки SIM. Откройте восстановление снова, чтобы проверить их текущее состояние.</string>
+    <string name="preferences__sim_recovery_keys_pending">Привязки SIM восстановлены, но подготовить новые ключи шифрования не удалось. Перезапустите SMSecure перед новым обменом ключами.</string>
+    <string name="preferences__sim_recovery_no_active">Информация об активных SIM недоступна. Проверьте разрешения для телефона и настройки SIM.</string>
+    <string name="preferences__sim_recovery_no_conflicts">Конфликтующих привязок SIM не обнаружено.</string>
+    <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+    <string name="preferences__sim_recovery_success">Привязки SIM восстановлены. Проверьте SIM перед повторной отправкой ожидающих сообщений вручную. Для остальных SIM из группы нужен новый обмен ключами.</string>
+    <string name="preferences__sim_recovery_summary">Устранение конфликтов SIM, мешающих отправке сообщений</string>
+    <string name="preferences__sim_recovery_title">Восстановить привязки SIM</string>
     <string name="preferences__sms_delivery_reports">Отчеты о доставке SMS</string>
     <string name="preferences__sms_delivery_reports_notification">Уведомление о доставке SMS</string>
     <string name="preferences__sound">Звук</string>

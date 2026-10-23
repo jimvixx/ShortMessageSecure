@@ -391,17 +391,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Переглянути повну розмову</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">Копіювати журнал</string>
-    <string name="log_submit__button_share_link">Поділитися посиланням</string>
     <string name="log_submit__button_share_logs">Поділитися журналом</string>
     <string name="log_submit_activity__collecting_logs">Збирання журналу…</string>
     <string name="log_submit_activity__log_collect_failed">Не вдалося зібрати журнал.</string>
-    <string name="log_submit_activity__log_fetch_failed">Не вдалося зібрати або завантажити журнал.</string>
-    <string name="log_submit_activity__log_upload_failed">Не вдалося завантажити журнал.</string>
-    <string name="log_submit_activity__log_uploaded">Журнал завантажено. Посилання скопійовано до буфера обміну.</string>
     <string name="log_submit_activity__thanks">Дякую за допомогу!</string>
     <string name="log_submit_activity__uploading_logs">Завантаження журналу…</string>
-    <string name="log_submit_copied">Журнал скопійовано.</string>
     <string name="log_submit_interrupted">Результат попереднього завантаження недоступний. Щоб надіслати новий звіт, повторно відкрийте надсилання логу.</string>
     <string name="log_submit_no_internet">Немає підключення до інтернету. Перевірте підключення та повторно відкрийте надсилання логу.</string>
     <string name="log_submit_save_failed">Не вдалося зберегти лог.</string>
@@ -489,8 +483,18 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">Про SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">SHA-256 підписувача APK</string>
+    <string name="preferences__about_build_app_id">Ідентифікатор додатка</string>
+    <string name="preferences__about_build_information">Інформація про версію та збірку</string>
+    <string name="preferences__about_build_source_commit">Коміт вихідного коду</string>
+    <string name="preferences__about_build_type">Тип збірки</string>
+    <string name="preferences__about_build_version_code">Код версії</string>
+    <string name="preferences__about_build_version_name">Назва версії</string>
+    <string name="preferences__about_licenses_gpl">Загальна публічна ліцензія GNU версії 3.0</string>
+    <string name="preferences__about_licenses_third_party">Залежності від сторонніх розробників</string>
+    <string name="preferences__about_licenses_third_party_summary">Ліцензії на залежності зберігаються разом із їхніми вихідними джерелами.</string>
+    <string name="preferences__about_open_source_licenses">Ліцензії на відкрите програмне забезпечення</string>
     <string name="preferences__about_version">Версія <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">Додаткові налаштування</string>
     <string name="preferences__always_ask_for_sim_card">Завжди запитувати SIM-карту</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Завжди запитувати, яку SIM-карту використовувати під час надсилання повідомлень</string>
     <string name="preferences__appearance">Зовнішній вигляд</string>
@@ -500,11 +504,11 @@
     <string name="preferences__change_notification_sound">Змінити звук сповіщення</string>
     <string name="preferences__change_passphrase">Змінити пароль</string>
     <string name="preferences__change_your_passphrase">Змініть свій пароль</string>
-    <string name="preferences__chat_display">Відображення чату</string>
     <string name="preferences__chats">Чати</string>
     <string name="preferences__complete_key_exchanges">Завершити обмін ключами</string>
     <string name="preferences__conversation_length_limit">Обмеження довжини розмови</string>
     <string name="preferences__dark_theme">Темний</string>
+    <string name="preferences__debug_diagnostics">Налагодження та діагностика</string>
     <string name="preferences__delete_old_messages">Видалити старі повідомлення</string>
     <string name="preferences__diagnostic_logging_level">Рівень діагностичного журналу</string>
     <string name="preferences__diagnostic_logging_level_summary">Визначає, скільки діагностичної інформації SMSecure зберігає внутрішньо.</string>
@@ -546,10 +550,11 @@
     <string name="preferences__notifications">Повідомлення</string>
     <string name="preferences__one_time">Один раз</string>
     <string name="preferences__panic_button">Кнопка паніки</string>
+    <string name="preferences__passphrase">Пароль</string>
     <string name="preferences__play_inthread_notifications">Відтворювати звук сповіщення під час перегляду активної розмови.</string>
     <string name="preferences__pref_timeout_interval_title">Інтервал очікування</string>
-    <string name="preferences__privacy">Конфіденційність</string>
-    <string name="preferences__privacy_policy">Політика конфіденційності</string>
+    <string name="preferences__privacy_policy">GitHub / Політика конфіденційності</string>
+    <string name="preferences__privacy_security">Конфіденційність</string>
     <string name="preferences__repeat_notification">Повторити сповіщення</string>
     <string name="preferences__repeat_notification_number_times_select">Виберіть кількість повторень сповіщення</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Запитуйте звіт про доставку для кожного SMS-повідомлення, яке ви надсилаєте</string>
@@ -558,6 +563,21 @@
     <string name="preferences__screen_security">Безпека екрану</string>
     <string name="preferences__show_sent_time">Показати час відправлення</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Показувати час відправлення замість часу отримання для вхідних повідомлень</string>
+    <string name="preferences__sim_recovery_apply">Відновити прив’язку</string>
+    <string name="preferences__sim_recovery_changed">Конфігурація SIM-карт змінилася. Відкрийте Recovery ще раз і перегляньте поточні SIM-карти.</string>
+    <string name="preferences__sim_recovery_check_selection">Змінено прив’язки SIM-карт. Перевірте вибрану SIM-карту, а потім натисніть «Надіслати» ще раз.</string>
+    <string name="preferences__sim_recovery_choose_group">Виберіть відповідні SIM-карти</string>
+    <string name="preferences__sim_recovery_choose_owner">На якій SIM-картці слід зберегти існуючі захищені розмови?</string>
+    <string name="preferences__sim_recovery_confirm_message">Вибрана SIM-картка збереже існуючі ключі шифрування та сесії. Для інших SIM-карток, на які це вплине, знадобиться обмін новими ключами. Історія повідомлень залишиться без змін.\n\nДля повідомлень, що очікують на обробку, знадобиться повторна спроба вручну. Перед повторною спробою перевірте вибрану SIM-картку. Повідомлення, які вже передано до Android, не можна відкликати.</string>
+    <string name="preferences__sim_recovery_confirm_title">Відновити прив’язку для %1$s?</string>
+    <string name="preferences__sim_recovery_failed">Не вдалося відновити прив’язки SIM-карт. Відкрийте «Відновлення» ще раз, щоб перевірити їхній поточний стан.</string>
+    <string name="preferences__sim_recovery_keys_pending">Прив’язки SIM-карт було відновлено, але нові ключі шифрування не вдалося ініціалізувати. Перезапустіть SMSecure перед початком нового обміну ключами.</string>
+    <string name="preferences__sim_recovery_no_active">Інформація про активну SIM-карту відсутня. Перевірте дозволи телефону та налаштування SIM-карти.</string>
+    <string name="preferences__sim_recovery_no_conflicts">Конфліктів прив’язок SIM-карт не виявлено.</string>
+    <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+    <string name="preferences__sim_recovery_success">Зв’язки SIM-карт відновлено. Перевірте SIM-карту, перш ніж вручну повторити спробу відправлення повідомлень, що знаходяться в черзі. Інші SIM-карти, яких це стосується, потребують нового обміну ключами.</string>
+    <string name="preferences__sim_recovery_summary">Вирішення конфліктів SIM-карт, що заважають надсиланню повідомлень</string>
+    <string name="preferences__sim_recovery_title">Відновити прив’язки SIM-карт</string>
     <string name="preferences__sms_delivery_reports">Звіти про доставку SMS</string>
     <string name="preferences__sms_delivery_reports_notification">Повідомлення про підтвердження доставки SMS</string>
     <string name="preferences__sound">Звук</string>

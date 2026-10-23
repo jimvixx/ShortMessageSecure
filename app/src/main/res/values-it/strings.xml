@@ -382,17 +382,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Mostra l\’intera conversazione</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">Copia log</string>
-    <string name="log_submit__button_share_link">Condividi link</string>
     <string name="log_submit__button_share_logs">Condividi log</string>
     <string name="log_submit_activity__collecting_logs">Raccolta dei log…</string>
     <string name="log_submit_activity__log_collect_failed">Impossibile raccogliere il log.</string>
-    <string name="log_submit_activity__log_fetch_failed">Impossibile raccogliere o caricare il log.</string>
-    <string name="log_submit_activity__log_upload_failed">Caricamento del log non riuscito.</string>
-    <string name="log_submit_activity__log_uploaded">Log caricato. Link copiato negli appunti.</string>
     <string name="log_submit_activity__thanks">Grazie dell\’aiuto!</string>
     <string name="log_submit_activity__uploading_logs">Caricamento del log in corso…</string>
-    <string name="log_submit_copied">Log copiato.</string>
     <string name="log_submit_interrupted">Il risultato del caricamento precedente non è disponibile. Riapri "Invia log" se desideri inviare un nuovo rapporto.</string>
     <string name="log_submit_no_internet">Nessuna connessione a Internet. Verifica la connessione, quindi riapri "Invia log" per riprovare.</string>
     <string name="log_submit_save_failed">Impossibile salvare il log.</string>
@@ -477,8 +471,18 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">Informazioni su SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">Firmatore APK SHA-256</string>
+    <string name="preferences__about_build_app_id">ID dell’applicazione</string>
+    <string name="preferences__about_build_information">Informazioni su versione e build</string>
+    <string name="preferences__about_build_source_commit">Commit del codice sorgente</string>
+    <string name="preferences__about_build_type">Tipo di build</string>
+    <string name="preferences__about_build_version_code">Codice versione</string>
+    <string name="preferences__about_build_version_name">Nome della versione</string>
+    <string name="preferences__about_licenses_gpl">Licenza Pubblica Generale GNU v3.0</string>
+    <string name="preferences__about_licenses_third_party">Dipendenze di terze parti</string>
+    <string name="preferences__about_licenses_third_party_summary">Le licenze delle dipendenze vengono mantenute con le rispettive fonti a monte.</string>
+    <string name="preferences__about_open_source_licenses">Licenze open source</string>
     <string name="preferences__about_version">Versione <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">Avanzate</string>
     <string name="preferences__always_ask_for_sim_card">Richiedi sempre la scheda SIM</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Chiedi sempre quale SIM utilizzare quando invii messaggi</string>
     <string name="preferences__appearance">Aspetto</string>
@@ -488,11 +492,11 @@
     <string name="preferences__change_notification_sound">Modifica suono di notifica</string>
     <string name="preferences__change_passphrase">Modifica passphrase</string>
     <string name="preferences__change_your_passphrase">Cambia la tua passphrase</string>
-    <string name="preferences__chat_display">Visualizzazione chat</string>
     <string name="preferences__chats">Chat</string>
     <string name="preferences__complete_key_exchanges">Completare lo scambio di chiavi</string>
     <string name="preferences__conversation_length_limit">Limite di lunghezza della conversazione</string>
     <string name="preferences__dark_theme">Scuro</string>
+    <string name="preferences__debug_diagnostics">Debug e diagnostica</string>
     <string name="preferences__delete_old_messages">Elimina i messaggi vecchi</string>
     <string name="preferences__diagnostic_logging_level">Livello di registrazione diagnostica</string>
     <string name="preferences__diagnostic_logging_level_summary">Controlla la quantità di informazioni diagnostiche che SMSecure memorizza internamente.</string>
@@ -533,10 +537,11 @@
     <string name="preferences__notifications">Notifiche</string>
     <string name="preferences__one_time">Una volta</string>
     <string name="preferences__panic_button">Pulsante di emergenza</string>
+    <string name="preferences__passphrase">Passphrase</string>
     <string name="preferences__play_inthread_notifications">Riproduci il suono di notifica durante la visualizzazione di una conversazione attiva.</string>
     <string name="preferences__pref_timeout_interval_title">Intervallo di timeout</string>
-    <string name="preferences__privacy">Privacy</string>
-    <string name="preferences__privacy_policy">Informativa sulla privacy</string>
+    <string name="preferences__privacy_policy">GitHub / Informativa sulla privacy</string>
+    <string name="preferences__privacy_security">Privacy</string>
     <string name="preferences__repeat_notification">Notifica di ripetizione</string>
     <string name="preferences__repeat_notification_number_times_select">Seleziona il numero di volte in cui ripetere la notifica</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Richiedi un rapporto di consegna per ogni messaggio SMS inviato</string>
@@ -545,6 +550,21 @@
     <string name="preferences__screen_security">Sicurezza dello schermo</string>
     <string name="preferences__show_sent_time">Mostrare la data dell\’invio</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Mostra l\’ora dell\’invio al posto dell\’ora di ricevimento per i messaggi in entrata</string>
+    <string name="preferences__sim_recovery_apply">Ripristina associazione</string>
+    <string name="preferences__sim_recovery_changed">La configurazione della SIM è stata modificata. Apri nuovamente la modalità di ripristino e controlla le SIM attualmente presenti.</string>
+    <string name="preferences__sim_recovery_check_selection">I collegamenti SIM sono stati modificati. Verifica la SIM selezionata, quindi tocca nuovamente Invia.</string>
+    <string name="preferences__sim_recovery_choose_group">Scegli le SIM interessate</string>
+    <string name="preferences__sim_recovery_choose_owner">Quale SIM dovrebbe conservare le conversazioni protette esistenti?</string>
+    <string name="preferences__sim_recovery_confirm_message">La SIM selezionata manterrà le chiavi di crittografia e le sessioni esistenti. Le altre SIM interessate richiederanno un nuovo scambio di chiavi. La cronologia dei messaggi rimane invariata.\n\nI messaggi in sospeso richiederanno un nuovo tentativo manuale. Controllare la SIM selezionata prima di riprovare. I messaggi già trasmessi ad Android non possono essere recuperati.</string>
+    <string name="preferences__sim_recovery_confirm_title">Ripristinare il collegamento per %1$s?</string>
+    <string name="preferences__sim_recovery_failed">Impossibile ripristinare i collegamenti della SIM. Apri nuovamente la funzione di ripristino per verificare il loro stato attuale.</string>
+    <string name="preferences__sim_recovery_keys_pending">I collegamenti SIM sono stati ripristinati, ma non è stato possibile inizializzare le nuove chiavi di crittografia. Riavviare SMSecure prima di avviare un nuovo scambio di chiavi.</string>
+    <string name="preferences__sim_recovery_no_active">Non sono disponibili informazioni sulla SIM attiva. Verifica le autorizzazioni del telefono e le impostazioni della SIM.</string>
+    <string name="preferences__sim_recovery_no_conflicts">Non sono stati rilevati collegamenti SIM in conflitto.</string>
+    <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+    <string name="preferences__sim_recovery_success">Collegamenti SIM ripristinati. Controllare la SIM prima di riprovare manualmente a inviare i messaggi in sospeso. Le altre SIM interessate richiedono un nuovo scambio di chiavi.</string>
+    <string name="preferences__sim_recovery_summary">Risolvi i conflitti della SIM che impediscono l’invio dei messaggi</string>
+    <string name="preferences__sim_recovery_title">Ripristina i collegamenti SIM</string>
     <string name="preferences__sms_delivery_reports">Rapporti di consegna SMS</string>
     <string name="preferences__sms_delivery_reports_notification">Notifica dei rapporti di consegna SMS</string>
     <string name="preferences__sound">Suono</string>

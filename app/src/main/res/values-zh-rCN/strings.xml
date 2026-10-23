@@ -364,17 +364,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">查看完整对话</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">复制日志</string>
-    <string name="log_submit__button_share_link">分享链接</string>
     <string name="log_submit__button_share_logs">分享日志</string>
     <string name="log_submit_activity__collecting_logs">正在收集日志……</string>
     <string name="log_submit_activity__log_collect_failed">无法收集日志。</string>
-    <string name="log_submit_activity__log_fetch_failed">无法收集或上传日志。</string>
-    <string name="log_submit_activity__log_upload_failed">日志上传失败。</string>
-    <string name="log_submit_activity__log_uploaded">日志已上传。链接已复制到剪贴板。</string>
     <string name="log_submit_activity__thanks">感谢您的帮助！</string>
     <string name="log_submit_activity__uploading_logs">正在上传日志…</string>
-    <string name="log_submit_copied">日志已复制。</string>
     <string name="log_submit_interrupted">无法获取之前的上传结果。如需发送新报告，请重新打开“提交日志”。</string>
     <string name="log_submit_no_internet">没有互联网连接。请检查网络连接，然后重新打开“提交日志”以重试。</string>
     <string name="log_submit_save_failed">无法保存日志。</string>
@@ -453,8 +447,18 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">关于 SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">APK 签名者 SHA-256</string>
+    <string name="preferences__about_build_app_id">应用 ID</string>
+    <string name="preferences__about_build_information">版本与构建信息</string>
+    <string name="preferences__about_build_source_commit">源代码提交</string>
+    <string name="preferences__about_build_type">构建类型</string>
+    <string name="preferences__about_build_version_code">版本代码</string>
+    <string name="preferences__about_build_version_name">版本名称</string>
+    <string name="preferences__about_licenses_gpl">GNU 通用公共许可证 v3.0</string>
+    <string name="preferences__about_licenses_third_party">第三方依赖项</string>
+    <string name="preferences__about_licenses_third_party_summary">依赖项的许可证随其上游来源一并保留。</string>
+    <string name="preferences__about_open_source_licenses">开源许可证</string>
     <string name="preferences__about_version">版本 <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">高级</string>
     <string name="preferences__always_ask_for_sim_card">始终询问 SIM 卡</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">发送消息时始终询问要使用的 SIM 卡</string>
     <string name="preferences__appearance">外观</string>
@@ -464,11 +468,11 @@
     <string name="preferences__change_notification_sound">更改通知声音</string>
     <string name="preferences__change_passphrase">更改密码短语</string>
     <string name="preferences__change_your_passphrase">更改您的密码短语</string>
-    <string name="preferences__chat_display">聊天显示</string>
     <string name="preferences__chats">聊天</string>
     <string name="preferences__complete_key_exchanges">完成密钥交换</string>
     <string name="preferences__conversation_length_limit">对话长度限制</string>
     <string name="preferences__dark_theme">深色</string>
+    <string name="preferences__debug_diagnostics">调试与诊断</string>
     <string name="preferences__delete_old_messages">删除旧消息</string>
     <string name="preferences__diagnostic_logging_level">诊断日志级别</string>
     <string name="preferences__diagnostic_logging_level_summary">控制 SMSecure 在内部存储的诊断信息量。</string>
@@ -507,10 +511,11 @@
     <string name="preferences__notifications">通知</string>
     <string name="preferences__one_time">一次</string>
     <string name="preferences__panic_button">紧急按钮</string>
+    <string name="preferences__passphrase">密码短语</string>
     <string name="preferences__play_inthread_notifications">在查看活跃对话时播放通知音效。</string>
     <string name="preferences__pref_timeout_interval_title">超时间隔</string>
-    <string name="preferences__privacy">隐私</string>
-    <string name="preferences__privacy_policy">隐私政策</string>
+    <string name="preferences__privacy_policy">GitHub / 隐私政策</string>
+    <string name="preferences__privacy_security">隐私</string>
     <string name="preferences__repeat_notification">重复通知</string>
     <string name="preferences__repeat_notification_number_times_select">请选择通知重复的次数</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">为每条发送的SMS请求送达报告</string>
@@ -519,6 +524,21 @@
     <string name="preferences__screen_security">屏幕安全</string>
     <string name="preferences__show_sent_time">显示发送时间</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">在显示收到的消息时，显示发送时间而非接收时间</string>
+    <string name="preferences__sim_recovery_apply">恢复绑定</string>
+    <string name="preferences__sim_recovery_changed">SIM 卡配置已更改。请重新打开恢复模式并查看当前的 SIM 卡。</string>
+    <string name="preferences__sim_recovery_check_selection">SIM 卡绑定已更改。请检查所选的 SIM 卡，然后再次点击“发送”。</string>
+    <string name="preferences__sim_recovery_choose_group">选择受影响的 SIM 卡</string>
+    <string name="preferences__sim_recovery_choose_owner">哪张 SIM 卡应保留现有的安全对话？</string>
+    <string name="preferences__sim_recovery_confirm_message">所选的 SIM 卡将保留现有的加密密钥和会话。其他受影响的 SIM 卡需要进行新的密钥交换。消息历史记录保持不变。\n\n待处理的消息需要手动重试。重试前请检查所选的 SIM 卡。已传递给 Android 的消息无法撤回。</string>
+    <string name="preferences__sim_recovery_confirm_title">是否恢复 %1$s 的绑定？</string>
+    <string name="preferences__sim_recovery_failed">无法恢复 SIM 卡绑定。请再次打开恢复模式以检查其当前状态。</string>
+    <string name="preferences__sim_recovery_keys_pending">SIM 绑定已恢复，但无法初始化新的加密密钥。在开始新的密钥交换之前，请重新启动 SMSecure。</string>
+    <string name="preferences__sim_recovery_no_active">没有可用的 SIM 卡信息。请检查手机权限和 SIM 卡设置。</string>
+    <string name="preferences__sim_recovery_no_conflicts">未检测到冲突的 SIM 绑定。</string>
+    <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+    <string name="preferences__sim_recovery_success">SIM 绑定已恢复。在手动重试待处理消息之前，请检查 SIM 卡。其他受影响的 SIM 卡需要进行新的密钥交换。</string>
+    <string name="preferences__sim_recovery_summary">解决导致无法发送消息的 SIM 卡冲突</string>
+    <string name="preferences__sim_recovery_title">恢复 SIM 卡绑定</string>
     <string name="preferences__sms_delivery_reports">SMS送达报告</string>
     <string name="preferences__sms_delivery_reports_notification">SMS送达报告通知</string>
     <string name="preferences__sound">声音</string>

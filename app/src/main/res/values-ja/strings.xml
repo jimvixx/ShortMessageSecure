@@ -364,17 +364,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">会話全文を表示</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">ログをコピー</string>
-  <string name="log_submit__button_share_link">リンクを共有</string>
   <string name="log_submit__button_share_logs">ログを共有</string>
   <string name="log_submit_activity__collecting_logs">ログを収集中…</string>
   <string name="log_submit_activity__log_collect_failed">ログの収集に失敗しました。</string>
-  <string name="log_submit_activity__log_fetch_failed">ログの収集またはアップロードに失敗しました。</string>
-  <string name="log_submit_activity__log_upload_failed">ログのアップロードに失敗しました。</string>
-  <string name="log_submit_activity__log_uploaded">ログがアップロードされました。リンクがクリップボードにコピーされました。</string>
   <string name="log_submit_activity__thanks">ご協力ありがとうございます！</string>
   <string name="log_submit_activity__uploading_logs">ログをアップロード中…</string>
-  <string name="log_submit_copied">ログがコピーされました。</string>
   <string name="log_submit_interrupted">前回のアップロード結果を確認できません。新しいレポートを送信する場合は、「ログの送信」を再度開いてください。</string>
   <string name="log_submit_no_internet">インターネットに接続されていません。接続状態を確認してから、「ログを送信」を再度開いて、もう一度お試しください。</string>
   <string name="log_submit_save_failed">ログを保存できませんでした。</string>
@@ -453,8 +447,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">SMSecureについて</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK署名者のSHA-256</string>
+  <string name="preferences__about_build_app_id">アプリケーション ID</string>
+  <string name="preferences__about_build_information">バージョンおよびビルド情報</string>
+  <string name="preferences__about_build_source_commit">ソースコミット</string>
+  <string name="preferences__about_build_type">ビルドタイプ</string>
+  <string name="preferences__about_build_version_code">バージョンコード</string>
+  <string name="preferences__about_build_version_name">バージョン名</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">サードパーティの依存関係</string>
+  <string name="preferences__about_licenses_third_party_summary">依存関係のライセンスは、アップストリームのソースとともに保持されます。</string>
+  <string name="preferences__about_open_source_licenses">オープンソースライセンス</string>
   <string name="preferences__about_version">バージョン <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">詳細</string>
   <string name="preferences__always_ask_for_sim_card">常にSIMカードの確認を求める</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">メッセージ送信時に使用するSIMカードを常に確認する</string>
   <string name="preferences__appearance">外観</string>
@@ -464,11 +468,11 @@
   <string name="preferences__change_notification_sound">通知音を変更</string>
   <string name="preferences__change_passphrase">パスフレーズの変更</string>
   <string name="preferences__change_your_passphrase">パスフレーズを変更してください</string>
-  <string name="preferences__chat_display">チャットの表示</string>
   <string name="preferences__chats">チャット</string>
   <string name="preferences__complete_key_exchanges">鍵交換を完了する</string>
   <string name="preferences__conversation_length_limit">会話の長さの制限</string>
   <string name="preferences__dark_theme">ダーク</string>
+  <string name="preferences__debug_diagnostics">デバッグと診断</string>
   <string name="preferences__delete_old_messages">古いメッセージを削除</string>
   <string name="preferences__diagnostic_logging_level">診断ログレベル</string>
   <string name="preferences__diagnostic_logging_level_summary">SMSecureが内部に保存する診断情報の量を制御します。</string>
@@ -507,10 +511,11 @@
   <string name="preferences__notifications">通知</string>
   <string name="preferences__one_time">1回</string>
   <string name="preferences__panic_button">パニックボタン</string>
+  <string name="preferences__passphrase">パスフレーズ</string>
   <string name="preferences__play_inthread_notifications">アクティブな会話を表示しているときに通知音を再生します。</string>
   <string name="preferences__pref_timeout_interval_title">タイムアウト間隔</string>
-  <string name="preferences__privacy">プライバシー</string>
-  <string name="preferences__privacy_policy">プライバシーポリシー</string>
+  <string name="preferences__privacy_policy">GitHub / プライバシーポリシー</string>
+  <string name="preferences__privacy_security">プライバシー</string>
   <string name="preferences__repeat_notification">通知の繰り返し</string>
   <string name="preferences__repeat_notification_number_times_select">通知の繰り返し回数を選択してください</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">送信する各SMSメッセージについて配信レポートをリクエストする</string>
@@ -519,6 +524,21 @@
   <string name="preferences__screen_security">画面のセキュリティ</string>
   <string name="preferences__show_sent_time">送信日時を表示</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">受信メッセージについて、受信時刻ではなく送信時刻を表示する</string>
+  <string name="preferences__sim_recovery_apply">バインディングの復元</string>
+  <string name="preferences__sim_recovery_changed">SIMの設定が変更されました。リカバリーを再度開き、現在のSIMを確認してください。</string>
+  <string name="preferences__sim_recovery_check_selection">SIMの紐付けが変更されました。選択されているSIMを確認してから、もう一度「送信」をタップしてください。</string>
+  <string name="preferences__sim_recovery_choose_group">対象となるSIMカードを選択してください</string>
+  <string name="preferences__sim_recovery_choose_owner">既存のセキュアな会話をどのSIMに残すべきですか？</string>
+  <string name="preferences__sim_recovery_confirm_message">選択したSIMカードは、既存の暗号化キーとセッションを維持します。その他の影響を受けるSIMカードについては、新しいキー交換が必要になります。メッセージ履歴は変更されません。\n\n保留中のメッセージについては、手動で再送信する必要があります。再送信する前に、選択したSIMカードを確認してください。すでにAndroidに送信されたメッセージは取り消すことができません。</string>
+  <string name="preferences__sim_recovery_confirm_title">%1$s のバインディングを復元しますか？</string>
+  <string name="preferences__sim_recovery_failed">SIMのバインディングを復元できませんでした。現在の状態を確認するには、リカバリを再度開いてください。</string>
+  <string name="preferences__sim_recovery_keys_pending">SIM バインディングは復元されましたが、新しい暗号化キーを初期化できませんでした。新しいキー交換を開始する前に、SMSecure を再起動してください。</string>
+  <string name="preferences__sim_recovery_no_active">有効なSIMカードの情報がありません。端末の権限とSIMカードの設定を確認してください。</string>
+  <string name="preferences__sim_recovery_no_conflicts">競合する SIM バインディングは検出されませんでした。</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">SIMのバインディングが復元されました。保留中のメッセージを手動で再送信する前に、SIMを確認してください。影響を受けた他のSIMについては、新しい鍵交換が必要です。</string>
+  <string name="preferences__sim_recovery_summary">メッセージの送信を妨げる SIM の競合を解決する</string>
+  <string name="preferences__sim_recovery_title">SIM バインディングを復元する</string>
   <string name="preferences__sms_delivery_reports">SMS配信レポート</string>
   <string name="preferences__sms_delivery_reports_notification">SMS配信レポート通知</string>
   <string name="preferences__sound">サウンド</string>

@@ -20,21 +20,26 @@ package org.jimvixx.smsecure.preferences;
 import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import org.jimvixx.smsecure.ApplicationPreferencesActivity;
 import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.preferences.widgets.SMSecurePreference;
+import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.Util;
+import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 
 import java.util.Locale;
 
@@ -43,6 +48,7 @@ public class MessagesPreferenceFragment extends PreferenceFragmentCompat {
   private static final String KITKAT_DEFAULT_PREF = "pref_set_default";
 
   private ActivityResultLauncher<Intent> defaultSmsLauncher;
+  private SimRecoveryController simRecovery;
 
   @Nullable
   private static Intent buildRequestDefaultSmsIntent(Context context) {
@@ -89,6 +95,14 @@ public class MessagesPreferenceFragment extends PreferenceFragmentCompat {
   @Override
   public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
     setPreferencesFromResource(R.xml.preferences_messages, rootKey);
+
+    simRecovery = new SimRecoveryController(this);
+    Preference recovery = findPreference("pref_sim_recovery");
+    if (recovery != null) recovery.setOnPreferenceClickListener(preference -> {
+      simRecovery.show();
+      return true;
+    });
+    updateAskForSimPreferenceVisibility();
   }
 
   @Override
@@ -104,6 +118,19 @@ public class MessagesPreferenceFragment extends PreferenceFragmentCompat {
     }
 
     initializePlatformSpecificOptions();
+    updateAskForSimPreferenceVisibility();
+  }
+
+  @Override
+  public void onPause() {
+    if (simRecovery != null) simRecovery.dismiss();
+    super.onPause();
+  }
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig) {
+    if (simRecovery != null) simRecovery.dismiss();
+    super.onConfigurationChanged(newConfig);
   }
 
   private void initializePlatformSpecificOptions() {
@@ -137,6 +164,19 @@ public class MessagesPreferenceFragment extends PreferenceFragmentCompat {
         }
         return true;
       });
+    }
+  }
+
+  private void updateAskForSimPreferenceVisibility() {
+    if (getActivity() == null) return;
+
+    int simCount = SubscriptionManagerCompat.from(getActivity())
+            .getActiveSubscriptionInfoList()
+            .size();
+
+    Preference askForSimPref = findPreference(SMSecurePreferences.ASK_FOR_SIM_CARD);
+    if (askForSimPref != null) {
+      askForSimPref.setVisible(simCount > 1);
     }
   }
 

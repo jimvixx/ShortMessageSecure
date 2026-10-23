@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Volledig gesprek bekijken</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Log kopiëren</string>
-  <string name="log_submit__button_share_link">Link delen</string>
   <string name="log_submit__button_share_logs">Log delen</string>
   <string name="log_submit_activity__collecting_logs">Logboek verzamelen…</string>
   <string name="log_submit_activity__log_collect_failed">Het verzamelen van het logboek is mislukt.</string>
-  <string name="log_submit_activity__log_fetch_failed">Het verzamelen of uploaden van het logboek is mislukt.</string>
-  <string name="log_submit_activity__log_upload_failed">Logboek uploaden mislukt.</string>
-  <string name="log_submit_activity__log_uploaded">Logboek geüpload. Link naar klembord gekopieerd.</string>
   <string name="log_submit_activity__thanks">Bedankt voor je hulp!</string>
   <string name="log_submit_activity__uploading_logs">Logboek uploaden…</string>
-  <string name="log_submit_copied">Log gekopieerd.</string>
   <string name="log_submit_interrupted">Het resultaat van de vorige upload is niet beschikbaar. Open ’Log indienen’ opnieuw als u een nieuw rapport wilt verzenden.</string>
   <string name="log_submit_no_internet">Geen internetverbinding. Controleer uw verbinding en open vervolgens ’Log indienen’ opnieuw om het nog eens te proberen.</string>
   <string name="log_submit_save_failed">Het logboek kon niet worden opgeslagen.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Over SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">SHA-256 van de APK-ondertekenaar</string>
+  <string name="preferences__about_build_app_id">Applicatie-ID</string>
+  <string name="preferences__about_build_information">Versie- en build-informatie</string>
+  <string name="preferences__about_build_source_commit">Broncommit</string>
+  <string name="preferences__about_build_type">Buildtype</string>
+  <string name="preferences__about_build_version_code">Versiecode</string>
+  <string name="preferences__about_build_version_name">Versienaam</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">Afhankelijkheden van derden</string>
+  <string name="preferences__about_licenses_third_party_summary">Licenties voor afhankelijkheden worden behouden met hun upstream-bronnen.</string>
+  <string name="preferences__about_open_source_licenses">Open-source-licenties</string>
   <string name="preferences__about_version">Versie <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Geavanceerd</string>
   <string name="preferences__always_ask_for_sim_card">Altijd om SIM-kaart vragen</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Vraag altijd welke SIM-kaart moet worden gebruikt bij het verzenden van berichten</string>
   <string name="preferences__appearance">Uiterlijk</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Meldingsgeluid wijzigen</string>
   <string name="preferences__change_passphrase">Wachtwoord wijzigen</string>
   <string name="preferences__change_your_passphrase">Wijzig uw wachtwoordzin</string>
-  <string name="preferences__chat_display">Chatweergave</string>
   <string name="preferences__chats">Chats</string>
   <string name="preferences__complete_key_exchanges">Voltooi sleuteluitwisselingen</string>
   <string name="preferences__conversation_length_limit">Maximale lengte van een gesprek</string>
   <string name="preferences__dark_theme">Donker</string>
+  <string name="preferences__debug_diagnostics">Foutopsporing en diagnostiek</string>
   <string name="preferences__delete_old_messages">Oude berichten verwijderen</string>
   <string name="preferences__diagnostic_logging_level">Diagnostisch logboekniveau</string>
   <string name="preferences__diagnostic_logging_level_summary">Bepaalt hoeveel diagnostische informatie SMSecure intern opslaat.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Meldingen</string>
   <string name="preferences__one_time">Eén keer</string>
   <string name="preferences__panic_button">Paniekknop</string>
+  <string name="preferences__passphrase">Wachtwoordzin</string>
   <string name="preferences__play_inthread_notifications">Speel een meldingsgeluid af bij het bekijken van een actief gesprek.</string>
   <string name="preferences__pref_timeout_interval_title">Time-outinterval</string>
-  <string name="preferences__privacy">Privacy</string>
-  <string name="preferences__privacy_policy">Privacybeleid</string>
+  <string name="preferences__privacy_policy">GitHub / Privacybeleid</string>
+  <string name="preferences__privacy_security">Privacy</string>
   <string name="preferences__repeat_notification">Herhaal melding</string>
   <string name="preferences__repeat_notification_number_times_select">Selecteer het aantal keren dat de melding wordt herhaald</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Vraag een bezorgrapport aan voor elk SMS-bericht dat u verstuurt</string>
@@ -532,6 +537,21 @@
   <string name="preferences__screen_security">Beveiliging van het scherm</string>
   <string name="preferences__show_sent_time">Verzendtijd weergeven</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Toon verzendtijd in plaats van ontvangsttijd voor inkomende berichten</string>
+  <string name="preferences__sim_recovery_apply">Binding herstellen</string>
+  <string name="preferences__sim_recovery_changed">De SIM-configuratie is gewijzigd. Open Recovery opnieuw en controleer de huidige SIM-kaarten.</string>
+  <string name="preferences__sim_recovery_check_selection">De SIM-koppelingen zijn gewijzigd. Controleer de geselecteerde SIM en tik vervolgens nogmaals op Verzenden.</string>
+  <string name="preferences__sim_recovery_choose_group">Kies de betreffende SIM-kaarten</string>
+  <string name="preferences__sim_recovery_choose_owner">Op welke SIM-kaart moeten de bestaande beveiligde gesprekken worden bewaard?</string>
+  <string name="preferences__sim_recovery_confirm_message">De geselecteerde SIM behoudt de bestaande versleutelingssleutels en sessies. Voor andere betrokken SIM-kaarten is een nieuwe sleuteluitwisseling nodig. De berichtengeschiedenis blijft ongewijzigd.\n\nBerichten in de wachtrij moeten handmatig opnieuw worden verzonden. Controleer de geselecteerde SIM-kaart voordat u het opnieuw probeert. Berichten die al aan Android zijn doorgegeven, kunnen niet worden teruggeroepen.</string>
+  <string name="preferences__sim_recovery_confirm_title">De koppeling voor %1$s herstellen?</string>
+  <string name="preferences__sim_recovery_failed">De SIM-koppelingen konden niet worden hersteld. Open ’Herstel’ opnieuw om de huidige status te controleren.</string>
+  <string name="preferences__sim_recovery_keys_pending">De SIM-koppelingen zijn hersteld, maar er konden geen nieuwe versleutelingssleutels worden geïnitialiseerd. Start SMSecure opnieuw op voordat u een nieuwe sleuteluitwisseling start.</string>
+  <string name="preferences__sim_recovery_no_active">Er is geen informatie over actieve SIM-kaarten beschikbaar. Controleer de machtigingen van de telefoon en de instellingen van de SIM-kaart.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Er zijn geen conflicterende SIM-koppelingen gedetecteerd.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">SIM-koppelingen hersteld. Controleer de SIM-kaart voordat u handmatig opnieuw probeert om in behandeling zijnde berichten te verzenden. Voor andere betrokken SIM-kaarten is een nieuwe sleuteluitwisseling nodig.</string>
+  <string name="preferences__sim_recovery_summary">Los SIM-conflicten op die het verzenden van berichten verhinderen</string>
+  <string name="preferences__sim_recovery_title">SIM-koppelingen herstellen</string>
   <string name="preferences__sms_delivery_reports">SMS-bezorgingsrapporten</string>
   <string name="preferences__sms_delivery_reports_notification">Melding over SMS-bezorgingsrapporten</string>
   <string name="preferences__sound">Geluid</string>

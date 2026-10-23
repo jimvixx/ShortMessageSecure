@@ -1,5 +1,23 @@
+/*
+ * Copyright (C) 2026 Jimvixx
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.jimvixx.smsecure.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -10,10 +28,14 @@ public final class SmsSendAttemptTracker {
 
   private static final String PREFERENCES_NAME = "sms_send_attempts";
   private static final String KEY_PREFIX = "message_";
+  private static final String RIL_RETRY_KEY_PREFIX = "ril_retry_";
+  private static final int MAX_AUTOMATIC_RIL_RETRIES = 1;
 
   private SmsSendAttemptTracker() {
   }
 
+  // Persist before dispatch: a sent-result callback may arrive after process recreation.
+  @SuppressLint("ApplySharedPref")
   public static synchronized void startAttempt(Context context, long messageId,
                                                String attemptId, int partsTotal) {
     getPreferences(context).edit()
@@ -26,10 +48,25 @@ public final class SmsSendAttemptTracker {
     State state = State.deserialize(preferences.getString(getKey(messageId), null));
 
     if (state != null && state.attemptId.equals(attemptId)) {
-      preferences.edit().remove(getKey(messageId)).commit();
+      preferences.edit().remove(getKey(messageId)).apply();
     }
   }
 
+  public static synchronized boolean claimRilRetry(Context context, long messageId) {
+    SharedPreferences preferences = getPreferences(context);
+    String key = getRilRetryKey(messageId);
+    int retries = preferences.getInt(key, 0);
+    if (retries >= MAX_AUTOMATIC_RIL_RETRIES) return false;
+
+    return preferences.edit().putInt(key, retries + 1).commit();
+  }
+
+  public static synchronized void clearRilRetries(Context context, long messageId) {
+    getPreferences(context).edit().remove(getRilRetryKey(messageId)).apply();
+  }
+
+  // Persist deduplication before queuing the callback job, so redeliveries stay idempotent.
+  @SuppressLint("ApplySharedPref")
   public static synchronized boolean shouldProcessCallback(Context context, long messageId,
                                                            String attemptId, int partIndex,
                                                            int partsTotal,
@@ -46,9 +83,9 @@ public final class SmsSendAttemptTracker {
     CallbackDecision decision = state.record(partIndex, connectivityFailure);
 
     if (state.isComplete()) {
-      preferences.edit().remove(key).commit();
+      preferences.edit().remove(key).apply();
     } else {
-      preferences.edit().putString(key, state.serialize()).commit();
+      preferences.edit().putString(key, state.serialize()).apply();
     }
 
     return decision == CallbackDecision.PROCESS;
@@ -60,6 +97,10 @@ public final class SmsSendAttemptTracker {
 
   private static String getKey(long messageId) {
     return KEY_PREFIX + messageId;
+  }
+
+  private static String getRilRetryKey(long messageId) {
+    return RIL_RETRY_KEY_PREFIX + messageId;
   }
 
   enum CallbackDecision {

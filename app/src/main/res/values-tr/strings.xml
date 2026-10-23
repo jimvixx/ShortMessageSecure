@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Tüm konuşmayı gör</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Günlüğü kopyala</string>
-  <string name="log_submit__button_share_link">Bağlantıyı paylaş</string>
   <string name="log_submit__button_share_logs">Günlüğü paylaş</string>
   <string name="log_submit_activity__collecting_logs">Günlük toplanıyor…</string>
   <string name="log_submit_activity__log_collect_failed">Günlüğü toplayamadı.</string>
-  <string name="log_submit_activity__log_fetch_failed">Günlüğü toplamak veya yüklemek başarısız oldu.</string>
-  <string name="log_submit_activity__log_upload_failed">Günlüğü yükleyemedi.</string>
-  <string name="log_submit_activity__log_uploaded">Günlük yüklendi. Bağlantı panoya kopyalandı.</string>
   <string name="log_submit_activity__thanks">Yardımınız için teşekkürler!</string>
   <string name="log_submit_activity__uploading_logs">Günlük yükleniyor…</string>
-  <string name="log_submit_copied">Günlük kopyalandı.</string>
   <string name="log_submit_interrupted">Önceki yükleme sonucuna erişilemiyor. Yeni bir rapor göndermek istiyorsanız "Günlüğü Gönder" seçeneğini yeniden açın.</string>
   <string name="log_submit_no_internet">İnternet bağlantısı yok. Bağlantınızı kontrol edin, ardından "Günlüğü gönder" seçeneğini yeniden açarak tekrar deneyin.</string>
   <string name="log_submit_save_failed">Günlük kaydedilemedi.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">SMSecure hakkında</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK imzalayıcı SHA-256</string>
+  <string name="preferences__about_build_app_id">Uygulama Kimliği</string>
+  <string name="preferences__about_build_information">Sürüm ve Derleme Bilgileri</string>
+  <string name="preferences__about_build_source_commit">Kaynak taahhüdü</string>
+  <string name="preferences__about_build_type">Derleme türü</string>
+  <string name="preferences__about_build_version_code">Sürüm kodu</string>
+  <string name="preferences__about_build_version_name">Sürüm adı</string>
+  <string name="preferences__about_licenses_gpl">GNU Genel Kamu Lisansı v3.0</string>
+  <string name="preferences__about_licenses_third_party">Üçüncü taraf bağımlılıklar</string>
+  <string name="preferences__about_licenses_third_party_summary">Bağımlılık lisansları, üst kaynaklarıyla birlikte korunur.</string>
+  <string name="preferences__about_open_source_licenses">Açık kaynak lisansları</string>
   <string name="preferences__about_version">Sürüm <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Gelişmiş</string>
   <string name="preferences__always_ask_for_sim_card">Her zaman SIM kart sor</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Mesaj gönderirken kullanılacak SIM kartı her zaman sor</string>
   <string name="preferences__appearance">Görünüm</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Bildirim sesini değiştir</string>
   <string name="preferences__change_passphrase">Şifreyi değiştir</string>
   <string name="preferences__change_your_passphrase">Şifrenizi değiştirin</string>
-  <string name="preferences__chat_display">Sohbet ekranı</string>
   <string name="preferences__chats">Sohbetler</string>
   <string name="preferences__complete_key_exchanges">Anahtar değişimlerini tamamla</string>
   <string name="preferences__conversation_length_limit">Konuşma uzunluğu sınırı</string>
   <string name="preferences__dark_theme">Koyu</string>
+  <string name="preferences__debug_diagnostics">Hata Ayıklama ve Teşhis</string>
   <string name="preferences__delete_old_messages">Eski mesajları sil</string>
   <string name="preferences__diagnostic_logging_level">Teşhis günlüğü seviyesi</string>
   <string name="preferences__diagnostic_logging_level_summary">SMSecure’un dahili olarak ne kadar tanılama bilgisi depolayacağını kontrol eder.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Bildirimler</string>
   <string name="preferences__one_time">Tek seferlik</string>
   <string name="preferences__panic_button">Panik düğmesi</string>
+  <string name="preferences__passphrase">Şifre</string>
   <string name="preferences__play_inthread_notifications">Etkin bir sohbeti görüntülerken bildirim sesi çal.</string>
   <string name="preferences__pref_timeout_interval_title">Zaman aşımı aralığı</string>
-  <string name="preferences__privacy">Gizlilik</string>
-  <string name="preferences__privacy_policy">Gizlilik politikası</string>
+  <string name="preferences__privacy_policy">GitHub / Gizlilik politikası</string>
+  <string name="preferences__privacy_security">Gizlilik</string>
   <string name="preferences__repeat_notification">Tekrar bildirimi</string>
   <string name="preferences__repeat_notification_number_times_select">Bildirimin tekrarlanacağı sayıyı seçin</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Gönderdiğiniz her SMS mesajı için teslim raporu isteyin</string>
@@ -532,6 +537,21 @@
   <string name="preferences__screen_security">Ekran güvenliği</string>
   <string name="preferences__show_sent_time">Gönderilme zamanını göster</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Gelen mesajlar için alınan zaman yerine gönderilen zamanı göster</string>
+  <string name="preferences__sim_recovery_apply">Bağlantıyı geri yükle</string>
+  <string name="preferences__sim_recovery_changed">SIM yapılandırması değişti. Kurtarma modunu tekrar açın ve mevcut SIM kartları kontrol edin.</string>
+  <string name="preferences__sim_recovery_check_selection">SIM bağlamaları değişti. Seçili SIM kartı kontrol edin, ardından Gönder’e tekrar dokunun.</string>
+  <string name="preferences__sim_recovery_choose_group">Etkilenen SIM kartları seçin</string>
+  <string name="preferences__sim_recovery_choose_owner">Mevcut güvenli sohbetler hangi SIM kartta kalmalı?</string>
+  <string name="preferences__sim_recovery_confirm_message">Seçilen SIM kart, mevcut şifreleme anahtarlarını ve oturumları koruyacaktır. Etkilenen diğer SIM kartlar için yeni bir anahtar değişimi gerekecektir. Mesaj geçmişi değişmeden kalır.\n\nBekleyen mesajlar için manuel olarak yeniden deneme yapılması gerekecektir. Yeniden denemeden önce seçilen SIM kartı kontrol edin. Android’e zaten aktarılmış mesajlar geri alınamaz.</string>
+  <string name="preferences__sim_recovery_confirm_title">%1$s için bağlamayı geri yüklemek istiyor musunuz?</string>
+  <string name="preferences__sim_recovery_failed">SIM bağlamaları geri yüklenemedi. Mevcut durumlarını kontrol etmek için kurtarma işlemini yeniden başlatın.</string>
+  <string name="preferences__sim_recovery_keys_pending">SIM bağlamaları geri yüklendi, ancak yeni şifreleme anahtarları başlatılamadı. Yeni bir anahtar değişimi başlatmadan önce SMSecure’u yeniden başlatın.</string>
+  <string name="preferences__sim_recovery_no_active">Etkin bir SIM bilgisi bulunmuyor. Telefon izinlerini ve SIM ayarlarını kontrol edin.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Çakışan SIM bağlamaları tespit edilmedi.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">SIM bağlamaları geri yüklendi. Bekleyen mesajları manuel olarak yeniden denemeden önce SIM kartı kontrol edin. Etkilenen diğer SIM kartlar için yeni bir anahtar değişimi gereklidir.</string>
+  <string name="preferences__sim_recovery_summary">Mesaj gönderilmesini engelleyen SIM çakışmalarını giderin</string>
+  <string name="preferences__sim_recovery_title">SIM bağlamalarını geri yükle</string>
   <string name="preferences__sms_delivery_reports">SMS teslim raporları</string>
   <string name="preferences__sms_delivery_reports_notification">SMS teslim raporları bildirimi</string>
   <string name="preferences__sound">Ses</string>

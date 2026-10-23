@@ -79,7 +79,7 @@ public final class DiagnosticInfoCollector {
     sb.append("Source commit (build-reported): ").append(BuildConfig.SOURCE_COMMIT).append('\n');
     sb.append("APK signer SHA-256 (client-reported): ").append(getSignerFingerprints(context)).append('\n');
     sb.append("Debug build: ").append(BuildConfig.DEBUG).append('\n');
-    sb.append("Min SDK: ").append(Build.VERSION_CODES.M).append('\n');
+    sb.append("Min SDK: ").append(getMinSdk(context)).append('\n');
     sb.append("Target SDK: ").append(getTargetSdk(context)).append('\n');
 
     try {
@@ -96,20 +96,10 @@ public final class DiagnosticInfoCollector {
   }
 
   /** Current APK signers, not historical certificates from a signing-key rotation. */
-  @SuppressWarnings("deprecation")
   @NonNull
-  private static String getSignerFingerprints(@NonNull Context context) {
+  public static String getSignerFingerprints(@NonNull Context context) {
     try {
-      PackageManager pm = context.getPackageManager();
-      Signature[] signers;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        PackageInfo info = pm.getPackageInfo(context.getPackageName(),
-                PackageManager.GET_SIGNING_CERTIFICATES);
-        signers = info.signingInfo == null ? null : info.signingInfo.getApkContentsSigners();
-      } else {
-        signers = pm.getPackageInfo(context.getPackageName(),
-                PackageManager.GET_SIGNATURES).signatures;
-      }
+      Signature[] signers = getSigners(context);
 
       if (signers == null || signers.length == 0) return "<unavailable>";
 
@@ -132,6 +122,21 @@ public final class DiagnosticInfoCollector {
     }
   }
 
+  @Nullable
+  @SuppressWarnings("deprecation")
+  private static Signature[] getSigners(@NonNull Context context)
+          throws PackageManager.NameNotFoundException {
+    PackageManager pm = context.getPackageManager();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      PackageInfo info = pm.getPackageInfo(context.getPackageName(),
+              PackageManager.GET_SIGNING_CERTIFICATES);
+      return info.signingInfo == null ? null : info.signingInfo.getApkContentsSigners();
+    }
+
+    return pm.getPackageInfo(context.getPackageName(),
+            PackageManager.GET_SIGNATURES).signatures;
+  }
+
   private static void appendDeviceSection(@NonNull StringBuilder sb) {
     sb.append("== Device ==\n");
     sb.append("Manufacturer: ").append(nullSafe(Build.MANUFACTURER)).append('\n');
@@ -142,6 +147,8 @@ public final class DiagnosticInfoCollector {
     sb.append("Hardware: ").append(nullSafe(Build.HARDWARE)).append('\n');
     sb.append("Android release: ").append(nullSafe(Build.VERSION.RELEASE)).append('\n');
     sb.append("SDK_INT: ").append(Build.VERSION.SDK_INT).append('\n');
+    sb.append("Build ID: ").append(nullSafe(Build.ID)).append('\n');
+    sb.append("Build display: ").append(nullSafe(Build.DISPLAY)).append('\n');
     sb.append("Security patch: ").append(getSecurityPatch()).append('\n');
     sb.append("ABIs: ").append(Arrays.toString(Build.SUPPORTED_ABIS)).append('\n');
     sb.append('\n');
@@ -280,6 +287,15 @@ public final class DiagnosticInfoCollector {
     try {
       ApplicationInfo ai = context.getApplicationInfo();
       return ai.targetSdkVersion;
+    } catch (Throwable t) {
+      return -1;
+    }
+  }
+
+  private static int getMinSdk(@NonNull Context context) {
+    try {
+      ApplicationInfo ai = context.getApplicationInfo();
+      return ai.minSdkVersion;
     } catch (Throwable t) {
       return -1;
     }

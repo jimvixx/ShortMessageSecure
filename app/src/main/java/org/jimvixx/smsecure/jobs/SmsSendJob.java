@@ -22,8 +22,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
+
+import androidx.annotation.RequiresApi;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.crypto.SmsCipher;
@@ -35,6 +38,7 @@ import org.jimvixx.smsecure.database.model.SmsMessageRecord;
 import org.jimvixx.smsecure.jobs.requirements.MasterSecretRequirement;
 import org.jimvixx.smsecure.jobs.requirements.ServiceRequirement;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.jimvixx.smsecure.service.SmsDeliveryListener;
@@ -45,33 +49,61 @@ import org.jimvixx.smsecure.transport.UndeliverableMessageException;
 import org.jimvixx.smsecure.util.NumberUtil;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 import org.jimvixx.smsecure.util.dualsim.DualSimUtil;
+import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.NoSessionException;
 import org.whispersystems.libsignal.UntrustedIdentityException;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class SmsSendJob extends SendJob {
 
+  // Preserve compatibility with legacy Java-serialized jobs when adding recovery state.
+  @Serial
+  private static final long serialVersionUID = -1264261020918178580L;
+
   private static final String TAG = SmsSendJob.class.getSimpleName();
 
   final long messageId;
   final String sendAttemptId;
+  final long mappingGeneration;
+  final long retryNotBeforeMillis;
 
   public SmsSendJob(Context context, long messageId, String name) {
-    this(context, messageId, name, UUID.randomUUID().toString());
+    this(context, messageId, name, SMSecurePreferences.getSubscriptionRecoveryGeneration(context));
+  }
+
+  public SmsSendJob(Context context, long messageId, String name, long mappingGeneration) {
+    this(context, messageId, name, UUID.randomUUID().toString(), mappingGeneration, 0);
+  }
+
+  public SmsSendJob(Context context, long messageId, String name, long mappingGeneration,
+                    long retryNotBeforeMillis) {
+    this(context, messageId, name, UUID.randomUUID().toString(), mappingGeneration, retryNotBeforeMillis);
   }
 
   SmsSendJob(Context context, long messageId, String name, String sendAttemptId) {
-    super(context, constructParameters(context, name));
+    this(context, messageId, name, sendAttemptId, 0);
+  }
+
+  SmsSendJob(Context context, long messageId, String name, String sendAttemptId, long mappingGeneration) {
+    this(context, messageId, name, sendAttemptId, mappingGeneration, 0);
+  }
+
+  SmsSendJob(Context context, long messageId, String name, String sendAttemptId,
+             long mappingGeneration, long retryNotBeforeMillis) {
+    super(context, constructParameters(context, name, retryNotBeforeMillis));
     this.messageId = messageId;
     this.sendAttemptId = sendAttemptId;
+    this.mappingGeneration = mappingGeneration;
+    this.retryNotBeforeMillis = retryNotBeforeMillis;
   }
 
   /**
    * Builds a stable unique requestCode for PendingIntents.
-   * <p>
+   *
    * NOTE: requestCode must fit into int. We hash messageId down to 20 bits,
    * then add flags + part index.
    */
@@ -84,11 +116,11 @@ public class SmsSendJob extends SendJob {
     return base | (id << 12) | part;
   }
 
-  private static JobParameters constructParameters(Context context, String name) {
+  private static JobParameters constructParameters(Context context, String name, long retryNotBeforeMillis) {
     JobParameters.Builder builder = JobParameters.newBuilder()
             .withPersistence()
             .withRequirement(new MasterSecretRequirement(context))
-            .withRequirement(new ServiceRequirement(context))
+            .withRequirement(new ServiceRequirement(context, retryNotBeforeMillis))
             .withRetryCount(15)
             .withGroupId(name);
 
@@ -107,7 +139,10 @@ public class SmsSendJob extends SendJob {
     try {
       Log.w(TAG, "Sending message: " + messageId);
 
-      deliver(masterSecret, record);
+      // Recovery cannot change the mapping between validation and handing the SMS to Android.
+      synchronized (SubscriptionManagerCompat.from(context)) {
+        deliver(masterSecret, record);
+      }
     } catch (UndeliverableMessageException ude) {
       Log.w(TAG, ude);
       DatabaseFactory.getSmsDatabase(context).markAsSentFailed(record.getId());
@@ -138,6 +173,17 @@ public class SmsSendJob extends SendJob {
 
   private void deliver(MasterSecret masterSecret, SmsMessageRecord message)
           throws UndeliverableMessageException, UntrustedIdentityException {
+    if (mappingGeneration != SMSecurePreferences.getSubscriptionRecoveryGeneration(context)) {
+      throw new UndeliverableMessageException("SIM recovery requires manual retry of queued SMS");
+    }
+    int deviceSubscriptionId = DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId());
+    // Validate the selected SIM before encryption can advance a session or attempts are recorded.
+    // Only the legacy unspecified app ID may use the system default manager.
+    if (message.getSubscriptionId() != -1 && deviceSubscriptionId < 0) {
+      SmsSendDiagnostics.logRouteBlocked(context, message);
+      throw new UndeliverableMessageException("Selected SMS subscription cannot be resolved safely");
+    }
+
     String recipient = message.getIndividualRecipient().getNumber();
     ArrayList<String> messages;
 
@@ -161,35 +207,13 @@ public class SmsSendJob extends SendJob {
         transportMessage = getAsymmetricEncrypt(masterSecret, transportMessage);
       }
 
-      messages = SmsManager.getDefault().divideMessage(multipartMessageHandler.getEncodedMessage(transportMessage));
+      messages = getDefaultSmsManager().divideMessage(multipartMessageHandler.getEncodedMessage(transportMessage));
     } else {
-      messages = SmsManager.getDefault().divideMessage(message.getBody().getBody());
+      messages = getDefaultSmsManager().divideMessage(message.getBody().getBody());
     }
 
     ArrayList<PendingIntent> sentIntents = constructSentIntents(message.getId(), message.getType(), messages, message.isSecure());
     ArrayList<PendingIntent> deliveredIntents = constructDeliveredIntents(message.getId(), message.getType(), messages);
-
-    int deviceSubscriptionId = DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId());
-
-    // Diagnostics must never prevent sending or include the destination/body.
-    try {
-      Log.i(TAG, "SMS send: message=" + message.getId()
-              + " appSub=" + message.getSubscriptionId()
-              + " deviceSub=" + deviceSubscriptionId
-              + " defaultDeviceSub=" + SmsManager.getDefaultSmsSubscriptionId()
-              + " defaultSmsRole=" + org.jimvixx.smsecure.util.Util.isDefaultSmsProvider(context)
-              + " defaultSmsPackageMatches=" + context.getPackageName().equals(
-                      android.provider.Telephony.Sms.getDefaultSmsPackage(context))
-              + " sendPermission=" + (androidx.core.content.ContextCompat.checkSelfPermission(
-                      context, android.Manifest.permission.SEND_SMS)
-                      == android.content.pm.PackageManager.PERMISSION_GRANTED)
-              + " secure=" + message.isSecure()
-              + " keyExchange=" + message.isKeyExchange()
-              + " endSession=" + message.isEndSession()
-              + " parts=" + messages.size());
-    } catch (RuntimeException diagnosticFailure) {
-      Log.w(TAG, "SMS send diagnostics unavailable: " + diagnosticFailure.getClass().getSimpleName());
-    }
 
     // NOTE 11/04/14 -- There's apparently a bug where for some unknown recipients
     // and messages, this will throw an NPE.  We have no idea why, so we're just
@@ -201,11 +225,13 @@ public class SmsSendJob extends SendJob {
     }
 
     try {
-      getSmsManagerFor(deviceSubscriptionId).sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
+      SmsManager smsManager = getSmsManagerFor(deviceSubscriptionId);
+      SmsSendDiagnostics.logSend(context, message, deviceSubscriptionId, smsManager,
+              messages.size(), deliveredIntents != null);
+      smsManager.sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
     } catch (NullPointerException npe) {
       SmsSendAttemptTracker.cancelAttempt(context, message.getId(), sendAttemptId);
       Log.w(TAG, npe);
-      Log.w(TAG, "Recipient: " + recipient);
       Log.w(TAG, "Message Parts: " + messages.size());
       throw new UndeliverableMessageException(npe);
     } catch (IllegalArgumentException | SecurityException iae) {
@@ -235,6 +261,7 @@ public class SmsSendJob extends SendJob {
       intent.putExtra("part_index", i);
       intent.putExtra("parts_total", messages.size());
       intent.putExtra("send_attempt_id", sendAttemptId);
+      intent.putExtra("mapping_generation", mappingGeneration);
 
       sentIntents.add(PendingIntent.getBroadcast(
               context,
@@ -305,11 +332,31 @@ public class SmsSendJob extends SendJob {
 
   private SmsManager getSmsManagerFor(int subscriptionId) {
     Log.w(TAG, "getSmsManagerFor(" + subscriptionId + ")");
+    return getSmsManagerFor(context, subscriptionId);
+  }
 
-    if (subscriptionId != -1) {
-      return SmsManager.getSmsManagerForSubscriptionId(subscriptionId);
-    } else {
-      return SmsManager.getDefault();
+  private SmsManager getDefaultSmsManager() {
+    return getSmsManagerFor(context, -1);
+  }
+
+  static SmsManager getSmsManagerFor(Context context, int subscriptionId) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+      return getModernSmsManagerFor(context, subscriptionId);
     }
+    return getLegacySmsManagerFor(subscriptionId);
+  }
+
+  @RequiresApi(Build.VERSION_CODES.S)
+  static SmsManager getModernSmsManagerFor(Context context, int subscriptionId) {
+    SmsManager manager = context.getSystemService(SmsManager.class);
+    if (manager == null) throw new IllegalStateException("SmsManager unavailable");
+    return subscriptionId == -1 ? manager : manager.createForSubscriptionId(subscriptionId);
+  }
+
+  @SuppressWarnings("deprecation")
+  private static SmsManager getLegacySmsManagerFor(int subscriptionId) {
+    return subscriptionId == -1
+            ? SmsManager.getDefault()
+            : SmsManager.getSmsManagerForSubscriptionId(subscriptionId);
   }
 }

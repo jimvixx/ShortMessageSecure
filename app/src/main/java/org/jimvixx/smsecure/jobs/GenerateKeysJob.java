@@ -36,6 +36,8 @@ public class GenerateKeysJob extends MasterSecretJob {
   public GenerateKeysJob(Context context) {
     super(context, JobParameters.newBuilder()
             .withPersistence()
+            // Recovery and SIM-state checks may enqueue initialization together.
+            .withGroupId("generate-identity-keys")
             .withRequirement(new MasterSecretRequirement(context))
             .create());
 

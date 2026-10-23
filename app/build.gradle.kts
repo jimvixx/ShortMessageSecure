@@ -2,20 +2,20 @@
 
 import java.io.FileInputStream
 import java.util.Properties
-import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.tasks.InputFile
+import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.testing.Test
 import org.gradle.process.CommandLineArgumentProvider
 
 abstract class MockitoJavaAgentArgumentProvider : CommandLineArgumentProvider {
-    @get:InputFile
+    @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val mockitoJar: RegularFileProperty
+    abstract val agentJar: ConfigurableFileCollection
 
     override fun asArguments(): Iterable<String> {
-        return listOf("-javaagent:${mockitoJar.get().asFile.absolutePath}")
+        return listOf("-javaagent:${agentJar.singleFile.absolutePath}")
     }
 }
 
@@ -123,8 +123,8 @@ android {
 
     defaultConfig {
         applicationId = "org.jimvixx.smsecure"
-        versionCode = 10400
-        versionName = "1.4.0"
+        versionCode = 10401
+        versionName = "1.4.1"
         buildConfigField("String", "SOURCE_COMMIT", "\"$sourceCommit\"")
 
         buildConfigField(
@@ -223,6 +223,13 @@ android {
     }
 }
 
+// The Java agent must not force resolution of the entire test runtime classpath.
+val mockitoAgent = configurations.create("mockitoAgent") {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+    isTransitive = false
+}
+
 dependencies {
     androidTestImplementation("androidx.test:core:1.7.0")
     androidTestImplementation("androidx.test:runner:1.7.0")
@@ -231,17 +238,19 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.27.7")
-    testImplementation("org.mockito:mockito-core:5.23.0")
+    testImplementation("org.mockito:mockito-core:5.24.0")
 
-    annotationProcessor("com.github.bumptech.glide:compiler:5.0.7")
+    add(mockitoAgent.name, "org.mockito:mockito-core:5.24.0")
+
+    annotationProcessor("com.github.bumptech.glide:compiler:5.0.9")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
 
     implementation("androidx.browser:browser:1.10.0")
     implementation("androidx.appcompat:appcompat:1.8.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.2")
-    implementation("androidx.core:core:1.19.0")
-    implementation("androidx.fragment:fragment:1.9.0")
+    implementation("androidx.core:core:1.19.1")
+    implementation("androidx.fragment:fragment:1.9.1")
     implementation("androidx.gridlayout:gridlayout:1.1.0")
     implementation("androidx.legacy:legacy-support-v13:1.0.0")
     implementation("androidx.preference:preference-ktx:1.2.1")
@@ -254,11 +263,11 @@ dependencies {
     implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
 
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.22.2")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.2")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.4")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.4")
 
-    implementation("com.github.bumptech.glide:glide:5.0.7")
-    implementation("com.github.bumptech.glide:okhttp3-integration:5.0.7@aar")
+    implementation("com.github.bumptech.glide:glide:5.0.9")
+    implementation("com.github.bumptech.glide:okhttp3-integration:5.0.9@aar")
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
@@ -266,7 +275,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:4.36.2")
     implementation("com.google.zxing:core:3.5.4")
 
-    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.39")
+    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.41")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
@@ -296,19 +305,10 @@ dependencies {
     implementation(project(":org.whispersystems.jobmanager"))
 }
 
-// Mockito's inline mock maker needs the existing mockito-core JAR attached at JVM startup
-// on JDKs that restrict dynamic agent attachment. This affects JVM unit tests only.
+// Mockito's inline mock maker needs the mockito-core JAR attached at JVM startup.
+// Resolve only the dedicated agent configuration, never the test task classpath.
 tasks.withType<Test>().configureEach {
-    val mockitoAgent = objects.newInstance<MockitoJavaAgentArgumentProvider>()
-    jvmArgumentProviders.add(mockitoAgent)
-    mockitoAgent.mockitoJar.set(layout.file(providers.provider {
-        val mockitoJars = classpath.files.filter { file ->
-            file.name.startsWith("mockito-core-") && file.extension == "jar"
-        }
-        require(mockitoJars.size == 1) {
-            "The JVM unit-test classpath must contain exactly one mockito-core JAR; " +
-                "found ${mockitoJars.size}: ${mockitoJars.map { it.name }}"
-        }
-        mockitoJars.single()
-    }))
+    val agentProvider = objects.newInstance<MockitoJavaAgentArgumentProvider>()
+    agentProvider.agentJar.from(mockitoAgent)
+    jvmArgumentProviders.add(agentProvider)
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.jimvixx.smsecure.preferences.widgets.AboutHeaderPreference
+        android:key="preference_about_header"
+        android:selectable="false" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_about_github_readme"
+        android:icon="@drawable/ic_github"
+        android:title="@string/preferences__about_github_readme" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_about_privacy_policy"
+        android:icon="@drawable/ic_safe_square"
+        android:title="@string/preferences__privacy_policy" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_about_licenses"
+        android:icon="@drawable/ic_book_open_variant"
+        android:title="@string/preferences__about_open_source_licenses" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="preference_about_build_info"
+        android:icon="@drawable/ic_alpha_v_circle"
+        android:title="@string/preferences__about_build_information" />
+
+</PreferenceScreen>

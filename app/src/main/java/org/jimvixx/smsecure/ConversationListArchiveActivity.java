@@ -80,7 +80,7 @@ public class ConversationListArchiveActivity extends PassphraseRequiredActionBar
     intent.putExtra(ConversationActivity.LAST_SEEN_EXTRA, lastSeenTime);
 
     startActivity(intent);
-    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+    applyOpenTransition();
   }
 
   @Override

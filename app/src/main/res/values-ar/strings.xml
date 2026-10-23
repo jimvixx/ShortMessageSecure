@@ -409,17 +409,11 @@
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">انظر المحادثة الكاملة</string>
 <!--log_submit_activity-->
-<string name="log_submit__button_copy">نسخ السجل</string>
-<string name="log_submit__button_share_link">مشاركة الرابط</string>
 <string name="log_submit__button_share_logs">مشاركة السجل</string>
 <string name="log_submit_activity__collecting_logs">جمع السجلات…</string>
 <string name="log_submit_activity__log_collect_failed">فشل جمع السجل.</string>
-<string name="log_submit_activity__log_fetch_failed">فشل جمع السجل أو تحميله.</string>
-<string name="log_submit_activity__log_upload_failed">فشل تحميل السجل.</string>
-<string name="log_submit_activity__log_uploaded">تم تحميل السجل. تم نسخ الرابط إلى الحافظة.</string>
 <string name="log_submit_activity__thanks">شكراً على مساعدتك!</string>
 <string name="log_submit_activity__uploading_logs">تحميل السجل…</string>
-<string name="log_submit_copied">تم نسخ السجل.</string>
 <string name="log_submit_interrupted">نتيجة التحميل السابقة غير متوفرة. أعد فتح «إرسال السجل» إذا كنت ترغب في إرسال تقرير جديد.</string>
 <string name="log_submit_no_internet">لا يوجد اتصال بالإنترنت. تحقق من اتصالك، ثم أعد فتح «إرسال السجل» لمحاولة الإرسال مرة أخرى.</string>
 <string name="log_submit_save_failed">تعذر حفظ السجل.</string>
@@ -513,8 +507,18 @@
     </plurals>
 <!--preferences.xml-->
 <string name="preferences__about">حول SMSecure</string>
+<string name="preferences__about_build_apk_signer_sha256">موقّع ملف APK SHA-256</string>
+<string name="preferences__about_build_app_id">معرف التطبيق</string>
+<string name="preferences__about_build_information">معلومات الإصدار والتجميع</string>
+<string name="preferences__about_build_source_commit">التزام المصدر</string>
+<string name="preferences__about_build_type">نوع البنية</string>
+<string name="preferences__about_build_version_code">رمز الإصدار</string>
+<string name="preferences__about_build_version_name">اسم الإصدار</string>
+<string name="preferences__about_licenses_gpl">رخصة GNU العامة الإصدار 3.0</string>
+<string name="preferences__about_licenses_third_party">التبعيات الخارجية</string>
+<string name="preferences__about_licenses_third_party_summary">يتم الاحتفاظ بتراخيص التبعيات مع مصادرها الأصلية.</string>
+<string name="preferences__about_open_source_licenses">تراخيص البرمجيات مفتوحة المصدر</string>
 <string name="preferences__about_version">الإصدار <xliff:g id="arg1">%s</xliff:g></string>
-<string name="preferences__advanced">متقدم</string>
 <string name="preferences__always_ask_for_sim_card">اطلب دائمًا بطاقة SIM</string>
 <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">اسأل دائمًا عن بطاقة SIM المراد استخدامها عند إرسال الرسائل</string>
 <string name="preferences__appearance">المظهر</string>
@@ -524,11 +528,11 @@
 <string name="preferences__change_notification_sound">تغيير صوت الإشعار</string>
 <string name="preferences__change_passphrase">تغيير عبارة المرور</string>
 <string name="preferences__change_your_passphrase">قم بتغيير عبارة المرور الخاصة بك</string>
-<string name="preferences__chat_display">عرض الدردشة</string>
 <string name="preferences__chats">الدردشات</string>
 <string name="preferences__complete_key_exchanges">إتمام تبادل المفاتيح</string>
 <string name="preferences__conversation_length_limit">حد طول المحادثة</string>
 <string name="preferences__dark_theme">داكن</string>
+<string name="preferences__debug_diagnostics">التصحيح والتشخيص</string>
 <string name="preferences__delete_old_messages">حذف الرسائل القديمة</string>
 <string name="preferences__diagnostic_logging_level">مستوى تسجيل التشخيص</string>
 <string name="preferences__diagnostic_logging_level_summary">يتحكم في مقدار المعلومات التشخيصية التي يخزنها SMSecure داخليًا.</string>
@@ -572,10 +576,11 @@
 <string name="preferences__notifications">الإشعارات</string>
 <string name="preferences__one_time">مرة واحدة</string>
 <string name="preferences__panic_button">زر الطوارئ</string>
+<string name="preferences__passphrase">عبارة المرور</string>
 <string name="preferences__play_inthread_notifications">تشغيل صوت الإشعار عند عرض محادثة نشطة.</string>
 <string name="preferences__pref_timeout_interval_title">فترة انتهاء الصلاحية</string>
-<string name="preferences__privacy">الخصوصية</string>
-<string name="preferences__privacy_policy">سياسة الخصوصية</string>
+<string name="preferences__privacy_policy">GitHub / سياسة الخصوصية</string>
+<string name="preferences__privacy_security">الخصوصية</string>
 <string name="preferences__repeat_notification">تكرار الإشعار</string>
 <string name="preferences__repeat_notification_number_times_select">حدد عدد مرات تكرار الإشعار</string>
 <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">اطلب تقرير تسليم لكل رسالة SMS ترسلها</string>
@@ -584,6 +589,21 @@
 <string name="preferences__screen_security">أمان الشاشة</string>
 <string name="preferences__show_sent_time">إظهار وقت الإرسال</string>
 <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">عرض وقت الإرسال بدلاً من وقت الاستلام للرسائل الواردة</string>
+<string name="preferences__sim_recovery_apply">استعادة الارتباط</string>
+<string name="preferences__sim_recovery_changed">تم تغيير إعدادات بطاقة SIM. افتح «الاسترداد» مرة أخرى وتحقق من بطاقات SIM الحالية.</string>
+<string name="preferences__sim_recovery_check_selection">تم تغيير ربط بطاقة SIM. تحقق من بطاقة SIM المحددة، ثم انقر على «إرسال» مرة أخرى.</string>
+<string name="preferences__sim_recovery_choose_group">اختر بطاقات SIM المتأثرة</string>
+<string name="preferences__sim_recovery_choose_owner">أي شريحة SIM يجب أن تحتفظ بالمحادثات الآمنة الحالية؟</string>
+<string name="preferences__sim_recovery_confirm_message">ستحتفظ بطاقة SIM المحددة بمفاتيح التشفير والجلسات الحالية. أما بطاقات SIM الأخرى المتأثرة فستحتاج إلى تبادل مفاتيح جديدة. سيبقى سجل الرسائل دون تغيير.\n\nستتطلب الرسائل المعلقة إعادة المحاولة يدويًّا. تحقق من بطاقة SIM المحددة قبل إعادة المحاولة. لا يمكن استرداد الرسائل التي تم تسليمها بالفعل إلى Android.</string>
+<string name="preferences__sim_recovery_confirm_title">استعادة الارتباط لـ %1$s؟</string>
+<string name="preferences__sim_recovery_failed">تعذر استعادة ارتباطات بطاقة SIM. افتح أداة الاسترداد مرة أخرى للتحقق من حالتها الحالية.</string>
+<string name="preferences__sim_recovery_keys_pending">تمت استعادة ارتباطات بطاقة SIM، ولكن تعذر تهيئة مفاتيح التشفير الجديدة. أعد تشغيل SMSecure قبل بدء عملية تبادل مفاتيح جديدة.</string>
+<string name="preferences__sim_recovery_no_active">لا تتوفر أي معلومات نشطة عن بطاقة SIM. تحقق من أذونات الهاتف وإعدادات بطاقة SIM.</string>
+<string name="preferences__sim_recovery_no_conflicts">لم يتم الكشف عن أي ارتباطات متعارضة لبطاقة SIM.</string>
+<string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+<string name="preferences__sim_recovery_success">تمت استعادة ارتباطات بطاقة SIM. تحقق من بطاقة SIM قبل إعادة محاولة استلام الرسائل المعلقة يدويًّا. تحتاج بطاقات SIM الأخرى المتأثرة إلى تبادل مفاتيح جديد.</string>
+<string name="preferences__sim_recovery_summary">حل تعارضات بطاقة SIM التي تمنع إرسال الرسائل</string>
+<string name="preferences__sim_recovery_title">استعادة ارتباطات بطاقة SIM</string>
 <string name="preferences__sms_delivery_reports">تقارير تسليم SMS</string>
 <string name="preferences__sms_delivery_reports_notification">إشعار تقارير تسليم SMS</string>
 <string name="preferences__sound">الصوت</string>

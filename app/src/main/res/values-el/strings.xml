@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Δείτε ολόκληρη τη συνομιλία</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Αντιγραφή καταγραφής</string>
-  <string name="log_submit__button_share_link">Κοινή χρήση συνδέσμου</string>
   <string name="log_submit__button_share_logs">Κοινή χρήση αρχείου καταγραφής</string>
   <string name="log_submit_activity__collecting_logs">Συλλογή αρχείων καταγραφής…</string>
   <string name="log_submit_activity__log_collect_failed">Αποτυχία συλλογής καταγραφής.</string>
-  <string name="log_submit_activity__log_fetch_failed">Αποτυχία συλλογής ή μεταφόρτωσης αρχείου καταγραφής.</string>
-  <string name="log_submit_activity__log_upload_failed">Αποτυχία μεταφόρτωσης αρχείου καταγραφής.</string>
-  <string name="log_submit_activity__log_uploaded">Ανεβάστηκε το αρχείο καταγραφής. Ο σύνδεσμος αντιγράφηκε στο πρόχειρο.</string>
   <string name="log_submit_activity__thanks">Ευχαριστώ για τη βοήθειά σας!</string>
   <string name="log_submit_activity__uploading_logs">Ανεβάζω αρχείο καταγραφής…</string>
-  <string name="log_submit_copied">Το αρχείο καταγραφής αντιγράφηκε.</string>
   <string name="log_submit_interrupted">Το αποτέλεσμα της προηγούμενης αποστολής δεν είναι διαθέσιμο. Ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» αν θέλετε να στείλετε μια νέα αναφορά.</string>
   <string name="log_submit_no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και, στη συνέχεια, ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» για να προσπαθήσετε ξανά.</string>
   <string name="log_submit_save_failed">Δεν ήταν δυνατή η αποθήκευση του αρχείου καταγραφής.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Σχετικά με το SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">SHA-256 του υπογράφοντα του APK</string>
+  <string name="preferences__about_build_app_id">Αναγνωριστικό εφαρμογής</string>
+  <string name="preferences__about_build_information">Πληροφορίες έκδοσης και κατασκευής</string>
+  <string name="preferences__about_build_source_commit">Κομίτ πηγαίου κώδικα</string>
+  <string name="preferences__about_build_type">Τύπος έκδοσης</string>
+  <string name="preferences__about_build_version_code">Κωδικός έκδοσης</string>
+  <string name="preferences__about_build_version_name">Όνομα έκδοσης</string>
+  <string name="preferences__about_licenses_gpl">Γενική Άδεια Χρήσης GNU v3.0</string>
+  <string name="preferences__about_licenses_third_party">Εξαρτήσεις από τρίτους</string>
+  <string name="preferences__about_licenses_third_party_summary">Οι άδειες χρήσης των εξαρτήσεων διατηρούνται μαζί με τις ανώτερες πηγές τους.</string>
+  <string name="preferences__about_open_source_licenses">Άδειες ανοιχτού κώδικα</string>
   <string name="preferences__about_version">Έκδοση <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Για προχωρημένους</string>
   <string name="preferences__always_ask_for_sim_card">Να ζητείται πάντα η κάρτα SIM</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Να ρωτάτε πάντα ποια κάρτα SIM θα χρησιμοποιηθεί κατά την αποστολή μηνυμάτων</string>
   <string name="preferences__appearance">Εμφάνιση</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Αλλαγή ήχου ειδοποίησης</string>
   <string name="preferences__change_passphrase">Αλλαγή κωδικού πρόσβασης</string>
   <string name="preferences__change_your_passphrase">Αλλάξτε τον κωδικό πρόσβασής σας</string>
-  <string name="preferences__chat_display">Εμφάνιση συνομιλίας</string>
   <string name="preferences__chats">Συνομιλίες</string>
   <string name="preferences__complete_key_exchanges">Ολοκλήρωση ανταλλαγών κλειδιών</string>
   <string name="preferences__conversation_length_limit">Όριο μήκους συνομιλίας</string>
   <string name="preferences__dark_theme">Σκούρο</string>
+  <string name="preferences__debug_diagnostics">Εντοπισμός σφαλμάτων και διαγνωστικά</string>
   <string name="preferences__delete_old_messages">Διαγραφή παλαιών μηνυμάτων</string>
   <string name="preferences__diagnostic_logging_level">Επίπεδο καταγραφής διαγνωστικών</string>
   <string name="preferences__diagnostic_logging_level_summary">Ελέγχει τον όγκο των διαγνωστικών πληροφοριών που αποθηκεύει εσωτερικά το SMSecure.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Ειδοποιήσεις</string>
   <string name="preferences__one_time">Μία φορά</string>
   <string name="preferences__panic_button">Κουμπί πανικού</string>
+  <string name="preferences__passphrase">Φράση πρόσβασης</string>
   <string name="preferences__play_inthread_notifications">Αναπαραγωγή ήχου ειδοποίησης κατά την προβολή μιας ενεργής συνομιλίας.</string>
   <string name="preferences__pref_timeout_interval_title">Διάστημα χρονικού ορίου</string>
-  <string name="preferences__privacy">Προστασία προσωπικών δεδομένων</string>
-  <string name="preferences__privacy_policy">Πολιτική απορρήτου</string>
+  <string name="preferences__privacy_policy">GitHub / Πολιτική απορρήτου</string>
+  <string name="preferences__privacy_security">Προστασία προσωπικών δεδομένων</string>
   <string name="preferences__repeat_notification">Ειδοποίηση επανάληψης</string>
   <string name="preferences__repeat_notification_number_times_select">Επιλέξτε τον αριθμό των επαναλήψεων της ειδοποίησης</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Ζητήστε αναφορά παράδοσης για κάθε μήνυμα SMS που στέλνετε</string>
@@ -532,6 +537,21 @@
   <string name="preferences__screen_security">Ασφάλεια οθόνης</string>
   <string name="preferences__show_sent_time">Εμφάνιση ώρας αποστολής</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Εμφάνιση της ώρας αποστολής αντί της ώρας λήψης για τα εισερχόμενα μηνύματα</string>
+  <string name="preferences__sim_recovery_apply">Επαναφορά σύνδεσης</string>
+  <string name="preferences__sim_recovery_changed">Η διαμόρφωση της κάρτας SIM άλλαξε. Ανοίξτε ξανά το recovery και ελέγξτε τις τρέχουσες κάρτες SIM.</string>
+  <string name="preferences__sim_recovery_check_selection">Οι συνδέσεις της κάρτας SIM άλλαξαν. Ελέγξτε την επιλεγμένη κάρτα SIM και, στη συνέχεια, πατήστε ξανά «Αποστολή».</string>
+  <string name="preferences__sim_recovery_choose_group">Επιλέξτε τις SIM που επηρεάζονται</string>
+  <string name="preferences__sim_recovery_choose_owner">Ποια κάρτα SIM πρέπει να διατηρήσει τις υπάρχουσες ασφαλείς συνομιλίες;</string>
+  <string name="preferences__sim_recovery_confirm_message">Η επιλεγμένη κάρτα SIM θα διατηρήσει τα υπάρχοντα κλειδιά κρυπτογράφησης και τις συνεδρίες. Οι άλλες κάρτες SIM που επηρεάζονται θα χρειαστούν νέα ανταλλαγή κλειδιών. Το ιστορικό μηνυμάτων παραμένει αμετάβλητο.\n\nΤα εκκρεμή μηνύματα θα απαιτήσουν χειροκίνητη επανάληψη. Ελέγξτε την επιλεγμένη κάρτα SIM πριν από την επανάληψη. Τα μηνύματα που έχουν ήδη παραδοθεί στο Android δεν μπορούν να ανακληθούν.</string>
+  <string name="preferences__sim_recovery_confirm_title">Επαναφορά σύνδεσης για το %1$s;</string>
+  <string name="preferences__sim_recovery_failed">Δεν ήταν δυνατή η επαναφορά των συνδέσεων της κάρτας SIM. Ανοίξτε ξανά την ανάκτηση για να ελέγξετε την τρέχουσα κατάστασή τους.</string>
+  <string name="preferences__sim_recovery_keys_pending">Οι συνδέσεις SIM αποκαταστάθηκαν, αλλά δεν ήταν δυνατή η αρχικοποίηση νέων κλειδιών κρυπτογράφησης. Επανεκκινήστε το SMSecure πριν ξεκινήσετε μια νέα ανταλλαγή κλειδιών.</string>
+  <string name="preferences__sim_recovery_no_active">Δεν υπάρχουν διαθέσιμες πληροφορίες για ενεργή κάρτα SIM. Ελέγξτε τα δικαιώματα του τηλεφώνου και τις ρυθμίσεις της κάρτας SIM.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Δεν εντοπίστηκαν συγκρουόμενες συνδέσεις SIM.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">Οι συνδέσεις της κάρτας SIM αποκαταστάθηκαν. Ελέγξτε την κάρτα SIM πριν επαναλάβετε χειροκίνητα την αποστολή των εκκρεμών μηνυμάτων. Οι άλλες κάρτες SIM που έχουν επηρεαστεί χρειάζονται νέα ανταλλαγή κλειδιών.</string>
+  <string name="preferences__sim_recovery_summary">Επίλυση συγκρούσεων SIM που εμποδίζουν την αποστολή μηνυμάτων</string>
+  <string name="preferences__sim_recovery_title">Επαναφορά συνδέσεων SIM</string>
   <string name="preferences__sms_delivery_reports">Αναφορές παράδοσης SMS</string>
   <string name="preferences__sms_delivery_reports_notification">Ειδοποίηση αναφορών παράδοσης SMS</string>
   <string name="preferences__sound">Ήχος</string>

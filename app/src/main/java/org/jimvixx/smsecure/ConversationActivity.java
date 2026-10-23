@@ -35,6 +35,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.ContactsContract;
@@ -69,6 +70,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.jimvixx.smsecure.color.MaterialColor;
 import org.jimvixx.smsecure.components.ComposeText;
@@ -93,6 +95,7 @@ import org.jimvixx.smsecure.database.MessageColumns.Types;
 import org.jimvixx.smsecure.database.RecipientPreferenceDatabase.RecipientsPreferences;
 import org.jimvixx.smsecure.database.ThreadDatabase;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics.SelectionSource;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
 import org.jimvixx.smsecure.permissions.Permissions;
 import org.jimvixx.smsecure.protocol.AutoInitiate;
@@ -167,11 +170,13 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private boolean launchedFromGlobalSearch;
   private boolean searchInteractionOccurred;
   private List<SubscriptionInfoCompat> activeSubscriptions;
+  private long displayedMappingGeneration;
 
   @Override
   protected void onCreate(Bundle state, @NonNull MasterSecret masterSecret) {
     Log.w(TAG, "onCreate()");
     this.masterSecret = masterSecret;
+    this.displayedMappingGeneration = SMSecurePreferences.getSubscriptionRecoveryGeneration(this);
     this.activeSubscriptions = SubscriptionManagerCompat.from(this).getActiveSubscriptionInfoList();
     this.launchedFromGlobalSearch = getIntent().getBooleanExtra(FROM_GLOBAL_SEARCH_EXTRA, false);
 
@@ -292,6 +297,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   protected void onResume() {
     super.onResume();
 
+    refreshAfterSimRecovery();
     initializeEnabledCheck();
 
     if (composeText != null && sendButtonController != null) {
@@ -316,7 +322,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   protected void onPause() {
     super.onPause();
     MessageNotifier.setVisibleThread(-1L);
-    if (isFinishing()) overridePendingTransition(R.anim.fade_scale_in, R.anim.slide_to_right);
     if (fragment != null) fragment.setLastSeen(System.currentTimeMillis());
     markLastSeen();
   }
@@ -904,15 +909,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         if (result.first == recipients) {
           updateDefaultSubscriptionId(result.second != null
                   ? result.second.getDefaultSubscriptionId()
-                  : SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this));
+                  : SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(this),
+                  result.second != null);
         }
       });
     });
   }
 
-  private void updateDefaultSubscriptionId(Optional<Integer> defaultSubscriptionId) {
+  private void updateDefaultSubscriptionId(Optional<Integer> defaultSubscriptionId,
+                                            boolean fromRecipientPreference) {
     if (sendButtonController != null) {
-      sendButtonController.setDefaultSubscriptionId(defaultSubscriptionId);
+      sendButtonController.setDefaultSubscriptionId(defaultSubscriptionId, fromRecipientPreference);
     }
   }
 
@@ -953,8 +960,15 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     int[] attributes = new int[]{R.attr.conversation_item_bubble_background_color};
     try (TypedArray colors = obtainStyledAttributes(attributes)) {
       int defaultColor = colors.getColor(0, Color.WHITE);
-      Drawable bg = composeBubble != null ? composeBubble.getBackground() : null;
-      if (bg != null) bg.setColorFilter(defaultColor, PorterDuff.Mode.MULTIPLY);
+      if (composeBubble != null) {
+        Drawable bg = composeBubble.getBackground();
+        if (bg != null) {
+          bg = DrawableCompat.wrap(bg).mutate();
+          DrawableCompat.setTint(bg, defaultColor);
+          DrawableCompat.setTintMode(bg, PorterDuff.Mode.MULTIPLY);
+          composeBubble.setBackground(bg);
+        }
+      }
     }
 
     SendButtonListener sendButtonListener = new SendButtonListener();
@@ -1178,9 +1192,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       }
     }
 
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+      setLegacySystemBarColors(color.toStatusBarColor(this),
+              ContextCompat.getColor(this, android.R.color.black));
+    }
+  }
+
+  @SuppressWarnings("deprecation")
+  private void setLegacySystemBarColors(int statusBarColor, int navigationBarColor) {
     Window window = getWindow();
-    window.setStatusBarColor(color.toStatusBarColor(this));
-    window.setNavigationBarColor(ContextCompat.getColor(this, android.R.color.black));
+    window.setStatusBarColor(statusBarColor);
+    window.setNavigationBarColor(navigationBarColor);
   }
 
   private void setBlockedUserState(@NonNull Recipients recipients) {
@@ -1295,8 +1317,23 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     fragment.scrollToBottom();
   }
 
+  private boolean refreshAfterSimRecovery() {
+    long current = SMSecurePreferences.getSubscriptionRecoveryGeneration(this);
+    if (current == displayedMappingGeneration || sendButtonController == null) return false;
+    activeSubscriptions = SubscriptionManagerCompat.from(this).getActiveSubscriptionInfoList();
+    sendButtonController.resetAfterSimRecovery();
+    displayedMappingGeneration = current;
+    initializeSecurity();
+    updateRecipientPreferences();
+    return true;
+  }
+
   private void sendMessage() {
     if (sendButtonController == null) return;
+    if (refreshAfterSimRecovery()) {
+      Toast.makeText(this, R.string.preferences__sim_recovery_check_selection, Toast.LENGTH_LONG).show();
+      return;
+    }
 
     TransportOption transportOption = sendButtonController.getSelectedTransport();
     if (transportOption.getType() == Type.DISABLED) return;
@@ -1326,6 +1363,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     final Context context = getApplicationContext();
     final String messageBody = getMessage();
+    final SelectionSource selectionSource = sendButtonController.getSelectionSource();
+    final long mappingGeneration = displayedMappingGeneration;
 
     OutgoingTextMessage message =
             (isEncryptedConversation && !forcePlaintext)
@@ -1340,7 +1379,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
               if (composeText != null) composeText.setText("");
 
               backgroundExecutor.execute(() -> {
-                final long result = MessageSender.send(context, masterSecret, message, threadId, true);
+                final long result = MessageSender.send(context, masterSecret, message, threadId, true,
+                        selectionSource, mappingGeneration);
                 mainHandler.post(() -> sendComplete(result));
               });
             })

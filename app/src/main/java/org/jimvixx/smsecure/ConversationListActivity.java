@@ -387,6 +387,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   private void handleBlockedContacts() {
     startActivity(new Intent(this, BlockedContactsActivity.class));
+    applyOpenTransition();
   }
 
   @Override
@@ -399,7 +400,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     intent.putExtra(ConversationActivity.LAST_SEEN_EXTRA, lastSeen);
 
     startActivity(intent);
-    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+    applyOpenTransition();
   }
 
   @Override
@@ -411,7 +412,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     intent.putExtra(ConversationActivity.FROM_GLOBAL_SEARCH_EXTRA, true);
 
     startActivity(intent);
-    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+    applyOpenTransition();
   }
 
   @Override
@@ -426,7 +427,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     intent.putExtra(ConversationActivity.FROM_GLOBAL_SEARCH_EXTRA, true);
 
     startActivity(intent);
-    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+    applyOpenTransition();
   }
 
   private Intent createConversationIntent(long threadId, @NonNull Recipients recipients,
@@ -445,11 +446,13 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     closeSearchIfOpen();
     Intent intent = new Intent(this, ConversationListArchiveActivity.class);
     startActivity(intent);
+    applyOpenTransition();
   }
 
   private void createGroup() {
     Intent intent = new Intent(this, GroupCreateActivity.class);
     startActivity(intent);
+    applyOpenTransition();
   }
 
   private void handleSwitchToArchive() {
@@ -459,6 +462,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   private void handleDisplaySettings() {
     Intent preferencesIntent = new Intent(this, ApplicationPreferencesActivity.class);
     startActivity(preferencesIntent);
+    applyOpenTransition();
   }
 
   private void handleClearPassphrase() {
@@ -470,6 +474,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   private void handleImportExport() {
     startActivity(new Intent(this, ImportExportActivity.class));
+    applyOpenTransition();
   }
 
   private void handleMyIdentity() {
@@ -488,6 +493,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     intent.putExtra(ViewIdentityActivity.EXTRA_ENABLE_SCAN, false);
     intent.putExtra("subscription_id", subscriptionId);
     startActivity(intent);
+    applyOpenTransition();
   }
 
   private void handleMarkAllRead() {

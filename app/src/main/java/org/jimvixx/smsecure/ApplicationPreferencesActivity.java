@@ -25,10 +25,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -40,13 +42,16 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
-import org.jimvixx.smsecure.preferences.AdvancedPreferenceFragment;
+import org.jimvixx.smsecure.preferences.AboutPreferenceFragment;
 import org.jimvixx.smsecure.preferences.AppProtectionPreferenceFragment;
 import org.jimvixx.smsecure.preferences.AppearancePreferenceFragment;
 import org.jimvixx.smsecure.preferences.ChatsPreferenceFragment;
 import org.jimvixx.smsecure.preferences.CorrectedPreferenceFragment;
+import org.jimvixx.smsecure.preferences.DebugPreferenceFragment;
+import org.jimvixx.smsecure.preferences.BuildInformationPreferenceFragment;
 import org.jimvixx.smsecure.preferences.MessagesPreferenceFragment;
 import org.jimvixx.smsecure.preferences.NotificationsPreferenceFragment;
+import org.jimvixx.smsecure.preferences.OpenSourceLicensesPreferenceFragment;
 import org.jimvixx.smsecure.util.DynamicTheme;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
@@ -62,14 +67,16 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
   public static final String PREFERENCE_CATEGORY_APPEARANCE = "preference_category_appearance";
+  public static final String PREFERENCE_CATEGORY_ABOUT = "preference_about";
+  public static final String PREFERENCE_CATEGORY_ABOUT_LICENSES = "preference_about_licenses";
+  public static final String PREFERENCE_CATEGORY_ABOUT_BUILD_INFO = "preference_about_build_info";
+  public static final String PREFERENCE_CATEGORY_DEBUG = "preference_category_debug";
   public static final String EXTRA_START_CATEGORY = "start_category";
   private static final String PREFERENCE_CATEGORY_MESSAGES = "preference_category_messages";
   private static final String PREFERENCE_CATEGORY_NOTIFICATIONS = "preference_category_notifications";
   private static final String PREFERENCE_CATEGORY_APP_PROTECTION = "preference_category_app_protection";
   private static final String PREFERENCE_CATEGORY_CHATS = "preference_category_chats";
-  private static final String PREFERENCE_CATEGORY_ADVANCED = "preference_category_advanced";
-  private static final String PREFERENCE_ABOUT = "preference_about";
-  private static final String PREFERENCE_PRIVACY_POLICY = "preference_privacy_policy";
+  private static final String PREFERENCE_ABOUT = PREFERENCE_CATEGORY_ABOUT;
   private boolean recreating;
 
   @Override
@@ -86,6 +93,13 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       actionBar.setTitle(R.string.conversation_list_menu__settings);
     }
 
+    getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        navigateBackFromPreferences();
+      }
+    });
+
     if (icicle == null) {
       String startCategory = getIntent().getStringExtra(EXTRA_START_CATEGORY);
 
@@ -93,9 +107,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         case PREFERENCE_CATEGORY_MESSAGES -> new MessagesPreferenceFragment();
         case PREFERENCE_CATEGORY_NOTIFICATIONS -> new NotificationsPreferenceFragment();
         case PREFERENCE_CATEGORY_APP_PROTECTION -> new AppProtectionPreferenceFragment();
+        case PREFERENCE_CATEGORY_ABOUT -> new AboutPreferenceFragment();
         case PREFERENCE_CATEGORY_APPEARANCE -> new AppearancePreferenceFragment();
         case PREFERENCE_CATEGORY_CHATS -> new ChatsPreferenceFragment();
-        case PREFERENCE_CATEGORY_ADVANCED -> new AdvancedPreferenceFragment();
+        case PREFERENCE_CATEGORY_DEBUG -> new DebugPreferenceFragment();
         default -> new ApplicationPreferenceFragment();
       };
 
@@ -115,38 +130,77 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       case PREFERENCE_CATEGORY_MESSAGES -> new MessagesPreferenceFragment();
       case PREFERENCE_CATEGORY_NOTIFICATIONS -> new NotificationsPreferenceFragment();
       case PREFERENCE_CATEGORY_APP_PROTECTION -> new AppProtectionPreferenceFragment();
+      case PREFERENCE_CATEGORY_ABOUT -> new AboutPreferenceFragment();
       case PREFERENCE_CATEGORY_APPEARANCE -> new AppearancePreferenceFragment();
       case PREFERENCE_CATEGORY_CHATS -> new ChatsPreferenceFragment();
-      case PREFERENCE_CATEGORY_ADVANCED -> new AdvancedPreferenceFragment();
+      case PREFERENCE_CATEGORY_DEBUG -> new DebugPreferenceFragment();
       default -> new ApplicationPreferenceFragment();
     };
 
+    animateFragmentAfterViewCreated(fragment, true);
     getSupportFragmentManager()
             .beginTransaction()
-            .setCustomAnimations(
-                    R.anim.slide_from_right,
-                    R.anim.slide_to_left,
-                    R.anim.slide_from_left,
-                    R.anim.slide_to_right
-            )
             .replace(R.id.fragment_container, fragment)
             .commitAllowingStateLoss();
   }
 
   @Override
   public boolean onSupportNavigateUp() {
+    navigateBackFromPreferences();
+
+    return true;
+  }
+
+  private void navigateBackFromPreferences() {
     FragmentManager fragmentManager = getSupportFragmentManager();
 
     if (fragmentManager.getBackStackEntryCount() > 0) {
-      fragmentManager.popBackStack();
-    } else {
-      Intent intent = new Intent(this, ConversationListActivity.class);
-      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(intent);
-      finish();
+      if (fragmentManager.popBackStackImmediate()) {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        if (fragment != null) animateFragmentIn(fragment, false);
+      }
+      return;
     }
 
-    return true;
+    Intent intent = new Intent(this, ConversationListActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivity(intent);
+    finish();
+  }
+
+  private void animateFragmentIn(@NonNull Fragment fragment, boolean fromRight) {
+    View view = fragment.getView();
+    View container = findViewById(R.id.fragment_container);
+    if (view == null || container == null) return;
+
+    Runnable startAnimation = () -> {
+      float offset = fromRight ? container.getWidth() : -container.getWidth();
+      view.setTranslationX(offset);
+      view.animate()
+              .translationX(0f)
+              .setDuration(300L)
+              .start();
+    };
+
+    if (container.getWidth() > 0) startAnimation.run();
+    else container.post(startAnimation);
+  }
+
+  private void animateFragmentAfterViewCreated(@NonNull Fragment fragment, boolean fromRight) {
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentManager.FragmentLifecycleCallbacks callbacks =
+            new FragmentManager.FragmentLifecycleCallbacks() {
+              @Override
+              public void onFragmentViewCreated(@NonNull FragmentManager manager,
+                                                @NonNull Fragment created,
+                                                @NonNull View view,
+                                                @Nullable Bundle savedInstanceState) {
+                if (created != fragment) return;
+                manager.unregisterFragmentLifecycleCallbacks(this);
+                animateFragmentIn(created, fromRight);
+              }
+            };
+    fragmentManager.registerFragmentLifecycleCallbacks(callbacks, false);
   }
 
   @Override
@@ -161,13 +215,13 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         AppCompatDelegate.setDefaultNightMode(mode);
       }
 
-      overridePendingTransition(0, 0);
+      applyTransition(ACTIVITY_TRANSITION_CLOSE, 0, 0);
       recreate();
-      overridePendingTransition(0, 0);
+      applyTransition(ACTIVITY_TRANSITION_OPEN, 0, 0);
     }
   }
 
-  private void openWebPage(@NonNull String url) {
+  public void openWebPage(@NonNull String url) {
     // Resolve a generic web URL so GitHub's app links cannot capture this launch.
     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
     browserIntent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -188,6 +242,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       CustomTabsIntent customTab = new CustomTabsIntent.Builder().build();
       customTab.intent.setPackage(browserPackage);
       customTab.launchUrl(this, Uri.parse(url));
+      applyOpenTransition();
     } catch (ActivityNotFoundException e) {
       Toast.makeText(
               getApplicationContext(),
@@ -195,6 +250,20 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
               Toast.LENGTH_LONG
       ).show();
     }
+  }
+
+  public void openAboutSection(@NonNull String section) {
+    Fragment fragment = switch (section) {
+      case PREFERENCE_CATEGORY_ABOUT_LICENSES -> new OpenSourceLicensesPreferenceFragment();
+      case PREFERENCE_CATEGORY_ABOUT_BUILD_INFO -> new BuildInformationPreferenceFragment();
+      default -> throw new AssertionError("Unknown About section: " + section);
+    };
+
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.replace(R.id.fragment_container, fragment);
+    transaction.addToBackStack(null);
+    animateFragmentAfterViewCreated(fragment, true);
+    transaction.commit();
   }
 
   public static class ApplicationPreferenceFragment extends CorrectedPreferenceFragment {
@@ -222,6 +291,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
               new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_APP_PROTECTION)
       );
       setClickListenerIfPresent(
+              PREFERENCE_CATEGORY_ABOUT,
+              new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_ABOUT)
+      );
+      setClickListenerIfPresent(
               PREFERENCE_CATEGORY_APPEARANCE,
               new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_APPEARANCE)
       );
@@ -230,25 +303,9 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
               new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_CHATS)
       );
       setClickListenerIfPresent(
-              PREFERENCE_CATEGORY_ADVANCED,
-              new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_ADVANCED)
+              PREFERENCE_CATEGORY_DEBUG,
+              new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_DEBUG)
       );
-
-      setClickListenerIfPresent(PREFERENCE_ABOUT, preference -> {
-        ApplicationPreferencesActivity activity = getHostActivity();
-        if (activity != null) {
-          activity.openWebPage(BuildConfig.ABOUT_URL);
-        }
-        return true;
-      });
-
-      setClickListenerIfPresent(PREFERENCE_PRIVACY_POLICY, preference -> {
-        ApplicationPreferencesActivity activity = getHostActivity();
-        if (activity != null) {
-          activity.openWebPage(BuildConfig.PRIVACY_POLICY_URL);
-        }
-        return true;
-      });
     }
 
     @Override
@@ -347,9 +404,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
           case PREFERENCE_CATEGORY_MESSAGES -> new MessagesPreferenceFragment();
           case PREFERENCE_CATEGORY_NOTIFICATIONS -> new NotificationsPreferenceFragment();
           case PREFERENCE_CATEGORY_APP_PROTECTION -> new AppProtectionPreferenceFragment();
+          case PREFERENCE_CATEGORY_ABOUT -> new AboutPreferenceFragment();
           case PREFERENCE_CATEGORY_APPEARANCE -> new AppearancePreferenceFragment();
           case PREFERENCE_CATEGORY_CHATS -> new ChatsPreferenceFragment();
-          case PREFERENCE_CATEGORY_ADVANCED -> new AdvancedPreferenceFragment();
+          case PREFERENCE_CATEGORY_DEBUG -> new DebugPreferenceFragment();
           default -> throw new AssertionError("Unknown category: " + category);
         };
 
@@ -359,14 +417,12 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
 
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.slide_from_right,
-                R.anim.slide_to_left,
-                R.anim.slide_from_left,
-                R.anim.slide_to_right
-        );
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
+        ApplicationPreferencesActivity activity = getHostActivity();
+        if (activity != null) {
+          activity.animateFragmentAfterViewCreated(fragment, true);
+        }
         transaction.commit();
 
         return true;

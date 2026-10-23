@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import org.jimvixx.smsecure.permissions.Permissions;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics.SelectionSource;
 import org.jimvixx.smsecure.util.CharacterCalculator;
 import org.jimvixx.smsecure.util.DummyCharacterCalculator;
 import org.jimvixx.smsecure.util.EncryptedSmsCharacterCalculator;
@@ -49,6 +50,7 @@ public class TransportOptions {
 
   private Type defaultTransportType = Type.INSECURE_SMS;
   private Optional<Integer> defaultSubscriptionId;
+  private SelectionSource defaultSubscriptionSource = SelectionSource.SYSTEM_DEFAULT;
   private Optional<TransportOption> selectedOption = Optional.absent();
 
   public TransportOptions(Context context) {
@@ -68,9 +70,16 @@ public class TransportOptions {
     } else {
       this.defaultTransportType = Type.INSECURE_SMS;
       this.defaultSubscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId(context);
+      this.defaultSubscriptionSource = SelectionSource.SYSTEM_DEFAULT;
 
       notifyTransportChangeListeners();
     }
+  }
+
+  public void resetAfterSimRecovery() {
+    selectedOption = Optional.absent();
+    defaultSubscriptionId = Optional.absent();
+    reset();
   }
 
   public void setDefaultTransport(Type type) {
@@ -82,8 +91,14 @@ public class TransportOptions {
   }
 
   public void setDefaultSubscriptionId(Optional<Integer> subscriptionId) {
+    setDefaultSubscriptionId(subscriptionId, true);
+  }
+
+  public void setDefaultSubscriptionId(Optional<Integer> subscriptionId, boolean fromRecipientPreference) {
     if (subscriptionId.isPresent() && subscriptionId.get() >= 0) {
       this.defaultSubscriptionId = subscriptionId;
+      this.defaultSubscriptionSource = fromRecipientPreference
+              ? SelectionSource.RECIPIENT_PREFERENCE : SelectionSource.SYSTEM_DEFAULT;
     }
 
     if (!selectedOption.isPresent()) {
@@ -93,6 +108,22 @@ public class TransportOptions {
 
   public boolean isManualSelection() {
     return this.selectedOption.isPresent();
+  }
+
+  /** Describes the existing selection without changing it or refreshing subscriptions. */
+  public @NonNull SelectionSource getSelectionSource() {
+    try {
+      TransportOption selected = getSelectedTransport();
+      if (selected.getType() == Type.DISABLED) return SelectionSource.DISABLED;
+      if (selectedOption.isPresent()) return SelectionSource.MANUAL;
+      if (defaultSubscriptionId.isPresent() && selected.getType() == defaultTransportType &&
+              defaultSubscriptionId.get().equals(selected.getSimSubscriptionId().or(-1))) {
+        return defaultSubscriptionSource;
+      }
+      return SelectionSource.FALLBACK;
+    } catch (RuntimeException diagnosticFailure) {
+      return SelectionSource.UNKNOWN;
+    }
   }
 
   public @NonNull TransportOption getSelectedTransport() {

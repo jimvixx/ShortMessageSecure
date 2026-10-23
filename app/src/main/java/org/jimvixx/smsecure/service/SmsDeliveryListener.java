@@ -21,13 +21,13 @@ package org.jimvixx.smsecure.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
 import org.jimvixx.smsecure.ApplicationContext;
 import org.jimvixx.smsecure.jobs.SmsSentJob;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.logging.SmsSendDiagnostics;
 import org.whispersystems.jobqueue.JobManager;
 
 public class SmsDeliveryListener extends BroadcastReceiver {
@@ -35,6 +35,10 @@ public class SmsDeliveryListener extends BroadcastReceiver {
   public static final String SENT_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.SENT_SMS_ACTION";
   public static final String DELIVERED_SMS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERED_SMS_ACTION";
   public static final String DELIVERY_STATUS_ACTION = "org.jimvixx.smsecure.SendReceiveService.DELIVERY_STATUS_ACTION";
+
+  // SmsManager.RESULT_RIL_SMS_SEND_FAIL_RETRY was added in API 30; keep API 24 support.
+  public static final int RESULT_RIL_SMS_SEND_FAIL_RETRY = 101;
+
   private static final String TAG = SmsDeliveryListener.class.getSimpleName();
 
   @Override
@@ -45,15 +49,6 @@ public class SmsDeliveryListener extends BroadcastReceiver {
     if (action == null) {
       Log.w(TAG, "Null action!");
       return;
-    }
-
-    // Debug extras (optional but useful during bring-up).
-    Bundle extras = intent.getExtras();
-    if (extras != null) {
-      for (String k : extras.keySet()) {
-        Object v = extras.get(k);
-        Log.w(TAG, "extra[" + k + "]=" + (v != null ? v.getClass() : "null"));
-      }
     }
 
     JobManager jobManager = ApplicationContext.getInstance(context).getJobManager();
@@ -71,41 +66,26 @@ public class SmsDeliveryListener extends BroadcastReceiver {
         String sendAttemptId = intent.getStringExtra("send_attempt_id");
         int partIndex = intent.getIntExtra("part_index", 0);
         int partsTotal = intent.getIntExtra("parts_total", 1);
-        // Allowlist diagnostic values: never dump arbitrary extras or message data.
-        try {
-          String diagnostics = "SMS sent result: message=" + messageId
-                  + " result=" + resultCode + " part=" + partIndex + "/" + partsTotal
-                  + " errorCode=" + (intent.hasExtra("errorCode")
-                          ? Integer.toString(intent.getIntExtra("errorCode", 0)) : "absent")
-                  + " noDefault=" + (intent.hasExtra("noDefault")
-                          ? Boolean.toString(intent.getBooleanExtra("noDefault", false)) : "absent");
-          if (resultCode == android.app.Activity.RESULT_OK) {
-            Log.i(TAG, diagnostics);
-          } else {
-            Log.e(TAG, diagnostics);
-          }
-        } catch (RuntimeException diagnosticFailure) {
-          Log.w(TAG, "SMS result diagnostics unavailable: " + diagnosticFailure.getClass().getSimpleName());
-        }
+        SmsSendDiagnostics.logSentResult(intent, messageId, resultCode, partIndex, partsTotal);
         boolean connectivityFailure = resultCode == SmsManager.RESULT_ERROR_NO_SERVICE ||
                                       resultCode == SmsManager.RESULT_ERROR_RADIO_OFF;
+        boolean rilRetryEligible = isRilRetryEligible(resultCode, partsTotal);
 
         if (sendAttemptId != null &&
             !SmsSendAttemptTracker.shouldProcessCallback(context, messageId, sendAttemptId,
-                                                         partIndex, partsTotal, connectivityFailure)) {
+                    partIndex, partsTotal, connectivityFailure || rilRetryEligible)) {
           Log.w(TAG, "Ignoring duplicate or stale sent callback for message=" + messageId +
                   " attempt=" + sendAttemptId + " part=" + partIndex);
           break;
         }
 
-        jobManager.add(new SmsSentJob(context, messageId, SENT_SMS_ACTION, resultCode));
+        jobManager.add(new SmsSentJob(context, messageId, SENT_SMS_ACTION, resultCode,
+                intent.getLongExtra("mapping_generation", 0), rilRetryEligible));
         break;
 
       case DELIVERED_SMS_ACTION:
         // Parse network status; the successful-delivery time guard remains in SmsSentJob.
         Integer deliveryStatus = logDeliveryReport(intent, resultCode);
-        Log.w(TAG, "DELIVERED: result=" + resultCode +
-                " extras=" + (intent.getExtras() != null ? intent.getExtras().keySet() : "null"));
 
         if (deliveryStatus != null) {
           jobManager.add(new SmsSentJob(context, messageId, deliveryStatus,
@@ -117,6 +97,10 @@ public class SmsDeliveryListener extends BroadcastReceiver {
       default:
         Log.w(TAG, "Unknown action: " + action);
     }
+  }
+
+  static boolean isRilRetryEligible(int resultCode, int partsTotal) {
+    return resultCode == RESULT_RIL_SMS_SEND_FAIL_RETRY && partsTotal == 1;
   }
 
   static Integer logDeliveryReport(Intent intent, int resultCode) {

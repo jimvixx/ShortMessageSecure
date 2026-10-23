@@ -122,6 +122,16 @@ public class RecipientPreferenceDatabase extends Database {
     updateOrInsert(recipients, values);
   }
 
+  /** Clears selections that can no longer identify the physical SIM chosen by the user. */
+  public int clearDefaultSubscriptionId(int defaultSubscriptionId) {
+    ContentValues values = new ContentValues();
+    values.put(DEFAULT_SUBSCRIPTION_ID, -1);
+    int updated = databaseHelper.getWritableDatabase().update(TABLE_NAME, values,
+            DEFAULT_SUBSCRIPTION_ID + " = ?", new String[]{String.valueOf(defaultSubscriptionId)});
+    if (updated > 0) context.getContentResolver().notifyChange(RECIPIENT_PREFERENCES_URI, null);
+    return updated;
+  }
+
   public void setBlocked(Recipients recipients, boolean blocked) {
     ContentValues values = new ContentValues();
     values.put(BLOCK, blocked ? 1 : 0);

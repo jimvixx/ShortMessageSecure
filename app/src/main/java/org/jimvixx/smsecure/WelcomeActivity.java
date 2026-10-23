@@ -193,7 +193,7 @@ public class WelcomeActivity extends BaseActionBarActivity {
     Class<?> target = ConversationListActivity.class;
 
     startActivity(new Intent(this, target));
-    overridePendingTransition(R.anim.slide_from_right, R.anim.fade_scale_out);
+    applyOpenTransition();
     finish();
   }
 

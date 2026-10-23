@@ -391,17 +391,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Zobrazit celou konverzaci</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Kopírovat protokol</string>
-  <string name="log_submit__button_share_link">Sdílet odkaz</string>
   <string name="log_submit__button_share_logs">Sdílet protokol</string>
   <string name="log_submit_activity__collecting_logs">Sběr protokolu…</string>
   <string name="log_submit_activity__log_collect_failed">Sběr protokolu se nezdařil.</string>
-  <string name="log_submit_activity__log_fetch_failed">Sběr nebo nahrání protokolu se nezdařilo.</string>
-  <string name="log_submit_activity__log_upload_failed">Nahrání protokolu se nezdařilo.</string>
-  <string name="log_submit_activity__log_uploaded">Protokol nahrán. Odkaz zkopírován do schránky.</string>
   <string name="log_submit_activity__thanks">Děkuji za pomoc!</string>
   <string name="log_submit_activity__uploading_logs">Nahrávání protokolu…</string>
-  <string name="log_submit_copied">Záznam zkopírován.</string>
   <string name="log_submit_interrupted">Výsledek předchozího odeslání není k dispozici. Chcete-li odeslat novou zprávu, otevřete znovu okno „Odeslat protokol“.</string>
   <string name="log_submit_no_internet">Žádné připojení k internetu. Zkontrolujte připojení a poté znovu otevřete položku „Odeslat protokol“ a zkuste to znovu.</string>
   <string name="log_submit_save_failed">Protokol se nepodařilo uložit.</string>
@@ -489,8 +483,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">O aplikaci SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">SHA-256 podepisovače APK</string>
+  <string name="preferences__about_build_app_id">ID aplikace</string>
+  <string name="preferences__about_build_information">Informace o verzi a sestavení</string>
+  <string name="preferences__about_build_source_commit">Záznam v kódu</string>
+  <string name="preferences__about_build_type">Typ sestavení</string>
+  <string name="preferences__about_build_version_code">Kód verze</string>
+  <string name="preferences__about_build_version_name">Název verze</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">Závislosti na třetích stranách</string>
+  <string name="preferences__about_licenses_third_party_summary">Licence závislostí jsou zachovány spolu s jejich původními zdroji.</string>
+  <string name="preferences__about_open_source_licenses">Licence open source</string>
   <string name="preferences__about_version">Verze <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Pokročilé</string>
   <string name="preferences__always_ask_for_sim_card">Vždy se ptát na SIM kartu</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Při odesílání zpráv vždy požádat o výběr SIM karty</string>
   <string name="preferences__appearance">Vzhled</string>
@@ -500,11 +504,11 @@
   <string name="preferences__change_notification_sound">Změnit zvuk oznámení</string>
   <string name="preferences__change_passphrase">Změnit heslo</string>
   <string name="preferences__change_your_passphrase">Změňte své heslo</string>
-  <string name="preferences__chat_display">Zobrazení chatu</string>
   <string name="preferences__chats">Chaty</string>
   <string name="preferences__complete_key_exchanges">Dokončit výměnu klíčů</string>
   <string name="preferences__conversation_length_limit">Limit délky konverzace</string>
   <string name="preferences__dark_theme">Tmavý</string>
+  <string name="preferences__debug_diagnostics">Ladění a diagnostika</string>
   <string name="preferences__delete_old_messages">Smazat staré zprávy</string>
   <string name="preferences__diagnostic_logging_level">Úroveň diagnostického protokolování</string>
   <string name="preferences__diagnostic_logging_level_summary">Určuje, kolik diagnostických informací SMSecure ukládá interně.</string>
@@ -546,10 +550,11 @@
   <string name="preferences__notifications">Oznámení</string>
   <string name="preferences__one_time">Jednou</string>
   <string name="preferences__panic_button">Tlačítko pro nouzové volání</string>
+  <string name="preferences__passphrase">Heslo</string>
   <string name="preferences__play_inthread_notifications">Přehrát zvukové oznámení při zobrazení aktivní konverzace.</string>
   <string name="preferences__pref_timeout_interval_title">Interval časového limitu</string>
-  <string name="preferences__privacy">Ochrana osobních údajů</string>
-  <string name="preferences__privacy_policy">Zásady ochrany osobních údajů</string>
+  <string name="preferences__privacy_policy">GitHub / Zásady ochrany osobních údajů</string>
+  <string name="preferences__privacy_security">Ochrana osobních údajů</string>
   <string name="preferences__repeat_notification">Opakované oznámení</string>
   <string name="preferences__repeat_notification_number_times_select">Vyberte počet opakování oznámení</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Požádejte o potvrzení doručení pro každou odeslanou SMS zprávu</string>
@@ -558,6 +563,21 @@
   <string name="preferences__screen_security">Zabezpečení obrazovky</string>
   <string name="preferences__show_sent_time">Zobrazit čas odeslání</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Zobrazit čas odeslání namísto času přijetí u příchozích zpráv</string>
+  <string name="preferences__sim_recovery_apply">Obnovit vazbu</string>
+  <string name="preferences__sim_recovery_changed">Konfigurace SIM karty se změnila. Znovu otevřete režim obnovení a zkontrolujte aktuální SIM karty.</string>
+  <string name="preferences__sim_recovery_check_selection">Nastavení SIM karty se změnilo. Zkontrolujte vybranou SIM kartu a poté znovu klepněte na Odeslat.</string>
+  <string name="preferences__sim_recovery_choose_group">Vyberte příslušné SIM karty</string>
+  <string name="preferences__sim_recovery_choose_owner">Která SIM karta by měla zachovat stávající zabezpečené konverzace?</string>
+  <string name="preferences__sim_recovery_confirm_message">Vybraná SIM karta zachová stávající šifrovací klíče a relace. U ostatních dotčených SIM karet bude nutná výměna klíčů. Historie zpráv zůstane beze změny.\n\nU nevyřízených zpráv bude nutné provést ruční opakování odeslání. Před opakovaným odesláním zkontrolujte vybranou SIM kartu. Zprávy, které již byly předány systému Android, nelze odvolat.</string>
+  <string name="preferences__sim_recovery_confirm_title">Obnovit vazbu pro %1$s?</string>
+  <string name="preferences__sim_recovery_failed">Nepodařilo se obnovit vazby SIM karty. Znovu otevřete nástroj pro obnovu a zkontrolujte jejich aktuální stav.</string>
+  <string name="preferences__sim_recovery_keys_pending">Vazby SIM karty byly obnoveny, ale nové šifrovací klíče nebylo možné inicializovat. Před zahájením nové výměny klíčů restartujte aplikaci SMSecure.</string>
+  <string name="preferences__sim_recovery_no_active">Nejsou k dispozici žádné informace o aktivní SIM kartě. Zkontrolujte oprávnění telefonu a nastavení SIM karty.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Nebyly zjištěny žádné konfliktní vazby SIM karet.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">Vazby SIM karty byly obnoveny. Před ručním opakováním odeslání čekajících zpráv zkontrolujte SIM kartu. Ostatní dotčené SIM karty vyžadují novou výměnu klíčů.</string>
+  <string name="preferences__sim_recovery_summary">Vyřešte konflikty SIM karet, které brání odesílání zpráv</string>
+  <string name="preferences__sim_recovery_title">Obnovit vazby SIM karty</string>
   <string name="preferences__sms_delivery_reports">Zprávy o doručení SMS</string>
   <string name="preferences__sms_delivery_reports_notification">Oznámení o doručení SMS</string>
   <string name="preferences__sound">Zvuk</string>

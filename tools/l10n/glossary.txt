@@ -1,5 +1,6 @@
 [common]
 SMSecure
+GitHub
 HEX
 SMS
 MMS

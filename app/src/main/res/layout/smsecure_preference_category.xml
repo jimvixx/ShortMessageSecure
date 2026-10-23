@@ -4,7 +4,7 @@
     android:id="@+id/category_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_touch_highlight_item"
+    android:background="?attr/appColorBackgroundSecondary"
     android:orientation="vertical"
     android:paddingStart="@dimen/smsecure_preference_horizontal_padding"
     android:paddingTop="@dimen/smsecure_preference_category_top_padding"
@@ -18,7 +18,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        tools:text="Test category title" />
+        android:visibility="gone"
+        tools:text="Test category title"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@android:id/summary"

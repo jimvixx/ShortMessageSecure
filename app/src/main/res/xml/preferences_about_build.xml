@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:icon="@drawable/ic_identifier"
+        android:key="about_build_app_id"
+        android:title="@string/preferences__about_build_app_id" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:icon="@drawable/ic_alpha_v"
+        android:key="about_build_version_name"
+        android:title="@string/preferences__about_build_version_name" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:icon="@drawable/ic_numeric"
+        android:key="about_build_version_code"
+        android:title="@string/preferences__about_build_version_code" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:icon="@drawable/ic_domain"
+        android:key="about_build_type"
+        android:title="@string/preferences__about_build_type" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:icon="@drawable/ic_source_commit"
+        android:key="about_build_source_commit"
+        android:title="@string/preferences__about_build_source_commit" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:icon="@drawable/ic_lock"
+        android:key="about_build_apk_signer_sha256"
+        android:title="@string/preferences__about_build_apk_signer_sha256" />
+
+</PreferenceScreen>

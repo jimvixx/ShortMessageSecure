@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Jimvixx
+ * Copyright (C) 2026 Jimvixx
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,59 +29,31 @@ import androidx.preference.PreferenceFragmentCompat;
 import org.jimvixx.smsecure.ApplicationPreferencesActivity;
 import org.jimvixx.smsecure.LogSubmitActivity;
 import org.jimvixx.smsecure.R;
-import org.jimvixx.smsecure.util.SMSecurePreferences;
-import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 
-public class AdvancedPreferenceFragment extends PreferenceFragmentCompat {
+public class DebugPreferenceFragment extends PreferenceFragmentCompat {
 
   private static final String SUBMIT_DEBUG_LOG_PREF = "pref_submit_debug_logs";
 
   @Override
   public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-    setPreferencesFromResource(R.xml.preferences_advanced, rootKey);
+    setPreferencesFromResource(R.xml.preferences_debug, rootKey);
 
-    initializeSubmitDebugLogsPreference();
-    updateAskForSimPreferenceVisibility();
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-
-    ApplicationPreferencesActivity activity = getHostActivity();
-    if (activity == null) return;
-
-    ActionBar actionBar = activity.getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setTitle(R.string.preferences__advanced);
-    }
-  }
-
-  private void initializeSubmitDebugLogsPreference() {
     Preference submitPref = findPreference(SUBMIT_DEBUG_LOG_PREF);
     if (submitPref != null) {
       submitPref.setOnPreferenceClickListener(new SubmitDebugLogListener());
     }
   }
 
-  private void updateAskForSimPreferenceVisibility() {
-    if (getActivity() == null) return;
+  @Override
+  public void onResume() {
+    super.onResume();
 
-    int simCount = SubscriptionManagerCompat.from(getActivity())
-            .getActiveSubscriptionInfoList()
-            .size();
+    if (!(getActivity() instanceof ApplicationPreferencesActivity activity)) return;
 
-    Preference askForSimPref = findPreference(SMSecurePreferences.ASK_FOR_SIM_CARD);
-    if (askForSimPref != null) {
-      askForSimPref.setVisible(simCount > 1);
+    ActionBar actionBar = activity.getSupportActionBar();
+    if (actionBar != null) {
+      actionBar.setTitle(R.string.preferences__debug_diagnostics);
     }
-  }
-
-  @Nullable
-  private ApplicationPreferencesActivity getHostActivity() {
-    return (getActivity() instanceof ApplicationPreferencesActivity)
-            ? (ApplicationPreferencesActivity) getActivity()
-            : null;
   }
 
   private static class SubmitDebugLogListener implements Preference.OnPreferenceClickListener {

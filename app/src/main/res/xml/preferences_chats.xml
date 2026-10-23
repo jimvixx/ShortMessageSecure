@@ -2,18 +2,37 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
-        android:key="chat_display"
-        android:title="@string/preferences__chat_display">
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_account_details"
+        android:key="pref_hide_phone_number_in_chat_header"
+        android:summary="@string/preferences__hide_phone_number_in_chat_header_summary"
+        android:title="@string/preferences__hide_phone_number_in_chat_header" />
 
-        <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
-            android:defaultValue="false"
-            android:icon="@drawable/ic_account_details"
-            android:key="pref_hide_phone_number_in_chat_header"
-            android:summary="@string/preferences__hide_phone_number_in_chat_header_summary"
-            android:title="@string/preferences__hide_phone_number_in_chat_header" />
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_view_split_horizontal"
+        android:key="pref_hide_unread_message_divider"
+        android:summary="@string/preferences__hide_divider_between_read_and_unread_messages"
+        android:title="@string/preferences__hide_unread_message_divider"
+        app:rightSummaryMaxLines="1" />
 
-    </org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory>
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_emoticon_neutral"
+        android:key="pref_system_emoji"
+        android:summary="@string/preferences__disable_smsecures_built_in_emoji_support"
+        android:title="@string/preferences__use_system_emoji"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_emoticon_remove"
+        android:key="pref_disable_emoji_drawer"
+        android:summary="@string/preferences__enable_this_option_if_your_keyboard_supports_emojis"
+        android:title="@string/preferences__disable_emoji_drawer"
+        app:rightSummaryMaxLines="1"
+        app:allowDividerBelow="false"/>
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
         android:key="message_trimming"

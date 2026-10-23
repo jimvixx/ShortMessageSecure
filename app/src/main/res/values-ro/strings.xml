@@ -382,17 +382,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Vezi conversația completă</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Copiere jurnal</string>
-  <string name="log_submit__button_share_link">Link de partajare</string>
   <string name="log_submit__button_share_logs">Partajare jurnal</string>
   <string name="log_submit_activity__collecting_logs">Colectare jurnal…</string>
   <string name="log_submit_activity__log_collect_failed">Colectarea jurnalului a eșuat.</string>
-  <string name="log_submit_activity__log_fetch_failed">Nu s-a reușit colectarea sau încărcarea jurnalului.</string>
-  <string name="log_submit_activity__log_upload_failed">Nu s-a putut încărca jurnalul.</string>
-  <string name="log_submit_activity__log_uploaded">Jurnal încărcat. Link copiat în clipboard.</string>
   <string name="log_submit_activity__thanks">Vă mulțumesc pentru ajutor!</string>
   <string name="log_submit_activity__uploading_logs">Se încarcă jurnalul…</string>
-  <string name="log_submit_copied">Jurnal copiat.</string>
   <string name="log_submit_interrupted">Rezultatul încărcării anterioare nu este disponibil. Deschideți din nou „Trimite jurnal” dacă doriți să trimiteți un nou raport.</string>
   <string name="log_submit_no_internet">Nu există conexiune la internet. Verificați conexiunea, apoi redeschideți „Trimite jurnal” pentru a încerca din nou.</string>
   <string name="log_submit_save_failed">Nu s-a putut salva jurnalul.</string>
@@ -477,8 +471,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Despre SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">SHA-256 al semnătorului APK</string>
+  <string name="preferences__about_build_app_id">ID-ul aplicației</string>
+  <string name="preferences__about_build_information">Informații despre versiune și compilare</string>
+  <string name="preferences__about_build_source_commit">Commit sursă</string>
+  <string name="preferences__about_build_type">Tipul de compilare</string>
+  <string name="preferences__about_build_version_code">Codul versiunii</string>
+  <string name="preferences__about_build_version_name">Numele versiunii</string>
+  <string name="preferences__about_licenses_gpl">Licența publică generală GNU v3.0</string>
+  <string name="preferences__about_licenses_third_party">Dependențe de la terți</string>
+  <string name="preferences__about_licenses_third_party_summary">Licențele dependențelor sunt păstrate împreună cu sursele lor din amonte.</string>
+  <string name="preferences__about_open_source_licenses">Licențe open source</string>
   <string name="preferences__about_version">Versiune <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Avansat</string>
   <string name="preferences__always_ask_for_sim_card">Solicită întotdeauna cartela SIM</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Întreabă întotdeauna ce cartelă SIM să folosești când trimiți mesaje</string>
   <string name="preferences__appearance">Aspect</string>
@@ -488,11 +492,11 @@
   <string name="preferences__change_notification_sound">Modificare sunet notificare</string>
   <string name="preferences__change_passphrase">Schimbă parola</string>
   <string name="preferences__change_your_passphrase">Schimbați-vă parola</string>
-  <string name="preferences__chat_display">Afișare chat</string>
   <string name="preferences__chats">Chat-uri</string>
   <string name="preferences__complete_key_exchanges">Finalizarea schimburilor de chei</string>
   <string name="preferences__conversation_length_limit">Limita de lungime a conversației</string>
   <string name="preferences__dark_theme">Întunecat</string>
+  <string name="preferences__debug_diagnostics">Debugare și diagnosticare</string>
   <string name="preferences__delete_old_messages">Șterge mesajele vechi</string>
   <string name="preferences__diagnostic_logging_level">Nivel de jurnalizare diagnostic</string>
   <string name="preferences__diagnostic_logging_level_summary">Controlează cantitatea de informații de diagnosticare pe care SMSecure o stochează intern.</string>
@@ -533,10 +537,11 @@
   <string name="preferences__notifications">Notificări</string>
   <string name="preferences__one_time">O singură dată</string>
   <string name="preferences__panic_button">Buton de panică</string>
+  <string name="preferences__passphrase">Frază de acces</string>
   <string name="preferences__play_inthread_notifications">Redă sunetul de notificare atunci când vizualizezi o conversație activă.</string>
   <string name="preferences__pref_timeout_interval_title">Interval de expirare</string>
-  <string name="preferences__privacy">Confidențialitate</string>
-  <string name="preferences__privacy_policy">Politica de confidențialitate</string>
+  <string name="preferences__privacy_policy">GitHub / Politica de confidențialitate</string>
+  <string name="preferences__privacy_security">Confidențialitate</string>
   <string name="preferences__repeat_notification">Notificare repetată</string>
   <string name="preferences__repeat_notification_number_times_select">Selectați de câte ori se repetă notificarea</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Solicitați un raport de livrare pentru fiecare mesaj SMS pe care îl trimiteți</string>
@@ -545,6 +550,21 @@
   <string name="preferences__screen_security">Securitatea ecranului</string>
   <string name="preferences__show_sent_time">Afișează ora trimiterii</string>
   <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Afișează ora de trimitere în loc de ora de primire pentru mesajele primite</string>
+  <string name="preferences__sim_recovery_apply">Restaurare legătură</string>
+  <string name="preferences__sim_recovery_changed">Configurația cartelei SIM s-a modificat. Deschideți din nou modul de recuperare și verificați cartelele SIM actuale.</string>
+  <string name="preferences__sim_recovery_check_selection">S-au modificat asocierile SIM-urilor. Verificați SIM-ul selectat, apoi atingeți din nou „Trimite”.</string>
+  <string name="preferences__sim_recovery_choose_group">Alegeți cartelele SIM afectate</string>
+  <string name="preferences__sim_recovery_choose_owner">Care SIM ar trebui să păstreze conversațiile securizate existente?</string>
+  <string name="preferences__sim_recovery_confirm_message">SIM-ul selectat va păstra cheile de criptare și sesiunile existente. Celelalte SIM-uri afectate vor necesita un nou schimb de chei. Istoricul mesajelor rămâne neschimbat.\n\nMesajele în așteptare vor necesita o nouă încercare manuală. Verificați SIM-ul selectat înainte de a încerca din nou. Mesajele deja transmise către Android nu pot fi recuperate.</string>
+  <string name="preferences__sim_recovery_confirm_title">Să restabilim legătura pentru %1$s?</string>
+  <string name="preferences__sim_recovery_failed">Nu s-au putut restabili asocierile SIM-ului. Deschideți din nou funcția de recuperare pentru a verifica starea actuală a acestora.</string>
+  <string name="preferences__sim_recovery_keys_pending">Legăturile SIM au fost restabilite, dar nu s-au putut inițializa chei noi de criptare. Reporniți SMSecure înainte de a începe un nou schimb de chei.</string>
+  <string name="preferences__sim_recovery_no_active">Nu sunt disponibile informații despre SIM-ul activ. Verificați permisiunile telefonului și setările SIM-ului.</string>
+  <string name="preferences__sim_recovery_no_conflicts">Nu s-au detectat asocieri SIM conflictuale.</string>
+  <string name="preferences__sim_recovery_sim_label">SIM %1$d — %2$s</string>
+  <string name="preferences__sim_recovery_success">Legăturile SIM au fost restabilite. Verificați cartela SIM înainte de a reîncerca manual mesajele în așteptare. Celelalte cartele SIM afectate necesită un nou schimb de chei.</string>
+  <string name="preferences__sim_recovery_summary">Rezolvați conflictele legate de SIM care împiedică trimiterea mesajelor</string>
+  <string name="preferences__sim_recovery_title">Restaurare a legăturilor SIM</string>
   <string name="preferences__sms_delivery_reports">Rapoarte de livrare SMS</string>
   <string name="preferences__sms_delivery_reports_notification">Notificare privind rapoartele de livrare SMS</string>
   <string name="preferences__sound">Sunet</string>
