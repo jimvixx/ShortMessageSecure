@@ -163,15 +163,20 @@ public class ThreadDatabase extends Database {
     return db.insert(TABLE_NAME, null, contentValues);
   }
 
-  private void updateThread(long threadId, long count, String body,
-                            long date, int status, long type, boolean unarchive) {
+  private void updateThread(long threadId, @NonNull MessageDatabase.UnifiedConversationMetadata metadata,
+                            boolean unarchive) {
     ContentValues contentValues = new ContentValues(6);
-    contentValues.put(DATE, date - date % 1000);
-    contentValues.put(MESSAGE_COUNT, count);
-    contentValues.put(SNIPPET, body);
-    contentValues.put(SNIPPET_URI, (byte[]) null);
-    contentValues.put(SNIPPET_TYPE, type);
-    contentValues.put(STATUS, status);
+    contentValues.put(DATE, metadata.getDate() - metadata.getDate() % 1000);
+    contentValues.put(MESSAGE_COUNT, metadata.getMessageCount());
+    contentValues.put(STATUS, metadata.getStatus());
+
+    // Conversation loading and thread snippets are still SMS-only. Do not copy an MMS body
+    // into the thread row until the UI can render MMS safely and transport-aware.
+    if (MessageDatabase.SMS_TRANSPORT.equals(metadata.getTransport())) {
+      contentValues.put(SNIPPET, metadata.getSnippet());
+      contentValues.put(SNIPPET_URI, (byte[]) null);
+      contentValues.put(SNIPPET_TYPE, metadata.getType());
+    }
 
     if (unarchive) {
       contentValues.put(ARCHIVED, 0);
@@ -865,41 +870,19 @@ public class ThreadDatabase extends Database {
   }
 
   public boolean update(long threadId, boolean unarchive) {
-    MessageDatabase messageDatabase = DatabaseFactory.getMessageDatabase(context);
-    long count = messageDatabase.getConversationCount(threadId);
+    MessageDatabase messageDatabase = new MessageDatabase(context, databaseHelper);
+    MessageDatabase.UnifiedConversationMetadata metadata =
+        messageDatabase.getUnifiedConversationMetadata(threadId);
 
-    if (count == 0) {
+    if (!metadata.hasMessages()) {
       deleteThread(threadId);
       notifyConversationListListeners();
       return true;
     }
 
-    MessageDatabase.Reader reader = null;
-
-    try {
-      reader = messageDatabase.readerFor(messageDatabase.getConversationSnippet(threadId));
-      MessageRecord record;
-
-      if (reader != null && (record = reader.getNext()) != null) {
-        updateThread(threadId,
-                count,
-                record.getBody().getBody(),
-                record.getTimestamp(),
-                record.getDeliveryStatus(),
-                record.getType(),
-                unarchive);
-        notifyConversationListListeners();
-        return false;
-      } else {
-        deleteThread(threadId);
-        notifyConversationListListeners();
-        return true;
-      }
-    } finally {
-      if (reader != null) {
-        reader.close();
-      }
-    }
+    updateThread(threadId, metadata, unarchive);
+    notifyConversationListListeners();
+    return false;
   }
 
   public Reader readerFor(Cursor cursor, MasterCipher masterCipher) {

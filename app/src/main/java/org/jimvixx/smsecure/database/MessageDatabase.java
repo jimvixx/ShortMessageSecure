@@ -115,6 +115,86 @@ public class MessageDatabase extends Database {
     }
   }
 
+  /**
+   * Returns read-only metadata for the newest SMS or MMS in a thread.
+   *
+   * <p>The returned identity includes the transport so an SMS and MMS with the same numeric
+   * database id remain distinct. This method only reads message metadata and never opens
+   * attachment files or changes message state.</p>
+   */
+  @NonNull public UnifiedConversationMetadata getUnifiedConversationMetadata(long threadId) {
+    int count = getUnifiedConversationCount(threadId);
+
+    try (Cursor cursor = getUnifiedConversationSnippet(threadId)) {
+      if (!cursor.moveToFirst()) {
+        return new UnifiedConversationMetadata(count, null, null);
+      }
+
+      String transport = cursor.getString(cursor.getColumnIndexOrThrow(TRANSPORT));
+      String uniqueMessageId = cursor.getString(
+          cursor.getColumnIndexOrThrow(MessageColumns.UNIQUE_ROW_ID));
+      Reader reader = readerFor(cursor);
+
+      return new UnifiedConversationMetadata(count, reader.getCurrent(), transport, uniqueMessageId);
+    }
+  }
+
+  public static final class UnifiedConversationMetadata {
+    private final int messageCount;
+    private final MessageRecord latestMessage;
+    private final String transport;
+    private final String uniqueMessageId;
+
+    private UnifiedConversationMetadata(int messageCount, @Nullable MessageRecord latestMessage,
+                                        @Nullable String transport) {
+      this(messageCount, latestMessage, transport, null);
+    }
+
+    private UnifiedConversationMetadata(int messageCount, @Nullable MessageRecord latestMessage,
+                                        @Nullable String transport, @Nullable String uniqueMessageId) {
+      this.messageCount = messageCount;
+      this.latestMessage = latestMessage;
+      this.transport = transport;
+      this.uniqueMessageId = uniqueMessageId;
+    }
+
+    public int getMessageCount() {
+      return messageCount;
+    }
+
+    public boolean hasMessages() {
+      return latestMessage != null;
+    }
+
+    @Nullable public MessageRecord getLatestMessage() {
+      return latestMessage;
+    }
+
+    @Nullable public String getTransport() {
+      return transport;
+    }
+
+    @Nullable public String getUniqueMessageId() {
+      return uniqueMessageId;
+    }
+
+    @Nullable public String getSnippet() {
+      return latestMessage == null ? null : latestMessage.getBody().getBody();
+    }
+
+    public long getDate() {
+      return latestMessage == null ? 0 : latestMessage.getTimestamp();
+    }
+
+    public int getStatus() {
+      return latestMessage == null ? SmsDatabase.Status.STATUS_NONE : latestMessage.getDeliveryStatus();
+    }
+
+    public long getType() {
+      return latestMessage == null ? 0 : latestMessage.getType();
+    }
+  }
+
   private Cursor queryMessages(String selection, String order, String limit, boolean unified) {
     if (!unified) {
       SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
