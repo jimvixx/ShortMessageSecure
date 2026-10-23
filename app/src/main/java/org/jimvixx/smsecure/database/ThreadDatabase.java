@@ -95,6 +95,18 @@ public class ThreadDatabase extends Database {
     super(context, databaseHelper);
   }
 
+  /**
+   * Creates transport database views over this thread database's helper. This keeps isolated
+   * database instances isolated from DatabaseFactory's application-wide messages.db.
+   */
+  private SmsDatabase getSmsDatabaseForCurrentHelper() {
+    return new SmsDatabase(context, databaseHelper);
+  }
+
+  private MmsDatabase getMmsDatabaseForCurrentHelper() {
+    return new MmsDatabase(context, databaseHelper);
+  }
+
   private static boolean containsNormalized(@Nullable String candidate, @NonNull String normalizedQuery) {
     if (TextUtils.isEmpty(candidate) || normalizedQuery.isEmpty()) {
       return false;
@@ -289,24 +301,101 @@ public class ThreadDatabase extends Database {
 
   public void setAllThreadsRead() {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    ContentValues contentValues = new ContentValues(1);
-    contentValues.put(READ, 1);
-
-    db.update(TABLE_NAME, contentValues, null, null);
-
-    DatabaseFactory.getSmsDatabase(context).setAllMessagesRead();
+    db.beginTransaction();
+    try {
+      getSmsDatabaseForCurrentHelper().setAllMessagesRead();
+      updateAllThreadReadStates(db);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
     notifyConversationListListeners();
   }
 
   public void setRead(long threadId) {
-    ContentValues contentValues = new ContentValues(1);
-    contentValues.put(READ, 1);
-
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    db.update(TABLE_NAME, contentValues, ID_WHERE, new String[]{threadId + ""});
-
-    DatabaseFactory.getSmsDatabase(context).setMessagesRead(threadId);
+    db.beginTransaction();
+    try {
+      getSmsDatabaseForCurrentHelper().setMessagesRead(threadId);
+      updateThreadReadState(db, threadId);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
     notifyConversationListListeners();
+  }
+
+  /**
+   * Marks only MMS messages in a thread as read. Existing SMS-only callers use setRead(long),
+   * which deliberately does not write MMS rows.
+   */
+  public void setMmsRead(long threadId) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      getMmsDatabaseForCurrentHelper().setMessagesRead(db, threadId);
+      updateThreadReadState(db, threadId);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+    notifyConversationListeners(threadId);
+    notifyConversationListListeners();
+  }
+
+  /** Marks all MMS messages as read and recalculates every thread's aggregate read state. */
+  public void setAllMmsRead() {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      getMmsDatabaseForCurrentHelper().setAllMessagesRead(db);
+      updateAllThreadReadStates(db);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+    notifyConversationListListeners();
+  }
+
+  /**
+   * Opt-in read operation for a future UI that renders both transports. Existing UI and
+   * notification callers intentionally continue to use the SMS-only setRead(long) method.
+   */
+  public void setReadForAllTransports(long threadId) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      getSmsDatabaseForCurrentHelper().setMessagesRead(threadId);
+      getMmsDatabaseForCurrentHelper().setMessagesRead(db, threadId);
+      updateThreadReadState(db, threadId);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+    notifyConversationListeners(threadId);
+    notifyConversationListListeners();
+  }
+
+  private void updateThreadReadState(SQLiteDatabase db, long threadId) {
+    ContentValues contentValues = new ContentValues(1);
+    contentValues.put(READ, hasUnreadMessage(db, threadId) ? 0 : 1);
+    db.update(TABLE_NAME, contentValues, ID_WHERE, new String[]{String.valueOf(threadId)});
+  }
+
+  private void updateAllThreadReadStates(SQLiteDatabase db) {
+    db.execSQL("UPDATE " + TABLE_NAME + " SET " + READ + " = CASE " +
+        "WHEN EXISTS (SELECT 1 FROM sms WHERE sms.thread_id = " + TABLE_NAME + "." + ID +
+        " AND sms.read = 0) OR EXISTS (SELECT 1 FROM mms WHERE mms.thread_id = " + TABLE_NAME +
+        "." + ID + " AND mms.read = 0) THEN 0 ELSE 1 END");
+  }
+
+  private boolean hasUnreadMessage(SQLiteDatabase db, long threadId) {
+    try (Cursor cursor = db.rawQuery(
+        "SELECT EXISTS (SELECT 1 FROM sms WHERE thread_id = ? AND read = 0) OR " +
+            "EXISTS (SELECT 1 FROM mms WHERE thread_id = ? AND read = 0)",
+        new String[]{String.valueOf(threadId), String.valueOf(threadId)})) {
+      return cursor.moveToFirst() && cursor.getInt(0) != 0;
+    }
   }
 
   public void setUnread(long threadId) {

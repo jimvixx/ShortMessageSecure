@@ -16,6 +16,7 @@
  */
 package org.jimvixx.smsecure.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,8 +26,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Read-only access to the Silence-compatible MMS table. */
+/** Access to the Silence-compatible MMS table, including explicit MMS-only read operations. */
 public final class MmsDatabase {
+  static final String TABLE_NAME = "mms";
+  static final String THREAD_ID = "thread_id";
+  static final String READ = "read";
+
   private final SQLiteOpenHelper databaseHelper;
 
   public MmsDatabase(@NonNull Context context, @NonNull SQLiteOpenHelper databaseHelper) {
@@ -34,7 +39,7 @@ public final class MmsDatabase {
   }
 
   @Nullable public MmsRecord getMessage(long id) {
-    try (Cursor c = databaseHelper.getReadableDatabase().query("mms", MmsRecord.PROJECTION,
+    try (Cursor c = databaseHelper.getReadableDatabase().query(TABLE_NAME, MmsRecord.PROJECTION,
             "_id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
       return c.moveToFirst() ? MmsRecord.from(c) : null;
     }
@@ -42,8 +47,8 @@ public final class MmsDatabase {
 
   @NonNull public List<MmsRecord> getMessagesForThread(long threadId) {
     List<MmsRecord> result = new ArrayList<>();
-    try (Cursor c = databaseHelper.getReadableDatabase().query("mms", MmsRecord.PROJECTION,
-            "thread_id = ?", new String[]{String.valueOf(threadId)}, null, null,
+    try (Cursor c = databaseHelper.getReadableDatabase().query(TABLE_NAME, MmsRecord.PROJECTION,
+            THREAD_ID + " = ?", new String[]{String.valueOf(threadId)}, null, null,
             "date_received ASC, _id ASC")) {
       while (c.moveToNext()) result.add(MmsRecord.from(c));
     }
@@ -52,9 +57,53 @@ public final class MmsDatabase {
 
   public int getMessageCountForThread(long threadId) {
     try (Cursor c = databaseHelper.getReadableDatabase().rawQuery(
-            "SELECT COUNT(*) FROM mms WHERE thread_id = ?", new String[]{String.valueOf(threadId)})) {
+            "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + THREAD_ID + " = ?",
+            new String[]{String.valueOf(threadId)})) {
       return c.moveToFirst() ? c.getInt(0) : 0;
     }
+  }
+
+  /**
+   * Marks only MMS rows in a thread as read. Thread metadata is maintained by
+   * {@link ThreadDatabase#setMmsRead(long)}.
+   */
+  public int setMessagesRead(long threadId) {
+    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+    database.beginTransaction();
+    try {
+      int updated = setMessagesRead(database, threadId);
+      database.setTransactionSuccessful();
+      return updated;
+    } finally {
+      database.endTransaction();
+    }
+  }
+
+  /** Marks every MMS row as read. Thread metadata is maintained by ThreadDatabase. */
+  public int setAllMessagesRead() {
+    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+    database.beginTransaction();
+    try {
+      int updated = setAllMessagesRead(database);
+      database.setTransactionSuccessful();
+      return updated;
+    } finally {
+      database.endTransaction();
+    }
+  }
+
+  int setMessagesRead(SQLiteDatabase database, long threadId) {
+    ContentValues values = new ContentValues(1);
+    values.put(READ, 1);
+    return database.update(TABLE_NAME, values,
+            THREAD_ID + " = ? AND " + READ + " = 0",
+            new String[]{String.valueOf(threadId)});
+  }
+
+  int setAllMessagesRead(SQLiteDatabase database) {
+    ContentValues values = new ContentValues(1);
+    values.put(READ, 1);
+    return database.update(TABLE_NAME, values, READ + " = 0", null);
   }
 
   public static final class MmsRecord {

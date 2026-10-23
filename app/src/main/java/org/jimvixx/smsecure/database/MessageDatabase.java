@@ -116,6 +116,21 @@ public class MessageDatabase extends Database {
   }
 
   /**
+   * Returns the number of unread messages across both transports in a thread.
+   *
+   * <p>This is a read-only aggregate. Notification state is intentionally not considered here:
+   * a message that has been notified is still unread.</p>
+   */
+  public int getUnifiedUnreadCount(long threadId) {
+    try (Cursor cursor = databaseHelper.getReadableDatabase().rawQuery(
+        "SELECT (SELECT COUNT(*) FROM sms WHERE thread_id = ? AND read = 0) + " +
+            "(SELECT COUNT(*) FROM mms WHERE thread_id = ? AND read = 0)",
+        new String[]{String.valueOf(threadId), String.valueOf(threadId)})) {
+      return cursor.moveToFirst() ? cursor.getInt(0) : 0;
+    }
+  }
+
+  /**
    * Returns read-only metadata for the newest SMS or MMS in a thread.
    *
    * <p>The returned identity includes the transport so an SMS and MMS with the same numeric
