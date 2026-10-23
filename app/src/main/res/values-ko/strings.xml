@@ -364,17 +364,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">전체 대화 보기</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">로그 복사</string>
-  <string name="log_submit__button_share_link">링크 공유</string>
   <string name="log_submit__button_share_logs">로그 공유</string>
   <string name="log_submit_activity__collecting_logs">로그 수집 중…</string>
   <string name="log_submit_activity__log_collect_failed">로그 수집에 실패했습니다.</string>
-  <string name="log_submit_activity__log_fetch_failed">로그 수집 또는 업로드에 실패했습니다.</string>
-  <string name="log_submit_activity__log_upload_failed">로그 업로드에 실패했습니다.</string>
-  <string name="log_submit_activity__log_uploaded">로그가 업로드되었습니다. 링크가 클립보드에 복사되었습니다.</string>
   <string name="log_submit_activity__thanks">도움 주셔서 감사합니다!</string>
   <string name="log_submit_activity__uploading_logs">로그 업로드 중…</string>
-  <string name="log_submit_copied">로그가 복사되었습니다.</string>
   <string name="log_submit_interrupted">이전 업로드 결과를 확인할 수 없습니다. 새 보고서를 보내려면 ‘로그 제출’을 다시 열어 주세요.</string>
   <string name="log_submit_no_internet">인터넷에 연결되어 있지 않습니다. 연결 상태를 확인한 후 ’로그 제출’을 다시 열어 다시 시도해 주세요.</string>
   <string name="log_submit_save_failed">로그를 저장할 수 없습니다.</string>
@@ -453,8 +447,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">SMSecure 정보</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK 서명자 SHA-256</string>
+  <string name="preferences__about_build_app_id">애플리케이션 ID</string>
+  <string name="preferences__about_build_information">버전 및 빌드 정보</string>
+  <string name="preferences__about_build_source_commit">소스 커밋</string>
+  <string name="preferences__about_build_type">빌드 유형</string>
+  <string name="preferences__about_build_version_code">버전 코드</string>
+  <string name="preferences__about_build_version_name">버전 이름</string>
+  <string name="preferences__about_licenses_gpl">GNU 일반 공중 사용 허가서 v3.0</string>
+  <string name="preferences__about_licenses_third_party">타사 의존성</string>
+  <string name="preferences__about_licenses_third_party_summary">의존성 라이선스는 업스트림 소스와 함께 유지됩니다.</string>
+  <string name="preferences__about_open_source_licenses">오픈 소스 라이선스</string>
   <string name="preferences__about_version">버전 <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">고급</string>
   <string name="preferences__always_ask_for_sim_card">항상 SIM 카드를 요청합니다</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">메시지를 보낼 때마다 사용할 SIM 카드를 항상 묻습니다</string>
   <string name="preferences__appearance">모양</string>
@@ -464,11 +468,11 @@
   <string name="preferences__change_notification_sound">알림 소리 변경</string>
   <string name="preferences__change_passphrase">암호 변경</string>
   <string name="preferences__change_your_passphrase">암호를 변경하세요</string>
-  <string name="preferences__chat_display">채팅 화면</string>
   <string name="preferences__chats">채팅</string>
   <string name="preferences__complete_key_exchanges">키 교환 완료</string>
   <string name="preferences__conversation_length_limit">대화 길이 제한</string>
   <string name="preferences__dark_theme">다크</string>
+  <string name="preferences__debug_diagnostics">디버그 및 진단</string>
   <string name="preferences__delete_old_messages">이전 메시지 삭제</string>
   <string name="preferences__diagnostic_logging_level">진단 로깅 수준</string>
   <string name="preferences__diagnostic_logging_level_summary">SMSecure가 내부적으로 저장하는 진단 정보의 양을 제어합니다.</string>
@@ -507,10 +511,11 @@
   <string name="preferences__notifications">알림</string>
   <string name="preferences__one_time">한 번</string>
   <string name="preferences__panic_button">패닉 버튼</string>
+  <string name="preferences__passphrase">암호문구</string>
   <string name="preferences__play_inthread_notifications">활성 대화를 볼 때 알림 소리를 재생합니다.</string>
   <string name="preferences__pref_timeout_interval_title">타임아웃 간격</string>
-  <string name="preferences__privacy">개인정보</string>
-  <string name="preferences__privacy_policy">개인정보 처리방침</string>
+  <string name="preferences__privacy_policy">GitHub / 개인정보 처리방침</string>
+  <string name="preferences__privacy_security">개인정보</string>
   <string name="preferences__repeat_notification">알림 반복</string>
   <string name="preferences__repeat_notification_number_times_select">알림이 반복될 횟수를 선택하세요</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">보내는 각 SMS 메시지에 대해 전송 보고서를 요청합니다</string>

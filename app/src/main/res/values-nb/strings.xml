@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Se hele samtalen</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Kopier logg</string>
-  <string name="log_submit__button_share_link">Del lenke</string>
   <string name="log_submit__button_share_logs">Del logg</string>
   <string name="log_submit_activity__collecting_logs">Samler inn logg…</string>
   <string name="log_submit_activity__log_collect_failed">Kunne ikke samle inn logg.</string>
-  <string name="log_submit_activity__log_fetch_failed">Kunne ikke samle inn eller laste opp logg.</string>
-  <string name="log_submit_activity__log_upload_failed">Kunne ikke laste opp logg.</string>
-  <string name="log_submit_activity__log_uploaded">Loggen er lastet opp. Lenken er kopiert til utklippstavlen.</string>
   <string name="log_submit_activity__thanks">Takk for hjelpen!</string>
   <string name="log_submit_activity__uploading_logs">Laster opp logg…</string>
-  <string name="log_submit_copied">Logg kopiert.</string>
   <string name="log_submit_interrupted">Resultatet fra forrige opplasting er ikke tilgjengelig. Åpne «Send logg» på nytt hvis du vil sende en ny rapport.</string>
   <string name="log_submit_no_internet">Ingen internettforbindelse. Sjekk tilkoblingen din, og åpne deretter «Send logg» på nytt for å prøve igjen.</string>
   <string name="log_submit_save_failed">Kunne ikke lagre loggen.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Om SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK-signaturens SHA-256</string>
+  <string name="preferences__about_build_app_id">App-ID</string>
+  <string name="preferences__about_build_information">Versjons- og bygginformasjon</string>
+  <string name="preferences__about_build_source_commit">Kildekommitt</string>
+  <string name="preferences__about_build_type">Byggetype</string>
+  <string name="preferences__about_build_version_code">Versjonskode</string>
+  <string name="preferences__about_build_version_name">Versjonsnavn</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">Avhengigheter fra tredjeparter</string>
+  <string name="preferences__about_licenses_third_party_summary">Lisenser for avhengigheter beholdes sammen med kildene oppstrøms.</string>
+  <string name="preferences__about_open_source_licenses">Åpen kildekode-lisenser</string>
   <string name="preferences__about_version">Versjon <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Avansert</string>
   <string name="preferences__always_ask_for_sim_card">Spør alltid etter SIM-kort</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Spør alltid om hvilket SIM-kort som skal brukes når du sender meldinger</string>
   <string name="preferences__appearance">Utseende</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Endre meldingsvarslingslyd</string>
   <string name="preferences__change_passphrase">Endre passord</string>
   <string name="preferences__change_your_passphrase">Endre passordet ditt</string>
-  <string name="preferences__chat_display">Chat-visning</string>
   <string name="preferences__chats">Chats</string>
   <string name="preferences__complete_key_exchanges">Fullfør nøkkelutveksling</string>
   <string name="preferences__conversation_length_limit">Begrensning på samtalelengde</string>
   <string name="preferences__dark_theme">Mørk</string>
+  <string name="preferences__debug_diagnostics">Feilsøking og diagnostikk</string>
   <string name="preferences__delete_old_messages">Slett gamle meldinger</string>
   <string name="preferences__diagnostic_logging_level">Diagnostisk loggnivå</string>
   <string name="preferences__diagnostic_logging_level_summary">Styrer hvor mye diagnostisk informasjon SMSecure lagrer internt.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Varsler</string>
   <string name="preferences__one_time">Én gang</string>
   <string name="preferences__panic_button">Panikknapp</string>
+  <string name="preferences__passphrase">Passordfrase</string>
   <string name="preferences__play_inthread_notifications">Spill av varslingslyd når du viser en aktiv samtale.</string>
   <string name="preferences__pref_timeout_interval_title">Tidsavbruddsintervall</string>
-  <string name="preferences__privacy">Personvern</string>
-  <string name="preferences__privacy_policy">Personvernpolicy</string>
+  <string name="preferences__privacy_policy">GitHub / Personvernerklæring</string>
+  <string name="preferences__privacy_security">Personvern</string>
   <string name="preferences__repeat_notification">Gjenta varsel</string>
   <string name="preferences__repeat_notification_number_times_select">Velg antall ganger varselet skal gjentas</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Be om en leveringsrapport for hver SMS-melding du sender</string>

@@ -373,17 +373,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Виж цялата разговор</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">Копиране на лог</string>
-    <string name="log_submit__button_share_link">Сподели линк</string>
     <string name="log_submit__button_share_logs">Споделяне на лог</string>
     <string name="log_submit_activity__collecting_logs">Събиране на лог…</string>
     <string name="log_submit_activity__log_collect_failed">Неуспешно събиране на лог.</string>
-    <string name="log_submit_activity__log_fetch_failed">Неуспешно събиране или качване на лог.</string>
-    <string name="log_submit_activity__log_upload_failed">Неуспешно качване на лог.</string>
-    <string name="log_submit_activity__log_uploaded">Log uploaded. Връзката е копирана в клипборда.</string>
     <string name="log_submit_activity__thanks">Благодаря за помощта!</string>
     <string name="log_submit_activity__uploading_logs">Качване на лог…</string>
-    <string name="log_submit_copied">Логът е копиран.</string>
     <string name="log_submit_interrupted">Резултатът от предишното качване не е наличен. Отворете отново „Изпращане на лог“, ако искате да изпратите нов отчет.</string>
     <string name="log_submit_no_internet">Няма интернет връзка. Проверете връзката си, след което отворете отново „Изпрати лог“, за да опитате отново.</string>
     <string name="log_submit_save_failed">Не е възможно да се запише логът.</string>
@@ -465,8 +459,18 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">За SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">SHA-256 на подписателя на APK</string>
+    <string name="preferences__about_build_app_id">Идентификатор на приложението</string>
+    <string name="preferences__about_build_information">Информация за версията и сборката</string>
+    <string name="preferences__about_build_source_commit">Комит на изходния код</string>
+    <string name="preferences__about_build_type">Тип на версията</string>
+    <string name="preferences__about_build_version_code">Код на версията</string>
+    <string name="preferences__about_build_version_name">Име на версията</string>
+    <string name="preferences__about_licenses_gpl">Обща публична лицензия на GNU, версия 3.0</string>
+    <string name="preferences__about_licenses_third_party">Зависимости от трети страни</string>
+    <string name="preferences__about_licenses_third_party_summary">Лицензите за зависимости се запазват заедно с техните изходни източници.</string>
+    <string name="preferences__about_open_source_licenses">Лицензи за отворен код</string>
     <string name="preferences__about_version">Версия <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">Разширени</string>
     <string name="preferences__always_ask_for_sim_card">Винаги питай за SIM карта</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Винаги питайте коя SIM карта да се използва при изпращане на съобщения</string>
     <string name="preferences__appearance">Външен вид</string>
@@ -476,11 +480,11 @@
     <string name="preferences__change_notification_sound">Промяна на звука за известия</string>
     <string name="preferences__change_passphrase">Промяна на паролата</string>
     <string name="preferences__change_your_passphrase">Променете паролата си</string>
-    <string name="preferences__chat_display">Показване на чата</string>
     <string name="preferences__chats">Чатове</string>
     <string name="preferences__complete_key_exchanges">Завършете обмена на ключове</string>
     <string name="preferences__conversation_length_limit">Ограничение за дължината на разговора</string>
     <string name="preferences__dark_theme">Тъмно</string>
+    <string name="preferences__debug_diagnostics">Отстраняване на грешки и диагностика</string>
     <string name="preferences__delete_old_messages">Изтриване на стари съобщения</string>
     <string name="preferences__diagnostic_logging_level">Ниво на диагностичното логване</string>
     <string name="preferences__diagnostic_logging_level_summary">Контролира колко диагностична информация SMSecure съхранява вътрешно.</string>
@@ -520,10 +524,11 @@
     <string name="preferences__notifications">Уведомления</string>
     <string name="preferences__one_time">Един път</string>
     <string name="preferences__panic_button">Бутон за паника</string>
+    <string name="preferences__passphrase">Парола</string>
     <string name="preferences__play_inthread_notifications">Възпроизвеждане на звук за известие при преглед на активен разговор.</string>
     <string name="preferences__pref_timeout_interval_title">Интервал на изчакване</string>
-    <string name="preferences__privacy">Поверителност</string>
-    <string name="preferences__privacy_policy">Политика за поверителност</string>
+    <string name="preferences__privacy_policy">GitHub / Политика за поверителност</string>
+    <string name="preferences__privacy_security">Поверителност</string>
     <string name="preferences__repeat_notification">Повторно уведомление</string>
     <string name="preferences__repeat_notification_number_times_select">Изберете колко пъти да се повтаря уведомлението</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Изисквайте отчет за доставка за всяко SMS съобщение, което изпращате</string>

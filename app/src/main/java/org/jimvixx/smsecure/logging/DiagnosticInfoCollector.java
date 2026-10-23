@@ -96,20 +96,10 @@ public final class DiagnosticInfoCollector {
   }
 
   /** Current APK signers, not historical certificates from a signing-key rotation. */
-  @SuppressWarnings("deprecation")
   @NonNull
-  private static String getSignerFingerprints(@NonNull Context context) {
+  public static String getSignerFingerprints(@NonNull Context context) {
     try {
-      PackageManager pm = context.getPackageManager();
-      Signature[] signers;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        PackageInfo info = pm.getPackageInfo(context.getPackageName(),
-                PackageManager.GET_SIGNING_CERTIFICATES);
-        signers = info.signingInfo == null ? null : info.signingInfo.getApkContentsSigners();
-      } else {
-        signers = pm.getPackageInfo(context.getPackageName(),
-                PackageManager.GET_SIGNATURES).signatures;
-      }
+      Signature[] signers = getSigners(context);
 
       if (signers == null || signers.length == 0) return "<unavailable>";
 
@@ -130,6 +120,21 @@ public final class DiagnosticInfoCollector {
       // Diagnostics must remain available even if package metadata cannot be read.
       return "<unavailable>";
     }
+  }
+
+  @Nullable
+  @SuppressWarnings("deprecation")
+  private static Signature[] getSigners(@NonNull Context context)
+          throws PackageManager.NameNotFoundException {
+    PackageManager pm = context.getPackageManager();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      PackageInfo info = pm.getPackageInfo(context.getPackageName(),
+              PackageManager.GET_SIGNING_CERTIFICATES);
+      return info.signingInfo == null ? null : info.signingInfo.getApkContentsSigners();
+    }
+
+    return pm.getPackageInfo(context.getPackageName(),
+            PackageManager.GET_SIGNATURES).signatures;
   }
 
   private static void appendDeviceSection(@NonNull StringBuilder sb) {

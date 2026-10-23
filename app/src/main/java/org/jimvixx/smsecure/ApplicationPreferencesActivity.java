@@ -42,13 +42,16 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
-import org.jimvixx.smsecure.preferences.AdvancedPreferenceFragment;
+import org.jimvixx.smsecure.preferences.AboutPreferenceFragment;
 import org.jimvixx.smsecure.preferences.AppProtectionPreferenceFragment;
 import org.jimvixx.smsecure.preferences.AppearancePreferenceFragment;
 import org.jimvixx.smsecure.preferences.ChatsPreferenceFragment;
 import org.jimvixx.smsecure.preferences.CorrectedPreferenceFragment;
+import org.jimvixx.smsecure.preferences.DebugPreferenceFragment;
+import org.jimvixx.smsecure.preferences.BuildInformationPreferenceFragment;
 import org.jimvixx.smsecure.preferences.MessagesPreferenceFragment;
 import org.jimvixx.smsecure.preferences.NotificationsPreferenceFragment;
+import org.jimvixx.smsecure.preferences.OpenSourceLicensesPreferenceFragment;
 import org.jimvixx.smsecure.util.DynamicTheme;
 import org.jimvixx.smsecure.util.SMSecurePreferences;
 
@@ -64,14 +67,16 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
   public static final String PREFERENCE_CATEGORY_APPEARANCE = "preference_category_appearance";
+  public static final String PREFERENCE_CATEGORY_ABOUT = "preference_about";
+  public static final String PREFERENCE_CATEGORY_ABOUT_LICENSES = "preference_about_licenses";
+  public static final String PREFERENCE_CATEGORY_ABOUT_BUILD_INFO = "preference_about_build_info";
+  public static final String PREFERENCE_CATEGORY_DEBUG = "preference_category_debug";
   public static final String EXTRA_START_CATEGORY = "start_category";
   private static final String PREFERENCE_CATEGORY_MESSAGES = "preference_category_messages";
   private static final String PREFERENCE_CATEGORY_NOTIFICATIONS = "preference_category_notifications";
   private static final String PREFERENCE_CATEGORY_APP_PROTECTION = "preference_category_app_protection";
   private static final String PREFERENCE_CATEGORY_CHATS = "preference_category_chats";
-  private static final String PREFERENCE_CATEGORY_ADVANCED = "preference_category_advanced";
-  private static final String PREFERENCE_ABOUT = "preference_about";
-  private static final String PREFERENCE_PRIVACY_POLICY = "preference_privacy_policy";
+  private static final String PREFERENCE_ABOUT = PREFERENCE_CATEGORY_ABOUT;
   private boolean recreating;
 
   @Override
@@ -102,9 +107,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         case PREFERENCE_CATEGORY_MESSAGES -> new MessagesPreferenceFragment();
         case PREFERENCE_CATEGORY_NOTIFICATIONS -> new NotificationsPreferenceFragment();
         case PREFERENCE_CATEGORY_APP_PROTECTION -> new AppProtectionPreferenceFragment();
+        case PREFERENCE_CATEGORY_ABOUT -> new AboutPreferenceFragment();
         case PREFERENCE_CATEGORY_APPEARANCE -> new AppearancePreferenceFragment();
         case PREFERENCE_CATEGORY_CHATS -> new ChatsPreferenceFragment();
-        case PREFERENCE_CATEGORY_ADVANCED -> new AdvancedPreferenceFragment();
+        case PREFERENCE_CATEGORY_DEBUG -> new DebugPreferenceFragment();
         default -> new ApplicationPreferenceFragment();
       };
 
@@ -124,9 +130,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       case PREFERENCE_CATEGORY_MESSAGES -> new MessagesPreferenceFragment();
       case PREFERENCE_CATEGORY_NOTIFICATIONS -> new NotificationsPreferenceFragment();
       case PREFERENCE_CATEGORY_APP_PROTECTION -> new AppProtectionPreferenceFragment();
+      case PREFERENCE_CATEGORY_ABOUT -> new AboutPreferenceFragment();
       case PREFERENCE_CATEGORY_APPEARANCE -> new AppearancePreferenceFragment();
       case PREFERENCE_CATEGORY_CHATS -> new ChatsPreferenceFragment();
-      case PREFERENCE_CATEGORY_ADVANCED -> new AdvancedPreferenceFragment();
+      case PREFERENCE_CATEGORY_DEBUG -> new DebugPreferenceFragment();
       default -> new ApplicationPreferenceFragment();
     };
 
@@ -214,7 +221,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     }
   }
 
-  private void openWebPage(@NonNull String url) {
+  public void openWebPage(@NonNull String url) {
     // Resolve a generic web URL so GitHub's app links cannot capture this launch.
     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
     browserIntent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -245,6 +252,20 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     }
   }
 
+  public void openAboutSection(@NonNull String section) {
+    Fragment fragment = switch (section) {
+      case PREFERENCE_CATEGORY_ABOUT_LICENSES -> new OpenSourceLicensesPreferenceFragment();
+      case PREFERENCE_CATEGORY_ABOUT_BUILD_INFO -> new BuildInformationPreferenceFragment();
+      default -> throw new AssertionError("Unknown About section: " + section);
+    };
+
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.replace(R.id.fragment_container, fragment);
+    transaction.addToBackStack(null);
+    animateFragmentAfterViewCreated(fragment, true);
+    transaction.commit();
+  }
+
   public static class ApplicationPreferenceFragment extends CorrectedPreferenceFragment {
 
     @Override
@@ -270,6 +291,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
               new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_APP_PROTECTION)
       );
       setClickListenerIfPresent(
+              PREFERENCE_CATEGORY_ABOUT,
+              new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_ABOUT)
+      );
+      setClickListenerIfPresent(
               PREFERENCE_CATEGORY_APPEARANCE,
               new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_APPEARANCE)
       );
@@ -278,25 +303,9 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
               new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_CHATS)
       );
       setClickListenerIfPresent(
-              PREFERENCE_CATEGORY_ADVANCED,
-              new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_ADVANCED)
+              PREFERENCE_CATEGORY_DEBUG,
+              new CategoryClickListener(masterSecret, PREFERENCE_CATEGORY_DEBUG)
       );
-
-      setClickListenerIfPresent(PREFERENCE_ABOUT, preference -> {
-        ApplicationPreferencesActivity activity = getHostActivity();
-        if (activity != null) {
-          activity.openWebPage(BuildConfig.ABOUT_URL);
-        }
-        return true;
-      });
-
-      setClickListenerIfPresent(PREFERENCE_PRIVACY_POLICY, preference -> {
-        ApplicationPreferencesActivity activity = getHostActivity();
-        if (activity != null) {
-          activity.openWebPage(BuildConfig.PRIVACY_POLICY_URL);
-        }
-        return true;
-      });
     }
 
     @Override
@@ -395,9 +404,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
           case PREFERENCE_CATEGORY_MESSAGES -> new MessagesPreferenceFragment();
           case PREFERENCE_CATEGORY_NOTIFICATIONS -> new NotificationsPreferenceFragment();
           case PREFERENCE_CATEGORY_APP_PROTECTION -> new AppProtectionPreferenceFragment();
+          case PREFERENCE_CATEGORY_ABOUT -> new AboutPreferenceFragment();
           case PREFERENCE_CATEGORY_APPEARANCE -> new AppearancePreferenceFragment();
           case PREFERENCE_CATEGORY_CHATS -> new ChatsPreferenceFragment();
-          case PREFERENCE_CATEGORY_ADVANCED -> new AdvancedPreferenceFragment();
+          case PREFERENCE_CATEGORY_DEBUG -> new DebugPreferenceFragment();
           default -> throw new AssertionError("Unknown category: " + category);
         };
 

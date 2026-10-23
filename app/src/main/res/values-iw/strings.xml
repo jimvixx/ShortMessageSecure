@@ -382,17 +382,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">ראה את השיחה המלאה</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">העתק יומן</string>
-    <string name="log_submit__button_share_link">שתף קישור</string>
     <string name="log_submit__button_share_logs">שתף יומן</string>
     <string name="log_submit_activity__collecting_logs">איסוף יומנים…</string>
     <string name="log_submit_activity__log_collect_failed">לא ניתן לאסוף את היומן.</string>
-    <string name="log_submit_activity__log_fetch_failed">לא ניתן לאסוף או להעלות את היומן.</string>
-    <string name="log_submit_activity__log_upload_failed">לא ניתן להעלות את היומן.</string>
-    <string name="log_submit_activity__log_uploaded">יומן הועלה. הקישור הועתק ללוח.</string>
     <string name="log_submit_activity__thanks">תודה על העזרה!</string>
     <string name="log_submit_activity__uploading_logs">מעלה יומן…</string>
-    <string name="log_submit_copied">יומן הועתק.</string>
     <string name="log_submit_interrupted">תוצאת ההעלאה הקודמת אינה זמינה. פתח מחדש את ’שלח יומן’ אם ברצונך לשלוח דוח חדש.</string>
     <string name="log_submit_no_internet">אין חיבור לאינטרנט. בדוק את החיבור שלך, ואז פתח מחדש את "שלח יומן" כדי לנסות שוב.</string>
     <string name="log_submit_save_failed">לא ניתן לשמור את היומן.</string>
@@ -477,8 +471,18 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">אודות SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">חותם ה-APK SHA-256</string>
+    <string name="preferences__about_build_app_id">מזהה האפליקציה</string>
+    <string name="preferences__about_build_information">מידע על הגרסה והבנייה</string>
+    <string name="preferences__about_build_source_commit">התחייבות מקור</string>
+    <string name="preferences__about_build_type">סוג ה-build</string>
+    <string name="preferences__about_build_version_code">קוד הגרסה</string>
+    <string name="preferences__about_build_version_name">שם הגרסה</string>
+    <string name="preferences__about_licenses_gpl">רישיון הציבור הכללי של GNU, גרסה 3.0</string>
+    <string name="preferences__about_licenses_third_party">תלות בצד שלישי</string>
+    <string name="preferences__about_licenses_third_party_summary">רישיונות התלות נשמרים במקורות המקוריים שלהם.</string>
+    <string name="preferences__about_open_source_licenses">רישיונות קוד פתוח</string>
     <string name="preferences__about_version">גרסה <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">מתקדם</string>
     <string name="preferences__always_ask_for_sim_card">בקש תמיד כרטיס SIM</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">תמיד לשאול איזו כרטיס SIM להשתמש בעת שליחת הודעות</string>
     <string name="preferences__appearance">מראה</string>
@@ -488,11 +492,11 @@
     <string name="preferences__change_notification_sound">שינוי צליל ההתראה</string>
     <string name="preferences__change_passphrase">שינוי סיסמה</string>
     <string name="preferences__change_your_passphrase">שנה את סיסמתך</string>
-    <string name="preferences__chat_display">תצוגת צ’אט</string>
     <string name="preferences__chats">צ’אטים</string>
     <string name="preferences__complete_key_exchanges">השלמת חילופי מפתחות</string>
     <string name="preferences__conversation_length_limit">מגבלת אורך השיחה</string>
     <string name="preferences__dark_theme">כהה</string>
+    <string name="preferences__debug_diagnostics">איתור באגים ואבחון</string>
     <string name="preferences__delete_old_messages">מחק הודעות ישנות</string>
     <string name="preferences__diagnostic_logging_level">רמת רישום אבחון</string>
     <string name="preferences__diagnostic_logging_level_summary">שולט בכמות המידע האבחוני ש-SMSecure מאחסן באופן פנימי.</string>
@@ -533,10 +537,11 @@
     <string name="preferences__notifications">התראות</string>
     <string name="preferences__one_time">פעם אחת</string>
     <string name="preferences__panic_button">כפתור פאניקה</string>
+    <string name="preferences__passphrase">סיסמה</string>
     <string name="preferences__play_inthread_notifications">השמע צליל התראה בעת צפייה בשיחה פעילה.</string>
     <string name="preferences__pref_timeout_interval_title">מרווח זמן הפסקת פעילות</string>
-    <string name="preferences__privacy">פרטיות</string>
-    <string name="preferences__privacy_policy">מדיניות פרטיות</string>
+    <string name="preferences__privacy_policy">GitHub / מדיניות פרטיות</string>
+    <string name="preferences__privacy_security">פרטיות</string>
     <string name="preferences__repeat_notification">הודעה חוזרת</string>
     <string name="preferences__repeat_notification_number_times_select">בחר את מספר הפעמים שההודעה תחזור על עצמה</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">בקש דוח מסירה עבור כל הודעת SMS שאתה שולח</string>

@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Katso koko keskustelu</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Kopioi loki</string>
-  <string name="log_submit__button_share_link">Jaa linkki</string>
   <string name="log_submit__button_share_logs">Jaa loki</string>
   <string name="log_submit_activity__collecting_logs">Lokien kerääminen…</string>
   <string name="log_submit_activity__log_collect_failed">Lokin kerääminen epäonnistui.</string>
-  <string name="log_submit_activity__log_fetch_failed">Lokin kerääminen tai lähettäminen epäonnistui.</string>
-  <string name="log_submit_activity__log_upload_failed">Lokin lähetys epäonnistui.</string>
-  <string name="log_submit_activity__log_uploaded">Loki ladattu. Linkki kopioitu leikepöydälle.</string>
   <string name="log_submit_activity__thanks">Kiitos avusta!</string>
   <string name="log_submit_activity__uploading_logs">Lokia ladataan…</string>
-  <string name="log_submit_copied">Loki kopioitu.</string>
   <string name="log_submit_interrupted">Edellisen lähetystuloksen tietoja ei ole saatavilla. Avaa Lähetä loki uudelleen, jos haluat lähettää uuden raportin.</string>
   <string name="log_submit_no_internet">Ei internetyhteyttä. Tarkista yhteytesi ja avaa sitten Lähetä loki uudelleen yrittääksesi uudelleen.</string>
   <string name="log_submit_save_failed">Lokia ei voitu tallentaa.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Tietoja SMSecuresta</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK-allekirjoittajan SHA-256</string>
+  <string name="preferences__about_build_app_id">Sovellustunnus</string>
+  <string name="preferences__about_build_information">Versio- ja rakennetiedot</string>
+  <string name="preferences__about_build_source_commit">Lähdekoodin commit</string>
+  <string name="preferences__about_build_type">Rakennustyyppi</string>
+  <string name="preferences__about_build_version_code">Versiotunnus</string>
+  <string name="preferences__about_build_version_name">Versiotunnus</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">Kolmannen osapuolen riippuvuudet</string>
+  <string name="preferences__about_licenses_third_party_summary">Riippuvuuslisenssit säilytetään niiden alkuperäisten lähteiden mukana.</string>
+  <string name="preferences__about_open_source_licenses">Avoimen lähdekoodin lisenssit</string>
   <string name="preferences__about_version">Versio <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Lisäasetukset</string>
   <string name="preferences__always_ask_for_sim_card">Kysy aina SIM-korttia</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Kysy aina käytettävää SIM-korttia viestejä lähetettäessä</string>
   <string name="preferences__appearance">Ulkonäkö</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Muuta ilmoitusääntä</string>
   <string name="preferences__change_passphrase">Vaihda salasana</string>
   <string name="preferences__change_your_passphrase">Vaihda salasanasi</string>
-  <string name="preferences__chat_display">Chat-näyttö</string>
   <string name="preferences__chats">Chatit</string>
   <string name="preferences__complete_key_exchanges">Suorita avainten vaihto</string>
   <string name="preferences__conversation_length_limit">Keskustelun pituusrajoitus</string>
   <string name="preferences__dark_theme">Tumma</string>
+  <string name="preferences__debug_diagnostics">Vianmääritys ja diagnostiikka</string>
   <string name="preferences__delete_old_messages">Poista vanhat viestit</string>
   <string name="preferences__diagnostic_logging_level">Diagnostiikan lokitason</string>
   <string name="preferences__diagnostic_logging_level_summary">Määrittää, kuinka paljon diagnostista tietoa SMSecure tallentaa sisäisesti.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Ilmoitukset</string>
   <string name="preferences__one_time">Yksi kerta</string>
   <string name="preferences__panic_button">Paniikkinappi</string>
+  <string name="preferences__passphrase">Salasana</string>
   <string name="preferences__play_inthread_notifications">Toista ilmoitusääni, kun katsot aktiivista keskustelua.</string>
   <string name="preferences__pref_timeout_interval_title">Aikakatkaisuväli</string>
-  <string name="preferences__privacy">Tietosuoja</string>
-  <string name="preferences__privacy_policy">Tietosuojakäytäntö</string>
+  <string name="preferences__privacy_policy">GitHub / Tietosuojakäytäntö</string>
+  <string name="preferences__privacy_security">Tietosuoja</string>
   <string name="preferences__repeat_notification">Toista ilmoitus</string>
   <string name="preferences__repeat_notification_number_times_select">Valitse, kuinka monta kertaa ilmoitus toistetaan</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Pyydä toimitusraportti jokaisesta lähettämästäsi SMS-viestistä</string>

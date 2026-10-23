@@ -7,14 +7,9 @@
         android:title="@string/Messages" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:key="preference_category_notifications"
-        android:icon="@drawable/ic_bell"
-        android:title="@string/preferences__notifications" />
-
-    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:key="preference_category_app_protection"
-        android:icon="@drawable/ic_account_lock"
-        android:title="@string/preferences__privacy" />
+        android:key="preference_category_chats"
+        android:icon="@drawable/ic_forum"
+        android:title="@string/preferences__chats" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
         android:key="preference_category_appearance"
@@ -22,19 +17,19 @@
         android:title="@string/preferences__appearance" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:key="preference_category_chats"
-        android:icon="@drawable/ic_forum"
-        android:title="@string/preferences__chats" />
+        android:key="preference_category_notifications"
+        android:icon="@drawable/ic_bell"
+        android:title="@string/preferences__notifications" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:key="preference_category_advanced"
-        android:icon="@drawable/ic_braces"
-        android:title="@string/preferences__advanced" />
+        android:key="preference_category_app_protection"
+        android:icon="@drawable/ic_account_lock"
+        android:title="@string/preferences__privacy_security" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:key="preference_privacy_policy"
-        android:icon="@drawable/ic_safe_square"
-        android:title="@string/preferences__privacy_policy" />
+        android:key="preference_category_debug"
+        android:icon="@drawable/ic_bug"
+        android:title="@string/preferences__debug_diagnostics" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
         android:key="preference_about"

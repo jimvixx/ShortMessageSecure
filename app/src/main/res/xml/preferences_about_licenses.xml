@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
+        android:title="@string/app_name">
+
+        <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+            android:icon="@drawable/ic_smsecure_bw"
+            android:key="about_license_smsecure"
+            android:summary="@string/preferences__about_licenses_gpl"
+            android:title="@string/app_name" />
+
+        <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+            android:icon="@drawable/ic_book_open_variant"
+            android:key="about_license_libsignal"
+            android:summary="@string/preferences__about_licenses_gpl"
+            android:title="@string/preferences__about_licenses_libsignal" />
+
+        <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+            android:icon="@drawable/ic_book_open_variant"
+            android:key="about_license_jobmanager"
+            android:summary="@string/preferences__about_licenses_gpl"
+            android:title="@string/preferences__about_licenses_jobmanager"
+            app:allowDividerBelow="false" />
+
+    </org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory>
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
+        android:title="@string/preferences__about_licenses_third_party">
+
+        <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+            android:icon="@drawable/ic_book_open_variant"
+            android:key="about_license_third_party"
+            android:summary="@string/preferences__about_licenses_third_party_summary"
+            android:title="@string/preferences__about_licenses_third_party" />
+
+    </org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory>
+
+</PreferenceScreen>

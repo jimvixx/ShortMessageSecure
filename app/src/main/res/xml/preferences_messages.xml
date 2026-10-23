@@ -9,20 +9,22 @@
         android:title="@string/preferences__make_default_sms_app"
         app:rightSummaryMaxLines="1" />
 
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_enter_key_type"
+        android:icon="@drawable/ic_keyboard"
+        android:title="@string/preferences__keyboard_settings"
+        android:summary="@string/preferences__enter_key_summary"
+        android:defaultValue="enter"
+        android:entries="@array/pref_enter_key_entries"
+        android:entryValues="@array/pref_enter_key_values"
+        app:rightSummaryMaxLines="2" />
+
     <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
         android:defaultValue="false"
         android:icon="@drawable/ic_clock_digital"
         android:key="pref_show_sent_time"
         android:summary="@string/preferences__show_sent_time_instead_of_received_time_in_conversations"
         android:title="@string/preferences__show_sent_time"
-        app:rightSummaryMaxLines="1" />
-
-    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
-        android:defaultValue="false"
-        android:icon="@drawable/ic_view_split_horizontal"
-        android:key="pref_hide_unread_message_divider"
-        android:summary="@string/preferences__hide_divider_between_read_and_unread_messages"
-        android:title="@string/preferences__hide_unread_message_divider"
         app:rightSummaryMaxLines="1" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
@@ -40,5 +42,19 @@
         android:summary="@string/preferences__display_a_notification_when_a_delivery_report_is_received"
         android:title="@string/preferences__sms_delivery_reports_notification"
         app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_always_ask_for_sim_card"
+        android:icon="@drawable/ic_sim"
+        android:title="@string/preferences__always_ask_for_sim_card"
+        android:summary="@string/preferences__always_ask_for_the_sim_card_to_use_when_sending_messages"
+        android:defaultValue="true"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="pref_sim_recovery"
+        android:icon="@drawable/ic_sim_alert"
+        android:title="@string/preferences__sim_recovery_title"
+        android:summary="@string/preferences__sim_recovery_summary" />
 
 </PreferenceScreen>

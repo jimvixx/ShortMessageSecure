@@ -412,17 +412,11 @@
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">See full conversation</string>
     <!--log_submit_activity-->
-    <string name="log_submit__button_copy">Copy log</string>
-    <string name="log_submit__button_share_link">Share link</string>
     <string name="log_submit__button_share_logs">Share log</string>
     <string name="log_submit_activity__collecting_logs">Collecting log…</string>
     <string name="log_submit_activity__log_collect_failed">Failed to collect log.</string>
-    <string name="log_submit_activity__log_fetch_failed">Failed to collect or upload log.</string>
-    <string name="log_submit_activity__log_upload_failed">Failed to upload log.</string>
-    <string name="log_submit_activity__log_uploaded">Log uploaded. Link copied to clipboard.</string>
     <string name="log_submit_activity__thanks">Thanks for your help!</string>
     <string name="log_submit_activity__uploading_logs">Uploading log…</string>
-    <string name="log_submit_copied">Log copied.</string>
     <string name="log_submit_interrupted">The previous upload result is unavailable. Reopen Submit log if you want to send a new report.</string>
     <string name="log_submit_no_internet">No internet connection. Check your connection, then reopen Submit log to try again.</string>
     <string name="log_submit_save_failed">Could not save the log.</string>
@@ -516,8 +510,22 @@
     </plurals>
     <!--preferences.xml-->
     <string name="preferences__about">About SMSecure</string>
+    <string name="preferences__about_build_apk_signer_sha256">APK signer SHA-256</string>
+    <string name="preferences__about_build_app_id">Application ID</string>
+    <string name="preferences__about_build_information">Version &amp; Build information</string>
+    <string name="preferences__about_build_source_commit">Source commit</string>
+    <string name="preferences__about_build_type">Build type</string>
+    <string name="preferences__about_build_version_code">Version code</string>
+    <string name="preferences__about_build_version_name">Version name</string>
+    <string name="preferences__about_github_readme" translatable="false">GitHub / README</string>
+    <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+    <string name="preferences__about_licenses_jobmanager" translatable="false">jobmanager</string>
+    <string name="preferences__about_licenses_libsignal" translatable="false">libsignal</string>
+    <string name="preferences__about_licenses_third_party">Third-party dependencies</string>
+    <string name="preferences__about_licenses_third_party_summary">Dependency licenses are retained with their upstream sources.</string>
+    <string name="preferences__about_open_source_licenses">Open-source licenses</string>
+    <string name="preferences__about_project_name" translatable="false">ShortMessageSecure</string>
     <string name="preferences__about_version">Version <xliff:g id="arg1">%s</xliff:g></string>
-    <string name="preferences__advanced">Advanced</string>
     <string name="preferences__always_ask_for_sim_card">Always ask for SIM card</string>
     <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Always ask for the SIM card to use when sending messages</string>
     <string name="preferences__appearance">Appearance</string>
@@ -527,11 +535,11 @@
     <string name="preferences__change_notification_sound">Change notification sound</string>
     <string name="preferences__change_passphrase">Change passphrase</string>
     <string name="preferences__change_your_passphrase">Change your passphrase</string>
-    <string name="preferences__chat_display">Chat display</string>
     <string name="preferences__chats">Chats</string>
     <string name="preferences__complete_key_exchanges">Complete key exchanges</string>
     <string name="preferences__conversation_length_limit">Conversation length limit</string>
     <string name="preferences__dark_theme">Dark</string>
+    <string name="preferences__debug_diagnostics">Debug &amp; Diagnostics</string>
     <string name="preferences__delete_old_messages">Delete old messages</string>
     <string name="preferences__diagnostic_logging_level">Diagnostic logging level</string>
     <string name="preferences__diagnostic_logging_level_summary">Controls how much diagnostic information SMSecure stores internally.</string>
@@ -575,10 +583,11 @@
     <string name="preferences__notifications">Notifications</string>
     <string name="preferences__one_time">One time</string>
     <string name="preferences__panic_button">Panic button</string>
+    <string name="preferences__passphrase">Passphrase</string>
     <string name="preferences__play_inthread_notifications">Play notification sound when viewing an active conversation.</string>
     <string name="preferences__pref_timeout_interval_title">Timeout interval</string>
-    <string name="preferences__privacy">Privacy</string>
-    <string name="preferences__privacy_policy">Privacy policy</string>
+    <string name="preferences__privacy_policy">GitHub / Privacy policy</string>
+    <string name="preferences__privacy_security">Privacy &amp; Security</string>
     <string name="preferences__repeat_notification">Repeat notification</string>
     <string name="preferences__repeat_notification_number_times_select">Select the number of times the notification repeats</string>
     <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Request a delivery report for each SMS message you send</string>

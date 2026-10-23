@@ -364,17 +364,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">会話全文を表示</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">ログをコピー</string>
-  <string name="log_submit__button_share_link">リンクを共有</string>
   <string name="log_submit__button_share_logs">ログを共有</string>
   <string name="log_submit_activity__collecting_logs">ログを収集中…</string>
   <string name="log_submit_activity__log_collect_failed">ログの収集に失敗しました。</string>
-  <string name="log_submit_activity__log_fetch_failed">ログの収集またはアップロードに失敗しました。</string>
-  <string name="log_submit_activity__log_upload_failed">ログのアップロードに失敗しました。</string>
-  <string name="log_submit_activity__log_uploaded">ログがアップロードされました。リンクがクリップボードにコピーされました。</string>
   <string name="log_submit_activity__thanks">ご協力ありがとうございます！</string>
   <string name="log_submit_activity__uploading_logs">ログをアップロード中…</string>
-  <string name="log_submit_copied">ログがコピーされました。</string>
   <string name="log_submit_interrupted">前回のアップロード結果を確認できません。新しいレポートを送信する場合は、「ログの送信」を再度開いてください。</string>
   <string name="log_submit_no_internet">インターネットに接続されていません。接続状態を確認してから、「ログを送信」を再度開いて、もう一度お試しください。</string>
   <string name="log_submit_save_failed">ログを保存できませんでした。</string>
@@ -453,8 +447,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">SMSecureについて</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK署名者のSHA-256</string>
+  <string name="preferences__about_build_app_id">アプリケーション ID</string>
+  <string name="preferences__about_build_information">バージョンおよびビルド情報</string>
+  <string name="preferences__about_build_source_commit">ソースコミット</string>
+  <string name="preferences__about_build_type">ビルドタイプ</string>
+  <string name="preferences__about_build_version_code">バージョンコード</string>
+  <string name="preferences__about_build_version_name">バージョン名</string>
+  <string name="preferences__about_licenses_gpl">GNU General Public License v3.0</string>
+  <string name="preferences__about_licenses_third_party">サードパーティの依存関係</string>
+  <string name="preferences__about_licenses_third_party_summary">依存関係のライセンスは、アップストリームのソースとともに保持されます。</string>
+  <string name="preferences__about_open_source_licenses">オープンソースライセンス</string>
   <string name="preferences__about_version">バージョン <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">詳細</string>
   <string name="preferences__always_ask_for_sim_card">常にSIMカードの確認を求める</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">メッセージ送信時に使用するSIMカードを常に確認する</string>
   <string name="preferences__appearance">外観</string>
@@ -464,11 +468,11 @@
   <string name="preferences__change_notification_sound">通知音を変更</string>
   <string name="preferences__change_passphrase">パスフレーズの変更</string>
   <string name="preferences__change_your_passphrase">パスフレーズを変更してください</string>
-  <string name="preferences__chat_display">チャットの表示</string>
   <string name="preferences__chats">チャット</string>
   <string name="preferences__complete_key_exchanges">鍵交換を完了する</string>
   <string name="preferences__conversation_length_limit">会話の長さの制限</string>
   <string name="preferences__dark_theme">ダーク</string>
+  <string name="preferences__debug_diagnostics">デバッグと診断</string>
   <string name="preferences__delete_old_messages">古いメッセージを削除</string>
   <string name="preferences__diagnostic_logging_level">診断ログレベル</string>
   <string name="preferences__diagnostic_logging_level_summary">SMSecureが内部に保存する診断情報の量を制御します。</string>
@@ -507,10 +511,11 @@
   <string name="preferences__notifications">通知</string>
   <string name="preferences__one_time">1回</string>
   <string name="preferences__panic_button">パニックボタン</string>
+  <string name="preferences__passphrase">パスフレーズ</string>
   <string name="preferences__play_inthread_notifications">アクティブな会話を表示しているときに通知音を再生します。</string>
   <string name="preferences__pref_timeout_interval_title">タイムアウト間隔</string>
-  <string name="preferences__privacy">プライバシー</string>
-  <string name="preferences__privacy_policy">プライバシーポリシー</string>
+  <string name="preferences__privacy_policy">GitHub / プライバシーポリシー</string>
+  <string name="preferences__privacy_security">プライバシー</string>
   <string name="preferences__repeat_notification">通知の繰り返し</string>
   <string name="preferences__repeat_notification_number_times_select">通知の繰り返し回数を選択してください</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">送信する各SMSメッセージについて配信レポートをリクエストする</string>

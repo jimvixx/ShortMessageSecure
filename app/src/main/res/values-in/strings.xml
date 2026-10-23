@@ -364,17 +364,11 @@
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">Lihat percakapan lengkap</string>
 <!--log_submit_activity-->
-<string name="log_submit__button_copy">Salin log</string>
-<string name="log_submit__button_share_link">Bagikan tautan</string>
 <string name="log_submit__button_share_logs">Bagikan log</string>
 <string name="log_submit_activity__collecting_logs">Mengumpulkan log…</string>
 <string name="log_submit_activity__log_collect_failed">Gagal mengumpulkan log.</string>
-<string name="log_submit_activity__log_fetch_failed">Gagal mengumpulkan atau mengunggah log.</string>
-<string name="log_submit_activity__log_upload_failed">Gagal mengunggah log.</string>
-<string name="log_submit_activity__log_uploaded">Log telah diunggah. Tautan telah disalin ke papan klip.</string>
 <string name="log_submit_activity__thanks">Terima kasih atas bantuannya!</string>
 <string name="log_submit_activity__uploading_logs">Mengunggah log…</string>
-<string name="log_submit_copied">Log telah disalin.</string>
 <string name="log_submit_interrupted">Hasil pengunggahan sebelumnya tidak tersedia. Buka kembali "Kirim Log" jika Anda ingin mengirim laporan baru.</string>
 <string name="log_submit_no_internet">Tidak ada koneksi internet. Periksa koneksi Anda, lalu buka kembali "Kirim log" untuk mencoba lagi.</string>
 <string name="log_submit_save_failed">Tidak dapat menyimpan log.</string>
@@ -453,8 +447,18 @@
     </plurals>
 <!--preferences.xml-->
 <string name="preferences__about">Tentang SMSecure</string>
+<string name="preferences__about_build_apk_signer_sha256">Penandatangan APK SHA-256</string>
+<string name="preferences__about_build_app_id">ID Aplikasi</string>
+<string name="preferences__about_build_information">Informasi Versi &amp; Build</string>
+<string name="preferences__about_build_source_commit">Komitmen sumber</string>
+<string name="preferences__about_build_type">Jenis build</string>
+<string name="preferences__about_build_version_code">Kode versi</string>
+<string name="preferences__about_build_version_name">Nama versi</string>
+<string name="preferences__about_licenses_gpl">Lisensi Publik Umum GNU v3.0</string>
+<string name="preferences__about_licenses_third_party">Ketergantungan pihak ketiga</string>
+<string name="preferences__about_licenses_third_party_summary">Lisensi dependensi disimpan bersama sumber hulu masing-masing.</string>
+<string name="preferences__about_open_source_licenses">Lisensi sumber terbuka</string>
 <string name="preferences__about_version">Versi <xliff:g id="arg1">%s</xliff:g></string>
-<string name="preferences__advanced">Lanjutan</string>
 <string name="preferences__always_ask_for_sim_card">Selalu meminta kartu SIM</string>
 <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Selalu tanyakan kartu SIM mana yang akan digunakan saat mengirim pesan</string>
 <string name="preferences__appearance">Tampilan</string>
@@ -464,11 +468,11 @@
 <string name="preferences__change_notification_sound">Ubah suara notifikasi</string>
 <string name="preferences__change_passphrase">Ubah frasa sandi</string>
 <string name="preferences__change_your_passphrase">Ubah frasa sandi Anda</string>
-<string name="preferences__chat_display">Tampilan obrolan</string>
 <string name="preferences__chats">Obrolan</string>
 <string name="preferences__complete_key_exchanges">Selesaikan pertukaran kunci</string>
 <string name="preferences__conversation_length_limit">Batas panjang percakapan</string>
 <string name="preferences__dark_theme">Gelap</string>
+<string name="preferences__debug_diagnostics">Debug &amp; Diagnostik</string>
 <string name="preferences__delete_old_messages">Hapus pesan lama</string>
 <string name="preferences__diagnostic_logging_level">Tingkat pencatatan diagnostik</string>
 <string name="preferences__diagnostic_logging_level_summary">Mengontrol seberapa banyak informasi diagnostik yang disimpan SMSecure secara internal.</string>
@@ -507,10 +511,11 @@
 <string name="preferences__notifications">Pemberitahuan</string>
 <string name="preferences__one_time">Satu kali</string>
 <string name="preferences__panic_button">Tombol panik</string>
+<string name="preferences__passphrase">Kata sandi</string>
 <string name="preferences__play_inthread_notifications">Putar suara notifikasi saat melihat percakapan yang sedang aktif.</string>
 <string name="preferences__pref_timeout_interval_title">Interval waktu tunggu</string>
-<string name="preferences__privacy">Privasi</string>
-<string name="preferences__privacy_policy">Kebijakan privasi</string>
+<string name="preferences__privacy_policy">GitHub / Kebijakan privasi</string>
+<string name="preferences__privacy_security">Privasi</string>
 <string name="preferences__repeat_notification">Ulangi pemberitahuan</string>
 <string name="preferences__repeat_notification_number_times_select">Pilih berapa kali notifikasi diulang</string>
 <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Minta laporan pengiriman untuk setiap pesan SMS yang Anda kirim</string>

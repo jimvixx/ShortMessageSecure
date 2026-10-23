@@ -2,36 +2,42 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
-        android:defaultValue="true"
-        android:icon="@drawable/ic_account_lock"
-        android:key="pref_enable_passphrase_temporary"
-        android:summary="@string/preferences__enable_local_encryption_of_messages_and_keys"
-        android:title="@string/preferences__enable_passphrase"
-        app:rightSummaryMaxLines="1" />
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory
+        android:key="message_trimming"
+        android:title="@string/preferences__passphrase">
 
-    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:dependency="pref_enable_passphrase_temporary"
-        android:icon="@drawable/ic_form_textbox_password"
-        android:key="pref_change_passphrase"
-        android:summary="@string/preferences__change_your_passphrase"
-        android:title="@string/preferences__change_passphrase" />
+        <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+            android:defaultValue="true"
+            android:icon="@drawable/ic_account_lock"
+            android:key="pref_enable_passphrase_temporary"
+            android:summary="@string/preferences__enable_local_encryption_of_messages_and_keys"
+            android:title="@string/preferences__enable_passphrase"
+            app:rightSummaryMaxLines="1" />
 
-    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
-        android:defaultValue="false"
-        android:dependency="pref_enable_passphrase_temporary"
-        android:icon="@drawable/ic_lock_clock"
-        android:key="pref_timeout_passphrase"
-        android:summary="@string/preferences__forget_passphrase_from_memory_after_some_interval"
-        android:title="@string/preferences__timeout_passphrase"
-        app:rightSummaryMaxLines="1" />
+        <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+            android:dependency="pref_enable_passphrase_temporary"
+            android:icon="@drawable/ic_form_textbox_password"
+            android:key="pref_change_passphrase"
+            android:summary="@string/preferences__change_your_passphrase"
+            android:title="@string/preferences__change_passphrase" />
 
-    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:dependency="pref_timeout_passphrase"
-        android:icon="@drawable/ic_timer_lock"
-        android:key="pref_timeout_interval"
-        android:title="@string/preferences__pref_timeout_interval_title"
-        app:rightSummaryMaxLines="1" />
+        <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="pref_enable_passphrase_temporary"
+            android:icon="@drawable/ic_lock_clock"
+            android:key="pref_timeout_passphrase"
+            android:summary="@string/preferences__forget_passphrase_from_memory_after_some_interval"
+            android:title="@string/preferences__timeout_passphrase"
+            app:rightSummaryMaxLines="1" />
+
+        <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+            android:dependency="pref_timeout_passphrase"
+            android:icon="@drawable/ic_timer_lock"
+            android:key="pref_timeout_interval"
+            android:title="@string/preferences__pref_timeout_interval_title"
+            app:rightSummaryMaxLines="1" />
+
+    </org.jimvixx.smsecure.preferences.widgets.SMSecurePreferenceCategory>
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
         android:defaultValue="true"
@@ -39,6 +45,15 @@
         android:key="pref_screen_security"
         android:summary="@string/preferences__disable_screen_security_to_allow_screen_shots"
         android:title="@string/preferences__screen_security"
+        app:rightSummaryMaxLines="1"
+        app:allowDividerAbove="true"/>
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="true"
+        android:icon="@drawable/ic_file_arrow_left_right"
+        android:key="pref_auto_complete_key_exchange"
+        android:summary="@string/preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key"
+        android:title="@string/preferences__complete_key_exchanges"
         app:rightSummaryMaxLines="1" />
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
@@ -51,23 +66,18 @@
 
     <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
         android:defaultValue="false"
-        android:icon="@drawable/ic_account_alert"
-        android:key="pref_enable_panic_button"
-        android:summary="@string/preferences__summary_panic_button"
-        android:title="@string/preferences__panic_button"
-        app:rightSummaryMaxLines="1" />
-
-    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
-        android:defaultValue="false"
         android:icon="@drawable/ic_cellphone_lock"
         android:key="pref_enable_panic_on_device_lock_button"
         android:summary="@string/preferences__summary_enable_panic_on_device_lock_button"
         android:title="@string/preferences__enable_panic_on_device_lock_button"
         app:rightSummaryMaxLines="1" />
 
-    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
-        android:icon="@drawable/ic_block"
-        android:key="preference_category_blocked"
-        android:title="@string/preferences__blocked_contacts" />
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_account_alert"
+        android:key="pref_enable_panic_button"
+        android:summary="@string/preferences__summary_panic_button"
+        android:title="@string/preferences__panic_button"
+        app:rightSummaryMaxLines="1" />
 
 </PreferenceScreen>

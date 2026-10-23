@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureListPreference
+        android:key="pref_log_level"
+        android:icon="@drawable/ic_bug_check"
+        android:title="@string/preferences__diagnostic_logging_level"
+        android:summary="@string/preferences__diagnostic_logging_level_summary"
+        android:defaultValue="errors"
+        android:entries="@array/pref_log_level_entries"
+        android:entryValues="@array/pref_log_level_values"
+        app:rightSummaryMaxLines="2" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecureSwitchPreferenceCompat
+        android:key="pref_system_log_enabled"
+        android:icon="@drawable/ic_shield_bug"
+        android:title="@string/preferences__write_logs_to_android_logcat"
+        android:summary="@string/preferences__write_logs_to_android_logcat_summary"
+        android:defaultValue="false"
+        app:rightSummaryMaxLines="1" />
+
+    <org.jimvixx.smsecure.preferences.widgets.SMSecurePreference
+        android:key="pref_submit_debug_logs"
+        android:icon="@drawable/ic_bug"
+        android:title="@string/preferences__submit_debug_log"
+        android:summary="@string/preferences__submit_debug_log_summary" />
+
+</PreferenceScreen>

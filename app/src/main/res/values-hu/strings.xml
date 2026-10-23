@@ -373,17 +373,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Teljes beszélgetés megtekintése</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Napló másolása</string>
-  <string name="log_submit__button_share_link">Link megosztása</string>
   <string name="log_submit__button_share_logs">Napló megosztása</string>
   <string name="log_submit_activity__collecting_logs">Naplók gyűjtése…</string>
   <string name="log_submit_activity__log_collect_failed">A napló gyűjtése sikertelen.</string>
-  <string name="log_submit_activity__log_fetch_failed">A napló összegyűjtése vagy feltöltése nem sikerült.</string>
-  <string name="log_submit_activity__log_upload_failed">A napló feltöltése nem sikerült.</string>
-  <string name="log_submit_activity__log_uploaded">Napló feltöltve. A link a vágólapra másolva.</string>
   <string name="log_submit_activity__thanks">Köszönöm a segítséget!</string>
   <string name="log_submit_activity__uploading_logs">Napló feltöltése…</string>
-  <string name="log_submit_copied">Napló másolva.</string>
   <string name="log_submit_interrupted">Az előző feltöltés eredménye nem érhető el. Ha új jelentést szeretne elküldeni, nyissa meg újra a „Napló elküldése” menüpontot.</string>
   <string name="log_submit_no_internet">Nincs internetkapcsolat. Ellenőrizze a kapcsolatot, majd nyissa meg újra a „Napló elküldése” menüpontot, és próbálja meg újra.</string>
   <string name="log_submit_save_failed">A napló mentése nem sikerült.</string>
@@ -465,8 +459,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">Az SMSecure-ről</string>
+  <string name="preferences__about_build_apk_signer_sha256">APK-aláíró SHA-256</string>
+  <string name="preferences__about_build_app_id">Alkalmazásazonosító</string>
+  <string name="preferences__about_build_information">Verzió- és build-információk</string>
+  <string name="preferences__about_build_source_commit">Forrás-commit</string>
+  <string name="preferences__about_build_type">Készítési típus</string>
+  <string name="preferences__about_build_version_code">Verziókód</string>
+  <string name="preferences__about_build_version_name">Verzió neve</string>
+  <string name="preferences__about_licenses_gpl">GNU Általános Nyilvános Licenc v3.0</string>
+  <string name="preferences__about_licenses_third_party">Harmadik féltől származó függőségek</string>
+  <string name="preferences__about_licenses_third_party_summary">A függőségi licencet az eredeti forrásokkal együtt megőrzik.</string>
+  <string name="preferences__about_open_source_licenses">Nyílt forráskódú licenc</string>
   <string name="preferences__about_version">Verzió <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Speciális</string>
   <string name="preferences__always_ask_for_sim_card">Mindig kérdezze meg a SIM-kártyát</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Üzenetküldéskor mindig kérdezze meg, melyik SIM-kártyát kívánja használni</string>
   <string name="preferences__appearance">Megjelenés</string>
@@ -476,11 +480,11 @@
   <string name="preferences__change_notification_sound">Értesítési hang módosítása</string>
   <string name="preferences__change_passphrase">Jelszó módosítása</string>
   <string name="preferences__change_your_passphrase">Változtassa meg jelszavát</string>
-  <string name="preferences__chat_display">Csevegés megjelenítése</string>
   <string name="preferences__chats">Csevegések</string>
   <string name="preferences__complete_key_exchanges">Teljes kulcscsere</string>
   <string name="preferences__conversation_length_limit">A beszélgetés hosszának korlátozása</string>
   <string name="preferences__dark_theme">Sötét</string>
+  <string name="preferences__debug_diagnostics">Hibakeresés és diagnosztika</string>
   <string name="preferences__delete_old_messages">Régi üzenetek törlése</string>
   <string name="preferences__diagnostic_logging_level">Diagnosztikai naplózási szint</string>
   <string name="preferences__diagnostic_logging_level_summary">Szabályozza, hogy a SMSecure mennyi diagnosztikai információt tároljon belsőleg.</string>
@@ -520,10 +524,11 @@
   <string name="preferences__notifications">Értesítések</string>
   <string name="preferences__one_time">Egyszer</string>
   <string name="preferences__panic_button">Pánikgomb</string>
+  <string name="preferences__passphrase">Jelszó</string>
   <string name="preferences__play_inthread_notifications">Értesítési hang lejátszása aktív beszélgetés megtekintésekor.</string>
   <string name="preferences__pref_timeout_interval_title">Időkorlát</string>
-  <string name="preferences__privacy">Adatvédelem</string>
-  <string name="preferences__privacy_policy">Adatvédelmi irányelvek</string>
+  <string name="preferences__privacy_policy">GitHub / Adatvédelmi irányelvek</string>
+  <string name="preferences__privacy_security">Adatvédelem</string>
   <string name="preferences__repeat_notification">Ismételt értesítés</string>
   <string name="preferences__repeat_notification_number_times_select">Válassza ki, hányszor ismétlődjön az értesítés</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Kérjen kézbesítési jelentést minden elküldött SMS-üzenetről</string>

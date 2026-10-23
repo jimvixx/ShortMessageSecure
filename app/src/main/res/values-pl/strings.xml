@@ -391,17 +391,11 @@
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Zobacz całą rozmowę</string>
   <!--log_submit_activity-->
-  <string name="log_submit__button_copy">Kopiuj log</string>
-  <string name="log_submit__button_share_link">Udostępnij link</string>
   <string name="log_submit__button_share_logs">Udostępnij dziennik</string>
   <string name="log_submit_activity__collecting_logs">Gromadzenie logów…</string>
   <string name="log_submit_activity__log_collect_failed">Nie udało się zebrać logów.</string>
-  <string name="log_submit_activity__log_fetch_failed">Nie udało się zebrać lub przesłać dziennika.</string>
-  <string name="log_submit_activity__log_upload_failed">Nie udało się przesłać dziennika.</string>
-  <string name="log_submit_activity__log_uploaded">Dziennik przesłany. Link skopiowany do schowka.</string>
   <string name="log_submit_activity__thanks">Dziękuję za pomoc!</string>
   <string name="log_submit_activity__uploading_logs">Przesyłanie dziennika…</string>
-  <string name="log_submit_copied">Dziennik skopiowany.</string>
   <string name="log_submit_interrupted">Wynik poprzedniego przesłania jest niedostępny. Otwórz ponownie okno „Prześlij dziennik”, jeśli chcesz wysłać nowy raport.</string>
   <string name="log_submit_no_internet">Brak połączenia z Internetem. Sprawdź połączenie, a następnie ponownie otwórz opcję „Prześlij dziennik”, aby spróbować jeszcze raz.</string>
   <string name="log_submit_save_failed">Nie udało się zapisać dziennika.</string>
@@ -489,8 +483,18 @@
     </plurals>
   <!--preferences.xml-->
   <string name="preferences__about">O SMSecure</string>
+  <string name="preferences__about_build_apk_signer_sha256">SHA-256 podpisu pliku APK</string>
+  <string name="preferences__about_build_app_id">Identyfikator aplikacji</string>
+  <string name="preferences__about_build_information">Informacje o wersji i kompilacji</string>
+  <string name="preferences__about_build_source_commit">Commit źródłowy</string>
+  <string name="preferences__about_build_type">Typ kompilacji</string>
+  <string name="preferences__about_build_version_code">Kod wersji</string>
+  <string name="preferences__about_build_version_name">Nazwa wersji</string>
+  <string name="preferences__about_licenses_gpl">Powszechna Licencja Publiczna GNU w wersji 3.0</string>
+  <string name="preferences__about_licenses_third_party">Zależności od podmiotów zewnętrznych</string>
+  <string name="preferences__about_licenses_third_party_summary">Licencje zależności są zachowywane wraz z ich źródłami nadrzędnymi.</string>
+  <string name="preferences__about_open_source_licenses">Licencje open source</string>
   <string name="preferences__about_version">Wersja <xliff:g id="arg1">%s</xliff:g></string>
-  <string name="preferences__advanced">Zaawansowane</string>
   <string name="preferences__always_ask_for_sim_card">Zawsze pytaj o kartę SIM</string>
   <string name="preferences__always_ask_for_the_sim_card_to_use_when_sending_messages">Zawsze pytaj o kartę SIM, której chcesz użyć podczas wysyłania wiadomości</string>
   <string name="preferences__appearance">Wygląd</string>
@@ -500,11 +504,11 @@
   <string name="preferences__change_notification_sound">Zmień dźwięk powiadomień</string>
   <string name="preferences__change_passphrase">Zmień hasło</string>
   <string name="preferences__change_your_passphrase">Zmień hasło</string>
-  <string name="preferences__chat_display">Wyświetlanie czatu</string>
   <string name="preferences__chats">Czat</string>
   <string name="preferences__complete_key_exchanges">Zakończ wymianę kluczy</string>
   <string name="preferences__conversation_length_limit">Limit długości rozmowy</string>
   <string name="preferences__dark_theme">Ciemny</string>
+  <string name="preferences__debug_diagnostics">Debugowanie i diagnostyka</string>
   <string name="preferences__delete_old_messages">Usuń stare wiadomości</string>
   <string name="preferences__diagnostic_logging_level">Poziom logowania diagnostycznego</string>
   <string name="preferences__diagnostic_logging_level_summary">Kontroluje ilość informacji diagnostycznych przechowywanych wewnętrznie przez SMSecure.</string>
@@ -546,10 +550,11 @@
   <string name="preferences__notifications">Powiadomienia</string>
   <string name="preferences__one_time">Jeden raz</string>
   <string name="preferences__panic_button">Przycisk alarmowy</string>
+  <string name="preferences__passphrase">Hasło</string>
   <string name="preferences__play_inthread_notifications">Odtwarzaj dźwięk powiadomienia podczas przeglądania aktywnej rozmowy.</string>
   <string name="preferences__pref_timeout_interval_title">Interwał czasu oczekiwania</string>
-  <string name="preferences__privacy">Prywatność</string>
-  <string name="preferences__privacy_policy">Polityka prywatności</string>
+  <string name="preferences__privacy_policy">GitHub / Polityka prywatności</string>
+  <string name="preferences__privacy_security">Prywatność</string>
   <string name="preferences__repeat_notification">Powtórz powiadomienie</string>
   <string name="preferences__repeat_notification_number_times_select">Wybierz liczbę powtórzeń powiadomienia</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Poproś o potwierdzenie dostarczenia każdej wysłanej wiadomości SMS</string>

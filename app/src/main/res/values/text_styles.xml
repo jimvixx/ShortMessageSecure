@@ -47,7 +47,7 @@
         <item name="android:textColor">?attr/appColorAccent</item>
     </style>
     <style name="SMSecure.TextAppearance.Preference.Category.Title" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">?attr/appColorTextPrimary</item>
+        <item name="android:textColor">?attr/appColorTextSecondary</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="SMSecure.TextAppearance.Preference.Category.Summary" parent="TextAppearance.AppCompat.Small">
