@@ -123,8 +123,8 @@ android {
 
     defaultConfig {
         applicationId = "org.jimvixx.smsecure"
-        versionCode = 10400
-        versionName = "1.4.0"
+        versionCode = 10401
+        versionName = "1.4.1"
         buildConfigField("String", "SOURCE_COMMIT", "\"$sourceCommit\"")
 
         buildConfigField(
