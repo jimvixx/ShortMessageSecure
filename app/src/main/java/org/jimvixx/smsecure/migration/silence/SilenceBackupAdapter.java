@@ -211,7 +211,7 @@ public final class SilenceBackupAdapter {
     if (Thread.currentThread().isInterrupted()) throw new InterruptedIOException("Silence restore cancelled");
   }
 
-  private static void deleteArchive(File archive) {
+  static void deleteArchive(File archive) {
     if (!archive.delete() && archive.exists()) Log.w("SilenceBackupAdapter", "Cannot remove temporary archive");
   }
 }

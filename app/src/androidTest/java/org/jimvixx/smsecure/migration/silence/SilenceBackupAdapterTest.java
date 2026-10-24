@@ -19,6 +19,9 @@ package org.jimvixx.smsecure.migration.silence;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
@@ -71,6 +74,11 @@ public class SilenceBackupAdapterTest {
       @Override public File getFilesDir() { return dir("files"); }
       @Override public File getCacheDir() { return dir("cache"); }
       @Override public File getNoBackupFilesDir() { return dir("no_backup"); }
+      @Override public File getDatabasePath(String name) { return new File(dir("databases-current"), name); }
+      @Override public SQLiteDatabase openOrCreateDatabase(String name, int mode,
+              SQLiteDatabase.CursorFactory factory) {
+        return SQLiteDatabase.openOrCreateDatabase(getDatabasePath(name), factory);
+      }
     };
     directories = new ArrayList<>(Arrays.asList("files", "files/sessions-v2", "databases", "shared_prefs"));
     files = new Bundle();
@@ -128,6 +136,76 @@ public class SilenceBackupAdapterTest {
     files.putByteArray("app_parts/nested/partNested789.mms", new byte[]{1});
     configure("");
     expectFailure();
+  }
+
+  @Test public void repairPreviewDoesNotInferPlaintextFromEncryptedFlagOrMatchingRows() throws Exception {
+    directories.add("app_parts");
+    File sourceDatabase = new File(root, "source-messages.db");
+    SQLiteDatabase source = SQLiteDatabase.openOrCreateDatabase(sourceDatabase, null);
+    createRepairSchema(source);
+    source.execSQL("INSERT INTO mms (_id, thread_id, date, date_received, msg_box, m_id, sub, sub_cs, body, part_count, ct_t, ct_l) " +
+            "VALUES (5, 9, 100, 101, 1, 'mid-5', 'subject', 106, 'body', 1, 'multipart/related', 'location')");
+    source.execSQL("INSERT INTO mms_addresses (_id, mms_id, type, address, address_charset) VALUES (55, 5, 137, 'sender', 106)");
+    source.execSQL("INSERT INTO part (_id, mid, seq, ct, name, cd, fn, cid, cl, data_size, file_name, unique_id, digest, encrypted, pending_push, _data, thumbnail) " +
+            "VALUES (15, 5, 0, 'image/jpeg', 'photo', 'attachment', 'photo.jpg', 'cid-1', 'photo.jpg', 3, 'photo.jpg', 77, X'010203', 0, 0, '/data/user/0/org.smssecure.smssecure/app_parts/partPreview15.mms', NULL)");
+    source.close();
+    files.putByteArray("databases/messages.db", read(sourceDatabase));
+    files.putByteArray("app_parts/partPreview15.mms", new byte[48]);
+    configure("");
+    source = SQLiteDatabase.openDatabase(sourceDatabase.getAbsolutePath(), null,
+            SQLiteDatabase.OPEN_READWRITE);
+
+    SQLiteOpenHelper currentHelper = new SQLiteOpenHelper(context, "repair-current.db", null, 1) {
+      @Override public void onCreate(SQLiteDatabase db) { createRepairSchema(db); }
+      @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+    };
+    try {
+      SQLiteDatabase current = currentHelper.getWritableDatabase();
+      current.execSQL("INSERT INTO mms (_id, thread_id, date, date_received, msg_box, m_id, sub, sub_cs, body, part_count, ct_t, ct_l) " +
+              "VALUES (5, 9, 100, 101, 1, 'mid-5', 'subject', 106, 'body', 1, 'multipart/related', 'location')");
+      current.execSQL("INSERT INTO mms_addresses (_id, mms_id, type, address, address_charset) VALUES (55, 5, 137, 'sender', 106)");
+      current.execSQL("INSERT INTO part (_id, mid, seq, ct, name, cd, fn, cid, cl, data_size, file_name, unique_id, digest, encrypted, pending_push, _data, thumbnail) " +
+              "VALUES (15, 5, 0, 'image/jpeg', 'photo', 'attachment', 'photo.jpg', 'cid-1', 'photo.jpg', 3, 'photo.jpg', 77, X'010203', 0, 0, '/data/user/0/org.smssecure.smssecure/app_parts/partPreview15.mms', NULL)");
+
+      for (Integer encrypted : Arrays.asList(null, 0, 1, 2)) {
+        setEncryptedFlag(source, encrypted);
+        files.putByteArray("databases/messages.db", read(sourceDatabase));
+        setEncryptedFlag(current, encrypted);
+        configure("");
+
+        SilenceAttachmentRepairPreview.Report report = SilenceAttachmentRepairPreview.inspect(context,
+                tree, currentHelper);
+        assertEquals(1, report.totalReferences);
+        assertEquals(0, report.alreadyAccessible);
+        assertEquals(1, report.missing);
+        assertEquals(0, report.ambiguous);
+        assertEquals(0, report.invalidOrUnsafe);
+        assertEquals(1, report.encryptionUnverified);
+      }
+      try (Cursor cursor = current.rawQuery("SELECT _data FROM part WHERE _id=15", null)) {
+        assertEquals(1, cursor.getCount());
+        assertTrue(cursor.moveToFirst());
+        assertEquals("/data/user/0/org.smssecure.smssecure/app_parts/partPreview15.mms",
+                cursor.getString(0));
+      }
+      assertNoPendingRestore();
+    } finally {
+      currentHelper.close();
+      source.close();
+    }
+  }
+
+  private static void createRepairSchema(SQLiteDatabase db) {
+    db.execSQL("CREATE TABLE IF NOT EXISTS mms (_id INTEGER PRIMARY KEY, thread_id INTEGER, date INTEGER, date_received INTEGER, msg_box INTEGER, m_id TEXT, sub TEXT, sub_cs INTEGER, body TEXT, part_count INTEGER, ct_t TEXT, ct_l TEXT)");
+    db.execSQL("CREATE TABLE IF NOT EXISTS mms_addresses (_id INTEGER PRIMARY KEY, mms_id INTEGER, type INTEGER, address TEXT, address_charset INTEGER)");
+    db.execSQL("CREATE TABLE IF NOT EXISTS part (_id INTEGER PRIMARY KEY, mid INTEGER, seq INTEGER, ct TEXT, name TEXT, cd TEXT, fn TEXT, cid TEXT, cl TEXT, data_size INTEGER, file_name TEXT, unique_id INTEGER, digest BLOB, encrypted INTEGER, pending_push INTEGER, _data TEXT, thumbnail TEXT)");
+  }
+
+  private static void setEncryptedFlag(SQLiteDatabase db, Integer encrypted) {
+    android.content.ContentValues values = new android.content.ContentValues();
+    if (encrypted == null) values.putNull("encrypted");
+    else values.put("encrypted", encrypted);
+    db.update("part", values, "_id = ?", new String[]{"15"});
   }
 
   @Test public void missingOrEmptyRequiredFilesFailWithoutStaging() throws Exception {
