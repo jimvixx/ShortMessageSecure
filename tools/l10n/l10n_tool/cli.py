@@ -61,6 +61,7 @@ What it does:
 
 State is stored in the project state file:
   <project-root>/.smsecure-l10n/state.json
+The current Git branch selects the branch-specific state automatically.
 
 Glossary notes:
 - Use a single glossary file with sections

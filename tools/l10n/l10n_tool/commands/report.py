@@ -6,42 +6,23 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, List
 
-from ..constants import STATE_DIR, STATE_FILE
-from ..utils import load_json, resolve_langs
-
-
-def _find_project_root_by_git(start: Path) -> Path:
-    current = start.resolve()
-
-    if current.is_file():
-        current = current.parent
-
-    while True:
-        if (current / ".git").exists():
-            return current
-
-        if current.parent == current:
-            raise SystemExit(
-                "Could not find project root by walking up to locate '.git'. "
-                "Use --state-dir to specify where state is stored."
-            )
-
-        current = current.parent
-
-
-def _resolve_state_path(res_dir: Path, state_dir_arg: str) -> Path:
-    if state_dir_arg:
-        state_root = Path(state_dir_arg).expanduser().resolve()
-    else:
-        state_root = _find_project_root_by_git(res_dir)
-
-    return state_root / STATE_DIR / STATE_FILE
+from ..state import open_state_session
+from ..utils import resolve_langs
 
 
 def report_command(args) -> int:
     res_dir = Path(args.res).expanduser().resolve()
-    state_path = _resolve_state_path(res_dir, args.state_dir)
-    state = load_json(state_path, default={"base": {}, "langs": {}, "glossaries": {}})
+    state_session = open_state_session(
+        res_dir=res_dir,
+        state_dir_arg=args.state_dir,
+        from_branch=getattr(args, "from_branch", ""),
+        read_only=True,
+    )
+    state_path = state_session.state_path
+    state = state_session.branch_state
+
+    if state_session.notice:
+        print(f"[STATE] {state_session.notice}")
 
     langs_state: Dict[str, Dict[str, Dict[str, Any]]] = state.get("langs", {}) or {}
     langs = (
@@ -97,6 +78,11 @@ def register(subparsers) -> None:
         "--state-dir",
         default="",
         help="Override directory where .smsecure-l10n/state.json is stored",
+    )
+    rp.add_argument(
+        "--from-branch",
+        default="",
+        help="State branch to inspect when the current branch has no state",
     )
     rp.add_argument(
         "--status",

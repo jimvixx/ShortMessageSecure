@@ -114,6 +114,142 @@ You can override the state location with:
 --state-dir /path/to/project-root
 ```
 
+## Branch-aware state v2
+
+`.smsecure-l10n/state.json` is local tool state for translation hashes,
+statuses, and glossary tracking. It remains in `.gitignore` because it is
+working-copy data: it changes during synchronization, contains local history
+and DeepL glossary metadata, and must not be merged as application source.
+
+The state file uses one independent state object per Git branch:
+
+```json
+{
+  "version": 2,
+  "branches": {
+    "main": {
+      "base": {"string:example": "base-hash"},
+      "langs": {"ru": {"string:example": {"status": "ok"}}},
+      "glossaries": {}
+    },
+    "feature/example": {
+      "created_from": "main",
+      "base": {"string:example": "base-hash"},
+      "langs": {"ru": {"string:example": {"status": "stale"}}},
+      "glossaries": {}
+    }
+  }
+}
+```
+
+`sync`, `report`, and `translate` select the current branch automatically.
+Branch names are stored exactly, including `/`. Existing branch entries are
+loaded without changing other branches. A newly selected branch is deep-copied
+from its parent, so later status and hash changes remain independent.
+
+For a v2 state file, parent selection is deliberately conservative:
+
+1. If the current branch already exists in `branches`, its state is used.
+2. Otherwise, the tool accepts a parent only when the current branch reflog has
+   an unambiguous `branch: Created from BRANCH` entry and `BRANCH` already has
+   state.
+3. If Git cannot establish that parent, the command stops with an actionable
+   error. It never silently assumes `main` or the previously active branch.
+4. Use `--from-branch BRANCH` to select an existing state branch explicitly.
+
+Git reflogs can expire, and checkout history does not always preserve the
+original branch relationship. Therefore merge-base information is not treated
+as proof of origin. A failed parent lookup does not write a new branch entry or
+modify any existing branch.
+
+With no branch name available, detached HEAD is represented as
+`detached/<short-commit>`. A detached branch with existing state can be read
+normally; a new detached branch must use `--from-branch` once a v2 state file
+already exists. If no state file exists at all, a non-`main` state-changing run
+stops without creating a file; initialize state on `main` first.
+
+### Legacy v1 migration
+
+When an older single-branch `state.json` has no `version: 2`/`branches`
+structure, the first state-changing `sync` or `translate` run migrates it:
+
+* On `main`, the complete old object becomes `branches.main`.
+* On any other branch, the complete old object is deep-copied into both
+  `branches.main` and `branches.<current-branch>`; the feature entry records
+  `created_from: "main"`.
+* Existing hashes, statuses, glossary data, and other legacy fields are kept.
+* The original bytes are saved as `state.json.legacy-backup`; numbered suffixes
+  are used instead of overwriting an earlier backup.
+
+`report` is read-only: it can inspect legacy data and reports that migration
+was not written. State-changing commands save through a temporary file in the
+same directory followed by `os.replace`; serialization or replacement failure
+leaves the previous state file in place and cleans the temporary file.
+
+### Recommended SMSecure workflow
+
+Initialize or migrate state on `main` before creating a feature branch:
+
+```bash
+python3 tools/l10n/l10n_sync.py sync \
+  --res app/src/main/res \
+  --langs-file tools/l10n/langs.txt \
+  --glossary-file tools/l10n/glossary.txt
+```
+
+Create and use the MMS branch. Its reflog normally identifies `main`:
+
+```bash
+git switch -c feature/mms-support
+python3 tools/l10n/l10n_sync.py sync \
+  --res app/src/main/res \
+  --langs-file tools/l10n/langs.txt
+```
+
+Create a second branch from the feature branch. Its state is copied from
+`feature/mms-support` when the reflog records that origin:
+
+```bash
+git switch -c feature/mms-support-ui feature/mms-support
+python3 tools/l10n/l10n_sync.py sync \
+  --res app/src/main/res \
+  --langs-file tools/l10n/langs.txt
+```
+
+If the origin is ambiguous, initialize explicitly without changing another
+branch:
+
+```bash
+python3 tools/l10n/l10n_sync.py sync \
+  --res app/src/main/res \
+  --langs-file tools/l10n/langs.txt \
+  --from-branch feature/mms-support
+```
+
+Switching branches changes only which branch object is selected. After merging
+a feature's source changes into `main`, switch to `main` and run `sync` again;
+the main branch's localization history remains separate and is reconciled with
+the merged resources. The ignored state file is not part of the Git merge.
+
+### Recovery
+
+The tool does not automatically rewrite an existing branch's history. If a
+new branch was initialized from the wrong source, first copy
+`.smsecure-l10n/state.json` to a safe location, remove only that branch object
+from the working copy, and rerun `sync --from-branch` with the correct existing
+state branch. Never remove the source branch object. If a migration went wrong,
+restore the non-overwritten `state.json.legacy-backup` (or another private
+copy) before running a state-changing command. `report` can be used to inspect
+the result without rewriting state.
+
+### Pre-commit integration
+
+`.githooks/pre-commit` runs `sync` and then `report` for the current checkout,
+requiring zero `missing` and `stale` entries. It uses the same automatic branch
+selection and keeps `.smsecure-l10n/state.json` ignored. On a newly created
+branch whose parent is ambiguous, run `sync --from-branch` once before
+committing so the branch entry exists; subsequent hook runs reuse it.
+
 ---
 
 ## XML Comments
@@ -352,6 +488,9 @@ python3 l10n_sync.py sync \
 * `--state-dir`  
   Override the project root used for `.smsecure-l10n/state.json`.
 
+* `--from-branch`
+  Select an existing state branch as the source when the current Git branch has no state.
+
 * `--mark-all-stale`  
   Force all existing translatable translations to status `stale`.
 
@@ -399,6 +538,9 @@ python3 l10n_sync.py report   --res app/src/main/res   --status missing,stale,ok
 
 * `--state-dir`  
   Override the project root used for `.smsecure-l10n/state.json`.
+
+* `--from-branch`
+  Select an existing state branch to inspect when the current Git branch has no state.
 
 * `--status`  
   Comma-separated statuses: missing,stale,ok,copied,skipped.
@@ -547,6 +689,12 @@ python3 l10n_sync.py translate \
 
 * `--status`  
   Which statuses to translate (default: missing,stale)  
+
+* `--state-dir`
+  Override the project root used for `.smsecure-l10n/state.json`.
+
+* `--from-branch`
+  Select an existing state branch as the source when the current Git branch has no state.
 
 * `--deepl-key`  
   DeepL API key  
