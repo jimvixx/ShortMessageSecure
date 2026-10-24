@@ -110,6 +110,26 @@ public class SilenceBackupAdapterTest {
     assertFalse(archive.exists()); assertTrue(second.delete()); assertNoArchive();
   }
 
+  @Test public void optionalAppPartsRootIsPreservedByteForByteAndNestedLayoutFailsClosed() throws Exception {
+    directories.add("app_parts");
+    byte[] encryptedData = new byte[]{0, -1, 17, 42};
+    byte[] encryptedThumbnail = new byte[]{9, 0, -7};
+    files.putByteArray("app_parts/partData123.mms", encryptedData);
+    files.putByteArray("app_parts/partThumb456.mms", encryptedThumbnail);
+    configure("");
+
+    File archive = SilenceBackupAdapter.createArchive(context, tree);
+    Map<String, byte[]> entries = unzip(archive);
+    assertArrayEquals(encryptedData, entries.get("app_parts/partData123.mms"));
+    assertArrayEquals(encryptedThumbnail, entries.get("app_parts/partThumb456.mms"));
+    assertTrue(archive.delete());
+
+    directories.add("app_parts/nested");
+    files.putByteArray("app_parts/nested/partNested789.mms", new byte[]{1});
+    configure("");
+    expectFailure();
+  }
+
   @Test public void missingOrEmptyRequiredFilesFailWithoutStaging() throws Exception {
     for (String path : Arrays.asList("databases/messages.db", LEGACY, "shared_prefs/SecureSMS-Preferences.xml")) {
       byte[] saved = files.getByteArray(path);
@@ -176,6 +196,61 @@ public class SilenceBackupAdapterTest {
     try { EncryptedBackupExporter.stageImportFromUri(context, Uri.fromFile(archive)); fail("Expected extraction failure"); }
     catch (IOException expected) { /* Expected. */ }
     assertNoPendingRestore();
+  }
+
+  @Test public void archiveTraversalEntryIsRejectedBeforeRestoreCanBeApplied() throws Exception {
+    File archive = new File(root, "traversal.zip");
+    try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(archive))) {
+      zip.putNextEntry(new ZipEntry("databases/messages.db"));
+      zip.write(new byte[]{1});
+      zip.closeEntry();
+      zip.putNextEntry(new ZipEntry("files/../../outside"));
+      zip.write(new byte[]{2});
+      zip.closeEntry();
+    }
+
+    try {
+      EncryptedBackupExporter.stageImportFromUri(context, Uri.fromFile(archive));
+      fail("Expected traversal entry to be rejected");
+    } catch (IOException expected) {
+      String message = expected.getMessage();
+      assertTrue("Unexpected rejection: " + message,
+              message != null && (message.contains("traversal components") ||
+                      message.contains("Invalid backup entry path") ||
+                      message.contains("escapes restore staging") ||
+                      message.contains("Invalid zip entry path: files/../../outside")));
+    }
+
+    assertNoPendingRestore();
+    assertFalse(new File(context.getNoBackupFilesDir(), "outside").exists());
+    assertFalse(new File(root, "outside").exists());
+  }
+
+  @Test public void absoluteAndDriveQualifiedArchiveEntriesAreRejected() throws Exception {
+    int index = 0;
+    for (String entryName : Arrays.asList("/files/absolute-outside", "C:/files/drive-outside")) {
+      File archive = new File(root, "unsafe-entry-" + index++ + ".zip");
+      try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(archive))) {
+        zip.putNextEntry(new ZipEntry("databases/messages.db"));
+        zip.write(new byte[]{1});
+        zip.closeEntry();
+        zip.putNextEntry(new ZipEntry(entryName));
+        zip.write(new byte[]{2});
+        zip.closeEntry();
+      }
+
+      try {
+        EncryptedBackupExporter.stageImportFromUri(context, Uri.fromFile(archive));
+        fail("Expected absolute archive entry to be rejected: " + entryName);
+      } catch (IOException expected) {
+        assertTrue("Unexpected rejection: " + expected.getMessage(),
+                expected.getMessage().contains("Invalid backup entry path") ||
+                        expected.getMessage().contains("Invalid zip entry path: " + entryName));
+      }
+      assertNoPendingRestore();
+      assertFalse(new File(root, "files/absolute-outside").exists());
+      assertFalse(new File(root, "files/drive-outside").exists());
+    }
   }
 
   @Test public void ordinarySmsSecureRestoreStillStagesAndAppliesUnchangedBytes() throws Exception {

@@ -45,6 +45,10 @@ public final class AttachmentCleanupProcessor {
 
   private AttachmentCleanupProcessor() {}
 
+  static Object lifecycleLock() {
+    return LIFECYCLE_LOCK;
+  }
+
   public static int processBatch(@NonNull Context context,
                                  @NonNull SQLiteOpenHelper helper,
                                  long now,

@@ -44,6 +44,10 @@ public final class SilenceBackupAdapter {
   private static final String LEGACY_PREFS = "shared_prefs/org.smssecure.smssecure_preferences.xml";
   private static final String TARGET_PREFS = "shared_prefs/org.jimvixx.smsecure_preferences.xml";
   private static final String[] ROOTS = {"files", "databases", "shared_prefs"};
+  private static final String ATTACHMENT_ROOT = "app_parts";
+  private static final int MAX_ARCHIVE_ENTRIES = 50000;
+  private static final long MAX_ENTRY_BYTES = 512L * 1024L * 1024L;
+  private static final long MAX_ARCHIVE_BYTES = 4L * 1024L * 1024L * 1024L;
   private static final String[] REQUIRED = {
           "databases/messages.db", "shared_prefs/SecureSMS-Preferences.xml", LEGACY_PREFS
   };
@@ -94,7 +98,8 @@ public final class SilenceBackupAdapter {
         String rootId = DocumentsContract.getTreeDocumentId(directory);
         Set<String> directories = new HashSet<>();
         Set<String> nonemptyFiles = new HashSet<>();
-        copyDirectory(context, directory, rootId, "", zip, directories, nonemptyFiles, 0);
+        copyDirectory(context, directory, rootId, "", zip, directories, nonemptyFiles,
+                new ArchiveLimits(), 0);
         for (String root : ROOTS) {
           if (!directories.contains(root)) throw new IOException("Missing Silence directory: " + root);
         }
@@ -114,7 +119,8 @@ public final class SilenceBackupAdapter {
 
   private static void copyDirectory(Context context, Uri tree, String id, String prefix,
                                     ZipOutputStream zip, Set<String> directories,
-                                    Set<String> nonemptyFiles, int depth) throws IOException {
+                                    Set<String> nonemptyFiles, ArchiveLimits limits,
+                                    int depth) throws IOException {
     checkCancelled();
     if (depth > 64) throw new IOException("Silence directory nesting is too deep");
     Uri children = DocumentsContract.buildChildDocumentsUriUsingTree(tree, id);
@@ -131,38 +137,72 @@ public final class SilenceBackupAdapter {
         String childId = cursor.getString(0);
         String name = cursor.getString(1);
         String mime = cursor.getString(2);
+        limits.addEntry();
         if (name == null || name.isEmpty() || name.equals(".") || name.equals("..") ||
                 name.contains("/") || name.contains("\\") || name.indexOf('\0') >= 0 || !names.add(name)) {
           throw new IOException("Invalid or duplicate Silence entry name");
         }
         if (childId == null || mime == null) throw new IOException("Incomplete Silence document metadata");
-        if (prefix.isEmpty() && !name.equals("files") && !name.equals("databases") && !name.equals("shared_prefs")) {
-          continue; // Match the existing backup's three data roots, not unrelated export siblings.
+        if (isSymlinkMimeType(mime)) throw new IOException("Silence export contains a symbolic link");
+        if (prefix.isEmpty() && !name.equals("files") && !name.equals("databases") &&
+                !name.equals("shared_prefs") && !name.equals(ATTACHMENT_ROOT)) {
+          continue; // Include app state and attachment storage, not unrelated export siblings.
         }
         String source = prefix.isEmpty() ? name : prefix + "/" + name;
         if (source.equals(TARGET_PREFS)) throw new IOException("Conflicting preferences filenames in Silence export");
         boolean isDirectory = DocumentsContract.Document.MIME_TYPE_DIR.equals(mime);
         if (prefix.isEmpty() && !isDirectory) throw new IOException("Silence data root is not a directory");
+        if (prefix.isEmpty() && name.equals(ATTACHMENT_ROOT) && !isDirectory) {
+          throw new IOException("Silence app_parts root is not a directory");
+        }
+        if (prefix.equals(ATTACHMENT_ROOT) && isDirectory) {
+          throw new IOException("Nested Silence app_parts directories are unsupported");
+        }
         String target = source.equals(LEGACY_PREFS) ? TARGET_PREFS : source;
         zip.putNextEntry(new ZipEntry(target + (isDirectory ? "/" : "")));
         if (isDirectory) {
           directories.add(source);
           zip.closeEntry();
-          copyDirectory(context, tree, childId, source, zip, directories, nonemptyFiles, depth + 1);
+          copyDirectory(context, tree, childId, source, zip, directories, nonemptyFiles,
+                  limits, depth + 1);
         } else {
           Uri file = DocumentsContract.buildDocumentUriUsingTree(tree, childId);
           try (InputStream input = context.getContentResolver().openInputStream(file)) {
             if (input == null) throw new IOException("Cannot open Silence file");
             byte[] buffer = new byte[64 * 1024];
             int read;
+            long fileBytes = 0;
             while ((read = input.read(buffer)) != -1) {
               checkCancelled();
+              fileBytes += read;
+              limits.addBytes(read, fileBytes);
               zip.write(buffer, 0, read);
               if (read > 0) nonemptyFiles.add(source);
             }
           }
           zip.closeEntry();
         }
+      }
+    }
+  }
+
+  private static boolean isSymlinkMimeType(String mime) {
+    String normalized = mime.toLowerCase(java.util.Locale.ROOT);
+    return normalized.contains("symlink") || normalized.equals("inode/link");
+  }
+
+  private static final class ArchiveLimits {
+    private int entries;
+    private long bytes;
+
+    void addEntry() throws IOException {
+      if (++entries > MAX_ARCHIVE_ENTRIES) throw new IOException("Silence export has too many entries");
+    }
+
+    void addBytes(int amount, long entryBytes) throws IOException {
+      bytes += amount;
+      if (entryBytes > MAX_ENTRY_BYTES || bytes > MAX_ARCHIVE_BYTES) {
+        throw new IOException("Silence export exceeds the attachment import size limit");
       }
     }
   }

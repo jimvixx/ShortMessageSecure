@@ -19,6 +19,8 @@
 package org.jimvixx.smsecure.database;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,9 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class EncryptedBackupExporter {
 
@@ -48,7 +53,12 @@ public class EncryptedBackupExporter {
           "files",
           "databases",
           "shared_prefs",
+          "app_parts",
   };
+
+  private static final int MAX_ARCHIVE_ENTRIES = 50000;
+  private static final long MAX_ARCHIVE_ENTRY_BYTES = 512L * 1024L * 1024L;
+  private static final long MAX_ARCHIVE_BYTES = 4L * 1024L * 1024L * 1024L;
 
   private static final String[] EXCLUDED_TOP_LEVEL_DIRS = new String[]{
           "cache",
@@ -66,12 +76,34 @@ public class EncryptedBackupExporter {
   // -------------------------
 
   public static void exportToUri(@NonNull Context context, @NonNull Uri outputUri) throws IOException {
+    exportToUri(context, outputUri, DatabaseFactory.getDatabaseHelper(context));
+  }
+
+  static void exportToUri(@NonNull Context context, @NonNull Uri outputUri,
+                          @NonNull SQLiteOpenHelper databaseHelper) throws IOException {
+    File attachmentRoot = AttachmentBackupRestorer.getOwnedPartsRoot(context);
+    if (attachmentRoot.isDirectory()) {
+      synchronized (AttachmentCleanupProcessor.lifecycleLock()) {
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        database.beginTransaction();
+        try {
+          exportSnapshot(context, outputUri, database);
+          database.setTransactionSuccessful();
+        } finally {
+          database.endTransaction();
+        }
+      }
+    } else {
+      exportSnapshot(context, outputUri, null);
+    }
+  }
+
+  private static void exportSnapshot(@NonNull Context context, @NonNull Uri outputUri,
+                                     SQLiteDatabase database) throws IOException {
     File parentDir = getAppDataParentDir(context);
 
     OutputStream raw = null;
     ZipOutputStream zos = null;
-    boolean wroteAnything = false;
-
     try {
       raw = context.getContentResolver().openOutputStream(outputUri, "w");
       if (raw == null) throw new IOException("openOutputStream() returned null for: " + outputUri);
@@ -79,6 +111,7 @@ public class EncryptedBackupExporter {
       zos = new ZipOutputStream(new BufferedOutputStream(raw));
 
       for (String name : INCLUDED_TOP_LEVEL_DIRS) {
+        if (name.equals("app_parts")) continue;
         File dir = new File(parentDir, name);
         if (!dir.exists() || !dir.isDirectory()) {
           Log.w(TAG, "Missing dir for export: " + dir.getAbsolutePath());
@@ -90,21 +123,42 @@ public class EncryptedBackupExporter {
         zos.closeEntry();
 
         zipDirectoryRecursive(dir, name, zos);
-        wroteAnything = true;
       }
+
+      if (database != null) zipReferencedAttachments(context, database, zos);
 
       zos.finish();
-      wroteAnything = true;
 
     } catch (IOException e) {
-      if (wroteAnything) {
-        Log.w(TAG, "Export threw after data was written; treating as success. Error:", e);
-        return;
-      }
       throw e;
     } finally {
       closeQuietly(zos);
       closeQuietly(raw);
+    }
+  }
+
+  private static void zipReferencedAttachments(@NonNull Context context,
+                                               @NonNull SQLiteDatabase database,
+                                               @NonNull ZipOutputStream zip) throws IOException {
+    Map<String, File> attachments = AttachmentBackupRestorer.getReferencedOwnedFiles(context, database);
+    if (attachments.isEmpty()) return;
+    long totalBytes = 0;
+    zip.putNextEntry(new ZipEntry("app_parts/"));
+    zip.closeEntry();
+    byte[] buffer = new byte[64 * 1024];
+    for (Map.Entry<String, File> attachment : attachments.entrySet()) {
+      long fileBytes = attachment.getValue().length();
+      totalBytes += fileBytes;
+      if (fileBytes > MAX_ARCHIVE_ENTRY_BYTES || totalBytes > MAX_ARCHIVE_BYTES) {
+        throw new IOException("Referenced attachments exceed the backup size limit");
+      }
+      zip.putNextEntry(new ZipEntry("app_parts/" + attachment.getKey()));
+      try (FileInputStream input = new FileInputStream(attachment.getValue());
+           BufferedInputStream buffered = new BufferedInputStream(input)) {
+        int read;
+        while ((read = buffered.read(buffer)) != -1) zip.write(buffer, 0, read);
+      }
+      zip.closeEntry();
     }
   }
 
@@ -155,7 +209,7 @@ public class EncryptedBackupExporter {
   // IMPORT (STAGE NOW, APPLY ON NEXT START)
   // -------------------------
 
-  public static void stageImportFromUri(@NonNull Context context, @NonNull Uri inputUri) throws IOException {
+  public static synchronized void stageImportFromUri(@NonNull Context context, @NonNull Uri inputUri) throws IOException {
     File stagingRoot = getStagingRoot(context);
 
     File marker = getMarkerFile(context);
@@ -175,27 +229,32 @@ public class EncryptedBackupExporter {
         try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
           ZipEntry entry;
           byte[] buffer = new byte[64 * 1024];
+          Set<String> entryNames = new HashSet<>();
+          long totalBytes = 0;
+          int entryCount = 0;
 
           while ((entry = zis.getNextEntry()) != null) {
             checkImportCancelled();
             String name = entry.getName();
-            if (name == null || name.trim().isEmpty()) {
-              zis.closeEntry();
-              continue;
-            }
-
-            name = name.replace('\\', '/');
-            while (name.startsWith("/")) name = name.substring(1);
+            validateArchiveEntryName(name);
+            if (++entryCount > MAX_ARCHIVE_ENTRIES) throw new IOException("Backup has too many entries");
+            if (!entryNames.add(name)) throw new IOException("Backup contains duplicate entry names");
 
             if (!isAllowedTopLevel(name)) {
               Log.w(TAG, "Skipping entry outside allowed roots: " + name);
+              totalBytes = drainEntryWithLimits(zis, buffer, totalBytes);
               zis.closeEntry();
               continue;
             }
 
             if (isExcludedPath(name)) {
+              totalBytes = drainEntryWithLimits(zis, buffer, totalBytes);
               zis.closeEntry();
               continue;
+            }
+
+            if (name.startsWith("app_parts/") && name.substring("app_parts/".length()).contains("/")) {
+              throw new IOException("Nested app_parts entries are unsupported");
             }
 
             File outFile = new File(stagingRoot, name);
@@ -204,9 +263,7 @@ public class EncryptedBackupExporter {
             String stagingCanonical = stagingRoot.getCanonicalPath();
             String outCanonical = outFile.getCanonicalPath();
             if (!outCanonical.startsWith(stagingCanonical + File.separator) && !outCanonical.equals(stagingCanonical)) {
-              Log.w(TAG, "Blocked ZipSlip entry: " + name);
-              zis.closeEntry();
-              continue;
+              throw new IOException("Backup entry escapes restore staging");
             }
 
             if (entry.isDirectory() || name.endsWith("/")) {
@@ -225,11 +282,18 @@ public class EncryptedBackupExporter {
             try (FileOutputStream fos = new FileOutputStream(outFile);
                  BufferedOutputStream bos = new BufferedOutputStream(fos)) {
               int read;
+              long entryBytes = 0;
               while ((read = zis.read(buffer)) != -1) {
                 checkImportCancelled();
+                entryBytes += read;
+                totalBytes += read;
+                if (entryBytes > MAX_ARCHIVE_ENTRY_BYTES || totalBytes > MAX_ARCHIVE_BYTES) {
+                  throw new IOException("Backup exceeds the restore size limit");
+                }
                 bos.write(buffer, 0, read);
               }
               bos.flush();
+              fos.getFD().sync();
             }
 
             zis.closeEntry();
@@ -244,6 +308,9 @@ public class EncryptedBackupExporter {
         deleteRecursive(stagingRoot);
         throw new IOException("Staged restore does not look like a valid SMSecure backup (missing core files).");
       }
+
+      AttachmentBackupRestorer.prepareStagedRestore(context, stagingRoot);
+      syncDirectoryTree(stagingRoot, context.getNoBackupFilesDir());
 
       // Create marker
       checkImportCancelled();
@@ -263,13 +330,13 @@ public class EncryptedBackupExporter {
     if (Thread.currentThread().isInterrupted()) throw new InterruptedIOException("Restore cancelled");
   }
 
-  public static void applyPendingRestoreIfAny(@NonNull Context context) {
+  public static boolean applyPendingRestoreIfAny(@NonNull Context context) {
     File marker = getMarkerFile(context);
     File stagingRoot = getStagingRoot(context);
     if (!marker.isFile()) {
       // Process death before handoff leaves no marker: this staging is not applicable.
       deleteRecursive(stagingRoot);
-      return;
+      return true;
     }
 
     File parentDir;
@@ -277,7 +344,7 @@ public class EncryptedBackupExporter {
       parentDir = getAppDataParentDir(context);
     } catch (IOException e) {
       Log.w(TAG, "applyPendingRestore: cannot resolve app data dir", e);
-      return;
+      return false;
     }
 
     if (!stagingRoot.exists() || !stagingRoot.isDirectory()) {
@@ -285,13 +352,15 @@ public class EncryptedBackupExporter {
       // best effort cleanup
       //noinspection ResultOfMethodCallIgnored
       marker.delete();
-      return;
+      return false;
     }
 
     try {
       Log.i(TAG, "Applying staged restore...");
 
-      for (String top : INCLUDED_TOP_LEVEL_DIRS) {
+      AttachmentBackupRestorer.publishStagedAttachments(context, stagingRoot);
+
+      for (String top : new String[]{"files", "shared_prefs", "databases"}) {
         File staged = new File(stagingRoot, top);
         if (!staged.exists()) continue;
 
@@ -310,11 +379,11 @@ public class EncryptedBackupExporter {
       marker.delete();
 
       Log.i(TAG, "Staged restore applied successfully.");
+      return true;
 
     } catch (Throwable t) {
       Log.w(TAG, "Failed to apply staged restore", t);
-      // Keep marker so user can retry by restarting, but don't loop forever if staging is broken.
-      // You can decide: either keep marker or delete it. I keep it for now.
+      return false;
     }
   }
 
@@ -347,6 +416,34 @@ public class EncryptedBackupExporter {
       if (allowed.equals(top)) return true;
     }
     return false;
+  }
+
+  private static void validateArchiveEntryName(@Nullable String name) throws IOException {
+    if (name == null || name.trim().isEmpty() || name.startsWith("/") || name.indexOf('\\') >= 0 ||
+            name.indexOf('\0') >= 0 || name.matches("^[A-Za-z]:.*")) {
+      throw new IOException("Invalid backup entry path");
+    }
+    String normalized = name.endsWith("/") ? name.substring(0, name.length() - 1) : name;
+    if (normalized.isEmpty()) throw new IOException("Invalid backup entry path");
+    for (String segment : normalized.split("/", -1)) {
+      if (segment.isEmpty() || segment.equals(".") || segment.equals("..")) {
+        throw new IOException("Backup entry contains traversal components");
+      }
+    }
+  }
+
+  private static long drainEntryWithLimits(ZipInputStream input, byte[] buffer, long totalBytes)
+      throws IOException {
+    long entryBytes = 0;
+    int read;
+    while ((read = input.read(buffer)) != -1) {
+      entryBytes += read;
+      totalBytes += read;
+      if (entryBytes > MAX_ARCHIVE_ENTRY_BYTES || totalBytes > MAX_ARCHIVE_BYTES) {
+        throw new IOException("Backup exceeds the restore size limit");
+      }
+    }
+    return totalBytes;
   }
 
   private static boolean isExcludedPath(@NonNull String entryName) {
@@ -413,9 +510,84 @@ public class EncryptedBackupExporter {
     if (parent != null && !parent.exists() && !parent.mkdirs()) {
       throw new IOException("Failed to create parent dir for marker: " + parent.getAbsolutePath());
     }
-    try (FileOutputStream fos = new FileOutputStream(file)) {
+    File temporary = new File(parent, file.getName() + ".tmp");
+    try (FileOutputStream fos = new FileOutputStream(temporary)) {
       fos.write(content.getBytes());
       fos.flush();
+      fos.getFD().sync();
+    }
+    if (!temporary.renameTo(file)) {
+      //noinspection ResultOfMethodCallIgnored
+      temporary.delete();
+      throw new IOException("Failed to publish restore marker");
+    }
+    syncDirectory(parent);
+  }
+
+  private static void syncDirectoryTree(File directory, File noBackupRoot) throws IOException {
+    File canonicalRoot = directory.getCanonicalFile();
+    File canonicalNoBackupRoot = noBackupRoot.getCanonicalFile();
+    if (!STAGING_DIR_NAME.equals(canonicalRoot.getName()) ||
+            !canonicalNoBackupRoot.equals(canonicalRoot.getParentFile())) {
+      throw new IOException("Restore staging is outside the app-private no-backup directory");
+    }
+    syncDirectoryTreeValidated(directory, canonicalRoot);
+  }
+
+  private static void syncDirectoryTreeValidated(File directory, File expectedCanonicalPath)
+      throws IOException {
+    File canonicalDirectory = directory.getCanonicalFile();
+    if (!canonicalDirectory.equals(expectedCanonicalPath) ||
+            !isDirectoryWithoutFollowingFinalLink(directory)) {
+      throw new IOException("Restore staging contains an unsafe directory");
+    }
+    File[] children = directory.listFiles();
+    if (children == null) throw new IOException("Cannot sync staged restore directory");
+    for (File child : children) {
+      android.system.StructStat childStat;
+      try {
+        childStat = android.system.Os.lstat(child.getAbsolutePath());
+      } catch (android.system.ErrnoException exception) {
+        throw new IOException("Cannot inspect staged restore entry", exception);
+      }
+      File expectedChild = new File(canonicalDirectory, child.getName());
+      if (!child.getCanonicalFile().equals(expectedChild) ||
+              (!android.system.OsConstants.S_ISDIR(childStat.st_mode) &&
+                      !android.system.OsConstants.S_ISREG(childStat.st_mode))) {
+        throw new IOException("Restore staging contains an unsafe entry");
+      }
+      if (android.system.OsConstants.S_ISDIR(childStat.st_mode)) {
+        syncDirectoryTreeValidated(child, expectedChild);
+      }
+    }
+    syncDirectory(directory);
+  }
+
+  private static boolean isDirectoryWithoutFollowingFinalLink(File directory) throws IOException {
+    try {
+      return android.system.OsConstants.S_ISDIR(
+              android.system.Os.lstat(directory.getAbsolutePath()).st_mode);
+    } catch (android.system.ErrnoException exception) {
+      throw new IOException("Cannot inspect restore staging directory", exception);
+    }
+  }
+
+  private static void syncDirectory(File directory) throws IOException {
+    java.io.FileDescriptor descriptor = null;
+    try {
+      if (!isDirectoryWithoutFollowingFinalLink(directory)) {
+        throw new IOException("Expected a directory to sync");
+      }
+      descriptor = android.system.Os.open(directory.getAbsolutePath(),
+              android.system.OsConstants.O_RDONLY, 0);
+      android.system.Os.fsync(descriptor);
+    } catch (android.system.ErrnoException | SecurityException exception) {
+      throw new IOException("Cannot sync restore directory", exception);
+    } finally {
+      if (descriptor != null) {
+        try { android.system.Os.close(descriptor); }
+        catch (android.system.ErrnoException ignored) { }
+      }
     }
   }
 
