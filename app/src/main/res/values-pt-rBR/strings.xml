@@ -186,6 +186,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Silenciar notificações</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Conversas que contenham MMS ainda não podem ser excluídas.</string>
+  <string name="ConversationActivity__delete_failed">Não foi possível excluir a conversa. Nenhuma alteração foi salva.</string>
   <string name="ConversationActivity__group">Grupo</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Encerrar sessão segura?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Tem certeza de que deseja encerrar esta sessão segura?</string>

@@ -490,7 +490,11 @@ public class SmsDatabase extends MessagingDatabase {
 
   /*package */void deleteThread(long threadId) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    db.delete(TABLE_NAME, THREAD_ID + " = ?", new String[]{threadId + ""});
+    deleteThread(db, threadId);
+  }
+
+  void deleteThread(SQLiteDatabase db, long threadId) {
+    db.delete(TABLE_NAME, THREAD_ID + " = ?", new String[]{String.valueOf(threadId)});
   }
 
   /*package*/void deleteMessagesInThreadBeforeDate(long threadId, long date) {
@@ -508,19 +512,21 @@ public class SmsDatabase extends MessagingDatabase {
 
   /*package*/ void deleteThreads(Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    StringBuilder where = new StringBuilder();
+    deleteThreads(db, threadIds);
+  }
 
+  void deleteThreads(SQLiteDatabase db, Set<Long> threadIds) {
     for (long threadId : threadIds) {
-      where.append(THREAD_ID + " = '").append(threadId).append("' OR ");
+      db.delete(TABLE_NAME, THREAD_ID + " = ?", new String[]{String.valueOf(threadId)});
     }
-
-    where = new StringBuilder(where.substring(0, where.length() - 4));
-
-    db.delete(TABLE_NAME, where.toString(), null);
   }
 
   /*package */ void deleteAllThreads() {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    deleteAllThreads(db);
+  }
+
+  void deleteAllThreads(SQLiteDatabase db) {
     db.delete(TABLE_NAME, null, null);
   }
 

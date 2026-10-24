@@ -222,26 +222,6 @@ public class ThreadDatabase extends Database {
     notifyConversationListListeners();
   }
 
-  private void deleteThreads(Set<Long> threadIds) {
-    SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    StringBuilder where = new StringBuilder();
-
-    for (long threadId : threadIds) {
-      where.append(ID).append(" = '").append(threadId).append("' OR ");
-    }
-
-    where = new StringBuilder(where.substring(0, where.length() - 4));
-
-    db.delete(TABLE_NAME, where.toString(), null);
-    notifyConversationListListeners();
-  }
-
-  private void deleteAllThreads() {
-    SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    db.delete(TABLE_NAME, null, null);
-    notifyConversationListListeners();
-  }
-
   public void trimAllThreads(int length, @NonNull ProgressListener listener) {
     int threadCount;
     int complete = 0;
@@ -859,26 +839,92 @@ public class ThreadDatabase extends Database {
     }
   }
 
-  public void deleteConversation(long threadId) {
-    DatabaseFactory.getSmsDatabase(context).deleteThread(threadId);
-    DatabaseFactory.getDraftDatabase(context).clearDrafts(threadId);
-    deleteThread(threadId);
+  public ConversationDeletionResult deleteConversation(long threadId) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      if (hasMmsMessages(db, threadId)) return ConversationDeletionResult.BLOCKED_BY_MMS;
+
+      getSmsDatabaseForCurrentHelper().deleteThread(db, threadId);
+      new DraftDatabase(context, databaseHelper).clearDrafts(db, threadId);
+      db.delete(TABLE_NAME, ID_WHERE, new String[]{String.valueOf(threadId)});
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
     notifyConversationListeners(threadId);
     notifyConversationListListeners();
+    return ConversationDeletionResult.DELETED;
   }
 
-  public void deleteConversations(Set<Long> selectedConversations) {
-    DatabaseFactory.getSmsDatabase(context).deleteThreads(selectedConversations);
-    DatabaseFactory.getDraftDatabase(context).clearDrafts(selectedConversations);
-    deleteThreads(selectedConversations);
+  public ConversationDeletionResult deleteConversations(Set<Long> selectedConversations) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      if (hasMmsMessages(db, selectedConversations)) return ConversationDeletionResult.BLOCKED_BY_MMS;
+
+      getSmsDatabaseForCurrentHelper().deleteThreads(db, selectedConversations);
+      new DraftDatabase(context, databaseHelper).clearDrafts(db, selectedConversations);
+      deleteThreads(db, selectedConversations);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
     notifyConversationListeners(selectedConversations);
     notifyConversationListListeners();
+    return ConversationDeletionResult.DELETED;
   }
 
-  public void deleteAllConversations() {
-    DatabaseFactory.getSmsDatabase(context).deleteAllThreads();
-    DatabaseFactory.getDraftDatabase(context).clearAllDrafts();
-    deleteAllThreads();
+  public ConversationDeletionResult deleteAllConversations() {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      if (hasAnyMmsMessages(db)) return ConversationDeletionResult.BLOCKED_BY_MMS;
+
+      getSmsDatabaseForCurrentHelper().deleteAllThreads(db);
+      new DraftDatabase(context, databaseHelper).clearAllDrafts(db);
+      deleteAllThreads(db);
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+    notifyConversationListListeners();
+    return ConversationDeletionResult.DELETED;
+  }
+
+  private boolean hasMmsMessages(SQLiteDatabase db, long threadId) {
+    try (Cursor cursor = db.rawQuery("SELECT EXISTS (SELECT 1 FROM mms WHERE thread_id = ?)",
+        new String[]{String.valueOf(threadId)})) {
+      return cursor.moveToFirst() && cursor.getInt(0) != 0;
+    }
+  }
+
+  private boolean hasMmsMessages(SQLiteDatabase db, Set<Long> threadIds) {
+    for (long threadId : threadIds) {
+      if (hasMmsMessages(db, threadId)) return true;
+    }
+    return false;
+  }
+
+  private boolean hasAnyMmsMessages(SQLiteDatabase db) {
+    try (Cursor cursor = db.rawQuery("SELECT EXISTS (SELECT 1 FROM mms)", null)) {
+      return cursor.moveToFirst() && cursor.getInt(0) != 0;
+    }
+  }
+
+  private void deleteThreads(SQLiteDatabase db, Set<Long> threadIds) {
+    for (long threadId : threadIds) {
+      db.delete(TABLE_NAME, ID_WHERE, new String[]{String.valueOf(threadId)});
+    }
+  }
+
+  private void deleteAllThreads(SQLiteDatabase db) {
+    db.delete(TABLE_NAME, null, null);
+  }
+
+  public enum ConversationDeletionResult {
+    DELETED,
+    BLOCKED_BY_MMS
   }
 
   public long getThreadIdIfExistsFor(Recipients recipients) {

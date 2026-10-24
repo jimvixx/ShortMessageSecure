@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Demp varsler</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Samtaler som inneholder MMS-meldinger kan ikke slettes ennå.</string>
+  <string name="ConversationActivity__delete_failed">Samtalen kunne ikke slettes. Ingen endringer ble lagret.</string>
   <string name="ConversationActivity__group">Gruppe</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Avslutte sikker økt?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Er du sikker på at du vil avslutte denne sikre økten?</string>

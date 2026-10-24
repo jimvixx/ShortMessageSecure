@@ -772,7 +772,18 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     builder.setMessage(R.string.ConversationActivity_this_will_permanently_delete_all_messages_in_this_conversation);
     builder.setPositiveButton(R.string.Delete, (dialog, which) -> {
       if (threadId > 0) {
-        DatabaseFactory.getThreadDatabase(ConversationActivity.this).deleteConversation(threadId);
+        try {
+          ThreadDatabase.ConversationDeletionResult result =
+              DatabaseFactory.getThreadDatabase(ConversationActivity.this).deleteConversation(threadId);
+          if (result == ThreadDatabase.ConversationDeletionResult.BLOCKED_BY_MMS) {
+            Toast.makeText(this, R.string.ConversationActivity__delete_blocked_mms, Toast.LENGTH_LONG).show();
+            return;
+          }
+        } catch (RuntimeException e) {
+          Log.w(TAG, "Conversation deletion failed", e);
+          Toast.makeText(this, R.string.ConversationActivity__delete_failed, Toast.LENGTH_LONG).show();
+          return;
+        }
       }
       if (composeText != null) {
         Editable text = composeText.getText();

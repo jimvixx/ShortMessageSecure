@@ -180,6 +180,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">알림 음소거</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">MMS가 포함된 대화는 아직 삭제할 수 없습니다.</string>
+  <string name="ConversationActivity__delete_failed">대화를 삭제할 수 없습니다. 변경 사항이 저장되지 않았습니다.</string>
   <string name="ConversationActivity__group">그룹</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">보안 세션을 종료하시겠습니까?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">이 보안 세션을 종료하시겠습니까?</string>

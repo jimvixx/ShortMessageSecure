@@ -180,6 +180,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">通知をミュート</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">MMS を含む会話は、現時点では削除できません。</string>
+  <string name="ConversationActivity__delete_failed">会話を削除できませんでした。変更は保存されませんでした。</string>
   <string name="ConversationActivity__group">グループ</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">セキュアセッションを終了しますか？</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">このセキュアなセッションを終了してもよろしいですか？</string>

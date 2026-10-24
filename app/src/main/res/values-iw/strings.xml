@@ -186,6 +186,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">השתקת התראות</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">עדיין לא ניתן למחוק שיחות המכילות הודעות MMS.</string>
+    <string name="ConversationActivity__delete_failed">לא ניתן היה למחוק את השיחה. לא נשמרו שינויים.</string>
     <string name="ConversationActivity__group">Group</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">לסיים את ההפעלה המאובטחת?</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">האם אתה בטוח שברצונך לסיים את ההפעלה המאובטחת הזו?</string>

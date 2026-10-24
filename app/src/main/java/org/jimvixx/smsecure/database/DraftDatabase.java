@@ -68,26 +68,30 @@ public class DraftDatabase extends Database {
 
   public void clearDrafts(long threadId) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    clearDrafts(db, threadId);
+  }
+
+  void clearDrafts(SQLiteDatabase db, long threadId) {
     db.delete(TABLE_NAME, THREAD_ID + " = ?", new String[]{String.valueOf(threadId)});
   }
 
   public void clearDrafts(Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    StringBuilder where = new StringBuilder();
-    List<String> arguments = new LinkedList<>();
+    clearDrafts(db, threadIds);
+  }
 
+  void clearDrafts(SQLiteDatabase db, Set<Long> threadIds) {
     for (long threadId : threadIds) {
-      where.append(" OR ")
-              .append(THREAD_ID)
-              .append(" = ?");
-      arguments.add(String.valueOf(threadId));
+      clearDrafts(db, threadId);
     }
-
-    db.delete(TABLE_NAME, where.toString().substring(4), arguments.toArray(new String[0]));
   }
 
   public void clearAllDrafts() {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    clearAllDrafts(db);
+  }
+
+  void clearAllDrafts(SQLiteDatabase db) {
     db.delete(TABLE_NAME, null, null);
   }
 

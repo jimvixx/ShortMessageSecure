@@ -183,6 +183,8 @@
 <!--conversation_unmuted-->
 <string name="conversation_unmuted__mute_notifications">Vaigista teated</string>
 <!--ConversationActivity-->
+<string name="ConversationActivity__delete_blocked_mms">MMS-sõnumeid sisaldavaid vestlusi ei saa veel kustutada.</string>
+<string name="ConversationActivity__delete_failed">Vestlust ei õnnestunud kustutada. Muudatusi ei salvestatud.</string>
 <string name="ConversationActivity__group">Rühm</string>
 <string name="ConversationActivity_abort_secure_session_confirmation">Lõpetada turvaline seanss?</string>
 <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Kas soovite kindlasti lõpetada selle turvalise seansi?</string>

@@ -186,6 +186,8 @@
 <!--conversation_unmuted-->
 <string name="conversation_unmuted__mute_notifications">Apturēt paziņojumus</string>
 <!--ConversationActivity-->
+<string name="ConversationActivity__delete_blocked_mms">Sarunas, kurās ir MMS, pagaidām nevar dzēst.</string>
+<string name="ConversationActivity__delete_failed">Sarunu neizdevās dzēst. Izmaiņas netika saglabātas.</string>
 <string name="ConversationActivity__group">Grupa</string>
 <string name="ConversationActivity_abort_secure_session_confirmation">Beigt drošo sesiju?</string>
 <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Vai esat pārliecināts, ka vēlaties pārtraukt šo drošo sesiju?</string>

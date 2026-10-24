@@ -186,6 +186,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Dezactivează notificările</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Conversațiile care conțin mesaje MMS nu pot fi șterse încă.</string>
+  <string name="ConversationActivity__delete_failed">Conversația nu a putut fi ștearsă. Nu s-au salvat modificări.</string>
   <string name="ConversationActivity__group">Grup</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Să încheiem sesiunea securizată?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Sunteți sigur că doriți să încheiați această sesiune securizată?</string>

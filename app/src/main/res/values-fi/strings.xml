@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Mykistä ilmoitukset</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">MMS-viestejä sisältäviä keskusteluja ei voi vielä poistaa.</string>
+  <string name="ConversationActivity__delete_failed">Keskustelua ei voitu poistaa. Muutoksia ei tallennettu.</string>
   <string name="ConversationActivity__group">Ryhmä</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Lopetetaanko suojattu istunto?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Haluatko varmasti lopettaa tämän suojatun istunnon?</string>

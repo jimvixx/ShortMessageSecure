@@ -183,6 +183,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">Заглушаване на известия</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">Разговорите, съдържащи MMS, все още не могат да бъдат изтривани.</string>
+    <string name="ConversationActivity__delete_failed">Разговорът не можа да бъде изтрит. Няма запазени промени.</string>
     <string name="ConversationActivity__group">Група</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">Да приключите защитената сесия?</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Сигурен ли сте, че искате да прекратите тази защитена сесия?</string>

@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Értesítések némítása</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Az MMS-t tartalmazó beszélgetéseket egyelőre nem lehet törölni.</string>
+  <string name="ConversationActivity__delete_failed">A beszélgetés törlése nem sikerült. A módosítások nem lettek elmentve.</string>
   <string name="ConversationActivity__group">Csoport</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Befejezi a biztonságos munkamenetet?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Biztosan le akarja zárni ezt a biztonságos munkamenetet?</string>

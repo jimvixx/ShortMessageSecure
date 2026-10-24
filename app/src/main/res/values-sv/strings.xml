@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Stäng av aviseringar</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Konversationer som innehåller MMS kan ännu inte raderas.</string>
+  <string name="ConversationActivity__delete_failed">Konversationen kunde inte raderas. Inga ändringar sparades.</string>
   <string name="ConversationActivity__group">Grupp</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Avsluta säker session?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Är du säker på att du vill avsluta denna säkra session?</string>

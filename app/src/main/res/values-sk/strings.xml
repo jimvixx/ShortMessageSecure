@@ -189,6 +189,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Stlmiť oznámenia</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Konverzácie obsahujúce MMS zatiaľ nie je možné vymazať.</string>
+  <string name="ConversationActivity__delete_failed">Konverzáciu sa nepodarilo odstrániť. Žiadne zmeny neboli uložené.</string>
   <string name="ConversationActivity__group">Skupina</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Ukončiť zabezpečenú reláciu?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Naozaj chcete ukončiť túto zabezpečenú reláciu?</string>

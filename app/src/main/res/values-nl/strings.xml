@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Meldingen dempen</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Gesprekken die MMS-berichten bevatten, kunnen nog niet worden verwijderd.</string>
+  <string name="ConversationActivity__delete_failed">Het gesprek kon niet worden verwijderd. Er zijn geen wijzigingen opgeslagen.</string>
   <string name="ConversationActivity__group">Groep</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Beveiligde sessie beëindigen?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Weet u zeker dat u deze beveiligde sessie wilt beëindigen?</string>

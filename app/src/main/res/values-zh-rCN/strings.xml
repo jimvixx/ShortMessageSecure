@@ -180,6 +180,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">静音通知</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">目前尚无法删除包含MMS的对话。</string>
+    <string name="ConversationActivity__delete_failed">无法删除该对话。未保存任何更改。</string>
     <string name="ConversationActivity__group">群组</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">结束安全会话？</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">您确定要结束此安全会话吗？</string>

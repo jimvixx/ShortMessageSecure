@@ -195,6 +195,8 @@
 <!--conversation_unmuted-->
 <string name="conversation_unmuted__mute_notifications">كتم الإشعارات</string>
 <!--ConversationActivity-->
+<string name="ConversationActivity__delete_blocked_mms">لا يمكن حذف المحادثات التي تحتوي على رسائل MMS حتى الآن.</string>
+<string name="ConversationActivity__delete_failed">تعذر حذف المحادثة. لم يتم حفظ أي تغييرات.</string>
 <string name="ConversationActivity__group">المجموعة</string>
 <string name="ConversationActivity_abort_secure_session_confirmation">هل تريد إنهاء الجلسة الآمنة؟</string>
 <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">هل أنت متأكد من أنك تريد إنهاء هذه الجلسة الآمنة؟</string>

@@ -189,6 +189,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">Отключить уведомления</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">Пока что невозможно удалить чаты, содержащие MMS.</string>
+    <string name="ConversationActivity__delete_failed">Не удалось удалить чат. Изменения не были сохранены.</string>
     <string name="ConversationActivity__group">Группа</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">Завершить безопасный сеанс?</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Вы уверены, что хотите завершить эту безопасную сессию?</string>

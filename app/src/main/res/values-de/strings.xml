@@ -183,6 +183,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">Benachrichtigungen stummschalten</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">Konversationen, die MMS enthalten, können noch nicht gelöscht werden.</string>
+    <string name="ConversationActivity__delete_failed">Die Unterhaltung konnte nicht gelöscht werden. Es wurden keine Änderungen gespeichert.</string>
     <string name="ConversationActivity__group">Gruppe</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">Sichere Sitzung beenden?</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Möchten Sie diese sichere Sitzung wirklich beenden?</string>

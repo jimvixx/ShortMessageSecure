@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Dæmp notifikationer</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Samtaler, der indeholder MMS, kan endnu ikke slettes.</string>
+  <string name="ConversationActivity__delete_failed">Det var ikke muligt at slette samtalen. Der blev ikke gemt nogen ændringer.</string>
   <string name="ConversationActivity__group">Gruppe</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Afslutte sikker session?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Er du sikker på, at du vil afslutte denne sikre session?</string>

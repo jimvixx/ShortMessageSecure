@@ -197,6 +197,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">Mute notifications</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">Conversations containing MMS cannot be deleted yet.</string>
+    <string name="ConversationActivity__delete_failed">The conversation could not be deleted. No changes were saved.</string>
     <string name="ConversationActivity__group">Group</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">End secure session?</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Are you sure you want to end this secure session?</string>

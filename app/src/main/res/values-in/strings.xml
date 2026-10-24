@@ -180,6 +180,8 @@
 <!--conversation_unmuted-->
 <string name="conversation_unmuted__mute_notifications">Nonaktifkan notifikasi</string>
 <!--ConversationActivity-->
+<string name="ConversationActivity__delete_blocked_mms">Percakapan yang berisi MMS belum dapat dihapus.</string>
+<string name="ConversationActivity__delete_failed">Percakapan tidak dapat dihapus. Tidak ada perubahan yang disimpan.</string>
 <string name="ConversationActivity__group">Grup</string>
 <string name="ConversationActivity_abort_secure_session_confirmation">Apakah ingin mengakhiri sesi aman?</string>
 <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Apakah Anda yakin ingin mengakhiri sesi aman ini?</string>

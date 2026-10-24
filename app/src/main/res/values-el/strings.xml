@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Σίγαση ειδοποιήσεων</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">Οι συνομιλίες που περιέχουν MMS δεν μπορούν να διαγραφούν ακόμα.</string>
+  <string name="ConversationActivity__delete_failed">Δεν ήταν δυνατή η διαγραφή της συνομιλίας. Δεν αποθηκεύτηκαν αλλαγές.</string>
   <string name="ConversationActivity__group">Ομάδα</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Να τερματιστεί η ασφαλής συνεδρία;</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Είστε σίγουροι ότι θέλετε να τερματίσετε αυτήν την ασφαλή συνεδρία;</string>

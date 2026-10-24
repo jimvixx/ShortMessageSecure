@@ -189,6 +189,8 @@
     <!--conversation_unmuted-->
     <string name="conversation_unmuted__mute_notifications">Вимкнути сповіщення</string>
     <!--ConversationActivity-->
+    <string name="ConversationActivity__delete_blocked_mms">Повідомлення, що містять MMS, поки що не можна видалити.</string>
+    <string name="ConversationActivity__delete_failed">Не вдалося видалити розмову. Зміни не збережено.</string>
     <string name="ConversationActivity__group">Група</string>
     <string name="ConversationActivity_abort_secure_session_confirmation">Завершити безпечну сесію?</string>
     <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Ви впевнені, що хочете завершити цю безпечну сесію?</string>

@@ -189,6 +189,8 @@
 <!--conversation_unmuted-->
 <string name="conversation_unmuted__mute_notifications">Išjungti pranešimus</string>
 <!--ConversationActivity-->
+<string name="ConversationActivity__delete_blocked_mms">Pokalbių, kuriuose yra MMS, kol kas negalima ištrinti.</string>
+<string name="ConversationActivity__delete_failed">Pokalbio nepavyko ištrinti. Jokie pakeitimai nebuvo išsaugoti.</string>
 <string name="ConversationActivity__group">Grupė</string>
 <string name="ConversationActivity_abort_secure_session_confirmation">Baigti saugią sesiją?</string>
 <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Ar tikrai norite nutraukti šią saugią sesiją?</string>

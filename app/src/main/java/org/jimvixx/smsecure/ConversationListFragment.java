@@ -507,15 +507,26 @@ public class ConversationListFragment extends Fragment
       );
 
       backgroundExecutor.execute(() -> {
+        ThreadDatabase.ConversationDeletionResult result = null;
+        RuntimeException failure = null;
         try {
-          DatabaseFactory.getThreadDatabase(ctx).deleteConversations(selected);
-          if (masterSecret != null) {
+          result = DatabaseFactory.getThreadDatabase(ctx).deleteConversations(selected);
+          if (result == ThreadDatabase.ConversationDeletionResult.DELETED && masterSecret != null) {
             MessageNotifier.updateNotification(ctx, masterSecret);
           }
+        } catch (RuntimeException e) {
+          failure = e;
+          Log.w(TAG, "Selected conversation deletion failed", e);
         } finally {
+          ThreadDatabase.ConversationDeletionResult deletionResult = result;
+          RuntimeException deletionFailure = failure;
           mainHandler.post(() -> {
             progress.dismiss();
-            if (actionMode != null) {
+            if (deletionFailure != null) {
+              Snackbar.make(requireView(), R.string.ConversationActivity__delete_failed, Snackbar.LENGTH_LONG).show();
+            } else if (deletionResult == ThreadDatabase.ConversationDeletionResult.BLOCKED_BY_MMS) {
+              Snackbar.make(requireView(), R.string.ConversationActivity__delete_blocked_mms, Snackbar.LENGTH_LONG).show();
+            } else if (actionMode != null) {
               actionMode.finish();
               actionMode = null;
             }

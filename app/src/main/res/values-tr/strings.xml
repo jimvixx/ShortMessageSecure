@@ -183,6 +183,8 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">Bildirimleri sessize al</string>
   <!--ConversationActivity-->
+  <string name="ConversationActivity__delete_blocked_mms">MMS içeren sohbetler henüz silinemez.</string>
+  <string name="ConversationActivity__delete_failed">Sohbet silinemedi. Hiçbir değişiklik kaydedilmedi.</string>
   <string name="ConversationActivity__group">Grup</string>
   <string name="ConversationActivity_abort_secure_session_confirmation">Güvenli oturumu sonlandırmak istiyor musunuz?</string>
   <string name="ConversationActivity_are_you_sure_that_you_want_to_abort_this_secure_session_question">Bu güvenli oturumu sonlandırmak istediğinizden emin misiniz?</string>
