@@ -66,12 +66,14 @@ public class DatabaseFactoryMmsMigrationTest {
     assertColumns(db, "mms_addresses", "_id", "mms_id", "address", "type", "address_charset");
     assertColumns(db, "part", "_id", "mid", "_data", "data_size", "thumbnail", "unique_id");
     assertColumns(db, "attachment_cleanup", "_id", "file_path", "file_type", "source_mms_id",
-        "source_part_id", "encrypted", "created_at");
+        "source_part_id", "encrypted", "created_at", "state", "attempt_count",
+        "next_attempt_at", "last_error");
     assertTrue(indexExists(db, "attachment_cleanup_created_index"));
+    assertTrue(indexExists(db, "attachment_cleanup_due_index"));
     assertTrue(indexExists(db, "mms_thread_id_index"));
     assertTrue(indexExists(db, "mms_addresses_mms_id_index"));
     assertTrue(indexExists(db, "part_mms_id_index"));
-    assertEquals(37, db.getVersion());
+    assertEquals(38, db.getVersion());
     helper.close();
   }
 
@@ -85,7 +87,7 @@ public class DatabaseFactoryMmsMigrationTest {
     assertEquals(1, count(db, "part"));
     assertEquals("/existing/attachment", scalar(db, "SELECT _data FROM part"));
     assertEquals("+15551234567", scalar(db, "SELECT address FROM mms_addresses"));
-    assertEquals(37, db.getVersion());
+    assertEquals(38, db.getVersion());
     helper.close();
   }
 
@@ -151,12 +153,12 @@ public class DatabaseFactoryMmsMigrationTest {
     }
   }
 
-  @Test public void upgradeRealSilenceMmsSchema30To37PreservesPduAndAttachmentData() throws Exception {
+  @Test public void upgradeRealSilenceMmsSchema30To38PreservesPduAndAttachmentData() throws Exception {
     createSilenceSchema30Database();
     SQLiteOpenHelper helper = helper();
     SQLiteDatabase db = helper.getWritableDatabase();
 
-    assertEquals(37, db.getVersion());
+    assertEquals(38, db.getVersion());
     assertEquals(1, count(db, "mms"));
     assertEquals("transaction-1", scalar(db, "SELECT tr_id FROM mms"));
     assertEquals(1, count(db, "mms_addresses"));
@@ -177,7 +179,7 @@ public class DatabaseFactoryMmsMigrationTest {
 
     helper = helper();
     SQLiteDatabase db = helper.getWritableDatabase();
-    assertEquals(37, db.getVersion());
+    assertEquals(38, db.getVersion());
     assertEquals(1, count(db, "mms"));
     assertEquals(1, count(db, "mms_addresses"));
     assertEquals(1, count(db, "part"));
@@ -185,8 +187,29 @@ public class DatabaseFactoryMmsMigrationTest {
     assertEquals(0, count(db, "attachment_cleanup"));
   }
 
+  @Test public void upgrade37AddsCleanupStateColumnsWithoutChangingQueuedPaths() throws Exception {
+    SQLiteDatabase oldDb = SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
+    oldDb.execSQL("CREATE TABLE attachment_cleanup (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "file_path TEXT NOT NULL, file_type INTEGER NOT NULL, source_mms_id INTEGER NOT NULL, " +
+        "source_part_id INTEGER NOT NULL, encrypted INTEGER, created_at INTEGER NOT NULL)");
+    oldDb.execSQL("INSERT INTO attachment_cleanup " +
+        "(file_path, file_type, source_mms_id, source_part_id, encrypted, created_at) " +
+        "VALUES ('/synthetic/queued.mms', 1, 7, 8, 1, 100)");
+    oldDb.setVersion(37);
+    oldDb.close();
+
+    helper = helper(38);
+    SQLiteDatabase upgraded = helper.getWritableDatabase();
+    assertEquals(38, upgraded.getVersion());
+    assertEquals("/synthetic/queued.mms", scalar(upgraded,
+        "SELECT file_path FROM attachment_cleanup"));
+    assertEquals(0, scalarInt(upgraded, "SELECT state FROM attachment_cleanup"));
+    assertEquals(0, scalarInt(upgraded, "SELECT attempt_count FROM attachment_cleanup"));
+    assertTrue(indexExists(upgraded, "attachment_cleanup_due_index"));
+  }
+
   private SQLiteOpenHelper helper() throws Exception {
-    return helper(37);
+    return helper(38);
   }
 
   private SQLiteOpenHelper helper(int version) throws Exception {

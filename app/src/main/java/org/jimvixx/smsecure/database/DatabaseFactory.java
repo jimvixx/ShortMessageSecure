@@ -32,6 +32,8 @@ import org.jimvixx.smsecure.contacts.ContactsDatabase;
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.logging.Log;
 import org.jimvixx.smsecure.notifications.MessageNotifier;
+import org.jimvixx.smsecure.ApplicationContext;
+import org.jimvixx.smsecure.jobs.AttachmentCleanupJob;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +78,9 @@ public class DatabaseFactory {
   private static final int INTRODUCED_PINNED_ORDER_VERSION = 35;
   private static final int INTRODUCED_MMS_SCHEMA_VERSION = 36;
   private static final int INTRODUCED_ATTACHMENT_CLEANUP_QUEUE_VERSION = 37;
+  private static final int INTRODUCED_ATTACHMENT_CLEANUP_STATE_VERSION = 38;
 
-  private static final int DATABASE_VERSION = 37;
+  private static final int DATABASE_VERSION = 38;
   private static final String DATABASE_NAME = "messages.db";
   private static final Object lock = new Object();
 
@@ -143,6 +146,29 @@ public class DatabaseFactory {
     return getInstance(context).attachmentCleanup;
   }
 
+  public static SQLiteOpenHelper getDatabaseHelper(Context context) {
+    return getInstance(context).databaseHelper;
+  }
+
+  public static void scheduleAttachmentCleanup(Context context) {
+    DatabaseFactory factory = getInstance(context);
+    if (factory.attachmentCleanup.hasDueEntries(System.currentTimeMillis())) {
+      ApplicationContext.getInstance(context).getJobManager().add(
+              new AttachmentCleanupJob(context.getApplicationContext()));
+    }
+  }
+
+  public static void scheduleAttachmentCleanupIfOwned(Context context,
+                                                       SQLiteOpenHelper helper) {
+    synchronized (lock) {
+      if (instance != null && instance.databaseHelper == helper &&
+              instance.attachmentCleanup.hasDueEntries(System.currentTimeMillis())) {
+        ApplicationContext.getInstance(context).getJobManager().add(
+                new AttachmentCleanupJob(context.getApplicationContext()));
+      }
+    }
+  }
+
   public static ThreadDatabase getThreadDatabase(Context context) {
     return getInstance(context).thread;
   }
@@ -186,6 +212,7 @@ public class DatabaseFactory {
     this.mms = new MmsDatabase(context, databaseHelper);
     this.mmsAddress = new MmsAddressDatabase(context, databaseHelper);
     this.attachments = new AttachmentDatabase(context, databaseHelper);
+    this.attachmentCleanup = new AttachmentCleanupDatabase(context, databaseHelper);
     this.identityDatabase.reset(databaseHelper);
     this.draftDatabase.reset(databaseHelper);
     this.recipientPreferenceDatabase.reset(databaseHelper);
@@ -409,9 +436,19 @@ public class DatabaseFactory {
               "source_mms_id INTEGER NOT NULL, " +
               "source_part_id INTEGER NOT NULL, " +
               "encrypted INTEGER, " +
-              "created_at INTEGER NOT NULL)");
+              "created_at INTEGER NOT NULL, " +
+              "state INTEGER NOT NULL DEFAULT 0, " +
+              "attempt_count INTEGER NOT NULL DEFAULT 0, " +
+              "next_attempt_at INTEGER NOT NULL DEFAULT 0, " +
+              "last_error INTEGER NOT NULL DEFAULT 0)");
+      addColumnIfMissing(db, "attachment_cleanup", "state", "INTEGER NOT NULL DEFAULT 0");
+      addColumnIfMissing(db, "attachment_cleanup", "attempt_count", "INTEGER NOT NULL DEFAULT 0");
+      addColumnIfMissing(db, "attachment_cleanup", "next_attempt_at", "INTEGER NOT NULL DEFAULT 0");
+      addColumnIfMissing(db, "attachment_cleanup", "last_error", "INTEGER NOT NULL DEFAULT 0");
       db.execSQL("CREATE INDEX IF NOT EXISTS attachment_cleanup_created_index " +
               "ON attachment_cleanup (created_at, _id)");
+      db.execSQL("CREATE INDEX IF NOT EXISTS attachment_cleanup_due_index " +
+              "ON attachment_cleanup (state, next_attempt_at, created_at, _id)");
     }
 
     private static void addColumnIfMissing(@NonNull SQLiteDatabase db, @NonNull String table,
@@ -878,6 +915,11 @@ public class DatabaseFactory {
 
       if (oldVersion < INTRODUCED_ATTACHMENT_CLEANUP_QUEUE_VERSION &&
               newVersion >= INTRODUCED_ATTACHMENT_CLEANUP_QUEUE_VERSION) {
+        createAttachmentCleanupTable(db);
+      }
+
+      if (oldVersion < INTRODUCED_ATTACHMENT_CLEANUP_STATE_VERSION &&
+              newVersion >= INTRODUCED_ATTACHMENT_CLEANUP_STATE_VERSION) {
         createAttachmentCleanupTable(db);
       }
 

@@ -132,6 +132,7 @@ public final class MmsDatabase {
     }
 
     if (result == DeletionResult.DELETED) {
+      DatabaseFactory.scheduleAttachmentCleanupIfOwned(context, databaseHelper);
       new ThreadDatabase(context, databaseHelper).notifyMmsDeletionCommitted(threadId);
     }
     return result;

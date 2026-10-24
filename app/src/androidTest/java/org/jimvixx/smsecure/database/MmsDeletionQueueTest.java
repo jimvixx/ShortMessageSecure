@@ -193,7 +193,7 @@ public class MmsDeletionQueueTest {
     Constructor<?> constructor = helperClass.getDeclaredConstructor(Context.class, String.class,
         SQLiteDatabase.CursorFactory.class, int.class);
     constructor.setAccessible(true);
-    return (SQLiteOpenHelper) constructor.newInstance(context, databaseFile.getPath(), null, 37);
+    return (SQLiteOpenHelper) constructor.newInstance(context, databaseFile.getPath(), null, 38);
   }
 
   private void insertThread(SQLiteDatabase db, long id, int archived, long pinnedOrder) {

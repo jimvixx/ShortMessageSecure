@@ -34,6 +34,7 @@ import org.jimvixx.smsecure.jobs.requirements.ServiceRequirementProvider;
 import org.jimvixx.smsecure.logging.CrashLogCapture;
 import org.jimvixx.smsecure.logging.JobQueueLoggerBridge;
 import org.jimvixx.smsecure.logging.Log;
+import org.jimvixx.smsecure.database.DatabaseFactory;
 import org.jimvixx.smsecure.logging.SignalLoggerBridge;
 import org.jimvixx.smsecure.notifications.NotificationChannels;
 import org.jimvixx.smsecure.util.dualsim.SimChangedReceiver;
@@ -91,6 +92,7 @@ public final class ApplicationContext extends Application implements DependencyI
 
     initializeLogging();
     initializeJobManager();
+    DatabaseFactory.scheduleAttachmentCleanup(this);
     checkSimState();
 
     NotificationChannels.create(this);
