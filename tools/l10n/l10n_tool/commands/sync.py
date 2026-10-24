@@ -8,7 +8,6 @@ import time
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
-from ..constants import STATE_DIR, STATE_FILE
 from ..plural_rules import (
     filter_plural_items_for_lang,
     relevant_plural_quantities_for_lang,
@@ -20,13 +19,12 @@ from ..sanitize import (
 )
 from ..utils import (
     ensure_strings_xml_exists,
-    load_json,
     normalize_lang_to_folder,
     resolve_langs,
-    save_json,
     sha1_text,
     read_text_file,
 )
+from ..state import open_state_session, resolve_project_root
 from ..xml_backend import (
     XmlBackend,
     PluralsEntry,
@@ -86,34 +84,6 @@ def _has_complete_plural_values(lang: str, items: Dict[str, str]) -> bool:
 
 def _has_non_empty_array_values(items: Iterable[str]) -> bool:
     return any((v or "").strip() != "" for v in items)
-
-
-def _find_project_root_by_git(start: Path) -> Path:
-    current = start.resolve()
-
-    if current.is_file():
-        current = current.parent
-
-    while True:
-        if (current / ".git").exists():
-            return current
-
-        if current.parent == current:
-            raise SystemExit(
-                "Could not find project root by walking up to locate '.git'. "
-                "Use --state-dir to specify where state should be stored."
-            )
-
-        current = current.parent
-
-
-def _resolve_state_path(res_dir: Path, state_dir_arg: str) -> Path:
-    if state_dir_arg:
-        state_root = Path(state_dir_arg).expanduser().resolve()
-    else:
-        state_root = _find_project_root_by_git(res_dir)
-
-    return state_root / STATE_DIR / STATE_FILE
 
 
 def _entry_translation_hash(entry) -> Optional[str]:
@@ -827,7 +797,7 @@ def _resolve_glossary_file(res_dir: Path, state_dir_arg: str, glossary_file_arg:
 
     # Keep sync backward-compatible: if a repository-level glossary.txt exists,
     # track it automatically; otherwise do nothing.
-    project_root = Path(state_dir_arg).expanduser().resolve() if state_dir_arg else _find_project_root_by_git(res_dir)
+    project_root = resolve_project_root(res_dir, state_dir_arg)
     glossary_path = project_root / "glossary.txt"
     if glossary_path.exists() and glossary_path.is_file():
         return glossary_path
@@ -1023,8 +993,17 @@ def sync_command(args) -> int:
     base_map = build_entry_map(base_entries)
     base_map_keys = set(base_map.keys())
 
-    state_path = _resolve_state_path(res_dir, args.state_dir)
-    state = load_json(state_path, default={"base": {}, "langs": {}, "glossaries": {}})
+    state_session = open_state_session(
+        res_dir=res_dir,
+        state_dir_arg=args.state_dir,
+        from_branch=getattr(args, "from_branch", ""),
+    )
+    state_path = state_session.state_path
+    state = state_session.branch_state
+    if state_session.notice:
+        print(f"[STATE] {state_session.notice}")
+    if state_session.legacy_backup:
+        print(f"[STATE] Legacy backup: {state_session.legacy_backup}")
     glossary_path = _resolve_glossary_file(
         res_dir,
         args.state_dir,
@@ -1280,7 +1259,7 @@ def sync_command(args) -> int:
         glossary_reports_by_lang=glossary_reports_by_lang,
     )
 
-    save_json(state_path, state)
+    state_session.save()
     print(f"Sync done. State: {state_path}")
     return 0
 
@@ -1298,6 +1277,11 @@ def register(subparsers) -> None:
         "--state-dir",
         default="",
         help="Override directory where .smsecure-l10n/state.json is stored",
+    )
+    sp.add_argument(
+        "--from-branch",
+        default="",
+        help="State branch to inherit when the current branch has no state",
     )
     sp.add_argument(
         "--glossary-file",

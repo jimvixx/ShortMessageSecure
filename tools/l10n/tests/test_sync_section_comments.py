@@ -169,6 +169,13 @@ class SyncSectionCommentIntegrationTest(unittest.TestCase):
 """,
                 encoding="utf-8",
             )
+            state_path = root / ".smsecure-l10n" / "state.json"
+            state_path.parent.mkdir()
+            state_path.write_text(
+                '{"version": 2, "branches": {"main": '
+                '{"base": {}, "langs": {}, "glossaries": {}}}}\n',
+                encoding="utf-8",
+            )
 
             sync_command(
                 Namespace(
@@ -181,6 +188,7 @@ class SyncSectionCommentIntegrationTest(unittest.TestCase):
                     mark_all_stale=False,
                     mark_all_ok=False,
                     mark_all_plurals_stale=False,
+                    from_branch="main",
                 )
             )
 

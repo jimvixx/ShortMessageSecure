@@ -77,6 +77,7 @@ SMSecure uses a custom localization system:
 - Base language: `res/values/strings.xml`  
 - Use the `l10n_sync` tool  
 - Do not manually edit translated files unless necessary  
+- Branch-aware state and recovery guidance: [tools/l10n/docs/MAN.md](tools/l10n/docs/MAN.md)
 
 ---
 

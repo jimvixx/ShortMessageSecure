@@ -127,6 +127,8 @@ To work with translations:
 
 - Use the provided `l10n_sync` tool
 - Maintain `strings.xml` as the source of truth
+- Read the branch-aware workflow in [tools/l10n/docs/MAN.md](tools/l10n/docs/MAN.md)
+- Initialize localization state on `main` before creating a feature branch
 
 ---
 

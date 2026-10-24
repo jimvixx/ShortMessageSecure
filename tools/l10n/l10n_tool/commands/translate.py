@@ -10,7 +10,7 @@ from argparse import Namespace
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from ..constants import STATE_DIR, STATE_FILE, DEEPL_MAX_TEXTS_PER_REQUEST
+from ..constants import DEEPL_MAX_TEXTS_PER_REQUEST
 from ..plural_rules import (
     filter_plural_items_for_lang,
     normalize_plural_lang,
@@ -25,11 +25,10 @@ from ..utils import (
     ensure_strings_xml_exists,
     normalize_lang_to_folder,
     resolve_langs,
-    load_json,
-    save_json,
     sha1_text,
     read_text_file,
 )
+from ..state import open_state_session
 from ..deepl_api import (
     guess_deepl_base_url,
     deepl_get_supported_target_langs,
@@ -206,34 +205,6 @@ def load_dotenv(path: str = ".env") -> None:
 
         if key not in os.environ:
             os.environ[key] = value
-
-
-def _find_project_root_by_git(start: Path) -> Path:
-    current = start.resolve()
-
-    if current.is_file():
-        current = current.parent
-
-    while True:
-        if (current / ".git").exists():
-            return current
-
-        if current.parent == current:
-            raise SystemExit(
-                "Could not find project root by walking up to locate '.git'. "
-                "Use --state-dir to specify where state should be stored."
-            )
-
-        current = current.parent
-
-
-def _resolve_state_path(res_dir: Path, state_dir_arg: str) -> Path:
-    if state_dir_arg:
-        state_root = Path(state_dir_arg).expanduser().resolve()
-    else:
-        state_root = _find_project_root_by_git(res_dir)
-
-    return state_root / STATE_DIR / STATE_FILE
 
 
 def _entry_translation_hash_from_values(value) -> Optional[str]:
@@ -483,6 +454,7 @@ def _build_sync_args_from_translate_args(args) -> Namespace:
         langs=args.langs,
         langs_file=args.langs_file,
         state_dir=args.state_dir,
+        from_branch=getattr(args, "from_branch", ""),
         mark_all_stale=False,
         mark_all_ok=False,
         mark_all_plurals_stale=False,
@@ -986,8 +958,17 @@ def translate_command(args) -> int:
         or guess_deepl_base_url(deepl_key)
     )
 
-    state_path = _resolve_state_path(res_dir, args.state_dir)
-    state = load_json(state_path, default={"base": {}, "langs": {}, "glossaries": {}})
+    state_session = open_state_session(
+        res_dir=res_dir,
+        state_dir_arg=args.state_dir,
+        from_branch=getattr(args, "from_branch", ""),
+    )
+    state_path = state_session.state_path
+    state = state_session.branch_state
+    if state_session.notice:
+        print(f"[STATE] {state_session.notice}")
+    if state_session.legacy_backup:
+        print(f"[STATE] Legacy backup: {state_session.legacy_backup}")
 
     xml_backend = XmlBackend()
     base_entries, _ = read_entries(xml_backend, base_file)
@@ -1209,7 +1190,7 @@ def translate_command(args) -> int:
 
         lang_file.write_text(xml_backend.tostring(locale_tree), encoding="utf-8")
 
-    save_json(state_path, state)
+    state_session.save()
 
     if getattr(args, "sync", False):
         print("[SYNC] Running sync after translate...")
@@ -1233,6 +1214,11 @@ def register(subparsers) -> None:
         help="Translate only these statuses (default: missing,stale)",
     )
     tp.add_argument("--state-dir", default="", help="Override directory where .smsecure-l10n/state.json is stored")
+    tp.add_argument(
+        "--from-branch",
+        default="",
+        help="State branch to inherit when the current branch has no state",
+    )
     tp.add_argument("--deepl-key", default=os.environ.get("DEEPL_API_KEY", ""), help="DeepL API key, env DEEPL_API_KEY, or .env")
     tp.add_argument("--deepl-base-url", default=os.environ.get("DEEPL_BASE_URL", ""), help="Override DeepL base URL, env DEEPL_BASE_URL, or .env")
     tp.add_argument("--sleep-ms", type=int, default=150, help="Sleep between batches (default: 150ms)")
