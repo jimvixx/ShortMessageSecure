@@ -278,7 +278,7 @@ public class ThreadDatabase extends Database {
       return;
     }
 
-    Cursor cursor = DatabaseFactory.getMessageDatabase(context).getConversation(threadId);
+    Cursor cursor = new MessageDatabase(context, databaseHelper).getConversation(threadId);
     if (cursor == null) {
       return;
     }
@@ -300,7 +300,7 @@ public class ThreadDatabase extends Database {
 
       Log.w("ThreadDatabase", "Cut off message date: " + cutoffDate);
 
-      DatabaseFactory.getSmsDatabase(context).deleteMessagesInThreadBeforeDate(threadId, cutoffDate);
+      new SmsDatabase(context, databaseHelper).deleteMessagesInThreadBeforeDate(threadId, cutoffDate);
 
       update(threadId, false);
       notifyConversationListeners(threadId);
