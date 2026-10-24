@@ -38,6 +38,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertTrue;
 
@@ -64,10 +65,13 @@ public class DatabaseFactoryMmsMigrationTest {
     assertColumns(db, "mms", "_id", "thread_id", "date", "date_received", "body", "subscription_id", "notified");
     assertColumns(db, "mms_addresses", "_id", "mms_id", "address", "type", "address_charset");
     assertColumns(db, "part", "_id", "mid", "_data", "data_size", "thumbnail", "unique_id");
+    assertColumns(db, "attachment_cleanup", "_id", "file_path", "file_type", "source_mms_id",
+        "source_part_id", "encrypted", "created_at");
+    assertTrue(indexExists(db, "attachment_cleanup_created_index"));
     assertTrue(indexExists(db, "mms_thread_id_index"));
     assertTrue(indexExists(db, "mms_addresses_mms_id_index"));
     assertTrue(indexExists(db, "part_mms_id_index"));
-    assertEquals(36, db.getVersion());
+    assertEquals(37, db.getVersion());
     helper.close();
   }
 
@@ -81,7 +85,7 @@ public class DatabaseFactoryMmsMigrationTest {
     assertEquals(1, count(db, "part"));
     assertEquals("/existing/attachment", scalar(db, "SELECT _data FROM part"));
     assertEquals("+15551234567", scalar(db, "SELECT address FROM mms_addresses"));
-    assertEquals(36, db.getVersion());
+    assertEquals(37, db.getVersion());
     helper.close();
   }
 
@@ -147,12 +151,12 @@ public class DatabaseFactoryMmsMigrationTest {
     }
   }
 
-  @Test public void upgradeRealSilenceMmsSchema30To36PreservesPduAndAttachmentData() throws Exception {
+  @Test public void upgradeRealSilenceMmsSchema30To37PreservesPduAndAttachmentData() throws Exception {
     createSilenceSchema30Database();
     SQLiteOpenHelper helper = helper();
     SQLiteDatabase db = helper.getWritableDatabase();
 
-    assertEquals(36, db.getVersion());
+    assertEquals(37, db.getVersion());
     assertEquals(1, count(db, "mms"));
     assertEquals("transaction-1", scalar(db, "SELECT tr_id FROM mms"));
     assertEquals(1, count(db, "mms_addresses"));
@@ -160,15 +164,37 @@ public class DatabaseFactoryMmsMigrationTest {
     assertEquals("/silence/parts/1.mms", scalar(db, "SELECT _data FROM part"));
     assertColumns(db, "mms_addresses", "address_charset");
     assertColumns(db, "part", "data_size", "thumbnail", "unique_id");
+    assertEquals(0, count(db, "attachment_cleanup"));
     helper.close();
   }
 
+  @Test public void upgrade36CreatesCleanupQueueWithoutChangingMmsRowsOrPaths() throws Exception {
+    createVersion35Database(false);
+    SQLiteOpenHelper version36 = helper(36);
+    SQLiteDatabase version36Db = version36.getWritableDatabase();
+    assertFalse(tableExists(version36Db, "attachment_cleanup"));
+    version36.close();
+
+    helper = helper();
+    SQLiteDatabase db = helper.getWritableDatabase();
+    assertEquals(37, db.getVersion());
+    assertEquals(1, count(db, "mms"));
+    assertEquals(1, count(db, "mms_addresses"));
+    assertEquals(1, count(db, "part"));
+    assertEquals("/existing/attachment", scalar(db, "SELECT _data FROM part"));
+    assertEquals(0, count(db, "attachment_cleanup"));
+  }
+
   private SQLiteOpenHelper helper() throws Exception {
+    return helper(37);
+  }
+
+  private SQLiteOpenHelper helper(int version) throws Exception {
     Class<?> helperClass = DatabaseFactory.class.getDeclaredClasses()[0];
     Constructor<?> constructor = helperClass.getDeclaredConstructor(Context.class, String.class,
             SQLiteDatabase.CursorFactory.class, int.class);
     constructor.setAccessible(true);
-    return (SQLiteOpenHelper) constructor.newInstance(context, databaseFile.getPath(), null, 36);
+    return (SQLiteOpenHelper) constructor.newInstance(context, databaseFile.getPath(), null, version);
   }
 
   private void createVersion35Database(boolean partial) throws Exception {
@@ -246,6 +272,13 @@ public class DatabaseFactoryMmsMigrationTest {
 
   private static boolean indexExists(SQLiteDatabase db, String index) {
     try (Cursor cursor = db.rawQuery("SELECT 1 FROM sqlite_master WHERE type='index' AND name=?", new String[]{index})) {
+      return cursor.moveToFirst();
+    }
+  }
+
+  private static boolean tableExists(SQLiteDatabase db, String table) {
+    try (Cursor cursor = db.rawQuery("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?",
+        new String[]{table})) {
       return cursor.moveToFirst();
     }
   }

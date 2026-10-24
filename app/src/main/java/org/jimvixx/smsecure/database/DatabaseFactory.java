@@ -75,8 +75,9 @@ public class DatabaseFactory {
   private static final int INTRODUCED_IDENTITY_VERIFIED_VERSION = 34;
   private static final int INTRODUCED_PINNED_ORDER_VERSION = 35;
   private static final int INTRODUCED_MMS_SCHEMA_VERSION = 36;
+  private static final int INTRODUCED_ATTACHMENT_CLEANUP_QUEUE_VERSION = 37;
 
-  private static final int DATABASE_VERSION = 36;
+  private static final int DATABASE_VERSION = 37;
   private static final String DATABASE_NAME = "messages.db";
   private static final Object lock = new Object();
 
@@ -89,6 +90,7 @@ public class DatabaseFactory {
   private MmsDatabase mms;
   private MmsAddressDatabase mmsAddress;
   private AttachmentDatabase attachments;
+  private AttachmentCleanupDatabase attachmentCleanup;
   private final IdentityDatabase identityDatabase;
   private final DraftDatabase draftDatabase;
   private final RecipientPreferenceDatabase recipientPreferenceDatabase;
@@ -105,6 +107,7 @@ public class DatabaseFactory {
     this.mms = new MmsDatabase(context, databaseHelper);
     this.mmsAddress = new MmsAddressDatabase(context, databaseHelper);
     this.attachments = new AttachmentDatabase(context, databaseHelper);
+    this.attachmentCleanup = new AttachmentCleanupDatabase(context, databaseHelper);
     this.identityDatabase = new IdentityDatabase(context, databaseHelper);
     this.draftDatabase = new DraftDatabase(context, databaseHelper);
     this.recipientPreferenceDatabase = new RecipientPreferenceDatabase(context, databaseHelper);
@@ -134,6 +137,10 @@ public class DatabaseFactory {
 
   public static AttachmentDatabase getAttachmentDatabase(Context context) {
     return getInstance(context).attachments;
+  }
+
+  public static AttachmentCleanupDatabase getAttachmentCleanupDatabase(Context context) {
+    return getInstance(context).attachmentCleanup;
   }
 
   public static ThreadDatabase getThreadDatabase(Context context) {
@@ -394,6 +401,19 @@ public class DatabaseFactory {
       });
     }
 
+    private static void createAttachmentCleanupTable(@NonNull SQLiteDatabase db) {
+      db.execSQL("CREATE TABLE IF NOT EXISTS attachment_cleanup (" +
+              "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+              "file_path TEXT NOT NULL, " +
+              "file_type INTEGER NOT NULL, " +
+              "source_mms_id INTEGER NOT NULL, " +
+              "source_part_id INTEGER NOT NULL, " +
+              "encrypted INTEGER, " +
+              "created_at INTEGER NOT NULL)");
+      db.execSQL("CREATE INDEX IF NOT EXISTS attachment_cleanup_created_index " +
+              "ON attachment_cleanup (created_at, _id)");
+    }
+
     private static void addColumnIfMissing(@NonNull SQLiteDatabase db, @NonNull String table,
                                            @NonNull String column, @NonNull String definition) {
       if (!hasColumn(db, table, column)) db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + definition);
@@ -498,6 +518,7 @@ public class DatabaseFactory {
       db.execSQL(DraftDatabase.CREATE_TABLE);
       db.execSQL(RecipientPreferenceDatabase.CREATE_TABLE);
       createMmsTables(db);
+      createAttachmentCleanupTable(db);
 
       executeStatements(db, SmsDatabase.CREATE_INDEXS);
       executeStatements(db, ThreadDatabase.CREATE_INDEXS);
@@ -853,6 +874,11 @@ public class DatabaseFactory {
         createMmsTables(db);
         completeMmsColumns(db);
         createMmsIndexes(db);
+      }
+
+      if (oldVersion < INTRODUCED_ATTACHMENT_CLEANUP_QUEUE_VERSION &&
+              newVersion >= INTRODUCED_ATTACHMENT_CLEANUP_QUEUE_VERSION) {
+        createAttachmentCleanupTable(db);
       }
 
 //      if (oldVersion < DROPPED_MMS_LEGACY_TABLES_VERSION) {

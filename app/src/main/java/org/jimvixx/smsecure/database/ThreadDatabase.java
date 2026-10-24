@@ -177,6 +177,13 @@ public class ThreadDatabase extends Database {
 
   private void updateThread(long threadId, @NonNull MessageDatabase.UnifiedConversationMetadata metadata,
                             boolean unarchive) {
+    updateThread(databaseHelper.getWritableDatabase(), threadId, metadata, unarchive);
+    notifyConversationListListeners();
+  }
+
+  private void updateThread(SQLiteDatabase db, long threadId,
+                            @NonNull MessageDatabase.UnifiedConversationMetadata metadata,
+                            boolean unarchive) {
     ContentValues contentValues = new ContentValues(6);
     contentValues.put(DATE, metadata.getDate() - metadata.getDate() % 1000);
     contentValues.put(MESSAGE_COUNT, metadata.getMessageCount());
@@ -194,8 +201,22 @@ public class ThreadDatabase extends Database {
       contentValues.put(ARCHIVED, 0);
     }
 
-    SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.update(TABLE_NAME, contentValues, ID + " = ?", new String[]{threadId + ""});
+  }
+
+  void updateAfterMmsDeletion(SQLiteDatabase db, long threadId) {
+    MessageDatabase.UnifiedConversationMetadata metadata =
+        new MessageDatabase(context, databaseHelper).getUnifiedConversationMetadata(threadId);
+    if (!metadata.hasMessages()) {
+      db.delete(TABLE_NAME, ID + " = ?", new String[]{String.valueOf(threadId)});
+      return;
+    }
+    updateThread(db, threadId, metadata, false);
+    updateThreadReadState(db, threadId);
+  }
+
+  void notifyMmsDeletionCommitted(long threadId) {
+    notifyConversationListeners(threadId);
     notifyConversationListListeners();
   }
 

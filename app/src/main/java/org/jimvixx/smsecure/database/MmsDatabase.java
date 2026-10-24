@@ -32,9 +32,11 @@ public final class MmsDatabase {
   static final String THREAD_ID = "thread_id";
   static final String READ = "read";
 
+  private final Context context;
   private final SQLiteOpenHelper databaseHelper;
 
   public MmsDatabase(@NonNull Context context, @NonNull SQLiteOpenHelper databaseHelper) {
+    this.context = context;
     this.databaseHelper = databaseHelper;
   }
 
@@ -61,6 +63,84 @@ public final class MmsDatabase {
             new String[]{String.valueOf(threadId)})) {
       return c.moveToFirst() ? c.getInt(0) : 0;
     }
+  }
+
+  /** Deletes one MMS and records its attachment paths for later, separately authorized cleanup. */
+  @NonNull public DeletionResult deleteMessage(long mmsId) {
+    SQLiteDatabase database;
+    try {
+      database = databaseHelper.getWritableDatabase();
+      database.beginTransaction();
+    } catch (RuntimeException exception) {
+      return DeletionResult.FAILED;
+    }
+
+    boolean transactionStarted = true;
+    long threadId = -1;
+    DeletionResult result = DeletionResult.FAILED;
+    try {
+      try (Cursor cursor = database.query(TABLE_NAME, new String[]{THREAD_ID}, "_id = ?",
+              new String[]{String.valueOf(mmsId)}, null, null, null)) {
+        if (!cursor.moveToFirst()) {
+          result = DeletionResult.NOT_FOUND;
+        } else {
+          threadId = cursor.getLong(0);
+        }
+      }
+
+      if (result != DeletionResult.NOT_FOUND) {
+        AttachmentCleanupDatabase cleanupDatabase =
+            new AttachmentCleanupDatabase(context, databaseHelper);
+        long createdAt = System.currentTimeMillis();
+        int partCount = 0;
+        try (Cursor cursor = database.query("part",
+                new String[]{"_id", "_data", "thumbnail", "encrypted"}, "mid = ?",
+                new String[]{String.valueOf(mmsId)}, null, null, null)) {
+          while (cursor.moveToNext()) {
+            long partId = cursor.getLong(0);
+            Integer encrypted = cursor.isNull(3) ? null : cursor.getInt(3);
+            cleanupDatabase.enqueue(database, cursor.getString(1),
+                    AttachmentCleanupDatabase.TYPE_DATA, mmsId, partId, encrypted, createdAt);
+            cleanupDatabase.enqueue(database, cursor.getString(2),
+                    AttachmentCleanupDatabase.TYPE_THUMBNAIL, mmsId, partId, encrypted, createdAt);
+            partCount++;
+          }
+        }
+
+        if (database.delete("part", "mid = ?", new String[]{String.valueOf(mmsId)}) != partCount) {
+          throw new IllegalStateException("MMS attachment metadata changed during deletion");
+        }
+        database.delete("mms_addresses", "mms_id = ?", new String[]{String.valueOf(mmsId)});
+        if (database.delete(TABLE_NAME, "_id = ?", new String[]{String.valueOf(mmsId)}) != 1) {
+          throw new IllegalStateException("MMS row changed during deletion");
+        }
+
+        new ThreadDatabase(context, databaseHelper).updateAfterMmsDeletion(database, threadId);
+        database.setTransactionSuccessful();
+        result = DeletionResult.DELETED;
+      }
+    } catch (RuntimeException exception) {
+      result = DeletionResult.FAILED;
+    } finally {
+      if (transactionStarted && database.inTransaction()) {
+        try {
+          database.endTransaction();
+        } catch (RuntimeException exception) {
+          result = DeletionResult.FAILED;
+        }
+      }
+    }
+
+    if (result == DeletionResult.DELETED) {
+      new ThreadDatabase(context, databaseHelper).notifyMmsDeletionCommitted(threadId);
+    }
+    return result;
+  }
+
+  public enum DeletionResult {
+    DELETED,
+    NOT_FOUND,
+    FAILED
   }
 
   /**
