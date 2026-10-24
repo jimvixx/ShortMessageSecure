@@ -160,12 +160,16 @@ public class DatabaseFactory {
 
   public static void scheduleAttachmentCleanupIfOwned(Context context,
                                                        SQLiteOpenHelper helper) {
-    synchronized (lock) {
-      if (instance != null && instance.databaseHelper == helper &&
-              instance.attachmentCleanup.hasDueEntries(System.currentTimeMillis())) {
-        ApplicationContext.getInstance(context).getJobManager().add(
-                new AttachmentCleanupJob(context.getApplicationContext()));
+    try {
+      synchronized (lock) {
+        if (instance != null && instance.databaseHelper == helper &&
+                instance.attachmentCleanup.hasDueEntries(System.currentTimeMillis())) {
+          ApplicationContext.getInstance(context).getJobManager().add(
+                  new AttachmentCleanupJob(context.getApplicationContext()));
+        }
       }
+    } catch (RuntimeException exception) {
+      Log.w(TAG, "Unable to schedule deferred attachment cleanup", exception);
     }
   }
 

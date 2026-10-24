@@ -32,6 +32,7 @@ public final class AttachmentCleanupJob extends ContextJob {
   @Override public void onRun() {
     AttachmentCleanupProcessor.processBatch(context,
             DatabaseFactory.getDatabaseHelper(context), System.currentTimeMillis(), 32);
+    DatabaseFactory.scheduleAttachmentCleanup(context);
   }
 
   @Override public boolean onShouldRetry(Exception exception) {

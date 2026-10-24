@@ -24,6 +24,8 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -186,6 +188,64 @@ public class MmsDeletionQueueTest {
     assertEquals("/synthetic/newer.bin", scalarString(db, "SELECT _data FROM part WHERE mid = 15"));
     assertEquals(1, scalar(db, "SELECT encrypted FROM part WHERE mid = 15"));
     assertEquals("0102", scalarString(db, "SELECT hex(digest) FROM part WHERE mid = 15"));
+  }
+
+  @Test public void batchDeletionDeduplicatesIdsAndKeepsSmsAndRemainingMmsIndependent() throws Exception {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    insertThread(db, 42, 1, 6);
+    insertThread(db, 43, 0, 0);
+    insertSms(db, 16, 42, 3000, "sms id collision");
+    insertMms(db, 16, 42, 5000, "delete collision MMS");
+    insertMms(db, 17, 42, 6000, "delete second MMS");
+    insertMms(db, 18, 42, 9000, "keep MMS");
+    insertMms(db, 19, 43, 8000, "unrelated MMS");
+    insertPart(db, 161, 16, "/synthetic/shared.bin", "/synthetic/thumb.bin", 1);
+    insertPart(db, 171, 17, "/synthetic/shared.bin", null, 0);
+    insertPart(db, 181, 18, "/synthetic/keep.bin", null, 1);
+
+    MmsDatabase.BatchDeletionResult result = new MmsDatabase(context, helper).deleteMessages(
+        Arrays.asList(16L, 16L, 17L, 999L, null));
+
+    assertEquals(MmsDatabase.DeletionResult.DELETED, result.result);
+    assertEquals(2, result.deletedCount);
+    assertEquals(new HashSet<>(Arrays.asList(42L)), result.affectedThreadIds);
+    assertEquals(1, scalar(db, "SELECT COUNT(*) FROM sms WHERE _id = 16 AND thread_id = 42"));
+    assertEquals(0, scalar(db, "SELECT COUNT(*) FROM mms WHERE _id IN (16, 17)"));
+    assertEquals(1, scalar(db, "SELECT COUNT(*) FROM mms WHERE _id = 18"));
+    assertEquals(1, scalar(db, "SELECT COUNT(*) FROM mms WHERE _id = 19"));
+    assertEquals(3, scalar(db, "SELECT COUNT(*) FROM attachment_cleanup"));
+    assertEquals(2, scalar(db, "SELECT COUNT(*) FROM attachment_cleanup " +
+        "WHERE file_path = '/synthetic/shared.bin' AND file_type = 1"));
+    assertEquals(2, scalar(db, "SELECT message_count FROM thread WHERE _id = 42"));
+    assertEquals(1, scalar(db, "SELECT archived FROM thread WHERE _id = 42"));
+    assertEquals(6, scalar(db, "SELECT pinned_order FROM thread WHERE _id = 42"));
+    assertEquals(1, scalar(db, "SELECT encrypted FROM part WHERE mid = 18"));
+    assertEquals("0102", scalarString(db, "SELECT hex(digest) FROM part WHERE mid = 18"));
+    assertEquals(MmsDatabase.DeletionResult.NOT_FOUND,
+        new MmsDatabase(context, helper).deleteMessages(Arrays.asList(16L, 17L, 999L)).result);
+    assertEquals(3, scalar(db, "SELECT COUNT(*) FROM attachment_cleanup"));
+  }
+
+  @Test public void batchFailureRollsBackEveryMmsAndCleanupEntry() throws Exception {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    insertThread(db, 42, 1, 6);
+    insertMms(db, 20, 42, 5000, "first");
+    insertMms(db, 21, 42, 6000, "second");
+    insertPart(db, 201, 20, "/synthetic/first.bin", null, 0);
+    insertPart(db, 211, 21, "/synthetic/second.bin", null, 1);
+    db.execSQL("CREATE TRIGGER fail_second_mms_delete BEFORE DELETE ON mms WHEN OLD._id = 21 " +
+        "BEGIN SELECT RAISE(ABORT, 'simulated batch failure'); END");
+
+    MmsDatabase.BatchDeletionResult result = new MmsDatabase(context, helper).deleteMessages(
+        Arrays.asList(20L, 21L));
+
+    assertEquals(MmsDatabase.DeletionResult.FAILED, result.result);
+    assertEquals(0, result.deletedCount);
+    assertEquals(2, scalar(db, "SELECT COUNT(*) FROM mms WHERE _id IN (20, 21)"));
+    assertEquals(2, scalar(db, "SELECT COUNT(*) FROM part WHERE mid IN (20, 21)"));
+    assertEquals(0, scalar(db, "SELECT COUNT(*) FROM attachment_cleanup"));
+    assertEquals(1, scalar(db, "SELECT archived FROM thread WHERE _id = 42"));
+    assertEquals(6, scalar(db, "SELECT pinned_order FROM thread WHERE _id = 42"));
   }
 
   private SQLiteOpenHelper helper() throws Exception {

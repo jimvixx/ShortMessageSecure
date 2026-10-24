@@ -49,7 +49,9 @@ import org.whispersystems.libsignal.InvalidMessageException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -217,6 +219,11 @@ public class ThreadDatabase extends Database {
 
   void notifyMmsDeletionCommitted(long threadId) {
     notifyConversationListeners(threadId);
+    notifyConversationListListeners();
+  }
+
+  void notifyMmsDeletionCommitted(Set<Long> threadIds) {
+    notifyConversationListeners(threadIds);
     notifyConversationListListeners();
   }
 
@@ -861,76 +868,63 @@ public class ThreadDatabase extends Database {
   }
 
   public ConversationDeletionResult deleteConversation(long threadId) {
-    SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    db.beginTransaction();
-    try {
-      if (hasMmsMessages(db, threadId)) return ConversationDeletionResult.BLOCKED_BY_MMS;
-
-      getSmsDatabaseForCurrentHelper().deleteThread(db, threadId);
-      new DraftDatabase(context, databaseHelper).clearDrafts(db, threadId);
-      db.delete(TABLE_NAME, ID_WHERE, new String[]{String.valueOf(threadId)});
-      db.setTransactionSuccessful();
-    } finally {
-      db.endTransaction();
-    }
-    notifyConversationListeners(threadId);
-    notifyConversationListListeners();
-    return ConversationDeletionResult.DELETED;
+    return deleteConversations(Collections.singleton(threadId));
   }
 
+  /** Deletes every transport and draft for the selected conversations as one database unit. */
   public ConversationDeletionResult deleteConversations(Set<Long> selectedConversations) {
+    Set<Long> threadIds = new LinkedHashSet<>(selectedConversations);
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.beginTransaction();
+    MmsDatabase.DeletionBatch mmsBatch;
     try {
-      if (hasMmsMessages(db, selectedConversations)) return ConversationDeletionResult.BLOCKED_BY_MMS;
-
-      getSmsDatabaseForCurrentHelper().deleteThreads(db, selectedConversations);
-      new DraftDatabase(context, databaseHelper).clearDrafts(db, selectedConversations);
-      deleteThreads(db, selectedConversations);
+      getSmsDatabaseForCurrentHelper().deleteThreads(db, threadIds);
+      mmsBatch = getMmsDatabaseForCurrentHelper().deleteMessagesInThreads(db, threadIds);
+      new DraftDatabase(context, databaseHelper).clearDrafts(db, threadIds);
+      deleteThreads(db, threadIds);
       db.setTransactionSuccessful();
     } finally {
       db.endTransaction();
     }
-    notifyConversationListeners(selectedConversations);
+    if (mmsBatch.deletedCount > 0) {
+      DatabaseFactory.scheduleAttachmentCleanupIfOwned(context, databaseHelper);
+    }
+    notifyConversationListeners(threadIds);
     notifyConversationListListeners();
     return ConversationDeletionResult.DELETED;
   }
 
+  /** Deletes all conversations and orphaned transport rows atomically. */
   public ConversationDeletionResult deleteAllConversations() {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.beginTransaction();
+    Set<Long> threadIds;
+    MmsDatabase.DeletionBatch mmsBatch;
     try {
-      if (hasAnyMmsMessages(db)) return ConversationDeletionResult.BLOCKED_BY_MMS;
-
+      threadIds = getAllConversationThreadIds(db);
       getSmsDatabaseForCurrentHelper().deleteAllThreads(db);
+      mmsBatch = getMmsDatabaseForCurrentHelper().deleteAllMessages(db);
       new DraftDatabase(context, databaseHelper).clearAllDrafts(db);
       deleteAllThreads(db);
       db.setTransactionSuccessful();
     } finally {
       db.endTransaction();
     }
+    if (mmsBatch.deletedCount > 0) {
+      DatabaseFactory.scheduleAttachmentCleanupIfOwned(context, databaseHelper);
+    }
+    notifyConversationListeners(threadIds);
     notifyConversationListListeners();
     return ConversationDeletionResult.DELETED;
   }
 
-  private boolean hasMmsMessages(SQLiteDatabase db, long threadId) {
-    try (Cursor cursor = db.rawQuery("SELECT EXISTS (SELECT 1 FROM mms WHERE thread_id = ?)",
-        new String[]{String.valueOf(threadId)})) {
-      return cursor.moveToFirst() && cursor.getInt(0) != 0;
+  private Set<Long> getAllConversationThreadIds(SQLiteDatabase db) {
+    Set<Long> threadIds = new LinkedHashSet<>();
+    try (Cursor cursor = db.rawQuery("SELECT _id FROM thread UNION SELECT thread_id FROM sms " +
+            "UNION SELECT thread_id FROM mms UNION SELECT thread_id FROM drafts", null)) {
+      while (cursor.moveToNext()) threadIds.add(cursor.getLong(0));
     }
-  }
-
-  private boolean hasMmsMessages(SQLiteDatabase db, Set<Long> threadIds) {
-    for (long threadId : threadIds) {
-      if (hasMmsMessages(db, threadId)) return true;
-    }
-    return false;
-  }
-
-  private boolean hasAnyMmsMessages(SQLiteDatabase db) {
-    try (Cursor cursor = db.rawQuery("SELECT EXISTS (SELECT 1 FROM mms)", null)) {
-      return cursor.moveToFirst() && cursor.getInt(0) != 0;
-    }
+    return threadIds;
   }
 
   private void deleteThreads(SQLiteDatabase db, Set<Long> threadIds) {

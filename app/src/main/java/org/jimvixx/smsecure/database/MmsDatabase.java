@@ -24,7 +24,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /** Access to the Silence-compatible MMS table, including explicit MMS-only read operations. */
 public final class MmsDatabase {
@@ -67,58 +71,34 @@ public final class MmsDatabase {
 
   /** Deletes one MMS and records its attachment paths for later, separately authorized cleanup. */
   @NonNull public DeletionResult deleteMessage(long mmsId) {
+    return deleteMessages(Collections.singleton(mmsId)).result;
+  }
+
+  /** Deletes the existing MMS IDs in one transaction; absent and duplicate IDs are harmless. */
+  @NonNull public BatchDeletionResult deleteMessages(@NonNull Collection<Long> mmsIds) {
     SQLiteDatabase database;
     try {
       database = databaseHelper.getWritableDatabase();
       database.beginTransaction();
     } catch (RuntimeException exception) {
-      return DeletionResult.FAILED;
+      return new BatchDeletionResult(DeletionResult.FAILED, 0, Collections.emptySet());
     }
 
-    boolean transactionStarted = true;
-    long threadId = -1;
+    DeletionBatch batch = new DeletionBatch();
     DeletionResult result = DeletionResult.FAILED;
+    boolean transactionStarted = true;
     try {
-      try (Cursor cursor = database.query(TABLE_NAME, new String[]{THREAD_ID}, "_id = ?",
-              new String[]{String.valueOf(mmsId)}, null, null, null)) {
-        if (!cursor.moveToFirst()) {
-          result = DeletionResult.NOT_FOUND;
-        } else {
-          threadId = cursor.getLong(0);
+      batch = deleteMessages(database, mmsIds);
+      if (batch.deletedCount == 0) {
+        result = DeletionResult.NOT_FOUND;
+      } else {
+        ThreadDatabase threads = new ThreadDatabase(context, databaseHelper);
+        for (long threadId : batch.threadIds) {
+          threads.updateAfterMmsDeletion(database, threadId);
         }
-      }
-
-      if (result != DeletionResult.NOT_FOUND) {
-        AttachmentCleanupDatabase cleanupDatabase =
-            new AttachmentCleanupDatabase(context, databaseHelper);
-        long createdAt = System.currentTimeMillis();
-        int partCount = 0;
-        try (Cursor cursor = database.query("part",
-                new String[]{"_id", "_data", "thumbnail", "encrypted"}, "mid = ?",
-                new String[]{String.valueOf(mmsId)}, null, null, null)) {
-          while (cursor.moveToNext()) {
-            long partId = cursor.getLong(0);
-            Integer encrypted = cursor.isNull(3) ? null : cursor.getInt(3);
-            cleanupDatabase.enqueue(database, cursor.getString(1),
-                    AttachmentCleanupDatabase.TYPE_DATA, mmsId, partId, encrypted, createdAt);
-            cleanupDatabase.enqueue(database, cursor.getString(2),
-                    AttachmentCleanupDatabase.TYPE_THUMBNAIL, mmsId, partId, encrypted, createdAt);
-            partCount++;
-          }
-        }
-
-        if (database.delete("part", "mid = ?", new String[]{String.valueOf(mmsId)}) != partCount) {
-          throw new IllegalStateException("MMS attachment metadata changed during deletion");
-        }
-        database.delete("mms_addresses", "mms_id = ?", new String[]{String.valueOf(mmsId)});
-        if (database.delete(TABLE_NAME, "_id = ?", new String[]{String.valueOf(mmsId)}) != 1) {
-          throw new IllegalStateException("MMS row changed during deletion");
-        }
-
-        new ThreadDatabase(context, databaseHelper).updateAfterMmsDeletion(database, threadId);
-        database.setTransactionSuccessful();
         result = DeletionResult.DELETED;
       }
+      database.setTransactionSuccessful();
     } catch (RuntimeException exception) {
       result = DeletionResult.FAILED;
     } finally {
@@ -133,9 +113,97 @@ public final class MmsDatabase {
 
     if (result == DeletionResult.DELETED) {
       DatabaseFactory.scheduleAttachmentCleanupIfOwned(context, databaseHelper);
-      new ThreadDatabase(context, databaseHelper).notifyMmsDeletionCommitted(threadId);
+      new ThreadDatabase(context, databaseHelper).notifyMmsDeletionCommitted(batch.threadIds);
     }
-    return result;
+    return result == DeletionResult.DELETED
+            ? new BatchDeletionResult(result, batch.deletedCount, batch.threadIds)
+            : new BatchDeletionResult(result, 0, Collections.emptySet());
+  }
+
+  DeletionBatch deleteMessages(@NonNull SQLiteDatabase database, @NonNull Collection<Long> mmsIds) {
+    DeletionBatch batch = new DeletionBatch();
+    AttachmentCleanupDatabase cleanupDatabase =
+        new AttachmentCleanupDatabase(context, databaseHelper);
+    long createdAt = System.currentTimeMillis();
+
+    for (Long mmsIdValue : new LinkedHashSet<>(mmsIds)) {
+      if (mmsIdValue == null) continue;
+      long mmsId = mmsIdValue;
+      Long threadId = getThreadId(database, mmsId);
+      if (threadId == null) continue;
+
+      int partCount = 0;
+      try (Cursor cursor = database.query("part",
+              new String[]{"_id", "_data", "thumbnail", "encrypted"}, "mid = ?",
+              new String[]{String.valueOf(mmsId)}, null, null, null)) {
+        while (cursor.moveToNext()) {
+          long partId = cursor.getLong(0);
+          Integer encrypted = cursor.isNull(3) ? null : cursor.getInt(3);
+          cleanupDatabase.enqueue(database, cursor.getString(1),
+                  AttachmentCleanupDatabase.TYPE_DATA, mmsId, partId, encrypted, createdAt);
+          cleanupDatabase.enqueue(database, cursor.getString(2),
+                  AttachmentCleanupDatabase.TYPE_THUMBNAIL, mmsId, partId, encrypted, createdAt);
+          partCount++;
+        }
+      }
+
+      if (database.delete("part", "mid = ?", new String[]{String.valueOf(mmsId)}) != partCount) {
+        throw new IllegalStateException("MMS attachment metadata changed during deletion");
+      }
+      database.delete("mms_addresses", "mms_id = ?", new String[]{String.valueOf(mmsId)});
+      if (database.delete(TABLE_NAME, "_id = ?", new String[]{String.valueOf(mmsId)}) != 1) {
+        throw new IllegalStateException("MMS row changed during deletion");
+      }
+      batch.deletedCount++;
+      batch.threadIds.add(threadId);
+    }
+    return batch;
+  }
+
+  DeletionBatch deleteMessagesInThreads(@NonNull SQLiteDatabase database,
+                                         @NonNull Set<Long> threadIds) {
+    Set<Long> messageIds = new LinkedHashSet<>();
+    for (long threadId : threadIds) {
+      try (Cursor cursor = database.query(TABLE_NAME, new String[]{"_id"}, THREAD_ID + " = ?",
+              new String[]{String.valueOf(threadId)}, null, null, "_id ASC")) {
+        while (cursor.moveToNext()) messageIds.add(cursor.getLong(0));
+      }
+    }
+    return deleteMessages(database, messageIds);
+  }
+
+  DeletionBatch deleteAllMessages(@NonNull SQLiteDatabase database) {
+    Set<Long> messageIds = new LinkedHashSet<>();
+    try (Cursor cursor = database.query(TABLE_NAME, new String[]{"_id"}, null, null, null, null,
+            "_id ASC")) {
+      while (cursor.moveToNext()) messageIds.add(cursor.getLong(0));
+    }
+    return deleteMessages(database, messageIds);
+  }
+
+  @Nullable private Long getThreadId(SQLiteDatabase database, long mmsId) {
+    try (Cursor cursor = database.query(TABLE_NAME, new String[]{THREAD_ID}, "_id = ?",
+            new String[]{String.valueOf(mmsId)}, null, null, null)) {
+      return cursor.moveToFirst() ? cursor.getLong(0) : null;
+    }
+  }
+
+  static final class DeletionBatch {
+    int deletedCount;
+    final Set<Long> threadIds = new LinkedHashSet<>();
+  }
+
+  public static final class BatchDeletionResult {
+    @NonNull public final DeletionResult result;
+    public final int deletedCount;
+    @NonNull public final Set<Long> affectedThreadIds;
+
+    private BatchDeletionResult(@NonNull DeletionResult result, int deletedCount,
+                                @NonNull Set<Long> affectedThreadIds) {
+      this.result = result;
+      this.deletedCount = deletedCount;
+      this.affectedThreadIds = Collections.unmodifiableSet(new LinkedHashSet<>(affectedThreadIds));
+    }
   }
 
   public enum DeletionResult {

@@ -72,6 +72,17 @@ public class ConversationDeletionSafetyTest {
     assertEquals(0, value(db, "SELECT COUNT(*) FROM thread WHERE _id = 10"));
   }
 
+  @Test public void deletingEmptyDraftOnlyConversationRemovesThreadAndDraft() {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    insertThread(db, 12, 1, 3);
+    insertDraft(db, 12);
+
+    assertEquals(ThreadDatabase.ConversationDeletionResult.DELETED,
+        new ThreadDatabase(context, helper).deleteConversation(12));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM thread WHERE _id = 12"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 12"));
+  }
+
   @Test public void deletingSmsOnlySelectedConversationsRetainsExistingBehavior() {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 10, 0, 0);
@@ -91,7 +102,7 @@ public class ConversationDeletionSafetyTest {
     assertEquals(0, value(db, "SELECT COUNT(*) FROM thread WHERE _id IN (10, 11)"));
   }
 
-  @Test public void mixedConversationDeletionIsBlockedWithoutChangingRowsOrMetadata() {
+  @Test public void mixedConversationDeletionRemovesBothTransportsAndCleanupMetadata() {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 20, 1, 8);
     insertSms(db, 200, 20);
@@ -103,16 +114,17 @@ public class ConversationDeletionSafetyTest {
     ThreadDatabase.ConversationDeletionResult result =
         new ThreadDatabase(context, helper).deleteConversation(20);
 
-    assertEquals(ThreadDatabase.ConversationDeletionResult.BLOCKED_BY_MMS, result);
-    assertPreservedThread(db, 20, 1, 8);
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 200 AND thread_id = 20"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 200 AND thread_id = 20"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE _id = 201 AND mms_id = 200"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM part WHERE _id = 202 AND mid = 200"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 20"));
+    assertEquals(ThreadDatabase.ConversationDeletionResult.DELETED, result);
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM thread WHERE _id = 20"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 200 AND thread_id = 20"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 200 AND thread_id = 20"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE _id = 201 AND mms_id = 200"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM part WHERE _id = 202 AND mid = 200"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 20"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM attachment_cleanup WHERE source_mms_id = 200"));
   }
 
-  @Test public void mmsOnlyConversationDeletionIsBlocked() {
+  @Test public void mmsOnlyConversationDeletionRemovesMessageAndDraft() {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 30, 0, 0);
     insertMms(db, 300, 30);
@@ -122,18 +134,19 @@ public class ConversationDeletionSafetyTest {
     ThreadDatabase.ConversationDeletionResult result =
         new ThreadDatabase(context, helper).deleteConversation(30);
 
-    assertEquals(ThreadDatabase.ConversationDeletionResult.BLOCKED_BY_MMS, result);
-    assertPreservedThread(db, 30, 0, 0);
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 300 AND thread_id = 30"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE _id = 301 AND mms_id = 300"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 30"));
+    assertEquals(ThreadDatabase.ConversationDeletionResult.DELETED, result);
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM thread WHERE _id = 30"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 300 AND thread_id = 30"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE _id = 301 AND mms_id = 300"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 30"));
   }
 
-  @Test public void selectedDeletionIsAllOrNothingWhenAnyConversationContainsMms() {
+  @Test public void selectedMixedConversationDeletionRemovesWholeSelectionAndPreservesOthers() {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 40, 0, 0);
     insertThread(db, 41, 1, 5);
     insertSms(db, 400, 40);
+    insertSms(db, 410, 41);
     insertDraft(db, 40);
     insertThread(db, 42, 0, 0);
     insertSms(db, 420, 42);
@@ -146,19 +159,18 @@ public class ConversationDeletionSafetyTest {
     ThreadDatabase.ConversationDeletionResult result =
         new ThreadDatabase(context, helper).deleteConversations(selected);
 
-    assertEquals(ThreadDatabase.ConversationDeletionResult.BLOCKED_BY_MMS, result);
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE thread_id = 40"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 40"));
-    assertPreservedThread(db, 40, 0, 0);
-    assertPreservedThread(db, 42, 0, 0);
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 420"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 421"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE _id = 422"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM part WHERE _id = 423"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 42"));
+    assertEquals(ThreadDatabase.ConversationDeletionResult.DELETED, result);
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM thread WHERE _id IN (40, 42)"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM sms WHERE thread_id IN (40, 42)"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms WHERE thread_id IN (40, 42)"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE mms_id = 421"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM part WHERE mid = 421"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id IN (40, 42)"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 410 AND thread_id = 41"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM thread WHERE _id = 41 AND archived = 1 AND pinned_order = 5"));
   }
 
-  @Test public void deleteAllIsBlockedWithoutChangingAnyConversationWhenMmsExists() {
+  @Test public void deleteAllRemovesMixedConversationsDraftsAndQueuesAttachments() {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 50, 1, 6);
     insertThread(db, 51, 0, 0);
@@ -172,15 +184,14 @@ public class ConversationDeletionSafetyTest {
     ThreadDatabase.ConversationDeletionResult result =
         new ThreadDatabase(context, helper).deleteAllConversations();
 
-    assertEquals(ThreadDatabase.ConversationDeletionResult.BLOCKED_BY_MMS, result);
-    assertEquals(2, value(db, "SELECT COUNT(*) FROM thread"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 500"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 510"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE _id = 511"));
-    assertEquals(1, value(db, "SELECT COUNT(*) FROM part WHERE _id = 512"));
-    assertEquals(2, value(db, "SELECT COUNT(*) FROM drafts"));
-    assertPreservedThread(db, 50, 1, 6);
-    assertPreservedThread(db, 51, 0, 0);
+    assertEquals(ThreadDatabase.ConversationDeletionResult.DELETED, result);
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM thread"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM sms"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM mms_addresses"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM part"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM drafts"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM attachment_cleanup WHERE source_mms_id = 510"));
   }
 
   @Test public void databaseFailureRollsBackEarlierDeletes() {
@@ -201,6 +212,33 @@ public class ConversationDeletionSafetyTest {
     assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 600"));
     assertEquals(1, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 60"));
     assertPreservedThread(db, 60, 1, 3);
+  }
+
+  @Test public void mmsFailureRollsBackSmsQueuePartsDraftAndThreadDeletion() {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    insertThread(db, 70, 1, 9);
+    insertSms(db, 700, 70);
+    insertMms(db, 700, 70);
+    insertAddress(db, 701, 700);
+    insertPart(db, 702, 700);
+    insertDraft(db, 70);
+    db.execSQL("CREATE TRIGGER fail_mms_delete BEFORE DELETE ON mms " +
+        "BEGIN SELECT RAISE(ABORT, 'simulated MMS database failure'); END");
+
+    try {
+      new ThreadDatabase(context, helper).deleteConversation(70);
+      fail("Expected the simulated MMS deletion failure");
+    } catch (SQLiteException expected) {
+      // The transaction must restore SMS and MMS rows and discard queued cleanup work.
+    }
+
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM sms WHERE _id = 700"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms WHERE _id = 700"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM mms_addresses WHERE mms_id = 700"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM part WHERE mid = 700"));
+    assertEquals(0, value(db, "SELECT COUNT(*) FROM attachment_cleanup"));
+    assertEquals(1, value(db, "SELECT COUNT(*) FROM drafts WHERE thread_id = 70"));
+    assertPreservedThread(db, 70, 1, 9);
   }
 
   private void insertThread(SQLiteDatabase db, long id, int archived, int pinnedOrder) {
