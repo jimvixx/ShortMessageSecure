@@ -184,7 +184,7 @@ public final class SilenceAttachmentRepairPreview {
             encryptionUnverified);
   }
 
-  private static boolean verifySourceEntry(ZipFile zip, ZipEntry entry) {
+  static boolean verifySourceEntry(ZipFile zip, ZipEntry entry) {
     long total = 0;
     try (InputStream input = zip.getInputStream(entry)) {
       byte[] buffer = new byte[32 * 1024];

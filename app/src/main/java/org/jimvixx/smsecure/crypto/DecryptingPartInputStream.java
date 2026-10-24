@@ -18,208 +18,213 @@
 
 package org.jimvixx.smsecure.crypto;
 
-import org.jimvixx.smsecure.logging.Log;
-
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * Class for streaming an encrypted MMS "part" off the disk.
- *
- * @author Moxie Marlinspike
+ * Decrypts a legacy MMS part. Plaintext from this streaming API is untrusted until
+ * the stream reaches EOF without an exception; use {@link AuthenticatedPartReader}
+ * when a consumer must not see any plaintext before complete authentication.
  */
-
 public class DecryptingPartInputStream extends FileInputStream {
-
-  private static final String TAG = DecryptingPartInputStream.class.getSimpleName();
 
   private static final int IV_LENGTH = 16;
   private static final int MAC_LENGTH = 20;
+  private static final int BLOCK_LENGTH = 16;
+  private static final int CIPHER_BUFFER_SIZE = 8 * 1024;
 
   private final Cipher cipher;
   private final Mac mac;
-  private final long totalDataSize;
-  private boolean done;
-  private long totalRead;
-  private byte[] overflowBuffer;
+  private long ciphertextRemaining;
+  private byte[] plaintextBuffer;
+  private int plaintextOffset;
+  private boolean finalBlockProcessed;
 
-  public DecryptingPartInputStream(File file, MasterSecret masterSecret) throws FileNotFoundException {
+  public DecryptingPartInputStream(File file, MasterSecret masterSecret)
+          throws FileNotFoundException {
     super(file);
     try {
-      if (file.length() <= IV_LENGTH + MAC_LENGTH)
-        throw new FileNotFoundException("Part shorter than crypto overhead!");
+      long fileLength = getChannel().size();
+      long ciphertextLength = fileLength - IV_LENGTH - MAC_LENGTH;
+      if (ciphertextLength < BLOCK_LENGTH || ciphertextLength % BLOCK_LENGTH != 0) {
+        throw new IOException("Invalid encrypted part length");
+      }
 
-      done = false;
-      mac = initializeMac(masterSecret.getMacKey());
-      cipher = initializeCipher(masterSecret.getEncryptionKey());
-      totalDataSize = file.length() - cipher.getBlockSize() - mac.getMacLength();
-      totalRead = 0;
-    } catch (InvalidKeyException ike) {
-      Log.w(TAG, ike);
-      throw new FileNotFoundException("Invalid key!");
+      Mac initializedMac = initializeMac(masterSecret.getMacKey());
+      byte[] iv = readExactly(IV_LENGTH);
+      initializedMac.update(iv);
+      Cipher initializedCipher = initializeCipher(masterSecret.getEncryptionKey(), iv);
+
+      this.mac = initializedMac;
+      this.cipher = initializedCipher;
+      this.ciphertextRemaining = ciphertextLength;
+    } catch (InvalidKeyException exception) {
+      closeAfterConstructionFailure();
+      throw fileNotFound("Invalid part key", exception);
     } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException |
-             NoSuchPaddingException e) {
-      throw new AssertionError(e);
-    } catch (IOException e) {
-      Log.w(TAG, e);
-      throw new FileNotFoundException("IOException while reading IV!");
+             NoSuchPaddingException exception) {
+      closeAfterConstructionFailure();
+      throw new AssertionError(exception);
+    } catch (IOException exception) {
+      closeAfterConstructionFailure();
+      throw fileNotFound("Unable to read encrypted part header", exception);
     }
   }
 
   @Override
+  public int read() throws IOException {
+    byte[] oneByte = new byte[1];
+    int count = read(oneByte, 0, 1);
+    return count == -1 ? -1 : oneByte[0] & 0xff;
+  }
+
+  @Override
   public int read(byte[] buffer) throws IOException {
+    if (buffer == null) throw new NullPointerException("buffer");
     return read(buffer, 0, buffer.length);
   }
 
   @Override
   public int read(byte[] buffer, int offset, int length) throws IOException {
-    if (totalRead != totalDataSize)
-      return readIncremental(buffer, offset, length);
-    else if (!done)
-      return readFinal(buffer, offset);
-    else
-      return -1;
+    if (buffer == null) throw new NullPointerException("buffer");
+    if (offset < 0 || length < 0 || length > buffer.length - offset) {
+      throw new IndexOutOfBoundsException();
+    }
+    if (length == 0) return 0;
+
+    while (plaintextBuffer == null || plaintextOffset >= plaintextBuffer.length) {
+      if (!fillPlaintextBuffer()) return -1;
+    }
+
+    int count = Math.min(length, plaintextBuffer.length - plaintextOffset);
+    System.arraycopy(plaintextBuffer, plaintextOffset, buffer, offset, count);
+    plaintextOffset += count;
+    if (plaintextOffset == plaintextBuffer.length) clearPlaintextBuffer();
+    return count;
   }
 
   @Override
   public long skip(long byteCount) throws IOException {
-    long skipped = 0L;
+    if (byteCount <= 0) return 0;
+    long skipped = 0;
+    byte[] discard = new byte[(int) Math.min(4096, byteCount)];
     while (skipped < byteCount) {
-      byte[] buf = new byte[Math.min(4096, (int) (byteCount - skipped))];
-      int read = read(buf);
-
-      skipped += read;
+      int count = read(discard, 0, (int) Math.min(discard.length, byteCount - skipped));
+      if (count == -1) break;
+      skipped += count;
     }
-
     return skipped;
   }
 
-  private int readFinal(byte[] buffer, int offset) throws IOException {
+  @Override
+  public int available() {
+    if (plaintextBuffer == null) return 0;
+    return plaintextBuffer.length - plaintextOffset;
+  }
+
+  @Override
+  public boolean markSupported() {
+    return false;
+  }
+
+  @Override
+  public void close() throws IOException {
+    clearPlaintextBuffer();
+    super.close();
+  }
+
+  private boolean fillPlaintextBuffer() throws IOException {
+    clearPlaintextBuffer();
+    while (ciphertextRemaining > 0) {
+      int count = (int) Math.min(CIPHER_BUFFER_SIZE, ciphertextRemaining);
+      byte[] encrypted = readExactly(count);
+      ciphertextRemaining -= count;
+      mac.update(encrypted);
+      byte[] produced = cipher.update(encrypted);
+      if (produced != null && produced.length > 0) {
+        plaintextBuffer = produced;
+        return true;
+      }
+    }
+
+    if (finalBlockProcessed) return false;
+    finalBlockProcessed = true;
     try {
-      int flourish = cipher.doFinal(buffer, offset);
-
-      byte[] ourMac = mac.doFinal();
-      byte[] theirMac = new byte[mac.getMacLength()];
-      readFully(theirMac);
-
-      if (!Arrays.equals(ourMac, theirMac))
-        throw new IOException("MAC doesn't match! Potential tampering?");
-
-      done = true;
-      return flourish;
-    } catch (IllegalBlockSizeException e) {
-      Log.w(TAG, e);
-      throw new IOException("Illegal block size exception!");
-    } catch (ShortBufferException e) {
-      Log.w(TAG, e);
-      throw new IOException("Short buffer exception!");
-    } catch (BadPaddingException e) {
-      Log.w(TAG, e);
-      throw new IOException("Bad padding exception!");
+      byte[] suppliedMac = readExactly(MAC_LENGTH);
+      byte[] expectedMac = mac.doFinal();
+      if (!MessageDigest.isEqual(expectedMac, suppliedMac)) {
+        throw new IOException("Encrypted part authentication failed");
+      }
+      if (super.read() != -1) throw new IOException("Unexpected trailing encrypted part data");
+      byte[] finalPlaintext = cipher.doFinal();
+      if (finalPlaintext.length == 0) return false;
+      plaintextBuffer = finalPlaintext;
+      return true;
+    } catch (IllegalBlockSizeException | BadPaddingException exception) {
+      throw new IOException("Encrypted part decryption failed", exception);
     }
   }
 
-  private int readIncremental(byte[] buffer, int offset, int length) throws IOException {
-    int readLength = 0;
-    if (null != overflowBuffer) {
-      if (overflowBuffer.length > length) {
-        System.arraycopy(overflowBuffer, 0, buffer, offset, length);
-        overflowBuffer = Arrays.copyOfRange(overflowBuffer, length, overflowBuffer.length);
-        return length;
-      } else if (overflowBuffer.length == length) {
-        System.arraycopy(overflowBuffer, 0, buffer, offset, length);
-        overflowBuffer = null;
-        return length;
-      } else {
-        System.arraycopy(overflowBuffer, 0, buffer, offset, overflowBuffer.length);
-        readLength += overflowBuffer.length;
-        offset += readLength;
-        length -= readLength;
-        overflowBuffer = null;
-      }
+  private byte[] readExactly(int length) throws IOException {
+    byte[] result = new byte[length];
+    int offset = 0;
+    while (offset < length) {
+      int count = super.read(result, offset, length - offset);
+      if (count < 0) throw new EOFException("Truncated encrypted part");
+      if (count == 0) continue;
+      offset += count;
     }
+    return result;
+  }
 
-    if (length + totalRead > totalDataSize)
-      length = (int) (totalDataSize - totalRead);
-
-    byte[] internalBuffer = new byte[length];
-    int read = super.read(internalBuffer, 0, internalBuffer.length <= cipher.getBlockSize() ? internalBuffer.length : internalBuffer.length - cipher.getBlockSize());
-    totalRead += read;
-
-    try {
-      mac.update(internalBuffer, 0, read);
-
-      int outputLen = cipher.getOutputSize(read);
-
-      if (outputLen <= length) {
-        readLength += cipher.update(internalBuffer, 0, read, buffer, offset);
-        return readLength;
-      }
-
-      byte[] transientBuffer = new byte[outputLen];
-      outputLen = cipher.update(internalBuffer, 0, read, transientBuffer, 0);
-      if (outputLen <= length) {
-        System.arraycopy(transientBuffer, 0, buffer, offset, outputLen);
-        readLength += outputLen;
-      } else {
-        System.arraycopy(transientBuffer, 0, buffer, offset, length);
-        overflowBuffer = Arrays.copyOfRange(transientBuffer, length, outputLen);
-        readLength += length;
-      }
-      return readLength;
-    } catch (ShortBufferException e) {
-      throw new AssertionError(e);
+  private void clearPlaintextBuffer() {
+    if (plaintextBuffer != null) {
+      java.util.Arrays.fill(plaintextBuffer, (byte) 0);
+      plaintextBuffer = null;
+      plaintextOffset = 0;
     }
   }
 
-  private Mac initializeMac(SecretKeySpec key) throws NoSuchAlgorithmException, InvalidKeyException {
+  private void closeAfterConstructionFailure() {
+    try {
+      super.close();
+    } catch (IOException ignored) {
+    }
+  }
+
+  private static FileNotFoundException fileNotFound(String message, Exception cause) {
+    FileNotFoundException exception = new FileNotFoundException(message);
+    exception.initCause(cause);
+    return exception;
+  }
+
+  private static Mac initializeMac(SecretKeySpec key)
+          throws NoSuchAlgorithmException, InvalidKeyException {
     Mac hmac = Mac.getInstance("HmacSHA1");
     hmac.init(key);
-
     return hmac;
   }
 
-  private Cipher initializeCipher(SecretKeySpec key)
+  private static Cipher initializeCipher(SecretKeySpec key, byte[] iv)
           throws InvalidKeyException, InvalidAlgorithmParameterException,
-          NoSuchAlgorithmException, NoSuchPaddingException, IOException {
+          NoSuchAlgorithmException, NoSuchPaddingException {
     Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-    IvParameterSpec iv = readIv(cipher.getBlockSize());
-    cipher.init(Cipher.DECRYPT_MODE, key, iv);
-
+    cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
     return cipher;
-  }
-
-  private IvParameterSpec readIv(int size) throws IOException {
-    byte[] iv = new byte[size];
-    readFully(iv);
-
-    mac.update(iv);
-    return new IvParameterSpec(iv);
-  }
-
-  private void readFully(byte[] buffer) throws IOException {
-    int offset = 0;
-
-    for (; ; ) {
-      int read = super.read(buffer, offset, buffer.length - offset);
-
-      if (read + offset < buffer.length) offset += read;
-      else return;
-    }
   }
 }

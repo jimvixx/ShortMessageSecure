@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
@@ -192,6 +193,24 @@ public class SilenceBackupAdapterTest {
     } finally {
       currentHelper.close();
       source.close();
+    }
+  }
+
+  @Test public void repairPreviewChecksLargeAttachmentEntryWithBoundedReads() throws Exception {
+    File archive = new File(root, "large-preview-entry.zip");
+    byte[] chunk = new byte[32 * 1024];
+    Arrays.fill(chunk, (byte) 0x5a);
+    try (ZipOutputStream output = new ZipOutputStream(new FileOutputStream(archive))) {
+      output.putNextEntry(new ZipEntry("app_parts/partLargePreview.mms"));
+      for (int i = 0; i < 512; i++) output.write(chunk);
+      output.closeEntry();
+    }
+
+    try (ZipFile zip = new ZipFile(archive)) {
+      ZipEntry entry = zip.getEntry("app_parts/partLargePreview.mms");
+      assertNotNull(entry);
+      assertEquals(16L * 1024L * 1024L, entry.getSize());
+      assertTrue(SilenceAttachmentRepairPreview.verifySourceEntry(zip, entry));
     }
   }
 
