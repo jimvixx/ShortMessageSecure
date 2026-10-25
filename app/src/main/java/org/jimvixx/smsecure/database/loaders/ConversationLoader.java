@@ -32,6 +32,6 @@ public class ConversationLoader extends AbstractCursorLoader {
       this.lastSeen = DatabaseFactory.getThreadDatabase(context).getLastSeen(threadId);
     }
 
-    return DatabaseFactory.getMessageDatabase(context).getConversation(threadId, limit);
+    return DatabaseFactory.getMessageDatabase(context).getUnifiedConversation(threadId, limit);
   }
 }

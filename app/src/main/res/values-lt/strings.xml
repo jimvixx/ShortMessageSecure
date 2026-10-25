@@ -150,6 +150,7 @@
 <string name="conversation_insecure__menu_start_secure_session">Pradėti saugią sesiją</string>
 <string name="conversation_insecure__security">Saugumas</string>
 <!--conversation_item-->
+<string name="conversation_item__attachment_description">Yra priedas</string>
 <string name="conversation_item__secure_message_description">Saugus pranešimas</string>
 <string name="conversation_item_received__contact_photo_description">Kontakto nuotrauka</string>
 <string name="conversation_item_sent__delivered_description">Pristatyta</string>
@@ -460,6 +461,7 @@
 <!--Notification Channels-->
 <string name="MmsListener_notification_text">„SMSecure“ gavo MMS žinutę, tačiau negali jos rodyti ar atsisiųsti. Paprašykite siuntėjo vietoj to naudoti SMS.</string>
 <string name="MmsListener_notification_title">MMS nepalaikoma</string>
+<string name="MmsMessageRecord_multimedia_message">Multimedijos žinutė</string>
 <string name="NotificationChannel_failures">Sutrikimai</string>
 <string name="NotificationChannel_locked_status">Užrakintas statusas</string>
 <string name="NotificationChannel_other">Kita</string>

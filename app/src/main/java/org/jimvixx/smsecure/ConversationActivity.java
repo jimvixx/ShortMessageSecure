@@ -1301,7 +1301,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private void markThreadAsRead() {
     final long id = threadId;
     backgroundExecutor.execute(() -> {
-      DatabaseFactory.getThreadDatabase(ConversationActivity.this).setRead(id);
+      DatabaseFactory.getThreadDatabase(ConversationActivity.this).setReadForAllTransports(id);
       MessageNotifier.updateNotification(ConversationActivity.this, masterSecret);
     });
   }

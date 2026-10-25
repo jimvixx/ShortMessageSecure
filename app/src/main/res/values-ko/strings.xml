@@ -141,6 +141,7 @@
   <string name="conversation_insecure__menu_start_secure_session">보안 세션 시작</string>
   <string name="conversation_insecure__security">보안</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">첨부 파일이 포함되어 있습니다</string>
   <string name="conversation_item__secure_message_description">보안 메시지</string>
   <string name="conversation_item_received__contact_photo_description">연락처 사진</string>
   <string name="conversation_item_sent__delivered_description">전달됨</string>
@@ -427,6 +428,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure에서 MMS 메시지를 수신했으나 표시하거나 다운로드할 수 없습니다. 발신자에게 SMS를 사용하도록 요청하십시오.</string>
   <string name="MmsListener_notification_title">MMS는 지원되지 않습니다.</string>
+  <string name="MmsMessageRecord_multimedia_message">멀티미디어 메시지</string>
   <string name="NotificationChannel_failures">오류</string>
   <string name="NotificationChannel_locked_status">잠금 상태</string>
   <string name="NotificationChannel_other">기타</string>

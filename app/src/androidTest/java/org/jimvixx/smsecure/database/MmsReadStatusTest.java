@@ -138,19 +138,28 @@ public class MmsReadStatusTest {
     assertEquals(1, value(db, "SELECT read FROM thread WHERE _id = 42"));
   }
 
-  @Test public void setAllThreadsReadLeavesHiddenMmsUnread() {
+  @Test public void setAllThreadsReadMarksSmsOnlyMmsOnlyAndMixedThreadsRead() {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 41, 0);
     insertThread(db, 42, 0);
+    insertThread(db, 43, 0);
     insertSms(db, 1, 41, 0);
     insertMms(db, 2, 42, 0);
+    insertSms(db, 3, 43, 0);
+    insertMms(db, 4, 43, 0);
 
     new ThreadDatabase(context, helper).setAllThreadsRead();
 
     assertEquals(1, value(db, "SELECT read FROM sms WHERE _id = 1"));
-    assertEquals(0, value(db, "SELECT read FROM mms WHERE _id = 2"));
+    assertEquals(1, value(db, "SELECT read FROM mms WHERE _id = 2"));
+    assertEquals(1, value(db, "SELECT read FROM sms WHERE _id = 3"));
+    assertEquals(1, value(db, "SELECT read FROM mms WHERE _id = 4"));
     assertEquals(1, value(db, "SELECT read FROM thread WHERE _id = 41"));
-    assertEquals(0, value(db, "SELECT read FROM thread WHERE _id = 42"));
+    assertEquals(1, value(db, "SELECT read FROM thread WHERE _id = 42"));
+    assertEquals(1, value(db, "SELECT read FROM thread WHERE _id = 43"));
+    assertEquals(0, new MessageDatabase(context, helper).getUnifiedUnreadCount(41));
+    assertEquals(0, new MessageDatabase(context, helper).getUnifiedUnreadCount(42));
+    assertEquals(0, new MessageDatabase(context, helper).getUnifiedUnreadCount(43));
   }
 
   @Test public void setAllMmsReadLeavesSmsUnread() {

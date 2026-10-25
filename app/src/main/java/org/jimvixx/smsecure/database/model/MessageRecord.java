@@ -84,6 +84,10 @@ public abstract class MessageRecord extends DisplayRecord {
     return false;
   }
 
+  public boolean hasAttachments() {
+    return false;
+  }
+
   /** Transport-qualified identity prevents an SMS and MMS with the same id colliding. */
   protected String getTransportType() {
     return MessageDatabaseTransport.SMS;

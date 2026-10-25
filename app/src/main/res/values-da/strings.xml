@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Start sikker session</string>
   <string name="conversation_insecure__security">Sikkerhed</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Indeholder vedhæftet fil</string>
   <string name="conversation_item__secure_message_description">Sikker besked</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
   <string name="conversation_item_sent__delivered_description">Leveret</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure har modtaget en MMS-besked, men kan ikke vise eller downloade den. Bed afsenderen om at bruge SMS i stedet.</string>
   <string name="MmsListener_notification_title">MMS understøttes ikke</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimediebesked</string>
   <string name="NotificationChannel_failures">Fejl</string>
   <string name="NotificationChannel_locked_status">Låst status</string>
   <string name="NotificationChannel_other">Andet</string>

@@ -107,6 +107,7 @@ public class ConversationItem extends LinearLayout
   private @Nullable ImageView secureImage;
   private @Nullable AvatarImageView contactPhoto;
   private @Nullable DeliveryStatusView deliveryStatusIndicator;
+  private @Nullable ImageView attachmentIndicator;
   private @Nullable AlertView alertView;
   private @NonNull Set<MessageRecord> batchSelected = new HashSet<>();
   private final View.OnLongClickListener textSelectionLongClickListener = view -> false;
@@ -143,6 +144,7 @@ public class ConversationItem extends LinearLayout
     groupStatusText = findViewById(R.id.group_message_status);
     secureImage = findViewById(R.id.secure_indicator);
     deliveryStatusIndicator = findViewById(R.id.delivery_status);
+    attachmentIndicator = findViewById(R.id.attachment_indicator);
     alertView = findViewById(R.id.indicators_parent);
     contactPhoto = findViewById(R.id.contact_photo);
     bodyBubble = findViewById(R.id.body_bubble);
@@ -296,6 +298,9 @@ public class ConversationItem extends LinearLayout
 
   private void setStatusIcons(@NonNull MessageRecord messageRecord) {
     if (indicatorText != null) indicatorText.setVisibility(View.GONE);
+    if (attachmentIndicator != null) {
+      attachmentIndicator.setVisibility(messageRecord.hasAttachments() ? View.VISIBLE : View.GONE);
+    }
 
     if (secureImage != null) {
       secureImage.setVisibility(messageRecord.isSecure() ? View.VISIBLE : View.GONE);
@@ -348,7 +353,8 @@ public class ConversationItem extends LinearLayout
     if (deliveryStatusIndicator != null) deliveryStatusIndicator.setNone();
     if (dateText != null) dateText.setText(R.string.ConversationItem_error_not_delivered);
 
-    if (messageRecord != null && messageRecord.isOutgoing() && indicatorText != null) {
+    if (messageRecord != null && !messageRecord.isMms() &&
+            messageRecord.isOutgoing() && indicatorText != null) {
       indicatorText.setText(R.string.ConversationItem_click_for_details);
       indicatorText.setVisibility(View.VISIBLE);
     }
@@ -389,7 +395,8 @@ public class ConversationItem extends LinearLayout
   }
 
   private void checkForAutoInitiate(@NonNull MessageRecord messageRecord) {
-    if (!messageRecord.isOutgoing() &&
+    if (!messageRecord.isMms() &&
+            !messageRecord.isOutgoing() &&
             messageRecord.getRecipients().isSingleRecipient() &&
             !messageRecord.isSecure()) {
       final Recipients recipients = messageRecord.getRecipients();
@@ -483,7 +490,7 @@ public class ConversationItem extends LinearLayout
 
     @Override
     public void onClick(View v) {
-      if (messageRecord == null) return;
+      if (messageRecord == null || messageRecord.isMms()) return;
 
       if (!shouldInterceptClicks(messageRecord) && parent != null) {
         parent.onClick(v);

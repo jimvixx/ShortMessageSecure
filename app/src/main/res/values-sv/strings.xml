@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Starta säker session</string>
   <string name="conversation_insecure__security">Säkerhet</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Innehåller bilaga</string>
   <string name="conversation_item__secure_message_description">Säker meddelande</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
   <string name="conversation_item_sent__delivered_description">Levererad</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure har tagit emot ett MMS-meddelande men kan inte visa eller ladda ner det. Be avsändaren att använda SMS istället.</string>
   <string name="MmsListener_notification_title">MMS stöds inte</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimediameddelande</string>
   <string name="NotificationChannel_failures">Fel</string>
   <string name="NotificationChannel_locked_status">Låst status</string>
   <string name="NotificationChannel_other">Övrigt</string>

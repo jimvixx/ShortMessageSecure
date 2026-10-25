@@ -150,6 +150,7 @@
     <string name="conversation_insecure__menu_start_secure_session">Почати безпечну сесію</string>
     <string name="conversation_insecure__security">Безпека</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">Містить вкладення</string>
     <string name="conversation_item__secure_message_description">Захищене повідомлення</string>
     <string name="conversation_item_received__contact_photo_description">Фото контакту</string>
     <string name="conversation_item_sent__delivered_description">Доставлено</string>
@@ -460,6 +461,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure отримав MMS-повідомлення, але не може його відобразити або завантажити. Попросіть відправника натомість надіслати SMS.</string>
     <string name="MmsListener_notification_title">MMS не підтримується</string>
+    <string name="MmsMessageRecord_multimedia_message">Мультимедійне повідомлення</string>
     <string name="NotificationChannel_failures">Помилки</string>
     <string name="NotificationChannel_locked_status">Статус заблоковано</string>
     <string name="NotificationChannel_other">Інше</string>

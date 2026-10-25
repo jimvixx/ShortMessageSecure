@@ -147,6 +147,7 @@
 <string name="conversation_insecure__menu_start_secure_session">Sākt drošu sesiju</string>
 <string name="conversation_insecure__security">Drošība</string>
 <!--conversation_item-->
+<string name="conversation_item__attachment_description">Satur pielikumu</string>
 <string name="conversation_item__secure_message_description">Droša ziņa</string>
 <string name="conversation_item_received__contact_photo_description">Kontakta foto</string>
 <string name="conversation_item_sent__delivered_description">Piegādāts</string>
@@ -449,6 +450,7 @@
 <!--Notification Channels-->
 <string name="MmsListener_notification_text">SMSecure ir saņēmis MMS ziņojumu, bet nevar to parādīt vai lejupielādēt. Lūdziet sūtītājam izmantot SMS.</string>
 <string name="MmsListener_notification_title">MMS netiek atbalstīts</string>
+<string name="MmsMessageRecord_multimedia_message">Multimediju ziņojums</string>
 <string name="NotificationChannel_failures">Kļūdas</string>
 <string name="NotificationChannel_locked_status">Bloķēts statuss</string>
 <string name="NotificationChannel_other">Cits</string>

@@ -29,13 +29,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jimvixx.smsecure.database.model.MessageRecord;
+import org.jimvixx.smsecure.crypto.MasterCipher;
+import org.jimvixx.smsecure.crypto.MasterSecret;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import javax.crypto.spec.SecretKeySpec;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -160,5 +165,48 @@ public class MmsDatabaseReadOnlyTest {
             SQLiteDatabase.CursorFactory.class, int.class);
     constructor.setAccessible(true);
     return (SQLiteOpenHelper) constructor.newInstance(context, databaseFile.getPath(), null, 36);
+  }
+
+  @Test public void unifiedReaderBuildsTextOnlyAndAttachmentMmsRecordsWithCorrectDirection() {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    MasterSecret secret = syntheticMasterSecret();
+    String encryptedBody = new MasterCipher(secret).encryptBody("incoming text");
+    db.execSQL("UPDATE mms SET thread_id = 9, date = 1000, date_received = 2000, " +
+        "msg_box = ?, m_type = 132, body = ?, address = '+15550001', part_count = 1 WHERE _id = 7",
+        new Object[]{20L | 0x80000000L, encryptedBody});
+    db.execSQL("INSERT INTO mms (_id, thread_id, date, date_received, msg_box, read, m_type, body, " +
+        "address, part_count, st) VALUES (8, 9, 3000, 4000, 23, 1, 128, 'outgoing text', '+15550001', 1, 8)");
+    db.execSQL("INSERT INTO part (_id, mid, seq, ct, name, _data, data_size) " +
+        "VALUES (31, 8, 0, 'text/plain', NULL, NULL, 14)");
+
+    MessageDatabase messages = new MessageDatabase(context, helper);
+    try (android.database.Cursor cursor = messages.getUnifiedConversation(9)) {
+      MessageDatabase.Reader reader = messages.readerFor(cursor, secret);
+      MessageRecord outgoing = reader.getNext();
+      MessageRecord incoming = reader.getNext();
+
+      assertNotNull(outgoing);
+      assertTrue(outgoing.isMms());
+      assertTrue(outgoing.isOutgoing());
+      assertEquals("outgoing text", outgoing.getDisplayBody().toString());
+      assertFalse(outgoing.hasAttachments());
+      assertEquals(4000, outgoing.getDateReceived());
+
+      assertNotNull(incoming);
+      assertTrue(incoming.isMms());
+      assertFalse(incoming.isOutgoing());
+      assertEquals("incoming text", incoming.getDisplayBody().toString());
+      assertTrue(incoming.hasAttachments());
+      assertEquals(2000, incoming.getTimestamp());
+    }
+  }
+
+  private MasterSecret syntheticMasterSecret() {
+    byte[] encryption = new byte[16];
+    byte[] mac = new byte[20];
+    for (int i = 0; i < encryption.length; i++) encryption[i] = (byte) (i + 3);
+    for (int i = 0; i < mac.length; i++) mac[i] = (byte) (i + 71);
+    return new MasterSecret(new SecretKeySpec(encryption, "AES"),
+            new SecretKeySpec(mac, "HmacSHA1"));
   }
 }

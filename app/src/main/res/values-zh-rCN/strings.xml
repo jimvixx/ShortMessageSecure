@@ -141,6 +141,7 @@
     <string name="conversation_insecure__menu_start_secure_session">开始安全会话</string>
     <string name="conversation_insecure__security">安全</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">包含附件</string>
     <string name="conversation_item__secure_message_description">安全消息</string>
     <string name="conversation_item_received__contact_photo_description">联系人照片</string>
     <string name="conversation_item_sent__delivered_description">已送达</string>
@@ -427,6 +428,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure 收到了一条 MMS，但无法显示或下载该消息。请发件人改用 SMS 发送。</string>
     <string name="MmsListener_notification_title">不支持 MMS</string>
+    <string name="MmsMessageRecord_multimedia_message">多媒体消息</string>
     <string name="NotificationChannel_failures">失败</string>
     <string name="NotificationChannel_locked_status">锁定状态</string>
     <string name="NotificationChannel_other">其他</string>

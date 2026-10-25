@@ -166,6 +166,14 @@ public interface MessageColumns {
       return (type & ENCRYPTION_SYMMETRIC_BIT) != 0;
     }
 
+    public static boolean hasEncryptionMetadata(long type) {
+      return (type & ENCRYPTION_MASK) != 0;
+    }
+
+    public static boolean isOnlySymmetricEncryption(long type) {
+      return (type & ENCRYPTION_MASK) == ENCRYPTION_SYMMETRIC_BIT;
+    }
+
     public static boolean isAsymmetricEncryption(long type) {
       return (type & ENCRYPTION_ASYMMETRIC_BIT) != 0;
     }

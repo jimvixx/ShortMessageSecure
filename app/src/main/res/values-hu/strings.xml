@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Biztonságos munkamenet indítása</string>
   <string name="conversation_insecure__security">Biztonság</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Mellékletet tartalmaz</string>
   <string name="conversation_item__secure_message_description">Biztonságos üzenet</string>
   <string name="conversation_item_received__contact_photo_description">Névjegy fotó</string>
   <string name="conversation_item_sent__delivered_description">Kézbesítve</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure MMS-üzenetet kapott, de azt nem tudja megjeleníteni vagy letölteni. Kérje meg a feladót, hogy inkább SMS-t használjon.</string>
   <string name="MmsListener_notification_title">Az MMS nem támogatott</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimédiás üzenet</string>
   <string name="NotificationChannel_failures">Hibák</string>
   <string name="NotificationChannel_locked_status">Zárt állapot</string>
   <string name="NotificationChannel_other">Egyéb</string>

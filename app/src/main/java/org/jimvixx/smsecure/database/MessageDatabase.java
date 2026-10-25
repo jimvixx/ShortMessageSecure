@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
+import org.jimvixx.smsecure.crypto.MasterCipher;
 import org.jimvixx.smsecure.database.model.DisplayRecord;
 import org.jimvixx.smsecure.database.model.MmsMessageRecord;
 import org.jimvixx.smsecure.database.model.MessageRecord;
@@ -35,6 +36,7 @@ import org.jimvixx.smsecure.recipients.Recipient;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.recipients.Recipients;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.libsignal.InvalidMessageException;
 
 public class MessageDatabase extends Database {
 
@@ -47,6 +49,7 @@ public class MessageDatabase extends Database {
   private static final String MMS_MESSAGE_SIZE = "mms_message_size";
   private static final String MMS_EXPIRY = "mms_expiry";
   private static final String MMS_TRANSACTION_ID = "mms_transaction_id";
+  private static final String MMS_HAS_ATTACHMENTS = "mms_has_attachments";
 
   public MessageDatabase(Context context, SQLiteOpenHelper databaseHelper) {
     super(context, databaseHelper);
@@ -241,6 +244,7 @@ public class MessageDatabase extends Database {
         ", NULL AS " + MMS_MESSAGE_TYPE + ", NULL AS " + MMS_PART_COUNT +
         ", NULL AS " + MMS_CONTENT_LOCATION + ", NULL AS " + MMS_MESSAGE_SIZE +
         ", NULL AS " + MMS_EXPIRY + ", NULL AS " + MMS_TRANSACTION_ID +
+        ", NULL AS " + MMS_HAS_ATTACHMENTS +
         " FROM sms WHERE " + smsSelection;
     String mms = "SELECT date AS date_sent, date_received AS date_received, _id, " +
         "'MMS::' || _id || '::' || date AS unique_row_id, body, read, thread_id, " +
@@ -249,6 +253,10 @@ public class MessageDatabase extends Database {
         ", m_type AS " + MMS_MESSAGE_TYPE + ", part_count AS " + MMS_PART_COUNT +
         ", ct_l AS " + MMS_CONTENT_LOCATION + ", m_size AS " + MMS_MESSAGE_SIZE +
         ", exp AS " + MMS_EXPIRY + ", tr_id AS " + MMS_TRANSACTION_ID +
+        ", EXISTS (SELECT 1 FROM part WHERE part.mid = mms._id AND (" +
+        "lower(COALESCE(part.ct, '')) NOT IN ('text/plain', 'text/html', 'application/smil') OR " +
+        "part.name IS NOT NULL OR lower(COALESCE(part.cd, '')) = 'attachment' OR part.cl IS NOT NULL)) AS " +
+        MMS_HAS_ATTACHMENTS +
         " FROM mms WHERE " + mmsSelection;
     String query = "SELECT * FROM (" + sms + " UNION ALL " + mms + ") ORDER BY " +
         order + ", " + TRANSPORT + " ASC, _id ASC" +
@@ -329,9 +337,26 @@ public class MessageDatabase extends Database {
 
       long type = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.TYPE));
       String body = cursor.getString(cursor.getColumnIndexOrThrow(MessageColumns.BODY));
-      boolean plaintext = !MessageColumns.Types.isDecryptInProgressType(type) &&
-          !MessageColumns.Types.isFailedDecryptType(type);
+      boolean plaintext = !MessageColumns.Types.hasEncryptionMetadata(type);
+      if (MessageColumns.Types.isDecryptInProgressType(type) ||
+          MessageColumns.Types.isFailedDecryptType(type) ||
+          MessageColumns.Types.isNoRemoteSessionType(type)) {
+        plaintext = false;
+      }
+      if (MessageColumns.Types.isOnlySymmetricEncryption(type)) {
+        plaintext = false;
+        if (body != null && masterSecret.isPresent()) {
+          try {
+            body = new MasterCipher(masterSecret.get()).decryptBody(body);
+            plaintext = true;
+          } catch (InvalidMessageException exception) {
+            plaintext = false;
+          }
+        }
+      }
       boolean notification = cursor.getInt(cursor.getColumnIndexOrThrow(MMS_MESSAGE_TYPE)) == 130;
+      boolean hasAttachments = cursor.getInt(
+          cursor.getColumnIndexOrThrow(MMS_HAS_ATTACHMENTS)) != 0;
 
       return new MmsMessageRecord(context, id,
           new DisplayRecord.Body(body, plaintext), recipients, recipients.getPrimaryRecipient(),
@@ -340,13 +365,14 @@ public class MessageDatabase extends Database {
           cursor.getLong(cursor.getColumnIndexOrThrow(MessageColumns.NORMALIZED_DATE_RECEIVED)),
           cursor.getLong(cursor.getColumnIndexOrThrow(MessageColumns.DATE_DELIVERY_RECEIVED)),
           cursor.getLong(cursor.getColumnIndexOrThrow(MessageColumns.THREAD_ID)), type,
-          cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.STATUS)),
+          SmsDatabase.Status.STATUS_NONE,
           cursor.getInt(cursor.getColumnIndexOrThrow(MMS_PART_COUNT)),
           cursor.getString(cursor.getColumnIndexOrThrow(MMS_CONTENT_LOCATION)),
           cursor.getLong(cursor.getColumnIndexOrThrow(MMS_MESSAGE_SIZE)),
           cursor.getLong(cursor.getColumnIndexOrThrow(MMS_EXPIRY)),
           cursor.getString(cursor.getColumnIndexOrThrow(MMS_TRANSACTION_ID)), notification,
-          cursor.getInt(cursor.getColumnIndexOrThrow(MessageColumns.SUBSCRIPTION_ID)));
+          cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.STATUS)),
+          cursor.getInt(cursor.getColumnIndexOrThrow(MessageColumns.SUBSCRIPTION_ID)), hasAttachments);
     }
 
     public void close() {

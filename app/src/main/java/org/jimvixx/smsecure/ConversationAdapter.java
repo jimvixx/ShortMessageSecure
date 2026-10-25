@@ -69,6 +69,8 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
   private static final int MESSAGE_TYPE_UPDATE = 2;
   private static final int MESSAGE_TYPE_AUDIO_OUTGOING = 3;
   private static final int MESSAGE_TYPE_AUDIO_INCOMING = 4;
+  private static final int MESSAGE_TYPE_MMS_OUTGOING = 5;
+  private static final int MESSAGE_TYPE_MMS_INCOMING = 6;
 
   private final Map<String, SoftReference<MessageRecord>> messageRecordCache =
           Collections.synchronizedMap(new LRUCache<>(MAX_CACHE_SIZE));
@@ -153,7 +155,8 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
     }
 
     if (viewHolder.getView() instanceof ConversationItem conversationItem) {
-      conversationItem.setSearchHighlight(highlightedMessageId, searchQuery);
+      conversationItem.setSearchHighlight(messageRecord.isMms() ? -1 : highlightedMessageId,
+              searchQuery);
     }
     viewHolder.getView().bind(masterSecret, messageRecord, locale, batchSelected, recipients);
   }
@@ -167,7 +170,8 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
     if (messageId <= 0 || !isActiveCursor()) return -1;
     for (int i = 0; i < getItemCount(); i++) {
       Cursor cursor = getCursorAtPositionOrThrow(i);
-      if (getMessageRecord(cursor).getId() == messageId) return i;
+      MessageRecord record = getMessageRecord(cursor);
+      if (!record.isMms() && record.getId() == messageId) return i;
     }
     return -1;
   }
@@ -210,8 +214,9 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
   private @LayoutRes int getLayoutForViewType(int viewType) {
     return switch (viewType) {
       case MESSAGE_TYPE_AUDIO_OUTGOING, MESSAGE_TYPE_OUTGOING -> R.layout.conversation_item_sent;
-      case MESSAGE_TYPE_AUDIO_INCOMING, MESSAGE_TYPE_INCOMING ->
+      case MESSAGE_TYPE_AUDIO_INCOMING, MESSAGE_TYPE_INCOMING, MESSAGE_TYPE_MMS_INCOMING ->
               R.layout.conversation_item_received;
+      case MESSAGE_TYPE_MMS_OUTGOING -> R.layout.conversation_item_sent;
       case MESSAGE_TYPE_UPDATE -> R.layout.conversation_item_update;
       default -> throw new IllegalArgumentException("Unsupported item view type: " + viewType);
     };
@@ -221,7 +226,9 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
   public int getItemViewType(@NonNull Cursor cursor) {
     MessageRecord messageRecord = getMessageRecord(cursor);
 
-    if (messageRecord.isGroupAction()) {
+    if (messageRecord.isMms()) {
+      return messageRecord.isOutgoing() ? MESSAGE_TYPE_MMS_OUTGOING : MESSAGE_TYPE_MMS_INCOMING;
+    } else if (messageRecord.isGroupAction()) {
       return MESSAGE_TYPE_UPDATE;
     } else if (messageRecord.isOutgoing()) {
       return MESSAGE_TYPE_OUTGOING;
@@ -275,10 +282,12 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
   }
 
   private long selectionKey(@NonNull MessageRecord r) {
-    return (0L) | (r.getId() & 0x7fffffffffffffffL);
+    long id = r.getId() & Long.MAX_VALUE;
+    return r.isMms() ? id | Long.MIN_VALUE : id;
   }
 
   public void toggleSelection(@NonNull MessageRecord messageRecord, int adapterPosition) {
+    if (messageRecord.isMms()) return;
     long key = selectionKey(messageRecord);
 
     if (selectedPositions.get(key) != null) {

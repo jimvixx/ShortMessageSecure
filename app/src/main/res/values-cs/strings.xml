@@ -150,6 +150,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Spustit zabezpečenou relaci</string>
   <string name="conversation_insecure__security">Zabezpečení</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Obsahuje přílohu</string>
   <string name="conversation_item__secure_message_description">Zabezpečená zpráva</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie kontaktu</string>
   <string name="conversation_item_sent__delivered_description">Doručeno</string>
@@ -460,6 +461,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">Aplikace SMSecure obdržela zprávu MMS, ale nemůže ji zobrazit ani stáhnout. Požádejte odesílatele, aby místo toho použil SMS.</string>
   <string name="MmsListener_notification_title">MMS není podporováno</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimediální zpráva</string>
   <string name="NotificationChannel_failures">Selhání</string>
   <string name="NotificationChannel_locked_status">Stav uzamčení</string>
   <string name="NotificationChannel_other">Ostatní</string>

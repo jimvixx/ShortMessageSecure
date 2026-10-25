@@ -144,6 +144,7 @@
     <string name="conversation_insecure__menu_start_secure_session">Стартиране на защитена сесия</string>
     <string name="conversation_insecure__security">Сигурност</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">Съдържа прикачен файл</string>
     <string name="conversation_item__secure_message_description">Защитено съобщение</string>
     <string name="conversation_item_received__contact_photo_description">Снимка на контакт</string>
     <string name="conversation_item_sent__delivered_description">Доставено</string>
@@ -438,6 +439,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure е получило MMS съобщение, но не може да го покаже или изтегли. Помолете изпращача да използва SMS вместо това.</string>
     <string name="MmsListener_notification_title">MMS не се поддържа</string>
+    <string name="MmsMessageRecord_multimedia_message">Мултимедийно съобщение</string>
     <string name="NotificationChannel_failures">Неуспехи</string>
     <string name="NotificationChannel_locked_status">Статус „Заключено“</string>
     <string name="NotificationChannel_other">Други</string>

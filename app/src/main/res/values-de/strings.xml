@@ -144,6 +144,7 @@
     <string name="conversation_insecure__menu_start_secure_session">Sichere Sitzung starten</string>
     <string name="conversation_insecure__security">Sicherheit</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">Enthält einen Anhang</string>
     <string name="conversation_item__secure_message_description">Sichere Nachricht</string>
     <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
     <string name="conversation_item_sent__delivered_description">Zugestellt</string>
@@ -438,6 +439,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure hat eine MMS-Nachricht empfangen, kann diese jedoch weder anzeigen noch herunterladen. Bitten Sie den Absender, stattdessen eine SMS zu verwenden.</string>
     <string name="MmsListener_notification_title">MMS wird nicht unterstützt</string>
+    <string name="MmsMessageRecord_multimedia_message">Multimedia-Nachricht</string>
     <string name="NotificationChannel_failures">Fehler</string>
     <string name="NotificationChannel_locked_status">Status „Gesperrt“</string>
     <string name="NotificationChannel_other">Sonstiges</string>

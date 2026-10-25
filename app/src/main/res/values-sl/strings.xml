@@ -150,6 +150,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Začni varno sejo</string>
   <string name="conversation_insecure__security">Varnost</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Vsebuje prilogo</string>
   <string name="conversation_item__secure_message_description">Varnostno sporočilo</string>
   <string name="conversation_item_received__contact_photo_description">Fotografija stika</string>
   <string name="conversation_item_sent__delivered_description">Dostavljeno</string>
@@ -460,6 +461,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure je prejel sporočilo MMS, vendar ga ne more prikazati ali prenesti. Prosite pošiljatelja, naj namesto tega uporabi SMS.</string>
   <string name="MmsListener_notification_title">MMS ni podprt</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimedijsko sporočilo</string>
   <string name="NotificationChannel_failures">Napake</string>
   <string name="NotificationChannel_locked_status">Zaklenjen status</string>
   <string name="NotificationChannel_other">Drugo</string>

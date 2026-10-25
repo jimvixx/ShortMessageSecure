@@ -147,6 +147,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Începe sesiune securizată</string>
   <string name="conversation_insecure__security">Securitate</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Conține atașament</string>
   <string name="conversation_item__secure_message_description">Mesaj securizat</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie de contact</string>
   <string name="conversation_item_sent__delivered_description">Livrat</string>
@@ -449,6 +450,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure a primit un mesaj MMS, dar nu îl poate afișa sau descărca. Rugați expeditorul să utilizeze SMS în schimb.</string>
   <string name="MmsListener_notification_title">MMS nu este acceptat</string>
+  <string name="MmsMessageRecord_multimedia_message">Mesaj multimedia</string>
   <string name="NotificationChannel_failures">Eșecuri</string>
   <string name="NotificationChannel_locked_status">Stare blocată</string>
   <string name="NotificationChannel_other">Altele</string>

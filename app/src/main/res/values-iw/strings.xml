@@ -147,6 +147,7 @@
     <string name="conversation_insecure__menu_start_secure_session">התחל הפעלה מאובטחת</string>
     <string name="conversation_insecure__security">אבטחה</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">מכיל קובץ מצורף</string>
     <string name="conversation_item__secure_message_description">הודעה מאובטחת</string>
     <string name="conversation_item_received__contact_photo_description">תמונת איש הקשר</string>
     <string name="conversation_item_sent__delivered_description">נמסר</string>
@@ -449,6 +450,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure קיבלה הודעת MMS אך אינה יכולה להציג אותה או להוריד אותה. בקש מהשולח להשתמש ב-SMS במקום.</string>
     <string name="MmsListener_notification_title">MMS אינו נתמך</string>
+    <string name="MmsMessageRecord_multimedia_message">הודעת מולטימדיה</string>
     <string name="NotificationChannel_failures">כשלים</string>
     <string name="NotificationChannel_locked_status">סטטוס נעול</string>
     <string name="NotificationChannel_other">אחר</string>

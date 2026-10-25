@@ -1,6 +1,7 @@
 package org.jimvixx.smsecure;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -9,6 +10,7 @@ import static org.mockito.Mockito.when;
 import android.content.Context;
 import android.database.Cursor;
 
+import org.jimvixx.smsecure.database.model.MessageRecord;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,4 +42,15 @@ public class ConversationAdapterTest {
     long thirdId = adapter.getItemId(cursor);
     assertNotEquals(secondId, thirdId);
   }
+
+  @Test
+  public void mmsRecordsCannotEnterSmsContextualSelection() {
+    MessageRecord record = mock(MessageRecord.class);
+    when(record.isMms()).thenReturn(true);
+
+    adapter.toggleSelection(record, 0);
+
+    assertTrue(adapter.getSelectedItems().isEmpty());
+  }
+
 }

@@ -29,12 +29,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.jimvixx.smsecure.database.model.MessageRecord;
+import org.jimvixx.smsecure.database.model.MmsMessageRecord;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -68,9 +71,45 @@ public class MmsThreadAggregationTest {
     assertEquals("MMS::7::5000", metadata.getUniqueMessageId());
     assertEquals("mms-body", metadata.getSnippet());
     assertEquals(6000, metadata.getDate());
-    assertEquals(8, metadata.getStatus());
+    assertEquals(SmsDatabase.Status.STATUS_NONE, metadata.getStatus());
     assertEquals(7, metadata.getLatestMessage().getId());
     assertTrue(metadata.getLatestMessage().isMms());
+    assertEquals(8, ((MmsMessageRecord) metadata.getLatestMessage()).getMmsDownloadStatus());
+    assertFalse(metadata.getLatestMessage().isFailed());
+    assertFalse(metadata.getLatestMessage().isDelivered());
+  }
+
+  @Test public void encryptedMmsStatesNeverExposeCiphertextAsPlaintext() throws Exception {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    long[] flaggedTypes = {
+        0x80000001L,
+        0x10000001L,
+        0x08000001L,
+        0x40000001L,
+        0x01000001L,
+        0x20000001L,
+        0x04000001L,
+        0x02000001L
+    };
+    for (int i = 0; i < flaggedTypes.length; i++) {
+      insertMmsWithType(db, 20 + i, 42, 1000 + i, 1000 + i,
+          "ciphertext-" + i, 0, flaggedTypes[i]);
+    }
+
+    MessageDatabase messageDatabase = new MessageDatabase(context, helper);
+    try (Cursor cursor = messageDatabase.getUnifiedConversation(42)) {
+      MessageDatabase.Reader reader = messageDatabase.readerFor(cursor);
+      MessageRecord record;
+      int records = 0;
+      while (cursor.moveToNext()) {
+        record = reader.getCurrent();
+        assertFalse(record.getBody().isPlaintext());
+        assertNotEquals(record.getBody().getBody(), record.getDisplayBody().toString());
+        assertFalse(record.getDisplayBody().toString().contains("ciphertext-"));
+        records++;
+      }
+      assertEquals(flaggedTypes.length, records);
+    }
   }
 
   @Test public void sameNumericIdsRemainDistinctAcrossTransports() throws Exception {
@@ -103,16 +142,17 @@ public class MmsThreadAggregationTest {
       assertTrue(cursor.moveToFirst());
       assertEquals(1, cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.MESSAGE_COUNT)));
       assertEquals(6000, cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.DATE)));
-      assertEquals(8, cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.STATUS)));
+      assertEquals(SmsDatabase.Status.STATUS_NONE,
+          cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.STATUS)));
       assertEquals(1, cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.ARCHIVED)));
       assertEquals(9, cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.PINNED_ORDER)));
-      assertEquals("old sms", cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET)));
+      assertEquals("mms-body", cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET)));
     }
     assertEquals(1, scalar(db, "SELECT COUNT(*) FROM mms WHERE _id = 7"));
     assertEquals("/preserve/image.jpg", scalarString(db, "SELECT _data FROM part WHERE mid = 7"));
   }
 
-  @Test public void mmsOnlyUpdateDoesNotCreateAnMmsSnippet() throws Exception {
+  @Test public void mmsOnlyUpdateKeepsConversationListRowAndTextSnippet() throws Exception {
     SQLiteDatabase db = helper.getWritableDatabase();
     insertThread(db, 42, 0, 0, null, 0, 0, 0);
     insertMms(db, 7, 42, 5000, 6000, "mms-body", 8);
@@ -122,7 +162,29 @@ public class MmsThreadAggregationTest {
         ThreadDatabase.SNIPPET}, "_id = ?", new String[]{"42"}, null, null, null)) {
       assertTrue(cursor.moveToFirst());
       assertEquals(1, cursor.getInt(0));
-      assertNull(cursor.getString(1));
+      assertEquals("mms-body", cursor.getString(1));
+    }
+    try (Cursor cursor = new ThreadDatabase(context, helper).getConversationList()) {
+      assertTrue(cursor.moveToFirst());
+      assertEquals(42, cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.ID)));
+      assertEquals(1, cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.MESSAGE_COUNT)));
+    }
+  }
+
+  @Test public void updateUsesSmsSnippetWhenSmsIsNewerThanMms() throws Exception {
+    SQLiteDatabase db = helper.getWritableDatabase();
+    insertThread(db, 42, 0, 0, null, 0, 0, 0);
+    insertSms(db, 9, 42, 7000, "new sms", 3);
+    insertMms(db, 7, 42, 5000, 6000, "older mms", 8);
+
+    assertFalse(new ThreadDatabase(context, helper).update(42, false));
+
+    try (Cursor cursor = db.query("thread", null, "_id = ?", new String[]{"42"}, null, null, null)) {
+      assertTrue(cursor.moveToFirst());
+      assertEquals(2, cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.MESSAGE_COUNT)));
+      assertEquals(7000, cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.DATE)));
+      assertEquals(3, cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.STATUS)));
+      assertEquals("new sms", cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET)));
     }
   }
 
@@ -166,9 +228,14 @@ public class MmsThreadAggregationTest {
 
   private void insertMms(SQLiteDatabase db, long id, long threadId, long date,
                          long dateReceived, String body, int status) {
+    insertMmsWithType(db, id, threadId, date, dateReceived, body, status, 1);
+  }
+
+  private void insertMmsWithType(SQLiteDatabase db, long id, long threadId, long date,
+                                 long dateReceived, String body, int status, long messageBox) {
     db.execSQL("INSERT INTO mms (_id, thread_id, date, date_received, msg_box, read, m_type, body, " +
-        "address, part_count, st, tr_id) VALUES (?, ?, ?, ?, 1, 1, 132, ?, '+15550001', 1, ?, 'tx-7')",
-        new Object[]{id, threadId, date, dateReceived, body, status});
+        "address, part_count, st, tr_id) VALUES (?, ?, ?, ?, ?, 1, 132, ?, '+15550001', 1, ?, 'tx-7')",
+        new Object[]{id, threadId, date, dateReceived, messageBox, body, status});
   }
 
   private int scalar(SQLiteDatabase db, String sql) {

@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Güvenli oturum başlat</string>
   <string name="conversation_insecure__security">Güvenlik</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Ek içerir</string>
   <string name="conversation_item__secure_message_description">Güvenli mesaj</string>
   <string name="conversation_item_received__contact_photo_description">Kişi fotoğrafı</string>
   <string name="conversation_item_sent__delivered_description">Teslim edildi</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure bir MMS mesajı aldı ancak bunu görüntüleyemiyor veya indiremiyor. Göndericiden bunun yerine SMS kullanmasını isteyin.</string>
   <string name="MmsListener_notification_title">MMS desteklenmemektedir</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimedya mesajı</string>
   <string name="NotificationChannel_failures">Hatalar</string>
   <string name="NotificationChannel_locked_status">Kilitli durum</string>
   <string name="NotificationChannel_other">Diğer</string>

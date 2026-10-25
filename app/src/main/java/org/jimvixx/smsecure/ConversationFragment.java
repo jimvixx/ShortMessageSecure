@@ -225,6 +225,16 @@ public class ConversationFragment extends Fragment
 
     Set<MessageRecord> messageRecords = adapter.getSelectedItems();
 
+    if (messageRecords.stream().anyMatch(MessageRecord::isMms)) {
+      menu.findItem(R.id.menu_context_copy).setVisible(false);
+      menu.findItem(R.id.menu_context_delete_message).setVisible(false);
+      menu.findItem(R.id.menu_context_forward).setVisible(false);
+      menu.findItem(R.id.menu_context_share_message).setVisible(false);
+      menu.findItem(R.id.menu_context_details).setVisible(false);
+      menu.findItem(R.id.menu_context_resend).setVisible(false);
+      return;
+    }
+
     if (actionMode != null && messageRecords.isEmpty()) {
       actionMode.finish();
       return;
@@ -286,6 +296,7 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleCopyMessage(@NonNull Set<MessageRecord> messageRecords) {
+    if (messageRecords.stream().anyMatch(MessageRecord::isMms)) return;
     List<MessageRecord> messageList = new LinkedList<>(messageRecords);
 
     // no Comparator.comparingLong (API24); keep API23 safe
@@ -320,6 +331,7 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleDeleteMessages(@NonNull Set<MessageRecord> messageRecords) {
+    if (messageRecords.stream().anyMatch(MessageRecord::isMms)) return;
     int messagesCount = messageRecords.size();
 
     AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -372,6 +384,7 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleDisplayDetails(@NonNull MessageRecord message) {
+    if (message.isMms()) return;
     Intent intent = new Intent(requireContext(), MessageDetailsActivity.class);
     intent.putExtra(MessageDetailsActivity.MASTER_SECRET_EXTRA, masterSecret);
     intent.putExtra(MessageDetailsActivity.MESSAGE_ID_EXTRA, message.getId());
@@ -383,6 +396,7 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleForwardMessage(@NonNull MessageRecord message) {
+    if (message.isMms()) return;
     Intent composeIntent = new Intent(requireContext(), ShareActivity.class);
     CharSequence bodyCs = message.getDisplayBody();
     if (bodyCs != null) composeIntent.putExtra(Intent.EXTRA_TEXT, bodyCs.toString());
@@ -391,6 +405,7 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleShareMessage(@NonNull MessageRecord message) {
+    if (message.isMms()) return;
     CharSequence bodyCs = message.getDisplayBody();
     String body = bodyCs != null ? bodyCs.toString() : "";
 
@@ -410,6 +425,7 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleResendMessage(@NonNull MessageRecord message) {
+    if (message.isMms()) return;
     final Context context = requireContext().getApplicationContext();
     AppExecutors.background().execute(() -> MessageSender.resend(context, masterSecret, message));
   }
@@ -658,7 +674,7 @@ public class ConversationFragment extends Fragment
       if (adapter == null) return;
 
       final MessageRecord record = item.getMessageRecord();
-      if (record == null) return;
+      if (record == null || record.isMms()) return;
 
       adapter.toggleSelection(record, adapterPosition);
       adapter.notifyItemChanged(adapterPosition);
@@ -673,7 +689,7 @@ public class ConversationFragment extends Fragment
       if (adapter == null) return;
 
       final MessageRecord record = item.getMessageRecord();
-      if (record == null) return;
+      if (record == null || record.isMms()) return;
 
       if (actionMode == null) {
         actionMode = ((AppCompatActivity) requireActivity())

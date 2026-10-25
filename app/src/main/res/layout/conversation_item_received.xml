@@ -97,6 +97,15 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
 
+                <ImageView
+                    android:id="@+id/attachment_indicator"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/conversation_item__attachment_description"
+                    android:src="@drawable/ic_attachment"
+                    android:visibility="gone"
+                    app:tint="?attr/conversation_item_received_text_secondary_color" />
+
                 <TextView
                     android:id="@+id/conversation_item_date"
                     android:layout_width="wrap_content"

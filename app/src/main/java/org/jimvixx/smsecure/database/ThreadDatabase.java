@@ -191,9 +191,8 @@ public class ThreadDatabase extends Database {
     contentValues.put(MESSAGE_COUNT, metadata.getMessageCount());
     contentValues.put(STATUS, metadata.getStatus());
 
-    // Conversation loading and thread snippets are still SMS-only. Do not copy an MMS body
-    // into the thread row until the UI can render MMS safely and transport-aware.
-    if (MessageDatabase.SMS_TRANSPORT.equals(metadata.getTransport())) {
+    if (MessageDatabase.SMS_TRANSPORT.equals(metadata.getTransport()) ||
+            MessageDatabase.MMS_TRANSPORT.equals(metadata.getTransport())) {
       contentValues.put(SNIPPET, metadata.getSnippet());
       contentValues.put(SNIPPET_URI, (byte[]) null);
       contentValues.put(SNIPPET_TYPE, metadata.getType());
@@ -312,6 +311,7 @@ public class ThreadDatabase extends Database {
     db.beginTransaction();
     try {
       getSmsDatabaseForCurrentHelper().setAllMessagesRead();
+      getMmsDatabaseForCurrentHelper().setAllMessagesRead(db);
       updateAllThreadReadStates(db);
       db.setTransactionSuccessful();
     } finally {

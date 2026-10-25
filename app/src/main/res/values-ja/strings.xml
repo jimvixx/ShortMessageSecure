@@ -141,6 +141,7 @@
   <string name="conversation_insecure__menu_start_secure_session">セキュアセッションを開始</string>
   <string name="conversation_insecure__security">セキュリティ</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">添付ファイルが含まれています</string>
   <string name="conversation_item__secure_message_description">セキュアメッセージ</string>
   <string name="conversation_item_received__contact_photo_description">連絡先の写真</string>
   <string name="conversation_item_sent__delivered_description">配信済み</string>
@@ -427,6 +428,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecureはMMSメッセージを受信しましたが、表示またはダウンロードできません。送信者にSMSの使用を依頼してください。</string>
   <string name="MmsListener_notification_title">MMSはサポートされていません</string>
+  <string name="MmsMessageRecord_multimedia_message">マルチメディアメッセージ</string>
   <string name="NotificationChannel_failures">失敗</string>
   <string name="NotificationChannel_locked_status">ロック状態</string>
   <string name="NotificationChannel_other">その他</string>

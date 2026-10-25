@@ -150,6 +150,7 @@
     <string name="conversation_insecure__menu_start_secure_session">Запустить безопасный сеанс</string>
     <string name="conversation_insecure__security">Безопасность</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">Содержит вложение</string>
     <string name="conversation_item__secure_message_description">Защищенное сообщение</string>
     <string name="conversation_item_received__contact_photo_description">Фотография контакта</string>
     <string name="conversation_item_sent__delivered_description">Доставлено</string>
@@ -460,6 +461,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure получило MMS-сообщение, но не может его отобразить или загрузить. Попросите отправителя использовать SMS вместо MMS.</string>
     <string name="MmsListener_notification_title">MMS не поддерживается</string>
+    <string name="MmsMessageRecord_multimedia_message">Мультимедийное сообщение</string>
     <string name="NotificationChannel_failures">Сбои</string>
     <string name="NotificationChannel_locked_status">Статус «Заблокировано»</string>
     <string name="NotificationChannel_other">Другое</string>

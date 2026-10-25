@@ -141,6 +141,7 @@
 <string name="conversation_insecure__menu_start_secure_session">Mulai sesi aman</string>
 <string name="conversation_insecure__security">Keamanan</string>
 <!--conversation_item-->
+<string name="conversation_item__attachment_description">Berisi lampiran</string>
 <string name="conversation_item__secure_message_description">Pesan aman</string>
 <string name="conversation_item_received__contact_photo_description">Foto kontak</string>
 <string name="conversation_item_sent__delivered_description">Terkirim</string>
@@ -427,6 +428,7 @@
 <!--Notification Channels-->
 <string name="MmsListener_notification_text">SMSecure menerima pesan MMS tetapi tidak dapat menampilkannya atau mengunduhnya. Minta pengirim untuk menggunakan SMS saja.</string>
 <string name="MmsListener_notification_title">MMS tidak didukung</string>
+<string name="MmsMessageRecord_multimedia_message">Pesan multimedia</string>
 <string name="NotificationChannel_failures">Kegagalan</string>
 <string name="NotificationChannel_locked_status">Status terkunci</string>
 <string name="NotificationChannel_other">Lainnya</string>

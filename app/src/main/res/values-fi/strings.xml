@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Aloita suojattu istunto</string>
   <string name="conversation_insecure__security">Turvallisuus</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Sisältää liitteen</string>
   <string name="conversation_item__secure_message_description">Suojattu viesti</string>
   <string name="conversation_item_received__contact_photo_description">Yhteystiedon valokuva</string>
   <string name="conversation_item_sent__delivered_description">Toimitettu</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure on vastaanottanut MMS-viestin, mutta ei voi näyttää tai ladata sitä. Pyydä lähettäjää käyttämään sen sijaan SMS-viestejä.</string>
   <string name="MmsListener_notification_title">MMS-viestejä ei tueta</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimediaviesti</string>
   <string name="NotificationChannel_failures">Virheet</string>
   <string name="NotificationChannel_locked_status">Lukittu tila</string>
   <string name="NotificationChannel_other">Muu</string>

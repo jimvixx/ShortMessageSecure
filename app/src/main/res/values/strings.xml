@@ -158,6 +158,7 @@
     <string name="conversation_insecure__menu_start_secure_session">Start secure session</string>
     <string name="conversation_insecure__security">Security</string>
     <!--conversation_item-->
+    <string name="conversation_item__attachment_description">Contains attachment</string>
     <string name="conversation_item__secure_message_description">Secure message</string>
     <string name="conversation_item_received__contact_photo_description">Contact photo</string>
     <string name="conversation_item_sent__delivered_description">Delivered</string>
@@ -485,6 +486,7 @@
     <!--Notification Channels-->
     <string name="MmsListener_notification_text">SMSecure received an MMS message but cannot display or download it. Ask the sender to use SMS instead.</string>
     <string name="MmsListener_notification_title">MMS is not supported</string>
+    <string name="MmsMessageRecord_multimedia_message">Multimedia message</string>
     <string name="NotificationChannel_failures">Failures</string>
     <string name="NotificationChannel_locked_status">Locked status</string>
     <string name="NotificationChannel_other">Other</string>

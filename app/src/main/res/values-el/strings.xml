@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Έναρξη ασφαλούς συνεδρίας</string>
   <string name="conversation_insecure__security">Ασφάλεια</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Περιέχει συνημμένο</string>
   <string name="conversation_item__secure_message_description">Ασφαλές μήνυμα</string>
   <string name="conversation_item_received__contact_photo_description">Φωτογραφία επαφής</string>
   <string name="conversation_item_sent__delivered_description">Παραδόθηκε</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">Το SMSecure έλαβε ένα μήνυμα MMS, αλλά δεν μπορεί να το εμφανίσει ή να το κατεβάσει. Ζητήστε από τον αποστολέα να χρησιμοποιήσει SMS αντ’ αυτού.</string>
   <string name="MmsListener_notification_title">Το MMS δεν υποστηρίζεται</string>
+  <string name="MmsMessageRecord_multimedia_message">Μήνυμα πολυμέσων</string>
   <string name="NotificationChannel_failures">Αποτυχίες</string>
   <string name="NotificationChannel_locked_status">Κατάσταση κλειδώματος</string>
   <string name="NotificationChannel_other">Άλλο</string>

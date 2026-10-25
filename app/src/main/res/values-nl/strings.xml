@@ -144,6 +144,7 @@
   <string name="conversation_insecure__menu_start_secure_session">Start beveiligde sessie</string>
   <string name="conversation_insecure__security">Beveiliging</string>
   <!--conversation_item-->
+  <string name="conversation_item__attachment_description">Bevat bijlage</string>
   <string name="conversation_item__secure_message_description">Beveiligd bericht</string>
   <string name="conversation_item_received__contact_photo_description">Contactfoto</string>
   <string name="conversation_item_sent__delivered_description">Bezorgd</string>
@@ -438,6 +439,7 @@
   <!--Notification Channels-->
   <string name="MmsListener_notification_text">SMSecure heeft een MMS-bericht ontvangen, maar kan dit niet weergeven of downloaden. Vraag de afzender om in plaats daarvan een SMS te sturen.</string>
   <string name="MmsListener_notification_title">MMS wordt niet ondersteund</string>
+  <string name="MmsMessageRecord_multimedia_message">Multimediabericht</string>
   <string name="NotificationChannel_failures">Storingen</string>
   <string name="NotificationChannel_locked_status">Vergrendelde status</string>
   <string name="NotificationChannel_other">Overig</string>

@@ -144,6 +144,7 @@
 <string name="conversation_insecure__menu_start_secure_session">Alusta turvalist seanssi</string>
 <string name="conversation_insecure__security">Turvalisus</string>
 <!--conversation_item-->
+<string name="conversation_item__attachment_description">Sisaldab manust</string>
 <string name="conversation_item__secure_message_description">Turvaline sõnum</string>
 <string name="conversation_item_received__contact_photo_description">Kontakti foto</string>
 <string name="conversation_item_sent__delivered_description">Kohale toimetatud</string>
@@ -438,6 +439,7 @@
 <!--Notification Channels-->
 <string name="MmsListener_notification_text">SMSecure sai MMS-sõnumi, kuid ei saa seda kuvada ega alla laadida. Palu saatjal kasutada selle asemel SMS-i.</string>
 <string name="MmsListener_notification_title">MMS-i ei toetata</string>
+<string name="MmsMessageRecord_multimedia_message">Multimeediasõnum</string>
 <string name="NotificationChannel_failures">Rikked</string>
 <string name="NotificationChannel_locked_status">Lukustatud olek</string>
 <string name="NotificationChannel_other">Muu</string>
