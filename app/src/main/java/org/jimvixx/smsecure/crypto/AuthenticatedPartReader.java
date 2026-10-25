@@ -56,6 +56,20 @@ public final class AuthenticatedPartReader {
                                                 @NonNull File encryptedFile,
                                                 @NonNull MasterSecret masterSecret,
                                                 long maxPlaintextBytes) throws IOException {
+    try (CiphertextSnapshot snapshot = snapshot(context, encryptedFile, maxPlaintextBytes)) {
+      return snapshot.authenticate(masterSecret, maxPlaintextBytes);
+    }
+  }
+
+  /**
+   * Pins an encrypted source into private cache storage and unlinks its pathname before returning.
+   * Callers can hold their attachment lifecycle lock only during this method, then authenticate
+   * outside that lock.
+   */
+  @NonNull
+  public static CiphertextSnapshot snapshot(@NonNull Context context,
+                                             @NonNull File encryptedFile,
+                                             long maxPlaintextBytes) throws IOException {
     if (maxPlaintextBytes < 0) throw new IllegalArgumentException("Negative plaintext limit");
     File cache = context.getCacheDir();
     if (cache == null || !cache.isDirectory()) throw new IOException("Private cache unavailable");
@@ -65,9 +79,6 @@ public final class AuthenticatedPartReader {
       removeAbandonedCiphertextSnapshots(canonicalCache);
       File snapshotPath = File.createTempFile(TEMP_PREFIX, ".tmp", canonicalCache);
       FileInputStream snapshotInput = null;
-      DecryptingPartInputStream validationStream = null;
-      DecryptingPartInputStream consumerStream = null;
-      boolean success = false;
       try {
         copyStablePrivateSource(context, encryptedFile, snapshotPath, maxPlaintextBytes);
         StructStat snapshotPathStat = lstat(snapshotPath);
@@ -78,37 +89,19 @@ public final class AuthenticatedPartReader {
           throw new IOException("Ciphertext snapshot changed while opening");
         }
         if (!snapshotPath.delete()) throw new IOException("Cannot unlink ciphertext snapshot");
-
-        FileDescriptor descriptor = snapshotInput.getFD();
-        validationStream = new DecryptingPartInputStream(descriptor, masterSecret);
-        byte[] buffer = new byte[BUFFER_SIZE];
-        long plaintextBytes = 0;
-        try {
-          int count;
-          while ((count = validationStream.read(buffer)) != -1) {
-            if (count > maxPlaintextBytes - plaintextBytes) {
-              throw new IOException("Decrypted part exceeds configured limit");
-            }
-            plaintextBytes += count;
-            Arrays.fill(buffer, 0, count, (byte) 0);
-          }
-        } finally {
-          Arrays.fill(buffer, (byte) 0);
-        }
-
-        snapshotInput.getChannel().position(0);
-        consumerStream = new DecryptingPartInputStream(descriptor, masterSecret);
-        success = true;
-        return new VerifiedPlaintext(snapshotInput, validationStream, consumerStream);
+        return new CiphertextSnapshot(snapshotInput, maxPlaintextBytes);
       } catch (IOException | RuntimeException exception) {
-        IOException closeFailure = closeResources(consumerStream, validationStream, snapshotInput);
-        if (closeFailure != null) exception.addSuppressed(closeFailure);
+        if (snapshotInput != null) {
+          try {
+            snapshotInput.close();
+          } catch (IOException closeFailure) {
+            exception.addSuppressed(closeFailure);
+          }
+        }
         if (snapshotPath.exists() && !snapshotPath.delete()) {
           exception.addSuppressed(new IOException("Cannot remove failed ciphertext snapshot"));
         }
         throw exception;
-      } finally {
-        if (!success && snapshotPath.exists()) snapshotPath.delete();
       }
     }
   }
@@ -229,6 +222,73 @@ public final class AuthenticatedPartReader {
       failure.addSuppressed(exception);
     }
     return failure;
+  }
+
+  /** Owns a pinned ciphertext descriptor before it is authenticated. */
+  public static final class CiphertextSnapshot implements AutoCloseable {
+    private final FileInputStream snapshotInput;
+    private final long maxPlaintextBytes;
+    private boolean authenticated;
+    private boolean closed;
+
+    private CiphertextSnapshot(FileInputStream snapshotInput, long maxPlaintextBytes) {
+      this.snapshotInput = snapshotInput;
+      this.maxPlaintextBytes = maxPlaintextBytes;
+    }
+
+    /** Fully authenticates the pinned ciphertext before returning a plaintext handle. */
+    @NonNull
+    public synchronized VerifiedPlaintext authenticate(@NonNull MasterSecret masterSecret,
+                                                        long requestedMaxPlaintextBytes)
+            throws IOException {
+      if (closed) throw new IOException("Ciphertext snapshot is closed");
+      if (authenticated) throw new IOException("Ciphertext snapshot already authenticated");
+      if (requestedMaxPlaintextBytes < 0 || requestedMaxPlaintextBytes > maxPlaintextBytes) {
+        throw new IllegalArgumentException("Requested plaintext limit exceeds snapshot limit");
+      }
+
+      DecryptingPartInputStream validationStream = null;
+      DecryptingPartInputStream consumerStream = null;
+      try {
+        FileDescriptor descriptor = snapshotInput.getFD();
+        validationStream = new DecryptingPartInputStream(descriptor, masterSecret);
+        byte[] buffer = new byte[BUFFER_SIZE];
+        long plaintextBytes = 0;
+        try {
+          int count;
+          while ((count = validationStream.read(buffer)) != -1) {
+            if (count > requestedMaxPlaintextBytes - plaintextBytes) {
+              throw new ResourceLimitException("Decrypted part exceeds configured limit");
+            }
+            plaintextBytes += count;
+            Arrays.fill(buffer, 0, count, (byte) 0);
+          }
+        } finally {
+          Arrays.fill(buffer, (byte) 0);
+        }
+
+        snapshotInput.getChannel().position(0);
+        consumerStream = new DecryptingPartInputStream(descriptor, masterSecret);
+        authenticated = true;
+        return new VerifiedPlaintext(snapshotInput, validationStream, consumerStream);
+      } catch (IOException | RuntimeException exception) {
+        IOException closeFailure = closeResources(consumerStream, validationStream, snapshotInput);
+        closed = true;
+        if (closeFailure != null) exception.addSuppressed(closeFailure);
+        throw exception;
+      }
+    }
+
+    @Override
+    public synchronized void close() throws IOException {
+      if (closed || authenticated) return;
+      closed = true;
+      snapshotInput.close();
+    }
+  }
+
+  public static final class ResourceLimitException extends IOException {
+    private ResourceLimitException(String message) { super(message); }
   }
 
   /** Owns the pinned ciphertext descriptor and its verified second-pass decryptor. */
