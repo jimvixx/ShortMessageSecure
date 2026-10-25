@@ -21,6 +21,7 @@ package org.jimvixx.smsecure.crypto;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -48,8 +49,8 @@ public class DecryptingPartInputStream extends FileInputStream {
   private static final int BLOCK_LENGTH = 16;
   private static final int CIPHER_BUFFER_SIZE = 8 * 1024;
 
-  private final Cipher cipher;
-  private final Mac mac;
+  private Cipher cipher;
+  private Mac mac;
   private long ciphertextRemaining;
   private byte[] plaintextBuffer;
   private int plaintextOffset;
@@ -58,6 +59,16 @@ public class DecryptingPartInputStream extends FileInputStream {
   public DecryptingPartInputStream(File file, MasterSecret masterSecret)
           throws FileNotFoundException {
     super(file);
+    initialize(masterSecret);
+  }
+
+  DecryptingPartInputStream(FileDescriptor descriptor, MasterSecret masterSecret)
+          throws FileNotFoundException {
+    super(descriptor);
+    initialize(masterSecret);
+  }
+
+  private void initialize(MasterSecret masterSecret) throws FileNotFoundException {
     try {
       long fileLength = getChannel().size();
       long ciphertextLength = fileLength - IV_LENGTH - MAC_LENGTH;

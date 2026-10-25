@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.system.Os;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -41,6 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
@@ -197,17 +200,17 @@ public final class MmsAttachmentCryptoCompatibilityTest {
     File file = tempFile("authenticated-part");
     byte[] payload = new byte[]{19, 18, 17, 16, 15};
     writeLegacyFormat(file, payload, key);
-    int before = verifiedTempCount();
+    int before = ciphertextTempCount();
 
     AuthenticatedPartReader.VerifiedPlaintext verified = AuthenticatedPartReader.authenticate(
             testContext, file, key, payload.length);
-    assertEquals(before + 1, verifiedTempCount());
+    assertEquals(before, ciphertextTempCount());
     try (InputStream input = verified.openStream()) {
       assertArrayEquals(payload, readAll(input));
     } finally {
       verified.close();
     }
-    assertEquals(before, verifiedTempCount());
+    assertEquals(before, ciphertextTempCount());
 
     byte[] corrupted = readFile(file);
     corrupted[corrupted.length - 1] ^= 0x01;
@@ -216,19 +219,149 @@ public final class MmsAttachmentCryptoCompatibilityTest {
       AuthenticatedPartReader.authenticate(testContext, file, key, payload.length);
       fail("Corrupt attachment returned an authenticated handle");
     } catch (IOException expected) { }
-    assertEquals(before, verifiedTempCount());
+    assertEquals(before, ciphertextTempCount());
 
     writeLegacyFormat(file, payload, key);
     try {
       AuthenticatedPartReader.authenticate(testContext, file, syntheticKey(108), payload.length);
       fail("Wrong master secret returned an authenticated handle");
     } catch (IOException expected) { }
-    assertEquals(before, verifiedTempCount());
+    assertEquals(before, ciphertextTempCount());
     try {
       AuthenticatedPartReader.authenticate(testContext, file, key, payload.length - 1);
       fail("Plaintext limit was ignored");
     } catch (IOException expected) { }
-    assertEquals(before, verifiedTempCount());
+    assertEquals(before, ciphertextTempCount());
+  }
+
+  @Test public void sourceReplacementAfterAuthenticationCannotChangePinnedContent() throws Exception {
+    MasterSecret key = syntheticKey(141);
+    File source = tempFile("pinned-source");
+    byte[] authenticatedPayload = new byte[]{1, 4, 9, 16, 25};
+    writeLegacyFormat(source, authenticatedPayload, key);
+
+    AuthenticatedPartReader.VerifiedPlaintext verified = AuthenticatedPartReader.authenticate(
+            testContext, source, key, authenticatedPayload.length);
+    writeLegacyFormat(source, new byte[]{99, 98, 97}, key);
+    try (InputStream input = verified.openStream()) {
+      assertArrayEquals(authenticatedPayload, readAll(input));
+    } finally {
+      verified.close();
+    }
+    assertEquals(0, ciphertextTempCount());
+  }
+
+  @Test public void sourceSymlinkIsRejectedBeforeSnapshot() throws Exception {
+    MasterSecret key = syntheticKey(151);
+    File target = tempFile("symlink-target");
+    File link = tempFile("symlink-source");
+    writeLegacyFormat(target, new byte[]{7, 7, 7}, key);
+    assertTrue(link.delete());
+    Os.symlink(target.getAbsolutePath(), link.getAbsolutePath());
+    try {
+      AuthenticatedPartReader.authenticate(testContext, link, key, 3);
+      fail("Symlink source was accepted");
+    } catch (IOException expected) { }
+    assertEquals(0, ciphertextTempCount());
+  }
+
+  @Test public void concurrentSourceModificationEitherFailsOrReturnsOneWholeAuthenticatedValue()
+          throws Exception {
+    MasterSecret key = syntheticKey(163);
+    File source = tempFile("concurrent-source");
+    byte[] original = new byte[2 * 1024 * 1024];
+    byte[] replacement = new byte[original.length];
+    Arrays.fill(original, (byte) 0x31);
+    Arrays.fill(replacement, (byte) 0x6c);
+    writeLegacyFormat(source, original, key);
+    File replacementFile = tempFile("concurrent-replacement");
+    writeLegacyFormat(replacementFile, replacement, key);
+    byte[] replacementCiphertext = readFile(replacementFile);
+
+    CountDownLatch start = new CountDownLatch(1);
+    final Throwable[] writerFailure = new Throwable[1];
+    Thread writer = new Thread(() -> {
+      try {
+        if (!start.await(5, TimeUnit.SECONDS)) throw new IOException("Writer start timed out");
+        try (java.io.RandomAccessFile output = new java.io.RandomAccessFile(source, "rw")) {
+          output.setLength(0);
+          for (int offset = 0; offset < replacementCiphertext.length; offset += 4096) {
+            int count = Math.min(4096, replacementCiphertext.length - offset);
+            output.write(replacementCiphertext, offset, count);
+            Thread.yield();
+          }
+        }
+      } catch (Throwable exception) {
+        writerFailure[0] = exception;
+      }
+    });
+    writer.start();
+    start.countDown();
+
+    AuthenticatedPartReader.VerifiedPlaintext verified = null;
+    try {
+      verified = AuthenticatedPartReader.authenticate(testContext, source, key, original.length);
+    } catch (IOException expectedDuringMutation) { }
+    writer.join(10000);
+    assertFalse(writer.isAlive());
+    if (writerFailure[0] != null) throw new AssertionError("Concurrent writer failed", writerFailure[0]);
+
+    if (verified != null) {
+      try (InputStream input = verified.openStream()) {
+        byte[] result = readAll(input);
+        assertTrue(Arrays.equals(original, result) || Arrays.equals(replacement, result));
+      } finally {
+        verified.close();
+      }
+    }
+    assertEquals(0, ciphertextTempCount());
+  }
+
+  @Test public void earlyCloseAndConsumerExceptionReleasePinnedCiphertext() throws Exception {
+    MasterSecret key = syntheticKey(173);
+    File file = tempFile("early-close-part");
+    writeLegacyFormat(file, new byte[]{3, 1, 4, 1, 5, 9}, key);
+
+    AuthenticatedPartReader.VerifiedPlaintext early = AuthenticatedPartReader.authenticate(
+            testContext, file, key, 6);
+    early.close();
+    try {
+      early.openStream();
+      fail("Closed handle reopened its stream");
+    } catch (IOException expected) { }
+
+    AuthenticatedPartReader.VerifiedPlaintext exceptional = AuthenticatedPartReader.authenticate(
+            testContext, file, key, 6);
+    try {
+      try (InputStream input = exceptional.openStream()) {
+        assertEquals(3, input.read());
+        throw new IOException("Synthetic consumer failure");
+      }
+    } catch (IOException expected) {
+      assertEquals("Synthetic consumer failure", expected.getMessage());
+    } finally {
+      exceptional.close();
+    }
+    assertEquals(0, ciphertextTempCount());
+  }
+
+  @Test public void abandonedEncryptedSnapshotIsRemovedOnNextUse() throws Exception {
+    MasterSecret key = syntheticKey(181);
+    File source = tempFile("restart-source");
+    writeLegacyFormat(source, new byte[]{6, 2, 6, 4}, key);
+    File abandoned = File.createTempFile("mms-ciphertext-", ".tmp", testContext.getCacheDir());
+    try {
+      writeFile(abandoned, new byte[]{1, 2, 3, 4});
+      try (AuthenticatedPartReader.VerifiedPlaintext verified = AuthenticatedPartReader.authenticate(
+              testContext, source, key, 4);
+           InputStream input = verified.openStream()) {
+        assertArrayEquals(new byte[]{6, 2, 6, 4}, readAll(input));
+      }
+      assertFalse(abandoned.exists());
+      assertEquals(0, ciphertextTempCount());
+    } finally {
+      if (abandoned.exists()) assertTrue(abandoned.delete());
+    }
   }
 
   @Test public void authenticatedReaderAcceptsEmptyLegacyPart() throws Exception {
@@ -423,9 +556,9 @@ public final class MmsAttachmentCryptoCompatibilityTest {
     System.arraycopy(value, 0, encoded, encoded.length - value.length, value.length);
   }
 
-  private int verifiedTempCount() {
+  private int ciphertextTempCount() {
     File[] files = testContext.getCacheDir().listFiles((directory, name) ->
-            name.startsWith("mms-verified-"));
+            name.startsWith("mms-ciphertext-"));
     return files == null ? 0 : files.length;
   }
 
