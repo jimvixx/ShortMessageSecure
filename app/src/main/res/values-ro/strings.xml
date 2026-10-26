@@ -447,6 +447,11 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Ați primit un mesaj criptat folosind o versiune veche a SMSecure care nu mai este acceptată. Vă rugăm să solicitați expeditorului să actualizeze la cea mai recentă versiune și să retrimită mesajul.</string>
   <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Mesajul de schimb pe care l-ați primit provine de la o versiune a SMSecure care este prea veche pentru a comunica cu versiunea dvs. Trebuie să îl trimiteți manual pentru a începe o sesiune securizată. Atingeți pentru a trimite un mesaj de schimb de chei.</string>
   <string name="MessageRecord_updated_group">Grupul a fost actualizat.</string>
+  <!--MmsImageViewer-->
+  <string name="MmsImageViewer__image_description">Imagine MMS</string>
+  <string name="MmsImageViewer__open_image">Deschide imaginea pe ecran complet</string>
+  <string name="MmsImageViewer__title">Imagine</string>
+  <string name="MmsImageViewer__unavailable">Această imagine nu este disponibilă.</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Dezactivare notificări</string>
   <!--Notification Channels-->

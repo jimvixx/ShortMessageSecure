@@ -458,6 +458,11 @@
 <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Gauta žinutė, užšifruota naudojant seną „SMSecure“ versiją, kuri nebėra palaikoma. Paprašykite siuntėjo atnaujinti programą iki naujausios versijos ir išsiųsti žinutę iš naujo.</string>
 <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Gautas keitimosi pranešimas buvo išsiųstas iš pernelyg pasenusios „SMSecure“ versijos, kuri negali bendrauti su jūsų versija. Norėdami pradėti saugią sesiją, turite jį išsiųsti rankiniu būdu. Bakstelėkite, kad išsiųstumėte raktų keitimosi pranešimą.</string>
 <string name="MessageRecord_updated_group">Atnaujinta grupė.</string>
+<!--MmsImageViewer-->
+<string name="MmsImageViewer__image_description">MMS vaizdas</string>
+<string name="MmsImageViewer__open_image">Atidaryti paveikslėlį visame ekrane</string>
+<string name="MmsImageViewer__title">Paveikslėlis</string>
+<string name="MmsImageViewer__unavailable">Šis paveikslėlis nėra prieinamas.</string>
 <!--MuteDialog-->
 <string name="MuteDialog_mute_notifications">Pranešimų nutildymas</string>
 <!--Notification Channels-->

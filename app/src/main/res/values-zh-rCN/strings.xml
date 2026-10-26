@@ -425,6 +425,11 @@
     <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">收到一条使用已不再受支持的旧版 SMSecure 加密的消息。请让发件人升级到最新版本并重新发送消息。</string>
     <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">您收到的交换消息来自一个版本过旧的 SMSecure，无法与您的版本进行通信。您必须手动发送消息才能启动安全会话。点击此处发送密钥交换消息。</string>
     <string name="MessageRecord_updated_group">已更新群组。</string>
+    <!--MmsImageViewer-->
+    <string name="MmsImageViewer__image_description">MMS图片</string>
+    <string name="MmsImageViewer__open_image">全屏打开图片</string>
+    <string name="MmsImageViewer__title">图片</string>
+    <string name="MmsImageViewer__unavailable">该图片无法显示。</string>
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">静音通知</string>
     <!--Notification Channels-->

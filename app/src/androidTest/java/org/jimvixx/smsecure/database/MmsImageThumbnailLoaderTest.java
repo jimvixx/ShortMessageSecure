@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -35,6 +36,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.jimvixx.smsecure.MmsImageThumbnailLoader;
+import org.jimvixx.smsecure.MmsImageViewerLoader;
 import org.jimvixx.smsecure.crypto.EncryptingPartOutputStream;
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.junit.After;
@@ -63,6 +65,7 @@ import javax.crypto.spec.SecretKeySpec;
 public final class MmsImageThumbnailLoaderTest {
   private static final long MMS_ID = 83001;
   private static final int PREVIEW_INPUT_LIMIT = 8 * 1024 * 1024;
+  private static final int VIEWER_INPUT_LIMIT = 16 * 1024 * 1024;
 
   private Context baseContext;
   private Context fileContext;
@@ -73,6 +76,7 @@ public final class MmsImageThumbnailLoaderTest {
   private AttachmentDatabase attachmentDatabase;
   private MasterSecret masterSecret;
   private MmsImageThumbnailLoader loader;
+  private MmsImageViewerLoader viewerLoader;
   private final List<File> fixtureFiles = new ArrayList<>();
 
   @Before public void setUp() throws Exception {
@@ -97,6 +101,7 @@ public final class MmsImageThumbnailLoaderTest {
     attachmentDatabase = new AttachmentDatabase(fileContext, helper);
     DisplayMetrics metrics = baseContext.getResources().getDisplayMetrics();
     loader = new MmsImageThumbnailLoader(attachmentDatabase, metrics);
+    viewerLoader = new MmsImageViewerLoader(attachmentDatabase, metrics);
   }
 
   @After public void tearDown() {
@@ -131,6 +136,96 @@ public final class MmsImageThumbnailLoaderTest {
     } finally {
       result.close();
     }
+  }
+
+  @Test public void viewerOpensTheSelectedImageFromMultiplePartsWithoutChangingSource()
+          throws Exception {
+    addImagePart(1, "image/png", createPng(24, 16, Color.RED), null);
+    File selectedFile = addImagePart(2, "image/png", createPng(40, 24, Color.GREEN), null);
+    byte[] originalDigest = digestFile(selectedFile);
+
+    MmsImageViewerLoader.Result result = awaitViewer(2, 20, masterSecret);
+    try {
+      assertEquals(MmsImageViewerLoader.Status.OPENED, result.status);
+      Bitmap bitmap = result.takeBitmap();
+      assertNotNull(bitmap);
+      assertTrue(bitmap.isMutable());
+      assertEquals(Color.GREEN, bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2));
+      eraseAndRecycle(bitmap);
+      assertArrayEquals(originalDigest, digestFile(selectedFile));
+    } finally {
+      result.close();
+      Arrays.fill(originalDigest, (byte) 0);
+    }
+  }
+
+  @Test public void viewerRejectsWrongKeysInvalidHmacAndMalformedImages() throws Exception {
+    File encrypted = addImagePart(1, "image/png", createPng(20, 20, Color.BLUE), null);
+    addImagePart(2, "image/png", new byte[]{1, 2, 3, 4}, null);
+
+    MmsImageViewerLoader.Result wrongKey = awaitViewer(1, 10, syntheticSecret(91));
+    try {
+      assertEquals(MmsImageViewerLoader.Status.AUTHENTICATION_FAILED, wrongKey.status);
+      assertNull(wrongKey.takeBitmap());
+    } finally {
+      wrongKey.close();
+    }
+
+    try (RandomAccessFile file = new RandomAccessFile(encrypted, "rw")) {
+      long lastByte = file.length() - 1;
+      file.seek(lastByte);
+      int value = file.read();
+      file.seek(lastByte);
+      file.write(value ^ 0x01);
+    }
+    MmsImageViewerLoader.Result invalidHmac = awaitViewer(1, 10, masterSecret);
+    try {
+      assertEquals(MmsImageViewerLoader.Status.AUTHENTICATION_FAILED, invalidHmac.status);
+      assertNull(invalidHmac.takeBitmap());
+    } finally {
+      invalidHmac.close();
+    }
+
+    MmsImageViewerLoader.Result malformed = awaitViewer(2, 20, masterSecret);
+    try {
+      assertEquals(MmsImageViewerLoader.Status.INVALID_IMAGE, malformed.status);
+      assertNull(malformed.takeBitmap());
+    } finally {
+      malformed.close();
+    }
+  }
+
+  @Test public void viewerRejectsOversizedImageWithinThePreviewSpecificBudget() throws Exception {
+    File oversized = writeEncryptedPartOfLength("viewer-oversized",
+            VIEWER_INPUT_LIMIT + 1L);
+    insertPart(1, "image/png", oversized, null,
+            VIEWER_INPUT_LIMIT + 1L);
+    byte[] originalDigest = digestFile(oversized);
+
+    MmsImageViewerLoader.Result result = awaitViewer(1, 10, masterSecret);
+    try {
+      assertEquals(MmsImageViewerLoader.Status.RESOURCE_LIMIT_EXCEEDED, result.status);
+      assertNull(result.takeBitmap());
+      assertEquals(0, ciphertextSnapshotCount());
+      assertArrayEquals(originalDigest, digestFile(oversized));
+    } finally {
+      result.close();
+      Arrays.fill(originalDigest, (byte) 0);
+    }
+  }
+
+  @Test public void cancellingViewerLoadPreventsDelivery() throws Exception {
+    addImagePart(1, "image/png", createPng(24, 16, Color.YELLOW), null);
+    CountDownLatch delivered = new CountDownLatch(1);
+    synchronized (AttachmentCleanupProcessor.lifecycleLock()) {
+      MmsImageViewerLoader.Request request = viewerLoader.load(MMS_ID, 1, 10, masterSecret,
+              result -> {
+                result.close();
+                delivered.countDown();
+              });
+      request.cancel();
+    }
+    assertFalse("Cancelled image load must not deliver", delivered.await(300, TimeUnit.MILLISECONDS));
   }
 
   @Test public void corruptImagesWrongKeysAndUnsupportedMimeRemainPlaceholders() throws Exception {
@@ -321,6 +416,19 @@ public final class MmsImageThumbnailLoaderTest {
       latch.countDown();
     });
     assertTrue("Image loader did not finish", latch.await(15, TimeUnit.SECONDS));
+    assertNotNull(result.get());
+    return result.get();
+  }
+
+  private MmsImageViewerLoader.Result awaitViewer(long partId, long uniqueId, MasterSecret secret)
+          throws InterruptedException {
+    CountDownLatch latch = new CountDownLatch(1);
+    AtomicReference<MmsImageViewerLoader.Result> result = new AtomicReference<>();
+    viewerLoader.load(MMS_ID, partId, uniqueId, secret, loaded -> {
+      result.set(loaded);
+      latch.countDown();
+    });
+    assertTrue("MMS viewer loader did not finish", latch.await(15, TimeUnit.SECONDS));
     assertNotNull(result.get());
     return result.get();
   }

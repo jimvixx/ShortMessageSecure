@@ -447,6 +447,11 @@
     <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Vous avez reçu un message chiffré à l’aide d’une ancienne version de SMSecure qui n’est plus prise en charge. Veuillez demander à l’expéditeur de passer à la version la plus récente et de renvoyer le message.</string>
     <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Le message d’échange que vous avez reçu provient d’une version de SMSecure trop ancienne pour communiquer avec votre version. Vous devez l’envoyer manuellement pour démarrer une session sécurisée. Appuyez pour envoyer un message d’échange de clés.</string>
     <string name="MessageRecord_updated_group">Mise à jour du groupe.</string>
+    <!--MmsImageViewer-->
+    <string name="MmsImageViewer__image_description">Image MMS</string>
+    <string name="MmsImageViewer__open_image">Ouvrir l’image en plein écran</string>
+    <string name="MmsImageViewer__title">Image</string>
+    <string name="MmsImageViewer__unavailable">Cette image n’est pas disponible.</string>
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">Désactiver les notifications</string>
     <!--Notification Channels-->

@@ -483,6 +483,11 @@
     <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Received a message encrypted using an old version of SMSecure that is no longer supported. Please ask the sender to upgrade to the most recent version and resend the message.</string>
     <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">The exchange message you got came from a version of SMSecure that is too outdated to communicate with your version. You must send it manually to start a secure session. Tap to send a key exchange message.</string>
     <string name="MessageRecord_updated_group">Updated the group.</string>
+    <!--MmsImageViewer-->
+    <string name="MmsImageViewer__image_description">MMS image</string>
+    <string name="MmsImageViewer__open_image">Open full-screen image</string>
+    <string name="MmsImageViewer__title">Image</string>
+    <string name="MmsImageViewer__unavailable">This image is unavailable.</string>
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">Mute notifications</string>
     <!--Notification Channels-->

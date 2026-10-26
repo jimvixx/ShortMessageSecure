@@ -229,7 +229,7 @@ public class ConversationItem extends LinearLayout
             record.isMmsNotification() || !record.hasAttachments()) return;
 
     mmsImagePreviews.setVisibility(View.VISIBLE);
-    addImagePreview(null, true);
+    addImagePreview(null, true, -1, -1, -1);
     pendingMmsImageLoad = true;
     startPendingMmsImageLoad();
   }
@@ -251,7 +251,7 @@ public class ConversationItem extends LinearLayout
         clearImagePreviewViews();
         for (MmsImageThumbnailLoader.ImagePreview preview : result.previews) {
           Bitmap bitmap = preview.takeBitmap();
-          addImagePreview(bitmap, false);
+          addImagePreview(bitmap, false, record.getId(), preview.partId, preview.uniqueId);
         }
 
         if (mmsImagePreviews != null) {
@@ -273,7 +273,7 @@ public class ConversationItem extends LinearLayout
     if (messageRecord != null && messageRecord.isMms() && messageRecord.hasAttachments() &&
             mmsImagePreviews != null && mmsImagePreviews.getVisibility() != View.VISIBLE) {
       mmsImagePreviews.setVisibility(View.VISIBLE);
-      addImagePreview(null, true);
+      addImagePreview(null, true, -1, -1, -1);
       pendingMmsImageLoad = true;
     }
     startPendingMmsImageLoad();
@@ -285,7 +285,8 @@ public class ConversationItem extends LinearLayout
     super.onDetachedFromWindow();
   }
 
-  private void addImagePreview(@Nullable Bitmap bitmap, boolean loading) {
+  private void addImagePreview(@Nullable Bitmap bitmap, boolean loading, long mmsId,
+                               long partId, long uniqueId) {
     if (mmsImagePreviews == null) {
       MmsImageThumbnailLoader.eraseAndRecycle(bitmap);
       return;
@@ -299,10 +300,16 @@ public class ConversationItem extends LinearLayout
     preview.setBackgroundResource(R.drawable.bg_mms_image_preview_placeholder);
     preview.setContentDescription(getContext().getString(loading
             ? R.string.conversation_item__image_preview_loading
-            : R.string.conversation_item__image_preview_description));
-    preview.setClickable(false);
+            : R.string.MmsImageViewer__open_image));
+    preview.setClickable(bitmap != null && mmsId > 0 && partId > 0);
     preview.setFocusable(false);
-    preview.setOnClickListener(null);
+    preview.setOnClickListener(bitmap == null ? null : view -> {
+      Intent intent = new Intent(context, MmsImageViewerActivity.class);
+      intent.putExtra(MmsImageViewerActivity.EXTRA_MMS_ID, mmsId);
+      intent.putExtra(MmsImageViewerActivity.EXTRA_PART_ID, partId);
+      intent.putExtra(MmsImageViewerActivity.EXTRA_UNIQUE_ID, uniqueId);
+      context.startActivity(intent);
+    });
     preview.setOnLongClickListener(null);
     if (bitmap != null) {
       preview.setImageBitmap(bitmap);

@@ -458,6 +458,11 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Byla přijata zpráva zašifrovaná pomocí staré verze SMSecure, která již není podporována. Požádejte odesílatele, aby aktualizoval na nejnovější verzi a zprávu odeslal znovu.</string>
   <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Zpráva o výměně, kterou jste obdrželi, pochází z verze aplikace SMSecure, která je příliš zastaralá na to, aby mohla komunikovat s vaší verzí. Abyste mohli zahájit zabezpečenou relaci, musíte ji odeslat ručně. Klepnutím odešlete zprávu o výměně klíčů.</string>
   <string name="MessageRecord_updated_group">Skupina byla aktualizována.</string>
+  <!--MmsImageViewer-->
+  <string name="MmsImageViewer__image_description">Obrázek MMS</string>
+  <string name="MmsImageViewer__open_image">Otevřít obrázek na celou obrazovku</string>
+  <string name="MmsImageViewer__title">Obrázek</string>
+  <string name="MmsImageViewer__unavailable">Tento obrázek není k dispozici.</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Ztlumit oznámení</string>
   <!--Notification Channels-->

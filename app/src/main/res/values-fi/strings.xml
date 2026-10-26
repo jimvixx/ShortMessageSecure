@@ -436,6 +436,11 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Vastaanotit viestin, joka on salattu vanhalla SMSecure-versiolla, jota ei enää tueta. Pyydä lähettäjää päivittämään uusimpaan versioon ja lähettämään viesti uudelleen.</string>
   <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Vastaanottamasi viestin lähettäjä on liian vanha versio SMSecure-sovelluksesta, jotta se voisi kommunikoida sinun versiosi kanssa. Sinun on lähetettävä se manuaalisesti, jotta suojattu istunto voidaan aloittaa. Napauta lähettääksesi avainvaihtoviestin.</string>
   <string name="MessageRecord_updated_group">Ryhmä päivitetty.</string>
+  <!--MmsImageViewer-->
+  <string name="MmsImageViewer__image_description">MMS-kuva</string>
+  <string name="MmsImageViewer__open_image">Avaa kuva koko näytön tilassa</string>
+  <string name="MmsImageViewer__title">Kuva</string>
+  <string name="MmsImageViewer__unavailable">Tätä kuvaa ei ole saatavilla.</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Mykistä ilmoitukset</string>
   <!--Notification Channels-->

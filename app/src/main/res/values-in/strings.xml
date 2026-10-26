@@ -425,6 +425,11 @@
 <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Anda menerima pesan yang dienkripsi menggunakan versi lama SMSecure yang tidak lagi didukung. Mohon minta pengirim untuk memperbarui ke versi terbaru dan mengirim ulang pesan tersebut.</string>
 <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">Pesan pertukaran yang Anda terima berasal dari versi SMSecure yang terlalu usang untuk berkomunikasi dengan versi Anda. Anda harus mengirimnya secara manual untuk memulai sesi aman. Ketuk untuk mengirim pesan pertukaran kunci.</string>
 <string name="MessageRecord_updated_group">Grup telah diperbarui.</string>
+<!--MmsImageViewer-->
+<string name="MmsImageViewer__image_description">Gambar MMS</string>
+<string name="MmsImageViewer__open_image">Buka gambar dalam mode layar penuh</string>
+<string name="MmsImageViewer__title">Gambar</string>
+<string name="MmsImageViewer__unavailable">Gambar ini tidak tersedia.</string>
 <!--MuteDialog-->
 <string name="MuteDialog_mute_notifications">Nonaktifkan notifikasi</string>
 <!--Notification Channels-->

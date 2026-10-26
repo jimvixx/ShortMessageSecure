@@ -154,6 +154,14 @@
                 android:value=".ConversationListActivity" />
         </activity>
         <activity
+            android:name=".MmsImageViewerActivity"
+            android:exported="false"
+            android:parentActivityName=".ConversationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ConversationActivity" />
+        </activity>
+        <activity
             android:name=".ConversationPopupActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:excludeFromRecents="true"

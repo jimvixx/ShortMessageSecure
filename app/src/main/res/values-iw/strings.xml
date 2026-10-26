@@ -447,6 +447,11 @@
     <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">התקבלה הודעה שהוצפנה באמצעות גרסה ישנה של SMSecure שאינה נתמכת עוד. אנא בקש מהשולח לשדרג לגרסה העדכנית ביותר ולשלוח את ההודעה מחדש.</string>
     <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">הודעת החילוף שקיבלת נשלחה מגרסה של SMSecure שהיא מיושנת מדי מכדי לתקשר עם הגרסה שלך. עליך לשלוח אותה באופן ידני כדי להתחיל הפעלה מאובטחת. הקש כדי לשלוח הודעת חילוף מפתחות.</string>
     <string name="MessageRecord_updated_group">עודכן הקבוצה.</string>
+    <!--MmsImageViewer-->
+    <string name="MmsImageViewer__image_description">תמונת MMS</string>
+    <string name="MmsImageViewer__open_image">פתח תמונה במסך מלא</string>
+    <string name="MmsImageViewer__title">תמונה</string>
+    <string name="MmsImageViewer__unavailable">תמונה זו אינה זמינה.</string>
     <!--MuteDialog-->
     <string name="MuteDialog_mute_notifications">השתקת התראות</string>
     <!--Notification Channels-->

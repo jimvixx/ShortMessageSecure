@@ -425,6 +425,11 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">더 이상 지원되지 않는 구버전 SMSecure로 암호화된 메시지를 수신했습니다. 발신자에게 최신 버전으로 업데이트한 후 메시지를 다시 보내달라고 요청해 주십시오.</string>
   <string name="MessageRecord_the_exchange_message_you_got_came_from_a_version_of_smsecure_that_is_too_outdated">수신한 교환 메시지는 현재 사용 중인 버전과 통신하기에는 너무 오래된 버전의 SMSecure에서 전송된 것입니다. 보안 세션을 시작하려면 수동으로 메시지를 보내야 합니다. 탭하여 키 교환 메시지를 보내세요.</string>
   <string name="MessageRecord_updated_group">그룹을 업데이트했습니다.</string>
+  <!--MmsImageViewer-->
+  <string name="MmsImageViewer__image_description">MMS 이미지</string>
+  <string name="MmsImageViewer__open_image">이미지를 전체 화면으로 열기</string>
+  <string name="MmsImageViewer__title">이미지</string>
+  <string name="MmsImageViewer__unavailable">이 이미지를 사용할 수 없습니다.</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">알림 음소거</string>
   <!--Notification Channels-->
