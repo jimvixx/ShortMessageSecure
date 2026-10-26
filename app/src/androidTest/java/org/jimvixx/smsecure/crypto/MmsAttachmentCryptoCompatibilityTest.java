@@ -317,6 +317,32 @@ public final class MmsAttachmentCryptoCompatibilityTest {
     assertEquals(0, ciphertextTempCount());
   }
 
+  @Test public void sourceGrowthDuringSnapshotCannotExceedCiphertextBudget() throws Exception {
+    File source = tempFile("growing-source");
+    try (FileOutputStream output = new FileOutputStream(source)) {
+      output.write(new byte[64]);
+    }
+
+    long maximumCiphertextBytes = 32 + 52;
+    long[] copiedBytes = {0};
+    try {
+      AuthenticatedPartReader.snapshot(testContext, source, 32, ciphertextBytes -> {
+        copiedBytes[0] = ciphertextBytes;
+        try (java.io.RandomAccessFile output = new java.io.RandomAccessFile(source, "rw")) {
+          output.seek(output.length());
+          output.write(new byte[64]);
+        }
+      });
+      fail("Growing source should exceed the pinned ciphertext budget");
+    } catch (IOException expected) {
+      assertEquals(64L, copiedBytes[0]);
+      assertTrue(copiedBytes[0] <= maximumCiphertextBytes);
+      assertEquals(128L, source.length());
+    }
+
+    assertEquals(0, ciphertextTempCount());
+  }
+
   @Test public void earlyCloseAndConsumerExceptionReleasePinnedCiphertext() throws Exception {
     MasterSecret key = syntheticKey(173);
     File file = tempFile("early-close-part");

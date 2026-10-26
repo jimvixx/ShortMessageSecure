@@ -62,15 +62,42 @@ public final class AttachmentDatabase {
     return result;
   }
 
+  /** Returns only the identity and MIME metadata needed by read-only attachment consumers. */
+  @NonNull public List<PartMetadata> getPartMetadataForMessage(long mmsId) {
+    List<PartMetadata> result = new ArrayList<>();
+    try (Cursor c = databaseHelper.getReadableDatabase().query("part",
+            new String[]{"_id", "mid", "seq", "ct", "unique_id"},
+            "mid = ?", new String[]{String.valueOf(mmsId)}, null, null, "seq ASC, _id ASC")) {
+      while (c.moveToNext()) {
+        result.add(new PartMetadata(c.getLong(0), c.getLong(1), c.getInt(2),
+                c.isNull(3) ? null : c.getString(3), c.isNull(4) ? 0L : c.getLong(4)));
+      }
+    }
+    return result;
+  }
+
   /** Opens authenticated plaintext for one data file or its separately encrypted thumbnail. */
   @NonNull public AttachmentAccessResult openPart(long mmsId, long partId, long uniqueId,
                                                    @NonNull FileKind fileKind,
                                                    @Nullable MasterSecret masterSecret) {
     if (fileKind == null) return AttachmentAccessResult.failure(AccessStatus.UNSUPPORTED_METADATA);
+    return openPart(mmsId, partId, uniqueId, fileKind, masterSecret,
+            fileKind == FileKind.THUMBNAIL ? MAX_THUMBNAIL_BYTES : MAX_ATTACHMENT_BYTES);
+  }
+
+  /** Opens authenticated plaintext with a caller-specific ceiling no greater than the API limit. */
+  @NonNull public AttachmentAccessResult openPart(long mmsId, long partId, long uniqueId,
+                                                   @NonNull FileKind fileKind,
+                                                   @Nullable MasterSecret masterSecret,
+                                                   long maxPlaintextBytes) {
+    if (fileKind == null) return AttachmentAccessResult.failure(AccessStatus.UNSUPPORTED_METADATA);
     if (masterSecret == null) return AttachmentAccessResult.failure(AccessStatus.MISSING_MASTER_KEY);
 
-    long maxPlaintextBytes = fileKind == FileKind.THUMBNAIL
+    long apiLimit = fileKind == FileKind.THUMBNAIL
             ? MAX_THUMBNAIL_BYTES : MAX_ATTACHMENT_BYTES;
+    if (maxPlaintextBytes < 0 || maxPlaintextBytes > apiLimit) {
+      return AttachmentAccessResult.failure(AccessStatus.RESOURCE_LIMIT_EXCEEDED);
+    }
     AttachmentMetadata metadata;
     File encryptedFile;
     AuthenticatedPartReader.CiphertextSnapshot snapshot;
@@ -80,7 +107,7 @@ public final class AttachmentDatabase {
       if (lookup.metadata == null) return AttachmentAccessResult.failure(lookup.status);
       metadata = lookup.metadata;
       if (metadata.dataSize < 0 || (fileKind == FileKind.DATA &&
-              metadata.dataSize > MAX_ATTACHMENT_BYTES)) {
+              metadata.dataSize > maxPlaintextBytes)) {
         return AttachmentAccessResult.failure(AccessStatus.RESOURCE_LIMIT_EXCEEDED);
       }
       String storedPath = fileKind == FileKind.DATA ? metadata.path : metadata.thumbnailPath;
@@ -217,6 +244,23 @@ public final class AttachmentDatabase {
   }
 
   public enum FileKind { DATA, THUMBNAIL }
+
+  public static final class PartMetadata {
+    public final long id;
+    public final long mmsId;
+    public final int sequence;
+    @Nullable public final String contentType;
+    public final long uniqueId;
+
+    private PartMetadata(long id, long mmsId, int sequence, @Nullable String contentType,
+                         long uniqueId) {
+      this.id = id;
+      this.mmsId = mmsId;
+      this.sequence = sequence;
+      this.contentType = contentType;
+      this.uniqueId = uniqueId;
+    }
+  }
 
   public enum AccessStatus {
     OPENED,

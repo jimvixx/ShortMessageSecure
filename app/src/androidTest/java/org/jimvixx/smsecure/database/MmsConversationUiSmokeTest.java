@@ -142,6 +142,7 @@ public class MmsConversationUiSmokeTest {
           Collections.emptyList(), -1);
       ConversationItem smsBubble = bindBubble(sms);
       assertEquals("SMS-only message", bodyText(smsBubble));
+      assertEquals(View.GONE, smsBubble.findViewById(R.id.mms_image_previews).getVisibility());
       assertTrue(sms.isOutgoing());
       assertTrue(isAlignedToEnd(smsBubble));
       AtomicInteger smsClicks = new AtomicInteger();
@@ -177,6 +178,17 @@ public class MmsConversationUiSmokeTest {
       ImageView attachment = attachmentBubble.findViewById(R.id.attachment_indicator);
       assertNotNull(attachment);
       assertEquals(View.VISIBLE, attachment.getVisibility());
+      View previewContainer = attachmentBubble.findViewById(R.id.mms_image_previews);
+      assertEquals(View.VISIBLE, previewContainer.getVisibility());
+      assertEquals(1, ((ViewGroup) previewContainer).getChildCount());
+      assertEquals(context.getString(R.string.conversation_item__image_preview_loading),
+          ((View) ((ViewGroup) previewContainer).getChildAt(0)).getContentDescription());
+
+      attachmentBubble.unbind();
+      attachmentBubble.bind(masterSecret, syntheticSms(61, "recycled SMS row"), Locale.US,
+          Collections.emptySet(), recipients);
+      assertEquals(View.GONE, previewContainer.getVisibility());
+      assertEquals(0, ((ViewGroup) previewContainer).getChildCount());
 
       MmsMessageRecord encrypted = mmsRecord(40, 105, 6000, "synthetic-ciphertext", 0x80000014,
           false, new DisplayRecord.Body("synthetic-ciphertext", false));

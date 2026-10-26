@@ -21,6 +21,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.util.AtomicFile;
@@ -29,8 +31,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Assume;
 
+import org.jimvixx.smsecure.crypto.EncryptingPartOutputStream;
+import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.recipients.RecipientFactory;
 import org.jimvixx.smsecure.recipients.Recipients;
+import org.jimvixx.smsecure.service.KeyCachingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,6 +45,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -83,7 +89,18 @@ public final class MmsManualUiFixtureTest {
     }
     List<Long> emptyThreadIds = new ArrayList<>(Collections.nCopies(5, -1L));
     List<Long> emptyThreadDates = new ArrayList<>(Collections.nCopies(5, -1L));
+    MasterSecret masterSecret = KeyCachingService.getMasterSecret(context);
+    if (masterSecret == null) {
+      fail("Unlock SMSecure before loading the synthetic image fixture");
+    }
+    byte[] imageBytes = createSyntheticImage();
     writeMarker(marker, token, addresses, emptyThreadIds, emptyThreadDates);
+    File incomingImage = writeEncryptedFixturePart(context, token, "indata", imageBytes, masterSecret);
+    File incomingThumbnail = writeEncryptedFixturePart(context, token, "inthumb", imageBytes, masterSecret);
+    File outgoingImage = writeEncryptedFixturePart(context, token, "outdata", imageBytes, masterSecret);
+    File outgoingThumbnail = writeEncryptedFixturePart(context, token, "outthumb", imageBytes, masterSecret);
+    int imageSize = imageBytes.length;
+    Arrays.fill(imageBytes, (byte) 0);
 
     DatabaseFactory.getInstance(context);
     List<Long> recipientIds = new ArrayList<>();
@@ -126,9 +143,17 @@ public final class MmsManualUiFixtureTest {
 
       long attachmentId = firstMessageId + 4;
       insertMms(database, attachmentId, threadIds.get(3), addresses.get(3), now - 10000,
-          label + "\nAttachment metadata only; no file exists", BASE_INBOX,
-          transactionId + "-attachment");
-      insertAttachmentMetadata(database, attachmentId, firstMessageId + 20);
+          label + "\nIncoming synthetic encrypted image preview", BASE_INBOX,
+          transactionId + "-attachment-in");
+      insertAttachmentMetadata(database, attachmentId, firstMessageId + 20,
+          incomingImage, incomingThumbnail, imageSize);
+
+      long outgoingAttachmentId = firstMessageId + 6;
+      insertMms(database, outgoingAttachmentId, threadIds.get(3), addresses.get(3), now - 5000,
+          label + "\nOutgoing synthetic encrypted image preview", BASE_SENT,
+          transactionId + "-attachment-out");
+      insertAttachmentMetadata(database, outgoingAttachmentId, firstMessageId + 21,
+          outgoingImage, outgoingThumbnail, imageSize);
 
       insertMms(database, firstMessageId + 5, threadIds.get(4), addresses.get(4), now,
           null, ENCRYPTED_INBOX, transactionId + "-encrypted");
@@ -186,8 +211,8 @@ public final class MmsManualUiFixtureTest {
       for (long mmsId : fixtureMmsIds) {
         database.delete("part", "mid = ?", new String[]{String.valueOf(mmsId)});
         database.delete("mms_addresses", "mms_id = ?", new String[]{String.valueOf(mmsId)});
-        database.delete("mms", "_id = ? AND tr_id LIKE ?",
-            new String[]{String.valueOf(mmsId), mmsMarker});
+      database.delete("mms", "_id = ? AND tr_id LIKE ?",
+          new String[]{String.valueOf(mmsId), mmsMarker});
       }
 
       CanonicalAddressDatabase canonical = CanonicalAddressDatabase.getInstance(context);
@@ -210,6 +235,7 @@ public final class MmsManualUiFixtureTest {
       database.endTransaction();
     }
 
+    deleteFixtureAttachmentFiles(context, fixture.token);
     removeUnreferencedCanonicalAddresses(context, fixture.addresses);
     new AtomicFile(marker).delete();
   }
@@ -417,20 +443,69 @@ public final class MmsManualUiFixtureTest {
     database.insertOrThrow("mms_addresses", null, addressValues);
   }
 
-  private void insertAttachmentMetadata(SQLiteDatabase database, long mmsId, long partId) {
+  private void insertAttachmentMetadata(SQLiteDatabase database, long mmsId, long partId,
+                                        File original, File thumbnail, int imageSize) {
     ContentValues values = new ContentValues();
     values.put("_id", partId);
     values.put("mid", mmsId);
     values.put("seq", 0);
-    values.put("ct", "image/jpeg");
-    values.put("name", "synthetic-photo.jpg");
-    values.put("encrypted", 0);
-    values.put("data_size", 4096);
-    values.put("file_name", "synthetic-photo.jpg");
+    values.put("ct", "image/png");
+    values.put("name", "synthetic-photo.png");
+    values.put("_data", original.getAbsolutePath());
+    values.put("thumbnail", thumbnail.getAbsolutePath());
+    values.put("unique_id", partId);
+    values.put("encrypted", 1);
+    values.put("data_size", imageSize);
+    values.put("file_name", "synthetic-photo.png");
     database.insertOrThrow("part", null, values);
     ContentValues update = new ContentValues();
     update.put("part_count", 1);
     database.update("mms", update, "_id = ?", new String[]{String.valueOf(mmsId)});
+  }
+
+  private byte[] createSyntheticImage() throws IOException {
+    Bitmap bitmap = Bitmap.createBitmap(96, 72, Bitmap.Config.ARGB_8888);
+    for (int y = 0; y < bitmap.getHeight(); y++) {
+      for (int x = 0; x < bitmap.getWidth(); x++) {
+        bitmap.setPixel(x, y, ((x / 12 + y / 12) % 2 == 0) ? Color.rgb(40, 120, 210) :
+                Color.rgb(245, 190, 60));
+      }
+    }
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    boolean compressed = bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
+    bitmap.eraseColor(Color.TRANSPARENT);
+    bitmap.recycle();
+    if (!compressed) throw new IOException("Unable to generate synthetic image fixture");
+    return output.toByteArray();
+  }
+
+  private File writeEncryptedFixturePart(Context context, String token, String suffix,
+                                         byte[] plaintext, MasterSecret masterSecret)
+          throws IOException {
+    File partsDirectory = context.getDir("parts", Context.MODE_PRIVATE).getCanonicalFile();
+    File file = new File(partsDirectory, "part" + token + suffix + ".mms");
+    if (!partsDirectory.equals(file.getCanonicalFile().getParentFile()) || file.exists()) {
+      throw new IOException("Synthetic image fixture path is not available");
+    }
+    try (EncryptingPartOutputStream output = new EncryptingPartOutputStream(file, masterSecret)) {
+      output.write(plaintext);
+    }
+    return file;
+  }
+
+  private void deleteFixtureAttachmentFiles(Context context, String token) throws IOException {
+    File partsDirectory = context.getDir("parts", Context.MODE_PRIVATE).getCanonicalFile();
+    for (String suffix : new String[]{"indata", "inthumb", "outdata", "outthumb"}) {
+      File file = new File(partsDirectory, "part" + token + suffix + ".mms");
+      if (!partsDirectory.equals(file.getAbsoluteFile().getParentFile()) ||
+          !file.getName().matches("part" + token + "(?:indata|inthumb|outdata|outthumb)\\.mms") ||
+          !file.getCanonicalFile().equals(file)) {
+        throw new IOException("Refusing to remove an unexpected synthetic attachment path");
+      }
+      if (file.exists() && (!file.isFile() || !file.delete())) {
+        throw new IOException("Unable to remove synthetic image fixture file");
+      }
+    }
   }
 
   private boolean hasMessages(SQLiteDatabase database, long threadId) {

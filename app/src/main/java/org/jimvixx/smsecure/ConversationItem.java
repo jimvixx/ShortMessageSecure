@@ -22,6 +22,7 @@ import static org.jimvixx.smsecure.util.ThemeUtil.resolveThemeColor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -60,7 +61,9 @@ import org.jimvixx.smsecure.util.dualsim.SubscriptionInfoCompat;
 import org.jimvixx.smsecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.libsignal.util.guava.Optional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -108,6 +111,12 @@ public class ConversationItem extends LinearLayout
   private @Nullable AvatarImageView contactPhoto;
   private @Nullable DeliveryStatusView deliveryStatusIndicator;
   private @Nullable ImageView attachmentIndicator;
+  private @Nullable LinearLayout mmsImagePreviews;
+  private @Nullable MmsImageThumbnailLoader mmsImageThumbnailLoader;
+  private @Nullable MmsImageThumbnailLoader.Request mmsImageLoadRequest;
+  private final List<Bitmap> displayedMmsBitmaps = new ArrayList<>();
+  private long mmsImageBindingGeneration;
+  private boolean pendingMmsImageLoad;
   private @Nullable AlertView alertView;
   private @NonNull Set<MessageRecord> batchSelected = new HashSet<>();
   private final View.OnLongClickListener textSelectionLongClickListener = view -> false;
@@ -145,9 +154,12 @@ public class ConversationItem extends LinearLayout
     secureImage = findViewById(R.id.secure_indicator);
     deliveryStatusIndicator = findViewById(R.id.delivery_status);
     attachmentIndicator = findViewById(R.id.attachment_indicator);
+    mmsImagePreviews = findViewById(R.id.mms_image_previews);
     alertView = findViewById(R.id.indicators_parent);
     contactPhoto = findViewById(R.id.contact_photo);
     bodyBubble = findViewById(R.id.body_bubble);
+    mmsImageThumbnailLoader = new MmsImageThumbnailLoader(
+            DatabaseFactory.getAttachmentDatabase(context), getResources().getDisplayMetrics());
 
     // Ensure ConversationItem always has its internal click routing.
     super.setOnClickListener(new ClickListener(null));
@@ -172,6 +184,7 @@ public class ConversationItem extends LinearLayout
                    @NonNull Locale locale,
                    @NonNull Set<MessageRecord> batchSelected,
                    @NonNull Recipients conversationRecipients) {
+    clearSensitiveAttachmentPreviews();
     this.masterSecret = masterSecret;
     this.messageRecord = messageRecord;
     this.locale = locale;
@@ -194,6 +207,7 @@ public class ConversationItem extends LinearLayout
     }
 
     setStatusIcons(messageRecord);
+    loadMmsImagePreviews(messageRecord);
     checkForAutoInitiate(messageRecord);
     setMinimumWidth();
     setSimInfo(messageRecord);
@@ -201,6 +215,7 @@ public class ConversationItem extends LinearLayout
 
   @Override
   public void unbind() {
+    clearSensitiveAttachmentPreviews();
     if (recipient != null) {
       recipient.removeListener(this);
     }
@@ -208,6 +223,119 @@ public class ConversationItem extends LinearLayout
       conversationRecipients.removeListener(this);
     }
   }
+
+  private void loadMmsImagePreviews(@NonNull MessageRecord record) {
+    if (mmsImagePreviews == null || mmsImageThumbnailLoader == null || !record.isMms() ||
+            record.isMmsNotification() || !record.hasAttachments()) return;
+
+    mmsImagePreviews.setVisibility(View.VISIBLE);
+    addImagePreview(null, true);
+    pendingMmsImageLoad = true;
+    startPendingMmsImageLoad();
+  }
+
+  private void startPendingMmsImageLoad() {
+    if (!pendingMmsImageLoad || !isAttachedToWindow() || messageRecord == null ||
+            mmsImageThumbnailLoader == null) return;
+    pendingMmsImageLoad = false;
+    final MessageRecord record = messageRecord;
+    final long generation = mmsImageBindingGeneration;
+    mmsImageLoadRequest = mmsImageThumbnailLoader.load(record.getId(), masterSecret, result -> {
+      if (generation != mmsImageBindingGeneration || messageRecord != record ||
+              mmsImagePreviews == null) {
+        result.close();
+        return;
+      }
+
+      try {
+        clearImagePreviewViews();
+        for (MmsImageThumbnailLoader.ImagePreview preview : result.previews) {
+          Bitmap bitmap = preview.takeBitmap();
+          addImagePreview(bitmap, false);
+        }
+
+        if (mmsImagePreviews != null) {
+          mmsImagePreviews.setVisibility(result.previews.isEmpty() ? View.GONE : View.VISIBLE);
+        }
+        if (attachmentIndicator != null) {
+          attachmentIndicator.setVisibility(result.hasOtherAttachments ? View.VISIBLE : View.GONE);
+        }
+      } finally {
+        result.close();
+      }
+      mmsImageLoadRequest = null;
+    });
+  }
+
+  @Override
+  protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    if (messageRecord != null && messageRecord.isMms() && messageRecord.hasAttachments() &&
+            mmsImagePreviews != null && mmsImagePreviews.getVisibility() != View.VISIBLE) {
+      mmsImagePreviews.setVisibility(View.VISIBLE);
+      addImagePreview(null, true);
+      pendingMmsImageLoad = true;
+    }
+    startPendingMmsImageLoad();
+  }
+
+  @Override
+  protected void onDetachedFromWindow() {
+    clearSensitiveAttachmentPreviews();
+    super.onDetachedFromWindow();
+  }
+
+  private void addImagePreview(@Nullable Bitmap bitmap, boolean loading) {
+    if (mmsImagePreviews == null) {
+      MmsImageThumbnailLoader.eraseAndRecycle(bitmap);
+      return;
+    }
+    ImageView preview = new ImageView(context);
+    float density = getResources().getDisplayMetrics().density;
+    int width = Math.min(640, Math.max(1, Math.round(220f * density)));
+    int height = Math.min(480, Math.max(1, Math.round(160f * density)));
+    preview.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+    preview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    preview.setBackgroundResource(R.drawable.bg_mms_image_preview_placeholder);
+    preview.setContentDescription(getContext().getString(loading
+            ? R.string.conversation_item__image_preview_loading
+            : R.string.conversation_item__image_preview_description));
+    preview.setClickable(false);
+    preview.setFocusable(false);
+    preview.setOnClickListener(null);
+    preview.setOnLongClickListener(null);
+    if (bitmap != null) {
+      preview.setImageBitmap(bitmap);
+      displayedMmsBitmaps.add(bitmap);
+    }
+    mmsImagePreviews.addView(preview);
+  }
+
+  private void clearImagePreviewViews() {
+    if (mmsImagePreviews != null) {
+      for (int i = 0; i < mmsImagePreviews.getChildCount(); i++) {
+        View child = mmsImagePreviews.getChildAt(i);
+        if (child instanceof ImageView imageView) imageView.setImageDrawable(null);
+      }
+      mmsImagePreviews.removeAllViews();
+    }
+    for (Bitmap bitmap : displayedMmsBitmaps) {
+      MmsImageThumbnailLoader.eraseAndRecycle(bitmap);
+    }
+    displayedMmsBitmaps.clear();
+  }
+
+  void clearSensitiveAttachmentPreviews() {
+    mmsImageBindingGeneration++;
+    pendingMmsImageLoad = false;
+    if (mmsImageLoadRequest != null) {
+      mmsImageLoadRequest.cancel();
+      mmsImageLoadRequest = null;
+    }
+    clearImagePreviewViews();
+    if (mmsImagePreviews != null) mmsImagePreviews.setVisibility(View.GONE);
+  }
+
 
   public @Nullable MessageRecord getMessageRecord() {
     return messageRecord;

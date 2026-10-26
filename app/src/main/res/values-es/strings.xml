@@ -148,6 +148,8 @@
   <string name="conversation_insecure__security">Seguridad</string>
   <!--conversation_item-->
   <string name="conversation_item__attachment_description">Contiene un archivo adjunto</string>
+  <string name="conversation_item__image_preview_description">Vista previa de la imagen de un MMS</string>
+  <string name="conversation_item__image_preview_loading">Cargando la vista previa de la imagen del MMS</string>
   <string name="conversation_item__secure_message_description">Mensaje seguro</string>
   <string name="conversation_item_received__contact_photo_description">Foto de contacto</string>
   <string name="conversation_item_sent__delivered_description">Entregado</string>

@@ -157,6 +157,8 @@
 <string name="conversation_insecure__security">الأمان</string>
 <!--conversation_item-->
 <string name="conversation_item__attachment_description">يحتوي على مرفق</string>
+<string name="conversation_item__image_preview_description">معاينة صورة MMS</string>
+<string name="conversation_item__image_preview_loading">جاري تحميل معاينة صورة MMS</string>
 <string name="conversation_item__secure_message_description">رسالة آمنة</string>
 <string name="conversation_item_received__contact_photo_description">صورة جهة الاتصال</string>
 <string name="conversation_item_sent__delivered_description">تم التسليم</string>

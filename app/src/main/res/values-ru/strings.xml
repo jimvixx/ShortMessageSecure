@@ -151,6 +151,8 @@
     <string name="conversation_insecure__security">Безопасность</string>
     <!--conversation_item-->
     <string name="conversation_item__attachment_description">Содержит вложение</string>
+    <string name="conversation_item__image_preview_description">Предварительный просмотр изображения в MMS</string>
+    <string name="conversation_item__image_preview_loading">Загрузка предварительного просмотра изображения MMS</string>
     <string name="conversation_item__secure_message_description">Защищенное сообщение</string>
     <string name="conversation_item_received__contact_photo_description">Фотография контакта</string>
     <string name="conversation_item_sent__delivered_description">Доставлено</string>

@@ -54,6 +54,14 @@
                 tools:text="Mango pickle lorem ipsum" />
 
             <LinearLayout
+                android:id="@+id/mms_image_previews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="4dp"
+                android:visibility="gone" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

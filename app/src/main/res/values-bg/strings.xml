@@ -145,6 +145,8 @@
     <string name="conversation_insecure__security">Сигурност</string>
     <!--conversation_item-->
     <string name="conversation_item__attachment_description">Съдържа прикачен файл</string>
+    <string name="conversation_item__image_preview_description">Предварителен преглед на изображение в MMS</string>
+    <string name="conversation_item__image_preview_loading">Зареждане на предварителен преглед на MMS изображение</string>
     <string name="conversation_item__secure_message_description">Защитено съобщение</string>
     <string name="conversation_item_received__contact_photo_description">Снимка на контакт</string>
     <string name="conversation_item_sent__delivered_description">Доставено</string>

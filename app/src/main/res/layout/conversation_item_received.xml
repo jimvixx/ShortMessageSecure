@@ -69,6 +69,14 @@
                 android:textSize="@dimen/conversation_item_body_text_size" />
 
             <LinearLayout
+                android:id="@+id/mms_image_previews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="4dp"
+                android:visibility="gone" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"

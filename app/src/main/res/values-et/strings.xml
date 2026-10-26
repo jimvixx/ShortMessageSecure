@@ -145,6 +145,8 @@
 <string name="conversation_insecure__security">Turvalisus</string>
 <!--conversation_item-->
 <string name="conversation_item__attachment_description">Sisaldab manust</string>
+<string name="conversation_item__image_preview_description">MMS-pildi eelvaade</string>
+<string name="conversation_item__image_preview_loading">MMS-pildi eelvaate laadimine</string>
 <string name="conversation_item__secure_message_description">Turvaline sõnum</string>
 <string name="conversation_item_received__contact_photo_description">Kontakti foto</string>
 <string name="conversation_item_sent__delivered_description">Kohale toimetatud</string>

@@ -145,6 +145,8 @@
     <string name="conversation_insecure__security">Sicherheit</string>
     <!--conversation_item-->
     <string name="conversation_item__attachment_description">Enthält einen Anhang</string>
+    <string name="conversation_item__image_preview_description">MMS-Bildvorschau</string>
+    <string name="conversation_item__image_preview_loading">MMS-Bildvorschau wird geladen</string>
     <string name="conversation_item__secure_message_description">Sichere Nachricht</string>
     <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
     <string name="conversation_item_sent__delivered_description">Zugestellt</string>

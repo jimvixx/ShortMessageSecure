@@ -24,6 +24,7 @@ import android.system.OsConstants;
 import android.system.StructStat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -70,6 +71,14 @@ public final class AuthenticatedPartReader {
   public static CiphertextSnapshot snapshot(@NonNull Context context,
                                              @NonNull File encryptedFile,
                                              long maxPlaintextBytes) throws IOException {
+    return snapshot(context, encryptedFile, maxPlaintextBytes, null);
+  }
+
+  static CiphertextSnapshot snapshot(@NonNull Context context,
+                                     @NonNull File encryptedFile,
+                                     long maxPlaintextBytes,
+                                     @Nullable SnapshotCopyObserver copyObserver)
+          throws IOException {
     if (maxPlaintextBytes < 0) throw new IllegalArgumentException("Negative plaintext limit");
     File cache = context.getCacheDir();
     if (cache == null || !cache.isDirectory()) throw new IOException("Private cache unavailable");
@@ -80,7 +89,8 @@ public final class AuthenticatedPartReader {
       File snapshotPath = File.createTempFile(TEMP_PREFIX, ".tmp", canonicalCache);
       FileInputStream snapshotInput = null;
       try {
-        copyStablePrivateSource(context, encryptedFile, snapshotPath, maxPlaintextBytes);
+        copyStablePrivateSource(context, encryptedFile, snapshotPath, maxPlaintextBytes,
+                copyObserver);
         StructStat snapshotPathStat = lstat(snapshotPath);
         snapshotInput = new FileInputStream(snapshotPath);
         StructStat snapshotOpenedStat = fstat(snapshotInput.getFD());
@@ -107,7 +117,9 @@ public final class AuthenticatedPartReader {
   }
 
   private static void copyStablePrivateSource(Context context, File source, File destination,
-                                              long maxPlaintextBytes) throws IOException {
+                                              long maxPlaintextBytes,
+                                              @Nullable SnapshotCopyObserver copyObserver)
+          throws IOException {
     if (!source.isAbsolute()) throw new IOException("Attachment source must be absolute");
     File appDataRoot = context.getFilesDir().getCanonicalFile().getParentFile();
     File canonicalSource = source.getCanonicalFile();
@@ -145,6 +157,7 @@ public final class AuthenticatedPartReader {
           }
           output.write(buffer, 0, count);
           copied += count;
+          if (copyObserver != null) copyObserver.onBytesCopied(copied);
         }
         output.flush();
         output.getFD().sync();
@@ -158,6 +171,10 @@ public final class AuthenticatedPartReader {
         throw new IOException("Attachment source changed during snapshot");
       }
     }
+  }
+
+  interface SnapshotCopyObserver {
+    void onBytesCopied(long ciphertextBytes) throws IOException;
   }
 
   private static boolean isDescendant(File root, File candidate) {

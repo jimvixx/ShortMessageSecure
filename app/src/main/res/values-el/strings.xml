@@ -145,6 +145,8 @@
   <string name="conversation_insecure__security">Ασφάλεια</string>
   <!--conversation_item-->
   <string name="conversation_item__attachment_description">Περιέχει συνημμένο</string>
+  <string name="conversation_item__image_preview_description">Προεπισκόπηση εικόνας MMS</string>
+  <string name="conversation_item__image_preview_loading">Φόρτωση προεπισκόπησης εικόνας MMS</string>
   <string name="conversation_item__secure_message_description">Ασφαλές μήνυμα</string>
   <string name="conversation_item_received__contact_photo_description">Φωτογραφία επαφής</string>
   <string name="conversation_item_sent__delivered_description">Παραδόθηκε</string>

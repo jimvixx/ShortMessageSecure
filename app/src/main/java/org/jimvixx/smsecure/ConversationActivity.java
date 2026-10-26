@@ -327,6 +327,12 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   @Override
+  public void onMasterSecretCleared() {
+    if (fragment != null) fragment.clearSensitiveAttachmentPreviews();
+    super.onMasterSecretCleared();
+  }
+
+  @Override
   public void onConfigurationChanged(@NonNull Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
 

@@ -148,6 +148,8 @@
     <string name="conversation_insecure__security">אבטחה</string>
     <!--conversation_item-->
     <string name="conversation_item__attachment_description">מכיל קובץ מצורף</string>
+    <string name="conversation_item__image_preview_description">תצוגה מקדימה של תמונה ב-MMS</string>
+    <string name="conversation_item__image_preview_loading">טעינת תצוגה מקדימה של תמונה ב-MMS</string>
     <string name="conversation_item__secure_message_description">הודעה מאובטחת</string>
     <string name="conversation_item_received__contact_photo_description">תמונת איש הקשר</string>
     <string name="conversation_item_sent__delivered_description">נמסר</string>

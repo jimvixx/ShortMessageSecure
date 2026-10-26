@@ -145,6 +145,8 @@
   <string name="conversation_insecure__security">Sikkerhet</string>
   <!--conversation_item-->
   <string name="conversation_item__attachment_description">Inneholder vedlegg</string>
+  <string name="conversation_item__image_preview_description">MMS-bildeforhåndsvisning</string>
+  <string name="conversation_item__image_preview_loading">Laster inn forhåndsvisning av MMS-bilde</string>
   <string name="conversation_item__secure_message_description">Sikker melding</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktbilde</string>
   <string name="conversation_item_sent__delivered_description">Levert</string>

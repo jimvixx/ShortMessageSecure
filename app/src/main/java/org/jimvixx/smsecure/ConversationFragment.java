@@ -164,6 +164,20 @@ public class ConversationFragment extends Fragment
     if (a != null) a.notifyDataSetChanged();
   }
 
+  @Override
+  public void onPause() {
+    clearSensitiveAttachmentPreviews();
+    super.onPause();
+  }
+
+  public void clearSensitiveAttachmentPreviews() {
+    if (list == null) return;
+    for (int i = 0; i < list.getChildCount(); i++) {
+      View child = list.getChildAt(i);
+      if (child instanceof ConversationItem item) item.clearSensitiveAttachmentPreviews();
+    }
+  }
+
   public void onNewIntent() {
     if (actionMode != null) actionMode.finish();
     initializeResources();

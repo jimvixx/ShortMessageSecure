@@ -145,6 +145,8 @@
   <string name="conversation_insecure__security">Biztonság</string>
   <!--conversation_item-->
   <string name="conversation_item__attachment_description">Mellékletet tartalmaz</string>
+  <string name="conversation_item__image_preview_description">MMS-képelőnézet</string>
+  <string name="conversation_item__image_preview_loading">MMS-képelőnézet betöltése</string>
   <string name="conversation_item__secure_message_description">Biztonságos üzenet</string>
   <string name="conversation_item_received__contact_photo_description">Névjegy fotó</string>
   <string name="conversation_item_sent__delivered_description">Kézbesítve</string>

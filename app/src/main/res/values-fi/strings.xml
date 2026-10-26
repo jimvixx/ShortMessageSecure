@@ -145,6 +145,8 @@
   <string name="conversation_insecure__security">Turvallisuus</string>
   <!--conversation_item-->
   <string name="conversation_item__attachment_description">Sisältää liitteen</string>
+  <string name="conversation_item__image_preview_description">MMS-kuvan esikatselu</string>
+  <string name="conversation_item__image_preview_loading">MMS-kuvan esikatselun lataaminen</string>
   <string name="conversation_item__secure_message_description">Suojattu viesti</string>
   <string name="conversation_item_received__contact_photo_description">Yhteystiedon valokuva</string>
   <string name="conversation_item_sent__delivered_description">Toimitettu</string>
