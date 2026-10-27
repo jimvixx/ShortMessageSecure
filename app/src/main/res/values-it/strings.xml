@@ -150,6 +150,15 @@
     <string name="conversation_item__attachment_description">Contiene allegato</string>
     <string name="conversation_item__image_preview_description">Anteprima immagine MMS</string>
     <string name="conversation_item__image_preview_loading">Caricamento dell’anteprima dell’immagine MMS</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> allegato in più</item>
+        <item quantity="many">Altri <xliff:g id="arg1">%1$d</xliff:g> allegati</item>
+        <item quantity="other">Altri <xliff:g id="arg1">%1$d</xliff:g> allegati</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">Allegato audio</string>
+    <string name="conversation_item__mms_attachment_file">Allegato</string>
+    <string name="conversation_item__mms_attachment_unavailable">La riproduzione o l’apertura non sono disponibili</string>
+    <string name="conversation_item__mms_attachment_video">Allegato video</string>
     <string name="conversation_item__secure_message_description">Messaggio protetto</string>
     <string name="conversation_item_received__contact_photo_description">Foto del contatto</string>
     <string name="conversation_item_sent__delivered_description">Consegnato</string>

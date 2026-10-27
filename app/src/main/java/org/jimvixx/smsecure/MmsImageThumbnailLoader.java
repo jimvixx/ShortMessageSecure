@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jimvixx.smsecure;
 
 import android.graphics.Bitmap;
@@ -28,7 +29,6 @@ import androidx.annotation.Nullable;
 
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.AttachmentDatabase;
-import org.jimvixx.smsecure.util.AppExecutors;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +48,9 @@ import java.util.concurrent.atomic.AtomicReference;
 /** Loads authenticated MMS image previews without disk caching or filesystem paths. */
 public final class MmsImageThumbnailLoader {
   private static final int MAX_PREVIEWS = 3;
+  private static final int MAX_ATTACHMENT_ROWS = 16;
+  private static final int MAX_DISPLAY_NAME_CODE_POINTS = 80;
+  private static final long MAX_DISPLAYED_ATTACHMENT_BYTES = 512L * 1024L * 1024L;
   private static final int MAX_COMPRESSED_BYTES = 8 * 1024 * 1024;
   private static final long MAX_SOURCE_PIXELS = 100_000_000L;
   private static final int MAX_DECODE_WIDTH = 640;
@@ -100,30 +103,36 @@ public final class MmsImageThumbnailLoader {
 
   private LoadResult loadOnWorker(long mmsId, @Nullable MasterSecret masterSecret,
                                   Request request) {
-    List<AttachmentDatabase.PartMetadata> parts;
+    List<AttachmentDatabase.PartMetadata> imageParts = new ArrayList<>(MAX_PREVIEWS);
+    List<AttachmentPreview> attachments = new ArrayList<>(MAX_ATTACHMENT_ROWS);
+    int[] additionalAttachmentCount = {0};
+    boolean[] hasOtherAttachments = {false};
     try {
-      parts = attachmentDatabase.getPartMetadataForMessage(mmsId);
+      attachmentDatabase.forEachPartMetadataForMessage(mmsId, part -> {
+        if (!isSupportedImageType(part.contentType)) {
+          AttachmentPreview attachment = createAttachmentPreview(part);
+          if (attachment != null) {
+            hasOtherAttachments[0] = true;
+            if (attachments.size() < MAX_ATTACHMENT_ROWS) attachments.add(attachment);
+            else additionalAttachmentCount[0]++;
+          } else if (isImageType(part.contentType)) {
+            hasOtherAttachments[0] = true;
+          }
+          return;
+        }
+
+        if (imageParts.size() < MAX_PREVIEWS) imageParts.add(part);
+        else hasOtherAttachments[0] = true;
+      });
     } catch (RuntimeException exception) {
-      return new LoadResult(Collections.emptyList(), true);
+      return new LoadResult(Collections.emptyList(), Collections.emptyList(), true);
     }
 
-    if (parts.isEmpty()) return new LoadResult(Collections.emptyList(), true);
-
     List<ImagePreview> previews = new ArrayList<>();
-    boolean hasOtherAttachments = false;
-    for (AttachmentDatabase.PartMetadata part : parts) {
+    for (AttachmentDatabase.PartMetadata part : imageParts) {
       if (request.isCancelled() || Thread.currentThread().isInterrupted()) {
         clearPreviews(previews);
-        return new LoadResult(Collections.emptyList(), true);
-      }
-
-      if (!isSupportedImageType(part.contentType)) {
-        hasOtherAttachments = true;
-        continue;
-      }
-      if (previews.size() >= MAX_PREVIEWS) {
-        hasOtherAttachments = true;
-        continue;
+        return new LoadResult(Collections.emptyList(), Collections.emptyList(), true, 0);
       }
 
       try {
@@ -135,11 +144,72 @@ public final class MmsImageThumbnailLoader {
         previews.add(new ImagePreview(part.id, part.uniqueId, decoded.bitmap));
       } catch (OutOfMemoryError error) {
         clearPreviews(previews);
-        return new LoadResult(Collections.emptyList(), true);
+        return new LoadResult(Collections.emptyList(), Collections.emptyList(), true, 0);
       }
     }
 
-    return new LoadResult(previews, hasOtherAttachments);
+    return new LoadResult(previews, attachments, hasOtherAttachments[0],
+            additionalAttachmentCount[0]);
+  }
+
+  @Nullable private static AttachmentPreview createAttachmentPreview(
+          @NonNull AttachmentDatabase.PartMetadata part) {
+    String mime = normalizedMime(part.contentType);
+    if (isInternalPartType(mime) || (mime != null && mime.startsWith("image/"))) return null;
+
+    AttachmentKind kind = mime != null && mime.startsWith("audio/") ? AttachmentKind.AUDIO
+            : mime != null && mime.startsWith("video/") ? AttachmentKind.VIDEO
+            : AttachmentKind.FILE;
+    String safeName = safeDisplayName(part.name);
+    long safeSize = part.dataSize > 0 && part.dataSize <= MAX_DISPLAYED_ATTACHMENT_BYTES
+            ? part.dataSize : -1L;
+    return new AttachmentPreview(kind, safeName, mime, safeSize);
+  }
+
+  @Nullable private static String normalizedMime(@Nullable String contentType) {
+    if (contentType == null || contentType.length() > 255) return null;
+    String mime = contentType.trim().toLowerCase(Locale.ROOT);
+    int parameter = mime.indexOf(';');
+    if (parameter >= 0) mime = mime.substring(0, parameter).trim();
+    if (mime.isEmpty() || mime.length() > 127) return null;
+    for (int i = 0; i < mime.length(); i++) {
+      char c = mime.charAt(i);
+      if (!(c >= 'a' && c <= 'z') && !(c >= '0' && c <= '9') &&
+              c != '/' && c != '.' && c != '+' && c != '-' && c != '_') return null;
+    }
+    return mime;
+  }
+
+  private static boolean isInternalPartType(@Nullable String mime) {
+    return mime != null && (mime.startsWith("text/") || mime.startsWith("multipart/") ||
+            "application/smil".equals(mime) || "application/smil+xml".equals(mime) ||
+            mime.startsWith("application/vnd.wap.multipart."));
+  }
+
+  private static boolean isImageType(@Nullable String contentType) {
+    String mime = normalizedMime(contentType);
+    return mime != null && mime.startsWith("image/");
+  }
+
+  @Nullable private static String safeDisplayName(@Nullable String name) {
+    if (name == null) return null;
+    String value = name.trim();
+    if (value.isEmpty() || value.length() > 512 || value.indexOf('/') >= 0 ||
+            value.indexOf('\\') >= 0 || value.matches("(?i)^[a-z][a-z0-9+.-]*:.*")) return null;
+    StringBuilder safe = new StringBuilder(Math.min(value.length(), MAX_DISPLAY_NAME_CODE_POINTS));
+    int offset = 0;
+    int acceptedCodePoints = 0;
+    while (offset < value.length() && acceptedCodePoints < MAX_DISPLAY_NAME_CODE_POINTS) {
+      int codePoint = value.codePointAt(offset);
+      offset += Character.charCount(codePoint);
+      int category = Character.getType(codePoint);
+      if (Character.isISOControl(codePoint) || category == Character.FORMAT ||
+              category == Character.SURROGATE) continue;
+      safe.appendCodePoint(codePoint);
+      acceptedCodePoints++;
+    }
+    String result = safe.toString().trim();
+    return result.isEmpty() ? null : result;
   }
 
   private DecodeResult decodePart(long mmsId, AttachmentDatabase.PartMetadata part,
@@ -307,18 +377,46 @@ public final class MmsImageThumbnailLoader {
 
   public static final class LoadResult implements AutoCloseable {
     public final List<ImagePreview> previews;
+    public final List<AttachmentPreview> attachments;
     public final boolean hasOtherAttachments;
+    public final int additionalAttachmentCount;
     private boolean closed;
 
-    private LoadResult(List<ImagePreview> previews, boolean hasOtherAttachments) {
+    private LoadResult(List<ImagePreview> previews, List<AttachmentPreview> attachments,
+                       boolean hasOtherAttachments) {
+      this(previews, attachments, hasOtherAttachments, 0);
+    }
+
+    private LoadResult(List<ImagePreview> previews, List<AttachmentPreview> attachments,
+                       boolean hasOtherAttachments, int additionalAttachmentCount) {
       this.previews = Collections.unmodifiableList(new ArrayList<>(previews));
+      this.attachments = Collections.unmodifiableList(new ArrayList<>(attachments));
       this.hasOtherAttachments = hasOtherAttachments;
+      this.additionalAttachmentCount = additionalAttachmentCount;
     }
 
     @Override public synchronized void close() {
       if (closed) return;
       closed = true;
       clearPreviews(previews);
+    }
+  }
+
+  public enum AttachmentKind { AUDIO, VIDEO, FILE }
+
+  /** Safe display-only metadata; deliberately contains no paths or attachment bytes. */
+  public static final class AttachmentPreview {
+    public final AttachmentKind kind;
+    @Nullable public final String name;
+    @Nullable public final String contentType;
+    public final long sizeBytes;
+
+    private AttachmentPreview(AttachmentKind kind, @Nullable String name,
+                              @Nullable String contentType, long sizeBytes) {
+      this.kind = kind;
+      this.name = name;
+      this.contentType = contentType;
+      this.sizeBytes = sizeBytes;
     }
   }
 

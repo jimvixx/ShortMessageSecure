@@ -147,6 +147,12 @@ public final class MmsManualUiFixtureTest {
           transactionId + "-attachment-in");
       insertAttachmentMetadata(database, attachmentId, firstMessageId + 20,
           incomingImage, incomingThumbnail, imageSize);
+      insertDisplayOnlyAttachmentMetadata(database, attachmentId, firstMessageId + 22, 1,
+          "audio/mpeg", "synthetic-voice-note.mp3", 24576);
+      insertDisplayOnlyAttachmentMetadata(database, attachmentId, firstMessageId + 23, 2,
+          "video/mp4", "synthetic-short-video.mp4", 1048576);
+      insertDisplayOnlyAttachmentMetadata(database, attachmentId, firstMessageId + 24, 3,
+          "application/pdf", "synthetic-document.pdf", 8192);
 
       long outgoingAttachmentId = firstMessageId + 6;
       insertMms(database, outgoingAttachmentId, threadIds.get(3), addresses.get(3), now - 5000,
@@ -154,6 +160,10 @@ public final class MmsManualUiFixtureTest {
           transactionId + "-attachment-out");
       insertAttachmentMetadata(database, outgoingAttachmentId, firstMessageId + 21,
           outgoingImage, outgoingThumbnail, imageSize);
+      insertDisplayOnlyAttachmentMetadata(database, outgoingAttachmentId, firstMessageId + 25, 1,
+          "audio/ogg", "synthetic-outgoing-audio.ogg", 16384);
+      insertDisplayOnlyAttachmentMetadata(database, outgoingAttachmentId, firstMessageId + 26, 2,
+          "video/mp4", "synthetic-outgoing-video.mp4", 524288);
 
       insertMms(database, firstMessageId + 5, threadIds.get(4), addresses.get(4), now,
           null, ENCRYPTED_INBOX, transactionId + "-encrypted");
@@ -460,6 +470,24 @@ public final class MmsManualUiFixtureTest {
     database.insertOrThrow("part", null, values);
     ContentValues update = new ContentValues();
     update.put("part_count", 1);
+    database.update("mms", update, "_id = ?", new String[]{String.valueOf(mmsId)});
+  }
+
+  private void insertDisplayOnlyAttachmentMetadata(SQLiteDatabase database, long mmsId,
+                                                   long partId, int sequence, String contentType,
+                                                   String name, long size) {
+    ContentValues values = new ContentValues();
+    values.put("_id", partId);
+    values.put("mid", mmsId);
+    values.put("seq", sequence);
+    values.put("ct", contentType);
+    values.put("name", name);
+    values.put("data_size", size);
+    values.put("unique_id", partId);
+    values.put("encrypted", 1);
+    database.insertOrThrow("part", null, values);
+    ContentValues update = new ContentValues();
+    update.put("part_count", sequence + 1);
     database.update("mms", update, "_id = ?", new String[]{String.valueOf(mmsId)});
   }
 

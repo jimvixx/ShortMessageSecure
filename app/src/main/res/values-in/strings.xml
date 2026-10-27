@@ -144,6 +144,13 @@
 <string name="conversation_item__attachment_description">Berisi lampiran</string>
 <string name="conversation_item__image_preview_description">Pratinjau gambar MMS</string>
 <string name="conversation_item__image_preview_loading">Memuat pratinjau gambar MMS</string>
+<plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> lampiran lainnya</item>
+    </plurals>
+<string name="conversation_item__mms_attachment_audio">Lampiran audio</string>
+<string name="conversation_item__mms_attachment_file">Lampiran berkas</string>
+<string name="conversation_item__mms_attachment_unavailable">Pemutaran atau pembukaan tidak tersedia</string>
+<string name="conversation_item__mms_attachment_video">Lampiran video</string>
 <string name="conversation_item__secure_message_description">Pesan aman</string>
 <string name="conversation_item_received__contact_photo_description">Foto kontak</string>
 <string name="conversation_item_sent__delivered_description">Terkirim</string>

@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Inneholder vedlegg</string>
   <string name="conversation_item__image_preview_description">MMS-bildeforhåndsvisning</string>
   <string name="conversation_item__image_preview_loading">Laster inn forhåndsvisning av MMS-bilde</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> vedlegg til</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> flere vedlegg</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Lydvedlegg</string>
+  <string name="conversation_item__mms_attachment_file">Vedlegg</string>
+  <string name="conversation_item__mms_attachment_unavailable">Avspilling eller åpning er ikke tilgjengelig</string>
+  <string name="conversation_item__mms_attachment_video">Videobilag</string>
   <string name="conversation_item__secure_message_description">Sikker melding</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktbilde</string>
   <string name="conversation_item_sent__delivered_description">Levert</string>

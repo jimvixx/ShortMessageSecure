@@ -150,6 +150,15 @@
   <string name="conversation_item__attachment_description">Conține atașament</string>
   <string name="conversation_item__image_preview_description">Previzualizare imagine MMS</string>
   <string name="conversation_item__image_preview_loading">Se încarcă previzualizarea imaginii MMS</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">încă <xliff:g id="arg1">%1$d</xliff:g> atașament</item>
+        <item quantity="few">încă <xliff:g id="arg1">%1$d</xliff:g> atașamente</item>
+        <item quantity="other">încă <xliff:g id="arg1">%1$d</xliff:g> atașamente</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Atașament audio</string>
+  <string name="conversation_item__mms_attachment_file">Fișier atașat</string>
+  <string name="conversation_item__mms_attachment_unavailable">Redarea sau deschiderea nu este disponibilă</string>
+  <string name="conversation_item__mms_attachment_video">Atașament video</string>
   <string name="conversation_item__secure_message_description">Mesaj securizat</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie de contact</string>
   <string name="conversation_item_sent__delivered_description">Livrat</string>

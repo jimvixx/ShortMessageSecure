@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Bevat bijlage</string>
   <string name="conversation_item__image_preview_description">MMS-afbeeldingsvoorbeeld</string>
   <string name="conversation_item__image_preview_loading">MMS-afbeeldingsvoorbeeld wordt geladen</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Nog <xliff:g id="arg1">%1$d</xliff:g> bijlage</item>
+        <item quantity="other">Nog <xliff:g id="arg1">%1$d</xliff:g> bijlagen</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Audiobijlage</string>
+  <string name="conversation_item__mms_attachment_file">Bijlage</string>
+  <string name="conversation_item__mms_attachment_unavailable">Afspelen of openen is niet beschikbaar</string>
+  <string name="conversation_item__mms_attachment_video">Videobijlage</string>
   <string name="conversation_item__secure_message_description">Beveiligd bericht</string>
   <string name="conversation_item_received__contact_photo_description">Contactfoto</string>
   <string name="conversation_item_sent__delivered_description">Bezorgd</string>

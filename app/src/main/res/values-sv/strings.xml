@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Innehåller bilaga</string>
   <string name="conversation_item__image_preview_description">Förhandsgranskning av MMS-bild</string>
   <string name="conversation_item__image_preview_loading">Laddar förhandsgranskning av MMS-bild</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> ytterligare bilaga</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> fler bilagor</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Ljudbilaga</string>
+  <string name="conversation_item__mms_attachment_file">Bilaga</string>
+  <string name="conversation_item__mms_attachment_unavailable">Uppspelning eller öppning är inte tillgänglig</string>
+  <string name="conversation_item__mms_attachment_video">Videobilaga</string>
   <string name="conversation_item__secure_message_description">Säker meddelande</string>
   <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
   <string name="conversation_item_sent__delivered_description">Levererad</string>

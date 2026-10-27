@@ -153,6 +153,16 @@
   <string name="conversation_item__attachment_description">Vsebuje prilogo</string>
   <string name="conversation_item__image_preview_description">Predogled slike v MMS-sporočilu</string>
   <string name="conversation_item__image_preview_loading">Nalaganje predogleda slike MMS</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Še <xliff:g id="arg1">%1$d</xliff:g> priloga</item>
+        <item quantity="two">Še <xliff:g id="arg1">%1$d</xliff:g> prilogi</item>
+        <item quantity="few">Še <xliff:g id="arg1">%1$d</xliff:g> priloge</item>
+        <item quantity="other">Še <xliff:g id="arg1">%1$d</xliff:g> priloge</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Zvočna priloga</string>
+  <string name="conversation_item__mms_attachment_file">Priložena datoteka</string>
+  <string name="conversation_item__mms_attachment_unavailable">Predvajanje ali odpiranje ni na voljo</string>
+  <string name="conversation_item__mms_attachment_video">Priloga videoposnetka</string>
   <string name="conversation_item__secure_message_description">Varnostno sporočilo</string>
   <string name="conversation_item_received__contact_photo_description">Fotografija stika</string>
   <string name="conversation_item_sent__delivered_description">Dostavljeno</string>

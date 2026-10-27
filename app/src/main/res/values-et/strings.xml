@@ -147,6 +147,14 @@
 <string name="conversation_item__attachment_description">Sisaldab manust</string>
 <string name="conversation_item__image_preview_description">MMS-pildi eelvaade</string>
 <string name="conversation_item__image_preview_loading">MMS-pildi eelvaate laadimine</string>
+<plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Veel <xliff:g id="arg1">%1$d</xliff:g> manust</item>
+        <item quantity="other">veel <xliff:g id="arg1">%1$d</xliff:g> manust</item>
+    </plurals>
+<string name="conversation_item__mms_attachment_audio">Helifaili manuse</string>
+<string name="conversation_item__mms_attachment_file">Manus</string>
+<string name="conversation_item__mms_attachment_unavailable">Esitamine või avamine ei ole võimalik</string>
+<string name="conversation_item__mms_attachment_video">Videolisa</string>
 <string name="conversation_item__secure_message_description">Turvaline sõnum</string>
 <string name="conversation_item_received__contact_photo_description">Kontakti foto</string>
 <string name="conversation_item_sent__delivered_description">Kohale toimetatud</string>

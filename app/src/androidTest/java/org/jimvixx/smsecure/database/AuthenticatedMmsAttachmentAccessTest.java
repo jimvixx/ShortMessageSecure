@@ -116,6 +116,13 @@ public final class AuthenticatedMmsAttachmentAccessTest {
     if (testRoot != null) deleteTree(testRoot);
   }
 
+  @Test public void nullFileKindReturnsUnsupportedMetadata() {
+    assertStatus(attachments.openPart(MMS_ID, PART_ID, UNIQUE_ID, null, masterSecret),
+            AttachmentDatabase.AccessStatus.UNSUPPORTED_METADATA);
+    assertStatus(attachments.openPart(MMS_ID, PART_ID, UNIQUE_ID, null, masterSecret, 1024),
+            AttachmentDatabase.AccessStatus.UNSUPPORTED_METADATA);
+  }
+
   @Test public void opensDataAndThumbnailOnlyAfterAuthenticationWithoutChangingMetadata() throws Exception {
     byte[] original = "synthetic original attachment".getBytes(StandardCharsets.UTF_8);
     byte[] thumbnail = new byte[]{9, 8, 7, 6};

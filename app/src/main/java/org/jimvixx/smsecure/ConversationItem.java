@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Patterns;
@@ -96,6 +97,8 @@ public class ConversationItem extends LinearLayout
 
   private final @NonNull Context context;
   private final PassthroughClickListener passthroughClickListener = new PassthroughClickListener();
+  private final List<Bitmap> displayedMmsBitmaps = new ArrayList<>();
+  private final View.OnLongClickListener textSelectionLongClickListener = view -> false;
   protected @Nullable View bodyBubble;
   private @Nullable MessageRecord messageRecord;
   private @Nullable MasterSecret masterSecret;
@@ -112,14 +115,13 @@ public class ConversationItem extends LinearLayout
   private @Nullable DeliveryStatusView deliveryStatusIndicator;
   private @Nullable ImageView attachmentIndicator;
   private @Nullable LinearLayout mmsImagePreviews;
+  private @Nullable LinearLayout mmsAttachmentRows;
   private @Nullable MmsImageThumbnailLoader mmsImageThumbnailLoader;
   private @Nullable MmsImageThumbnailLoader.Request mmsImageLoadRequest;
-  private final List<Bitmap> displayedMmsBitmaps = new ArrayList<>();
   private long mmsImageBindingGeneration;
   private boolean pendingMmsImageLoad;
   private @Nullable AlertView alertView;
   private @NonNull Set<MessageRecord> batchSelected = new HashSet<>();
-  private final View.OnLongClickListener textSelectionLongClickListener = view -> false;
   private @Nullable Recipients conversationRecipients;
   // These are inflated from ViewStubs and must be nullable in Java.
   private int defaultBubbleColor;
@@ -155,6 +157,7 @@ public class ConversationItem extends LinearLayout
     deliveryStatusIndicator = findViewById(R.id.delivery_status);
     attachmentIndicator = findViewById(R.id.attachment_indicator);
     mmsImagePreviews = findViewById(R.id.mms_image_previews);
+    mmsAttachmentRows = findViewById(R.id.mms_attachment_rows);
     alertView = findViewById(R.id.indicators_parent);
     contactPhoto = findViewById(R.id.contact_photo);
     bodyBubble = findViewById(R.id.body_bubble);
@@ -247,8 +250,10 @@ public class ConversationItem extends LinearLayout
         return;
       }
 
-      try {
+      try (result) {
         clearImagePreviewViews();
+        renderMmsAttachmentRows(result.attachments, result.additionalAttachmentCount,
+                record.isOutgoing());
         for (MmsImageThumbnailLoader.ImagePreview preview : result.previews) {
           Bitmap bitmap = preview.takeBitmap();
           addImagePreview(bitmap, false, record.getId(), preview.partId, preview.uniqueId);
@@ -260,8 +265,6 @@ public class ConversationItem extends LinearLayout
         if (attachmentIndicator != null) {
           attachmentIndicator.setVisibility(result.hasOtherAttachments ? View.VISIBLE : View.GONE);
         }
-      } finally {
-        result.close();
       }
       mmsImageLoadRequest = null;
     });
@@ -332,6 +335,111 @@ public class ConversationItem extends LinearLayout
     displayedMmsBitmaps.clear();
   }
 
+  private void renderMmsAttachmentRows(
+          @NonNull List<MmsImageThumbnailLoader.AttachmentPreview> attachments,
+          int additionalAttachmentCount,
+          boolean outgoing) {
+    if (mmsAttachmentRows == null) return;
+    mmsAttachmentRows.removeAllViews();
+    if (attachments.isEmpty() && additionalAttachmentCount <= 0) {
+      mmsAttachmentRows.setVisibility(View.GONE);
+      return;
+    }
+
+    int primaryColor = resolveThemeColor(context, outgoing
+            ? R.attr.conversation_item_sent_text_primary_color
+            : R.attr.conversation_item_received_text_primary_color);
+    int secondaryColor = resolveThemeColor(context, outgoing
+            ? R.attr.conversation_item_sent_text_secondary_color
+            : R.attr.conversation_item_received_text_secondary_color);
+    for (MmsImageThumbnailLoader.AttachmentPreview attachment : attachments) {
+      LinearLayout row = new LinearLayout(context);
+      row.setOrientation(LinearLayout.HORIZONTAL);
+      row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+      row.setPadding(dp(6), dp(5), dp(6), dp(5));
+      row.setClickable(false);
+      row.setFocusable(false);
+      row.setLongClickable(false);
+      row.setContentDescription(context.getString(R.string.conversation_item__mms_attachment_unavailable));
+
+      ImageView icon = new ImageView(context);
+      icon.setImageResource(attachment.kind == MmsImageThumbnailLoader.AttachmentKind.AUDIO
+              ? R.drawable.ic_volume_high
+              : attachment.kind == MmsImageThumbnailLoader.AttachmentKind.VIDEO
+              ? R.drawable.ic_video : R.drawable.ic_file_document);
+      icon.setColorFilter(secondaryColor, PorterDuff.Mode.SRC_IN);
+      LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(dp(28), dp(28));
+      iconParams.setMarginEnd(dp(10));
+      row.addView(icon, iconParams);
+
+      LinearLayout labels = new LinearLayout(context);
+      labels.setOrientation(LinearLayout.VERTICAL);
+      TextView title = new TextView(context);
+      title.setText(attachment.name == null ? categoryLabel(attachment.kind) : attachment.name);
+      title.setTextColor(primaryColor);
+      title.setTextSize(14);
+      title.setMaxLines(1);
+      title.setMaxWidth(dp(240));
+      title.setEllipsize(android.text.TextUtils.TruncateAt.END);
+      labels.addView(title, new LinearLayout.LayoutParams(
+              LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+      TextView details = new TextView(context);
+      details.setTextColor(secondaryColor);
+      details.setTextSize(12);
+      details.setMaxLines(2);
+      details.setMaxWidth(dp(240));
+      details.setEllipsize(android.text.TextUtils.TruncateAt.END);
+      details.setText(formatAttachmentDetails(attachment));
+      labels.addView(details, new LinearLayout.LayoutParams(
+              LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+      row.addView(labels, new LinearLayout.LayoutParams(
+              LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+      mmsAttachmentRows.addView(row, new LinearLayout.LayoutParams(
+              LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+    }
+
+    if (additionalAttachmentCount > 0) {
+      TextView additional = new TextView(context);
+      additional.setText(context.getResources().getQuantityString(
+              R.plurals.conversation_item__mms_attachment_additional_count,
+              additionalAttachmentCount, additionalAttachmentCount));
+      additional.setTextColor(secondaryColor);
+      additional.setTextSize(12);
+      additional.setMaxLines(1);
+      additional.setClickable(false);
+      additional.setFocusable(false);
+      additional.setLongClickable(false);
+      additional.setContentDescription(additional.getText());
+      additional.setPadding(dp(6), dp(4), dp(6), dp(4));
+      mmsAttachmentRows.addView(additional, new LinearLayout.LayoutParams(
+              LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+    }
+    mmsAttachmentRows.setVisibility(View.VISIBLE);
+  }
+
+  private String categoryLabel(MmsImageThumbnailLoader.AttachmentKind kind) {
+    return context.getString(kind == MmsImageThumbnailLoader.AttachmentKind.AUDIO
+            ? R.string.conversation_item__mms_attachment_audio
+            : kind == MmsImageThumbnailLoader.AttachmentKind.VIDEO
+            ? R.string.conversation_item__mms_attachment_video : R.string.conversation_item__mms_attachment_file);
+  }
+
+  private String formatAttachmentDetails(MmsImageThumbnailLoader.AttachmentPreview attachment) {
+    StringBuilder details = new StringBuilder(categoryLabel(attachment.kind));
+    if (!TextUtils.isEmpty(attachment.contentType))
+      details.append(" · ").append(attachment.contentType);
+    if (attachment.sizeBytes > 0) {
+      details.append(" · ").append(Formatter.formatFileSize(context, attachment.sizeBytes));
+    }
+    details.append(" · ").append(context.getString(R.string.conversation_item__mms_attachment_unavailable));
+    return details.toString();
+  }
+
+  private int dp(int value) {
+    return Math.round(value * getResources().getDisplayMetrics().density);
+  }
+
   void clearSensitiveAttachmentPreviews() {
     mmsImageBindingGeneration++;
     pendingMmsImageLoad = false;
@@ -340,6 +448,10 @@ public class ConversationItem extends LinearLayout
       mmsImageLoadRequest = null;
     }
     clearImagePreviewViews();
+    if (mmsAttachmentRows != null) {
+      mmsAttachmentRows.removeAllViews();
+      mmsAttachmentRows.setVisibility(View.GONE);
+    }
     if (mmsImagePreviews != null) mmsImagePreviews.setVisibility(View.GONE);
   }
 

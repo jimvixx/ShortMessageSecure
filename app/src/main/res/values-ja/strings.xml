@@ -144,6 +144,13 @@
   <string name="conversation_item__attachment_description">添付ファイルが含まれています</string>
   <string name="conversation_item__image_preview_description">MMSの画像プレビュー</string>
   <string name="conversation_item__image_preview_loading">MMS画像プレビューの読み込み中</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="other">さらに<xliff:g id="arg1">%1$d</xliff:g>つの添付ファイル</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">音声添付ファイル</string>
+  <string name="conversation_item__mms_attachment_file">ファイルの添付</string>
+  <string name="conversation_item__mms_attachment_unavailable">再生または開くことができません</string>
+  <string name="conversation_item__mms_attachment_video">動画の添付ファイル</string>
   <string name="conversation_item__secure_message_description">セキュアメッセージ</string>
   <string name="conversation_item_received__contact_photo_description">連絡先の写真</string>
   <string name="conversation_item_sent__delivered_description">配信済み</string>

@@ -150,6 +150,15 @@
 <string name="conversation_item__attachment_description">Satur pielikumu</string>
 <string name="conversation_item__image_preview_description">MMS attēla priekšskatījums</string>
 <string name="conversation_item__image_preview_loading">MMS attēla priekšskatījuma ielāde</string>
+<plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="zero">Vēl <xliff:g id="arg1">%1$d</xliff:g> pielikumi</item>
+        <item quantity="one">Vēl <xliff:g id="arg1">%1$d</xliff:g> pielikums</item>
+        <item quantity="other">Vēl <xliff:g id="arg1">%1$d</xliff:g> pielikumi</item>
+    </plurals>
+<string name="conversation_item__mms_attachment_audio">Audio pielikums</string>
+<string name="conversation_item__mms_attachment_file">Pievienotais fails</string>
+<string name="conversation_item__mms_attachment_unavailable">Atkārtošana vai atvēršana nav pieejama</string>
+<string name="conversation_item__mms_attachment_video">Video pielikums</string>
 <string name="conversation_item__secure_message_description">Droša ziņa</string>
 <string name="conversation_item_received__contact_photo_description">Kontakta foto</string>
 <string name="conversation_item_sent__delivered_description">Piegādāts</string>

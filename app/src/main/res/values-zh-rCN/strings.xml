@@ -144,6 +144,13 @@
     <string name="conversation_item__attachment_description">包含附件</string>
     <string name="conversation_item__image_preview_description">MMS图片预览</string>
     <string name="conversation_item__image_preview_loading">正在加载MMS图片预览</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="other">还有 <xliff:g id="arg1">%1$d</xliff:g> 个附件</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">音频附件</string>
+    <string name="conversation_item__mms_attachment_file">文件附件</string>
+    <string name="conversation_item__mms_attachment_unavailable">无法播放或打开</string>
+    <string name="conversation_item__mms_attachment_video">视频附件</string>
     <string name="conversation_item__secure_message_description">安全消息</string>
     <string name="conversation_item_received__contact_photo_description">联系人照片</string>
     <string name="conversation_item_sent__delivered_description">已送达</string>

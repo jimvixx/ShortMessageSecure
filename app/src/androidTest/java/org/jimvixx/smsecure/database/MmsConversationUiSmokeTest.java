@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import org.jimvixx.smsecure.ConversationItem;
 import org.jimvixx.smsecure.ConversationListItem;
 import org.jimvixx.smsecure.ConversationAdapter;
+import org.jimvixx.smsecure.MmsImageThumbnailLoader;
 import org.jimvixx.smsecure.R;
 import org.jimvixx.smsecure.crypto.MasterSecret;
 import org.jimvixx.smsecure.database.model.DisplayRecord;
@@ -55,9 +57,12 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -226,6 +231,163 @@ public class MmsConversationUiSmokeTest {
       adapter.toggleSelection(sms, 1);
       assertTrue(adapter.getSelectedItems().contains(sms));
     });
+  }
+
+  @Test public void nonImageAttachmentRowsAreSafeAndRecycleWithTheirConversationItem() throws Exception {
+    insertPartMetadata(database, 301, 30, 1, "audio/mpeg", "voice-note.mp3", 24576);
+    insertPartMetadata(database, 302, 30, 2, "video/mp4", "short-video.mp4", 1048576);
+    insertPartMetadata(database, 303, 30, 3, "application/pdf", "report.pdf", 4096);
+    insertPartMetadata(database, 304, 30, 4, "application/smil", "presentation.smil", 12);
+    insertPartMetadata(database, 305, 30, 5, "text/plain", "body.txt", 14);
+    insertMms(database, 31, 104, 5500, 23, "Outgoing media", 0);
+    insertPartMetadata(database, 311, 31, 0, "audio/ogg", "outgoing.ogg", 12000);
+    insertPartMetadata(database, 312, 31, 1, "video/3gpp", "outgoing-video.3gp", 64000);
+    insertPartMetadata(database, 313, 31, 2, "application/x-unknown", "../../private/key", 0);
+
+    List<MmsImageThumbnailLoader.AttachmentPreview> incomingAttachments =
+        loadAttachmentMetadata(30, masterSecret);
+    List<MmsImageThumbnailLoader.AttachmentPreview> outgoingAttachments =
+        loadAttachmentMetadata(31, null);
+    AtomicReference<ConversationItem> incomingRef = new AtomicReference<>();
+    AtomicReference<ConversationItem> outgoingRef = new AtomicReference<>();
+    runOnMainSync(() -> {
+      ConversationItem incoming = bindBubble(mmsRecord(30, 104, 5000, "Photo attached", 20,
+          true, new DisplayRecord.Body("Photo attached", true)));
+      renderAttachmentRows(incoming, incomingAttachments, 0);
+      incomingRef.set(incoming);
+
+      ConversationItem outgoing = bindBubble(mmsRecord(31, 104, 5500, "Outgoing media", 23,
+          true, new DisplayRecord.Body("Outgoing media", true)));
+      renderAttachmentRows(outgoing, outgoingAttachments, 0);
+      outgoingRef.set(outgoing);
+    });
+
+    runOnMainSync(() -> {
+      ConversationItem incoming = incomingRef.get();
+      LinearLayout rows = incoming.findViewById(R.id.mms_attachment_rows);
+      assertEquals(View.VISIBLE, rows.getVisibility());
+      assertEquals(3, rows.getChildCount());
+      assertTrue(rowText(rows.getChildAt(0)).contains("voice-note.mp3"));
+      assertTrue(rowText(rows.getChildAt(0)).contains("audio/mpeg"));
+      assertTrue(rowText(rows.getChildAt(1)).contains("short-video.mp4"));
+      assertTrue(rowText(rows.getChildAt(1)).contains("video/mp4"));
+      assertTrue(rowText(rows.getChildAt(2)).contains("report.pdf"));
+      assertFalse(rowText(rows.getChildAt(2)).contains("/private/key"));
+      for (int i = 0; i < rows.getChildCount(); i++) {
+        View row = rows.getChildAt(i);
+        assertFalse(row.isClickable());
+        assertFalse(row.isLongClickable());
+        assertTrue(row.getContentDescription().toString().contains("unavailable"));
+      }
+      assertEquals(1, ((ViewGroup) incoming.findViewById(R.id.mms_image_previews)).getChildCount());
+
+      ConversationItem outgoing = outgoingRef.get();
+      assertTrue(outgoing.getMessageRecord().isOutgoing());
+      LinearLayout outgoingRows = outgoing.findViewById(R.id.mms_attachment_rows);
+      assertEquals(3, outgoingRows.getChildCount());
+      assertTrue(rowText(outgoingRows.getChildAt(0)).contains("outgoing.ogg"));
+      assertTrue(rowText(outgoingRows.getChildAt(1)).contains("outgoing-video.3gp"));
+      assertFalse(rowText(outgoingRows.getChildAt(2)).contains("../../private/key"));
+
+      incoming.unbind();
+      incoming.bind(masterSecret, syntheticSms(62, "recycled SMS row"), Locale.US,
+          Collections.emptySet(), recipients);
+      assertEquals(View.GONE, rows.getVisibility());
+      assertEquals(0, rows.getChildCount());
+      assertEquals(View.GONE, incoming.findViewById(R.id.mms_image_previews).getVisibility());
+      outgoing.unbind();
+    });
+  }
+
+  @Test public void attachmentOverflowCountIsVisibleAndClearedWhenRowIsReused() throws Exception {
+    insertMms(database, 32, 104, 5600, 20, "Many attachments", 0);
+    for (int i = 0; i < 17; i++) {
+      insertPartMetadata(database, 320 + i, 32, i, "application/pdf", "document-" + i + ".pdf", 100);
+    }
+    insertPartMetadata(database, 340, 32, 20, "text/plain", "body.txt", 10);
+    insertPartMetadata(database, 341, 32, 21, "application/smil", "presentation.smil", 10);
+
+    MmsImageThumbnailLoader.LoadResult loaded = loadAttachmentResult(32, masterSecret);
+    try {
+      assertEquals(16, loaded.attachments.size());
+      assertEquals(1, loaded.additionalAttachmentCount);
+      AtomicReference<ConversationItem> bubbleRef = new AtomicReference<>();
+      runOnMainSync(() -> {
+        ConversationItem bubble = bindBubble(mmsRecord(32, 104, 5600, "Many attachments", 20,
+            true, new DisplayRecord.Body("Many attachments", true)));
+        renderAttachmentRows(bubble, loaded.attachments, loaded.additionalAttachmentCount);
+        bubbleRef.set(bubble);
+      });
+
+      runOnMainSync(() -> {
+        ConversationItem bubble = bubbleRef.get();
+        LinearLayout rows = bubble.findViewById(R.id.mms_attachment_rows);
+        assertEquals(View.VISIBLE, rows.getVisibility());
+        assertEquals(17, rows.getChildCount());
+        TextView more = (TextView) rows.getChildAt(16);
+        assertEquals("1 more attachment", more.getText().toString());
+        assertFalse(more.isClickable());
+        assertFalse(more.isLongClickable());
+        assertEquals(12f, more.getTextSize() / context.getResources().getDisplayMetrics().density,
+            0.1f);
+
+        bubble.unbind();
+        bubble.bind(masterSecret, syntheticSms(63, "recycled after overflow"), Locale.US,
+            Collections.emptySet(), recipients);
+        assertEquals(View.GONE, rows.getVisibility());
+        assertEquals(0, rows.getChildCount());
+      });
+    } finally {
+      loaded.close();
+    }
+  }
+
+  private List<MmsImageThumbnailLoader.AttachmentPreview> loadAttachmentMetadata(
+      long mmsId, MasterSecret key) throws Exception {
+    MmsImageThumbnailLoader.LoadResult result = loadAttachmentResult(mmsId, key);
+    try {
+      return result.attachments;
+    } finally {
+      result.close();
+    }
+  }
+
+  private MmsImageThumbnailLoader.LoadResult loadAttachmentResult(
+      long mmsId, MasterSecret key) throws Exception {
+    CountDownLatch loaded = new CountDownLatch(1);
+    AtomicReference<MmsImageThumbnailLoader.LoadResult> result = new AtomicReference<>();
+    MmsImageThumbnailLoader loader = new MmsImageThumbnailLoader(
+        new AttachmentDatabase(context, helper), context.getResources().getDisplayMetrics());
+    loader.load(mmsId, key, loadedResult -> {
+      result.set(loadedResult);
+      loaded.countDown();
+    });
+    assertTrue("Attachment metadata loader did not finish", loaded.await(8, TimeUnit.SECONDS));
+    return result.get();
+  }
+
+  private void renderAttachmentRows(ConversationItem item,
+      List<MmsImageThumbnailLoader.AttachmentPreview> attachments, int additionalCount)
+      throws Exception {
+    java.lang.reflect.Method method = ConversationItem.class.getDeclaredMethod(
+        "renderMmsAttachmentRows", List.class, int.class, boolean.class);
+    method.setAccessible(true);
+    method.invoke(item, attachments, additionalCount, item.getMessageRecord().isOutgoing());
+  }
+
+  private String rowText(View row) {
+    ViewGroup labels = (ViewGroup) ((ViewGroup) row).getChildAt(1);
+    return ((TextView) labels.getChildAt(0)).getText().toString() + " " +
+        ((TextView) labels.getChildAt(1)).getText().toString();
+  }
+
+  private void insertPartMetadata(SQLiteDatabase db, long id, long mmsId, int sequence,
+                                  String contentType, String name, long size) {
+    db.execSQL("INSERT INTO part (_id, mid, seq, ct, name, data_size, unique_id, encrypted) " +
+        "VALUES (?, ?, ?, ?, ?, ?, ?, 1)",
+        new Object[]{id, mmsId, sequence, contentType, name, size, id});
+    db.execSQL("UPDATE mms SET part_count = part_count + 1 WHERE _id = ?",
+        new Object[]{mmsId});
   }
 
   private CharSequence bindListRow(long threadId) throws Exception {

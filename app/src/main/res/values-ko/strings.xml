@@ -144,6 +144,13 @@
   <string name="conversation_item__attachment_description">첨부 파일이 포함되어 있습니다</string>
   <string name="conversation_item__image_preview_description">MMS 이미지 미리보기</string>
   <string name="conversation_item__image_preview_loading">MMS 이미지 미리보기 로딩 중</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="other">첨부 파일 <xliff:g id="arg1">%1$d</xliff:g>개 더 보기</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">오디오 첨부 파일</string>
+  <string name="conversation_item__mms_attachment_file">파일 첨부</string>
+  <string name="conversation_item__mms_attachment_unavailable">재생 또는 열기가 불가능합니다.</string>
+  <string name="conversation_item__mms_attachment_video">동영상 첨부 파일</string>
   <string name="conversation_item__secure_message_description">보안 메시지</string>
   <string name="conversation_item_received__contact_photo_description">연락처 사진</string>
   <string name="conversation_item_sent__delivered_description">전달됨</string>

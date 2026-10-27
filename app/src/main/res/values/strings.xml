@@ -161,6 +161,18 @@
     <string name="conversation_item__attachment_description">Contains attachment</string>
     <string name="conversation_item__image_preview_description">MMS image preview</string>
     <string name="conversation_item__image_preview_loading">Loading MMS image preview</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="zero"><xliff:g id="arg1">%1$d</xliff:g> more attachments</item>
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> more attachment</item>
+        <item quantity="two"><xliff:g id="arg1">%1$d</xliff:g> more attachments</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> more attachments</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> more attachments</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> more attachments</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">Audio attachment</string>
+    <string name="conversation_item__mms_attachment_file">File attachment</string>
+    <string name="conversation_item__mms_attachment_unavailable">Playback or opening is unavailable</string>
+    <string name="conversation_item__mms_attachment_video">Video attachment</string>
     <string name="conversation_item__secure_message_description">Secure message</string>
     <string name="conversation_item_received__contact_photo_description">Contact photo</string>
     <string name="conversation_item_sent__delivered_description">Delivered</string>

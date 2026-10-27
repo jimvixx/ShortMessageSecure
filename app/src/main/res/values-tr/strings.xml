@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Ek içerir</string>
   <string name="conversation_item__image_preview_description">MMS resim önizlemesi</string>
   <string name="conversation_item__image_preview_loading">MMS resim önizlemesi yükleniyor</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> ek daha</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> ek dosya daha</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Ses eki</string>
+  <string name="conversation_item__mms_attachment_file">Dosya eki</string>
+  <string name="conversation_item__mms_attachment_unavailable">Oynatma veya açma işlemi yapılamıyor</string>
+  <string name="conversation_item__mms_attachment_video">Video eki</string>
   <string name="conversation_item__secure_message_description">Güvenli mesaj</string>
   <string name="conversation_item_received__contact_photo_description">Kişi fotoğrafı</string>
   <string name="conversation_item_sent__delivered_description">Teslim edildi</string>

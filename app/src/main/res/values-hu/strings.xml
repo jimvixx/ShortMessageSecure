@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Mellékletet tartalmaz</string>
   <string name="conversation_item__image_preview_description">MMS-képelőnézet</string>
   <string name="conversation_item__image_preview_loading">MMS-képelőnézet betöltése</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Még <xliff:g id="arg1">%1$d</xliff:g> melléklet</item>
+        <item quantity="other">Még <xliff:g id="arg1">%1$d</xliff:g> melléklet</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Hangmelléklet</string>
+  <string name="conversation_item__mms_attachment_file">Fájlcsatolmány</string>
+  <string name="conversation_item__mms_attachment_unavailable">A lejátszás vagy megnyitás nem elérhető</string>
+  <string name="conversation_item__mms_attachment_video">Videó melléklet</string>
   <string name="conversation_item__secure_message_description">Biztonságos üzenet</string>
   <string name="conversation_item_received__contact_photo_description">Névjegy fotó</string>
   <string name="conversation_item_sent__delivered_description">Kézbesítve</string>

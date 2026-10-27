@@ -147,6 +147,14 @@
     <string name="conversation_item__attachment_description">Съдържа прикачен файл</string>
     <string name="conversation_item__image_preview_description">Предварителен преглед на изображение в MMS</string>
     <string name="conversation_item__image_preview_loading">Зареждане на предварителен преглед на MMS изображение</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Още <xliff:g id="arg1">%1$d</xliff:g> прикачен файл</item>
+        <item quantity="other">Още <xliff:g id="arg1">%1$d</xliff:g> прикачени файла</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">Аудио прикачен файл</string>
+    <string name="conversation_item__mms_attachment_file">Прикачен файл</string>
+    <string name="conversation_item__mms_attachment_unavailable">Възпроизвеждането или отварянето не е налично</string>
+    <string name="conversation_item__mms_attachment_video">Видео прикачен файл</string>
     <string name="conversation_item__secure_message_description">Защитено съобщение</string>
     <string name="conversation_item_received__contact_photo_description">Снимка на контакт</string>
     <string name="conversation_item_sent__delivered_description">Доставено</string>

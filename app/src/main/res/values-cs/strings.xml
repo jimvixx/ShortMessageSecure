@@ -153,6 +153,16 @@
   <string name="conversation_item__attachment_description">Obsahuje přílohu</string>
   <string name="conversation_item__image_preview_description">Náhled obrázku v MMS</string>
   <string name="conversation_item__image_preview_loading">Načítání náhledu obrázku MMS</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> další příloha</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> další přílohy</item>
+        <item quantity="many">Dalších <xliff:g id="arg1">%1$d</xliff:g> příloh</item>
+        <item quantity="other">Dalších <xliff:g id="arg1">%1$d</xliff:g> příloh</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Zvuková příloha</string>
+  <string name="conversation_item__mms_attachment_file">Příloha souboru</string>
+  <string name="conversation_item__mms_attachment_unavailable">Přehrávání nebo otevření není k dispozici</string>
+  <string name="conversation_item__mms_attachment_video">Videopříloha</string>
   <string name="conversation_item__secure_message_description">Zabezpečená zpráva</string>
   <string name="conversation_item_received__contact_photo_description">Fotografie kontaktu</string>
   <string name="conversation_item_sent__delivered_description">Doručeno</string>

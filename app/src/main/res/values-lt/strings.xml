@@ -153,6 +153,16 @@
 <string name="conversation_item__attachment_description">Yra priedas</string>
 <string name="conversation_item__image_preview_description">MMS paveikslėlio peržiūra</string>
 <string name="conversation_item__image_preview_loading">Įkeliama MMS vaizdo peržiūra</string>
+<plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">dar <xliff:g id="arg1">%1$d</xliff:g> priedas</item>
+        <item quantity="few">Dar <xliff:g id="arg1">%1$d</xliff:g> priedai</item>
+        <item quantity="many">Dar <xliff:g id="arg1">%1$d</xliff:g> priedai</item>
+        <item quantity="other">Dar <xliff:g id="arg1">%1$d</xliff:g> priedai</item>
+    </plurals>
+<string name="conversation_item__mms_attachment_audio">Garso priedas</string>
+<string name="conversation_item__mms_attachment_file">Pridėtas failas</string>
+<string name="conversation_item__mms_attachment_unavailable">Atkūrimas arba atidarymas neįmanomas</string>
+<string name="conversation_item__mms_attachment_video">Vaizdo įrašo priedas</string>
 <string name="conversation_item__secure_message_description">Saugus pranešimas</string>
 <string name="conversation_item_received__contact_photo_description">Kontakto nuotrauka</string>
 <string name="conversation_item_sent__delivered_description">Pristatyta</string>

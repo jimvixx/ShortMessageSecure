@@ -147,6 +147,14 @@
     <string name="conversation_item__attachment_description">Enthält einen Anhang</string>
     <string name="conversation_item__image_preview_description">MMS-Bildvorschau</string>
     <string name="conversation_item__image_preview_loading">MMS-Bildvorschau wird geladen</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> weiterer Anhang</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> weitere Anhänge</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">Audio-Anhang</string>
+    <string name="conversation_item__mms_attachment_file">Dateianhang</string>
+    <string name="conversation_item__mms_attachment_unavailable">Wiedergabe oder Öffnen ist nicht möglich</string>
+    <string name="conversation_item__mms_attachment_video">Video-Anhang</string>
     <string name="conversation_item__secure_message_description">Sichere Nachricht</string>
     <string name="conversation_item_received__contact_photo_description">Kontaktfoto</string>
     <string name="conversation_item_sent__delivered_description">Zugestellt</string>

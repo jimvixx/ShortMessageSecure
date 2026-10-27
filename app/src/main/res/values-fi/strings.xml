@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Sisältää liitteen</string>
   <string name="conversation_item__image_preview_description">MMS-kuvan esikatselu</string>
   <string name="conversation_item__image_preview_loading">MMS-kuvan esikatselun lataaminen</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Vielä <xliff:g id="arg1">%1$d</xliff:g> liite</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> muuta liitettä</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Ääniliite</string>
+  <string name="conversation_item__mms_attachment_file">Tiedostoliite</string>
+  <string name="conversation_item__mms_attachment_unavailable">Toisto tai avaaminen ei ole käytettävissä</string>
+  <string name="conversation_item__mms_attachment_video">Videoliite</string>
   <string name="conversation_item__secure_message_description">Suojattu viesti</string>
   <string name="conversation_item_received__contact_photo_description">Yhteystiedon valokuva</string>
   <string name="conversation_item_sent__delivered_description">Toimitettu</string>

@@ -324,6 +324,95 @@ public final class MmsImageThumbnailLoaderTest {
     assertNull(result.previews.get(0).takeBitmap());
   }
 
+  @Test public void attachmentOverflowCountExcludesInternalPartsAndCapsMetadataRows()
+          throws Exception {
+    assertAttachmentCounts(0, 0);
+
+    addMetadataOnlyPart(1, "application/pdf", "one.pdf");
+    assertAttachmentCounts(1, 0);
+
+    clearParts();
+    for (int i = 1; i <= 16; i++) addMetadataOnlyPart(i, "application/pdf", "file-" + i + ".pdf");
+    assertAttachmentCounts(16, 0);
+
+    clearParts();
+    for (int i = 1; i <= 17; i++) addMetadataOnlyPart(i, "audio/mpeg", "audio-" + i + ".mp3");
+    assertAttachmentCounts(16, 1);
+
+    clearParts();
+    for (int i = 1; i <= 17; i++) addMetadataOnlyPart(i, "application/pdf", "mixed-" + i + ".pdf");
+    addMetadataOnlyPart(30, "text/plain", "body.txt");
+    addMetadataOnlyPart(31, "multipart/related", "container");
+    addMetadataOnlyPart(32, "application/smil+xml", "layout.smil");
+    addMetadataOnlyPart(33, "application/vnd.wap.multipart.related", "control");
+    addMetadataOnlyPart(34, "image/png", "missing.png");
+    MmsImageThumbnailLoader.LoadResult mixed = await(MMS_ID, masterSecret);
+    try {
+      assertEquals(16, mixed.attachments.size());
+      assertEquals(1, mixed.additionalAttachmentCount);
+      assertEquals(1, mixed.previews.size());
+      assertNull(mixed.previews.get(0).takeBitmap());
+    } finally {
+      mixed.close();
+    }
+  }
+
+  @Test public void attachmentFilenamesRemoveInvisibleFormattingWithoutDamagingUnicode()
+          throws Exception {
+    addNamedMetadataPart(1, "override\u202Efdp\u202C.exe");
+    addNamedMetadataPart(2, "isolate\u2066safe\u2069.txt");
+    addNamedMetadataPart(3, "zero\u200Bwidth\u2060.txt");
+    addNamedMetadataPart(4, "report\u202Etxt\u202C-אבג.pdf");
+    addNamedMetadataPart(5, "řeka-číslo-файл.txt");
+    addNamedMetadataPart(6, "\u202E\u200B\u2069");
+    addNamedMetadataPart(9, "join\u200Der.txt");
+
+    StringBuilder longName = new StringBuilder();
+    for (int i = 0; i < 79; i++) longName.append('n');
+    longName.append("\uD83D\uDE42").append('z');
+    addNamedMetadataPart(7, longName.toString());
+    StringBuilder veryLong = new StringBuilder();
+    for (int i = 0; i < 100; i++) veryLong.append("café");
+    addNamedMetadataPart(8, veryLong.toString());
+
+    MmsImageThumbnailLoader.LoadResult result = await(MMS_ID, masterSecret);
+    try {
+      assertEquals("overridefdp.exe", result.attachments.get(0).name);
+      assertEquals("isolatesafe.txt", result.attachments.get(1).name);
+      assertEquals("zerowidth.txt", result.attachments.get(2).name);
+      assertEquals("reporttxt-אבג.pdf", result.attachments.get(3).name);
+      assertEquals("řeka-číslo-файл.txt", result.attachments.get(4).name);
+      assertNull(result.attachments.get(5).name);
+      String supplementary = result.attachments.get(6).name;
+      assertEquals(80, supplementary.codePointCount(0, supplementary.length()));
+      assertTrue(supplementary.endsWith("\uD83D\uDE42"));
+      assertFalse(Character.isHighSurrogate(supplementary.charAt(supplementary.length() - 1)));
+      assertEquals(80, result.attachments.get(7).name.codePointCount(
+              0, result.attachments.get(7).name.length()));
+      assertEquals("joiner.txt", result.attachments.get(8).name);
+    } finally {
+      result.close();
+    }
+  }
+
+  private void assertAttachmentCounts(int expectedRows, int expectedAdditional) throws Exception {
+    MmsImageThumbnailLoader.LoadResult result = await(MMS_ID, masterSecret);
+    try {
+      assertEquals(expectedRows, result.attachments.size());
+      assertEquals(expectedAdditional, result.additionalAttachmentCount);
+    } finally {
+      result.close();
+    }
+  }
+
+  private void clearParts() {
+    helper.getWritableDatabase().delete("part", "mid = ?", new String[]{String.valueOf(MMS_ID)});
+  }
+
+  private void addNamedMetadataPart(long id, String name) {
+    insertPart(id, "application/pdf", null, null, 0, name);
+  }
+
   @Test public void compressedImageInputIsBounded() throws Exception {
     byte[] oversized = new byte[PREVIEW_INPUT_LIMIT + 1];
     addImagePart(1, "image/png", oversized, null);
@@ -445,12 +534,22 @@ public final class MmsImageThumbnailLoaderTest {
     insertPart(partId, contentType, null, null, 0);
   }
 
+  private void addMetadataOnlyPart(long partId, String contentType, String name) {
+    insertPart(partId, contentType, null, null, 0, name);
+  }
+
   private void insertPart(long id, String contentType, File data, File thumbnail, long dataSize) {
+    insertPart(id, contentType, data, thumbnail, dataSize, null);
+  }
+
+  private void insertPart(long id, String contentType, File data, File thumbnail, long dataSize,
+                          String name) {
     ContentValues values = new ContentValues();
     values.put("_id", id);
     values.put("mid", MMS_ID);
     values.put("seq", id);
     values.put("ct", contentType);
+    if (name != null) values.put("name", name);
     if (data != null) values.put("_data", data.getAbsolutePath());
     values.put("data_size", dataSize);
     if (thumbnail != null) values.put("thumbnail", thumbnail.getAbsolutePath());

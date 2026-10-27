@@ -153,6 +153,16 @@
   <string name="conversation_item__attachment_description">Zawiera załącznik</string>
   <string name="conversation_item__image_preview_description">Podgląd obrazu w wiadomości MMS</string>
   <string name="conversation_item__image_preview_loading">Ładowanie podglądu obrazu MMS</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">jeszcze <xliff:g id="arg1">%1$d</xliff:g> załącznik</item>
+        <item quantity="few"><xliff:g id="arg1">%1$d</xliff:g> kolejne załączniki</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> dodatkowych załączników</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> dodatkowych załączników</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Załącznik audio</string>
+  <string name="conversation_item__mms_attachment_file">Załącznik</string>
+  <string name="conversation_item__mms_attachment_unavailable">Odtwarzanie lub otwieranie jest niedostępne</string>
+  <string name="conversation_item__mms_attachment_video">Załącznik wideo</string>
   <string name="conversation_item__secure_message_description">Wiadomość zabezpieczona</string>
   <string name="conversation_item_received__contact_photo_description">Zdjęcie kontaktu</string>
   <string name="conversation_item_sent__delivered_description">Dostarczono</string>

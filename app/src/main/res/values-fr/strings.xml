@@ -150,6 +150,15 @@
     <string name="conversation_item__attachment_description">Contient une pièce jointe</string>
     <string name="conversation_item__image_preview_description">Aperçu de l’image MMS</string>
     <string name="conversation_item__image_preview_loading">Chargement de l’aperçu d’une image MMS</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> pièce jointe supplémentaire</item>
+        <item quantity="many"><xliff:g id="arg1">%1$d</xliff:g> pièces jointes supplémentaires</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> pièces jointes supplémentaires</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">Pièce jointe audio</string>
+    <string name="conversation_item__mms_attachment_file">Fichier joint</string>
+    <string name="conversation_item__mms_attachment_unavailable">La lecture ou l’ouverture n’est pas disponible</string>
+    <string name="conversation_item__mms_attachment_video">Pièce jointe vidéo</string>
     <string name="conversation_item__secure_message_description">Message sécurisé</string>
     <string name="conversation_item_received__contact_photo_description">Photo du contact</string>
     <string name="conversation_item_sent__delivered_description">Livré</string>

@@ -147,6 +147,14 @@
   <string name="conversation_item__attachment_description">Περιέχει συνημμένο</string>
   <string name="conversation_item__image_preview_description">Προεπισκόπηση εικόνας MMS</string>
   <string name="conversation_item__image_preview_loading">Φόρτωση προεπισκόπησης εικόνας MMS</string>
+  <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one"><xliff:g id="arg1">%1$d</xliff:g> επιπλέον συνημμένο</item>
+        <item quantity="other"><xliff:g id="arg1">%1$d</xliff:g> επιπλέον συνημμένα</item>
+    </plurals>
+  <string name="conversation_item__mms_attachment_audio">Συνημμένο αρχείο ήχου</string>
+  <string name="conversation_item__mms_attachment_file">Συνημμένο αρχείο</string>
+  <string name="conversation_item__mms_attachment_unavailable">Η αναπαραγωγή ή το άνοιγμα δεν είναι διαθέσιμα</string>
+  <string name="conversation_item__mms_attachment_video">Συνημμένο βίντεο</string>
   <string name="conversation_item__secure_message_description">Ασφαλές μήνυμα</string>
   <string name="conversation_item_received__contact_photo_description">Φωτογραφία επαφής</string>
   <string name="conversation_item_sent__delivered_description">Παραδόθηκε</string>

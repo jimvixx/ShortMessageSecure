@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jimvixx.smsecure.database;
 
 import android.content.Context;
@@ -62,23 +63,34 @@ public final class AttachmentDatabase {
     return result;
   }
 
-  /** Returns only the identity and MIME metadata needed by read-only attachment consumers. */
+  /** Returns only non-path metadata needed by read-only attachment consumers. */
   @NonNull public List<PartMetadata> getPartMetadataForMessage(long mmsId) {
     List<PartMetadata> result = new ArrayList<>();
+    forEachPartMetadataForMessage(mmsId, result::add);
+    return result;
+  }
+
+  /** Visits non-path attachment metadata without materializing all parts in memory. */
+  public void forEachPartMetadataForMessage(long mmsId,
+                                           @NonNull PartMetadataVisitor visitor) {
     try (Cursor c = databaseHelper.getReadableDatabase().query("part",
-            new String[]{"_id", "mid", "seq", "ct", "unique_id"},
+            new String[]{"_id", "mid", "seq", "ct", "unique_id", "name", "data_size"},
             "mid = ?", new String[]{String.valueOf(mmsId)}, null, null, "seq ASC, _id ASC")) {
       while (c.moveToNext()) {
-        result.add(new PartMetadata(c.getLong(0), c.getLong(1), c.getInt(2),
-                c.isNull(3) ? null : c.getString(3), c.isNull(4) ? 0L : c.getLong(4)));
+        visitor.onPartMetadata(new PartMetadata(c.getLong(0), c.getLong(1), c.getInt(2),
+                c.isNull(3) ? null : c.getString(3), c.isNull(4) ? 0L : c.getLong(4),
+                c.isNull(5) ? null : c.getString(5), c.isNull(6) ? -1L : c.getLong(6)));
       }
     }
-    return result;
+  }
+
+  public interface PartMetadataVisitor {
+    void onPartMetadata(@NonNull PartMetadata metadata);
   }
 
   /** Opens authenticated plaintext for one data file or its separately encrypted thumbnail. */
   @NonNull public AttachmentAccessResult openPart(long mmsId, long partId, long uniqueId,
-                                                   @NonNull FileKind fileKind,
+                                                   @Nullable FileKind fileKind,
                                                    @Nullable MasterSecret masterSecret) {
     if (fileKind == null) return AttachmentAccessResult.failure(AccessStatus.UNSUPPORTED_METADATA);
     return openPart(mmsId, partId, uniqueId, fileKind, masterSecret,
@@ -87,7 +99,7 @@ public final class AttachmentDatabase {
 
   /** Opens authenticated plaintext with a caller-specific ceiling no greater than the API limit. */
   @NonNull public AttachmentAccessResult openPart(long mmsId, long partId, long uniqueId,
-                                                   @NonNull FileKind fileKind,
+                                                   @Nullable FileKind fileKind,
                                                    @Nullable MasterSecret masterSecret,
                                                    long maxPlaintextBytes) {
     if (fileKind == null) return AttachmentAccessResult.failure(AccessStatus.UNSUPPORTED_METADATA);
@@ -189,8 +201,10 @@ public final class AttachmentDatabase {
       File partsDirectory = context.getDir("parts", Context.MODE_PRIVATE);
       File canonicalRoot = partsDirectory.getCanonicalFile();
       File appDataRoot = context.getFilesDir().getCanonicalFile().getParentFile();
-      if (appDataRoot == null || !canonicalRoot.getName().equals("app_parts") ||
-              !canonicalRoot.getParentFile().equals(appDataRoot) || !canonicalRoot.isDirectory()) {
+      File canonicalParent = canonicalRoot.getParentFile();
+      if (canonicalParent == null ||
+              !canonicalRoot.getName().equals("app_parts") ||
+              !canonicalParent.equals(appDataRoot) || !canonicalRoot.isDirectory()) {
         return PathResult.failure(AccessStatus.INVALID_PATH);
       }
 
@@ -251,14 +265,18 @@ public final class AttachmentDatabase {
     public final int sequence;
     @Nullable public final String contentType;
     public final long uniqueId;
+    @Nullable public final String name;
+    public final long dataSize;
 
     private PartMetadata(long id, long mmsId, int sequence, @Nullable String contentType,
-                         long uniqueId) {
+                         long uniqueId, @Nullable String name, long dataSize) {
       this.id = id;
       this.mmsId = mmsId;
       this.sequence = sequence;
       this.contentType = contentType;
       this.uniqueId = uniqueId;
+      this.name = name;
+      this.dataSize = dataSize;
     }
   }
 

@@ -153,6 +153,16 @@
     <string name="conversation_item__attachment_description">Містить вкладення</string>
     <string name="conversation_item__image_preview_description">Попередній перегляд зображення MMS</string>
     <string name="conversation_item__image_preview_loading">Завантаження попереднього перегляду зображення MMS</string>
+    <plurals name="conversation_item__mms_attachment_additional_count">
+        <item quantity="one">Ще <xliff:g id="arg1">%1$d</xliff:g> вкладення</item>
+        <item quantity="few">Ще <xliff:g id="arg1">%1$d</xliff:g> вкладення</item>
+        <item quantity="many">Ще <xliff:g id="arg1">%1$d</xliff:g> вкладень</item>
+        <item quantity="other">Ще <xliff:g id="arg1">%1$d</xliff:g> додатка</item>
+    </plurals>
+    <string name="conversation_item__mms_attachment_audio">Аудіофайл у вкладенні</string>
+    <string name="conversation_item__mms_attachment_file">Вкладення файлу</string>
+    <string name="conversation_item__mms_attachment_unavailable">Відтворення або відкриття недоступне</string>
+    <string name="conversation_item__mms_attachment_video">Відео у вкладенні</string>
     <string name="conversation_item__secure_message_description">Захищене повідомлення</string>
     <string name="conversation_item_received__contact_photo_description">Фото контакту</string>
     <string name="conversation_item_sent__delivered_description">Доставлено</string>
