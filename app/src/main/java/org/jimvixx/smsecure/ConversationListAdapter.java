@@ -77,7 +77,7 @@ public class ConversationListAdapter extends CursorRecyclerViewAdapter<Conversat
       this.threadDatabase = DatabaseFactory.getThreadDatabase(context);
       this.inflater = LayoutInflater.from(context);
       this.clickListener = clickListener;
-      this.digest = MessageDigest.getInstance("SHA1");
+      this.digest = MessageDigest.getInstance("SHA-256");
       setHasStableIds(true);
     } catch (NoSuchAlgorithmException nsae) {
       throw new AssertionError("SHA-1 missing");
