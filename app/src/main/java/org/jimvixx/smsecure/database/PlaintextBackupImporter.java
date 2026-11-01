@@ -145,7 +145,7 @@ public class PlaintextBackupImporter {
     statement.bindLong(index, value);
   }
 
-  private static void addStringToStatement(@NonNull SQLiteStatement statement, int index, @Nullable String value) {
+  static void addStringToStatement(@NonNull SQLiteStatement statement, int index, @Nullable String value) {
     if (value == null || "null".equals(value)) statement.bindNull(index);
     else statement.bindString(index, value);
   }

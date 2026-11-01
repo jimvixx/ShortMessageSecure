@@ -556,6 +556,11 @@ public class SmsDatabase extends MessagingDatabase {
     return new Reader(cursor);
   }
 
+  static String getServiceCenter(Cursor cursor) {
+    int serviceCenterColumn = cursor.getColumnIndex(SERVICE_CENTER);
+    return serviceCenterColumn >= 0 ? cursor.getString(serviceCenterColumn) : null;
+  }
+
   public static class Status {
     public static final int STATUS_NONE = -1;
     public static final int STATUS_COMPLETE = 0;
@@ -595,6 +600,7 @@ public class SmsDatabase extends MessagingDatabase {
       long dateDeliveryReceived = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.DATE_DELIVERY_RECEIVED));
       String mismatchDocument = cursor.getString(cursor.getColumnIndexOrThrow(SmsDatabase.MISMATCHED_IDENTITIES));
       int subscriptionId = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.SUBSCRIPTION_ID));
+      String serviceCenter = SmsDatabase.getServiceCenter(cursor);
 
       List<IdentityKeyMismatch> mismatches = getMismatches(mismatchDocument);
       Recipients recipients = getRecipientsFor(address);
@@ -604,7 +610,7 @@ public class SmsDatabase extends MessagingDatabase {
               recipients.getPrimaryRecipient(),
               addressDeviceId,
               dateSent, dateReceived, dateDeliveryReceived, type,
-              threadId, status, mismatches, subscriptionId);
+              threadId, status, mismatches, subscriptionId, serviceCenter);
     }
 
     private Recipients getRecipientsFor(String address) {

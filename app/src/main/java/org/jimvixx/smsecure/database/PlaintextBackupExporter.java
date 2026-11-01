@@ -70,7 +70,7 @@ public class PlaintextBackupExporter {
                             MessageColumns.Types.translateToSystemBaseType(record.getType()),
                             null,
                             record.getDisplayBody().toString(),
-                            null,
+                            record.getServiceCenter(),
                             1,
                             record.getDeliveryStatus()
                     );

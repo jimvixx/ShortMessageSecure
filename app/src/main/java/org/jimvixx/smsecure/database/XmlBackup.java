@@ -18,8 +18,6 @@
 
 package org.jimvixx.smsecure.database;
 
-import android.text.TextUtils;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -225,7 +223,7 @@ public class XmlBackup {
       appendAttribute(stringBuilder, BODY, escapeXML(item.getBody()));
       appendAttribute(stringBuilder, TOA, "null");
       appendAttribute(stringBuilder, SC_TOA, "null");
-      appendAttribute(stringBuilder, SERVICE_CENTER, item.getServiceCenter());
+      appendAttribute(stringBuilder, SERVICE_CENTER, escapeXML(item.getServiceCenter()));
       appendAttribute(stringBuilder, READ, item.getRead());
       appendAttribute(stringBuilder, STATUS, item.getStatus());
       appendAttribute(stringBuilder, LOCKED, 0);
@@ -247,7 +245,7 @@ public class XmlBackup {
     }
 
     private String escapeXML(String s) {
-      if (TextUtils.isEmpty(s)) return s;
+      if (s == null || s.isEmpty()) return s;
 
       Matcher matcher = PATTERN.matcher(s.replace("&", "&amp;")
               .replace("<", "&lt;")
