@@ -140,9 +140,9 @@ public class NotificationState {
     int index = 0;
 
     for (long thread : threads) {
-      Log.w("NotificationState", "Added thread: " + thread);
       threadArray[index++] = thread;
     }
+    Log.w("NotificationState", "Prepared mark-as-read intent for " + threads.size() + " thread(s)");
 
     Intent intent = new Intent(MarkReadReceiver.CLEAR_ACTION);
     intent.setClass(context, MarkReadReceiver.class);
