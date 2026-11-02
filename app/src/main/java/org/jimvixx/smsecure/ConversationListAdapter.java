@@ -80,7 +80,7 @@ public class ConversationListAdapter extends CursorRecyclerViewAdapter<Conversat
       this.digest = MessageDigest.getInstance("SHA-256");
       setHasStableIds(true);
     } catch (NoSuchAlgorithmException nsae) {
-      throw new AssertionError("SHA-1 missing");
+      throw new AssertionError("SHA-256 missing");
     }
   }
 
