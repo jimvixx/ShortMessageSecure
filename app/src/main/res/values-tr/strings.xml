@@ -372,22 +372,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Bu alıcıya zaten bir oturum başlatma isteği gönderdiniz, başka bir tane daha göndermek istediğinizden emin misiniz? Bu, ilk isteği geçersiz kılacaktır.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Tüm konuşmayı gör</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Günlüğü paylaş</string>
-  <string name="log_submit_activity__collecting_logs">Günlük toplanıyor…</string>
-  <string name="log_submit_activity__log_collect_failed">Günlüğü toplayamadı.</string>
-  <string name="log_submit_activity__thanks">Yardımınız için teşekkürler!</string>
-  <string name="log_submit_activity__uploading_logs">Günlük yükleniyor…</string>
-  <string name="log_submit_interrupted">Önceki yükleme sonucuna erişilemiyor. Yeni bir rapor göndermek istiyorsanız "Günlüğü Gönder" seçeneğini yeniden açın.</string>
-  <string name="log_submit_no_internet">İnternet bağlantısı yok. Bağlantınızı kontrol edin, ardından "Günlüğü gönder" seçeneğini yeniden açarak tekrar deneyin.</string>
-  <string name="log_submit_save_failed">Günlük kaydedilemedi.</string>
-  <string name="log_submit_save_log">Günlüğü kaydet</string>
-  <string name="log_submit_saved">Günlük kaydedildi.</string>
-  <string name="log_submit_server_error">Günlük yükleme sunucusu bir hata döndürdü. Daha sonra "Günlüğü Gönder" seçeneğini yeniden açarak tekrar deneyin.</string>
-  <string name="log_submit_share_failed">Günlük bilgileri paylaşılamadı.</string>
-  <string name="log_submit_share_info">Bilgileri paylaş</string>
-  <string name="log_submit_unreachable">Günlük yükleme sunucusuna ulaşılamadı. Bağlantınızı kontrol edin veya "Günlüğü Gönder" seçeneğini yeniden açarak daha sonra tekrar deneyin.</string>
-  <string name="log_submit_uploaded_status">Yükleme günlüğü.</string>
+  <string name="log_submit__collecting_logs">Günlük toplanıyor…</string>
+  <string name="log_submit__interrupted">Önceki yükleme sonucuna erişilemiyor. Yeni bir rapor göndermek istiyorsanız "Günlüğü Gönder" seçeneğini yeniden açın.</string>
+  <string name="log_submit__log_collect_failed">Günlüğü toplayamadı.</string>
+  <string name="log_submit__log_save_failed">Günlük kaydedilemedi.</string>
+  <string name="log_submit__log_server_error">Günlük yükleme sunucusu bir hata döndürdü. Daha sonra "Günlüğü Gönder" seçeneğini yeniden açarak tekrar deneyin.</string>
+  <string name="log_submit__log_server_unreachable">Günlük yükleme sunucusuna ulaşılamadı. Bağlantınızı kontrol edin veya "Günlüğü Gönder" seçeneğini yeniden açarak daha sonra tekrar deneyin.</string>
+  <string name="log_submit__log_uploaded_status">Yükleme günlüğü.</string>
+  <string name="log_submit__message_description">Sorunu daha iyi anlamamıza yardımcı olmak için ek bir mesaj gönderebilirsiniz.</string>
+  <string name="log_submit__message_empty">Göndermeden önce bir mesaj girin.</string>
+  <string name="log_submit__message_heading">Sorunu açıklayın (isteğe bağlı)</string>
+  <string name="log_submit__message_hint">Neler yanlış gitti?</string>
+  <string name="log_submit__message_interrupted">Önceki mesajın sonucu mevcut değil. Mesajı tekrar göndermeyi deneyebilirsiniz.</string>
+  <string name="log_submit__message_send">Mesaj gönder</string>
+  <string name="log_submit__message_sending">Gönderiliyor…</string>
+  <string name="log_submit__message_sent">Mesaj gönderildi. Teşekkürler!</string>
+  <string name="log_submit__message_server_error">Mesaj sunucusu bir hata döndürdü. Daha sonra tekrar deneyin.</string>
+  <string name="log_submit__message_server_unreachable">Mesaj sunucusuna ulaşılamadı. Bağlantınızı kontrol edin veya daha sonra tekrar deneyin.</string>
+  <string name="log_submit__no_internet">İnternet bağlantısı yok. Bağlantınızı kontrol edin, ardından tekrar deneyin.</string>
+  <string name="log_submit__save_log">Günlüğü kaydet</string>
+  <string name="log_submit__saved">Günlük kaydedildi.</string>
+  <string name="log_submit__share_failed">Günlük bilgileri paylaşılamadı.</string>
+  <string name="log_submit__share_info">Bilgileri paylaş</string>
+  <string name="log_submit__thanks">Yardımınız için teşekkürler!</string>
+  <string name="log_submit__uploading_logs">Günlük yükleniyor…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Gönderen</string>
   <string name="message_details_header__issues_need_your_attention">Bazı sorunlara dikkat etmeniz gerekiyor.</string>

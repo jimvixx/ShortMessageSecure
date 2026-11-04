@@ -372,22 +372,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Már elküldött egy munkamenet-kezdeményezési kérést ennek a címzettnek. Biztosan szeretne még egyet küldeni? Ez érvényteleníti az első kérést.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Teljes beszélgetés megtekintése</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Napló megosztása</string>
-  <string name="log_submit_activity__collecting_logs">Naplók gyűjtése…</string>
-  <string name="log_submit_activity__log_collect_failed">A napló gyűjtése sikertelen.</string>
-  <string name="log_submit_activity__thanks">Köszönöm a segítséget!</string>
-  <string name="log_submit_activity__uploading_logs">Napló feltöltése…</string>
-  <string name="log_submit_interrupted">Az előző feltöltés eredménye nem érhető el. Ha új jelentést szeretne elküldeni, nyissa meg újra a „Napló elküldése” menüpontot.</string>
-  <string name="log_submit_no_internet">Nincs internetkapcsolat. Ellenőrizze a kapcsolatot, majd nyissa meg újra a „Napló elküldése” menüpontot, és próbálja meg újra.</string>
-  <string name="log_submit_save_failed">A napló mentése nem sikerült.</string>
-  <string name="log_submit_save_log">Napló mentése</string>
-  <string name="log_submit_saved">A napló mentve.</string>
-  <string name="log_submit_server_error">A naplófeltöltő szerver hibaüzenetet adott vissza. Nyissa meg újra a „Napló elküldése” menüpontot később, és próbálja meg újra.</string>
-  <string name="log_submit_share_failed">A naplóadatok megosztása nem sikerült.</string>
-  <string name="log_submit_share_info">Megosztási információk</string>
-  <string name="log_submit_unreachable">Nem sikerült kapcsolatba lépni a naplófeltöltő szerverrel. Ellenőrizze az internetkapcsolatát, vagy próbálja meg később újra a „Napló elküldése” gombra kattintva.</string>
-  <string name="log_submit_uploaded_status">A feltöltés naplóba került.</string>
+  <string name="log_submit__collecting_logs">Naplók gyűjtése…</string>
+  <string name="log_submit__interrupted">Az előző feltöltés eredménye nem érhető el. Ha új jelentést szeretne elküldeni, nyissa meg újra a „Napló elküldése” menüpontot.</string>
+  <string name="log_submit__log_collect_failed">A napló gyűjtése sikertelen.</string>
+  <string name="log_submit__log_save_failed">A napló mentése nem sikerült.</string>
+  <string name="log_submit__log_server_error">A naplófeltöltő szerver hibaüzenetet adott vissza. Nyissa meg újra a „Napló elküldése” menüpontot később, és próbálja meg újra.</string>
+  <string name="log_submit__log_server_unreachable">Nem sikerült kapcsolatba lépni a naplófeltöltő szerverrel. Ellenőrizze az internetkapcsolatát, vagy próbálja meg később újra a „Napló elküldése” gombra kattintva.</string>
+  <string name="log_submit__log_uploaded_status">A feltöltés naplóba került.</string>
+  <string name="log_submit__message_description">Küldhet egy kiegészítő üzenetet is, hogy segítsen nekünk a probléma megértésében.</string>
+  <string name="log_submit__message_empty">Küldés előtt írjon be egy üzenetet.</string>
+  <string name="log_submit__message_heading">Írja le a problémát (opcionális)</string>
+  <string name="log_submit__message_hint">Mi a probléma?</string>
+  <string name="log_submit__message_interrupted">Az előző üzenet eredménye nem érhető el. Megpróbálhatja újra elküldeni az üzenetet.</string>
+  <string name="log_submit__message_send">Üzenet elküldése</string>
+  <string name="log_submit__message_sending">Küldés…</string>
+  <string name="log_submit__message_sent">Üzenet elküldve. Köszönjük!</string>
+  <string name="log_submit__message_server_error">Az üzenetkiszolgáló hibát jelezett. Később próbálja meg újra.</string>
+  <string name="log_submit__message_server_unreachable">Nem sikerült elérni az üzenetszervert. Ellenőrizze a kapcsolatot, vagy próbálja meg később újra.</string>
+  <string name="log_submit__no_internet">Nincs internetkapcsolat. Ellenőrizze a kapcsolatot, majd próbálja meg újra.</string>
+  <string name="log_submit__save_log">Napló mentése</string>
+  <string name="log_submit__saved">A napló mentve.</string>
+  <string name="log_submit__share_failed">A naplóadatok megosztása nem sikerült.</string>
+  <string name="log_submit__share_info">Megosztási információk</string>
+  <string name="log_submit__thanks">Köszönöm a segítséget!</string>
+  <string name="log_submit__uploading_logs">Napló feltöltése…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Feladó</string>
   <string name="message_details_header__issues_need_your_attention">Néhány probléma megoldására van szükség.</string>

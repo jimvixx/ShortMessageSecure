@@ -390,22 +390,32 @@
 <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Jūs jau išsiuntėte sesijos inicijavimo prašymą šiam gavėjui, ar tikrai norite išsiųsti dar vieną? Tai panaikins pirmąjį prašymą.</string>
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">Žiūrėti visą pokalbį</string>
-<!--log_submit_activity-->
+<!--log_submit-->
 <string name="log_submit__button_share_logs">Dalytis žurnalu</string>
-<string name="log_submit_activity__collecting_logs">Renkama žurnalo informacija…</string>
-<string name="log_submit_activity__log_collect_failed">Nepavyko surinkti žurnalo.</string>
-<string name="log_submit_activity__thanks">Ačiū už pagalbą!</string>
-<string name="log_submit_activity__uploading_logs">Įkeliama žurnalo įrašas…</string>
-<string name="log_submit_interrupted">Ankstesnio įkėlimo rezultatas nėra prieinamas. Jei norite išsiųsti naują ataskaitą, vėl atidarykite „Pateikti žurnalą“.</string>
-<string name="log_submit_no_internet">Nėra interneto ryšio. Patikrinkite ryšį, tada vėl atidarykite „Pateikti žurnalą“ ir pabandykite dar kartą.</string>
-<string name="log_submit_save_failed">Nepavyko išsaugoti žurnalo.</string>
-<string name="log_submit_save_log">Išsaugoti žurnalą</string>
-<string name="log_submit_saved">Žurnalas išsaugotas.</string>
-<string name="log_submit_server_error">Žurnalo įkėlimo serveris grąžino klaidą. Vėliau vėl atidarykite „Pateikti žurnalą“ ir pabandykite dar kartą.</string>
-<string name="log_submit_share_failed">Nepavyko pasidalinti žurnalo informacija.</string>
-<string name="log_submit_share_info">Dalintis informacija</string>
-<string name="log_submit_unreachable">Nepavyko prisijungti prie žurnalo įkėlimo serverio. Patikrinkite ryšį arba pabandykite vėliau, vėl atidarydami „Pateikti žurnalą“.</string>
-<string name="log_submit_uploaded_status">Įkėlimas užregistruotas.</string>
+<string name="log_submit__collecting_logs">Renkama žurnalo informacija…</string>
+<string name="log_submit__interrupted">Ankstesnio įkėlimo rezultatas nėra prieinamas. Jei norite išsiųsti naują ataskaitą, vėl atidarykite „Pateikti žurnalą“.</string>
+<string name="log_submit__log_collect_failed">Nepavyko surinkti žurnalo.</string>
+<string name="log_submit__log_save_failed">Nepavyko išsaugoti žurnalo.</string>
+<string name="log_submit__log_server_error">Žurnalo įkėlimo serveris grąžino klaidą. Vėliau vėl atidarykite „Pateikti žurnalą“ ir pabandykite dar kartą.</string>
+<string name="log_submit__log_server_unreachable">Nepavyko prisijungti prie žurnalo įkėlimo serverio. Patikrinkite ryšį arba pabandykite vėliau, vėl atidarydami „Pateikti žurnalą“.</string>
+<string name="log_submit__log_uploaded_status">Įkėlimas užregistruotas.</string>
+<string name="log_submit__message_description">Galite nusiųsti papildomą pranešimą, kuris padės mums geriau suprasti problemą.</string>
+<string name="log_submit__message_empty">Prieš siunčiant įveskite pranešimą.</string>
+<string name="log_submit__message_heading">Aprašykite problemą (neprivaloma)</string>
+<string name="log_submit__message_hint">Kas nepavyko?</string>
+<string name="log_submit__message_interrupted">Ankstesnio pranešimo rezultatas nėra prieinamas. Galite pabandyti išsiųsti pranešimą dar kartą.</string>
+<string name="log_submit__message_send">Siųsti pranešimą</string>
+<string name="log_submit__message_sending">Siunčiama…</string>
+<string name="log_submit__message_sent">Pranešimas išsiųstas. Ačiū!</string>
+<string name="log_submit__message_server_error">Pranešimų serveris grąžino klaidą. Bandykite vėliau.</string>
+<string name="log_submit__message_server_unreachable">Nepavyko prisijungti prie pranešimų serverio. Patikrinkite ryšį arba pabandykite vėliau.</string>
+<string name="log_submit__no_internet">Nėra interneto ryšio. Patikrinkite ryšį ir bandykite dar kartą.</string>
+<string name="log_submit__save_log">Išsaugoti žurnalą</string>
+<string name="log_submit__saved">Žurnalas išsaugotas.</string>
+<string name="log_submit__share_failed">Nepavyko pasidalinti žurnalo informacija.</string>
+<string name="log_submit__share_info">Dalintis informacija</string>
+<string name="log_submit__thanks">Ačiū už pagalbą!</string>
+<string name="log_submit__uploading_logs">Įkeliama žurnalo įrašas…</string>
 <!--message_details_header-->
 <string name="message_details_header__from">Iš</string>
 <string name="message_details_header__issues_need_your_attention">Kai kurios problemos reikalauja jūsų dėmesio.</string>

@@ -381,22 +381,32 @@
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">כבר שלחת בקשת פתיחת הפעלה לנמען זה, האם אתה בטוח שברצונך לשלוח בקשה נוספת? פעולה זו תבטל את הבקשה הראשונה.</string>
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">ראה את השיחה המלאה</string>
-    <!--log_submit_activity-->
+    <!--log_submit-->
     <string name="log_submit__button_share_logs">שתף יומן</string>
-    <string name="log_submit_activity__collecting_logs">איסוף יומנים…</string>
-    <string name="log_submit_activity__log_collect_failed">לא ניתן לאסוף את היומן.</string>
-    <string name="log_submit_activity__thanks">תודה על העזרה!</string>
-    <string name="log_submit_activity__uploading_logs">מעלה יומן…</string>
-    <string name="log_submit_interrupted">תוצאת ההעלאה הקודמת אינה זמינה. פתח מחדש את ’שלח יומן’ אם ברצונך לשלוח דוח חדש.</string>
-    <string name="log_submit_no_internet">אין חיבור לאינטרנט. בדוק את החיבור שלך, ואז פתח מחדש את "שלח יומן" כדי לנסות שוב.</string>
-    <string name="log_submit_save_failed">לא ניתן לשמור את היומן.</string>
-    <string name="log_submit_save_log">שמור יומן</string>
-    <string name="log_submit_saved">היומן נשמר.</string>
-    <string name="log_submit_server_error">שרת העלאת היומנים החזיר שגיאה. פתח מחדש את ’שלח יומן’ מאוחר יותר כדי לנסות שוב.</string>
-    <string name="log_submit_share_failed">לא ניתן לשתף את פרטי היומן.</string>
-    <string name="log_submit_share_info">מידע על שיתוף</string>
-    <string name="log_submit_unreachable">לא ניתן היה ליצור קשר עם שרת העלאת היומנים. בדוק את החיבור שלך או נסה שוב מאוחר יותר על ידי פתיחה מחודשת של ’שלח יומן’.</string>
-    <string name="log_submit_uploaded_status">ההעלאה נרשמה.</string>
+    <string name="log_submit__collecting_logs">איסוף יומנים…</string>
+    <string name="log_submit__interrupted">תוצאת ההעלאה הקודמת אינה זמינה. פתח מחדש את ’שלח יומן’ אם ברצונך לשלוח דוח חדש.</string>
+    <string name="log_submit__log_collect_failed">לא ניתן לאסוף את היומן.</string>
+    <string name="log_submit__log_save_failed">לא ניתן לשמור את היומן.</string>
+    <string name="log_submit__log_server_error">שרת העלאת היומנים החזיר שגיאה. פתח מחדש את ’שלח יומן’ מאוחר יותר כדי לנסות שוב.</string>
+    <string name="log_submit__log_server_unreachable">לא ניתן היה ליצור קשר עם שרת העלאת היומנים. בדוק את החיבור שלך או נסה שוב מאוחר יותר על ידי פתיחה מחודשת של ’שלח יומן’.</string>
+    <string name="log_submit__log_uploaded_status">ההעלאה נרשמה.</string>
+    <string name="log_submit__message_description">ניתן לשלוח הודעה נוספת כדי לעזור לנו להבין את הבעיה.</string>
+    <string name="log_submit__message_empty">הזן הודעה לפני השליחה.</string>
+    <string name="log_submit__message_heading">תאר את הבעיה (לא חובה)</string>
+    <string name="log_submit__message_hint">מה השתבש?</string>
+    <string name="log_submit__message_interrupted">תוצאת ההודעה הקודמת אינה זמינה. ניתן לנסות לשלוח את ההודעה שוב.</string>
+    <string name="log_submit__message_send">שלח הודעה</string>
+    <string name="log_submit__message_sending">שולח…</string>
+    <string name="log_submit__message_sent">ההודעה נשלחה. תודה!</string>
+    <string name="log_submit__message_server_error">שרת ההודעות החזיר שגיאה. נסה שוב מאוחר יותר.</string>
+    <string name="log_submit__message_server_unreachable">לא ניתן היה ליצור קשר עם שרת ההודעות. בדוק את החיבור שלך או נסה שוב מאוחר יותר.</string>
+    <string name="log_submit__no_internet">אין חיבור לאינטרנט. בדוק את החיבור שלך, ואז נסה שוב.</string>
+    <string name="log_submit__save_log">שמור יומן</string>
+    <string name="log_submit__saved">היומן נשמר.</string>
+    <string name="log_submit__share_failed">לא ניתן לשתף את פרטי היומן.</string>
+    <string name="log_submit__share_info">מידע על שיתוף</string>
+    <string name="log_submit__thanks">תודה על העזרה!</string>
+    <string name="log_submit__uploading_logs">מעלה יומן…</string>
     <!--message_details_header-->
     <string name="message_details_header__from">מאת</string>
     <string name="message_details_header__issues_need_your_attention">ישנן כמה בעיות הדורשות את תשומת לבך.</string>

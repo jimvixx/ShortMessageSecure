@@ -372,22 +372,32 @@
 <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Olete sellele adressaadile juba saatnud seansi algatamise taotluse, kas olete kindel, et soovite saata veel ühe? See tühistab esimese taotluse.</string>
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">Vaata kogu vestlust</string>
-<!--log_submit_activity-->
+<!--log_submit-->
 <string name="log_submit__button_share_logs">Jaga logi</string>
-<string name="log_submit_activity__collecting_logs">Logide kogumine…</string>
-<string name="log_submit_activity__log_collect_failed">Logi kogumine ebaõnnestus.</string>
-<string name="log_submit_activity__thanks">Tänan abi eest!</string>
-<string name="log_submit_activity__uploading_logs">Logi üleslaadimine…</string>
-<string name="log_submit_interrupted">Eelmise üleslaadimise tulemus ei ole kättesaadav. Avage uuesti „Saada logi”, kui soovite saata uue aruande.</string>
-<string name="log_submit_no_internet">Internetiühendus puudub. Kontrolli ühendust ja ava seejärel uuesti „Saada logi”, et proovida uuesti.</string>
-<string name="log_submit_save_failed">Logi salvestamine ebaõnnestus.</string>
-<string name="log_submit_save_log">Salvesta logi</string>
-<string name="log_submit_saved">Logi salvestatud.</string>
-<string name="log_submit_server_error">Logi üleslaadimisserver andis veateate. Avage hiljem uuesti „Saada logi”, et uuesti proovida.</string>
-<string name="log_submit_share_failed">Logiandmeid ei õnnestunud jagada.</string>
-<string name="log_submit_share_info">Jaga teavet</string>
-<string name="log_submit_unreachable">Logi üleslaadimisserveriga ei õnnestunud ühendust luua. Kontrollige oma ühendust või proovige hiljem uuesti, avades uuesti valiku „Saada logi”.</string>
-<string name="log_submit_uploaded_status">Üleslaadimine on logitud.</string>
+<string name="log_submit__collecting_logs">Logide kogumine…</string>
+<string name="log_submit__interrupted">Eelmise üleslaadimise tulemus ei ole kättesaadav. Avage uuesti „Saada logi”, kui soovite saata uue aruande.</string>
+<string name="log_submit__log_collect_failed">Logi kogumine ebaõnnestus.</string>
+<string name="log_submit__log_save_failed">Logi salvestamine ebaõnnestus.</string>
+<string name="log_submit__log_server_error">Logi üleslaadimisserver andis veateate. Avage hiljem uuesti „Saada logi”, et uuesti proovida.</string>
+<string name="log_submit__log_server_unreachable">Logi üleslaadimisserveriga ei õnnestunud ühendust luua. Kontrollige oma ühendust või proovige hiljem uuesti, avades uuesti valiku „Saada logi”.</string>
+<string name="log_submit__log_uploaded_status">Üleslaadimine on logitud.</string>
+<string name="log_submit__message_description">Võid saata lisasõnumi, et aidata meil probleemi paremini mõista.</string>
+<string name="log_submit__message_empty">Sisesta sõnum enne saatmist.</string>
+<string name="log_submit__message_heading">Kirjeldage probleemi (valikuline)</string>
+<string name="log_submit__message_hint">Mis läks valesti?</string>
+<string name="log_submit__message_interrupted">Eelmise sõnumi tulemus ei ole kättesaadav. Võite proovida sõnumit uuesti saata.</string>
+<string name="log_submit__message_send">Saada sõnum</string>
+<string name="log_submit__message_sending">Saadetakse…</string>
+<string name="log_submit__message_sent">Sõnum saadetud. Täname!</string>
+<string name="log_submit__message_server_error">Sõnumiserver andis veateate. Proovi hiljem uuesti.</string>
+<string name="log_submit__message_server_unreachable">Sõnumiserveriga ei õnnestunud ühendust luua. Kontrollige oma ühendust või proovige hiljem uuesti.</string>
+<string name="log_submit__no_internet">Internetiühendust pole. Kontrolli ühendust ja proovi uuesti.</string>
+<string name="log_submit__save_log">Salvesta logi</string>
+<string name="log_submit__saved">Logi salvestatud.</string>
+<string name="log_submit__share_failed">Logiandmeid ei õnnestunud jagada.</string>
+<string name="log_submit__share_info">Jaga teavet</string>
+<string name="log_submit__thanks">Tänan abi eest!</string>
+<string name="log_submit__uploading_logs">Logi üleslaadimine…</string>
 <!--message_details_header-->
 <string name="message_details_header__from">From</string>
 <string name="message_details_header__issues_need_your_attention">Mõned probleemid vajavad teie tähelepanu.</string>

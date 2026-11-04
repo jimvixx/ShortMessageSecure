@@ -372,22 +372,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Du har allerede sendt en forespørsel om å starte en økt til denne mottakeren. Er du sikker på at du vil sende en til? Dette vil ugyldiggjøre den første forespørselen.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Se hele samtalen</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Del logg</string>
-  <string name="log_submit_activity__collecting_logs">Samler inn logg…</string>
-  <string name="log_submit_activity__log_collect_failed">Kunne ikke samle inn logg.</string>
-  <string name="log_submit_activity__thanks">Takk for hjelpen!</string>
-  <string name="log_submit_activity__uploading_logs">Laster opp logg…</string>
-  <string name="log_submit_interrupted">Resultatet fra forrige opplasting er ikke tilgjengelig. Åpne «Send logg» på nytt hvis du vil sende en ny rapport.</string>
-  <string name="log_submit_no_internet">Ingen internettforbindelse. Sjekk tilkoblingen din, og åpne deretter «Send logg» på nytt for å prøve igjen.</string>
-  <string name="log_submit_save_failed">Kunne ikke lagre loggen.</string>
-  <string name="log_submit_save_log">Lagre logg</string>
-  <string name="log_submit_saved">Logg lagret.</string>
-  <string name="log_submit_server_error">Loggopplastingsserveren returnerte en feil. Åpne «Send inn logg» på nytt senere for å prøve igjen.</string>
-  <string name="log_submit_share_failed">Det var ikke mulig å dele logginformasjonen.</string>
-  <string name="log_submit_share_info">Del informasjon</string>
-  <string name="log_submit_unreachable">Det var ikke mulig å opprette forbindelse til loggopplastingsserveren. Sjekk tilkoblingen din, eller prøv igjen senere ved å åpne «Send logg» på nytt.</string>
-  <string name="log_submit_uploaded_status">Logg opplastet.</string>
+  <string name="log_submit__collecting_logs">Samler inn logg…</string>
+  <string name="log_submit__interrupted">Resultatet fra forrige opplasting er ikke tilgjengelig. Åpne «Send logg» på nytt hvis du vil sende en ny rapport.</string>
+  <string name="log_submit__log_collect_failed">Kunne ikke samle inn logg.</string>
+  <string name="log_submit__log_save_failed">Kunne ikke lagre loggen.</string>
+  <string name="log_submit__log_server_error">Loggopplastingsserveren returnerte en feil. Åpne «Send inn logg» på nytt senere for å prøve igjen.</string>
+  <string name="log_submit__log_server_unreachable">Det var ikke mulig å opprette forbindelse til loggopplastingsserveren. Sjekk tilkoblingen din, eller prøv igjen senere ved å åpne «Send logg» på nytt.</string>
+  <string name="log_submit__log_uploaded_status">Logg opplastet.</string>
+  <string name="log_submit__message_description">Du kan sende en tilleggsmelding for å hjelpe oss med å forstå problemet.</string>
+  <string name="log_submit__message_empty">Skriv inn en melding før du sender.</string>
+  <string name="log_submit__message_heading">Beskriv problemet (valgfritt)</string>
+  <string name="log_submit__message_hint">Hva gikk galt?</string>
+  <string name="log_submit__message_interrupted">Resultatet av den forrige meldingen er ikke tilgjengelig. Du kan prøve å sende meldingen på nytt.</string>
+  <string name="log_submit__message_send">Send melding</string>
+  <string name="log_submit__message_sending">Sender…</string>
+  <string name="log_submit__message_sent">Melding sendt. Takk!</string>
+  <string name="log_submit__message_server_error">Meldingsserveren returnerte en feil. Prøv igjen senere.</string>
+  <string name="log_submit__message_server_unreachable">Kunne ikke nå meldingsserveren. Sjekk tilkoblingen din eller prøv igjen senere.</string>
+  <string name="log_submit__no_internet">Ingen internettforbindelse. Sjekk forbindelsen din, og prøv på nytt.</string>
+  <string name="log_submit__save_log">Lagre logg</string>
+  <string name="log_submit__saved">Logg lagret.</string>
+  <string name="log_submit__share_failed">Det var ikke mulig å dele logginformasjonen.</string>
+  <string name="log_submit__share_info">Del informasjon</string>
+  <string name="log_submit__thanks">Takk for hjelpen!</string>
+  <string name="log_submit__uploading_logs">Laster opp logg…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Fra</string>
   <string name="message_details_header__issues_need_your_attention">Noen problemer krever din oppmerksomhet.</string>

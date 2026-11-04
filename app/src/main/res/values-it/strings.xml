@@ -381,22 +381,32 @@
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Hai già inviato una richiesta di avvio della sessione a questo destinatario, sei sicuro di volerne inviare un’altra? Questo invaliderà la prima richiesta.</string>
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Mostra l\’intera conversazione</string>
-    <!--log_submit_activity-->
+    <!--log_submit-->
     <string name="log_submit__button_share_logs">Condividi log</string>
-    <string name="log_submit_activity__collecting_logs">Raccolta dei log…</string>
-    <string name="log_submit_activity__log_collect_failed">Impossibile raccogliere il log.</string>
-    <string name="log_submit_activity__thanks">Grazie dell\’aiuto!</string>
-    <string name="log_submit_activity__uploading_logs">Caricamento del log in corso…</string>
-    <string name="log_submit_interrupted">Il risultato del caricamento precedente non è disponibile. Riapri "Invia log" se desideri inviare un nuovo rapporto.</string>
-    <string name="log_submit_no_internet">Nessuna connessione a Internet. Verifica la connessione, quindi riapri "Invia log" per riprovare.</string>
-    <string name="log_submit_save_failed">Impossibile salvare il log.</string>
-    <string name="log_submit_save_log">Salva log</string>
-    <string name="log_submit_saved">Registro salvato.</string>
-    <string name="log_submit_server_error">Il server di caricamento dei log ha restituito un errore. Riaprire "Invia log" in un secondo momento per riprovare.</string>
-    <string name="log_submit_share_failed">Impossibile condividere le informazioni di log.</string>
-    <string name="log_submit_share_info">Condividi informazioni</string>
-    <string name="log_submit_unreachable">Impossibile raggiungere il server di caricamento dei log. Verifica la connessione o riprova più tardi riaprendo "Invia log".</string>
-    <string name="log_submit_uploaded_status">Caricamento registrato.</string>
+    <string name="log_submit__collecting_logs">Raccolta dei log…</string>
+    <string name="log_submit__interrupted">Il risultato del caricamento precedente non è disponibile. Riapri "Invia log" se desideri inviare un nuovo rapporto.</string>
+    <string name="log_submit__log_collect_failed">Impossibile raccogliere il log.</string>
+    <string name="log_submit__log_save_failed">Impossibile salvare il log.</string>
+    <string name="log_submit__log_server_error">Il server di caricamento dei log ha restituito un errore. Riaprire "Invia log" in un secondo momento per riprovare.</string>
+    <string name="log_submit__log_server_unreachable">Impossibile raggiungere il server di caricamento dei log. Verifica la connessione o riprova più tardi riaprendo "Invia log".</string>
+    <string name="log_submit__log_uploaded_status">Caricamento registrato.</string>
+    <string name="log_submit__message_description">È possibile inviare un messaggio aggiuntivo per aiutarci a comprendere il problema.</string>
+    <string name="log_submit__message_empty">Inserisci un messaggio prima dell’invio.</string>
+    <string name="log_submit__message_heading">Descrivi il problema (facoltativo)</string>
+    <string name="log_submit__message_hint">Cosa è andato storto?</string>
+    <string name="log_submit__message_interrupted">Il risultato del messaggio precedente non è disponibile. È possibile provare a inviare nuovamente il messaggio.</string>
+    <string name="log_submit__message_send">Invia messaggio</string>
+    <string name="log_submit__message_sending">Invio in corso…</string>
+    <string name="log_submit__message_sent">Messaggio inviato. Grazie!</string>
+    <string name="log_submit__message_server_error">Il server dei messaggi ha restituito un errore. Riprovare più tardi.</string>
+    <string name="log_submit__message_server_unreachable">Impossibile raggiungere il server dei messaggi. Verifica la connessione o riprova più tardi.</string>
+    <string name="log_submit__no_internet">Nessuna connessione a Internet. Verifica la connessione, quindi riprova.</string>
+    <string name="log_submit__save_log">Salva log</string>
+    <string name="log_submit__saved">Registro salvato.</string>
+    <string name="log_submit__share_failed">Impossibile condividere le informazioni di log.</string>
+    <string name="log_submit__share_info">Condividi informazioni</string>
+    <string name="log_submit__thanks">Grazie dell\’aiuto!</string>
+    <string name="log_submit__uploading_logs">Caricamento del log in corso…</string>
     <!--message_details_header-->
     <string name="message_details_header__from">Da</string>
     <string name="message_details_header__issues_need_your_attention">Ci sono alcuni problemi che richiedono la tua attenzione.</string>

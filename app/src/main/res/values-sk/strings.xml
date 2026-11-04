@@ -390,22 +390,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Už ste odoslali žiadosť o začatie relácie tomuto príjemcovi, naozaj chcete odoslať ďalšiu? Týmto sa prvá žiadosť zruší.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Zobraziť celú konverzáciu</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Zdieľať protokol</string>
-  <string name="log_submit_activity__collecting_logs">Zbieranie protokolov…</string>
-  <string name="log_submit_activity__log_collect_failed">Zber protokolu sa nepodaril.</string>
-  <string name="log_submit_activity__thanks">Ďakujeme za pomoc!</string>
-  <string name="log_submit_activity__uploading_logs">Nahrávanie protokolu…</string>
-  <string name="log_submit_interrupted">Výsledok predchádzajúceho odoslania nie je k dispozícii. Ak chcete odoslať novú správu, znovu otvorte okno „Odoslať protokol“.</string>
-  <string name="log_submit_no_internet">Nie je k dispozícii pripojenie k internetu. Skontrolujte pripojenie a potom znovu otvorte položku „Odoslať protokol“ a skúste to znova.</string>
-  <string name="log_submit_save_failed">Protokol sa nepodarilo uložiť.</string>
-  <string name="log_submit_save_log">Uložiť protokol</string>
-  <string name="log_submit_saved">Protokol uložený.</string>
-  <string name="log_submit_server_error">Server na odosielanie protokolov vrátil chybu. Neskôr znovu otvorte okno „Odoslať protokol“ a skúste to znova.</string>
-  <string name="log_submit_share_failed">Informácie z protokolu sa nepodarilo zdieľať.</string>
-  <string name="log_submit_share_info">Zdieľať informácie</string>
-  <string name="log_submit_unreachable">Nepodarilo sa nadviazať spojenie so serverom na odosielanie protokolov. Skontrolujte pripojenie alebo to skúste neskôr opätovným otvorením položky „Odoslať protokol“.</string>
-  <string name="log_submit_uploaded_status">Nahranie bolo zaznamenané.</string>
+  <string name="log_submit__collecting_logs">Zbieranie protokolov…</string>
+  <string name="log_submit__interrupted">Výsledok predchádzajúceho odoslania nie je k dispozícii. Ak chcete odoslať novú správu, znovu otvorte okno „Odoslať protokol“.</string>
+  <string name="log_submit__log_collect_failed">Zber protokolu sa nepodaril.</string>
+  <string name="log_submit__log_save_failed">Protokol sa nepodarilo uložiť.</string>
+  <string name="log_submit__log_server_error">Server na odosielanie protokolov vrátil chybu. Neskôr znovu otvorte okno „Odoslať protokol“ a skúste to znova.</string>
+  <string name="log_submit__log_server_unreachable">Nepodarilo sa nadviazať spojenie so serverom na odosielanie protokolov. Skontrolujte pripojenie alebo to skúste neskôr opätovným otvorením položky „Odoslať protokol“.</string>
+  <string name="log_submit__log_uploaded_status">Nahranie bolo zaznamenané.</string>
+  <string name="log_submit__message_description">Môžete poslať dodatočnú správu, ktorá nám pomôže pochopiť tento problém.</string>
+  <string name="log_submit__message_empty">Pred odoslaním zadajte správu.</string>
+  <string name="log_submit__message_heading">Popíšte problém (voliteľné)</string>
+  <string name="log_submit__message_hint">Čo sa pokazilo?</string>
+  <string name="log_submit__message_interrupted">Výsledok predchádzajúcej správy nie je k dispozícii. Môžete skúsiť odoslať správu znovu.</string>
+  <string name="log_submit__message_send">Odoslať správu</string>
+  <string name="log_submit__message_sending">Odosielanie…</string>
+  <string name="log_submit__message_sent">Správa odoslaná. Ďakujeme!</string>
+  <string name="log_submit__message_server_error">Server správ vrátil chybu. Skúste to neskôr.</string>
+  <string name="log_submit__message_server_unreachable">Nepodarilo sa nadviazať spojenie so serverom správ. Skontrolujte pripojenie alebo to skúste neskôr.</string>
+  <string name="log_submit__no_internet">Nie je k dispozícii pripojenie k internetu. Skontrolujte pripojenie a skúste to znovu.</string>
+  <string name="log_submit__save_log">Uložiť protokol</string>
+  <string name="log_submit__saved">Protokol uložený.</string>
+  <string name="log_submit__share_failed">Informácie z protokolu sa nepodarilo zdieľať.</string>
+  <string name="log_submit__share_info">Zdieľať informácie</string>
+  <string name="log_submit__thanks">Ďakujeme za pomoc!</string>
+  <string name="log_submit__uploading_logs">Nahrávanie protokolu…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Od</string>
   <string name="message_details_header__issues_need_your_attention">Niektoré problémy si vyžadujú vašu pozornosť.</string>

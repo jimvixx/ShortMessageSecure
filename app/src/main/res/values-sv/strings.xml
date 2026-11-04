@@ -372,22 +372,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Du har redan skickat en begäran om att starta en session till denna mottagare. Är du säker på att du vill skicka en till? Detta kommer att ogiltigförklara den första begäran.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Se hela konversationen</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Dela logg</string>
-  <string name="log_submit_activity__collecting_logs">Samlar in logg…</string>
-  <string name="log_submit_activity__log_collect_failed">Det gick inte att samla in loggen.</string>
-  <string name="log_submit_activity__thanks">Tack för hjälpen!</string>
-  <string name="log_submit_activity__uploading_logs">Laddar upp logg…</string>
-  <string name="log_submit_interrupted">Resultatet från den senaste uppladdningen är inte tillgängligt. Öppna ”Skicka logg” igen om du vill skicka en ny rapport.</string>
-  <string name="log_submit_no_internet">Ingen internetanslutning. Kontrollera din anslutning och öppna sedan Skicka logg igen för att försöka på nytt.</string>
-  <string name="log_submit_save_failed">Det gick inte att spara loggen.</string>
-  <string name="log_submit_save_log">Spara logg</string>
-  <string name="log_submit_saved">Loggen har sparats.</string>
-  <string name="log_submit_server_error">Servern för logguppladdning returnerade ett fel. Öppna ”Skicka logg” igen senare för att försöka på nytt.</string>
-  <string name="log_submit_share_failed">Det gick inte att dela logginformationen.</string>
-  <string name="log_submit_share_info">Dela information</string>
-  <string name="log_submit_unreachable">Det gick inte att nå servern för logguppladdning. Kontrollera din anslutning eller försök igen senare genom att öppna ”Skicka logg” på nytt.</string>
-  <string name="log_submit_uploaded_status">Uppladdningen har loggats.</string>
+  <string name="log_submit__collecting_logs">Samlar in logg…</string>
+  <string name="log_submit__interrupted">Resultatet från den senaste uppladdningen är inte tillgängligt. Öppna ”Skicka logg” igen om du vill skicka en ny rapport.</string>
+  <string name="log_submit__log_collect_failed">Det gick inte att samla in loggen.</string>
+  <string name="log_submit__log_save_failed">Det gick inte att spara loggen.</string>
+  <string name="log_submit__log_server_error">Servern för logguppladdning returnerade ett fel. Öppna ”Skicka logg” igen senare för att försöka på nytt.</string>
+  <string name="log_submit__log_server_unreachable">Det gick inte att nå servern för logguppladdning. Kontrollera din anslutning eller försök igen senare genom att öppna ”Skicka logg” på nytt.</string>
+  <string name="log_submit__log_uploaded_status">Uppladdningen har loggats.</string>
+  <string name="log_submit__message_description">Du kan skicka ett ytterligare meddelande för att hjälpa oss att förstå problemet.</string>
+  <string name="log_submit__message_empty">Ange ett meddelande innan du skickar.</string>
+  <string name="log_submit__message_heading">Beskriv problemet (valfritt)</string>
+  <string name="log_submit__message_hint">Vad gick fel?</string>
+  <string name="log_submit__message_interrupted">Resultatet för det föregående meddelandet är inte tillgängligt. Du kan försöka skicka meddelandet igen.</string>
+  <string name="log_submit__message_send">Skicka meddelande</string>
+  <string name="log_submit__message_sending">Skickar…</string>
+  <string name="log_submit__message_sent">Meddelande skickat. Tack!</string>
+  <string name="log_submit__message_server_error">Meddelandeservern returnerade ett fel. Försök igen senare.</string>
+  <string name="log_submit__message_server_unreachable">Det gick inte att nå meddelandeservern. Kontrollera din anslutning eller försök igen senare.</string>
+  <string name="log_submit__no_internet">Ingen internetanslutning. Kontrollera din anslutning och försök igen.</string>
+  <string name="log_submit__save_log">Spara logg</string>
+  <string name="log_submit__saved">Loggen har sparats.</string>
+  <string name="log_submit__share_failed">Det gick inte att dela logginformationen.</string>
+  <string name="log_submit__share_info">Dela information</string>
+  <string name="log_submit__thanks">Tack för hjälpen!</string>
+  <string name="log_submit__uploading_logs">Laddar upp logg…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Från</string>
   <string name="message_details_header__issues_need_your_attention">Det finns några problem som du behöver ta itu med.</string>

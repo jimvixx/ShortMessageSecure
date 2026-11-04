@@ -28,9 +28,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -49,12 +52,21 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 public class SubmitLogFragment extends Fragment {
+  private static final String ARG_AUTO_START = "auto_start";
   private SubmitLogViewModel model;
   private final ActivityResultLauncher<String> saveLog = registerForActivityResult(
           new ActivityResultContracts.CreateDocument("text/plain"), this::saveLogs);
 
   public static SubmitLogFragment newInstance() {
-    return new SubmitLogFragment();
+    return newInstance(true);
+  }
+
+  public static SubmitLogFragment newInstance(boolean autoStart) {
+    SubmitLogFragment fragment = new SubmitLogFragment();
+    Bundle arguments = new Bundle();
+    arguments.putBoolean(ARG_AUTO_START, autoStart);
+    fragment.setArguments(arguments);
+    return fragment;
   }
 
   @Nullable
@@ -74,18 +86,51 @@ public class SubmitLogFragment extends Fragment {
     Button save = view.findViewById(R.id.log_submit_save_button);
     Button shareInfo = view.findViewById(R.id.log_submit_share_link_button);
     Button shareLog = view.findViewById(R.id.log_submit_share_logs_button);
+    View messageForm = view.findViewById(R.id.log_submit_message_form);
+    EditText messageInput = view.findViewById(R.id.log_submit_message_input);
+    TextView messageStatus = view.findViewById(R.id.log_submit_message_status);
+    Button sendMessage = view.findViewById(R.id.log_submit_message_button);
+    messageInput.setText(model.getMessageText());
+    Runnable updateSendEnabled = () -> {
+      SubmitLogViewModel.State current = model.state.getValue();
+      sendMessage.setEnabled(current != null && current.messageAvailable &&
+              !current.messageBusy && !current.messageSent &&
+              !messageInput.getText().toString().trim().isEmpty());
+    };
+    messageInput.addTextChangedListener(new TextWatcher() {
+      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      }
+
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+        model.setMessageText(s.toString());
+        updateSendEnabled.run();
+      }
+
+      @Override public void afterTextChanged(Editable s) {
+      }
+    });
+    sendMessage.setOnClickListener(v -> model.sendMessage(messageInput.getText().toString()));
     save.setOnClickListener(v -> saveLog.launch("smsecure-logcat.txt"));
     shareInfo.setOnClickListener(v -> shareInfo());
     shareLog.setOnClickListener(v -> shareLogs());
     model.state.observe(getViewLifecycleOwner(), state -> {
       status.setText(state.status);
-      preview.setText(state.info == null ? "" : state.info + "\n\n" + getString(R.string.log_submit_activity__thanks));
-      progress.setVisibility(state.busy ? View.VISIBLE : View.GONE);
+      preview.setText(state.info == null ? "" : state.info + "\n\n" + getString(R.string.log_submit__thanks));
+      progress.setVisibility(state.busy || state.messageBusy ? View.VISIBLE : View.GONE);
+      messageForm.setVisibility(state.messageAvailable ? View.VISIBLE : View.GONE);
+      messageStatus.setVisibility(state.messageStatus == 0 ? View.GONE : View.VISIBLE);
+      if (state.messageStatus != 0) messageStatus.setText(state.messageStatus);
+      sendMessage.setText(state.messageBusy ? R.string.log_submit__message_sending :
+              R.string.log_submit__message_send);
+      messageInput.setEnabled(!state.messageBusy && !state.messageSent);
       save.setEnabled(model.logs != null);
       shareLog.setEnabled(model.logs != null);
       shareInfo.setEnabled(state.info != null);
+      updateSendEnabled.run();
     });
-    model.start();
+    if (getArguments() == null || getArguments().getBoolean(ARG_AUTO_START, true)) {
+      model.start();
+    }
   }
 
   private void saveLogs(@Nullable Uri uri) {
@@ -94,7 +139,7 @@ public class SubmitLogFragment extends Fragment {
     String logs = model.logs;
     File cachedLog = model.getCachedLog();
     new Thread(() -> {
-      int message = R.string.log_submit_saved;
+      int message = R.string.log_submit__saved;
       try (OutputStream out = context.getContentResolver().openOutputStream(uri, "wt")) {
         if (out == null) throw new java.io.IOException("No output stream");
         if (logs != null) {
@@ -108,7 +153,7 @@ public class SubmitLogFragment extends Fragment {
         }
       } catch (Exception e) {
         Log.w("SubmitLogFragment", e);
-        message = R.string.log_submit_save_failed;
+        message = R.string.log_submit__log_save_failed;
       }
       int result = message;
       new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
@@ -123,7 +168,7 @@ public class SubmitLogFragment extends Fragment {
     intent.setType("text/plain");
     intent.putExtra(Intent.EXTRA_SUBJECT, "SMSecure log upload info");
     intent.putExtra(Intent.EXTRA_TEXT, state.info);
-    launchShare(intent, R.string.log_submit_share_info);
+    launchShare(intent, R.string.log_submit__share_info);
   }
 
   private void shareLogs() {
@@ -145,7 +190,7 @@ public class SubmitLogFragment extends Fragment {
       launchShare(intent, R.string.log_submit__button_share_logs);
     } catch (Exception e) {
       Log.w("SubmitLogFragment", e);
-      Toast.makeText(requireContext(), R.string.log_submit_share_failed, Toast.LENGTH_SHORT).show();
+      Toast.makeText(requireContext(), R.string.log_submit__share_failed, Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -153,7 +198,7 @@ public class SubmitLogFragment extends Fragment {
     try {
       startActivity(Intent.createChooser(intent, getString(title)));
     } catch (ActivityNotFoundException e) {
-      Toast.makeText(requireContext(), R.string.log_submit_share_failed, Toast.LENGTH_SHORT).show();
+      Toast.makeText(requireContext(), R.string.log_submit__share_failed, Toast.LENGTH_SHORT).show();
     }
   }
 }

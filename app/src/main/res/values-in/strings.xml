@@ -363,22 +363,32 @@
 <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Anda telah mengirimkan permintaan inisiasi sesi ke penerima ini, apakah Anda yakin ingin mengirimkan yang lain? Hal ini akan membatalkan permintaan pertama.</string>
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">Lihat percakapan lengkap</string>
-<!--log_submit_activity-->
+<!--log_submit-->
 <string name="log_submit__button_share_logs">Bagikan log</string>
-<string name="log_submit_activity__collecting_logs">Mengumpulkan log…</string>
-<string name="log_submit_activity__log_collect_failed">Gagal mengumpulkan log.</string>
-<string name="log_submit_activity__thanks">Terima kasih atas bantuannya!</string>
-<string name="log_submit_activity__uploading_logs">Mengunggah log…</string>
-<string name="log_submit_interrupted">Hasil pengunggahan sebelumnya tidak tersedia. Buka kembali "Kirim Log" jika Anda ingin mengirim laporan baru.</string>
-<string name="log_submit_no_internet">Tidak ada koneksi internet. Periksa koneksi Anda, lalu buka kembali "Kirim log" untuk mencoba lagi.</string>
-<string name="log_submit_save_failed">Tidak dapat menyimpan log.</string>
-<string name="log_submit_save_log">Simpan log</string>
-<string name="log_submit_saved">Log telah disimpan.</string>
-<string name="log_submit_server_error">Server pengunggahan log mengalami kesalahan. Silakan buka kembali "Kirim Log" nanti untuk mencoba lagi.</string>
-<string name="log_submit_share_failed">Tidak dapat membagikan informasi log.</string>
-<string name="log_submit_share_info">Bagikan info</string>
-<string name="log_submit_unreachable">Tidak dapat terhubung ke server unggah log. Periksa koneksi Anda atau coba lagi nanti dengan membuka kembali "Kirim log".</string>
-<string name="log_submit_uploaded_status">Log telah diunggah.</string>
+<string name="log_submit__collecting_logs">Mengumpulkan log…</string>
+<string name="log_submit__interrupted">Hasil pengunggahan sebelumnya tidak tersedia. Buka kembali "Kirim Log" jika Anda ingin mengirim laporan baru.</string>
+<string name="log_submit__log_collect_failed">Gagal mengumpulkan log.</string>
+<string name="log_submit__log_save_failed">Tidak dapat menyimpan log.</string>
+<string name="log_submit__log_server_error">Server pengunggahan log mengalami kesalahan. Silakan buka kembali "Kirim Log" nanti untuk mencoba lagi.</string>
+<string name="log_submit__log_server_unreachable">Tidak dapat terhubung ke server unggah log. Periksa koneksi Anda atau coba lagi nanti dengan membuka kembali "Kirim log".</string>
+<string name="log_submit__log_uploaded_status">Log telah diunggah.</string>
+<string name="log_submit__message_description">Anda dapat mengirim pesan tambahan untuk membantu kami memahami masalah tersebut.</string>
+<string name="log_submit__message_empty">Masukkan pesan sebelum mengirim.</string>
+<string name="log_submit__message_heading">Jelaskan masalahnya (opsional)</string>
+<string name="log_submit__message_hint">Apa yang salah?</string>
+<string name="log_submit__message_interrupted">Hasil pesan sebelumnya tidak tersedia. Anda dapat mencoba mengirim pesan tersebut lagi.</string>
+<string name="log_submit__message_send">Kirim pesan</string>
+<string name="log_submit__message_sending">Sedang mengirim…</string>
+<string name="log_submit__message_sent">Pesan telah terkirim. Terima kasih!</string>
+<string name="log_submit__message_server_error">Server pesan mengembalikan kesalahan. Silakan coba lagi nanti.</string>
+<string name="log_submit__message_server_unreachable">Tidak dapat menghubungi server pesan. Periksa koneksi Anda atau coba lagi nanti.</string>
+<string name="log_submit__no_internet">Tidak ada koneksi internet. Periksa koneksi Anda, lalu coba lagi.</string>
+<string name="log_submit__save_log">Simpan log</string>
+<string name="log_submit__saved">Log telah disimpan.</string>
+<string name="log_submit__share_failed">Tidak dapat membagikan informasi log.</string>
+<string name="log_submit__share_info">Bagikan info</string>
+<string name="log_submit__thanks">Terima kasih atas bantuannya!</string>
+<string name="log_submit__uploading_logs">Mengunggah log…</string>
 <!--message_details_header-->
 <string name="message_details_header__from">Dari</string>
 <string name="message_details_header__issues_need_your_attention">Ada beberapa masalah yang perlu Anda perhatikan.</string>

@@ -31,6 +31,9 @@ public final class LogUploadResult {
   @Nullable
   public final String objectKey;
 
+  @Nullable
+  public final String messageToken;
+
   public final long size;
 
   @Nullable
@@ -45,6 +48,7 @@ public final class LogUploadResult {
   private LogUploadResult(boolean success, boolean serverError,
                           @Nullable String reportId,
                           @Nullable String objectKey,
+                          @Nullable String messageToken,
                           long size,
                           @Nullable String service,
                           @Nullable String error,
@@ -53,6 +57,7 @@ public final class LogUploadResult {
     this.serverError = serverError;
     this.reportId = reportId;
     this.objectKey = objectKey;
+    this.messageToken = messageToken;
     this.size = size;
     this.service = service;
     this.error = error;
@@ -64,16 +69,28 @@ public final class LogUploadResult {
                                         @NonNull String reportId,
                                         @NonNull String objectKey,
                                         long size) {
+    return success(service, reportId, objectKey, null, size);
+  }
+
+  @NonNull
+  public static LogUploadResult success(@NonNull String service,
+                                        @NonNull String reportId,
+                                        @NonNull String objectKey,
+                                        @Nullable String messageToken,
+                                        long size) {
     String cleanService = service.trim();
     String cleanReportId = reportId.trim();
     String cleanObjectKey = objectKey.trim();
+    String cleanMessageToken = messageToken == null ? null : messageToken.trim();
+    if (cleanMessageToken != null && cleanMessageToken.isEmpty()) cleanMessageToken = null;
 
     String message = "Uploaded via: " + cleanService + "\n\n"
             + "Report ID:\n" + cleanReportId + "\n\n"
             + "Object key:\n" + cleanObjectKey + "\n\n"
             + "Size:\n" + size + " bytes";
 
-    return new LogUploadResult(true, false, cleanReportId, cleanObjectKey, size, cleanService, null, message);
+    return new LogUploadResult(true, false, cleanReportId, cleanObjectKey, cleanMessageToken,
+            size, cleanService, null, message);
   }
 
   @NonNull
@@ -82,6 +99,6 @@ public final class LogUploadResult {
   }
 
   public static LogUploadResult error(@NonNull String error, boolean serverError) {
-    return new LogUploadResult(false, serverError, null, null, 0, null, error, error);
+    return new LogUploadResult(false, serverError, null, null, null, 0, null, error, error);
   }
 }

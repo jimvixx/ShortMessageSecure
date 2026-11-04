@@ -381,22 +381,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Ați trimis deja o cerere de inițiere a sesiunii către acest destinatar, sunteți sigur că doriți să trimiteți încă una? Aceasta va anula prima cerere.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Vezi conversația completă</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Partajare jurnal</string>
-  <string name="log_submit_activity__collecting_logs">Colectare jurnal…</string>
-  <string name="log_submit_activity__log_collect_failed">Colectarea jurnalului a eșuat.</string>
-  <string name="log_submit_activity__thanks">Vă mulțumesc pentru ajutor!</string>
-  <string name="log_submit_activity__uploading_logs">Se încarcă jurnalul…</string>
-  <string name="log_submit_interrupted">Rezultatul încărcării anterioare nu este disponibil. Deschideți din nou „Trimite jurnal” dacă doriți să trimiteți un nou raport.</string>
-  <string name="log_submit_no_internet">Nu există conexiune la internet. Verificați conexiunea, apoi redeschideți „Trimite jurnal” pentru a încerca din nou.</string>
-  <string name="log_submit_save_failed">Nu s-a putut salva jurnalul.</string>
-  <string name="log_submit_save_log">Salvare jurnal</string>
-  <string name="log_submit_saved">Jurnalul a fost salvat.</string>
-  <string name="log_submit_server_error">Serverul de încărcare a jurnalelor a returnat o eroare. Deschideți din nou opțiunea „Trimite jurnalul” mai târziu pentru a încerca din nou.</string>
-  <string name="log_submit_share_failed">Nu s-au putut partaja informațiile din jurnal.</string>
-  <string name="log_submit_share_info">Informații despre partajare</string>
-  <string name="log_submit_unreachable">Nu s-a putut stabili conexiunea cu serverul de încărcare a jurnalelor. Verificați conexiunea sau încercați din nou mai târziu, redeschizând opțiunea „Trimite jurnal”.</string>
-  <string name="log_submit_uploaded_status">Înregistrare încărcată.</string>
+  <string name="log_submit__collecting_logs">Colectare jurnal…</string>
+  <string name="log_submit__interrupted">Rezultatul încărcării anterioare nu este disponibil. Deschideți din nou „Trimite jurnal” dacă doriți să trimiteți un nou raport.</string>
+  <string name="log_submit__log_collect_failed">Colectarea jurnalului a eșuat.</string>
+  <string name="log_submit__log_save_failed">Nu s-a putut salva jurnalul.</string>
+  <string name="log_submit__log_server_error">Serverul de încărcare a jurnalelor a returnat o eroare. Deschideți din nou opțiunea „Trimite jurnalul” mai târziu pentru a încerca din nou.</string>
+  <string name="log_submit__log_server_unreachable">Nu s-a putut stabili conexiunea cu serverul de încărcare a jurnalelor. Verificați conexiunea sau încercați din nou mai târziu, redeschizând opțiunea „Trimite jurnal”.</string>
+  <string name="log_submit__log_uploaded_status">Înregistrare încărcată.</string>
+  <string name="log_submit__message_description">Puteți trimite un mesaj suplimentar pentru a ne ajuta să înțelegem problema.</string>
+  <string name="log_submit__message_empty">Introduceți un mesaj înainte de a trimite.</string>
+  <string name="log_submit__message_heading">Descrieți problema (opțional)</string>
+  <string name="log_submit__message_hint">Ce a mers greșit?</string>
+  <string name="log_submit__message_interrupted">Rezultatul mesajului anterior nu este disponibil. Puteți încerca să trimiteți mesajul din nou.</string>
+  <string name="log_submit__message_send">Trimite mesaj</string>
+  <string name="log_submit__message_sending">Se trimite…</string>
+  <string name="log_submit__message_sent">Mesaj trimis. Vă mulțumim!</string>
+  <string name="log_submit__message_server_error">Serverul de mesaje a returnat o eroare. Încercați din nou mai târziu.</string>
+  <string name="log_submit__message_server_unreachable">Nu s-a putut stabili conexiunea cu serverul de mesaje. Verificați conexiunea sau încercați din nou mai târziu.</string>
+  <string name="log_submit__no_internet">Nu există conexiune la internet. Verificați conexiunea, apoi încercați din nou.</string>
+  <string name="log_submit__save_log">Salvare jurnal</string>
+  <string name="log_submit__saved">Jurnalul a fost salvat.</string>
+  <string name="log_submit__share_failed">Nu s-au putut partaja informațiile din jurnal.</string>
+  <string name="log_submit__share_info">Informații despre partajare</string>
+  <string name="log_submit__thanks">Vă mulțumesc pentru ajutor!</string>
+  <string name="log_submit__uploading_logs">Se încarcă jurnalul…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De la</string>
   <string name="message_details_header__issues_need_your_attention">Unele probleme necesită atenția dumneavoastră.</string>

@@ -381,22 +381,32 @@
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Vous avez déjà envoyé une demande d’initiation de session à ce destinataire. Êtes-vous sûr de vouloir en envoyer une autre ? Cela invalidera la première demande.</string>
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Voir la conversation complète</string>
-    <!--log_submit_activity-->
+    <!--log_submit-->
     <string name="log_submit__button_share_logs">Partager le journal</string>
-    <string name="log_submit_activity__collecting_logs">Collecte des journaux…</string>
-    <string name="log_submit_activity__log_collect_failed">Échec de la collecte du journal.</string>
-    <string name="log_submit_activity__thanks">Merci pour votre aide !</string>
-    <string name="log_submit_activity__uploading_logs">Téléchargement du journal…</string>
-    <string name="log_submit_interrupted">Le résultat du dernier envoi n’est pas disponible. Rouvrez la fenêtre « Envoyer le journal » si vous souhaitez envoyer un nouveau rapport.</string>
-    <string name="log_submit_no_internet">Pas de connexion Internet. Vérifiez votre connexion, puis rouvrez « Envoyer le journal » pour réessayer.</string>
-    <string name="log_submit_save_failed">Impossible d’enregistrer le journal.</string>
-    <string name="log_submit_save_log">Enregistrer le journal</string>
-    <string name="log_submit_saved">Journal enregistré.</string>
-    <string name="log_submit_server_error">Le serveur de téléchargement des journaux a renvoyé une erreur. Rouvrez « Envoyer le journal » plus tard pour réessayer.</string>
-    <string name="log_submit_share_failed">Impossible de partager les informations du journal.</string>
-    <string name="log_submit_share_info">Partager les informations</string>
-    <string name="log_submit_unreachable">Impossible d’accéder au serveur de téléchargement des journaux. Vérifiez votre connexion ou réessayez plus tard en rouvrant la fenêtre « Envoyer le journal ».</string>
-    <string name="log_submit_uploaded_status">Enregistrement téléchargé.</string>
+    <string name="log_submit__collecting_logs">Collecte des journaux…</string>
+    <string name="log_submit__interrupted">Le résultat du dernier envoi n’est pas disponible. Rouvrez la fenêtre « Envoyer le journal » si vous souhaitez envoyer un nouveau rapport.</string>
+    <string name="log_submit__log_collect_failed">Échec de la collecte du journal.</string>
+    <string name="log_submit__log_save_failed">Impossible d’enregistrer le journal.</string>
+    <string name="log_submit__log_server_error">Le serveur de téléchargement des journaux a renvoyé une erreur. Rouvrez « Envoyer le journal » plus tard pour réessayer.</string>
+    <string name="log_submit__log_server_unreachable">Impossible d’accéder au serveur de téléchargement des journaux. Vérifiez votre connexion ou réessayez plus tard en rouvrant la fenêtre « Envoyer le journal ».</string>
+    <string name="log_submit__log_uploaded_status">Enregistrement téléchargé.</string>
+    <string name="log_submit__message_description">Vous pouvez envoyer un message supplémentaire pour nous aider à comprendre le problème.</string>
+    <string name="log_submit__message_empty">Saisissez un message avant l’envoi.</string>
+    <string name="log_submit__message_heading">Décrivez le problème (facultatif)</string>
+    <string name="log_submit__message_hint">Qu’est-ce qui n’a pas fonctionné ?</string>
+    <string name="log_submit__message_interrupted">Le résultat du message précédent n’est pas disponible. Vous pouvez essayer de renvoyer le message.</string>
+    <string name="log_submit__message_send">Envoyer un message</string>
+    <string name="log_submit__message_sending">Envoi en cours…</string>
+    <string name="log_submit__message_sent">Message envoyé. Merci !</string>
+    <string name="log_submit__message_server_error">Le serveur de messages a renvoyé une erreur. Veuillez réessayer plus tard.</string>
+    <string name="log_submit__message_server_unreachable">Impossible d’accéder au serveur de messages. Vérifiez votre connexion ou réessayez plus tard.</string>
+    <string name="log_submit__no_internet">Pas de connexion Internet. Vérifiez votre connexion, puis réessayez.</string>
+    <string name="log_submit__save_log">Enregistrer le journal</string>
+    <string name="log_submit__saved">Journal enregistré.</string>
+    <string name="log_submit__share_failed">Impossible de partager les informations du journal.</string>
+    <string name="log_submit__share_info">Partager les informations</string>
+    <string name="log_submit__thanks">Merci pour votre aide !</string>
+    <string name="log_submit__uploading_logs">Téléchargement du journal…</string>
     <!--message_details_header-->
     <string name="message_details_header__from">De</string>
     <string name="message_details_header__issues_need_your_attention">Certains problèmes nécessitent votre attention.</string>

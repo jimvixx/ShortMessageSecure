@@ -372,22 +372,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Je hebt al een verzoek tot het starten van een sessie naar deze ontvanger verzonden. Weet je zeker dat je nog een verzoek wilt verzenden? Hierdoor wordt het eerste verzoek ongeldig.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Volledig gesprek bekijken</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Log delen</string>
-  <string name="log_submit_activity__collecting_logs">Logboek verzamelen…</string>
-  <string name="log_submit_activity__log_collect_failed">Het verzamelen van het logboek is mislukt.</string>
-  <string name="log_submit_activity__thanks">Bedankt voor je hulp!</string>
-  <string name="log_submit_activity__uploading_logs">Logboek uploaden…</string>
-  <string name="log_submit_interrupted">Het resultaat van de vorige upload is niet beschikbaar. Open ’Log indienen’ opnieuw als u een nieuw rapport wilt verzenden.</string>
-  <string name="log_submit_no_internet">Geen internetverbinding. Controleer uw verbinding en open vervolgens ’Log indienen’ opnieuw om het nog eens te proberen.</string>
-  <string name="log_submit_save_failed">Het logboek kon niet worden opgeslagen.</string>
-  <string name="log_submit_save_log">Log opslaan</string>
-  <string name="log_submit_saved">Logboek opgeslagen.</string>
-  <string name="log_submit_server_error">De server voor het uploaden van logbestanden heeft een foutmelding gegeven. Open ’Log indienen’ later opnieuw om het nog eens te proberen.</string>
-  <string name="log_submit_share_failed">De loggegevens konden niet worden gedeeld.</string>
-  <string name="log_submit_share_info">Informatie delen</string>
-  <string name="log_submit_unreachable">De server voor het uploaden van logbestanden is niet bereikbaar. Controleer uw verbinding of probeer het later opnieuw door ’Log indienen’ opnieuw te openen.</string>
-  <string name="log_submit_uploaded_status">Upload gelogd.</string>
+  <string name="log_submit__collecting_logs">Logboek verzamelen…</string>
+  <string name="log_submit__interrupted">Het resultaat van de vorige upload is niet beschikbaar. Open ’Log indienen’ opnieuw als u een nieuw rapport wilt verzenden.</string>
+  <string name="log_submit__log_collect_failed">Het verzamelen van het logboek is mislukt.</string>
+  <string name="log_submit__log_save_failed">Het logboek kon niet worden opgeslagen.</string>
+  <string name="log_submit__log_server_error">De server voor het uploaden van logbestanden heeft een foutmelding gegeven. Open ’Log indienen’ later opnieuw om het nog eens te proberen.</string>
+  <string name="log_submit__log_server_unreachable">De server voor het uploaden van logbestanden is niet bereikbaar. Controleer uw verbinding of probeer het later opnieuw door ’Log indienen’ opnieuw te openen.</string>
+  <string name="log_submit__log_uploaded_status">Upload gelogd.</string>
+  <string name="log_submit__message_description">U kunt een aanvullend bericht sturen om ons te helpen het probleem beter te begrijpen.</string>
+  <string name="log_submit__message_empty">Voer een bericht in voordat u het verstuurt.</string>
+  <string name="log_submit__message_heading">Beschrijf het probleem (optioneel)</string>
+  <string name="log_submit__message_hint">Wat is er misgegaan?</string>
+  <string name="log_submit__message_interrupted">Het resultaat van het vorige bericht is niet beschikbaar. U kunt proberen het bericht opnieuw te verzenden.</string>
+  <string name="log_submit__message_send">Bericht verzenden</string>
+  <string name="log_submit__message_sending">Bezig met verzenden…</string>
+  <string name="log_submit__message_sent">Bericht verzonden. Bedankt!</string>
+  <string name="log_submit__message_server_error">De berichtenserver heeft een foutmelding gegeven. Probeer het later nog eens.</string>
+  <string name="log_submit__message_server_unreachable">De berichtserver kon niet worden bereikt. Controleer je verbinding of probeer het later opnieuw.</string>
+  <string name="log_submit__no_internet">Geen internetverbinding. Controleer je verbinding en probeer het opnieuw.</string>
+  <string name="log_submit__save_log">Log opslaan</string>
+  <string name="log_submit__saved">Logboek opgeslagen.</string>
+  <string name="log_submit__share_failed">De loggegevens konden niet worden gedeeld.</string>
+  <string name="log_submit__share_info">Informatie delen</string>
+  <string name="log_submit__thanks">Bedankt voor je hulp!</string>
+  <string name="log_submit__uploading_logs">Logboek uploaden…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Van</string>
   <string name="message_details_header__issues_need_your_attention">Er zijn enkele problemen die uw aandacht vereisen.</string>

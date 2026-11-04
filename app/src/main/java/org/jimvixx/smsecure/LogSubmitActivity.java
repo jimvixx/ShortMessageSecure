@@ -29,6 +29,10 @@ import org.jimvixx.smsecure.logsubmit.SubmitLogFragment;
 
 public class LogSubmitActivity extends BaseActionBarActivity {
 
+  /** Used only by the local instrumentation UI test to avoid any network upload. */
+  public static final String EXTRA_SKIP_LOG_UPLOAD =
+          "org.jimvixx.smsecure.extra.SKIP_LOG_UPLOAD";
+
   @Override
   protected void onCreate(Bundle icicle) {
     super.onCreate(icicle);
@@ -39,7 +43,8 @@ public class LogSubmitActivity extends BaseActionBarActivity {
     if (icicle == null) {
       getSupportFragmentManager()
               .beginTransaction()
-              .replace(R.id.fragment_container, SubmitLogFragment.newInstance())
+              .replace(R.id.fragment_container, SubmitLogFragment.newInstance(
+                      !getIntent().getBooleanExtra(EXTRA_SKIP_LOG_UPLOAD, false)))
               .commit();
     }
   }

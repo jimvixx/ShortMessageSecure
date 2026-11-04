@@ -390,22 +390,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Prejemniku ste že poslali zahtevo za inicijacijo, ste prepričani, da želite poslati še eno? To bo razveljavilo prvo zahtevo.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Oglej si celoten pogovor</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Delitev dnevnika</string>
-  <string name="log_submit_activity__collecting_logs">Zbiranje dnevnika…</string>
-  <string name="log_submit_activity__log_collect_failed">Zbiranje dnevnika ni uspelo.</string>
-  <string name="log_submit_activity__thanks">Hvala za pomoč!</string>
-  <string name="log_submit_activity__uploading_logs">Prenos dnevnika…</string>
-  <string name="log_submit_interrupted">Rezultat prejšnjega prenosa ni na voljo. Če želite poslati novo poročilo, ponovno odprite možnost »Pošlji dnevnik«.</string>
-  <string name="log_submit_no_internet">Ni internetne povezave. Preverite povezavo in nato ponovno odprite »Pošlji dnevnik«, da poskusite znova.</string>
-  <string name="log_submit_save_failed">Dnevnika ni bilo mogoče shraniti.</string>
-  <string name="log_submit_save_log">Shrani dnevnik</string>
-  <string name="log_submit_saved">Dnevnik shranjen.</string>
-  <string name="log_submit_server_error">Strežnik za pošiljanje dnevnika je vrnil napako. Pozneje ponovno odprite možnost »Pošlji dnevnik«, da poskusite znova.</string>
-  <string name="log_submit_share_failed">Podatkov dnevnika ni bilo mogoče deliti.</string>
-  <string name="log_submit_share_info">Podatki o deljenju</string>
-  <string name="log_submit_unreachable">Strežnika za pošiljanje dnevnika ni bilo mogoče doseči. Preverite povezavo ali poskusite kasneje znova, tako da ponovno odprete možnost »Pošlji dnevnik«.</string>
-  <string name="log_submit_uploaded_status">Naloženo v dnevnik.</string>
+  <string name="log_submit__collecting_logs">Zbiranje dnevnika…</string>
+  <string name="log_submit__interrupted">Rezultat prejšnjega prenosa ni na voljo. Če želite poslati novo poročilo, ponovno odprite možnost »Pošlji dnevnik«.</string>
+  <string name="log_submit__log_collect_failed">Zbiranje dnevnika ni uspelo.</string>
+  <string name="log_submit__log_save_failed">Dnevnika ni bilo mogoče shraniti.</string>
+  <string name="log_submit__log_server_error">Strežnik za pošiljanje dnevnika je vrnil napako. Pozneje ponovno odprite možnost »Pošlji dnevnik«, da poskusite znova.</string>
+  <string name="log_submit__log_server_unreachable">Strežnika za pošiljanje dnevnika ni bilo mogoče doseči. Preverite povezavo ali poskusite kasneje znova, tako da ponovno odprete možnost »Pošlji dnevnik«.</string>
+  <string name="log_submit__log_uploaded_status">Naloženo v dnevnik.</string>
+  <string name="log_submit__message_description">Lahko nam pošljete dodatno sporočilo, da nam pomagate razumeti težavo.</string>
+  <string name="log_submit__message_empty">Pred pošiljanjem vnesite sporočilo.</string>
+  <string name="log_submit__message_heading">Opišite težavo (neobvezno)</string>
+  <string name="log_submit__message_hint">Kaj je šlo narobe?</string>
+  <string name="log_submit__message_interrupted">Rezultat prejšnjega sporočila ni na voljo. Poskusite sporočilo poslati še enkrat.</string>
+  <string name="log_submit__message_send">Pošlji sporočilo</string>
+  <string name="log_submit__message_sending">Pošiljanje…</string>
+  <string name="log_submit__message_sent">Sporočilo je poslano. Hvala!</string>
+  <string name="log_submit__message_server_error">Strežnik za sporočila je vrnil napako. Poskusite kasneje.</string>
+  <string name="log_submit__message_server_unreachable">Ni bilo mogoče vzpostaviti povezave s strežnikom za sporočila. Preverite povezavo ali poskusite kasneje.</string>
+  <string name="log_submit__no_internet">Ni internetne povezave. Preverite povezavo in poskusite znova.</string>
+  <string name="log_submit__save_log">Shrani dnevnik</string>
+  <string name="log_submit__saved">Dnevnik shranjen.</string>
+  <string name="log_submit__share_failed">Podatkov dnevnika ni bilo mogoče deliti.</string>
+  <string name="log_submit__share_info">Podatki o deljenju</string>
+  <string name="log_submit__thanks">Hvala za pomoč!</string>
+  <string name="log_submit__uploading_logs">Prenos dnevnika…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Od</string>
   <string name="message_details_header__issues_need_your_attention">Nekaj težav zahteva vašo pozornost.</string>

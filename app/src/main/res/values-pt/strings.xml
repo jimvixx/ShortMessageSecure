@@ -381,22 +381,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Já enviou um pedido de início de sessão a este destinatário. Tem a certeza de que deseja enviar outro? Isto invalidará o primeiro pedido.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Ver conversa completa</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Partilhar registo</string>
-  <string name="log_submit_activity__collecting_logs">A recolher registos…</string>
-  <string name="log_submit_activity__log_collect_failed">Falha na recolha do registo.</string>
-  <string name="log_submit_activity__thanks">Obrigado pela sua ajuda!</string>
-  <string name="log_submit_activity__uploading_logs">A carregar o registo…</string>
-  <string name="log_submit_interrupted">O resultado do envio anterior não está disponível. Reabra a opção «Enviar registo» se pretender enviar um novo relatório.</string>
-  <string name="log_submit_no_internet">Não há ligação à Internet. Verifique a sua ligação e, em seguida, volte a abrir «Enviar registo» para tentar novamente.</string>
-  <string name="log_submit_save_failed">Não foi possível guardar o registo.</string>
-  <string name="log_submit_save_log">Guardar registo</string>
-  <string name="log_submit_saved">Registo guardado.</string>
-  <string name="log_submit_server_error">O servidor de envio de registos devolveu um erro. Volte a abrir «Enviar registo» mais tarde para tentar novamente.</string>
-  <string name="log_submit_share_failed">Não foi possível partilhar as informações do registo.</string>
-  <string name="log_submit_share_info">Partilhar informações</string>
-  <string name="log_submit_unreachable">Não foi possível aceder ao servidor de envio de registos. Verifique a sua ligação ou tente novamente mais tarde, reabrindo a opção «Enviar registo».</string>
-  <string name="log_submit_uploaded_status">Registo carregado.</string>
+  <string name="log_submit__collecting_logs">A recolher registos…</string>
+  <string name="log_submit__interrupted">O resultado do envio anterior não está disponível. Reabra a opção «Enviar registo» se pretender enviar um novo relatório.</string>
+  <string name="log_submit__log_collect_failed">Falha na recolha do registo.</string>
+  <string name="log_submit__log_save_failed">Não foi possível guardar o registo.</string>
+  <string name="log_submit__log_server_error">O servidor de envio de registos devolveu um erro. Volte a abrir «Enviar registo» mais tarde para tentar novamente.</string>
+  <string name="log_submit__log_server_unreachable">Não foi possível aceder ao servidor de envio de registos. Verifique a sua ligação ou tente novamente mais tarde, reabrindo a opção «Enviar registo».</string>
+  <string name="log_submit__log_uploaded_status">Registo carregado.</string>
+  <string name="log_submit__message_description">Pode enviar uma mensagem adicional para nos ajudar a compreender o problema.</string>
+  <string name="log_submit__message_empty">Introduza uma mensagem antes de enviar.</string>
+  <string name="log_submit__message_heading">Descreva o problema (opcional)</string>
+  <string name="log_submit__message_hint">O que correu mal?</string>
+  <string name="log_submit__message_interrupted">O resultado da mensagem anterior não está disponível. Pode tentar enviar a mensagem novamente.</string>
+  <string name="log_submit__message_send">Enviar mensagem</string>
+  <string name="log_submit__message_sending">A enviar…</string>
+  <string name="log_submit__message_sent">Mensagem enviada. Obrigado!</string>
+  <string name="log_submit__message_server_error">O servidor de mensagens devolveu um erro. Tente novamente mais tarde.</string>
+  <string name="log_submit__message_server_unreachable">Não foi possível aceder ao servidor de mensagens. Verifique a sua ligação ou tente novamente mais tarde.</string>
+  <string name="log_submit__no_internet">Não há ligação à Internet. Verifique a sua ligação e tente novamente.</string>
+  <string name="log_submit__save_log">Guardar registo</string>
+  <string name="log_submit__saved">Registo guardado.</string>
+  <string name="log_submit__share_failed">Não foi possível partilhar as informações do registo.</string>
+  <string name="log_submit__share_info">Partilhar informações</string>
+  <string name="log_submit__thanks">Obrigado pela sua ajuda!</string>
+  <string name="log_submit__uploading_logs">A carregar o registo…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De</string>
   <string name="message_details_header__issues_need_your_attention">Algumas questões requerem a sua atenção.</string>

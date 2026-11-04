@@ -381,22 +381,32 @@
 <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Jūs jau esat nosūtījis sesijas uzsākšanas pieprasījumu šim saņēmējam. Vai esat pārliecināts, ka vēlaties nosūtīt vēl vienu? Tas padarīs pirmo pieprasījumu par nederīgu.</string>
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">Skatīt pilnu sarunu</string>
-<!--log_submit_activity-->
+<!--log_submit-->
 <string name="log_submit__button_share_logs">Dalīties ar žurnālu</string>
-<string name="log_submit_activity__collecting_logs">Vācu žurnālus…</string>
-<string name="log_submit_activity__log_collect_failed">Neizdevās savākt žurnālu.</string>
-<string name="log_submit_activity__thanks">Paldies par palīdzību!</string>
-<string name="log_submit_activity__uploading_logs">Logu augšupielāde…</string>
-<string name="log_submit_interrupted">Iepriekšējais augšupielādes rezultāts nav pieejams. Atveriet loga nosūtīšanu no jauna, ja vēlaties nosūtīt jaunu ziņojumu.</string>
-<string name="log_submit_no_internet">Nav interneta savienojuma. Pārbaudiet savienojumu, pēc tam atveriet „Iesniegt žurnālu” vēlreiz, lai mēģinātu vēlreiz.</string>
-<string name="log_submit_save_failed">Neizdevās saglabāt žurnālu.</string>
-<string name="log_submit_save_log">Saglabāt žurnālu</string>
-<string name="log_submit_saved">Žurnāls saglabāts.</string>
-<string name="log_submit_server_error">Žurnāla augšupielādes serveris atgriezis kļūdu. Vēlāk atveriet atkārtoti „Iesniegt žurnālu”, lai mēģinātu vēlreiz.</string>
-<string name="log_submit_share_failed">Neizdevās koplietot žurnāla informāciju.</string>
-<string name="log_submit_share_info">Dalīties ar informāciju</string>
-<string name="log_submit_unreachable">Nav iespējams izveidot savienojumu ar žurnāla augšupielādes serveri. Pārbaudiet savu savienojumu vai mēģiniet vēlāk, atkārtoti atverot „Iesniegt žurnālu”.</string>
-<string name="log_submit_uploaded_status">Augšupielāde reģistrēta.</string>
+<string name="log_submit__collecting_logs">Vācu žurnālus…</string>
+<string name="log_submit__interrupted">Iepriekšējais augšupielādes rezultāts nav pieejams. Atveriet loga nosūtīšanu no jauna, ja vēlaties nosūtīt jaunu ziņojumu.</string>
+<string name="log_submit__log_collect_failed">Neizdevās savākt žurnālu.</string>
+<string name="log_submit__log_save_failed">Neizdevās saglabāt žurnālu.</string>
+<string name="log_submit__log_server_error">Žurnāla augšupielādes serveris atgriezis kļūdu. Vēlāk atveriet atkārtoti „Iesniegt žurnālu”, lai mēģinātu vēlreiz.</string>
+<string name="log_submit__log_server_unreachable">Nav iespējams izveidot savienojumu ar žurnāla augšupielādes serveri. Pārbaudiet savu savienojumu vai mēģiniet vēlāk, atkārtoti atverot „Iesniegt žurnālu”.</string>
+<string name="log_submit__log_uploaded_status">Augšupielāde reģistrēta.</string>
+<string name="log_submit__message_description">Jūs varat nosūtīt papildu ziņojumu, lai palīdzētu mums izprast problēmu.</string>
+<string name="log_submit__message_empty">Pirms nosūtīšanas ievadiet ziņojumu.</string>
+<string name="log_submit__message_heading">Aprakstiet problēmu (pēc izvēles)</string>
+<string name="log_submit__message_hint">Kas notika?</string>
+<string name="log_submit__message_interrupted">Iepriekšējā ziņojuma rezultāts nav pieejams. Varat mēģināt nosūtīt ziņojumu vēlreiz.</string>
+<string name="log_submit__message_send">Nosūtīt ziņojumu</string>
+<string name="log_submit__message_sending">Nosūtīšana…</string>
+<string name="log_submit__message_sent">Ziņojums nosūtīts. Paldies!</string>
+<string name="log_submit__message_server_error">Ziņojumu serveris atgriezis kļūdu. Mēģiniet vēlāk.</string>
+<string name="log_submit__message_server_unreachable">Nav iespējams izveidot savienojumu ar ziņojumu serveri. Pārbaudiet savienojumu vai mēģiniet vēlāk.</string>
+<string name="log_submit__no_internet">Nav interneta savienojuma. Pārbaudiet savienojumu un mēģiniet vēlreiz.</string>
+<string name="log_submit__save_log">Saglabāt žurnālu</string>
+<string name="log_submit__saved">Žurnāls saglabāts.</string>
+<string name="log_submit__share_failed">Neizdevās koplietot žurnāla informāciju.</string>
+<string name="log_submit__share_info">Dalīties ar informāciju</string>
+<string name="log_submit__thanks">Paldies par palīdzību!</string>
+<string name="log_submit__uploading_logs">Logu augšupielāde…</string>
 <!--message_details_header-->
 <string name="message_details_header__from">No</string>
 <string name="message_details_header__issues_need_your_attention">Dažas problēmas prasa jūsu uzmanību.</string>

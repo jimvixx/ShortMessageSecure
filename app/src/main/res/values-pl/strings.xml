@@ -390,22 +390,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Wysłałeś już żądanie rozpoczęcia sesji do tego odbiorcy. Czy na pewno chcesz wysłać kolejne? Spowoduje to unieważnienie pierwszego żądania.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Zobacz całą rozmowę</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Udostępnij dziennik</string>
-  <string name="log_submit_activity__collecting_logs">Gromadzenie logów…</string>
-  <string name="log_submit_activity__log_collect_failed">Nie udało się zebrać logów.</string>
-  <string name="log_submit_activity__thanks">Dziękuję za pomoc!</string>
-  <string name="log_submit_activity__uploading_logs">Przesyłanie dziennika…</string>
-  <string name="log_submit_interrupted">Wynik poprzedniego przesłania jest niedostępny. Otwórz ponownie okno „Prześlij dziennik”, jeśli chcesz wysłać nowy raport.</string>
-  <string name="log_submit_no_internet">Brak połączenia z Internetem. Sprawdź połączenie, a następnie ponownie otwórz opcję „Prześlij dziennik”, aby spróbować jeszcze raz.</string>
-  <string name="log_submit_save_failed">Nie udało się zapisać dziennika.</string>
-  <string name="log_submit_save_log">Zapisz dziennik</string>
-  <string name="log_submit_saved">Dziennik zapisano.</string>
-  <string name="log_submit_server_error">Serwer przesyłania logów zwrócił błąd. Otwórz ponownie opcję „Prześlij log” później, aby spróbować ponownie.</string>
-  <string name="log_submit_share_failed">Nie udało się udostępnić informacji z dziennika.</string>
-  <string name="log_submit_share_info">Udostępnij informacje</string>
-  <string name="log_submit_unreachable">Nie udało się połączyć z serwerem przesyłania logów. Sprawdź połączenie lub spróbuj ponownie później, otwierając ponownie opcję „Prześlij log”.</string>
-  <string name="log_submit_uploaded_status">Przesłano do dziennika.</string>
+  <string name="log_submit__collecting_logs">Gromadzenie logów…</string>
+  <string name="log_submit__interrupted">Wynik poprzedniego przesłania jest niedostępny. Otwórz ponownie okno „Prześlij dziennik”, jeśli chcesz wysłać nowy raport.</string>
+  <string name="log_submit__log_collect_failed">Nie udało się zebrać logów.</string>
+  <string name="log_submit__log_save_failed">Nie udało się zapisać dziennika.</string>
+  <string name="log_submit__log_server_error">Serwer przesyłania logów zwrócił błąd. Otwórz ponownie opcję „Prześlij log” później, aby spróbować ponownie.</string>
+  <string name="log_submit__log_server_unreachable">Nie udało się połączyć z serwerem przesyłania logów. Sprawdź połączenie lub spróbuj ponownie później, otwierając ponownie opcję „Prześlij log”.</string>
+  <string name="log_submit__log_uploaded_status">Przesłano do dziennika.</string>
+  <string name="log_submit__message_description">Możesz wysłać dodatkową wiadomość, aby pomóc nam zrozumieć problem.</string>
+  <string name="log_submit__message_empty">Przed wysłaniem wprowadź treść wiadomości.</string>
+  <string name="log_submit__message_heading">Opisz problem (opcjonalnie)</string>
+  <string name="log_submit__message_hint">Co poszło nie tak?</string>
+  <string name="log_submit__message_interrupted">Wynik poprzedniej wiadomości jest niedostępny. Możesz spróbować wysłać wiadomość ponownie.</string>
+  <string name="log_submit__message_send">Wyślij wiadomość</string>
+  <string name="log_submit__message_sending">Wysyłanie…</string>
+  <string name="log_submit__message_sent">Wiadomość wysłana. Dziękujemy!</string>
+  <string name="log_submit__message_server_error">Serwer komunikatów zwrócił błąd. Spróbuj ponownie później.</string>
+  <string name="log_submit__message_server_unreachable">Nie udało się połączyć z serwerem wiadomości. Sprawdź połączenie lub spróbuj ponownie później.</string>
+  <string name="log_submit__no_internet">Brak połączenia z Internetem. Sprawdź połączenie, a następnie spróbuj ponownie.</string>
+  <string name="log_submit__save_log">Zapisz dziennik</string>
+  <string name="log_submit__saved">Dziennik zapisano.</string>
+  <string name="log_submit__share_failed">Nie udało się udostępnić informacji z dziennika.</string>
+  <string name="log_submit__share_info">Udostępnij informacje</string>
+  <string name="log_submit__thanks">Dziękuję za pomoc!</string>
+  <string name="log_submit__uploading_logs">Przesyłanie dziennika…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Od</string>
   <string name="message_details_header__issues_need_your_attention">Niektóre kwestie wymagają Twojej uwagi.</string>

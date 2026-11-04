@@ -372,22 +372,32 @@
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Вече сте изпратили заявка за започване на сесия до този получател, сигурен ли сте, че искате да изпратите още една? Това ще направи първата заявка невалидна.</string>
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Виж цялата разговор</string>
-    <!--log_submit_activity-->
+    <!--log_submit-->
     <string name="log_submit__button_share_logs">Споделяне на лог</string>
-    <string name="log_submit_activity__collecting_logs">Събиране на лог…</string>
-    <string name="log_submit_activity__log_collect_failed">Неуспешно събиране на лог.</string>
-    <string name="log_submit_activity__thanks">Благодаря за помощта!</string>
-    <string name="log_submit_activity__uploading_logs">Качване на лог…</string>
-    <string name="log_submit_interrupted">Резултатът от предишното качване не е наличен. Отворете отново „Изпращане на лог“, ако искате да изпратите нов отчет.</string>
-    <string name="log_submit_no_internet">Няма интернет връзка. Проверете връзката си, след което отворете отново „Изпрати лог“, за да опитате отново.</string>
-    <string name="log_submit_save_failed">Не е възможно да се запише логът.</string>
-    <string name="log_submit_save_log">Запазване на лог</string>
-    <string name="log_submit_saved">Дневникът е запазен.</string>
-    <string name="log_submit_server_error">Сървърът за качване на лог файлове е върнал грешка. Отворете отново „Изпрати лог“ по-късно, за да опитате отново.</string>
-    <string name="log_submit_share_failed">Не беше възможно да се сподели информацията от лога.</string>
-    <string name="log_submit_share_info">Споделяне на информация</string>
-    <string name="log_submit_unreachable">Не може да се установи връзка със сървъра за качване на логове. Проверете връзката си или опитайте отново по-късно, като отворите отново „Изпрати лог“.</string>
-    <string name="log_submit_uploaded_status">Качването е регистрирано.</string>
+    <string name="log_submit__collecting_logs">Събиране на лог…</string>
+    <string name="log_submit__interrupted">Резултатът от предишното качване не е наличен. Отворете отново „Изпращане на лог“, ако искате да изпратите нов отчет.</string>
+    <string name="log_submit__log_collect_failed">Неуспешно събиране на лог.</string>
+    <string name="log_submit__log_save_failed">Не е възможно да се запише логът.</string>
+    <string name="log_submit__log_server_error">Сървърът за качване на лог файлове е върнал грешка. Отворете отново „Изпрати лог“ по-късно, за да опитате отново.</string>
+    <string name="log_submit__log_server_unreachable">Не може да се установи връзка със сървъра за качване на логове. Проверете връзката си или опитайте отново по-късно, като отворите отново „Изпрати лог“.</string>
+    <string name="log_submit__log_uploaded_status">Качването е регистрирано.</string>
+    <string name="log_submit__message_description">Можете да изпратите допълнително съобщение, за да ни помогнете да разберем проблема.</string>
+    <string name="log_submit__message_empty">Въведете съобщение, преди да го изпратите.</string>
+    <string name="log_submit__message_heading">Опишете проблема (по избор)</string>
+    <string name="log_submit__message_hint">Какво не е наред?</string>
+    <string name="log_submit__message_interrupted">Резултатът от предишното съобщение не е наличен. Можете да опитате да изпратите съобщението отново.</string>
+    <string name="log_submit__message_send">Изпращане на съобщение</string>
+    <string name="log_submit__message_sending">Изпращане…</string>
+    <string name="log_submit__message_sent">Съобщението е изпратено. Благодарим Ви!</string>
+    <string name="log_submit__message_server_error">Сървърът за съобщения върна грешка. Опитайте отново по-късно.</string>
+    <string name="log_submit__message_server_unreachable">Не може да се установи връзка със сървъра за съобщения. Проверете връзката си или опитайте отново по-късно.</string>
+    <string name="log_submit__no_internet">Няма интернет връзка. Проверете връзката си и опитайте отново.</string>
+    <string name="log_submit__save_log">Запазване на лог</string>
+    <string name="log_submit__saved">Дневникът е запазен.</string>
+    <string name="log_submit__share_failed">Не беше възможно да се сподели информацията от лога.</string>
+    <string name="log_submit__share_info">Споделяне на информация</string>
+    <string name="log_submit__thanks">Благодаря за помощта!</string>
+    <string name="log_submit__uploading_logs">Качване на лог…</string>
     <!--message_details_header-->
     <string name="message_details_header__from">От</string>
     <string name="message_details_header__issues_need_your_attention">Някои проблеми изискват вашето внимание.</string>

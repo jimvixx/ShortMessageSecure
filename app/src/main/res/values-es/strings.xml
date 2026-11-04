@@ -381,22 +381,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Ya ha enviado una petición de inicio de sesión a este destinatario, ¿está seguro de que quiere enviar otra? Esto invalidará la primera petición.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Ver conversación completa</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Compartir registro</string>
-  <string name="log_submit_activity__collecting_logs">Recopilando registros…</string>
-  <string name="log_submit_activity__log_collect_failed">No se ha podido recopilar el registro.</string>
-  <string name="log_submit_activity__thanks">¡Gracias por tu ayuda!</string>
-  <string name="log_submit_activity__uploading_logs">Cargando registro…</string>
-  <string name="log_submit_interrupted">El resultado de la última carga no está disponible. Vuelve a abrir «Enviar registro» si quieres enviar un nuevo informe.</string>
-  <string name="log_submit_no_internet">No hay conexión a Internet. Comprueba tu conexión y vuelve a abrir «Enviar registro» para intentarlo de nuevo.</string>
-  <string name="log_submit_save_failed">No se ha podido guardar el registro.</string>
-  <string name="log_submit_save_log">Guardar registro</string>
-  <string name="log_submit_saved">Registro guardado.</string>
-  <string name="log_submit_server_error">El servidor de envío de registros ha devuelto un error. Vuelve a abrir «Enviar registro» más tarde para intentarlo de nuevo.</string>
-  <string name="log_submit_share_failed">No se ha podido compartir la información del registro.</string>
-  <string name="log_submit_share_info">Compartir información</string>
-  <string name="log_submit_unreachable">No se ha podido conectar con el servidor de envío de registros. Comprueba tu conexión o vuelve a intentarlo más tarde volviendo a abrir «Enviar registro».</string>
-  <string name="log_submit_uploaded_status">Se ha registrado la subida.</string>
+  <string name="log_submit__collecting_logs">Recopilando registros…</string>
+  <string name="log_submit__interrupted">El resultado de la última carga no está disponible. Vuelve a abrir «Enviar registro» si quieres enviar un nuevo informe.</string>
+  <string name="log_submit__log_collect_failed">No se ha podido recopilar el registro.</string>
+  <string name="log_submit__log_save_failed">No se ha podido guardar el registro.</string>
+  <string name="log_submit__log_server_error">El servidor de envío de registros ha devuelto un error. Vuelve a abrir «Enviar registro» más tarde para intentarlo de nuevo.</string>
+  <string name="log_submit__log_server_unreachable">No se ha podido conectar con el servidor de envío de registros. Comprueba tu conexión o vuelve a intentarlo más tarde volviendo a abrir «Enviar registro».</string>
+  <string name="log_submit__log_uploaded_status">Se ha registrado la subida.</string>
+  <string name="log_submit__message_description">Puedes enviar un mensaje adicional para ayudarnos a comprender el problema.</string>
+  <string name="log_submit__message_empty">Introduce un mensaje antes de enviarlo.</string>
+  <string name="log_submit__message_heading">Describe el problema (opcional)</string>
+  <string name="log_submit__message_hint">¿Qué ha fallado?</string>
+  <string name="log_submit__message_interrupted">No se dispone del resultado del mensaje anterior. Puedes intentar enviar el mensaje de nuevo.</string>
+  <string name="log_submit__message_send">Enviar mensaje</string>
+  <string name="log_submit__message_sending">Enviando…</string>
+  <string name="log_submit__message_sent">Mensaje enviado. ¡Gracias!</string>
+  <string name="log_submit__message_server_error">El servidor de mensajes ha devuelto un error. Inténtalo de nuevo más tarde.</string>
+  <string name="log_submit__message_server_unreachable">No se ha podido conectar con el servidor de mensajes. Comprueba tu conexión o vuelve a intentarlo más tarde.</string>
+  <string name="log_submit__no_internet">No hay conexión a Internet. Comprueba tu conexión y vuelve a intentarlo.</string>
+  <string name="log_submit__save_log">Guardar registro</string>
+  <string name="log_submit__saved">Registro guardado.</string>
+  <string name="log_submit__share_failed">No se ha podido compartir la información del registro.</string>
+  <string name="log_submit__share_info">Compartir información</string>
+  <string name="log_submit__thanks">¡Gracias por tu ayuda!</string>
+  <string name="log_submit__uploading_logs">Cargando registro…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">De</string>
   <string name="message_details_header__issues_need_your_attention">Hay algunos problemas que requieren su atención.</string>

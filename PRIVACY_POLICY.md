@@ -51,6 +51,8 @@ SMSecure does not automatically collect or transmit diagnostic logs.
 
 If a user explicitly chooses to submit a diagnostic log for troubleshooting, the log is sanitized before upload to remove known personal identifiers. Submitted logs are encrypted during transmission, used solely for diagnosing and resolving application issues, are not shared with third parties, and are automatically deleted within 14 days.
 
+After a successful upload, the user may optionally enter and send a separate diagnostic description. This message is transmitted only when the user presses **Send message**, is linked to that diagnostic log, and is automatically deleted with the log within 14 days. It is not sent automatically and may be omitted.
+
 Submitting diagnostic logs is optional. SMSecure can be used normally without submitting any diagnostic information.
 
 ---
@@ -88,6 +90,6 @@ The source code is publicly available and can be audited by anyone.
 * ✔ No ads
 * ✔ No automatic data collection
 * ✔ Messages and contacts stay on device
-* ✔ Diagnostic logs are uploaded only when explicitly submitted by the user
+* ✔ Diagnostic logs and optional descriptions are uploaded only when explicitly submitted by the user
 
 ---

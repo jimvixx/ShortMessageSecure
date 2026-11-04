@@ -408,22 +408,32 @@
 <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">لقد أرسلت بالفعل طلب بدء جلسة إلى هذا المستلم، هل أنت متأكد من رغبتك في إرسال طلب آخر؟ سيؤدي ذلك إلى إبطال الطلب الأول.</string>
 <!--load_more_header-->
 <string name="load_more_header__see_full_conversation">انظر المحادثة الكاملة</string>
-<!--log_submit_activity-->
+<!--log_submit-->
 <string name="log_submit__button_share_logs">مشاركة السجل</string>
-<string name="log_submit_activity__collecting_logs">جمع السجلات…</string>
-<string name="log_submit_activity__log_collect_failed">فشل جمع السجل.</string>
-<string name="log_submit_activity__thanks">شكراً على مساعدتك!</string>
-<string name="log_submit_activity__uploading_logs">تحميل السجل…</string>
-<string name="log_submit_interrupted">نتيجة التحميل السابقة غير متوفرة. أعد فتح «إرسال السجل» إذا كنت ترغب في إرسال تقرير جديد.</string>
-<string name="log_submit_no_internet">لا يوجد اتصال بالإنترنت. تحقق من اتصالك، ثم أعد فتح «إرسال السجل» لمحاولة الإرسال مرة أخرى.</string>
-<string name="log_submit_save_failed">تعذر حفظ السجل.</string>
-<string name="log_submit_save_log">حفظ السجل</string>
-<string name="log_submit_saved">تم حفظ السجل.</string>
-<string name="log_submit_server_error">أصدر خادم تحميل السجل خطأً. أعد فتح «إرسال السجل» لاحقًا لمحاولة الإرسال مرة أخرى.</string>
-<string name="log_submit_share_failed">تعذر مشاركة معلومات السجل.</string>
-<string name="log_submit_share_info">معلومات المشاركة</string>
-<string name="log_submit_unreachable">تعذر الوصول إلى خادم تحميل السجل. تحقق من اتصالك أو حاول مرة أخرى لاحقًا عن طريق إعادة فتح «إرسال السجل».</string>
-<string name="log_submit_uploaded_status">تم تسجيل التحميل.</string>
+<string name="log_submit__collecting_logs">جمع السجلات…</string>
+<string name="log_submit__interrupted">نتيجة التحميل السابقة غير متوفرة. أعد فتح «إرسال السجل» إذا كنت ترغب في إرسال تقرير جديد.</string>
+<string name="log_submit__log_collect_failed">فشل جمع السجل.</string>
+<string name="log_submit__log_save_failed">تعذر حفظ السجل.</string>
+<string name="log_submit__log_server_error">أصدر خادم تحميل السجل خطأً. أعد فتح «إرسال السجل» لاحقًا لمحاولة الإرسال مرة أخرى.</string>
+<string name="log_submit__log_server_unreachable">تعذر الوصول إلى خادم تحميل السجل. تحقق من اتصالك أو حاول مرة أخرى لاحقًا عن طريق إعادة فتح «إرسال السجل».</string>
+<string name="log_submit__log_uploaded_status">تم تسجيل التحميل.</string>
+<string name="log_submit__message_description">يمكنك إرسال رسالة إضافية لمساعدتنا في فهم المشكلة.</string>
+<string name="log_submit__message_empty">أدخل رسالة قبل الإرسال.</string>
+<string name="log_submit__message_heading">وصف المشكلة (اختياري)</string>
+<string name="log_submit__message_hint">ما الخطأ الذي حدث؟</string>
+<string name="log_submit__message_interrupted">نتيجة الرسالة السابقة غير متوفرة. يمكنك محاولة إرسال الرسالة مرة أخرى.</string>
+<string name="log_submit__message_send">إرسال رسالة</string>
+<string name="log_submit__message_sending">جاري الإرسال…</string>
+<string name="log_submit__message_sent">تم إرسال الرسالة. شكرًا لك!</string>
+<string name="log_submit__message_server_error">أصدر خادم الرسائل خطأً. حاول مرة أخرى لاحقًا.</string>
+<string name="log_submit__message_server_unreachable">تعذر الوصول إلى خادم الرسائل. تحقق من اتصالك أو حاول مرة أخرى لاحقًا.</string>
+<string name="log_submit__no_internet">لا يوجد اتصال بالإنترنت. تحقق من اتصالك، ثم حاول مرة أخرى.</string>
+<string name="log_submit__save_log">حفظ السجل</string>
+<string name="log_submit__saved">تم حفظ السجل.</string>
+<string name="log_submit__share_failed">تعذر مشاركة معلومات السجل.</string>
+<string name="log_submit__share_info">معلومات المشاركة</string>
+<string name="log_submit__thanks">شكراً على مساعدتك!</string>
+<string name="log_submit__uploading_logs">تحميل السجل…</string>
 <!--message_details_header-->
 <string name="message_details_header__from">من</string>
 <string name="message_details_header__issues_need_your_attention">هناك بعض المشكلات التي تحتاج إلى اهتمامك.</string>

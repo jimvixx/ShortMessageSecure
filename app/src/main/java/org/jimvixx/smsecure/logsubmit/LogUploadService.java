@@ -82,7 +82,7 @@ public final class LogUploadService {
   }
 
   @NonNull
-  private static LogUploadResult parseSuccessResponse(@NonNull String body) throws Exception {
+  static LogUploadResult parseSuccessResponse(@NonNull String body) throws Exception {
     String cleanBody = body.trim();
 
     if (cleanBody.isEmpty()) {
@@ -94,6 +94,8 @@ public final class LogUploadService {
     String id = json.optString("id", "").trim();
     String key = json.optString("key", "").trim();
     long size = json.optLong("size", 0);
+    String messageToken = json.optString("messageToken", "").trim();
+    if (messageToken.isEmpty()) messageToken = null;
 
     if (id.isEmpty()) {
       return LogUploadResult.error("Cloudflare upload response is missing report id", true);
@@ -103,7 +105,7 @@ public final class LogUploadService {
       return LogUploadResult.error("Cloudflare upload response is missing object key", true);
     }
 
-    return LogUploadResult.success(SERVICE_NAME, id, key, size);
+    return LogUploadResult.success(SERVICE_NAME, id, key, messageToken, size);
   }
 
   @NonNull

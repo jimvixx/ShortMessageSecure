@@ -372,22 +372,32 @@
   <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Έχετε ήδη στείλει ένα αίτημα έναρξης συνεδρίας σε αυτόν τον παραλήπτη. Είστε σίγουροι ότι θέλετε να στείλετε άλλο ένα; Αυτό θα ακυρώσει το πρώτο αίτημα.</string>
   <!--load_more_header-->
   <string name="load_more_header__see_full_conversation">Δείτε ολόκληρη τη συνομιλία</string>
-  <!--log_submit_activity-->
+  <!--log_submit-->
   <string name="log_submit__button_share_logs">Κοινή χρήση αρχείου καταγραφής</string>
-  <string name="log_submit_activity__collecting_logs">Συλλογή αρχείων καταγραφής…</string>
-  <string name="log_submit_activity__log_collect_failed">Αποτυχία συλλογής καταγραφής.</string>
-  <string name="log_submit_activity__thanks">Ευχαριστώ για τη βοήθειά σας!</string>
-  <string name="log_submit_activity__uploading_logs">Ανεβάζω αρχείο καταγραφής…</string>
-  <string name="log_submit_interrupted">Το αποτέλεσμα της προηγούμενης αποστολής δεν είναι διαθέσιμο. Ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» αν θέλετε να στείλετε μια νέα αναφορά.</string>
-  <string name="log_submit_no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και, στη συνέχεια, ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» για να προσπαθήσετε ξανά.</string>
-  <string name="log_submit_save_failed">Δεν ήταν δυνατή η αποθήκευση του αρχείου καταγραφής.</string>
-  <string name="log_submit_save_log">Αποθήκευση καταγραφής</string>
-  <string name="log_submit_saved">Το αρχείο καταγραφής αποθηκεύτηκε.</string>
-  <string name="log_submit_server_error">Ο διακομιστής αποστολής αρχείου καταγραφής επέστρεψε σφάλμα. Ανοίξτε ξανά την επιλογή «Αποστολή αρχείου καταγραφής» αργότερα για να δοκιμάσετε ξανά.</string>
-  <string name="log_submit_share_failed">Δεν ήταν δυνατή η κοινή χρήση των πληροφοριών καταγραφής.</string>
-  <string name="log_submit_share_info">Πληροφορίες κοινοποίησης</string>
-  <string name="log_submit_unreachable">Δεν ήταν δυνατή η σύνδεση με τον διακομιστή αποστολής αρχείων καταγραφής. Ελέγξτε τη σύνδεσή σας ή δοκιμάστε ξανά αργότερα, ανοίγοντας εκ νέου την επιλογή «Υποβολή αρχείου καταγραφής».</string>
-  <string name="log_submit_uploaded_status">Καταχώριση μεταφόρτωσης.</string>
+  <string name="log_submit__collecting_logs">Συλλογή αρχείων καταγραφής…</string>
+  <string name="log_submit__interrupted">Το αποτέλεσμα της προηγούμενης αποστολής δεν είναι διαθέσιμο. Ανοίξτε ξανά την επιλογή «Υποβολή αρχείου καταγραφής» αν θέλετε να στείλετε μια νέα αναφορά.</string>
+  <string name="log_submit__log_collect_failed">Αποτυχία συλλογής καταγραφής.</string>
+  <string name="log_submit__log_save_failed">Δεν ήταν δυνατή η αποθήκευση του αρχείου καταγραφής.</string>
+  <string name="log_submit__log_server_error">Ο διακομιστής αποστολής αρχείου καταγραφής επέστρεψε σφάλμα. Ανοίξτε ξανά την επιλογή «Αποστολή αρχείου καταγραφής» αργότερα για να δοκιμάσετε ξανά.</string>
+  <string name="log_submit__log_server_unreachable">Δεν ήταν δυνατή η σύνδεση με τον διακομιστή αποστολής αρχείων καταγραφής. Ελέγξτε τη σύνδεσή σας ή δοκιμάστε ξανά αργότερα, ανοίγοντας εκ νέου την επιλογή «Υποβολή αρχείου καταγραφής».</string>
+  <string name="log_submit__log_uploaded_status">Καταχώριση μεταφόρτωσης.</string>
+  <string name="log_submit__message_description">Μπορείτε να στείλετε ένα επιπλέον μήνυμα για να μας βοηθήσετε να κατανοήσουμε το πρόβλημα.</string>
+  <string name="log_submit__message_empty">Εισάγετε ένα μήνυμα πριν από την αποστολή.</string>
+  <string name="log_submit__message_heading">Περιγράψτε το πρόβλημα (προαιρετικό)</string>
+  <string name="log_submit__message_hint">Τι πήγε στραβά;</string>
+  <string name="log_submit__message_interrupted">Το αποτέλεσμα του προηγούμενου μηνύματος δεν είναι διαθέσιμο. Μπορείτε να δοκιμάσετε να στείλετε ξανά το μήνυμα.</string>
+  <string name="log_submit__message_send">Αποστολή μηνύματος</string>
+  <string name="log_submit__message_sending">Αποστολή…</string>
+  <string name="log_submit__message_sent">Το μήνυμα εστάλη. Ευχαριστούμε!</string>
+  <string name="log_submit__message_server_error">Ο διακομιστής μηνυμάτων επέστρεψε σφάλμα. Δοκιμάστε ξανά αργότερα.</string>
+  <string name="log_submit__message_server_unreachable">Δεν ήταν δυνατή η πρόσβαση στον διακομιστή μηνυμάτων. Ελέγξτε τη σύνδεσή σας ή δοκιμάστε ξανά αργότερα.</string>
+  <string name="log_submit__no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.</string>
+  <string name="log_submit__save_log">Αποθήκευση καταγραφής</string>
+  <string name="log_submit__saved">Το αρχείο καταγραφής αποθηκεύτηκε.</string>
+  <string name="log_submit__share_failed">Δεν ήταν δυνατή η κοινή χρήση των πληροφοριών καταγραφής.</string>
+  <string name="log_submit__share_info">Πληροφορίες κοινοποίησης</string>
+  <string name="log_submit__thanks">Ευχαριστώ για τη βοήθειά σας!</string>
+  <string name="log_submit__uploading_logs">Ανεβάζω αρχείο καταγραφής…</string>
   <!--message_details_header-->
   <string name="message_details_header__from">Από</string>
   <string name="message_details_header__issues_need_your_attention">Υπάρχουν κάποια ζητήματα που απαιτούν την προσοχή σας.</string>

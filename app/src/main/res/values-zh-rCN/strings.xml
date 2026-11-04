@@ -363,22 +363,32 @@
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">您已向此接收方发送过会话初始化请求，确定要再次发送吗？这将使第一个请求失效。</string>
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">查看完整对话</string>
-    <!--log_submit_activity-->
+    <!--log_submit-->
     <string name="log_submit__button_share_logs">分享日志</string>
-    <string name="log_submit_activity__collecting_logs">正在收集日志……</string>
-    <string name="log_submit_activity__log_collect_failed">无法收集日志。</string>
-    <string name="log_submit_activity__thanks">感谢您的帮助！</string>
-    <string name="log_submit_activity__uploading_logs">正在上传日志…</string>
-    <string name="log_submit_interrupted">无法获取之前的上传结果。如需发送新报告，请重新打开“提交日志”。</string>
-    <string name="log_submit_no_internet">没有互联网连接。请检查网络连接，然后重新打开“提交日志”以重试。</string>
-    <string name="log_submit_save_failed">无法保存日志。</string>
-    <string name="log_submit_save_log">保存日志</string>
-    <string name="log_submit_saved">日志已保存。</string>
-    <string name="log_submit_server_error">日志上传服务器返回了错误。请稍后重新打开“提交日志”以重试。</string>
-    <string name="log_submit_share_failed">无法分享日志信息。</string>
-    <string name="log_submit_share_info">分享信息</string>
-    <string name="log_submit_unreachable">无法连接到日志上传服务器。请检查网络连接，或稍后重新打开“提交日志”再试一次。</string>
-    <string name="log_submit_uploaded_status">已记录上传。</string>
+    <string name="log_submit__collecting_logs">正在收集日志……</string>
+    <string name="log_submit__interrupted">无法获取之前的上传结果。如需发送新报告，请重新打开“提交日志”。</string>
+    <string name="log_submit__log_collect_failed">无法收集日志。</string>
+    <string name="log_submit__log_save_failed">无法保存日志。</string>
+    <string name="log_submit__log_server_error">日志上传服务器返回了错误。请稍后重新打开“提交日志”以重试。</string>
+    <string name="log_submit__log_server_unreachable">无法连接到日志上传服务器。请检查网络连接，或稍后重新打开“提交日志”再试一次。</string>
+    <string name="log_submit__log_uploaded_status">已记录上传。</string>
+    <string name="log_submit__message_description">您可以发送一条补充信息，以帮助我们了解该问题。</string>
+    <string name="log_submit__message_empty">发送前请输入消息。</string>
+    <string name="log_submit__message_heading">描述问题（可选）</string>
+    <string name="log_submit__message_hint">哪里出错了？</string>
+    <string name="log_submit__message_interrupted">无法获取上一条消息的结果。您可以尝试重新发送该消息。</string>
+    <string name="log_submit__message_send">发送消息</string>
+    <string name="log_submit__message_sending">正在发送……</string>
+    <string name="log_submit__message_sent">消息已发送。谢谢！</string>
+    <string name="log_submit__message_server_error">消息服务器返回了错误。请稍后重试。</string>
+    <string name="log_submit__message_server_unreachable">无法连接到消息服务器。请检查网络连接或稍后再试。</string>
+    <string name="log_submit__no_internet">没有互联网连接。请检查网络连接，然后重试。</string>
+    <string name="log_submit__save_log">保存日志</string>
+    <string name="log_submit__saved">日志已保存。</string>
+    <string name="log_submit__share_failed">无法分享日志信息。</string>
+    <string name="log_submit__share_info">分享信息</string>
+    <string name="log_submit__thanks">感谢您的帮助！</string>
+    <string name="log_submit__uploading_logs">正在上传日志…</string>
     <!--message_details_header-->
     <string name="message_details_header__from">发件人</string>
     <string name="message_details_header__issues_need_your_attention">有些问题需要您关注。</string>
