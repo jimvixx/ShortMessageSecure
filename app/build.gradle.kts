@@ -267,7 +267,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.22.4")
 
     implementation("com.github.bumptech.glide:glide:5.0.9")
-    implementation("com.github.bumptech.glide:okhttp3-integration:5.0.9@aar")
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
@@ -288,7 +287,6 @@ dependencies {
     implementation("com.melnykov:floatingactionbutton:1.3.0")
 
     implementation("com.squareup.dagger:dagger:1.2.5")
-    implementation("com.squareup.okhttp3:okhttp:5.5.0")
 
     implementation("com.takisoft.preferencex:preferencex-colorpicker:1.1.0")
     implementation("com.takisoft.preferencex:preferencex:1.1.0")
