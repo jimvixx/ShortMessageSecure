@@ -218,6 +218,20 @@ public class ConversationListAdapter extends CursorRecyclerViewAdapter<Conversat
     return selectedCount > 0 && selectedCount == pinnedCount;
   }
 
+  boolean isPinnedConversationBoundary(int position) {
+    if (!isActiveCursor() || position <= 0 || position >= getItemCount()) return false;
+
+    ThreadRecord current = getThreadRecord(getCursorAtPositionOrThrow(position));
+    ThreadRecord previous = getThreadRecord(getCursorAtPositionOrThrow(position - 1));
+
+    return current.getDistributionType() != ThreadDatabase.DistributionTypes.ARCHIVE &&
+            isPinnedConversationBoundary(current.isPinned(), previous.isPinned());
+  }
+
+  static boolean isPinnedConversationBoundary(boolean currentPinned, boolean previousPinned) {
+    return !currentPinned && previousPinned;
+  }
+
   public void initializeBatchMode(boolean toggle) {
     this.batchMode = toggle;
     unselectAllThreads();

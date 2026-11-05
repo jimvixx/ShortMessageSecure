@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -121,6 +122,7 @@ public class ConversationListFragment extends Fragment
   private Bitmap swipeIconUnarchive; // ic_package_up
   private int swipeBackgroundColor = 0;
   private int swipeTextIconGapPx = 0;
+  private @Nullable PinnedConversationDivider pinnedConversationDivider;
 
   private static void sendTextDraft(@NonNull Context context,
                                     @NonNull MasterSecret masterSecret,
@@ -188,6 +190,10 @@ public class ConversationListFragment extends Fragment
 
     list.setHasFixedSize(true);
     list.setLayoutManager(new LinearLayoutManager(requireContext()));
+    pinnedConversationDivider = new PinnedConversationDivider(
+            getResources().getDimensionPixelSize(
+                    R.dimen.conversation_list_fragment__pinned_divider_height));
+    list.addItemDecoration(pinnedConversationDivider);
 
     new ItemTouchHelper(new ArchiveListenerCallback()).attachToRecyclerView(list);
 
@@ -234,6 +240,7 @@ public class ConversationListFragment extends Fragment
     list = null;
     reminderView = null;
     fab = null;
+    pinnedConversationDivider = null;
 
     // Bitmaps are cached inside NotificationIconUtil, but we keep only references here.
     swipeIconArchive = null;
@@ -338,6 +345,10 @@ public class ConversationListFragment extends Fragment
 
     // Cache colors to avoid resolveThemeColor() in the hot path (onChildDraw).
     swipeBackgroundColor = resolveThemeColor(ctx, R.attr.appColorSwipeBackground);
+    if (pinnedConversationDivider != null) {
+      pinnedConversationDivider.setColor(resolveThemeColor(
+              ctx, R.attr.conversation_list_item_background_unread_color));
+    }
     final int controlColor = resolveThemeColor(ctx, R.attr.appColorToolbarControl);
 
     swipeIconArchive = NotificationIconUtil.getLargeIcon(
@@ -353,6 +364,47 @@ public class ConversationListFragment extends Fragment
 
     // Gap between icon and text.
     swipeTextIconGapPx = ViewUtil.dpToPx(getResources(), getResources().getDimension(R.dimen.conversation_list_fragment__swipe_text_start_padding));
+  }
+
+  private static final class PinnedConversationDivider extends RecyclerView.ItemDecoration {
+    private final int height;
+    private final Paint paint = new Paint();
+
+    PinnedConversationDivider(int height) {
+      this.height = height;
+    }
+
+    void setColor(int color) {
+      paint.setColor(color);
+    }
+
+    @Override
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                               @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+      int position = parent.getChildAdapterPosition(view);
+      if (hasDivider(parent, position)) outRect.set(0, height, 0, 0);
+      else outRect.setEmpty();
+    }
+
+    @Override
+    public void onDraw(@NonNull Canvas canvas, @NonNull RecyclerView parent,
+                       @NonNull RecyclerView.State state) {
+      for (int i = 0; i < parent.getChildCount(); i++) {
+        View child = parent.getChildAt(i);
+        int position = parent.getChildAdapterPosition(child);
+        if (!hasDivider(parent, position)) continue;
+
+        canvas.drawRect(parent.getPaddingLeft(), child.getTop() - height,
+                parent.getWidth() - parent.getPaddingRight(), child.getTop(), paint);
+      }
+    }
+
+    private boolean hasDivider(@NonNull RecyclerView parent, int position) {
+      RecyclerView.Adapter<?> adapter = parent.getAdapter();
+      return position != RecyclerView.NO_POSITION &&
+              adapter instanceof ConversationListAdapter &&
+              ((ConversationListAdapter) adapter).isPinnedConversationBoundary(position);
+    }
   }
 
   private void initializeReminders() {
