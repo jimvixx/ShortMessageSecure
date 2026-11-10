@@ -1,0 +1,5 @@
+* Added a divider between pinned and regular chats.
+* Added optional messages after diagnostic log uploads.
+* Fixed contact avatar updates and SMS service center backup handling.
+* Improved notification logging and conversation list stability.
+* Updated dependencies and translations.

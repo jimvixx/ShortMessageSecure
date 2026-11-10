@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.5.0
+
+### Added
+- Send an optional message after uploading a diagnostic log.
+- Show a divider between pinned and regular conversations.
+
+### Changed
+- Use SHA-256 for conversation list stable IDs.
+- Improve localization tooling and diagnostic deployment.
+- Update dependencies, Gradle, AGP, and release tooling.
+
+### Fixed
+- Refresh contact avatars when contact photos change.
+- Preserve SMS service center data in plaintext XML backups.
+- Reduce repeated mark-as-read notification logging.
+
 ## v1.4.1
 
 ### Changed
