@@ -1,7 +1,7 @@
 // Root build.gradle.kts
 
 plugins {
-    id("com.android.application") version "9.5.0" apply false
+    id("com.android.application") version "9.5.1" apply false
 }
 subprojects {
     extra["version_number"] = "2.4.0"
