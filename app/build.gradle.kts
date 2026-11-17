@@ -264,7 +264,7 @@ dependencies {
 
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
     implementation("com.fasterxml.jackson.core:jackson-core:2.22.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.4")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.23.0")
 
     implementation("com.github.bumptech.glide:glide:5.0.9")
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
