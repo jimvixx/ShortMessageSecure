@@ -280,11 +280,11 @@
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">Грешка при декриптиране на съобщение.</string>
     <!--export_fragment-->
-    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Експортиране на резервно копие в обикновен текст (съвместимо с „SMS Backup &amp; Restore”)</string>
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Експортиране на резервно копие в обикновен текст (XML)</string>
     <string name="export_fragment__export_an_encrypted_backup_to_storage">Експортиране на криптиран архив в паметта</string>
     <string name="export_fragment__export_encrypted_backup">Експортиране на криптиран архив</string>
     <string name="export_fragment__export_plaintext_backup">Експортиране на резервно копие в обикновен текст</string>
-    <string name="import_fragment__import_a_plaintext_backup_file">Импортиране на резервно копие в обикновен текст (съвместимо с „SMS Backup &amp; Restore“)</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">Импортиране на резервно копие в обикновен текст (XML)</string>
     <string name="import_fragment__import_plaintext_backup">Импортиране на резервно копие в обикновен текст</string>
     <string name="import_fragment__import_system_sms_database">Импортиране на системната база данни за SMS</string>
     <string name="import_fragment__import_the_database_from_the_default_system">Импортиране на базата данни от стандартното приложение за съобщения на системата</string>

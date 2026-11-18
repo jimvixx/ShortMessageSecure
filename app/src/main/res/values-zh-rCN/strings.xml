@@ -271,11 +271,11 @@
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">解密消息时出错。</string>
     <!--export_fragment-->
-    <string name="export_fragment__export_a_plaintext_backup_compatible_with">导出纯文本备份（兼容“SMS Backup &amp; Restore”）</string>
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">导出纯文本备份（XML）</string>
     <string name="export_fragment__export_an_encrypted_backup_to_storage">将加密备份导出到存储</string>
     <string name="export_fragment__export_encrypted_backup">导出加密备份</string>
     <string name="export_fragment__export_plaintext_backup">导出明文备份</string>
-    <string name="import_fragment__import_a_plaintext_backup_file">导入纯文本备份（兼容“SMS Backup &amp; Restore”）</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">导入纯文本备份（XML）</string>
     <string name="import_fragment__import_plaintext_backup">导入明文备份</string>
     <string name="import_fragment__import_system_sms_database">导入系统SMS数据库</string>
     <string name="import_fragment__import_the_database_from_the_default_system">从默认系统消息应用导入数据库</string>

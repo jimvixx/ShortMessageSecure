@@ -319,11 +319,11 @@
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">Error decrypting message.</string>
     <!--export_fragment-->
-    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Export a plaintext backup (compatible with “SMS Backup &amp; Restore”)</string>
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Export a plaintext XML backup</string>
     <string name="export_fragment__export_an_encrypted_backup_to_storage">Export an encrypted backup to storage</string>
     <string name="export_fragment__export_encrypted_backup">Export encrypted backup</string>
     <string name="export_fragment__export_plaintext_backup">Export plaintext backup</string>
-    <string name="import_fragment__import_a_plaintext_backup_file">Import a plaintext backup (compatible with “SMS Backup &amp; Restore”)</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">Import a plaintext XML backup</string>
     <string name="import_fragment__import_plaintext_backup">Import plaintext backup</string>
     <string name="import_fragment__import_system_sms_database">Import system SMS database</string>
     <string name="import_fragment__import_the_database_from_the_default_system">Import the database from the default system messenger app</string>

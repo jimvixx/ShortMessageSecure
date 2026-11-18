@@ -316,11 +316,11 @@
 <!--EncryptingSmsDatabase-->
 <string name="EncryptingSmsDatabase_error_decrypting_message">خطأ في فك تشفير الرسالة.</string>
 <!--export_fragment-->
-<string name="export_fragment__export_a_plaintext_backup_compatible_with">تصدير نسخة احتياطية بنص عادي (متوافقة مع "SMS Backup &amp; Restore")</string>
+<string name="export_fragment__export_a_plaintext_backup_compatible_with">تصدير نسخة احتياطية بنص عادي (XML)</string>
 <string name="export_fragment__export_an_encrypted_backup_to_storage">تصدير نسخة احتياطية مشفرة إلى وحدة التخزين</string>
 <string name="export_fragment__export_encrypted_backup">تصدير نسخة احتياطية مشفرة</string>
 <string name="export_fragment__export_plaintext_backup">تصدير نسخة احتياطية بنص عادي</string>
-<string name="import_fragment__import_a_plaintext_backup_file">استيراد نسخة احتياطية بنص عادي (متوافقة مع "SMS Backup &amp; Restore")</string>
+<string name="import_fragment__import_a_plaintext_backup_file">استيراد نسخة احتياطية بنص عادي (XML)</string>
 <string name="import_fragment__import_plaintext_backup">استيراد نسخة احتياطية بنص عادي</string>
 <string name="import_fragment__import_system_sms_database">استيراد قاعدة بيانات SMS للنظام</string>
 <string name="import_fragment__import_the_database_from_the_default_system">استيراد قاعدة البيانات من تطبيق المراسلة الافتراضي للنظام</string>

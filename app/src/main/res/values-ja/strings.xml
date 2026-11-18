@@ -271,11 +271,11 @@
   <!--EncryptingSmsDatabase-->
   <string name="EncryptingSmsDatabase_error_decrypting_message">メッセージの復号に失敗しました。</string>
   <!--export_fragment-->
-  <string name="export_fragment__export_a_plaintext_backup_compatible_with">プレーンテキストのバックアップをエクスポート（「SMS Backup &amp; Restore」と互換性あり）</string>
+  <string name="export_fragment__export_a_plaintext_backup_compatible_with">プレーンテキストのバックアップをエクスポート（XML）</string>
   <string name="export_fragment__export_an_encrypted_backup_to_storage">暗号化されたバックアップをストレージにエクスポートする</string>
   <string name="export_fragment__export_encrypted_backup">暗号化されたバックアップをエクスポート</string>
   <string name="export_fragment__export_plaintext_backup">プレーンテキストのバックアップをエクスポート</string>
-  <string name="import_fragment__import_a_plaintext_backup_file">プレーンテキストのバックアップをインポート（「SMS Backup &amp; Restore」に対応）</string>
+  <string name="import_fragment__import_a_plaintext_backup_file">プレーンテキストのバックアップをインポート（XML）</string>
   <string name="import_fragment__import_plaintext_backup">プレーンテキストバックアップのインポート</string>
   <string name="import_fragment__import_system_sms_database">システムSMSデータベースをインポート</string>
   <string name="import_fragment__import_the_database_from_the_default_system">デフォルトのシステムメッセンジャーアプリからデータベースをインポートする</string>

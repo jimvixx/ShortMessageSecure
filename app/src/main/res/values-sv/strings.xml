@@ -280,11 +280,11 @@
   <!--EncryptingSmsDatabase-->
   <string name="EncryptingSmsDatabase_error_decrypting_message">Fel vid dekryptering av meddelande.</string>
   <!--export_fragment-->
-  <string name="export_fragment__export_a_plaintext_backup_compatible_with">Exportera en säkerhetskopia i klartext (kompatibel med ”SMS Backup &amp; Restore”)</string>
+  <string name="export_fragment__export_a_plaintext_backup_compatible_with">Exportera en säkerhetskopia i klartext (XML)</string>
   <string name="export_fragment__export_an_encrypted_backup_to_storage">Exportera en krypterad säkerhetskopia till lagringsutrymmet</string>
   <string name="export_fragment__export_encrypted_backup">Exportera krypterad säkerhetskopia</string>
   <string name="export_fragment__export_plaintext_backup">Exportera säkerhetskopia i klartext</string>
-  <string name="import_fragment__import_a_plaintext_backup_file">Importera en säkerhetskopia i klartext (kompatibel med ”SMS Backup &amp; Restore”)</string>
+  <string name="import_fragment__import_a_plaintext_backup_file">Importera en säkerhetskopia i klartext (XML)</string>
   <string name="import_fragment__import_plaintext_backup">Importera säkerhetskopia i klartext</string>
   <string name="import_fragment__import_system_sms_database">Importera systemets SMS-databas</string>
   <string name="import_fragment__import_the_database_from_the_default_system">Importera databasen från standardappen för meddelanden</string>

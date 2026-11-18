@@ -280,11 +280,11 @@
   <!--EncryptingSmsDatabase-->
   <string name="EncryptingSmsDatabase_error_decrypting_message">Fout bij ontsleutelen van bericht.</string>
   <!--export_fragment-->
-  <string name="export_fragment__export_a_plaintext_backup_compatible_with">Exporteer een back-up in platte tekst (compatibel met “SMS Backup &amp; Restore”)</string>
+  <string name="export_fragment__export_a_plaintext_backup_compatible_with">Exporteer een back-up in platte tekst (XML)</string>
   <string name="export_fragment__export_an_encrypted_backup_to_storage">Exporteer een versleutelde back-up naar opslag</string>
   <string name="export_fragment__export_encrypted_backup">Versleutelde back-up exporteren</string>
   <string name="export_fragment__export_plaintext_backup">Back-up in platte tekst exporteren</string>
-  <string name="import_fragment__import_a_plaintext_backup_file">Een back-up in platte tekst importeren (compatibel met “SMS Backup &amp; Restore”)</string>
+  <string name="import_fragment__import_a_plaintext_backup_file">Een back-up in platte tekst importeren (XML)</string>
   <string name="import_fragment__import_plaintext_backup">Back-up in platte tekst importeren</string>
   <string name="import_fragment__import_system_sms_database">SMS-database van het systeem importeren</string>
   <string name="import_fragment__import_the_database_from_the_default_system">Importeer de database vanuit de standaard messenger-app van het systeem</string>

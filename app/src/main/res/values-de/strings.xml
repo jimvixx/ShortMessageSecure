@@ -280,11 +280,11 @@
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">Fehler beim Entschlüsseln der Nachricht.</string>
     <!--export_fragment-->
-    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Eine Klartext-Sicherung exportieren (kompatibel mit „SMS Backup &amp; Restore“)</string>
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Eine Klartext-Sicherung exportieren (XML)</string>
     <string name="export_fragment__export_an_encrypted_backup_to_storage">Verschlüsselte Sicherung in den Speicher exportieren</string>
     <string name="export_fragment__export_encrypted_backup">Verschlüsselte Sicherung exportieren</string>
     <string name="export_fragment__export_plaintext_backup">Exportieren der Klartext-Sicherung</string>
-    <string name="import_fragment__import_a_plaintext_backup_file">Importieren Sie eine Klartext-Sicherungsdatei (kompatibel mit „SMS Backup &amp; Restore“)</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">Importieren Sie eine Klartext-Sicherungsdatei (XML)</string>
     <string name="import_fragment__import_plaintext_backup">Klartext-Backup importieren</string>
     <string name="import_fragment__import_system_sms_database">System-SMS-Datenbank importieren</string>
     <string name="import_fragment__import_the_database_from_the_default_system">Importiere die Datenbank aus der Standard-Messenger-App des Systems</string>

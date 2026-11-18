@@ -289,11 +289,11 @@
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">Errore durante la decrittografia del messaggio.</string>
     <!--export_fragment-->
-    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Esporta un backup in testo semplice (compatibile con “SMS Backup &amp; Restore”)</string>
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Esporta un backup in testo semplice (XML)</string>
     <string name="export_fragment__export_an_encrypted_backup_to_storage">Esporta un backup crittografato nella memoria</string>
     <string name="export_fragment__export_encrypted_backup">Esporta backup crittografato</string>
     <string name="export_fragment__export_plaintext_backup">Esporta backup in testo semplice</string>
-    <string name="import_fragment__import_a_plaintext_backup_file">Importa un backup in testo semplice (compatibile con “SMS Backup &amp; Restore”)</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">Importa un backup in testo semplice (XML)</string>
     <string name="import_fragment__import_plaintext_backup">Importa backup in testo normale</string>
     <string name="import_fragment__import_system_sms_database">Importa database SMS di sistema</string>
     <string name="import_fragment__import_the_database_from_the_default_system">Importa il database dall\’applicazione di default per la messaggistica</string>
