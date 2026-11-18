@@ -242,7 +242,7 @@ dependencies {
 
     add(mockitoAgent.name, "org.mockito:mockito-core:5.24.0")
 
-    annotationProcessor("com.github.bumptech.glide:compiler:5.0.9")
+    annotationProcessor("com.github.bumptech.glide:compiler:5.0.10")
     annotationProcessor("com.squareup.dagger:dagger-compiler:1.2.5")
 
     implementation("androidx.browser:browser:1.10.0")
@@ -266,7 +266,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.23.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.23.0")
 
-    implementation("com.github.bumptech.glide:glide:5.0.9")
+    implementation("com.github.bumptech.glide:glide:5.0.10")
     implementation("com.github.chrisbanes.photoview:library:1.2.4")
     implementation("com.github.guardianproject:TrustedIntents:0.2")
 
