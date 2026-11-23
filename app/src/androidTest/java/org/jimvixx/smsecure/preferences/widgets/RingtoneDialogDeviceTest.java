@@ -7,7 +7,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
-import org.jimvixx.smsecure.ApplicationPreferencesActivity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.lang.reflect.Field;
@@ -83,10 +82,9 @@ public class RingtoneDialogDeviceTest {
 
   @Test public void snapshotSurvivesRecreationAndRepeatedOpening() throws Exception {
     Intent intent = new Intent(InstrumentationRegistry.getInstrumentation().getTargetContext(),
-            ApplicationPreferencesActivity.class);
-    intent.putExtra(ApplicationPreferencesActivity.EXTRA_START_CATEGORY,
-            "preference_category_notifications");
-    try (ActivityScenario<ApplicationPreferencesActivity> scenario = ActivityScenario.launch(intent)) {
+            RingtoneDialogTestHostActivity.class);
+    try (ActivityScenario<RingtoneDialogTestHostActivity> scenario =
+                 ActivityScenario.launch(intent)) {
       for (int i = 0; i < 3; i++) {
         scenario.onActivity(activity -> {
           activity.getSupportFragmentManager().executePendingTransactions();
@@ -119,7 +117,7 @@ public class RingtoneDialogDeviceTest {
     }
   }
 
-  private static void rotate(ActivityScenario<ApplicationPreferencesActivity> scenario,
+  private static void rotate(ActivityScenario<RingtoneDialogTestHostActivity> scenario,
                              int requested, int expected) throws Exception {
     scenario.onActivity(activity -> activity.setRequestedOrientation(requested));
     java.util.concurrent.atomic.AtomicBoolean rotated = new java.util.concurrent.atomic.AtomicBoolean();
@@ -159,4 +157,5 @@ public class RingtoneDialogDeviceTest {
       throw new AssertionError(e);
     }
   }
+
 }

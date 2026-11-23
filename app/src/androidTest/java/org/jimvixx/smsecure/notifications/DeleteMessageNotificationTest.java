@@ -19,6 +19,7 @@ package org.jimvixx.smsecure.notifications;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -26,6 +27,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.service.notification.StatusBarNotification;
 import android.util.Pair;
@@ -68,6 +70,7 @@ public class DeleteMessageNotificationTest {
   @Before
   public void setUp() throws InterruptedException {
     context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    grantNotificationPermissionIfNeeded();
     masterSecret = KeyCachingService.getMasterSecret(context);
     if (masterSecret == null) {
       masterSecret = new MasterSecret(
@@ -97,6 +100,15 @@ public class DeleteMessageNotificationTest {
 
     if (serviceConnection != null) {
       context.unbindService(serviceConnection);
+    }
+  }
+
+  private void grantNotificationPermissionIfNeeded() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) !=
+                    android.content.pm.PackageManager.PERMISSION_GRANTED) {
+      InstrumentationRegistry.getInstrumentation().getUiAutomation()
+              .grantRuntimePermission(context.getPackageName(), Manifest.permission.POST_NOTIFICATIONS);
     }
   }
 
