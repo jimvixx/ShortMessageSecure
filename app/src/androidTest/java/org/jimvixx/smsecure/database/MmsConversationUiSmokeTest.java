@@ -144,7 +144,7 @@ public class MmsConversationUiSmokeTest {
       SmsMessageRecord sms = new SmsMessageRecord(context, 1,
           new DisplayRecord.Body("SMS-only message", true), recipients, recipient, 1,
           3000, 3000, 0, 23, 101, SmsDatabase.Status.STATUS_NONE,
-          Collections.emptyList(), -1);
+          Collections.emptyList(), -1, null);
       ConversationItem smsBubble = bindBubble(sms);
       assertEquals("SMS-only message", bodyText(smsBubble));
       assertEquals(View.GONE, smsBubble.findViewById(R.id.mms_image_previews).getVisibility());
@@ -441,7 +441,7 @@ public class MmsConversationUiSmokeTest {
   private SmsMessageRecord syntheticSms(long id, String body) {
     return new SmsMessageRecord(context, id, new DisplayRecord.Body(body, true), recipients,
         recipient, 1, 8000, 8000, 0, 23, 106, SmsDatabase.Status.STATUS_NONE,
-        Collections.emptyList(), -1);
+        Collections.emptyList(), -1, null);
   }
 
   private String bodyText(ConversationItem item) {

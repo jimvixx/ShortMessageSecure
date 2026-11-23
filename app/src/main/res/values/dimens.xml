@@ -22,6 +22,7 @@
     <dimen name="conversation_list_fragment__swipe_icon_size">36dp</dimen>
     <dimen name="conversation_list_fragment__swipe_text_start_padding">8dp</dimen>
     <dimen name="conversation_list_fragment__swipe_text_size">18sp</dimen>
+    <dimen name="conversation_list_fragment__pinned_divider_height">4dp</dimen>
 
     <dimen name="widget_app_name_margin_top">2dp</dimen>
     <dimen name="widget_corner">20dp</dimen>

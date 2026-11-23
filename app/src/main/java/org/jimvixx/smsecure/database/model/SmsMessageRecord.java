@@ -47,10 +47,18 @@ public class SmsMessageRecord extends MessageRecord {
                           long dateDeliveryReceived,
                           long type, long threadId,
                           int status, List<IdentityKeyMismatch> mismatches,
-                          int subscriptionId) {
+                          int subscriptionId,
+                          String serviceCenter) {
     super(context, id, body, recipients, individualRecipient, recipientDeviceId,
             dateSent, dateReceived, threadId, status, dateDeliveryReceived, type,
             mismatches, new LinkedList<>(), subscriptionId);
+    this.serviceCenter = serviceCenter;
+  }
+
+  private final String serviceCenter;
+
+  public String getServiceCenter() {
+    return serviceCenter;
   }
 
   @Override

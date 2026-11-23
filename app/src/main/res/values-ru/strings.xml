@@ -313,11 +313,11 @@
     <!--EncryptingSmsDatabase-->
     <string name="EncryptingSmsDatabase_error_decrypting_message">Ошибка при расшифровке сообщения.</string>
     <!--export_fragment-->
-    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Экспорт резервной копии в виде простого текста (совместимой с «SMS Backup &amp; Restore»)</string>
+    <string name="export_fragment__export_a_plaintext_backup_compatible_with">Экспорт резервной копии в формате XML</string>
     <string name="export_fragment__export_an_encrypted_backup_to_storage">Экспорт зашифрованной резервной копии в хранилище</string>
     <string name="export_fragment__export_encrypted_backup">Экспорт зашифрованной резервной копии</string>
     <string name="export_fragment__export_plaintext_backup">Экспорт резервной копии в виде простого текста</string>
-    <string name="import_fragment__import_a_plaintext_backup_file">Импорт резервной копии в виде простого текста (совместимо с «SMS Backup &amp; Restore»)</string>
+    <string name="import_fragment__import_a_plaintext_backup_file">Импорт резервной копии в формате XML</string>
     <string name="import_fragment__import_plaintext_backup">Импорт резервной копии в виде простого текста</string>
     <string name="import_fragment__import_system_sms_database">Импорт системной базы данных SMS</string>
     <string name="import_fragment__import_the_database_from_the_default_system">Импортировать базу данных из стандартного системного приложения для обмена сообщениями</string>
@@ -405,22 +405,32 @@
     <string name="KeyExchangeInitiator_youve_already_sent_a_session_initiation_request_to_this_recipient_are_you_sure">Вы уже отправили запрос на начало сеанса этому получателю. Вы уверены, что хотите отправить еще один? Это приведет к аннулированию первого запроса.</string>
     <!--load_more_header-->
     <string name="load_more_header__see_full_conversation">Посмотреть полный чат</string>
-    <!--log_submit_activity-->
+    <!--log_submit-->
     <string name="log_submit__button_share_logs">Поделиться журналом</string>
-    <string name="log_submit_activity__collecting_logs">Сбор журнала…</string>
-    <string name="log_submit_activity__log_collect_failed">Сбор журнала не удался.</string>
-    <string name="log_submit_activity__thanks">Спасибо за помощь!</string>
-    <string name="log_submit_activity__uploading_logs">Загрузка журнала…</string>
-    <string name="log_submit_interrupted">Результат предыдущей загрузки недоступен. Чтобы отправить новый отчёт, повторно откройте отправку лога.</string>
-    <string name="log_submit_no_internet">Нет подключения к интернету. Проверьте подключение и повторно откройте отправку лога.</string>
-    <string name="log_submit_save_failed">Не удалось сохранить лог.</string>
-    <string name="log_submit_save_log">Сохранить лог</string>
-    <string name="log_submit_saved">Лог сохранён.</string>
-    <string name="log_submit_server_error">Сервер загрузки логов вернул ошибку. Повторно откройте отправку лога позже.</string>
-    <string name="log_submit_share_failed">Не удалось поделиться данными лога.</string>
-    <string name="log_submit_share_info">Поделиться данными</string>
-    <string name="log_submit_unreachable">Не удалось связаться с сервером загрузки логов. Проверьте подключение или повторно откройте отправку лога позже.</string>
-    <string name="log_submit_uploaded_status">Лог отправлен.</string>
+    <string name="log_submit__collecting_logs">Сбор журнала…</string>
+    <string name="log_submit__interrupted">Результат предыдущей загрузки недоступен. Чтобы отправить новый отчёт, повторно откройте отправку лога.</string>
+    <string name="log_submit__log_collect_failed">Сбор журнала не удался.</string>
+    <string name="log_submit__log_save_failed">Не удалось сохранить лог.</string>
+    <string name="log_submit__log_server_error">Сервер загрузки логов вернул ошибку. Повторно откройте отправку лога позже.</string>
+    <string name="log_submit__log_server_unreachable">Не удалось связаться с сервером загрузки логов. Проверьте подключение или повторно откройте отправку лога позже.</string>
+    <string name="log_submit__log_uploaded_status">Лог отправлен.</string>
+    <string name="log_submit__message_description">Вы можете отправить дополнительное сообщение, чтобы помочь нам разобраться в проблеме.</string>
+    <string name="log_submit__message_empty">Введите сообщение перед отправкой.</string>
+    <string name="log_submit__message_heading">Опишите проблему (необязательно)</string>
+    <string name="log_submit__message_hint">Что пошло не так?</string>
+    <string name="log_submit__message_interrupted">Результат предыдущего сообщения недоступен. Вы можете повторить отправку сообщения.</string>
+    <string name="log_submit__message_send">Отправить сообщение</string>
+    <string name="log_submit__message_sending">Отправка…</string>
+    <string name="log_submit__message_sent">Сообщение отправлено. Спасибо!</string>
+    <string name="log_submit__message_server_error">Сервер сообщений вернул ошибку. Повторите попытку позже.</string>
+    <string name="log_submit__message_server_unreachable">Не удалось установить соединение с сервером сообщений. Проверьте подключение или повторите попытку позже.</string>
+    <string name="log_submit__no_internet">Нет подключения к Интернету. Проверьте подключение и попробуйте ещё раз.</string>
+    <string name="log_submit__save_log">Сохранить лог</string>
+    <string name="log_submit__saved">Лог сохранён.</string>
+    <string name="log_submit__share_failed">Не удалось поделиться данными лога.</string>
+    <string name="log_submit__share_info">Поделиться данными</string>
+    <string name="log_submit__thanks">Спасибо за помощь!</string>
+    <string name="log_submit__uploading_logs">Загрузка журнала…</string>
     <!--message_details_header-->
     <string name="message_details_header__from">От</string>
     <string name="message_details_header__issues_need_your_attention">Некоторые проблемы требуют вашего внимания.</string>

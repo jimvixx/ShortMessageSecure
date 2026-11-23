@@ -77,10 +77,10 @@ public class ConversationListAdapter extends CursorRecyclerViewAdapter<Conversat
       this.threadDatabase = DatabaseFactory.getThreadDatabase(context);
       this.inflater = LayoutInflater.from(context);
       this.clickListener = clickListener;
-      this.digest = MessageDigest.getInstance("SHA1");
+      this.digest = MessageDigest.getInstance("SHA-256");
       setHasStableIds(true);
     } catch (NoSuchAlgorithmException nsae) {
-      throw new AssertionError("SHA-1 missing");
+      throw new AssertionError("SHA-256 missing");
     }
   }
 
@@ -216,6 +216,20 @@ public class ConversationListAdapter extends CursorRecyclerViewAdapter<Conversat
 
   static boolean shouldUnpinSelection(int selectedCount, int pinnedCount) {
     return selectedCount > 0 && selectedCount == pinnedCount;
+  }
+
+  boolean isPinnedConversationBoundary(int position) {
+    if (!isActiveCursor() || position <= 0 || position >= getItemCount()) return false;
+
+    ThreadRecord current = getThreadRecord(getCursorAtPositionOrThrow(position));
+    ThreadRecord previous = getThreadRecord(getCursorAtPositionOrThrow(position - 1));
+
+    return current.getDistributionType() != ThreadDatabase.DistributionTypes.ARCHIVE &&
+            isPinnedConversationBoundary(current.isPinned(), previous.isPinned());
+  }
+
+  static boolean isPinnedConversationBoundary(boolean currentPinned, boolean previousPinned) {
+    return !currentPinned && previousPinned;
   }
 
   public void initializeBatchMode(boolean toggle) {
