@@ -274,7 +274,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:4.36.2")
     implementation("com.google.zxing:core:3.5.4")
 
-    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.43")
+    implementation("com.googlecode.libphonenumber:libphonenumber:9.0.44")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
